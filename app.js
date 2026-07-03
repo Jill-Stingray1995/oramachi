@@ -1,6 +1,6 @@
 const KEYS = ['pop1m','shinkansen','coastal','designated','festival','castle','worldheritage','snow','airport','prosports','island','capital','noodle','mascot_famous',
   'nihonkai','taiheiyo','setonaikai','famous_mountain','big_river','subway','onsen','sake','fireworks','castle_town','port_town','rice_region',
-  'kana_name','kansai_dialect','tohoku_dialect','ryukyu_dialect','is_town_village','is_tokyo_ward','basin'];
+  'kana_name','kansai_dialect','tohoku_dialect','ryukyu_dialect','is_town_village','is_tokyo_ward'];
 
 const QUESTIONS = {
   pop1m:         {text:'人口は100万人以上?', icon:'👥'},
@@ -34,8 +34,7 @@ const QUESTIONS = {
   tohoku_dialect:{text:'東北方言圏に含まれる?', icon:'🗣️'},
   ryukyu_dialect:{text:'琉球諸語・沖縄方言の地域?', icon:'🗣️'},
   is_town_village:{text:'市ではなく町または村である?', icon:'🏘️'},
-  is_tokyo_ward: {text:'東京23区のどれかである?', icon:'🗼'},
-  basin:         {text:'盆地にある?', icon:'🏞️'}
+  is_tokyo_ward: {text:'東京23区のどれかである?', icon:'🗼'}
 };
 
 function enrichComputedTags(city){
@@ -264,6 +263,7 @@ function starString(n){
 
 function buildShareText(city){
   return `おらマチに${questionCount}問で【${city.name}】を当てられた！地元、けっこうバレる。 #おらマチ`;
+  return `おらっちに${questionCount}問で【${city.name}】を当てられた！地元、けっこうバレる。 #おらマチ`;
 }
 
 function shareToX(city){
@@ -337,6 +337,7 @@ function renderThanks(){
   stage.innerHTML = `
     <div class="mascot-wrap"><div class="pop">${mascotSVG('happy')}</div></div>
     <div class="bubble"><span class="icon">🙏</span>ありがとう！おらっちが修行します</div>
+    <div class="bubble"><span class="icon">🙏</span>ありがとう！おらっち修行するね！</div>
     <button class="again" onclick="restart()">もう一度あそぶ</button>
   `;
 }
