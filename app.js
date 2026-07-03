@@ -276,6 +276,7 @@ function renderQuestion(){
   stage.innerHTML = `
     <div class="mascot-wrap"><div class="bob pop">${mascotSVG('think')}</div></div>
     <div class="bubble"><span class="icon">${q.icon}</span>${q.text}</div>
+    <div class="count-line">残り候補 <b>${candidates.length}</b> 市 ・ 質問 ${questionCount}問目</div>
     <div class="count-line">残り候補 <b>${candidates.length}</b> 自治体 ・ 質問 ${questionCount}問目</div>
     <div class="choices">
       <button class="btn btn-yes" onclick="answer('${key}', true)">はい</button>
@@ -459,7 +460,7 @@ async function boot(){
     CITIES.forEach(enrichStatsTags);
     activateStatsQuestions();
     footEl.textContent = `対応エリア ${CITIES.length}市 ・ データはcities.jsonから読み込み`;
-restart();}catch(e){
+    renderOpening();  }catch(e){
     stage.innerHTML = `
       <div class="mascot-wrap">${mascotSVG('sad')}</div>
       <div class="error-text">
