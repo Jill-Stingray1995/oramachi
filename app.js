@@ -276,7 +276,7 @@ function renderQuestion(){
   stage.innerHTML = `
     <div class="mascot-wrap"><div class="bob pop">${mascotSVG('think')}</div></div>
     <div class="bubble"><span class="icon">${q.icon}</span>${q.text}</div>
-    <div class="count-line">残り候補 <b>${candidates.length}</b> 市 ・ 質問 ${questionCount}問目</div>
+    <div class="count-line">残り候補 <b>${candidates.length}</b> 自治体 ・ 質問 ${questionCount}問目</div>
     <div class="choices">
       <button class="btn btn-yes" onclick="answer('${key}', true)">はい</button>
       <button class="btn btn-no" onclick="answer('${key}', false)">いいえ</button>
