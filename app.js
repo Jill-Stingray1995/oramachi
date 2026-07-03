@@ -262,7 +262,7 @@ function starString(n){
 }
 
 function buildShareText(city){
-  return `おらマチに${questionCount}問で【${city.name}】を当てられた！地元、けっこうバレる。 #おらマチ`;
+  return `おらっちに${questionCount}問で【${city.name}】を当てられた！地元、けっこうバレる。 #おらマチ`;
 }
 
 function shareToX(city){
@@ -335,7 +335,7 @@ function submitCorrection(){
 function renderThanks(){
   stage.innerHTML = `
     <div class="mascot-wrap"><div class="pop">${mascotSVG('happy')}</div></div>
-    <div class="bubble"><span class="icon">🙏</span>ありがとう！おらっちが修行します</div>
+    <div class="bubble"><span class="icon">🙏</span>ありがとう！おらっち修行するね！</div>
     <button class="again" onclick="restart()">もう一度あそぶ</button>
   `;
 }
