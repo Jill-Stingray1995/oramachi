@@ -103,6 +103,25 @@ let asked = [];
 let questionCount = 0;
 const MAX_Q = 12;
 
+let currentMode = 'all';
+
+const MODES = {
+  all: {
+    label: '全国版',
+    description: '全国の対応自治体から当てます'
+  },
+  niigata: {
+    label: '新潟県版',
+    description: '新潟県の市町村だけで当てます'
+  }
+};
+
+function getModeCities(mode){
+  if(mode === 'niigata'){
+    return CITIES.filter(c => c.pref === '新潟県');
+  }
+  return [...CITIES];
+}
 const stage = document.getElementById('stage');
 const stampsEl = document.getElementById('stamps');
 const footEl = document.getElementById('foot');
@@ -198,6 +217,50 @@ function mascotSVG(mood){
   </svg>`;
 }
 
+function renderOpening(){
+  stampsEl.innerHTML = '';
+
+  const niigataCount = CITIES.filter(c => c.pref === '新潟県').length;
+
+  stage.innerHTML = `
+    <div class="mascot-wrap"><div class="bob pop">${mascotSVG('normal')}</div></div>
+    <div class="bubble"><span class="icon">🗾</span>どのモードであそぶ？</div>
+
+    <div class="mode-select">
+      <button class="mode-btn" onclick="startMode('all')">
+        <span class="mode-title">全国版</span>
+        <span class="mode-desc">対応中の全国自治体から当てます</span>
+      </button>
+
+      <button class="mode-btn mode-niigata" onclick="startMode('niigata')">
+        <span class="mode-title">新潟県版</span>
+        <span class="mode-desc">新潟県の市町村だけで当てます</span>
+        <span class="mode-count">現在 ${niigataCount} 自治体</span>
+      </button>
+    </div>
+  `;
+
+  footEl.textContent = `対応エリア ${CITIES.length}自治体 ・ 新潟県 ${niigataCount}自治体`;
+}
+
+function startMode(mode){
+  currentMode = mode;
+  candidates = getModeCities(mode);
+  asked = [];
+  questionCount = 0;
+
+  if(candidates.length === 0){
+    stage.innerHTML = `
+      <div class="mascot-wrap"><div class="shake">${mascotSVG('sad')}</div></div>
+      <div class="bubble"><span class="icon">🙏</span>このモードのデータがまだありません</div>
+      <button class="again" onclick="renderOpening()">モード選択へ戻る</button>
+    `;
+    return;
+  }
+
+  footEl.textContent = `${MODES[mode].label} ・ 対応 ${candidates.length}自治体`;
+  renderQuestion();
+}
 function renderQuestion(){
   renderStamps();
   const key = entropyPick();
@@ -384,12 +447,8 @@ function correct(isRight){
 }
 
 function restart(){
-  candidates = [...CITIES];
-  asked = [];
-  questionCount = 0;
-  renderQuestion();
+  startMode(currentMode);
 }
-
 async function boot(){
   try{
     const res = await fetch('./cities.json', {cache:'no-store'});
@@ -400,8 +459,7 @@ async function boot(){
     CITIES.forEach(enrichStatsTags);
     activateStatsQuestions();
     footEl.textContent = `対応エリア ${CITIES.length}市 ・ データはcities.jsonから読み込み`;
-    restart();
-  }catch(e){
+    renderOpening();  }catch(e){
     stage.innerHTML = `
       <div class="mascot-wrap">${mascotSVG('sad')}</div>
       <div class="error-text">
