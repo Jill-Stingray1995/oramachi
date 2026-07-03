@@ -1,4 +1,4 @@
-const KEYS = ['pop1m','shinkansen','coastal','designated','festival','castle','worldheritage','snow','basin','airport','prosports','island','capital','noodle','mascot_famous',
+const KEYS = ['pop1m','shinkansen','coastal','designated','festival','castle','snow_festival','worldheritage','snow','basin','airport','prosports','island','capital','noodle','mascot_famous',
   'nihonkai','taiheiyo','setonaikai','famous_mountain','big_river','subway','onsen','sake','fireworks','castle_town','port_town','rice_region',
   'kana_name','kansai_dialect','tohoku_dialect','ryukyu_dialect','is_town_village','is_tokyo_ward'];
 
@@ -11,6 +11,7 @@ const QUESTIONS = {
   castle:        {text:'有名なお城がある?', icon:'🏯'},
   worldheritage: {text:'近くに世界遺産がある?', icon:'⛩️'},
   snow:          {text:'雪がたくさん降る地域?', icon:'❄️'},
+  snow_festival: {text:'雪まつり・雪を使ったイベントで知られる?', icon:'❄️'},
   basin: {text:'盆地にある?', icon:'🏔️'},
   airport:       {text:'市内(近く)に空港がある?', icon:'✈️'},
   prosports:     {text:'プロスポーツチームの本拠地?', icon:'⚽'},
