@@ -459,7 +459,7 @@ async function boot(){
     CITIES.forEach(enrichStatsTags);
     activateStatsQuestions();
     footEl.textContent = `対応エリア ${CITIES.length}市 ・ データはcities.jsonから読み込み`;
-    renderOpening();  }catch(e){
+restart();}catch(e){
     stage.innerHTML = `
       <div class="mascot-wrap">${mascotSVG('sad')}</div>
       <div class="error-text">
