@@ -1739,10 +1739,6 @@
     "mascot": "うるっちー(沖縄県)"
   }
 ]
-bash
-
-cat /tmp/new_niigata_cities.json
-Output
 
 [
   {
