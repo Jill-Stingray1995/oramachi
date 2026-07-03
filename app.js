@@ -273,36 +273,109 @@ function shareToX(city){
 }
 
 function correct(isRight){
+
+function escapeHTML(value){
+  return String(value ?? '')
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#039;');
+}
+
+function stars(n){
+  const score = Math.max(1, Math.min(5, n));
+  return '★'.repeat(score) + '☆'.repeat(5 - score);
+}
+
+function cityScores(city){
+  const t = city.tags || {};
+
+  const snowScore = t.snow ? 5 : (t.onsen || t.famous_mountain ? 3 : 1);
+
+  let urban = 1;
+  if(t.pop1m) urban += 2;
+  if(t.designated) urban += 1;
+  if(t.subway) urban += 1;
+  if(t.prosports) urban += 1;
+  urban = Math.min(5, urban);
+
+  let local = 1;
+  if(t.rice_region) local += 1;
+  if(t.sake) local += 1;
+  if(t.noodle) local += 1;
+  if(t.festival || t.fireworks) local += 1;
+  if(t.castle_town || t.port_town || t.onsen) local += 1;
+  local = Math.min(5, local);
+
+  return {
+    snow: snowScore,
+    urban,
+    local
+  };
+}
+
+function shareResult(){
   const guess = candidates[0] || CITIES[0];
+  const text = `おらマチに${questionCount}問で${guess.name}を当てられた！地元、けっこうバレる。 #おらマチ`;
+  const url = location.href;
+  const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+  window.open(shareUrl, '_blank', 'noopener,noreferrer');
+}
+
+function correct(isRight){
+  const guess = candidates[0] || CITIES[0];
+
   if(isRight){
-    const stars = calcStars(guess);
+    const score = cityScores(guess);
+
     stage.innerHTML = `
-      <div class="share-card" id="shareCard">
-        <div class="share-card-head">
-          <span class="share-eyebrow">おらマチ診断</span>
-          <div class="share-mascot pop">${mascotSVG('happy')}</div>
+      <div class="result-card pop">
+        <div class="result-card-kicker">おらっち鑑定書</div>
+        <div class="result-card-hanko">当 的</div>
+
+        <div class="result-card-title">おらっちが<br><b>${questionCount}問</b>で当てました！</div>
+
+        <div class="result-card-place">
+          <div class="result-pref">${escapeHTML(guess.pref)}</div>
+          <div class="result-name">${escapeHTML(guess.name)}</div>
         </div>
-        <div class="hanko">当 的</div>
-        <div class="result-name">${guess.name}</div>
-        <div class="result-pref">${guess.pref}</div>
-        <div class="result-line">おらっちが <b>${questionCount}問</b> で当てました!</div>
-        <div class="fact">${guess.fact}</div>
-        <div class="stars-block">
-          <div class="star-row"><span class="star-label">雪国度</span><span class="star-value">${starString(stars.snow)}</span></div>
-          <div class="star-row"><span class="star-label">都会度</span><span class="star-value">${starString(stars.urban)}</span></div>
-          <div class="star-row"><span class="star-label">ローカル色</span><span class="star-value">${starString(stars.local)}</span></div>
+
+        <div class="score-list">
+          <div class="score-row">
+            <span>雪国度</span>
+            <b>${stars(score.snow)}</b>
+          </div>
+          <div class="score-row">
+            <span>都会度</span>
+            <b>${stars(score.urban)}</b>
+          </div>
+          <div class="score-row">
+            <span>ローカル色</span>
+            <b>${stars(score.local)}</b>
+          </div>
         </div>
-        <div class="info-grid">
-          <div class="info-chip"><div class="label">名物グルメ</div><div class="value">${guess.food}</div></div>
-          <div class="info-chip"><div class="label">方言</div><div class="value">${guess.dialect}</div></div>
-          <div class="info-chip"><div class="label">ご当地キャラ</div><div class="value">${guess.mascot}</div></div>
+
+        <div class="fact result-card-fact">${escapeHTML(guess.fact)}</div>
+
+        <div class="info-grid result-card-grid">
+          <div class="info-chip">
+            <div class="label">名物グルメ</div>
+            <div class="value">${escapeHTML(guess.food)}</div>
+          </div>
+          <div class="info-chip">
+            <div class="label">方言</div>
+            <div class="value">${escapeHTML(guess.dialect)}</div>
+          </div>
+          <div class="info-chip">
+            <div class="label">ご当地キャラ</div>
+            <div class="value">${escapeHTML(guess.mascot)}</div>
+          </div>
         </div>
+
+        <button class="share-btn" onclick="shareResult()">結果をシェア</button>
+        <button class="again" onclick="restart()">もう一度あそぶ</button>
       </div>
-      <button class="share-btn" onclick="shareToX(candidates[0] || CITIES[0])">
-        <svg class="x-icon" viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        結果をシェア
-      </button>
-      <button class="again" onclick="restart()">もう一度あそぶ</button>
     `;
   } else {
     stage.innerHTML = `
@@ -312,8 +385,7 @@ function correct(isRight){
       <button class="again" onclick="restart()">もう一度あそぶ</button>
     `;
   }
-}
-
+}  
 function restart(){
   candidates = [...CITIES];
   asked = [];
