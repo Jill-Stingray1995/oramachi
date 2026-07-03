@@ -11,6 +11,7 @@
       "castle": false,
       "worldheritage": false,
       "snow": true,
+      "snow_festival": true
       "airport": true,
       "prosports": true,
       "island": false,
@@ -529,6 +530,7 @@
       "castle": false,
       "worldheritage": false,
       "snow": true,
+      "snow_festival": false
       "airport": true,
       "prosports": true,
       "island": false,
@@ -563,9 +565,10 @@
       "coastal": false,
       "designated": false,
       "festival": true,
-      "castle": false,
+      "castle": true,
       "worldheritage": false,
       "snow": true,
+      "snow_festival": true
       "airport": false,
       "prosports": false,
       "island": false,
@@ -603,6 +606,7 @@
       "castle": true,
       "worldheritage": false,
       "snow": true,
+      "snow_festival": false
       "airport": false,
       "prosports": false,
       "island": false,
@@ -640,6 +644,7 @@
       "castle": false,
       "worldheritage": false,
       "snow": true,
+      "snow_festival": true
       "airport": false,
       "prosports": false,
       "island": false,
@@ -677,6 +682,7 @@
       "castle": false,
       "worldheritage": true,
       "snow": false,
+      "snow_festival": false
       "airport": true,
       "prosports": false,
       "island": true,
@@ -714,6 +720,7 @@
       "castle": false,
       "worldheritage": false,
       "snow": true,
+      "snow_festival": true
       "airport": false,
       "prosports": false,
       "island": false,
