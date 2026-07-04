@@ -423,7 +423,7 @@ const CORRECTIONS_STORAGE_KEY = 'oramachi_corrections';
 // Googleスプレッドシートに訂正データを送るためのエンドポイント。
 // apps-script-corrections.gs をデプロイして得られるURLをここに貼ってください。
 // 空文字のままなら、送信処理はスキップされ、localStorageへの保存のみ行われます。
-const CORRECTIONS_ENDPOINT_URL = '';
+const CORRECTIONS_ENDPOINT_URL = 'https://script.google.com/macros/s/AKfycby129enXYZnzrRa0fLvPFWpWDaLKO-m6wxlnbLSIJjIH5MLMbqjOwHUaiewIrZ3QuBl/exec';
 
 function sendCorrectionToSheet(entry){
   if(!CORRECTIONS_ENDPOINT_URL) return; // 未設定なら何もしない(エラーにはしない)
