@@ -2042,7 +2042,7 @@
       "onsen": false,
       "sake": true,
       "fireworks": false,
-      "castle_town": false,
+      "castle_town": true,
       "port_town": false,
       "rice_region": false,
       "basin": true,
