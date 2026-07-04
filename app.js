@@ -366,6 +366,14 @@ function calcStars(city){
   if (t.jleague || t.npb) urban += 1;
   urban = cap(urban);
 
+   const urbanOverrides = {
+    '那覇市': 3
+  };
+
+  if(urbanOverrides[city.name]){
+    urban = Math.max(urban, urbanOverrides[city.name]);
+  }
+
   // ご当地色(旧:ローカル色): 祭り・城・世界遺産・温泉・酒・米・麺・花火・港町で判断
   const localCount = [t.festival, t.castle, t.worldheritage, t.onsen, t.sake, t.rice_region, t.noodle, t.fireworks, t.port_town]
     .filter(Boolean).length;
