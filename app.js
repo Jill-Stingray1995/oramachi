@@ -3,7 +3,7 @@ const KEYS = ['pop1m','shinkansen','coastal','designated','festival','castle','s
   'kana_name','kansai_dialect','tohoku_dialect','ryukyu_dialect','is_town_village','is_tokyo_ward',
   'ruins','lakeside','shrine_temple','bakumatsu_port','fruit_famous','sumo_basho','jleague','npb',
   'former_capital','grid_streets','kokuho_building','historical_statue','twelve_castles','sengoku_warlord','tram','famous_garden',
-  'volcano_view','car_town','private_railway','monorail','remote_island','mining_heritage','night_view','war_damage',
+  'volcano_view','car_town','private_railway','monorail','remote_island','mining_heritage','night_view','war_damage','geopark','skijyou',
   'ferris_wheel','theme_park','zoo','aquarium','brand_beef','kintetsu','kanji_one_char',
   'chinatown','sand_dunes','imperial_university','famous_tower','famous_market','exotic_port','dome_stadium','tea_region','Machimura',
   'gokaido_shukuba','pottery_famous','traditional_craft','horse_racing','bedtown','nuclearpowerplant','monozukuri','literary_figure'];
@@ -88,6 +88,8 @@ const QUESTIONS = {
   nuclearpowerplant: {text:'原子力発電所が立地していますか？', icon:'💡'},
   monozukuri: {text:'ものづくりの町として有名？', icon:'🛠️'},
   Machimura: {text:'市ではなく町村？', icon:'⛰️'},
+  geopark: {text:'ジオパークがある？', icon:'🌋'},
+  skijyou: {text:'スキー場がある？', icon:'⛷️'},
   literary_figure:      {text:'有名な作家・文学者ゆかりの街?', icon:'✒️'}
 };
 
