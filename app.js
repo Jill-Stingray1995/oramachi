@@ -6,7 +6,7 @@ const KEYS = ['pop1m','shinkansen','coastal','designated','festival','castle','s
   'volcano_view','car_town','private_railway','monorail','remote_island','mining_heritage','night_view','war_damage',
   'ferris_wheel','theme_park','zoo','aquarium','brand_beef','kintetsu','kanji_one_char',
   'chinatown','sand_dunes','imperial_university','famous_tower','famous_market','exotic_port','dome_stadium','tea_region',
-  'gokaido_shukuba','pottery_famous','traditional_craft','horse_racing','bedtown','literary_figure'];
+  'gokaido_shukuba','pottery_famous','traditional_craft','horse_racing','bedtown','nuclearpowerplant','literary_figure'];
 
 const QUESTIONS = {
   pop1m:         {text:'人口は100万人以上?', icon:'👥'},
@@ -85,6 +85,7 @@ const QUESTIONS = {
   traditional_craft:    {text:'有名な伝統工芸で知られている?', icon:'🎨'},
   bedtown: {text:'大都市のベッドタウンとしての一面もある？', icon:'🛏️'},
   horse_racing:         {text:'競馬場がある?', icon:'🐎'},
+  nuclearpowerplant: {text:'原子力発電所が立地していますか？', icon:'💡'},
   literary_figure:      {text:'有名な作家・文学者ゆかりの街?', icon:'✒️'}
 };
 
