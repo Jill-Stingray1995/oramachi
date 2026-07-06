@@ -8,7 +8,7 @@ const KEYS = ['pop1m','shinkansen','coastal','designated','festival','castle','s
   'chinatown','sand_dunes','imperial_university','famous_tower','famous_market','exotic_port','dome_stadium','tea_region',
   'gokaido_shukuba','pottery_famous','traditional_craft','horse_racing','literary_figure',
   'joetsu_region','chuetsu_region','kaetsu_region','joetsu_shinkansen_station','hokuriku_shinkansen_station',
-  'is_village','shinano_river','agano_river','uono_river','pop_3digit',
+  'is_village','shinano_river','agano_river','uono_river','pop_3digit','shibuyade5ji','kabukichojyoou',
   'borders_yamagata','borders_fukushima','borders_gunma','borders_nagano','borders_toyama',
   'todai_campus','waseda_campus','keio_campus','sophia_campus','meiji_campus','aoyama_campus','rikkyo_campus','chuo_campus','hosei_campus','tus_campus','imperial_palace','diet_building','ginza','tokyo_tower_ward','tocho','tokyo_dome_ward','sensoji','skytree_ward','toyosu_market','haneda_ward','shibuya_crossing','shibamata_taishakuten','kasai_park','broadway_nakano','koenji_area','shimokitazawa','jiyugaoka','shakujii_park','odakyu_line','keio_inokashira_line','tokyu_line','keikyu_line','seibu_line','tobu_line','keisei_line','tsukuba_express','rinkai_line','yurikamome','tokyo_monorail','toden_arakawa','nippori_toneri','tokyo_bay','tama_river','sumida_river','arakawa_river','edogawa_river','meguro_river','shakujii_river','borders_other_pref_tokyo','borders_kanagawa','borders_saitama','borders_chiba','ochanomizu_univ','gakushuin_univ','toyo_univ','komazawa_univ','seijo_univ','kokugakuin_univ','senshu_univ','jr_line','no_jr','yamanote_line','keihintohoku_line','chuo_rapid','chuo_sobu','joban_line','saikyo_line','tokyo_station','ikebukuro_station','ueno_station','shinagawa_station','akihabara_station','shimbashi_station','kitasenju_station','kinshicho_station','ogikubo_station','kamata_station','akabane_station','nippori_station','tsunagari_mayu_police','koiwa_or_kasairinkai_station','tora_san_home','tsubasa_hometown','tv_station_area','sazae_family','hachiko_area','yose_hall','sailor_moon_stage','tokiwa_so','godzilla_head',
   'monzen','bedtown','skijyou','geopark','nuclearpowerplant','monozukuri'];
@@ -201,6 +201,8 @@ const QUESTIONS = {
   geopark:          {text:'ジオパークに指定されている?', icon:'🌋'},
   nuclearpowerplant:{text:'原子力発電所がある?', icon:'☢️'},
   monozukuri:       {text:'ものづくり(製造業)で知られている?', icon:'🏭'},
+  shibuyade5ji: {text:'鈴木雅之と菊池桃子が5時に待ち合わせたマチ？', icon:'🕔'},
+  kabukichojyoou: {text:'椎名林檎が女王をしている繁華街がある？', icon:'🍎'},
 };
 
 function enrichComputedTags(city){
@@ -418,8 +420,10 @@ const MODE_ONLY_KEYS = {
     'hachiko_area',
     'yose_hall',
     'sailor_moon_stage',
+    'shibuyade5ji',
     'tokiwa_so',
-    'godzilla_head'
+    'godzilla_head',
+    'kabukichojyoou',
   ]
 };
 
