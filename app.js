@@ -6,7 +6,7 @@ const KEYS = ['pop1m','shinkansen','coastal','designated','festival','castle','s
   'volcano_view','car_town','private_railway','monorail','remote_island','mining_heritage','night_view','war_damage',
   'ferris_wheel','theme_park','zoo','aquarium','brand_beef','kintetsu','kanji_one_char',
   'chinatown','sand_dunes','imperial_university','famous_tower','famous_market','exotic_port','dome_stadium','tea_region',
-  'gokaido_shukuba','pottery_famous','traditional_craft','horse_racing','literary_figure',
+  'gokaido_shukuba','pottery_famous','traditional_craft','horse_racing','literary_figure','kitanotakeshi',
   'joetsu_region','chuetsu_region','kaetsu_region','joetsu_shinkansen_station','hokuriku_shinkansen_station',
   'is_village','shinano_river','agano_river','uono_river','pop_3digit',
   'borders_yamagata','borders_fukushima','borders_gunma','borders_nagano','borders_toyama',
@@ -248,6 +248,7 @@ const QUESTIONS = {
   combinat_yakei:      {text:'コンビナート夜景で有名?', icon:'🌃'},
   danjiri_famous:      {text:'だんじり祭で全国的に有名?', icon:'🎊'},
   onaji_ookawa:        {text:'市名と同じ大きな川が流れている?', icon:'🏞️'},
+  kitanotakeshi: {text:'北野武が幼少期を過ごしたマチ？', icon:'🎞️'},
   kageki_dan:          {text:'有名な歌劇団の本拠地?', icon:'🎭'},
 };
 
@@ -655,7 +656,8 @@ const TAG_GAME_CATEGORY = {
   "tokiwa_so": "遊び心",
   "godzilla_head": "遊び心",
   "rakugo_stage": "遊び心",
-  "sanma_famous": "遊び心",
+  "sanma_famous": "遊び心"
+  "kitanotakeshi": "遊び心",
   "kanji_one_char": "その他",
   "exotic_port": "歴史・文化",
   "chukakushi": "人口・行政",
