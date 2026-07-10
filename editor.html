@@ -101,9 +101,22 @@
   .search-box{ position:relative; margin-bottom:10px; }
 
   .city-grid{
-    display:grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap:6px; max-height: 420px; overflow:auto; padding:4px;
+    max-height: 420px; overflow:auto; padding:4px;
     border:1px solid var(--line); border-radius:10px; background:#fff;
+  }
+  .region-group{ margin-bottom: 6px; }
+  .region-head{
+    position: sticky; top: 0; z-index: 1;
+    background: var(--paper-deep); color: var(--indigo-deep);
+    font-weight: 700; font-size: 12px; padding: 6px 10px; border-radius: 6px;
+    margin: 4px 2px 6px;
+  }
+  .region-head .region-count{
+    font-size: 10.5px; color: var(--ink-soft); font-weight: 500; margin-left: 4px;
+  }
+  .region-cities{
+    display:grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap:6px; padding: 0 2px;
   }
   .city-chip{
     display:flex; align-items:center; gap:6px; padding:7px 9px; border-radius:8px;
@@ -1475,6 +1488,241 @@ const TAG_LABELS = {
     "label": "さんまで有名",
     "question": "さんまで有名?",
     "icon": "🐟"
+  },
+  "chukakushi": {
+    "label": "中核市",
+    "question": "中核市ですか?",
+    "icon": "🏛️"
+  },
+  "tokureishi": {
+    "label": "施行時特例市(かつての特例市)",
+    "question": "施行時特例市(かつての特例市)ですか?",
+    "icon": "📜"
+  },
+  "kaikyo_machi": {
+    "label": "海峡のマチ",
+    "question": "海峡のマチ?",
+    "icon": "🌊"
+  },
+  "gakuto": {
+    "label": "「楽都」と呼ばれる音楽のまち",
+    "question": "「楽都」と呼ばれる音楽のまち?",
+    "icon": "🎵"
+  },
+  "hula_girl": {
+    "label": "『フラガール』のふるさと",
+    "question": "『フラガール』のふるさと?",
+    "icon": "🌺"
+  },
+  "kannon_zo": {
+    "label": "観音像が有名",
+    "question": "観音像が有名?",
+    "icon": "🗿"
+  },
+  "koedo": {
+    "label": "「小江戸」と呼ばれるマチ",
+    "question": "「小江戸」と呼ばれるマチ?",
+    "icon": "🏮"
+  },
+  "imono_kupola": {
+    "label": "鋳物産業・キューポラの街として知られる",
+    "question": "鋳物産業・キューポラの街として知られる?",
+    "icon": "🏭"
+  },
+  "aeon_laketown": {
+    "label": "イオンレイクタウン",
+    "question": "イオンレイクタウンがある?",
+    "icon": "🛍️"
+  },
+  "funasshi_famous": {
+    "label": "ふなっしーで全国的に知られた",
+    "question": "ふなっしーで全国的に知られた?",
+    "icon": "🍐"
+  },
+  "takao_mountain": {
+    "label": "高尾山",
+    "question": "高尾山がある?",
+    "icon": "⛰️"
+  },
+  "curry_famous": {
+    "label": "カレーで有名なマチ",
+    "question": "カレーで有名なマチ?",
+    "icon": "🍛"
+  },
+  "anime_seichi": {
+    "label": "アニメの聖地",
+    "question": "アニメの聖地?",
+    "icon": "📺"
+  },
+  "number_in_name": {
+    "label": "市名に数字(一、二、三…)が入っている",
+    "question": "市名に数字(一、二、三…)が入っている?",
+    "icon": "🔢"
+  },
+  "kigyo_joukamachi": {
+    "label": "企業城下町として知られる",
+    "question": "企業城下町として知られる?",
+    "icon": "🏢"
+  },
+  "hankyu_line": {
+    "label": "阪急電車が通っている",
+    "question": "阪急電車が通っている?",
+    "icon": "🚃"
+  },
+  "yayoiken_seichi": {
+    "label": "聖地となったやよい軒",
+    "question": "聖地となったやよい軒がある?",
+    "icon": "🍚"
+  },
+  "hirakata_park": {
+    "label": "ひらかたパーク",
+    "question": "ひらかたパークがある?",
+    "icon": "🎡"
+  },
+  "keihan_line": {
+    "label": "京阪電車が通っている",
+    "question": "京阪電車が通っている?",
+    "icon": "🚃"
+  },
+  "kawachi_ondo": {
+    "label": "河内音頭で知られる",
+    "question": "河内音頭で知られる?",
+    "icon": "🎶"
+  },
+  "rugby_machi": {
+    "label": "ラグビーのまち",
+    "question": "ラグビーのまち?",
+    "icon": "🏉"
+  },
+  "kougyou_toshi": {
+    "label": "工業都市のイメージが強い",
+    "question": "工業都市のイメージが強い?",
+    "icon": "🏭"
+  },
+  "hyoujun_jigosen": {
+    "label": "日本標準時子午線が通る",
+    "question": "日本標準時子午線が通る?",
+    "icon": "🕐"
+  },
+  "koushien": {
+    "label": "阪神甲子園球場",
+    "question": "阪神甲子園球場がある?",
+    "icon": "⚾"
+  },
+  "bikan_chiku": {
+    "label": "美観地区で有名",
+    "question": "美観地区で有名?",
+    "icon": "🏯"
+  },
+  "gunkou_machi": {
+    "label": "軍港のまち",
+    "question": "軍港のまち?",
+    "icon": "⚓"
+  },
+  "seitetsu_kouro": {
+    "label": "製鉄所の高炉",
+    "question": "製鉄所の高炉がある?",
+    "icon": "🏭"
+  },
+  "fugu_famous": {
+    "label": "ふぐで有名",
+    "question": "ふぐで有名?",
+    "icon": "🐡"
+  },
+  "tire_famous": {
+    "label": "タイヤで有名",
+    "question": "タイヤで有名?",
+    "icon": "🛞"
+  },
+  "hamburger_famous": {
+    "label": "ハンバーガーで有名",
+    "question": "ハンバーガーで有名?",
+    "icon": "🍔"
+  },
+  "kenkyu_gakuen_toshi": {
+    "label": "研究学園都市として知られる",
+    "question": "研究学園都市として知られる?",
+    "icon": "🔬"
+  },
+  "atsui_machi": {
+    "label": "「暑い街」として全国ニュースになりやすい",
+    "question": "「暑い街」として全国ニュースになりやすい?",
+    "icon": "🌡️"
+  },
+  "action_kamen": {
+    "label": "アクション仮面が好きな5歳児が住んでいる",
+    "question": "アクション仮面が好きな5歳児が住んでいる?",
+    "icon": "🦸"
+  },
+  "senbei_famous": {
+    "label": "せんべいで有名",
+    "question": "せんべいで有名?",
+    "icon": "🍘"
+  },
+  "tanabata_famous": {
+    "label": "七夕まつりで有名",
+    "question": "七夕まつりで有名?",
+    "icon": "🎋"
+  },
+  "uirou_famous": {
+    "label": "ういろうで有名",
+    "question": "ういろうで有名?",
+    "icon": "🍡"
+  },
+  "southern_seichi": {
+    "label": "サザンオールスターズの聖地",
+    "question": "サザンオールスターズの聖地?",
+    "icon": "🎤"
+  },
+  "b_kyu_gourmet": {
+    "label": "有名なB級グルメ",
+    "question": "有名なB級グルメがある?",
+    "icon": "🍜"
+  },
+  "beigun_kichi": {
+    "label": "米軍基地",
+    "question": "米軍基地がある?",
+    "icon": "🎖️"
+  },
+  "shinkai_gyo": {
+    "label": "深海魚で有名",
+    "question": "深海魚で有名?",
+    "icon": "🐟"
+  },
+  "saboten_machi": {
+    "label": "サボテンのまちとして知られる",
+    "question": "サボテンのまちとして知られる?",
+    "icon": "🌵"
+  },
+  "combinat_yakei": {
+    "label": "コンビナート夜景で有名",
+    "question": "コンビナート夜景で有名?",
+    "icon": "🌃"
+  },
+  "danjiri_famous": {
+    "label": "だんじり祭で全国的に有名",
+    "question": "だんじり祭で全国的に有名?",
+    "icon": "🎊"
+  },
+  "onaji_ookawa": {
+    "label": "市名と同じ大きな川が流れている",
+    "question": "市名と同じ大きな川が流れている?",
+    "icon": "🏞️"
+  },
+  "kageki_dan": {
+    "label": "有名な歌劇団の本拠地",
+    "question": "有名な歌劇団の本拠地?",
+    "icon": "🎭"
+  },
+  "kitanotakeshi": {
+    "label": "北野武が幼少期を過ごしたマチ",
+    "question": "北野武が幼少期を過ごしたマチ?",
+    "icon": "🎞️"
+  },
+  "musashino_line": {
+    "label": "JR武蔵野線",
+    "question": "JR武蔵野線が通っている?",
+    "icon": "🚃"
   }
 };
 
@@ -1668,7 +1916,54 @@ const TAG_CATEGORIES = {
   "rakugo_stage": "遊び心",
   "sanma_famous": "遊び心",
   "kanji_one_char": "その他",
-  "exotic_port": "歴史・文化"
+  "exotic_port": "歴史・文化",
+  "chukakushi": "人口・行政",
+  "tokureishi": "人口・行政",
+  "kaikyo_machi": "地理",
+  "gakuto": "観光・娯楽",
+  "hula_girl": "観光・娯楽",
+  "kannon_zo": "歴史・文化",
+  "koedo": "歴史・文化",
+  "imono_kupola": "人口・行政",
+  "aeon_laketown": "観光・娯楽",
+  "funasshi_famous": "遊び心",
+  "takao_mountain": "地理",
+  "curry_famous": "食",
+  "anime_seichi": "観光・娯楽",
+  "number_in_name": "その他",
+  "kigyo_joukamachi": "人口・行政",
+  "hankyu_line": "交通",
+  "yayoiken_seichi": "遊び心",
+  "hirakata_park": "観光・娯楽",
+  "keihan_line": "交通",
+  "kawachi_ondo": "観光・娯楽",
+  "rugby_machi": "観光・娯楽",
+  "kougyou_toshi": "人口・行政",
+  "hyoujun_jigosen": "地理",
+  "koushien": "観光・娯楽",
+  "bikan_chiku": "観光・娯楽",
+  "gunkou_machi": "歴史・文化",
+  "seitetsu_kouro": "人口・行政",
+  "fugu_famous": "食",
+  "tire_famous": "人口・行政",
+  "hamburger_famous": "食",
+  "kenkyu_gakuen_toshi": "人口・行政",
+  "atsui_machi": "地理",
+  "action_kamen": "遊び心",
+  "senbei_famous": "食",
+  "tanabata_famous": "観光・娯楽",
+  "uirou_famous": "食",
+  "southern_seichi": "遊び心",
+  "b_kyu_gourmet": "食",
+  "beigun_kichi": "歴史・文化",
+  "shinkai_gyo": "食",
+  "saboten_machi": "観光・娯楽",
+  "combinat_yakei": "観光・娯楽",
+  "danjiri_famous": "観光・娯楽",
+  "onaji_ookawa": "地理",
+  "kageki_dan": "観光・娯楽",
+  "kitanotakeshi": "遊び心",
+  "musashino_line": "交通"
 };
 function categoryFor(key){ return TAG_CATEGORIES[key] || "その他"; }
 
@@ -1676,18 +1971,10 @@ function categoryFor(key){ return TAG_CATEGORIES[key] || "その他"; }
 const TAG_MODE_ONLY = {
   "joetsu_region": "niigata",
   "chuetsu_region": "niigata",
-  "kaetsu_region": "niigata",
-  "joetsu_shinkansen_station": "niigata",
   "hokuriku_shinkansen_station": "niigata",
-  "is_village": "niigata",
-  "shinano_river": "niigata",
-  "agano_river": "niigata",
   "uono_river": "niigata",
   "pop_3digit": "niigata",
-  "borders_yamagata": "niigata",
-  "borders_fukushima": "niigata",
   "borders_gunma": "niigata",
-  "borders_nagano": "niigata",
   "borders_toyama": "niigata",
   "todai_campus": "tokyo",
   "waseda_campus": "tokyo",
@@ -1699,42 +1986,17 @@ const TAG_MODE_ONLY = {
   "chuo_campus": "tokyo",
   "hosei_campus": "tokyo",
   "tus_campus": "tokyo",
-  "imperial_palace": "tokyo",
   "diet_building": "tokyo",
-  "ginza": "tokyo",
-  "tokyo_tower_ward": "tokyo",
-  "tocho": "tokyo",
-  "tokyo_dome_ward": "tokyo",
   "sensoji": "tokyo",
-  "skytree_ward": "tokyo",
-  "toyosu_market": "tokyo",
-  "haneda_ward": "tokyo",
-  "shibuya_crossing": "tokyo",
-  "shibamata_taishakuten": "tokyo",
   "kasai_park": "tokyo",
-  "broadway_nakano": "tokyo",
-  "koenji_area": "tokyo",
-  "shimokitazawa": "tokyo",
-  "jiyugaoka": "tokyo",
-  "shakujii_park": "tokyo",
-  "odakyu_line": "tokyo",
-  "keio_inokashira_line": "tokyo",
   "tokyu_line": "tokyo",
   "keikyu_line": "tokyo",
-  "seibu_line": "tokyo",
-  "tobu_line": "tokyo",
-  "keisei_line": "tokyo",
-  "tsukuba_express": "tokyo",
   "rinkai_line": "tokyo",
   "yurikamome": "tokyo",
   "tokyo_monorail": "tokyo",
   "toden_arakawa": "tokyo",
   "nippori_toneri": "tokyo",
-  "tokyo_bay": "tokyo",
-  "tama_river": "tokyo",
   "sumida_river": "tokyo",
-  "arakawa_river": "tokyo",
-  "edogawa_river": "tokyo",
   "meguro_river": "tokyo",
   "shakujii_river": "tokyo",
   "borders_other_pref_tokyo": "tokyo",
@@ -1752,21 +2014,15 @@ const TAG_MODE_ONLY = {
   "no_jr": "tokyo",
   "yamanote_line": "tokyo",
   "keihintohoku_line": "tokyo",
-  "chuo_rapid": "tokyo",
   "chuo_sobu": "tokyo",
-  "joban_line": "tokyo",
   "saikyo_line": "tokyo",
   "tokyo_station": "tokyo",
-  "ikebukuro_station": "tokyo",
   "ueno_station": "tokyo",
   "shinagawa_station": "tokyo",
   "akihabara_station": "tokyo",
   "shimbashi_station": "tokyo",
-  "kitasenju_station": "tokyo",
   "kinshicho_station": "tokyo",
-  "ogikubo_station": "tokyo",
   "kamata_station": "tokyo",
-  "akabane_station": "tokyo",
   "nippori_station": "tokyo",
   "tsunagari_mayu_police": "tokyo",
   "koiwa_or_kasairinkai_station": "tokyo",
@@ -1927,6 +2183,20 @@ function renderAll(){
 }
 
 /* ---------- ② タグ一括編集 ---------- */
+// 都道府県 → 地方区分のマッピング(自治体一覧を地方ごとにまとめて並べるため)
+const PREF_REGION = {
+  '北海道':'北海道',
+  '青森県':'東北','岩手県':'東北','宮城県':'東北','秋田県':'東北','山形県':'東北','福島県':'東北',
+  '茨城県':'関東','栃木県':'関東','群馬県':'関東','埼玉県':'関東','千葉県':'関東','東京都':'関東','神奈川県':'関東',
+  '新潟県':'中部','富山県':'中部','石川県':'中部','福井県':'中部','山梨県':'中部','長野県':'中部','岐阜県':'中部','静岡県':'中部','愛知県':'中部',
+  '三重県':'近畿','滋賀県':'近畿','京都府':'近畿','大阪府':'近畿','兵庫県':'近畿','奈良県':'近畿','和歌山県':'近畿',
+  '鳥取県':'中国','島根県':'中国','岡山県':'中国','広島県':'中国','山口県':'中国',
+  '徳島県':'四国','香川県':'四国','愛媛県':'四国','高知県':'四国',
+  '福岡県':'九州・沖縄','佐賀県':'九州・沖縄','長崎県':'九州・沖縄','熊本県':'九州・沖縄','大分県':'九州・沖縄','宮崎県':'九州・沖縄','鹿児島県':'九州・沖縄','沖縄県':'九州・沖縄'
+};
+const REGION_ORDER = ['北海道','東北','関東','中部','近畿','中国','四国','九州・沖縄','その他'];
+function regionOf(pref){ return PREF_REGION[pref] || 'その他'; }
+
 function renderTagCityGrid(){
   const grid = $('#tagCityGrid');
   const key = $('#tagKeyInput').value.trim();
@@ -1934,14 +2204,32 @@ function renderTagCityGrid(){
   if(CITIES.length === 0){ grid.innerHTML = '<div style="padding:14px;color:#6B6455;font-size:12.5px;">先に①で cities.json を読み込んでください</div>'; return; }
 
   const filtered = CITIES.filter(c => !search || c.name.includes(search) || (c.pref||'').includes(search));
-  grid.innerHTML = filtered.map(c=>{
-    const checked = key && c.tags && c.tags[key] === true;
-    return `
-      <label class="city-chip ${checked?'checked':''}" data-name="${c.name}">
-        <input type="checkbox" data-name="${c.name}" ${checked?'checked':''}>
-        <span>${c.name}<br><span class="pref-tag">${c.pref||''}</span></span>
-      </label>`;
-  }).join('');
+
+  // 地方ごとにグループ分けする
+  const byRegion = {};
+  filtered.forEach(c=>{
+    const r = regionOf(c.pref);
+    (byRegion[r] = byRegion[r] || []).push(c);
+  });
+
+  let html = '';
+  REGION_ORDER.forEach(region=>{
+    const list = byRegion[region];
+    if(!list || list.length === 0) return;
+    html += `<div class="region-group">
+      <div class="region-head">${region} <span class="region-count">${list.length}</span></div>
+      <div class="region-cities">`;
+    html += list.map(c=>{
+      const checked = key && c.tags && c.tags[key] === true;
+      return `
+        <label class="city-chip ${checked?'checked':''}" data-name="${c.name}">
+          <input type="checkbox" data-name="${c.name}" ${checked?'checked':''}>
+          <span>${c.name}<br><span class="pref-tag">${c.pref||''}</span></span>
+        </label>`;
+    }).join('');
+    html += `</div></div>`;
+  });
+  grid.innerHTML = html;
 
   grid.querySelectorAll('input[type=checkbox]').forEach(cb=>{
     cb.addEventListener('change', ()=>{
