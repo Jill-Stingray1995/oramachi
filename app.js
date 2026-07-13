@@ -1025,6 +1025,30 @@ function displayName(city){
   return city.name === '東京' ? '東京23区部' : city.name;
 }
 
+// 結果画面用: 市役所を中心にした航空写真(正方形)のHTMLを組み立てる。
+// APIキー不要の Google マップ埋め込み(output=embed)を使い、市役所を住所検索で表示する。
+// - 検索クエリは「県名 + 市名 + 市役所」。区別表記の括弧(例:伊達市（福島県）)や
+//   23区集計エントリ(東京)は検索の邪魔になるので取り除く。
+// - t=k で航空写真、z=13 で概ね5km四方程度の範囲を表示する。
+// - CSSのaspect-ratioで正方形を保つ。
+function buildCityMapHtml(city){
+  if(!city || !city.name) return '';
+  // 東京23区の集計エントリは特定の市役所が無いので地図を出さない
+  if(city.name === '東京') return '';
+  // 区別表記の括弧を除く(例: 「伊達市（福島県）」→「伊達市」)
+  const baseName = city.name.replace(/（.*?）/g, '').replace(/\(.*?\)/g, '');
+  const query = `${city.pref}${baseName}役所`;
+  // APIキー不要の埋め込み形式。output=embed で iframe 表示、t=k で航空写真、z=14 で
+  // 市役所周辺(概ね数km四方)を表示する。ドメインは maps.google.co.jp を使う。
+  const src = `https://maps.google.co.jp/maps?output=embed&q=${encodeURIComponent(query)}&t=k&z=14&hl=ja`;
+  return `<div class="citymap-block">
+    <div class="citymap-frame">
+      <iframe class="citymap-iframe" src="${src}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen title="${displayName(city)}の航空写真"></iframe>
+    </div>
+    <div class="citymap-caption">${displayName(city)}役所の周辺(航空写真)</div>
+  </div>`;
+}
+
 // 自治体の一意ID。cities.jsonに専用のID列は無いため、
 // 「都道府県+名前」を安定キーとして使う(名前だけより変更に強い)。
 // 将来cities.jsonに正式なIDが追加されたら、この関数だけ差し替えれば良い。
@@ -4582,6 +4606,11 @@ function correct(isRight, overrideCity){
         </div>`
       : '';
 
+    // 市役所を中心とした航空写真(正方形・5km四方相当)。APIキー不要のembed方式を使う。
+    // 検索クエリは「県名+市名+市役所」。23区集計エントリ(東京)や区別表記の括弧は
+    // 検索の邪魔になるので取り除く。
+    const mapHtml = buildCityMapHtml(guess);
+
     let conquestLine = '';
     if(conquestResult.isSpecial){
       conquestLine = conquestResult.status === 'new'
@@ -4635,6 +4664,7 @@ function correct(isRight, overrideCity){
           <div class="info-chip"><div class="label">方言</div><div class="value">${guess.dialect}</div></div>
           <div class="info-chip"><div class="label">ご当地キャラ</div><div class="value">${guess.mascot}</div></div>
         </div>
+        ${mapHtml}
         ${barePointsHtml}
       </div>
       ${conquestHtml}
