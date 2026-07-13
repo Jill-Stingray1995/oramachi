@@ -1,4 +1,4 @@
-const KEYS = ['pop1m','shinkansen','coastal','designated','festival','castle','snow_festival','worldheritage','snow','basin','airport','capital','noodle','mascot_famous',
+const KEYS = ['shinkansen','coastal','designated','festival','castle','snow_festival','worldheritage','snow','basin','airport','capital','noodle','mascot_famous',
   'nihonkai','taiheiyo','setonaikai','famous_mountain','big_river','subway','onsen','sake','fireworks','castle_town','port_town','rice_region',
   'kana_name','kansai_dialect','tohoku_dialect','ryukyu_dialect','is_town_village','is_tokyo_ward',
   'ruins','lakeside','shrine_temple','bakumatsu_port','fruit_famous','sumo_basho','jleague','npb',
@@ -7,13 +7,13 @@ const KEYS = ['pop1m','shinkansen','coastal','designated','festival','castle','s
   'ferris_wheel','theme_park','zoo','aquarium','brand_beef','kintetsu','kanji_one_char',
   'chinatown','sand_dunes','imperial_university','famous_tower','famous_market','exotic_port','dome_stadium','tea_region',
   'gokaido_shukuba','pottery_famous','traditional_craft','horse_racing','literary_figure','kitanotakeshi','musashino_line','ekimei_chigau',
-  'prefectural_capital','pop_500k','pop_300k','pop_under_100k','borders_other_pref','formed_after_2000',
+  'prefectural_capital','borders_other_pref','formed_after_2000',
   'national_university','expressway_junction','hiragana_name','direction_in_name','old_province_name',
   'public_racing_venue','national_government_park','film_city','shinsengumi','shonan_area','white_mirin_origin',
   'joetsu_region','chuetsu_region','kaetsu_region','joetsu_shinkansen_station','hokuriku_shinkansen_station',
   'hokkaido_shinkansen_station','tohoku_shinkansen_station','tokaido_shinkansen_station','sanyo_shinkansen_station','kyushu_shinkansen_station','nishikyushu_shinkansen_station',
   'yamagata_shinkansen_station','akita_shinkansen_station',
-  'is_village','shinano_river','agano_river','uono_river','pop_3digit',
+  'is_village','shinano_river','agano_river','uono_river',
   'borders_yamagata','borders_fukushima','borders_gunma','borders_nagano','borders_toyama',
   'todai_campus','waseda_campus','keio_campus','sophia_campus','meiji_campus','aoyama_campus','rikkyo_campus','chuo_campus','hosei_campus','tus_campus','imperial_palace','diet_building','ginza','tokyo_tower_ward','tocho','tokyo_dome_ward','sensoji','skytree_ward','toyosu_market','haneda_ward','shibuya_crossing','shibamata_taishakuten','kasai_park','broadway_nakano','koenji_area','shimokitazawa','jiyugaoka','shakujii_park','odakyu_line','keio_inokashira_line','tokyu_line','keikyu_line','seibu_line','tobu_line','keisei_line','tsukuba_express','rinkai_line','yurikamome','tokyo_monorail','toden_arakawa','nippori_toneri','tokyo_bay','tama_river','sumida_river','arakawa_river','edogawa_river','meguro_river','shakujii_river','borders_other_pref_tokyo','borders_kanagawa','borders_saitama','borders_chiba','ochanomizu_univ','gakushuin_univ','toyo_univ','komazawa_univ','seijo_univ','kokugakuin_univ','senshu_univ','jr_line','no_jr','yamanote_line','keihintohoku_line','chuo_rapid','chuo_sobu','joban_line','saikyo_line','tokyo_station','ikebukuro_station','ueno_station','shinagawa_station','akihabara_station','shimbashi_station','kitasenju_station','kinshicho_station','ogikubo_station','kamata_station','akabane_station','nippori_station','tsunagari_mayu_police','koiwa_or_kasairinkai_station','tora_san_home','tsubasa_hometown','tv_station_area','sazae_family','hachiko_area','yose_hall','sailor_moon_stage','tokiwa_so','godzilla_head','rakugo_stage','sanma_famous',
   'monzen','bedtown','skijyou','geopark','nuclearpowerplant','monozukuri','chukakushi','tokureishi',
@@ -46,7 +46,6 @@ const KEYS = ['pop1m','shinkansen','coastal','designated','festival','castle','s
   'basketball_town','kamakura_yokote','akita_inu_hachiko','namahage','inaniwa_udon','oyu_stone_circle','yuri_kogen_railway','blumen_akita','odate_noshiro_airport','tdk_town','kakunodate_tazawako','sankyo_soko','higashizawa_rose','ayame_park','hanagasa_tendo','hiragana_station','ginzan_onsen','kumano_taisha','tsuburaya_eiji','matsukawaura','kiku_ningyo_nihonmatsu','abukumado','kacchu_keiba','anpogaki','william_park'];
 
 const QUESTIONS = {
-  pop1m:         {text:'人口は100万人以上?', icon:'👥'},
   shinkansen:    {text:'新幹線の駅がある?', icon:'🚄'},
   coastal:       {text:'海に面している?', icon:'🌊'},
   designated:    {text:'政令指定都市?', icon:'🏙️'},
@@ -139,7 +138,6 @@ const QUESTIONS = {
   shinano_river:               {text:'信濃川が流れる?', icon:'🏞️'},
   agano_river:                 {text:'阿賀野川が流れる?', icon:'🏞️'},
   uono_river:                  {text:'魚野川が流れる?', icon:'🏞️'},
-  pop_3digit:                  {text:'人口が3ケタ?', icon:'👤'},
   borders_yamagata:            {text:'山形県と接している?', icon:'🗺️'},
   borders_fukushima:           {text:'福島県と接している?', icon:'🗺️'},
   borders_gunma:               {text:'群馬県と接している?', icon:'🗺️'},
@@ -292,9 +290,6 @@ const QUESTIONS = {
   musashino_line:      {text:'JR武蔵野線が通っている?', icon:'🚃'},
   ekimei_chigau:       {text:'市の中心駅の名前が市名と異なる?', icon:'🚉'},
   prefectural_capital: {text:'都道府県庁の所在地?', icon:'🏛️'},
-  pop_500k:            {text:'人口は50万人以上?', icon:'🌆'},
-  pop_300k:            {text:'人口は30万人以上?', icon:'🏙️'},
-  pop_under_100k:      {text:'人口は10万人未満?', icon:'🏘️'},
   borders_other_pref:  {text:'他の都道府県と境を接している?', icon:'🗺️'},
   formed_after_2000:   {text:'2000年以降の新設合併で誕生した?', icon:'🤝'},
   national_university: {text:'国立大学の本部がある?', icon:'🎓'},
@@ -689,11 +684,8 @@ const DENSITY_LOW_THRESHOLD = 112.37;
 const STATS_THRESHOLDS = {
   pop500k:      c => c.stats?.population != null ? c.stats.population >= 500000 : undefined,
   pop300k:      c => c.stats?.population != null ? c.stats.population >= 300000 : undefined,
-  pop200k:      c => c.stats?.population != null ? c.stats.population >= 200000 : undefined,
   pop100k:      c => c.stats?.population != null ? c.stats.population >= 100000 : undefined,
   popUnder50k:  c => c.stats?.population != null ? c.stats.population < 50000 : undefined,
-  popUnder30k:  c => c.stats?.population != null ? c.stats.population < 30000 : undefined,
-  popUnder10k:  c => c.stats?.population != null ? c.stats.population < 10000 : undefined,
   // 「東京」(23区集計エントリ)は通常自治体の順位・分位に含めないため、
   // 常にfalse固定にする(undefinedにすると質問自体が有効化されなくなるため)。
   densityHigh:  c => c.name === '東京' ? false : ((c.stats?.population != null && c.stats?.area_km2) ? (c.stats.population / c.stats.area_km2) >= DENSITY_HIGH_THRESHOLD : undefined),
@@ -704,11 +696,8 @@ const STATS_THRESHOLDS = {
 const STATS_QUESTIONS = {
   pop500k:     {text:'人口は50万人以上?', icon:'👥'},
   pop300k:     {text:'人口は30万人以上?', icon:'👥'},
-  pop200k:     {text:'人口は20万人以上?', icon:'👥'},
   pop100k:     {text:'人口は10万人以上?', icon:'👥'},
   popUnder50k: {text:'人口は5万人未満?', icon:'👤'},
-  popUnder30k: {text:'人口は3万人未満?', icon:'👤'},
-  popUnder10k: {text:'人口は1万人未満?', icon:'👤'},
   densityHigh: {text:'人や住宅が密集しているほう?', icon:'🏢'},
   densityLow:  {text:'人口がまばらな地域が多い?', icon:'🏞️'},
   areaLarge:   {text:'自治体の区域が広いほう?', icon:'🗺️'},
@@ -716,7 +705,7 @@ const STATS_QUESTIONS = {
 };
 // 人口のしきい値は「上限・下限が分かれば答えが確定する」階段状の質問なので、
 // 序列(小さい順)を持たせておき、回答済みの範囲から不要な質問を除外するのに使う。
-const POP_LADDER = ['popUnder10k','popUnder30k','popUnder50k','pop100k','pop200k','pop300k','pop500k'];
+const POP_LADDER = ['popUnder50k','pop100k','pop300k','pop500k'];
 // 面積・人口密度は「広い/コンパクト」「密集/まばら」の反対概念のペア。
 // 同じプレイ内で両方を尋ねないようにするための組。
 const STATS_OPPOSITE_PAIRS = [['areaLarge','areaCompact'], ['densityHigh','densityLow']];
@@ -792,11 +781,8 @@ let lastTopName = null;
 // 人口のはしご(小さい順)。フル確信度で回答された結果から「今分かっている人口の範囲」を
 // 追跡し、その範囲だけで答えが確定してしまう人口質問を出題候補から除外する。
 const POP_LADDER_INFO = {
-  popUnder10k: { type:'under',   value:10000 },
-  popUnder30k: { type:'under',   value:30000 },
   popUnder50k: { type:'under',   value:50000 },
   pop100k:     { type:'atleast', value:100000 },
-  pop200k:     { type:'atleast', value:200000 },
   pop300k:     { type:'atleast', value:300000 },
   pop500k:     { type:'atleast', value:500000 },
 };
@@ -876,7 +862,12 @@ const EXTRA_PHASE_POOL_MAX = 15;
 
 // 質問を「客観的(事実)」か「主観的(印象・評判)」かに分類する。
 // 「有名」「イメージ」「知られ」等、評判・印象に基づく言い回しを含む質問は主観的として扱う。
-const SUBJECTIVE_KEYWORDS = ['イメージ', '有名', '知られ', '色が強い', '雰囲気'];
+// 主観的質問(印象・評判で人によって答えが分かれる質問)を判定するキーワード。
+// 「有名」「知られ」は日本語として自然な言い回しに過ぎず、中身が事実データの質問
+// (温泉地・焼き物・秋吉台など、そのタグを持つ市が明確に決まっているもの)まで
+// 主観扱いにすると、はいと答えても矛盾する市が候補に残ってしまう。そのため、
+// 純粋に主観的な言い回し(イメージ・雰囲気・色が強い)だけを主観キーワードとする。
+const SUBJECTIVE_KEYWORDS = ['イメージ', '色が強い', '雰囲気'];
 function isSubjectiveQuestion(key){
   const q = QUESTIONS[key] || STATS_QUESTIONS[key];
   if(!q || !q.text) return false;
@@ -1920,7 +1911,7 @@ function renderStamps(){
 //  - 地方限定質問(hokkaido〜kyushu)は、その地方版 + 全国版で出る。
 const MODE_ONLY_KEYS = {
   niigata: [
-    'joetsu_region','chuetsu_region','uono_river','pop_3digit','borders_gunma','borders_toyama'
+    'joetsu_region','chuetsu_region','uono_river','borders_gunma','borders_toyama'
   ],
   tokyo: [
     'todai_campus','waseda_campus','keio_campus','sophia_campus','meiji_campus','aoyama_campus','rikkyo_campus','chuo_campus','hosei_campus','tus_campus','diet_building','sensoji','kasai_park','tokyu_line','keikyu_line','rinkai_line','yurikamome','tokyo_monorail','toden_arakawa','nippori_toneri','sumida_river','meguro_river','shakujii_river','borders_other_pref_tokyo','borders_kanagawa','borders_saitama','borders_chiba','ochanomizu_univ','gakushuin_univ','toyo_univ','komazawa_univ','seijo_univ','kokugakuin_univ','senshu_univ','jr_line','no_jr','yamanote_line','keihintohoku_line','chuo_sobu','tokyo_station','ueno_station','shinagawa_station','akihabara_station','shimbashi_station','kinshicho_station','kamata_station','nippori_station','tsunagari_mayu_police','koiwa_or_kasairinkai_station','tora_san_home','tsubasa_hometown','tv_station_area','sazae_family','hachiko_area','yose_hall','sailor_moon_stage','tokiwa_so','godzilla_head','rakugo_stage','sanma_famous'
@@ -2079,7 +2070,7 @@ const PHASE_KEY_OVERRIDES = {
   monozukuri: 'middle', kougyou_toshi: 'middle', kigyo_joukamachi: 'middle',
   seitetsu_kouro: 'middle', imono_kupola: 'middle', tire_famous: 'middle', nuclearpowerplant: 'middle',
   // 名前・方言系の計算タグは、個性が強く決め手になりやすいので終盤
-  kana_name: 'late', kansai_dialect: 'late', tohoku_dialect: 'late', ryukyu_dialect: 'late', pop_3digit: 'late',
+  kana_name: 'late', kansai_dialect: 'late', tohoku_dialect: 'late', ryukyu_dialect: 'late',
 
   // 歴史・文化のうち、「城下町・宿場町・門前町・軍港」など町の性格を表すものは中盤
   castle: 'middle', worldheritage: 'middle', ruins: 'middle', shrine_temple: 'middle',
@@ -2229,7 +2220,6 @@ const TAG_GAME_CATEGORY = {
   "akabane_station": "交通",
   "nippori_station": "交通",
   "koiwa_or_kasairinkai_station": "交通",
-  "pop1m": "人口・行政",
   "designated": "人口・行政",
   "capital": "人口・行政",
   "is_town_village": "人口・行政",
@@ -2239,7 +2229,6 @@ const TAG_GAME_CATEGORY = {
   "tohoku_dialect": "人口・行政",
   "ryukyu_dialect": "人口・行政",
   "is_village": "人口・行政",
-  "pop_3digit": "人口・行政",
   "bedtown": "人口・行政",
   "nuclearpowerplant": "人口・行政",
   "monozukuri": "人口・行政",
@@ -2527,9 +2516,6 @@ const TAG_GAME_CATEGORY = {
   "musashino_line": "交通",
   "ekimei_chigau": "交通",
   "prefectural_capital": "人口・行政",
-  "pop_500k": "人口・行政",
-  "pop_300k": "人口・行政",
-  "pop_under_100k": "人口・行政",
   "borders_other_pref": "地理",
   "formed_after_2000": "人口・行政",
   "national_university": "学問",
@@ -2662,9 +2648,21 @@ const FUN_ACTIVATION_POOL_SIZE = 10; // 候補がこの件数以下に絞れて�
 const HIGH_PRIORITY_BONUS = 45;
 const HIGH_PRIORITY_EARLY_PENALTY = 15; // 序盤はむしろ少し出にくくしておく
 const CATEGORY_REPEAT_PENALTY = 9; // 同じジャンルを1回出すたびに、次の選ばれやすさをこれだけ下げる
+
+// 【統計質問(人口・面積・人口密度)の抑制】
+// これらは情報利得が高く機械的に選ばれやすいが、プレイヤーには「答えづらい/わからない」
+// ことが多く、出過ぎると体感が単調になる。候補がある程度絞れるまでは優先度を下げ、
+// 1ゲーム中に何度も出ないようにする。
+const STATS_QUESTION_KEYS = new Set([
+  'pop500k','pop300k','pop100k','popUnder50k','areaLarge','areaCompact','densityHigh','densityLow'
+]);
+const STATS_EARLY_PENALTY = 20;      // 候補が多い序盤〜中盤で統計質問に課す一律ペナルティ
+const STATS_ACTIVATION_POOL_SIZE = 6; // 候補がこの件数以下になったら統計質問の抑制を解除する
+const STATS_REPEAT_PENALTY = 20;     // 同じゲーム内で統計質問を出すたびに加算する追加ペナルティ
 const RECENT_CATEGORY_PENALTY = 1.5; // 直近の質問と同じジャンルに対する、軽めの追加減点
 
 let askedCategoryCounts = {}; // ゲーム開始時にリセットする(startMode参照)
+let askedStatsCount = 0; // 同一ゲーム内で出題した統計質問(人口・面積・密度)の数。startModeでリセット
 
 const DECISIVE_BOOST = 15;      // 「今答えれば一発で決着する」質問への優遇度
 const DECISIVE_POOL_SIZE = 12;  // 候補がこの件数以下のときだけ、決め手質問を優遇する(遊び心の発動タイミングに近づける)
@@ -2686,7 +2684,14 @@ function priorityAdjust(k, diff, poolSize, isDecisive){
   // (戸田市のように特徴タグは多いのに、ジャンル分散のせいで決め手が後回しになって
   //  質問切れになるケースを防ぐ)
   const penaltyWeight = poolSize <= DECISIVE_POOL_SIZE ? 0.4 : 1;
-  return diff + repeatCount * CATEGORY_REPEAT_PENALTY * penaltyWeight;
+  let adjusted = diff + repeatCount * CATEGORY_REPEAT_PENALTY * penaltyWeight;
+  // 統計質問(人口・面積・密度)は、候補が十分絞れるまで出にくくする。
+  // さらに同じゲーム内で既に何問か出ていたら、その回数に応じて追加で出にくくする。
+  if(STATS_QUESTION_KEYS.has(k) && poolSize > STATS_ACTIVATION_POOL_SIZE){
+    adjusted += STATS_EARLY_PENALTY;
+    adjusted += (askedStatsCount || 0) * STATS_REPEAT_PENALTY;
+  }
+  return adjusted;
 }
 
 function entropyPick(){
@@ -2708,6 +2713,26 @@ function entropyPick(){
     candidateQuestions.push(k);
   }
   if(candidateQuestions.length === 0) return unused[0] || null;
+
+  // 【初手のランダム化】モード開始直後の1問目は、常に同じ質問(海に面している?など)から
+  // 始まると単調なので、候補全体をそれなりに分割できる良質な質問の中からランダムに選ぶ。
+  // 全国では大半の特徴が少数派のため、範囲を広め(12〜88%)に取って複数の初手候補を確保する。
+  // 統計・地方区分・高速道路ICは初手に向かないので除外する。
+  if(asked.length === 0 && questionPhase !== 'extra'){
+    const modeCities = getModeCities(currentMode);
+    const opener = candidateQuestions.filter(k => {
+      if(STATS_QUESTION_KEYS.has(k)) return false; // 統計質問は初手にしない
+      if(/_area$|_region$/.test(k)) return false;   // 地方区分だけの質問も初手にしない
+      if(IC_ROUTE_GROUPS && IC_ROUTE_GROUPS[k]) return false; // 高速道路ICも初手向きでない
+      const cat = categoryOf(k);
+      if(cat === '人口・行政') return false;         // 行政区分の細かい質問も初手向きでない
+      const yes = modeCities.filter(c => c.tags[k]).length;
+      const ratio = yes / modeCities.length;
+      return ratio >= 0.12 && ratio <= 0.88;        // それなりに分割できる質問
+    });
+    // 候補が十分あるときだけランダム初手にする(少なすぎると毎回同じで意味がない)
+    if(opener.length >= 3) return shuffle(opener)[0];
+  }
 
   // 【質問の段階(序盤・中盤・終盤)】完全に絞り込む(ハードフィルタ)と、その段階にちょうど良い
   // 質問が無いときに情報利得の高い質問を選べず絞り込みが非効率になるため、
@@ -2753,7 +2778,8 @@ function entropyPick(){
       + (isDecisive ? 0 : recentStreakPenalty(k)) + phasePenalty(k);
     return { k, diff };
   }).sort((a,b)=> a.diff - b.diff);
-  const shortlist = prelim.slice(0, Math.min(12, prelim.length)).map(s=>s.k);
+  const shortlistSize = truePoolSize > 150 ? 20 : 12;
+  const shortlist = prelim.slice(0, Math.min(shortlistSize, prelim.length)).map(s=>s.k);
 
   const scored = shortlist.map(k=>{
     const yesGroup = topCities.filter(c=>c.tags[k]);
@@ -2770,8 +2796,11 @@ function entropyPick(){
 
   scored.sort((a, b) => a.minimax - b.minimax);
   const best = scored[0].minimax;
-  // 僅差の質問はまとめてプールし、ランダムに選ぶ(毎回同じ質問順に固定されないようにする)
-  const pool = scored.filter(s => s.minimax <= best + 1).map(s => s.k);
+  // 僅差の質問はまとめてプールし、ランダムに選ぶ(毎回同じ質問順に固定されないようにする)。
+  // 候補がまだ多い序盤は、多少精度を犠牲にしてもマージンを広げ、入りの質問を毎回変える。
+  // (常に同じ質問から始まって単調になるのを防ぐ)。終盤は精度優先でマージンを狭く保つ。
+  const poolMargin = truePoolSize > 150 ? 4 : (truePoolSize > 40 ? 2 : 1);
+  const pool = scored.filter(s => s.minimax <= best + poolMargin).map(s => s.k);
   const picked = shuffle(pool)[0];
 
   // デバッグパネル用: 質問選択時の評価上位候補を記録しておく(ゲームロジックには影響しない)
@@ -3226,6 +3255,7 @@ function startMode(mode){
   forcedNextKey = null;
   forcedGuessCity = null;
   askedCategoryCounts = {};
+  askedStatsCount = 0;
   currentResult = null;
   lastGuessCity = null;
   stableTopStreak = 0;
@@ -3275,6 +3305,8 @@ function renderQuestion(){
   // このジャンルが実際に出題されたことを記録(次以降の選ばれやすさ調整に使う)
   const cat = categoryOf(key);
   askedCategoryCounts[cat] = (askedCategoryCounts[cat] || 0) + 1;
+  const statsCountSnapshotBefore = askedStatsCount;
+  if(STATS_QUESTION_KEYS.has(key)) askedStatsCount++;
 
   // このタイミング(まだこの質問を聞く前)の状態と、聞く質問のキーを履歴に保存する
   history.push({
@@ -3285,6 +3317,7 @@ function renderQuestion(){
     extraQuestionCount: extraQuestionCount,
     questionPhase: questionPhase,
     askedCategoryCounts: categorySnapshotBefore,
+    askedStatsCount: statsCountSnapshotBefore,
     knownPopMin: knownPopMin,
     knownPopMax: knownPopMax,
     remainingCount: remainingCountSnapshotBefore,
@@ -3344,6 +3377,7 @@ function goBack(){
   extraQuestionCount = prev.extraQuestionCount != null ? prev.extraQuestionCount : 0;
   questionPhase = prev.questionPhase || 'normal';
   askedCategoryCounts = prev.askedCategoryCounts || {};
+  askedStatsCount = prev.askedStatsCount || 0;
   knownPopMin = prev.knownPopMin != null ? prev.knownPopMin : -Infinity;
   knownPopMax = prev.knownPopMax != null ? prev.knownPopMax : Infinity;
   lastDisplayedRemainingCount = prev.remainingCount != null ? prev.remainingCount : null;
@@ -3579,7 +3613,7 @@ function renderGuess(){
 const DEPRIORITIZED_LANDMARK_KEYS = new Set([
   'pop100k','pop500k','pop300k','pop200k','popUnder50k','popUnder30k','popUnder10k',
   'areaLarge','areaCompact','densityHigh','densityLow',
-  'is_town_village','is_tokyo_ward','pop1m','designated','chukakushi','tokureishi',
+  'is_town_village','is_tokyo_ward','designated','chukakushi','tokureishi',
 ]);
 function isLandmarkDeprioritized(key){
   if(DEPRIORITIZED_LANDMARK_KEYS.has(key)) return true;
@@ -3826,7 +3860,7 @@ function calcStars(city){
 
   // 都市規模(旧:都会度): 人口100万人・政令市・地下鉄・新幹線・プロスポーツで判断
   let urban = 1;
-  if (t.pop1m) urban += 2;
+  if (city.stats && city.stats.population >= 1000000) urban += 2;
   if (t.designated) urban += 1;
   if (t.subway) urban += 1;
   if (t.shinkansen) urban += 1;
