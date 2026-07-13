@@ -808,6 +808,14 @@ function loadStats(){
     if(!Array.isArray(merged.recentRegions)) merged.recentRegions = [];
     if(typeof merged.unlockedAchievements !== 'object' || merged.unlockedAchievements === null) merged.unlockedAchievements = {};
     if(typeof merged.misguessedCityCounts !== 'object' || merged.misguessedCityCounts === null) merged.misguessedCityCounts = {};
+    // 数値フィールドが壊れている(NaN・文字列など)場合は0にフォールバックし、正解回数などがNaNにならないようにする
+    ['totalPlays','totalCorrect','currentStreak','maxStreak','firstGuessCorrectCount',
+     'laterGuessCorrectCount','extraQuestionCorrectCount','maxQuestionReachedCount'].forEach(k => {
+      if(!Number.isFinite(merged[k])) merged[k] = 0;
+    });
+    ['yes','no','maybeYes','maybeNo','unknown'].forEach(k => {
+      if(!Number.isFinite(merged.answerCounts[k])) merged.answerCounts[k] = 0;
+    });
     return merged;
   }catch(e){
     console.warn('おらマチ: プレイ統計データの読み込みに失敗したため初期化します(破損データの可能性)', e);
@@ -852,14 +860,18 @@ function recordConquest(city, questionCount, mode){
     status = 'new';
   }else{
     existing.lastAt = now;
-    existing.count = (existing.count || 1) + 1;
+    // count/minQuestionsが壊れた値(NaN・文字列・0以下など)でも安全にフォールバックする
+    const prevCount = Number.isFinite(existing.count) && existing.count > 0 ? existing.count : 1;
+    existing.count = prevCount + 1;
     existing.name = displayName(city); // 表示名が変わった場合に追随
-    if(!existing.modes) existing.modes = [];
+    if(!Array.isArray(existing.modes)) existing.modes = [];
     if(!existing.modes.includes(mode)) existing.modes.push(mode);
-    if(questionCount < existing.minQuestions){
+    const prevBest = Number.isFinite(existing.minQuestions) ? existing.minQuestions : Infinity;
+    if(questionCount < prevBest){
       existing.minQuestions = questionCount;
       status = 'newRecord';
     } else {
+      existing.minQuestions = prevBest; // 壊れていた場合はここで正常値に修復しておく
       status = 'repeat';
     }
   }
@@ -912,7 +924,8 @@ function recordGameStats(outcome, guess, totalQuestions){
 function recordMisguess(city){
   const stats = loadStats();
   const id = cityId(city);
-  stats.misguessedCityCounts[id] = (stats.misguessedCityCounts[id] || 0) + 1;
+  const prev = Number.isFinite(stats.misguessedCityCounts[id]) ? stats.misguessedCityCounts[id] : 0;
+  stats.misguessedCityCounts[id] = prev + 1;
   saveStats(stats);
 }
 
@@ -952,13 +965,29 @@ function buildAchievementContext(gameInfo){
   const prefGroups = computePrefStats(conqueredIds);
   const regionGroups = computeRegionStats(conqueredIds);
 
+  // タグ別の集計を1回のループでまとめて計算し、キャッシュしておく。
+  // (countByTag/allConqueredByTagが同じタグに対して何度呼ばれても、CITIES全体の再走査を1回に抑える)
+  const tagCountCache = {};
+  const tagAllCache = {};
+  function ensureTagCache(tagKey){
+    if(tagCountCache[tagKey] !== undefined) return;
+    let doneCount = 0, targetCount = 0;
+    normalCities.forEach(c => {
+      if(c.tags[tagKey]){
+        targetCount++;
+        if(conqueredIds.has(cityId(c))) doneCount++;
+      }
+    });
+    tagCountCache[tagKey] = doneCount;
+    tagAllCache[tagKey] = targetCount > 0 && doneCount >= targetCount;
+  }
   function countByTag(tagKey){
-    return normalCities.filter(c => c.tags[tagKey] && conqueredIds.has(cityId(c))).length;
+    ensureTagCache(tagKey);
+    return tagCountCache[tagKey];
   }
   function allConqueredByTag(tagKey){
-    const target = normalCities.filter(c => c.tags[tagKey]);
-    if(target.length === 0) return false;
-    return target.every(c => conqueredIds.has(cityId(c)));
+    ensureTagCache(tagKey);
+    return tagAllCache[tagKey];
   }
   function prefFullyConquered(pref){
     const g = prefGroups[pref];
@@ -1221,6 +1250,47 @@ function checkAchievements(gameInfo){
   return newlyUnlocked;
 }
 
+// 称号獲得演出を1件ずつ表示するためのカードHTMLを作る。
+// list を明示的に渡さない場合は、直近の結果(currentResult)から取得する(「次へ」ボタン用)。
+function renderAchievementToastCard(list){
+  const achievements = list || (currentResult && currentResult.newAchievements) || [];
+  if(achievements.length === 0) return '';
+  if(achievementToastIndex >= achievements.length) return '';
+  const a = achievements[achievementToastIndex];
+  const total = achievements.length;
+  const idx = achievementToastIndex + 1;
+  const isTopRarity = a.rarity >= 5; // 最高レアは少し特別感を出す
+  const isLast = idx >= total;
+  return `
+    <div class="achievement-toast${isTopRarity ? ' achievement-toast-top' : ''}" id="achievementToast">
+      <div class="achievement-toast-title">称号を獲得しました！${total > 1 ? `(${idx}／${total})` : ''}</div>
+      <div class="achievement-toast-card">
+        <div class="achievement-toast-stars">${'★'.repeat(a.rarity)}${'☆'.repeat(5-a.rarity)}</div>
+        <div class="achievement-toast-name">${a.name}</div>
+        <div class="achievement-toast-desc">${a.description}</div>
+      </div>
+      <div class="achievement-toast-actions">
+        ${!isLast ? `<button class="link-btn" onclick="advanceAchievementToast()">次の称号へ(${idx}／${total})</button>` : `<button class="link-btn" onclick="renderAchievementsPage()">称号一覧を見る</button>`}
+        <button class="link-btn-subtle" onclick="closeAchievementToast()">閉じる</button>
+      </div>
+    </div>`;
+}
+function advanceAchievementToast(){
+  const container = document.getElementById('achievementToastContainer');
+  if(!container) return; // 二重タップ等で既に閉じられている場合は何もしない
+  const achievements = (currentResult && currentResult.newAchievements) || [];
+  if(achievementToastIndex >= achievements.length - 1){
+    container.innerHTML = '';
+    return;
+  }
+  achievementToastIndex++;
+  container.innerHTML = renderAchievementToastCard();
+}
+function closeAchievementToast(){
+  const container = document.getElementById('achievementToastContainer');
+  if(container) container.innerHTML = '';
+}
+
 function sortedPool(){
   return scorePool
     .filter(e => !excludedNames.has(e.city.name))
@@ -1457,11 +1527,76 @@ function ensureDebugPanel(){
   bar.addEventListener('click', () => {
     body.style.display = (body.style.display === 'none') ? 'block' : 'none';
   });
+  // デバッグモードでのみ表示される、統計データ初期化ボタン(通常のUIには一切表示しない)。
+  const resetBtn = document.createElement('button');
+  resetBtn.type = 'button';
+  resetBtn.textContent = '⚠ [デバッグ専用] プレイ統計・称号を初期化';
+  resetBtn.style.cssText = 'width:100%; text-align:left; background:#3a1c1c; color:#f28c8c; border:none; border-top:1px solid #4CAF50; padding:6px 10px; font-family:monospace; font-size:11px; cursor:pointer;';
+  resetBtn.addEventListener('click', () => {
+    if(confirm('[デバッグ] プレイ統計・称号をすべて初期化しますか？(制覇帳データは消しません)')){
+      __debugResetStats();
+      updateDebugPanel();
+    }
+  });
   panel.appendChild(bar);
   panel.appendChild(body);
+  panel.appendChild(resetBtn);
   document.body.appendChild(panel);
   debugPanelBodyEl = body;
   return body;
+}
+// デバッグ用: プレイ統計・称号解除状況だけを初期化する(全国制覇帳のデータには触れない)。
+// 通常のゲーム画面からは呼び出されず、?debug=1のデバッグパネルからのみ実行できる。
+function __debugResetStats(){
+  try{
+    localStorage.removeItem(STATS_STORAGE_KEY);
+    console.log('おらマチ[デバッグ]: プレイ統計データを初期化しました');
+    return true;
+  }catch(e){
+    console.warn('おらマチ[デバッグ]: 統計データの初期化に失敗しました', e);
+    return false;
+  }
+}
+
+// 開発用テスト関数: ダミーの統計データを使って、称号の判定ロジックが正しく動くかを確認する。
+// 通常のゲーム画面からは一切呼び出されない(ブラウザのコンソールや検証スクリプトから直接呼ぶ想定)。
+// 実際のプレイヤーのデータは一時的にも書き換えず、メモリ上のダミーだけで判定する。
+function __debugTestAchievements(overrides){
+  const dummyStats = { ...emptyStatsData(), ...(overrides || {}) };
+  const dummyConquest = loadConquest(); // 制覇帳は実データを読むだけ(判定条件の一部に必要なため)
+  const conqueredIds = new Set(Object.keys(dummyConquest.entries));
+  const normalCities = CITIES.filter(c => c.name !== '東京');
+  const normalEntries = Object.values(dummyConquest.entries);
+  const prefGroups = computePrefStats(conqueredIds);
+  const regionGroups = computeRegionStats(conqueredIds);
+
+  const tagCountCache = {}, tagAllCache = {};
+  function ensureTagCache(tagKey){
+    if(tagCountCache[tagKey] !== undefined) return;
+    let doneCount = 0, targetCount = 0;
+    normalCities.forEach(c => { if(c.tags[tagKey]){ targetCount++; if(conqueredIds.has(cityId(c))) doneCount++; } });
+    tagCountCache[tagKey] = doneCount;
+    tagAllCache[tagKey] = targetCount > 0 && doneCount >= targetCount;
+  }
+  const ctx = {
+    stats: dummyStats, conquest: dummyConquest, conqueredIds, normalCities, normalEntries,
+    distinctCount: normalEntries.length, prefGroups, regionGroups,
+    countByTag: k => { ensureTagCache(k); return tagCountCache[k]; },
+    allConqueredByTag: k => { ensureTagCache(k); return tagAllCache[k]; },
+    prefFullyConquered: pref => { const g = prefGroups[pref]; return !!(g && g.total > 0 && g.done >= g.total); },
+    regionFullyConquered: region => { const g = regionGroups[region]; return !!(g && g.total > 0 && g.done >= g.total); },
+    allRegionsHaveAtLeastOne: () => REGION_ORDER.every(r => regionGroups[r] && regionGroups[r].done > 0),
+    allRegionsFullyConquered: () => REGION_ORDER.every(r => { const g = regionGroups[r]; return !!(g && g.total > 0 && g.done >= g.total); }),
+    playedDistinctDays: n => (dummyStats.playedDates || []).length >= n,
+    game: dummyStats.__game || null,
+  };
+  const results = ACHIEVEMENTS.map(def => {
+    let ok;
+    try{ ok = !!def.check(ctx); }catch(e){ ok = 'ERROR: ' + e.message; }
+    return { id: def.id, name: def.name, category: def.category, result: ok };
+  });
+  console.log('おらマチ[デバッグ]: 称号判定テスト結果', results);
+  return results;
 }
 
 // デバッグパネルの表示内容を更新する。ゲームのスコアや状態を「読むだけ」で、
@@ -2284,7 +2419,10 @@ function renderOpening(){
           </button>`).join('')}
       </div>
     </div>
-    <button class="conquest-entry-btn" onclick="renderConquestLog()">📖 全国制覇帳</button>
+    <div class="opening-sub-nav">
+      <button class="conquest-entry-btn" onclick="renderConquestLog()">📖 全国制覇帳</button>
+      <button class="conquest-entry-btn" onclick="renderAchievementsPage()">🏅 称号一覧</button>
+    </div>
     ${renderStatsBlock()}
   `;
 
@@ -2301,6 +2439,7 @@ const ACHIEVEMENT_CATEGORY_LABELS = {
   collection: 'コレクション', hidden: '隠し称号',
 };
 let achievementFilter = 'all'; // 現在選択中のフィルタ(カテゴリ名 または 'all'/'unlocked'/'locked')
+let achievementToastIndex = 0; // 結果画面の称号獲得演出で、今何件目を表示しているか(1件ずつ確認できるようにする)
 
 function formatAchievementDate(iso){
   if(!iso) return '';
@@ -3715,21 +3854,9 @@ function correct(isRight, overrideCity){
     }
     const bestHtml = `<div class="best-line">${bestLine}</div>`;
 
-    // 称号獲得演出(新しく解除された称号があるときだけ表示。閉じるボタンで隠せる)
-    const achievementHtml = newAchievements.length > 0 ? `
-      <div class="achievement-toast" id="achievementToast">
-        <div class="achievement-toast-title">称号を獲得しました！</div>
-        ${newAchievements.map(a => `
-          <div class="achievement-toast-card">
-            <div class="achievement-toast-stars">${'★'.repeat(a.rarity)}${'☆'.repeat(5-a.rarity)}</div>
-            <div class="achievement-toast-name">${a.name}</div>
-            <div class="achievement-toast-desc">${a.description}</div>
-          </div>`).join('')}
-        <div class="achievement-toast-actions">
-          <button class="link-btn" onclick="renderAchievementsPage()">称号一覧を見る</button>
-          <button class="link-btn-subtle" onclick="document.getElementById('achievementToast').style.display='none'">閉じる</button>
-        </div>
-      </div>` : '';
+    // 称号獲得演出(新しく解除された称号があるときだけ表示。1件ずつ確認できる形にする)
+    achievementToastIndex = 0;
+    const achievementHtml = `<div id="achievementToastContainer">${renderAchievementToastCard(newAchievements)}</div>`;
 
     stage.innerHTML = `
       <div class="share-card" id="shareCard">
