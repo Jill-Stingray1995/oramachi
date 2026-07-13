@@ -2910,13 +2910,20 @@ function topConfidence(){
 
 // 「だいたいこのくらい残っている」という目安の候補数。スコアによる評価であり完全な除外方式では
 // ないため、確率が極端に低いものだけ目安から除く(=断定はしない、画面表示側で「約」を付ける)。
-const REMAINING_COUNT_PROB_THRESHOLD = 0.001;
+// 絶対閾値だけだと、候補の母集団が少ないモード(新潟県版など)で「どの候補もそれなりに
+// 確率が残っている」状態になりやすく、絞り込みがほとんど進んでいないように見えてしまう。
+// そこで、1位候補の確率に対する相対的な閾値も併用し、1位から大きく見劣りする候補は
+// 目安から外すようにする。
+const REMAINING_COUNT_PROB_THRESHOLD = 0.001;   // 絶対的な下限(母集団が大きいときの基準)
+const REMAINING_COUNT_RELATIVE_RATIO = 0.08;    // 1位候補の確率のこの割合未満は「実質圏外」とみなす
 function estimateRemainingCountRaw(){
   const sorted = sortedPool();
   if(sorted.length === 0) return 0;
   if(sorted.length === 1) return 1;
   const probs = candidateProbabilities(sorted);
-  const count = probs.filter(p => p >= REMAINING_COUNT_PROB_THRESHOLD).length;
+  const maxProb = Math.max(...probs);
+  const threshold = Math.max(REMAINING_COUNT_PROB_THRESHOLD, maxProb * REMAINING_COUNT_RELATIVE_RATIO);
+  const count = probs.filter(p => p >= threshold).length;
   return Math.max(1, count);
 }
 // 表示用: 一度減った数字が質問の巡り合わせで急に増えて見えないよう、単調減少に保つ。
