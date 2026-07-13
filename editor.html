@@ -3085,6 +3085,7 @@ function loadFile(file){
       const data = JSON.parse(ev.target.result);
       if(!Array.isArray(data)) throw new Error('配列(JSONの[...])ではありません');
       CITIES = data;
+      expandCompactTagsForEditor(); // 軽量化されたtags(配列形式)があれば、編集用にオブジェクト形式へ復元する
       collectTagKeys();
       showLoadStatus(true, `${file.name} を読み込みました。${CITIES.length}件の自治体、${ALL_TAG_KEYS.length}種類のタグがあります。`);
       toast('読み込み完了');
@@ -3100,6 +3101,26 @@ function loadFile(file){
 function showLoadStatus(ok, msg){
   $('#loadStatus').style.display = 'block';
   $('#loadStatusBody').innerHTML = `<span class="${ok?'status-ok':'status-warn'}">${ok?'✓':'✕'} ${msg}</span>`;
+}
+
+// 軽量化されたcities.json(tagsが「trueだったキーだけの配列」)を、
+// 編集ツール内部で扱いやすいよう、通常の{キー: true/false, ...}オブジェクト形式へ復元する。
+// 復元対象のキー一覧は、全自治体のtags配列の和集合を取る(このcities.jsonでは、
+// 全399キーが最低1つの自治体でtrueになっていることを確認済み)。
+// 既にオブジェクト形式(旧cities.json)の場合は何もしない。
+function expandCompactTagsForEditor(){
+  if(CITIES.length === 0) return;
+  if(!Array.isArray(CITIES[0].tags)) return; // 既にオブジェクト形式
+  const allKeys = new Set();
+  CITIES.forEach(c => { if(Array.isArray(c.tags)) c.tags.forEach(k => allKeys.add(k)); });
+  const keyList = Array.from(allKeys);
+  CITIES.forEach(c => {
+    if(!Array.isArray(c.tags)) return;
+    const trueSet = new Set(c.tags);
+    const obj = {};
+    keyList.forEach(k => { obj[k] = trueSet.has(k); });
+    c.tags = obj;
+  });
 }
 
 function collectTagKeys(){
@@ -3898,7 +3919,14 @@ function updateExportStatus(){
 
 $('#exportBtn').addEventListener('click', ()=>{
   if(CITIES.length === 0){ toast('先にcities.jsonを読み込んでください'); return; }
-  const json = JSON.stringify(CITIES, null, 2);
+  // ファイルサイズを抑えるため、書き出し時だけtagsを「trueだったキーの配列」に圧縮する。
+  // (編集ツール内部の作業データCITIES自体は、扱いやすいオブジェクト形式のまま変更しない)
+  const compact = CITIES.map(c => {
+    const nc = Object.assign({}, c);
+    nc.tags = Object.keys(c.tags || {}).filter(k => c.tags[k]);
+    return nc;
+  });
+  const json = JSON.stringify(compact);
   const blob = new Blob([json], {type:'application/json'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -3908,7 +3936,7 @@ $('#exportBtn').addEventListener('click', ()=>{
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
-  toast('cities.json をダウンロードしました');
+  toast('cities.json をダウンロードしました(軽量形式)');
 });
 
 /* ---------- ⑦ 教えてもらった訂正 ---------- */

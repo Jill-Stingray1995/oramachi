@@ -436,6 +436,24 @@ const QUESTIONS = {
   yosan_line: {text:'予讃線が通っていますか?', icon:'🚃'}
 };
 
+// cities.jsonの軽量化対応: 保存時、各自治体のtagsは「trueだったキーだけの配列」に
+// 圧縮されている(ファイルサイズを大幅に削減するため)。起動時、ここで元の
+// {キー: true/false, ...} というオブジェクト形式へ復元してから、他の処理へ渡す。
+// 復元対象のキー一覧は、実行時計算タグ(kana_name等、enrichComputedTagsが後で設定する)
+// を除いたもの。旧形式(既にオブジェクトのcities.json)が来た場合はそのまま何もしない。
+const COMPUTED_ONLY_TAG_KEYS = new Set(['kana_name','kansai_dialect','tohoku_dialect','ryukyu_dialect']);
+function expandCompactTags(city){
+  if(!Array.isArray(city.tags)) return city; // 既にオブジェクト形式ならそのまま(後方互換)
+  const trueSet = new Set(city.tags);
+  const obj = {};
+  KEYS.forEach(k => {
+    if(COMPUTED_ONLY_TAG_KEYS.has(k)) return; // これらはenrichComputedTagsが設定するので触らない
+    obj[k] = trueSet.has(k);
+  });
+  city.tags = obj;
+  return city;
+}
+
 function enrichComputedTags(city){
   const t = city.tags;
   // 自治体名にひらがな・カタカナが含まれるか(簡易判定)
@@ -3993,6 +4011,7 @@ async function boot(){
     if(!res.ok) throw new Error('HTTP ' + res.status);
     CITIES = await res.json();
     if(!Array.isArray(CITIES) || CITIES.length === 0) throw new Error('empty data');
+    CITIES.forEach(expandCompactTags); // 軽量化されたtags(配列形式)を、あれば先にオブジェクト形式へ復元
     CITIES.forEach(enrichComputedTags);
     CITIES.forEach(enrichStatsTags);
     activateStatsQuestions();
