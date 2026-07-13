@@ -185,6 +185,14 @@ color: inherit;}
   .star-label{ color: var(--ink-soft); font-weight:500; }
   .star-value{ color: var(--gold); letter-spacing: 2px; font-size:14px; }
 
+  /* ---- 結果画面: 市役所周辺の地図(正方形) ---- */
+  .result-map-block{ margin-bottom: 12px; }
+  .result-map{
+    display:block; width:100%; aspect-ratio: 1 / 1; border:1.5px solid var(--line);
+    border-radius: 12px; background: var(--paper-deep);
+  }
+  .result-map-caption{ font-size: 10.5px; color: var(--ink-soft); text-align:center; margin-top: 4px; }
+
   .share-btn{
     display:flex; align-items:center; justify-content:center; gap:8px;
     width:100%; padding: 13px; border-radius: 14px; border:none;

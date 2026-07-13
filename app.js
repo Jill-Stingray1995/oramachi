@@ -3657,6 +3657,36 @@ function computeBarePoints(finalCity){
   return candidates.slice(0, 3).map(c => c.text);
 }
 
+// 結果画面用: 市役所・町村役場・区役所を検索クエリにして、APIキー不要のGoogleマップ
+// 埋め込み(iframe)を表示する。緯度経度データをcities.jsonに持たせる必要が無いよう、
+// 地名検索(テキストクエリ)方式にしている。
+function mapQueryFor(city){
+  if(city.name === '東京') return '東京都庁'; // 「東京」集計エントリは都庁周辺を表示
+  // city.name自体が「〜市」「〜町」「〜村」「〜区」で終わるため、「役所」「役場」だけを続ける
+  // (「市役所」をそのまま付け足すと「札幌市市役所」のように文字が重複してしまう)
+  let suffix = '役所'; // 市・区はどちらも「役所」
+  if(/町$/.test(city.name) || /村$/.test(city.name)) suffix = '役場';
+  return `${city.pref}${city.name}${suffix}`;
+}
+// ズーム14は、Googleマップの仕様上おおよそ5km四方前後の表示になる目安値。
+// (embedのURLパラメータ方式では、画面サイズにより実際の表示範囲は多少前後する)
+const RESULT_MAP_ZOOM = 14;
+function resultMapHtml(city){
+  try{
+    const q = encodeURIComponent(mapQueryFor(city));
+    const src = `https://maps.google.com/maps?q=${q}&t=h&z=${RESULT_MAP_ZOOM}&output=embed`;
+    return `
+    <div class="result-map-block">
+      <iframe class="result-map" src="${src}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" frameborder="0"
+        title="${displayName(city)}のまわりの地図(衛星写真)"></iframe>
+      <div class="result-map-caption">${displayName(city)} 市役所・役場周辺(衛星写真)</div>
+    </div>`;
+  }catch(e){
+    console.warn('おらマチ: 結果画面の地図生成に失敗しました', e);
+    return ''; // 地図が作れなくても結果画面自体は表示し続ける
+  }
+}
+
 // 診断カード用: 既存のtagsだけから「雪国度」「都市規模」「ご当地色」を1〜5段階で算出
 // (cities.jsonに新しいフィールドを追加せず、既存タグの組み合わせだけで計算する)
 function calcStars(city){
@@ -4206,6 +4236,7 @@ function correct(isRight, overrideCity){
           <div class="star-row"><span class="star-label">都市規模</span><span class="star-value">${starString(stars.urban)}</span></div>
           <div class="star-row"><span class="star-label">ご当地色</span><span class="star-value">${starString(stars.local)}</span></div>
         </div>
+        ${resultMapHtml(guess)}
         <div class="info-grid">
           <div class="info-chip"><div class="label">名物グルメ</div><div class="value">${guess.food}</div></div>
           <div class="info-chip"><div class="label">方言</div><div class="value">${guess.dialect}</div></div>
