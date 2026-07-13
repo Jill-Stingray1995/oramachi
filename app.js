@@ -39,7 +39,11 @@ const KEYS = ['pop1m','shinkansen','coastal','designated','festival','castle','s
   'ic_takamatsu','ic_tokushima','ic_matsuyama','ic_kochi',
   'ic_kyushu','ic_higashi_kyushu','ic_nagasaki','ic_oita','ic_miyazaki','ic_okinawa',
   'koshien_champion','sumo_yokozuna_ozeki','famous_cape',
-  'yamata_no_orochi','hibagon','mori_motonari','hiruzen_highland','miyamoto_musashi_station','akiyoshidai','mizuki_shigeru_road','yasugi_bushi','gonokawa','donticchi_fish','shokasonjuku','motonosumi_shrine','bizen_ware','osafune_sword_museum','naoshima_gateway','horseshoe_crab_museum','astronomy_city','sunameri','naval_academy','goldfish_lantern','ito_hirobumi_birthplace','train_factory','stork','hyonosen','takeda_castle','tamba_dinosaur','black_soybeans','japan_navel','banshu_abacus','miki_hardware','balloon_city','sake_birthplace','peron_festival','ako_ronin','awaji_puppet_theater','nijigen_no_mori','akechi_mitsuhide_castle','gunze_birthplace','amanohashidate','singing_sand','miyama_thatched_village','hozugawa_boat_ride','bamboo_path','doushisha','nagaoka_tenmangu','joruriji','jrosyu_ume','ritsumeikan','pm_birthplace'];
+  'yamata_no_orochi','hibagon','mori_motonari','hiruzen_highland','miyamoto_musashi_station','akiyoshidai','mizuki_shigeru_road','yasugi_bushi','gonokawa','donticchi_fish','shokasonjuku','motonosumi_shrine','bizen_ware','osafune_sword_museum','naoshima_gateway','horseshoe_crab_museum','astronomy_city','sunameri','naval_academy','goldfish_lantern','ito_hirobumi_birthplace','train_factory','stork','hyonosen','takeda_castle','tamba_dinosaur','black_soybeans','japan_navel','banshu_abacus','miki_hardware','balloon_city','sake_birthplace','peron_festival','ako_ronin','awaji_puppet_theater','nijigen_no_mori','akechi_mitsuhide_castle','gunze_birthplace','amanohashidate','singing_sand','miyama_thatched_village','hozugawa_boat_ride','bamboo_path','doushisha','nagaoka_tenmangu','joruriji','jrosyu_ume','ritsumeikan','pm_birthplace',
+  'name_has_betsu','hokkaido_greenland','famous_prison','yakitori_famous_bibai','coal_mine_shaft','drift_ice','suffolk_sheep','ammonite_fossil','matsuo_jingisukan','sweet_road','least_populous_city','urokodango','bear_park','fighters_farm',
+  'in_aomori','in_iwate','in_miyagi','in_akita','in_yamagata','in_fukushima',
+  'bijin_town','tachineputa','oirase','osorezan','shakoki_dogu','seibien','jodogahama','goishi_coast','miyazawa_kenji','tensho_chi','amber_kuji','tono_monogatari','geibikei','ipponmatsu','ohtani_shohei','zashiki_warashi','appi_kogen','ishinomori','chagu_chagu','shiogama_shrine','fukahire','shiroishi_umen','sendai_airport','jaxa_kakuda','takekoma_shrine','meiji_mura','kano_eiko','blue_impulse','naruko_onsen','town_to_city_2016',
+  'basketball_town','kamakura_yokote','akita_inu_hachiko','namahage','inaniwa_udon','oyu_stone_circle','yuri_kogen_railway','blumen_akita','odate_noshiro_airport','tdk_town','kakunodate_tazawako','sankyo_soko','higashizawa_rose','ayame_park','hanagasa_tendo','hiragana_station','ginzan_onsen','kumano_taisha','tsuburaya_eiji','matsukawaura','kiku_ningyo_nihonmatsu','abukumado','kacchu_keiba','anpogaki','william_park'];
 
 const QUESTIONS = {
   pop1m:         {text:'人口は100万人以上?', icon:'👥'},
@@ -556,7 +560,82 @@ const QUESTIONS = {
   joruriji: {text:'国宝の九体阿弥陀如来像がある浄瑠璃寺がある？', icon:'🏯'},
   jrosyu_ume: {text:'青谷梅林と「城州白」という梅で知られる？', icon:'🍽️'},
   ritsumeikan: {text:'立命館大学のキャンパスがある？', icon:'🎓'},
-  pm_birthplace: {text:'歴代の内閣総理大臣が生まれたマチ？', icon:'🏛️'}
+  pm_birthplace: {text:'歴代の内閣総理大臣が生まれたマチ？', icon:'🏛️'},
+  name_has_betsu: {text:'市名に「別」が入る？', icon:'🔤'},
+  hokkaido_greenland: {text:'北海道グリーンランドがある？', icon:'🎢'},
+  famous_prison: {text:'有名な監獄がある？', icon:'🔒'},
+  yakitori_famous_bibai: {text:'焼き鳥で有名？', icon:'🍢'},
+  coal_mine_shaft: {text:'旧炭鉱の立坑櫓が残っている？', icon:'⛏️'},
+  drift_ice: {text:'流氷の接岸で有名？', icon:'🧊'},
+  suffolk_sheep: {text:'サフォーク羊で有名？', icon:'🐑'},
+  ammonite_fossil: {text:'アンモナイトの化石で有名？', icon:'🐚'},
+  matsuo_jingisukan: {text:'松尾ジンギスカンの本店がある？', icon:'🍖'},
+  sweet_road: {text:'スイートロードがある？', icon:'🍬'},
+  least_populous_city: {text:'日本で人口が最も少ない市？', icon:'👤'},
+  urokodango: {text:'ウロコダンゴが名物？', icon:'🍡'},
+  bear_park: {text:'CMが有名なクマ牧場がある？', icon:'🐻'},
+  fighters_farm: {text:'ファイターズの2軍施設が移転してくる？', icon:'⚾'},
+  in_aomori: {text:'青森県にある？', icon:'🍎'},
+  in_iwate: {text:'岩手県にある？', icon:'🗻'},
+  in_miyagi: {text:'宮城県にある？', icon:'🌾'},
+  in_akita: {text:'秋田県にある？', icon:'🐕'},
+  in_yamagata: {text:'山形県にある？', icon:'🍒'},
+  in_fukushima: {text:'福島県にある？', icon:'🍑'},
+  bijin_town: {text:'日本一美人が多いと言われているマチ？', icon:'💃'},
+  tachineputa: {text:'巨大な立佞武多で有名？', icon:'🏮'},
+  oirase: {text:'奥入瀬渓流がある？', icon:'🍃'},
+  osorezan: {text:'恐山がある？', icon:'⛰️'},
+  shakoki_dogu: {text:'遮光器土偶が出土した？', icon:'🗿'},
+  seibien: {text:'国指定名勝の盛美園がある？', icon:'🌳'},
+  jodogahama: {text:'浄土ヶ浜がある？', icon:'🏖️'},
+  goishi_coast: {text:'碁石海岸がある？', icon:'🪨'},
+  miyazawa_kenji: {text:'宮沢賢治のふるさと？', icon:'📖'},
+  tensho_chi: {text:'展勝地の桜並木で有名？', icon:'🌸'},
+  amber_kuji: {text:'国内有数の琥珀産地として知られる？', icon:'💎'},
+  tono_monogatari: {text:'『遠野物語』やカッパ伝説で有名？', icon:'🥒'},
+  geibikei: {text:'猊鼻渓がある？', icon:'⛰️'},
+  ipponmatsu: {text:'奇跡の一本松がある？', icon:'🌲'},
+  ohtani_shohei: {text:'大谷翔平の出身地？', icon:'⚾'},
+  zashiki_warashi: {text:'座敷わらしで知られる金田一温泉がある？', icon:'👘'},
+  appi_kogen: {text:'安比高原がある？', icon:'⛷️'},
+  ishinomori: {text:'石ノ森章太郎の出身地？', icon:'🎨'},
+  chagu_chagu: {text:'チャグチャグ馬コの出発地がある？', icon:'🐴'},
+  shiogama_shrine: {text:'鹽竈神社がある？', icon:'⛩️'},
+  fukahire: {text:'フカヒレやサメの水揚げで有名？', icon:'🦈'},
+  shiroishi_umen: {text:'白石温麺が名物？', icon:'🍜'},
+  sendai_airport: {text:'仙台空港の旅客ターミナルがある？', icon:'✈️'},
+  jaxa_kakuda: {text:'JAXAの宇宙センターがある？', icon:'🚀'},
+  takekoma_shrine: {text:'竹駒神社がある？', icon:'⛩️'},
+  meiji_mura: {text:'明治村がある？', icon:'🏛️'},
+  kano_eiko: {text:'狩野英孝の出身地？', icon:'😎'},
+  blue_impulse: {text:'ブルーインパルスの本拠地がある？', icon:'✈️'},
+  naruko_onsen: {text:'鳴子温泉郷がある？', icon:'♨️'},
+  town_to_city_2016: {text:'2016年に町から市になった？', icon:'🏙️'},
+  basketball_town: {text:'「バスケの街」として知られる？', icon:'🏀'},
+  kamakura_yokote: {text:'かまくらで有名？', icon:'⛄'},
+  akita_inu_hachiko: {text:'秋田犬と忠犬ハチ公のふるさと？', icon:'🐕'},
+  namahage: {text:'なまはげで有名？', icon:'👹'},
+  inaniwa_udon: {text:'稲庭うどんの産地？', icon:'🍜'},
+  oyu_stone_circle: {text:'大湯環状列石がある？', icon:'🪨'},
+  yuri_kogen_railway: {text:'由利高原鉄道が走っている？', icon:'🚃'},
+  blumen_akita: {text:'ブルーメッセあきたがある？', icon:'🌷'},
+  odate_noshiro_airport: {text:'大館能代空港がある？', icon:'✈️'},
+  tdk_town: {text:'TDKの企業城下町？', icon:'🏭'},
+  kakunodate_tazawako: {text:'角館の武家屋敷と田沢湖がある？', icon:'🏯'},
+  sankyo_soko: {text:'山居倉庫がある？', icon:'🏚️'},
+  higashizawa_rose: {text:'東沢バラ公園がある？', icon:'🌹'},
+  ayame_park: {text:'あやめ公園で有名？', icon:'🌸'},
+  hanagasa_tendo: {text:'花笠音頭「花の山形、紅葉の〇〇」？', icon:'🎵'},
+  hiragana_station: {text:'名前にひらがなが入った駅がある？', icon:'🚉'},
+  ginzan_onsen: {text:'銀山温泉がある？', icon:'♨️'},
+  kumano_taisha: {text:'「東北の伊勢」と呼ばれる熊野大社がある？', icon:'⛩️'},
+  tsuburaya_eiji: {text:'ウルトラマンの生みの親・円谷英二の故郷？', icon:'👽'},
+  matsukawaura: {text:'松川浦がある？', icon:'🌊'},
+  kiku_ningyo_nihonmatsu: {text:'菊人形や提灯祭りで有名？', icon:'🏮'},
+  abukumado: {text:'あぶくま洞がある？', icon:'🕳️'},
+  kacchu_keiba: {text:'甲冑競馬・神旗争奪戦が行われる？', icon:'🐎'},
+  anpogaki: {text:'あんぽ柿の発祥地として知られる？', icon:'🌰'},
+  william_park: {text:'プリンス・ウィリアムズ・パークの英国庭園がある？', icon:'🌷'}
 };
 
 // cities.jsonの軽量化対応: 保存時、各自治体のtagsは「trueだったキーだけの配列」に
@@ -1848,7 +1927,7 @@ const MODE_ONLY_KEYS = {
   ],
   // 地方版別質問:キーをここに足すと、その地方版と全国版だけで出題される。
   hokkaido: ['douou_area','doutou_area','dohoku_area','sapporo_metro','ishikari_plain','historical_port_hokkaido','industrial_port_hokkaido','hakodate_honsen','ishikari_river'],
-  tohoku:   ['tsugaru_area','sendai_metro','kitakami_basin','shonai_area','hamadori_area','nakadori_area','aizu_area','sanriku_area'],
+  tohoku:   ['tsugaru_area','sendai_metro','kitakami_basin','shonai_area','hamadori_area','nakadori_area','aizu_area','sanriku_area','in_aomori','in_iwate','in_miyagi','in_akita','in_yamagata','in_fukushima'],
   kanto:    ['north_kanto','tama_area','tokatsu_area','ryomo_area','tone_river_area','tobu_tojo_line','sotetsu_line'],
   chubu:    ['hokuriku_three_pref','koshin_area','tokai_area','owari_area','mikawa_area','izu_area','suruga_area','totomi_area','hida_area','mino_area','hokushin_area','toshin_area','chushin_area','nanshin_area','meitetsu_line'],
   kinki:    ['keihanshin_area','hokusetsu_area','kawachi_area','senshu_area','hanshin_area','harima_area','tajima_area','tamba_area','kyoto_north','nara_basin','kii_peninsula','nankai_line'],
@@ -2348,6 +2427,81 @@ const TAG_GAME_CATEGORY = {
   "jrosyu_ume": "食",
   "ritsumeikan": "学問",
   "pm_birthplace": "歴史・文化",
+  "name_has_betsu": "遊び心",
+  "hokkaido_greenland": "観光・娯楽",
+  "famous_prison": "観光・娯楽",
+  "yakitori_famous_bibai": "食",
+  "coal_mine_shaft": "歴史・文化",
+  "drift_ice": "地理",
+  "suffolk_sheep": "食",
+  "ammonite_fossil": "観光・娯楽",
+  "matsuo_jingisukan": "食",
+  "sweet_road": "食",
+  "least_populous_city": "人口・行政",
+  "urokodango": "食",
+  "bear_park": "観光・娯楽",
+  "fighters_farm": "観光・娯楽",
+  "in_aomori": "地理",
+  "in_iwate": "地理",
+  "in_miyagi": "地理",
+  "in_akita": "地理",
+  "in_yamagata": "地理",
+  "in_fukushima": "地理",
+  "bijin_town": "遊び心",
+  "tachineputa": "観光・娯楽",
+  "oirase": "地理",
+  "osorezan": "観光・娯楽",
+  "shakoki_dogu": "歴史・文化",
+  "seibien": "観光・娯楽",
+  "jodogahama": "地理",
+  "goishi_coast": "地理",
+  "miyazawa_kenji": "歴史・文化",
+  "tensho_chi": "観光・娯楽",
+  "amber_kuji": "その他",
+  "tono_monogatari": "歴史・文化",
+  "geibikei": "地理",
+  "ipponmatsu": "観光・娯楽",
+  "ohtani_shohei": "遊び心",
+  "zashiki_warashi": "観光・娯楽",
+  "appi_kogen": "観光・娯楽",
+  "ishinomori": "歴史・文化",
+  "chagu_chagu": "歴史・文化",
+  "shiogama_shrine": "歴史・文化",
+  "fukahire": "食",
+  "shiroishi_umen": "食",
+  "sendai_airport": "交通",
+  "jaxa_kakuda": "その他",
+  "takekoma_shrine": "歴史・文化",
+  "meiji_mura": "観光・娯楽",
+  "kano_eiko": "遊び心",
+  "blue_impulse": "観光・娯楽",
+  "naruko_onsen": "観光・娯楽",
+  "town_to_city_2016": "人口・行政",
+  "basketball_town": "観光・娯楽",
+  "kamakura_yokote": "観光・娯楽",
+  "akita_inu_hachiko": "観光・娯楽",
+  "namahage": "歴史・文化",
+  "inaniwa_udon": "食",
+  "oyu_stone_circle": "歴史・文化",
+  "yuri_kogen_railway": "交通",
+  "blumen_akita": "観光・娯楽",
+  "odate_noshiro_airport": "交通",
+  "tdk_town": "その他",
+  "kakunodate_tazawako": "観光・娯楽",
+  "sankyo_soko": "歴史・文化",
+  "higashizawa_rose": "観光・娯楽",
+  "ayame_park": "観光・娯楽",
+  "hanagasa_tendo": "歴史・文化",
+  "hiragana_station": "遊び心",
+  "ginzan_onsen": "観光・娯楽",
+  "kumano_taisha": "歴史・文化",
+  "tsuburaya_eiji": "歴史・文化",
+  "matsukawaura": "地理",
+  "kiku_ningyo_nihonmatsu": "観光・娯楽",
+  "abukumado": "観光・娯楽",
+  "kacchu_keiba": "歴史・文化",
+  "anpogaki": "食",
+  "william_park": "観光・娯楽",
   "bikan_chiku": "観光・娯楽",
   "gunkou_machi": "歴史・文化",
   "seitetsu_kouro": "人口・行政",
@@ -3657,36 +3811,6 @@ function computeBarePoints(finalCity){
   return candidates.slice(0, 3).map(c => c.text);
 }
 
-// 結果画面用: 市役所・町村役場・区役所を検索クエリにして、APIキー不要のGoogleマップ
-// 埋め込み(iframe)を表示する。緯度経度データをcities.jsonに持たせる必要が無いよう、
-// 地名検索(テキストクエリ)方式にしている。
-function mapQueryFor(city){
-  if(city.name === '東京') return '東京都庁'; // 「東京」集計エントリは都庁周辺を表示
-  // city.name自体が「〜市」「〜町」「〜村」「〜区」で終わるため、「役所」「役場」だけを続ける
-  // (「市役所」をそのまま付け足すと「札幌市市役所」のように文字が重複してしまう)
-  let suffix = '役所'; // 市・区はどちらも「役所」
-  if(/町$/.test(city.name) || /村$/.test(city.name)) suffix = '役場';
-  return `${city.pref}${city.name}${suffix}`;
-}
-// ズーム14は、Googleマップの仕様上おおよそ5km四方前後の表示になる目安値。
-// (embedのURLパラメータ方式では、画面サイズにより実際の表示範囲は多少前後する)
-const RESULT_MAP_ZOOM = 14;
-function resultMapHtml(city){
-  try{
-    const q = encodeURIComponent(mapQueryFor(city));
-    const src = `https://maps.google.com/maps?q=${q}&t=h&z=${RESULT_MAP_ZOOM}&output=embed`;
-    return `
-    <div class="result-map-block">
-      <iframe class="result-map" src="${src}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" frameborder="0"
-        title="${displayName(city)}のまわりの地図(衛星写真)"></iframe>
-      <div class="result-map-caption">${displayName(city)} 市役所・役場周辺(衛星写真)</div>
-    </div>`;
-  }catch(e){
-    console.warn('おらマチ: 結果画面の地図生成に失敗しました', e);
-    return ''; // 地図が作れなくても結果画面自体は表示し続ける
-  }
-}
-
 // 診断カード用: 既存のtagsだけから「雪国度」「都市規模」「ご当地色」を1〜5段階で算出
 // (cities.jsonに新しいフィールドを追加せず、既存タグの組み合わせだけで計算する)
 function calcStars(city){
@@ -4236,7 +4360,6 @@ function correct(isRight, overrideCity){
           <div class="star-row"><span class="star-label">都市規模</span><span class="star-value">${starString(stars.urban)}</span></div>
           <div class="star-row"><span class="star-label">ご当地色</span><span class="star-value">${starString(stars.local)}</span></div>
         </div>
-        ${resultMapHtml(guess)}
         <div class="info-grid">
           <div class="info-chip"><div class="label">名物グルメ</div><div class="value">${guess.food}</div></div>
           <div class="info-chip"><div class="label">方言</div><div class="value">${guess.dialect}</div></div>
