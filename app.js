@@ -559,7 +559,8 @@ let questionPhase = 'normal'; // 'normal' | 'extra'
 let history = []; // 「戻る」ボタン用の履歴(質問を出す直前の状態を保存)
 let currentResult = null;   // 確定した結果を一元管理する: {city, success, questionCount, mode, barePoints}
 let lastGuessCity = null;   // 直近に画面へ出した「もしかして」候補(訂正フォームの参考表示用)
-let answerLog = [];         // このゲーム内で実際に回答した内容の記録: {key, val, weight}(historyと同じ並び順)
+let answerLog = [];         // このゲーム内で実際に回答した内容の記録: {key, val, weight, responseMs}(historyと同じ並び順)
+let questionShownAt = null; // 現在の質問が画面に表示された時刻(回答時間の計測用)
                               // 「地元バレポイント」を、質問を出した後に振り返って計算するために使う。
 let modeStartCount = 0;      // 今のモードを開始した時点の自治体数(候補数表示の分母に使う)
 let lastDisplayedRemainingCount = null; // 候補数表示を単調減少させるための直近表示値
@@ -763,6 +764,74 @@ function saveConquest(data){
   }
 }
 
+// ==================== localStorage: プレイ統計・称号 ====================
+// 自治体ごとの正解回数・最少質問数・都道府県などは、既に全国制覇帳(oramachi_conquest_v1)
+// が持っているため、ここでは重複させず、称号判定のときに制覇帳データを直接参照する。
+const STATS_STORAGE_KEY = 'oramachi_stats_v1';
+const STATS_VERSION = 1;
+function emptyStatsData(){
+  return {
+    version: STATS_VERSION,
+    totalPlays: 0,                 // 累計プレイ回数(結果が確定した回数。成功・諦めの両方を含む)
+    totalCorrect: 0,                // 累計正解回数
+    currentStreak: 0,               // 現在の連続正解数
+    maxStreak: 0,                   // 最高連続正解数
+    playedDates: [],                // プレイした日付(YYYY-MM-DD、日本時間)の一覧。重複なし
+    answerCounts: { yes: 0, no: 0, maybeYes: 0, maybeNo: 0, unknown: 0 }, // 回答種別の累計回数
+    firstGuessCorrectCount: 0,      // 最初の推測で正解した回数
+    laterGuessCorrectCount: 0,      // 2回目以降(追加質問後)の推測で正解した回数
+    extraQuestionCorrectCount: 0,   // 追加質問を経て正解した回数(laterGuessCorrectCountとほぼ同義だが明示的に持つ)
+    maxQuestionReachedCount: 0,     // 合計質問数が30問に到達した回数
+    misguessedCityCounts: {},       // 自治体ID -> このゲームで過去に誤推測(「ちがう」)された回数
+    unlockedAchievements: {},       // 称号ID -> { unlockedAt: ISO日時 }
+    achievementOrder: [],           // 称号を獲得した順番(称号IDの配列)
+    lastResult: null,               // 直近の正解: { city, pref, at }
+    recentRegions: [],              // 直近に正解した都道府県名(隣接判定の隠し称号用。最大3件保持)
+  };
+}
+function loadStats(){
+  try{
+    const raw = localStorage.getItem(STATS_STORAGE_KEY);
+    if(!raw) return emptyStatsData();
+    const parsed = JSON.parse(raw);
+    if(!parsed || typeof parsed !== 'object' || parsed.version !== STATS_VERSION){
+      console.warn('おらマチ: プレイ統計データの形式が不正なため、初期化します');
+      const empty = emptyStatsData();
+      saveStats(empty);
+      return empty;
+    }
+    // 古いバージョンや部分的なデータでも安全に動くよう、既定値とマージする
+    const merged = { ...emptyStatsData(), ...parsed };
+    merged.answerCounts = { ...emptyStatsData().answerCounts, ...(parsed.answerCounts || {}) };
+    if(!Array.isArray(merged.playedDates)) merged.playedDates = [];
+    if(!Array.isArray(merged.achievementOrder)) merged.achievementOrder = [];
+    if(!Array.isArray(merged.recentRegions)) merged.recentRegions = [];
+    if(typeof merged.unlockedAchievements !== 'object' || merged.unlockedAchievements === null) merged.unlockedAchievements = {};
+    if(typeof merged.misguessedCityCounts !== 'object' || merged.misguessedCityCounts === null) merged.misguessedCityCounts = {};
+    return merged;
+  }catch(e){
+    console.warn('おらマチ: プレイ統計データの読み込みに失敗したため初期化します(破損データの可能性)', e);
+    const empty = emptyStatsData();
+    try{ saveStats(empty); }catch(e2){ /* 保存も失敗する場合は諦める(ゲーム自体は継続) */ }
+    return empty;
+  }
+}
+function saveStats(data){
+  try{
+    localStorage.setItem(STATS_STORAGE_KEY, JSON.stringify(data));
+    return true;
+  }catch(e){
+    console.warn('おらマチ: プレイ統計の保存に失敗しました(localStorageの容量不足などの可能性)', e);
+    return false;
+  }
+}
+// 日本時間(JST, UTC+9固定)でのYYYY-MM-DDを返す。
+function todayJstDateString(){
+  const now = new Date();
+  const jst = new Date(now.getTime() + 9 * 60 * 60 * 1000);
+  return jst.toISOString().slice(0, 10);
+}
+
 // 正解が確定した瞬間だけ呼ばれる。制覇帳へ記録し、結果画面用のメッセージ種別を返す。
 // 「東京23区部」は通常自治体とは別枠(specialEntries)に記録し、通常の制覇率には含めない。
 function recordConquest(city, questionCount, mode){
@@ -801,6 +870,355 @@ function recordConquest(city, questionCount, mode){
 // 通常自治体数(=「東京」集計エントリを除いた実際の収録数)。制覇率の分母に使う。
 function normalCityCount(){
   return CITIES.filter(c => c.name !== '東京').length;
+}
+
+// ==================== プレイ統計の更新 ====================
+// ゲームが「正解」または「諦め」で終わった、そのタイミングだけで呼ぶ。
+// answerLog(このプレイの回答内訳)から、回答種別ごとの累計を集計して加算する。
+function recordGameStats(outcome, guess, totalQuestions){
+  const stats = loadStats();
+  stats.totalPlays += 1;
+
+  // 回答種別の内訳をこのプレイのanswerLogから集計する
+  answerLog.forEach(rec => {
+    if(rec.val === null){ stats.answerCounts.unknown++; return; }
+    const isFull = rec.weight >= 1;
+    if(rec.val === true) { isFull ? stats.answerCounts.yes++ : stats.answerCounts.maybeYes++; }
+    else { isFull ? stats.answerCounts.no++ : stats.answerCounts.maybeNo++; }
+  });
+
+  const dateStr = todayJstDateString();
+  if(!stats.playedDates.includes(dateStr)) stats.playedDates.push(dateStr);
+
+  if(totalQuestions >= (MAX_Q + MAX_EXTRA_Q)) stats.maxQuestionReachedCount += 1;
+
+  if(outcome === 'success'){
+    stats.totalCorrect += 1;
+    stats.currentStreak += 1;
+    if(stats.currentStreak > stats.maxStreak) stats.maxStreak = stats.currentStreak;
+    if(guessAttempts === 0) stats.firstGuessCorrectCount += 1;
+    else { stats.laterGuessCorrectCount += 1; stats.extraQuestionCorrectCount += 1; }
+    stats.lastResult = { city: displayName(guess), pref: guess.pref, at: new Date().toISOString() };
+    stats.recentRegions.push(guess.pref);
+    if(stats.recentRegions.length > 3) stats.recentRegions.shift();
+  } else {
+    stats.currentStreak = 0;
+  }
+
+  saveStats(stats);
+  return stats;
+}
+// 「ちがう」を押された時点で、その自治体の誤推測回数を加算する。
+function recordMisguess(city){
+  const stats = loadStats();
+  const id = cityId(city);
+  stats.misguessedCityCounts[id] = (stats.misguessedCityCounts[id] || 0) + 1;
+  saveStats(stats);
+}
+
+// ==================== 称号(実績)システム ====================
+// 都道府県ごとの{total, done}を集計する。称号判定・都道府県カード表示の両方で使う共通ロジック。
+function computePrefStats(conqueredIds){
+  const normalCities = CITIES.filter(c => c.name !== '東京');
+  const prefGroups = {};
+  normalCities.forEach(c => {
+    const g = (prefGroups[c.pref] = prefGroups[c.pref] || { total: 0, done: 0 });
+    g.total++;
+    if(conqueredIds.has(cityId(c))) g.done++;
+  });
+  return prefGroups;
+}
+function computeRegionStats(conqueredIds){
+  const normalCities = CITIES.filter(c => c.name !== '東京');
+  const regionGroups = {};
+  normalCities.forEach(c => {
+    const r = regionOf(c.pref);
+    const g = (regionGroups[r] = regionGroups[r] || { total: 0, done: 0 });
+    g.total++;
+    if(conqueredIds.has(cityId(c))) g.done++;
+  });
+  return regionGroups;
+}
+
+// 称号判定に必要な情報をまとめたコンテキストを作る。gameInfoには「今回のプレイ」の情報を渡す
+// (通常のページ表示時など、直近のプレイが無い場面ではgameInfoを省略してよい)。
+function buildAchievementContext(gameInfo){
+  const stats = loadStats();
+  const conquest = loadConquest();
+  const conqueredIds = new Set(Object.keys(conquest.entries));
+  const normalCities = CITIES.filter(c => c.name !== '東京');
+  const normalEntries = Object.values(conquest.entries);
+  const distinctCount = normalEntries.length;
+  const prefGroups = computePrefStats(conqueredIds);
+  const regionGroups = computeRegionStats(conqueredIds);
+
+  function countByTag(tagKey){
+    return normalCities.filter(c => c.tags[tagKey] && conqueredIds.has(cityId(c))).length;
+  }
+  function allConqueredByTag(tagKey){
+    const target = normalCities.filter(c => c.tags[tagKey]);
+    if(target.length === 0) return false;
+    return target.every(c => conqueredIds.has(cityId(c)));
+  }
+  function prefFullyConquered(pref){
+    const g = prefGroups[pref];
+    return !!(g && g.total > 0 && g.done >= g.total);
+  }
+  function regionFullyConquered(region){
+    const g = regionGroups[region];
+    return !!(g && g.total > 0 && g.done >= g.total);
+  }
+  function allRegionsHaveAtLeastOne(){
+    return REGION_ORDER.every(r => regionGroups[r] && regionGroups[r].done > 0);
+  }
+  function allRegionsFullyConquered(){
+    return REGION_ORDER.every(r => regionFullyConquered(r));
+  }
+  function playedDistinctDays(n){
+    return (stats.playedDates || []).length >= n;
+  }
+
+  return {
+    stats, conquest, conqueredIds, normalCities, normalEntries, distinctCount,
+    prefGroups, regionGroups,
+    countByTag, allConqueredByTag, prefFullyConquered, regionFullyConquered,
+    allRegionsHaveAtLeastOne, allRegionsFullyConquered, playedDistinctDays,
+    game: gameInfo || null, // 今回のプレイの情報(正解直後だけ渡される)
+  };
+}
+
+// 称号の一意ID・表示名・説明・カテゴリ・レア度(1〜5)・隠し称号かどうか・判定関数、を1か所にまとめる。
+// カテゴリ: basic(基本) / speed(スピード) / streak(連続正解) / region(地方制覇) /
+//          unique(おらマチ独自) / attribute(難易度・属性) / style(回答スタイル) /
+//          collection(コレクション) / hidden(隠し称号)
+const ACHIEVEMENTS = [
+  // ---- 基本・プレイ回数 ----
+  { id:'first_play', name:'はじめてのマチあて', description:'初めてゲームを開始する', category:'basic', rarity:1, hidden:false,
+    check: ctx => ctx.stats.totalPlays >= 1 },
+  { id:'first_correct', name:'おらっちの新入り', description:'初めて正解する', category:'basic', rarity:1, hidden:false,
+    check: ctx => ctx.stats.totalCorrect >= 1 },
+  { id:'distinct_5', name:'マチあて見習い', description:'異なる5自治体を正解する', category:'basic', rarity:1, hidden:false,
+    check: ctx => ctx.distinctCount >= 5 },
+  { id:'distinct_10', name:'マチあて探検家', description:'異なる10自治体を正解する', category:'basic', rarity:2, hidden:false,
+    check: ctx => ctx.distinctCount >= 10 },
+  { id:'distinct_30', name:'まち歩き名人', description:'異なる30自治体を正解する', category:'basic', rarity:2, hidden:false,
+    check: ctx => ctx.distinctCount >= 30 },
+  { id:'distinct_50', name:'日本マチ通', description:'異なる50自治体を正解する', category:'basic', rarity:3, hidden:false,
+    check: ctx => ctx.distinctCount >= 50 },
+  { id:'distinct_100', name:'全国マチ博士', description:'異なる100自治体を正解する', category:'basic', rarity:5, hidden:false,
+    check: ctx => ctx.distinctCount >= 100 },
+  { id:'distinct_300', name:'おらマチ仙人', description:'異なる300自治体を正解する', category:'basic', rarity:4, hidden:false,
+    check: ctx => ctx.distinctCount >= 300 },
+  { id:'distinct_500', name:'日本全国お見通し', description:'異なる500自治体を正解する', category:'basic', rarity:4, hidden:false,
+    check: ctx => ctx.distinctCount >= 500 },
+  { id:'distinct_800', name:'千里を見通すたぬき', description:'異なる800自治体を正解する', category:'basic', rarity:5, hidden:false,
+    check: ctx => ctx.distinctCount >= 800 },
+
+  // ---- 少ない質問数で正解 ----
+  { id:'speed_20', name:'早わかり', description:'20問以内で正解する', category:'speed', rarity:1, hidden:false,
+    check: ctx => !!ctx.game && ctx.game.success && ctx.game.totalQuestions <= 20 },
+  { id:'speed_15', name:'なかなか鋭い', description:'15問以内で正解する', category:'speed', rarity:2, hidden:false,
+    check: ctx => !!ctx.game && ctx.game.success && ctx.game.totalQuestions <= 15 },
+  { id:'speed_12', name:'マチ勘さえてる', description:'12問以内で正解する', category:'speed', rarity:3, hidden:false,
+    check: ctx => !!ctx.game && ctx.game.success && ctx.game.totalQuestions <= 12 },
+  { id:'speed_10', name:'お見通し', description:'10問以内で正解する', category:'speed', rarity:3, hidden:false,
+    check: ctx => !!ctx.game && ctx.game.success && ctx.game.totalQuestions <= 10 },
+  { id:'speed_8', name:'電光石火のマチあて', description:'8問以内で正解する', category:'speed', rarity:4, hidden:false,
+    check: ctx => !!ctx.game && ctx.game.success && ctx.game.totalQuestions <= 8 },
+  { id:'speed_5', name:'以心伝心', description:'5問以内で正解する', category:'speed', rarity:5, hidden:false,
+    check: ctx => !!ctx.game && ctx.game.success && ctx.game.totalQuestions <= 5 },
+  { id:'speed_3', name:'奇跡の地元バレ', description:'3問以内で正解する', category:'speed', rarity:5, hidden:false,
+    check: ctx => !!ctx.game && ctx.game.success && ctx.game.totalQuestions <= 3 },
+
+  // ---- 連続正解 ----
+  { id:'streak_3', name:'調子が出てきた', description:'3回連続正解する', category:'streak', rarity:1, hidden:false,
+    check: ctx => ctx.stats.currentStreak >= 3 },
+  { id:'streak_5', name:'マチ勘好調', description:'5回連続正解する', category:'streak', rarity:2, hidden:false,
+    check: ctx => ctx.stats.currentStreak >= 5 },
+  { id:'streak_10', name:'百発百中への道', description:'10回連続正解する', category:'streak', rarity:3, hidden:false,
+    check: ctx => ctx.stats.currentStreak >= 10 },
+  { id:'streak_20', name:'外さぬたぬき', description:'20回連続正解する', category:'streak', rarity:4, hidden:false,
+    check: ctx => ctx.stats.currentStreak >= 20 },
+  { id:'streak_30', name:'神がかったマチ勘', description:'30回連続正解する', category:'streak', rarity:5, hidden:false,
+    check: ctx => ctx.stats.currentStreak >= 30 },
+
+  // ---- 都道府県・地方制覇 ----
+  { id:'region_hokkaido', name:'北海道の大地を知る者', description:'北海道の現在収録対象をすべて正解する', category:'region', rarity:3, hidden:false,
+    check: ctx => ctx.regionFullyConquered('北海道') },
+  { id:'region_tohoku', name:'みちのくマチ巡り', description:'東北地方の現在収録対象をすべて正解する', category:'region', rarity:3, hidden:false,
+    check: ctx => ctx.regionFullyConquered('東北') },
+  { id:'region_kanto', name:'関東マチマスター', description:'関東地方の現在収録対象をすべて正解する', category:'region', rarity:3, hidden:false,
+    check: ctx => ctx.regionFullyConquered('関東') },
+  { id:'region_chubu', name:'中部のまんなか博士', description:'中部地方の現在収録対象をすべて正解する', category:'region', rarity:3, hidden:false,
+    check: ctx => ctx.regionFullyConquered('中部') },
+  { id:'region_kinki', name:'近畿マチめぐり', description:'近畿地方の現在収録対象をすべて正解する', category:'region', rarity:3, hidden:false,
+    check: ctx => ctx.regionFullyConquered('近畿') },
+  { id:'region_chugoku', name:'中国地方通', description:'中国地方の現在収録対象をすべて正解する', category:'region', rarity:3, hidden:false,
+    check: ctx => ctx.regionFullyConquered('中国') },
+  { id:'region_shikoku', name:'四国八十八マチ気分', description:'四国地方の現在収録対象をすべて正解する', category:'region', rarity:3, hidden:false,
+    check: ctx => ctx.regionFullyConquered('四国') },
+  { id:'region_kyushu', name:'九州マチ探訪者', description:'九州地方の現在収録対象をすべて正解する', category:'region', rarity:3, hidden:false,
+    check: ctx => ctx.regionFullyConquered('九州・沖縄') },
+  { id:'region_okinawa', name:'南国マチマスター', description:'沖縄県の現在収録対象をすべて正解する', category:'region', rarity:3, hidden:false,
+    check: ctx => ctx.prefFullyConquered('沖縄県') },
+  { id:'region_all_touch', name:'列島縦断たぬき', description:'全地方で1自治体以上正解する', category:'region', rarity:2, hidden:false,
+    check: ctx => ctx.allRegionsHaveAtLeastOne() },
+  { id:'region_all_complete', name:'日本全国マチ巡り', description:'全地方の現在収録対象をすべて正解する', category:'region', rarity:5, hidden:false,
+    check: ctx => ctx.allRegionsFullyConquered() },
+
+  // ---- おらマチ独自 ----
+  { id:'unique_first_revealed', name:'地元バレしました', description:'初めて正解される', category:'unique', rarity:1, hidden:false,
+    check: ctx => ctx.stats.totalCorrect >= 1 },
+  { id:'unique_revealed_10q', name:'そこまで分かるの？', description:'10問以内で正解される', category:'unique', rarity:3, hidden:false,
+    check: ctx => !!ctx.game && ctx.game.success && ctx.game.totalQuestions <= 10 },
+  { id:'unique_first_guess', name:'おらっちにはお見通し', description:'最初の推測で正解する', category:'unique', rarity:2, hidden:false,
+    check: ctx => !!ctx.game && ctx.game.success && ctx.game.guessAttempts === 0 },
+  { id:'unique_same_2', name:'そのマチ、知ってます', description:'同じ自治体で2回正解する', category:'unique', rarity:1, hidden:false,
+    check: ctx => ctx.normalEntries.some(e => e.count >= 2) },
+  { id:'unique_same_5', name:'地元より詳しい？', description:'同じ自治体で5回正解する', category:'unique', rarity:2, hidden:false,
+    check: ctx => ctx.normalEntries.some(e => e.count >= 5) },
+  { id:'unique_same_10', name:'マチへの愛が深すぎる', description:'同じ自治体で10回正解する', category:'unique', rarity:4, hidden:false,
+    check: ctx => ctx.normalEntries.some(e => e.count >= 10) },
+  { id:'unique_days_7', name:'おらマチ常連', description:'異なる7日間にプレイする', category:'unique', rarity:1, hidden:false,
+    check: ctx => ctx.playedDistinctDays(7) },
+  { id:'unique_days_30', name:'おらマチ住民', description:'異なる30日間にプレイする', category:'unique', rarity:2, hidden:false,
+    check: ctx => ctx.playedDistinctDays(30) },
+  { id:'unique_days_100', name:'おらマチ名誉町民', description:'異なる100日間にプレイする', category:'unique', rarity:4, hidden:false,
+    check: ctx => ctx.playedDistinctDays(100) },
+
+  // ---- 難易度・自治体属性 ----
+  { id:'attr_capital_5', name:'県庁所在地入門', description:'異なる県庁所在地を5自治体正解する', category:'attribute', rarity:1, hidden:false,
+    check: ctx => ctx.countByTag('prefectural_capital') >= 5 },
+  { id:'attr_capital_all', name:'県庁所在地博士', description:'現在収録されている県庁所在地をすべて正解する', category:'attribute', rarity:4, hidden:false,
+    check: ctx => ctx.allConqueredByTag('prefectural_capital') },
+  { id:'attr_designated_all', name:'政令市ウォッチャー', description:'現在収録されている政令指定都市をすべて正解する', category:'attribute', rarity:3, hidden:false,
+    check: ctx => ctx.allConqueredByTag('designated') },
+  { id:'attr_tokyo23_all', name:'東京通', description:'東京23区をすべて正解する', category:'attribute', rarity:3, hidden:false,
+    check: ctx => ctx.allConqueredByTag('is_tokyo_ward') },
+  { id:'attr_niigata_all', name:'越後のマチ博士', description:'新潟県モードの対象自治体をすべて正解する', category:'attribute', rarity:3, hidden:false,
+    check: ctx => ctx.prefFullyConquered('新潟県') },
+  { id:'attr_village_10', name:'町村にも詳しい', description:'異なる町または村を10自治体正解する', category:'attribute', rarity:1, hidden:false,
+    check: ctx => ctx.countByTag('is_town_village') >= 10 },
+  { id:'attr_village_30', name:'小さなマチの理解者', description:'異なる町または村を30自治体正解する', category:'attribute', rarity:2, hidden:false,
+    check: ctx => ctx.countByTag('is_town_village') >= 30 },
+  { id:'attr_hardname_10', name:'難読地名に強い', description:'難読地名対象の異なる自治体を10自治体正解する', category:'attribute', rarity:2, hidden:false,
+    check: ctx => ctx.countByTag('hard_to_read_name') >= 10 },
+  { id:'attr_island_10', name:'離島マチ巡り', description:'島または離島にある異なる自治体を10自治体正解する', category:'attribute', rarity:2, hidden:false,
+    check: ctx => ctx.countByTag('remote_island') >= 10 },
+  { id:'attr_inland_30', name:'山あいのマチ通', description:'海に面していない異なる自治体を30自治体正解する', category:'attribute', rarity:2, hidden:false,
+    check: ctx => ctx.normalCities.filter(c => !c.tags.coastal && ctx.conqueredIds.has(cityId(c))).length >= 30 },
+  { id:'attr_coastal_30', name:'海辺のマチ通', description:'海に面している異なる自治体を30自治体正解する', category:'attribute', rarity:2, hidden:false,
+    check: ctx => ctx.countByTag('coastal') >= 30 },
+
+  // ---- 回答スタイル ----
+  { id:'style_no_unknown', name:'即断即決', description:'正解した1プレイで「わからない」を一度も使わない', category:'style', rarity:1, hidden:false,
+    check: ctx => !!ctx.game && ctx.game.success && ctx.game.answerLogSnapshot.length > 0 && ctx.game.answerLogSnapshot.every(r => r.val !== null) },
+  { id:'style_no_maybe', name:'はっきり答える人', description:'正解した1プレイで「たぶんそう」「たぶん違う」を一度も使わない', category:'style', rarity:1, hidden:false,
+    check: ctx => !!ctx.game && ctx.game.success && ctx.game.answerLogSnapshot.length > 0 && ctx.game.answerLogSnapshot.every(r => r.val === null || r.weight >= 1) },
+  { id:'style_unknown_10', name:'正直者', description:'累計で「わからない」を10回使う', category:'style', rarity:1, hidden:false,
+    check: ctx => ctx.stats.answerCounts.unknown >= 10 },
+  { id:'style_maybe_20', name:'慎重なたぬき', description:'累計で「たぶんそう」または「たぶん違う」を20回使う', category:'style', rarity:1, hidden:false,
+    check: ctx => (ctx.stats.answerCounts.maybeYes + ctx.stats.answerCounts.maybeNo) >= 20 },
+  { id:'style_clear_10', name:'迷いなき旅人', description:'10回連続で「はい」「いいえ」だけを使って正解する', category:'style', rarity:3, hidden:false,
+    check: ctx => !!ctx.game && ctx.game.success && ctx.game.answerLogSnapshot.length >= 10 &&
+      ctx.game.answerLogSnapshot.slice(0, 10).every(r => r.val !== null && r.weight >= 1) },
+  { id:'style_fast_median', name:'直感派', description:'8問以上回答した正解プレイで、1問あたりの回答時間の中央値が2秒以内', category:'style', rarity:2, hidden:false,
+    check: ctx => {
+      if(!ctx.game || !ctx.game.success) return false;
+      const times = ctx.game.answerLogSnapshot.map(r => r.responseMs).filter(t => t != null).sort((a,b)=>a-b);
+      if(times.length < 8) return false;
+      const mid = times[Math.floor(times.length/2)];
+      return mid <= 2000;
+    } },
+  { id:'style_slow_average', name:'じっくり派', description:'8問以上回答した正解プレイで、1問あたりの回答時間の平均が8秒以上', category:'style', rarity:2, hidden:false,
+    check: ctx => {
+      if(!ctx.game || !ctx.game.success) return false;
+      const times = ctx.game.answerLogSnapshot.map(r => r.responseMs).filter(t => t != null);
+      if(times.length < 8) return false;
+      const avg = times.reduce((a,b)=>a+b,0) / times.length;
+      return avg >= 8000;
+    } },
+
+  // ---- コレクション ----
+  { id:'collection_1', name:'マチ図鑑の1ページ目', description:'全国制覇帳へ初めて自治体が登録される', category:'collection', rarity:1, hidden:false,
+    check: ctx => ctx.distinctCount >= 1 },
+  { id:'collection_25', name:'マチ図鑑収集中', description:'異なる25自治体が登録される', category:'collection', rarity:2, hidden:false,
+    check: ctx => ctx.distinctCount >= 25 },
+  { id:'collection_100', name:'マチ図鑑がにぎやか', description:'異なる100自治体が登録される', category:'collection', rarity:3, hidden:false,
+    check: ctx => ctx.distinctCount >= 100 },
+  { id:'collection_300', name:'列島コレクター', description:'異なる300自治体が登録される', category:'collection', rarity:4, hidden:false,
+    check: ctx => ctx.distinctCount >= 300 },
+  { id:'collection_90pct', name:'マチ図鑑完成間近', description:'現在収録されている自治体の90％以上を登録する', category:'collection', rarity:4, hidden:false,
+    check: ctx => normalCityCount() > 0 && (ctx.distinctCount / normalCityCount()) >= 0.9 },
+  { id:'collection_complete', name:'日本マチ図鑑完成', description:'現在収録されている自治体をすべて登録する', category:'collection', rarity:5, hidden:false,
+    check: ctx => normalCityCount() > 0 && ctx.distinctCount >= normalCityCount() },
+
+  // ---- ネタ・隠し称号 ----
+  { id:'hidden_unknown_streak5', name:'それはどこだっけ？', description:'同じプレイで「わからない」を5問連続で選ぶ', category:'hidden', rarity:1, hidden:true,
+    check: ctx => !!ctx.game && hasConsecutive(ctx.game.answerLogSnapshot, r => r.val === null, 5) },
+  { id:'hidden_maybe_streak5', name:'たぶん、たぶんです', description:'同じプレイで「たぶんそう」「たぶん違う」のいずれかを5問連続で選ぶ', category:'hidden', rarity:1, hidden:true,
+    check: ctx => !!ctx.game && hasConsecutive(ctx.game.answerLogSnapshot, r => r.val !== null && r.weight < 1, 5) },
+  { id:'hidden_sea_and_mountain', name:'海なの？山なの？', description:'同じプレイで、海・沿岸カテゴリと山・山間カテゴリの質問の両方に「はい」または「たぶんそう」と答えて正解する', category:'hidden', rarity:2, hidden:true,
+    check: ctx => {
+      if(!ctx.game || !ctx.game.success) return false;
+      const seaKeys = ['coastal','nihonkai','taiheiyo','setonaikai','tokyo_bay'];
+      const mountainKeys = ['basin','famous_mountain','volcano_view'];
+      const yesLike = r => r.val === true;
+      const hasSea = ctx.game.answerLogSnapshot.some(r => seaKeys.includes(r.key) && yesLike(r));
+      const hasMountain = ctx.game.answerLogSnapshot.some(r => mountainKeys.includes(r.key) && yesLike(r));
+      return hasSea && hasMountain;
+    } },
+  { id:'hidden_border_hopping', name:'県境をさまよう者', description:'直近3回の正解都道府県がすべて異なり、1県目と2県目、2県目と3県目がそれぞれ隣接している', category:'hidden', rarity:2, hidden:true,
+    check: ctx => {
+      const r = ctx.stats.recentRegions;
+      if(!r || r.length < 3) return false;
+      const [a,b,c] = r;
+      if(a === b || b === c || a === c) return false;
+      return isPrefAdjacent(a,b) && isPrefAdjacent(b,c);
+    } },
+  { id:'hidden_lost_local', name:'地元なのに迷子', description:'過去にゲームが誤推測したことが2回以上ある自治体を、後のプレイで正解する', category:'hidden', rarity:2, hidden:true,
+    check: ctx => !!ctx.game && ctx.game.success && (ctx.game.misguessedBeforeCount || 0) >= 2 },
+  { id:'hidden_max30', name:'おらっちも分かりません', description:'最大30問まで到達する', category:'hidden', rarity:1, hidden:true,
+    check: ctx => !!ctx.game && ctx.game.totalQuestions >= (MAX_Q + MAX_EXTRA_Q) },
+  { id:'hidden_extra_win', name:'もう一問いかせて！', description:'追加質問へ進んだ後に正解する', category:'hidden', rarity:2, hidden:true,
+    check: ctx => !!ctx.game && ctx.game.success && ctx.game.guessAttempts >= 1 },
+  { id:'hidden_last_question', name:'大逆転の地元バレ', description:'30問目で正解する', category:'hidden', rarity:4, hidden:true,
+    check: ctx => !!ctx.game && ctx.game.success && ctx.game.totalQuestions === (MAX_Q + MAX_EXTRA_Q) },
+  { id:'hidden_second_guess', name:'たぬきに化かされた', description:'最初の推測は不正解で、次の推測で正解する', category:'hidden', rarity:2, hidden:true,
+    check: ctx => !!ctx.game && ctx.game.success && ctx.game.guessAttempts === 1 },
+  { id:'hidden_revenge', name:'今度こそ当てるべ', description:'過去にゲームが誤推測したことがある自治体を、後のプレイで正解する', category:'hidden', rarity:1, hidden:true,
+    check: ctx => !!ctx.game && ctx.game.success && (ctx.game.misguessedBeforeCount || 0) >= 1 },
+];
+// 配列内で、条件関数fnを満たす要素がn回連続する箇所があるかを調べる(隠し称号の判定補助)。
+function hasConsecutive(arr, fn, n){
+  let run = 0;
+  for(const item of arr){
+    run = fn(item) ? run + 1 : 0;
+    if(run >= n) return true;
+  }
+  return false;
+}
+
+// ゲーム終了時に呼ぶ。まだ解除されていない称号のうち、条件を満たしたものだけを解除し、
+// 新しく解除された称号の配列を返す(結果画面での演出表示に使う)。
+// gameInfoには、今回のプレイに関する情報(正解したか・質問数など)を渡す。
+function checkAchievements(gameInfo){
+  const ctx = buildAchievementContext(gameInfo);
+  const stats = ctx.stats;
+  const newlyUnlocked = [];
+  const nowIso = new Date().toISOString();
+  ACHIEVEMENTS.forEach(def => {
+    if(stats.unlockedAchievements[def.id]) return; // 既に解除済みなら再判定しない
+    let ok = false;
+    try{ ok = !!def.check(ctx); }catch(e){ console.warn('おらマチ: 称号判定でエラー', def.id, e); ok = false; }
+    if(ok){
+      stats.unlockedAchievements[def.id] = { unlockedAt: nowIso };
+      stats.achievementOrder.push(def.id);
+      newlyUnlocked.push(def);
+    }
+  });
+  if(newlyUnlocked.length > 0) saveStats(stats);
+  return newlyUnlocked;
 }
 
 function sortedPool(){
@@ -940,6 +1358,62 @@ const PREF_REGION = {
   '福岡県':'九州・沖縄','佐賀県':'九州・沖縄','長崎県':'九州・沖縄','熊本県':'九州・沖縄','大分県':'九州・沖縄','宮崎県':'九州・沖縄','鹿児島県':'九州・沖縄','沖縄県':'九州・沖縄'
 };
 function regionOf(pref){ return PREF_REGION[pref] || 'その他'; }
+
+// 都道府県の陸上隣接マップ(隠し称号「県境をさまよう者」の判定用)。
+// 北海道・沖縄県は海を挟むため、通常の陸上隣接なしとして扱う(要求仕様どおり)。
+const PREF_ADJACENT = {
+  '青森県': ['岩手県','秋田県'],
+  '岩手県': ['青森県','宮城県','秋田県'],
+  '宮城県': ['岩手県','秋田県','山形県','福島県'],
+  '秋田県': ['青森県','岩手県','宮城県','山形県'],
+  '山形県': ['宮城県','秋田県','福島県','新潟県'],
+  '福島県': ['宮城県','山形県','茨城県','栃木県','群馬県','新潟県'],
+  '茨城県': ['福島県','栃木県','埼玉県','千葉県'],
+  '栃木県': ['福島県','茨城県','群馬県','埼玉県'],
+  '群馬県': ['福島県','栃木県','埼玉県','新潟県','長野県'],
+  '埼玉県': ['茨城県','栃木県','群馬県','千葉県','東京都','山梨県','長野県'],
+  '千葉県': ['茨城県','埼玉県','東京都'],
+  '東京都': ['埼玉県','千葉県','神奈川県','山梨県'],
+  '神奈川県': ['東京都','山梨県','静岡県'],
+  '新潟県': ['山形県','福島県','群馬県','長野県','富山県'],
+  '富山県': ['新潟県','長野県','岐阜県','石川県'],
+  '石川県': ['富山県','岐阜県','福井県'],
+  '福井県': ['石川県','岐阜県','滋賀県','京都府'],
+  '山梨県': ['埼玉県','東京都','神奈川県','静岡県','長野県'],
+  '長野県': ['群馬県','埼玉県','山梨県','静岡県','愛知県','岐阜県','富山県','新潟県'],
+  '岐阜県': ['富山県','石川県','福井県','長野県','愛知県','三重県','滋賀県'],
+  '静岡県': ['神奈川県','山梨県','長野県','愛知県'],
+  '愛知県': ['長野県','岐阜県','静岡県','三重県'],
+  '三重県': ['愛知県','岐阜県','滋賀県','京都府','奈良県','和歌山県'],
+  '滋賀県': ['福井県','岐阜県','三重県','京都府'],
+  '京都府': ['福井県','滋賀県','三重県','奈良県','大阪府','兵庫県'],
+  '大阪府': ['京都府','奈良県','和歌山県','兵庫県'],
+  '兵庫県': ['京都府','大阪府','岡山県','鳥取県'],
+  '奈良県': ['京都府','大阪府','三重県','和歌山県'],
+  '和歌山県': ['三重県','奈良県','大阪府'],
+  '鳥取県': ['兵庫県','岡山県','島根県'],
+  '島根県': ['鳥取県','広島県','山口県'],
+  '岡山県': ['兵庫県','鳥取県','広島県','香川県'],
+  '広島県': ['島根県','岡山県','山口県','愛媛県'],
+  '山口県': ['島根県','広島県','福岡県'],
+  '徳島県': ['香川県','愛媛県','高知県'],
+  '香川県': ['岡山県','徳島県','愛媛県'],
+  '愛媛県': ['広島県','香川県','徳島県','高知県'],
+  '高知県': ['徳島県','愛媛県'],
+  '福岡県': ['山口県','佐賀県','熊本県','大分県'],
+  '佐賀県': ['福岡県','長崎県'],
+  '長崎県': ['佐賀県'],
+  '熊本県': ['福岡県','佐賀県','大分県','宮崎県','鹿児島県'],
+  '大分県': ['福岡県','熊本県','宮崎県'],
+  '宮崎県': ['熊本県','大分県','鹿児島県'],
+  '鹿児島県': ['熊本県','宮崎県'],
+  '北海道': [],
+  '沖縄県': [],
+};
+function isPrefAdjacent(a, b){
+  if(!a || !b || a === b) return false;
+  return (PREF_ADJACENT[a] || []).includes(b);
+}
 
 function getModeCities(mode){
   if(mode === 'niigata'){
@@ -1820,6 +2294,172 @@ function renderOpening(){
 // ==================== 全国制覇帳 画面 ====================
 const REGION_ORDER = ['北海道','東北','関東','中部','近畿','中国','四国','九州・沖縄'];
 
+// ==================== 称号一覧ページ ====================
+const ACHIEVEMENT_CATEGORY_LABELS = {
+  all: 'すべて', basic: '基本', speed: 'スピード', streak: '連続正解',
+  region: '地方制覇', unique: 'おらマチ独自', attribute: '属性', style: '回答スタイル',
+  collection: 'コレクション', hidden: '隠し称号',
+};
+let achievementFilter = 'all'; // 現在選択中のフィルタ(カテゴリ名 または 'all'/'unlocked'/'locked')
+
+function formatAchievementDate(iso){
+  if(!iso) return '';
+  try{
+    const d = new Date(iso);
+    return `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日獲得`;
+  }catch(e){ return ''; }
+}
+
+function renderAchievementsPage(){
+  stampsEl.innerHTML = '';
+  const ctx = buildAchievementContext(null);
+  const stats = ctx.stats;
+  const unlockedCount = Object.keys(stats.unlockedAchievements).length;
+  const totalCount = ACHIEVEMENTS.length;
+
+  const filterButtons = ['all','unlocked','locked', ...Object.keys(ACHIEVEMENT_CATEGORY_LABELS).filter(k=>k!=='all')]
+    .map(f => {
+      const label = f === 'all' ? 'すべて' : f === 'unlocked' ? '獲得済み' : f === 'locked' ? '未獲得' : ACHIEVEMENT_CATEGORY_LABELS[f];
+      const active = achievementFilter === f ? ' active' : '';
+      return `<button class="achievement-filter-btn${active}" onclick="setAchievementFilter('${f}')">${label}</button>`;
+    }).join('');
+
+  let list = ACHIEVEMENTS.slice();
+  if(achievementFilter === 'unlocked') list = list.filter(a => stats.unlockedAchievements[a.id]);
+  else if(achievementFilter === 'locked') list = list.filter(a => !stats.unlockedAchievements[a.id]);
+  else if(achievementFilter !== 'all') list = list.filter(a => a.category === achievementFilter);
+
+  // 獲得済みは獲得順、未獲得はカテゴリ順で後ろに並べる(要求「獲得した順」を基本に、見やすさのため未獲得を後方へ)
+  const unlockedList = list.filter(a => stats.unlockedAchievements[a.id])
+    .sort((a,b) => stats.achievementOrder.indexOf(a.id) - stats.achievementOrder.indexOf(b.id));
+  const lockedList = list.filter(a => !stats.unlockedAchievements[a.id]);
+  const orderedList = [...unlockedList, ...lockedList];
+
+  const cardsHtml = orderedList.map(a => {
+    const unlocked = stats.unlockedAchievements[a.id];
+    const isHiddenLocked = a.hidden && !unlocked;
+    const name = isHiddenLocked ? '？？？' : a.name;
+    const desc = isHiddenLocked ? '解除条件：？？？' : a.description;
+    const stars = '★'.repeat(a.rarity) + '☆'.repeat(5 - a.rarity);
+    const dateLine = unlocked ? formatAchievementDate(unlocked.unlockedAt) : '未獲得';
+    return `
+      <div class="achievement-card${unlocked ? ' unlocked' : ' locked'}">
+        <div class="achievement-card-stars">${stars}</div>
+        <div class="achievement-card-name">${name}</div>
+        <div class="achievement-card-desc">${desc}</div>
+        <div class="achievement-card-date">${dateLine}</div>
+      </div>`;
+  }).join('');
+
+  stage.innerHTML = `
+    <div class="mascot-wrap"><div class="pop">${mascotSVG('normal')}</div></div>
+    <div class="bubble"><span class="icon">🏅</span>称号コレクション</div>
+    <div class="conquest-summary">
+      <div class="conquest-summary-main">獲得 ${unlockedCount}／${totalCount}</div>
+    </div>
+    <div class="achievement-filter-row">${filterButtons}</div>
+    <div class="achievement-grid">${cardsHtml || '<div class="conquest-muted">該当する称号がありません</div>'}</div>
+    <button class="link-btn" onclick="renderConquestLog()">📖 全国制覇帳へ</button>
+    <button class="again" onclick="renderOpening()">トップ画面へ戻る</button>
+  `;
+}
+function setAchievementFilter(f){
+  achievementFilter = f;
+  renderAchievementsPage();
+}
+
+// ==================== 都道府県カード画面 ====================
+// 達成率に応じた色分けクラスを返す(色だけに頼らず、文字・アイコンでも状態を示す)。
+function prefTierInfo(done, total){
+  if(total <= 0 || done <= 0) return { cls: 'pref-tier-0', icon: '☆', label: '未着手' };
+  const pct = done / total;
+  if(pct >= 1) return { cls: 'pref-tier-complete', icon: '🏆', label: 'コンプリート' };
+  if(pct >= 0.5) return { cls: 'pref-tier-high', icon: '●', label: '達成中' };
+  return { cls: 'pref-tier-low', icon: '◐', label: '挑戦中' };
+}
+
+function renderPrefectureCards(){
+  stampsEl.innerHTML = '';
+  const ctx = buildAchievementContext(null);
+  const normalCities = ctx.normalCities;
+  const prefOrder = [...new Set(normalCities.map(c => c.pref))];
+
+  // 地方ごとにグループ分けする
+  const byRegion = {};
+  prefOrder.forEach(p => {
+    const r = regionOf(p);
+    (byRegion[r] = byRegion[r] || []).push(p);
+  });
+
+  const sectionsHtml = REGION_ORDER.filter(r => byRegion[r]).map(r => {
+    const cardsHtml = byRegion[r].map(p => {
+      const g = ctx.prefGroups[p] || { total: 0, done: 0 };
+      const pct = g.total > 0 ? Math.round(100 * g.done / g.total) : 0;
+      const tier = prefTierInfo(g.done, g.total);
+      return `
+        <button class="pref-card ${tier.cls}" onclick="renderPrefectureDetail('${p}')">
+          <div class="pref-card-icon">${tier.icon}</div>
+          <div class="pref-card-name">${p}</div>
+          <div class="pref-card-count">${g.done}／${g.total}マチ</div>
+          <div class="pref-card-pct">${pct}%</div>
+        </button>`;
+    }).join('');
+    return `
+      <div class="pref-region-section">
+        <div class="conquest-section-title">${r}</div>
+        <div class="pref-card-grid">${cardsHtml}</div>
+      </div>`;
+  }).join('');
+
+  stage.innerHTML = `
+    <div class="mascot-wrap"><div class="pop">${mascotSVG('normal')}</div></div>
+    <div class="bubble"><span class="icon">🗾</span>都道府県別進捗</div>
+    <div class="conquest-hint" style="margin-bottom:10px;">現在収録されている自治体を基準にした達成率です。カードをタップすると詳細を見られます。</div>
+    ${sectionsHtml}
+    <button class="link-btn" onclick="renderConquestLog()">📖 全国制覇帳へ戻る</button>
+    <button class="again" onclick="renderOpening()">トップ画面へ戻る</button>
+  `;
+}
+
+function renderPrefectureDetail(pref){
+  stampsEl.innerHTML = '';
+  const data = loadConquest();
+  const conqueredIds = new Set(Object.keys(data.entries));
+  const cities = CITIES.filter(c => c.pref === pref && c.name !== '東京');
+  const done = cities.filter(c => conqueredIds.has(cityId(c)));
+  const notDone = cities.filter(c => !conqueredIds.has(cityId(c)));
+  const total = cities.length;
+  const rate = total > 0 ? Math.round(100 * done.length / total) : 0;
+
+  const doneHtml = done.length ? done.map(c => {
+    const e = data.entries[cityId(c)];
+    return `<div class="conquest-city-row">${c.name} ・ 自己ベスト${e.minQuestions}問 ・ ${e.count}回正解</div>`;
+  }).join('') : '<div class="conquest-muted">まだありません</div>';
+
+  // 未正解自治体は名前を表示しているが、将来「？？？」表示へ切り替えやすいよう
+  // cityNameForUnsolvedDisplay()を経由する(現時点では実名をそのまま返す)。
+  function cityNameForUnsolvedDisplay(c){ return c.name; }
+  const notDoneHtml = notDone.length ? notDone.map(c => `<div class="conquest-city-row conquest-muted">${cityNameForUnsolvedDisplay(c)}</div>`).join('') : '<div class="conquest-muted">すべて正解済みです！</div>';
+
+  stage.innerHTML = `
+    <div class="mascot-wrap"><div class="pop">${mascotSVG('normal')}</div></div>
+    <div class="bubble"><span class="icon">🗾</span>${pref}</div>
+    <div class="conquest-summary">
+      <div class="conquest-summary-main">${done.length}／${total}マチ を制覇(${rate}%)</div>
+    </div>
+    <details class="conquest-details" open>
+      <summary>正解済み自治体(${done.length}件)</summary>
+      <div class="conquest-city-list">${doneHtml}</div>
+    </details>
+    <details class="conquest-details">
+      <summary>未正解自治体(${notDone.length}件)</summary>
+      <div class="conquest-city-list">${notDoneHtml}</div>
+    </details>
+    <button class="link-btn" onclick="renderPrefectureCards()">🗾 都道府県一覧へ戻る</button>
+    <button class="again" onclick="renderOpening()">トップ画面へ戻る</button>
+  `;
+}
+
 function renderConquestLog(){
   stampsEl.innerHTML = '';
   const data = loadConquest();
@@ -1889,6 +2529,11 @@ function renderConquestLog(){
 
     <div class="conquest-section-title">地方別の進捗</div>
     <div class="conquest-region-list">${regionListHtml || '<div class="conquest-muted">データがありません</div>'}</div>
+
+    <div class="conquest-nav-row">
+      <button class="link-btn" onclick="renderPrefectureCards()">🗾 都道府県別進捗をカードで見る</button>
+      <button class="link-btn" onclick="renderAchievementsPage()">🏅 称号一覧を見る</button>
+    </div>
 
     <details class="conquest-details">
       <summary>都道府県別の一覧(現在収録中の自治体を基準)</summary>
@@ -2038,16 +2683,22 @@ function renderQuestion(){
   const countLabel = questionPhase === 'extra' ? `追加質問 ${displayCount}／${displayMax}` : `質問 ${displayCount}／${displayMax}`;
 
   // 「826マチ → 残り約42マチ」のような、候補の絞れ具合を示す補助表示。
+  // 文言と表情を必ず同じ判定(thinkingStatusFor)から取るため、片方だけ変わることはない。
   const remainingNow = estimateRemainingCountForDisplay();
   const progressLabel = `${modeStartCount}マチ → 残り約${remainingNow}マチ`;
-  const moraleLabel = moraleText(remainingNow, modeStartCount);
+  const status = thinkingStatusFor(remainingNow, modeStartCount);
+  const moraleLabel = status.text;
+  // 新しいゲームを開始した最初の質問(まだ1問も答えていない)だけは、
+  // 候補数によらずnormal表情にする。(asked.push(key)は既に実行済みなので、
+  // 通常質問の1問目=asked.length===1で判定する)
+  const mascotMood = (questionPhase === 'normal' && asked.length === 1) ? 'normal' : status.mood;
 
   const backBtn = history.length > 1
     ? `<button class="btn-back" onclick="goBack()">← 前の質問に戻る</button>`
     : '';
 
   stage.innerHTML = `
-    <div class="mascot-wrap"><div class="bob pop">${mascotSVG('think')}</div></div>
+    <div class="mascot-wrap"><div class="bob pop">${mascotSVG(mascotMood)}</div></div>
     <div class="bubble"><span class="icon">${q.icon}</span>${q.text}</div>
     <div class="count-line">${countLabel}</div>
     <div class="progress-line"><span class="progress-count">${progressLabel}</span><span class="progress-morale">${moraleLabel}</span></div>
@@ -2060,6 +2711,7 @@ function renderQuestion(){
     </div>
     ${backBtn}
   `;
+  questionShownAt = Date.now(); // 回答時間の計測開始(この質問が画面に出た時刻)
   updateDebugPanel();
 }
 
@@ -2118,13 +2770,18 @@ function estimateRemainingCountForDisplay(){
   }
   return lastDisplayedRemainingCount;
 }
-// 候補の絞れ具合に応じた、おらっちの一言。
-function moraleText(remaining, total){
+// 候補の絞れ具合に応じた、おらっちの一言と表情を同時に返す。
+// (文字だけ変わって表情が変わらない、という状態を作らないため、必ずこの関数を経由する)
+function thinkingStatusFor(remaining, total){
   const ratio = total > 0 ? remaining / total : 1;
-  if(remaining <= 3) return 'もう分かったかも！';
-  if(ratio <= 0.05) return 'かなり絞れてきた！';
-  if(ratio <= 0.3) return 'だいぶ見えてきたべ';
-  return 'まだ考え中……';
+  if(remaining <= 3) return { text: 'もう分かったかも！', mood: 'happy' };
+  if(ratio <= 0.05) return { text: 'かなり絞れてきた！', mood: 'think' };
+  if(ratio <= 0.3) return { text: 'だいぶ見えてきたべ', mood: 'think' };
+  return { text: 'まだ考え中……', mood: 'think' };
+}
+// 後方互換用(文言だけが欲しい場合)
+function moraleText(remaining, total){
+  return thinkingStatusFor(remaining, total).text;
 }
 
 // 1位候補が連続して変わっていないかを記録する(「安定した推測」判定に使う)
@@ -2201,7 +2858,9 @@ function answer(key, val, weight){
   const mismatchPenalty = subjective ? SUBJ_MISMATCH_PENALTY : OBJ_MISMATCH_PENALTY;
 
   // 「地元バレポイント」計算用に、質問と回答の組を記録しておく(historyと同じ並び順で増える)。
-  answerLog.push({ key, val, weight, subjective });
+  // 回答時間(称号「直感派」「じっくり派」用)。極端に長い場合(離席等)は30秒を上限にする。
+  const responseMs = questionShownAt != null ? Math.min(30000, Math.max(0, Date.now() - questionShownAt)) : null;
+  answerLog.push({ key, val, weight, subjective, responseMs });
 
   if(val === true && weight >= 1 && !subjective){
     // 客観的質問に確信を持って「はい」と答え、その条件を満たす候補が1つだけに絞れても、
@@ -2278,7 +2937,7 @@ function renderGuess(){
   const isRetry = guessAttempts > 0;
   const bubbleText = isRetry ? 'うーん、もしかしてこっちかも?' : 'もしかして、この街では?';
   stage.innerHTML = `
-    <div class="mascot-wrap"><div class="pop">${mascotSVG('normal')}</div></div>
+    <div class="mascot-wrap"><div class="pop">${mascotSVG('happy')}</div></div>
     <div class="bubble"><span class="icon">💭</span>${bubbleText}</div>
     <div class="result-name">${displayName(guess)}</div>
     <div class="result-pref">${guess.pref}</div>
@@ -3001,8 +3660,25 @@ function correct(isRight, overrideCity){
     // 結果画面・シェア文・訂正フォーム・プレイ結果送信・制覇帳・画像共有のすべてで、
     // ここで確定した同じ自治体データ(currentResult.city)を使う。再計算は一切しない。
     const barePoints = computeBarePoints(guess);
+    // 称号判定より前の時点(=recordGameStatsで今回分が加算される前)での誤推測回数を取っておく。
+    const misguessedBeforeCount = (loadStats().misguessedCityCounts[cityId(guess)]) || 0;
+    // 自己ベスト比較のため、記録を更新する前の最少質問数を取っておく。
+    const prevBestQuestions = (() => {
+      const data = loadConquest();
+      const bucket = (guess.name === '東京') ? data.specialEntries : data.entries;
+      const existing = bucket[cityId(guess)];
+      return existing ? existing.minQuestions : null;
+    })();
     const conquestResult = recordConquest(guess, totalQuestions, currentMode);
-    currentResult = { city: guess, success: true, questionCount: totalQuestions, mode: currentMode, barePoints, conquestResult };
+    recordGameStats('success', guess, totalQuestions);
+    const newAchievements = checkAchievements({
+      success: true,
+      totalQuestions,
+      guessAttempts,
+      answerLogSnapshot: [...answerLog],
+      misguessedBeforeCount,
+    });
+    currentResult = { city: guess, success: true, questionCount: totalQuestions, mode: currentMode, barePoints, conquestResult, newAchievements };
     const stars = calcStars(guess);
 
     const barePointsHtml = barePoints.length
@@ -3026,6 +3702,35 @@ function correct(isRight, overrideCity){
     }
     const conquestHtml = `<div class="conquest-line">${conquestLine}</div>`;
 
+    // 自己ベスト表示(結果画面の主役=自治体名や紹介文を邪魔しない位置=質問数の下あたりに小さく表示)
+    let bestLine;
+    if(prevBestQuestions == null){
+      bestLine = `今回: ${totalQuestions}問 ・ このマチの記録を登録しました！`;
+    } else if(totalQuestions === prevBestQuestions){
+      bestLine = `今回: ${totalQuestions}問 ・ 自己ベストタイ！`;
+    } else if(totalQuestions < prevBestQuestions){
+      bestLine = `これまでの自己ベスト: ${prevBestQuestions}問 → 今回: ${totalQuestions}問 ・ 新記録！`;
+    } else {
+      bestLine = `自己ベスト: ${prevBestQuestions}問 ・ 今回: ${totalQuestions}問`;
+    }
+    const bestHtml = `<div class="best-line">${bestLine}</div>`;
+
+    // 称号獲得演出(新しく解除された称号があるときだけ表示。閉じるボタンで隠せる)
+    const achievementHtml = newAchievements.length > 0 ? `
+      <div class="achievement-toast" id="achievementToast">
+        <div class="achievement-toast-title">称号を獲得しました！</div>
+        ${newAchievements.map(a => `
+          <div class="achievement-toast-card">
+            <div class="achievement-toast-stars">${'★'.repeat(a.rarity)}${'☆'.repeat(5-a.rarity)}</div>
+            <div class="achievement-toast-name">${a.name}</div>
+            <div class="achievement-toast-desc">${a.description}</div>
+          </div>`).join('')}
+        <div class="achievement-toast-actions">
+          <button class="link-btn" onclick="renderAchievementsPage()">称号一覧を見る</button>
+          <button class="link-btn-subtle" onclick="document.getElementById('achievementToast').style.display='none'">閉じる</button>
+        </div>
+      </div>` : '';
+
     stage.innerHTML = `
       <div class="share-card" id="shareCard">
         <div class="share-card-head">
@@ -3036,6 +3741,7 @@ function correct(isRight, overrideCity){
         <div class="result-name">${displayName(guess)}</div>
         <div class="result-pref">${guess.pref}</div>
         <div class="result-line">おらっちが <b>${totalQuestions}問</b> で当てました!</div>
+        ${bestHtml}
         <div class="fact">${guess.fact}</div>
         <div class="stars-block">
           <div class="star-row"><span class="star-label">雪国度</span><span class="star-value">${starString(stars.snow)}</span></div>
@@ -3050,6 +3756,7 @@ function correct(isRight, overrideCity){
         ${barePointsHtml}
       </div>
       ${conquestHtml}
+      ${achievementHtml}
       <div class="result-actions-primary">
         <button class="share-btn share-btn-image" id="shareImageBtn" onclick="shareResultImage()">📸 画像でシェア</button>
         <button class="again" onclick="restart()">もう一度あそぶ</button>
@@ -3082,6 +3789,7 @@ function correct(isRight, overrideCity){
 
   // 外れた場合
   excludedNames.add(guess.name);
+  recordMisguess(guess);
 
   if(guessAttempts === 0){
     // 【第6段階】最初の推測が外れても、2位・3位の候補をそのまま連続表示するのではなく、
@@ -3101,7 +3809,7 @@ function correct(isRight, overrideCity){
 // 追加質問フェーズへ入る前のワンクッション画面
 function renderExtraIntro(){
   stage.innerHTML = `
-    <div class="mascot-wrap"><div class="shake">${mascotSVG('sad')}</div></div>
+    <div class="mascot-wrap"><div class="shake">${mascotSVG('think')}</div></div>
     <div class="bubble"><span class="icon">💦</span>むむっ、違いましたか……<br>あと少しだけ教えてください！</div>
     <button class="again" onclick="renderQuestion()">つぎの質問へ</button>
   `;
@@ -3136,6 +3844,7 @@ function renderGiveUp(){
   });
 
   sendGameResult('giveup', lastGuessCity);
+  recordGameStats('giveup', lastGuessCity, currentResult ? currentResult.questionCount : (questionCount + extraQuestionCount));
   updateDebugPanel();
 }
 

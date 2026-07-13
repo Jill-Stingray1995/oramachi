@@ -258,6 +258,64 @@ color: inherit;}
   .conquest-pref-list, .conquest-city-list{ margin-top: 8px; max-height: 260px; overflow:auto; }
   .conquest-pref-row{ display:flex; justify-content:space-between; font-size: 12px; padding: 4px 0; border-bottom: 1px dashed var(--line); }
   .conquest-city-row{ font-size: 12px; padding: 4px 0; border-bottom: 1px dashed var(--line); }
+  .conquest-nav-row{ display:flex; flex-direction:column; gap:6px; margin: 10px 0; }
+
+  /* ---- 都道府県カード ---- */
+  .pref-region-section{ margin-bottom: 12px; }
+  .pref-card-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 6px; }
+  .pref-card{
+    display:flex; flex-direction:column; align-items:center; gap:2px;
+    border-radius: 12px; padding: 10px 6px; border: 1.5px solid var(--line);
+    font-family:'Zen Maru Gothic', sans-serif; cursor:pointer; background:#fff;
+  }
+  .pref-card:active{ transform: scale(0.97); }
+  .pref-card-icon{ font-size: 15px; }
+  .pref-card-name{ font-size: 12.5px; font-weight:700; color: var(--ink); }
+  .pref-card-count{ font-size: 10.5px; color: var(--ink-soft); }
+  .pref-card-pct{ font-size: 12px; font-weight:700; }
+  .pref-tier-0{ background:#F1F1EE; border-color:#DEDEDA; }
+  .pref-tier-0 .pref-card-pct{ color:#8B8B85; }
+  .pref-tier-low{ background: rgba(78,158,142,0.10); border-color: rgba(78,158,142,0.35); }
+  .pref-tier-low .pref-card-pct{ color: var(--mint); }
+  .pref-tier-high{ background: rgba(78,158,142,0.28); border-color: var(--mint); }
+  .pref-tier-high .pref-card-pct{ color: var(--mint); }
+  .pref-tier-complete{ background: linear-gradient(135deg, #F7E7B0, #E9C766); border-color: var(--gold); }
+  .pref-tier-complete .pref-card-name, .pref-tier-complete .pref-card-pct{ color:#5A4409; }
+  .pref-tier-complete .pref-card-count{ color:#6B5410; }
+
+  /* ---- 称号一覧ページ ---- */
+  .achievement-filter-row{ display:flex; gap:6px; overflow-x:auto; padding: 4px 2px 8px; margin-bottom: 6px; -webkit-overflow-scrolling: touch; }
+  .achievement-filter-btn{
+    flex-shrink:0; padding: 6px 12px; border-radius: 999px; border: 1.5px solid var(--line);
+    background:#fff; color: var(--ink-soft); font-family:'Zen Maru Gothic', sans-serif;
+    font-size: 12px; font-weight:700; cursor:pointer; white-space:nowrap;
+  }
+  .achievement-filter-btn.active{ background: var(--indigo); border-color: var(--indigo); color:#fff; }
+  .achievement-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+  .achievement-card{
+    border-radius: 12px; padding: 10px; border: 1.5px solid var(--line); background:#fff; text-align:left;
+  }
+  .achievement-card.locked{ opacity: 0.55; }
+  .achievement-card.unlocked{ border-color: var(--gold); background: rgba(201,162,39,0.08); }
+  .achievement-card-stars{ font-size: 11px; color: var(--gold); letter-spacing: 1px; }
+  .achievement-card-name{ font-size: 13px; font-weight:700; color: var(--ink); margin: 2px 0; }
+  .achievement-card-desc{ font-size: 10.5px; color: var(--ink-soft); line-height:1.5; }
+  .achievement-card-date{ font-size: 10px; color: var(--vermillion-deep); margin-top: 4px; font-weight:700; }
+
+  /* ---- 称号獲得演出(結果画面) ---- */
+  .achievement-toast{
+    background: linear-gradient(135deg, #FFF6DD, #F7E7B0); border: 2px solid var(--gold);
+    border-radius: 14px; padding: 12px 14px; margin: 10px 0; text-align:center;
+  }
+  .achievement-toast-title{ font-size: 13.5px; font-weight:700; color:#5A4409; margin-bottom: 6px; }
+  .achievement-toast-card{ margin-bottom: 8px; }
+  .achievement-toast-stars{ color: var(--gold); font-size: 13px; letter-spacing:1px; }
+  .achievement-toast-name{ font-size: 15px; font-weight:700; color:#5A4409; }
+  .achievement-toast-desc{ font-size: 11px; color:#6B5410; }
+  .achievement-toast-actions{ display:flex; flex-direction:column; gap:4px; margin-top: 6px; }
+
+  /* ---- 自己ベスト表示(結果画面) ---- */
+  .best-line{ font-size: 11.5px; color: var(--ink-soft); margin-bottom: 10px; }
 
   /* ---- 設定欄 ---- */
   .settings-block{ text-align:left; margin-top: 8px; }
