@@ -1,0 +1,13 @@
+SetEnvIf Request_URI ".*" Ngx_Cache_NoCacheMode=off
+SetEnvIf Request_URI ".*" Ngx_Cache_StaticMode
+
+# cities.json(約10MB)などのテキスト系ファイルをgzip圧縮して転送する。
+# JSONは圧縮効率が非常に高く(概ね1/5〜1/8程度になる)、モバイル回線での
+# 読み込み時間を大きく短縮できる。
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE application/json
+  AddOutputFilterByType DEFLATE text/html
+  AddOutputFilterByType DEFLATE text/css
+  AddOutputFilterByType DEFLATE application/javascript text/javascript
+  AddOutputFilterByType DEFLATE application/manifest+json
+</IfModule>
