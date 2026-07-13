@@ -2400,8 +2400,61 @@ function mascotSVG(mood){
   return `<img class="mascot" src="${src}" alt="おらっち" draggable="false">`;
 }
 
+// ==================== 端末・ブラウザの「戻る」操作への対応 ====================
+// 【重要】このファイルには、質問の「前の質問へ戻る」機能のために
+// `let history = [];`というグローバル変数が既にあり、ブラウザ標準の `history`
+// (= window.history)を覆い隠してしまっている。そのため、ここでは必ず
+// `window.history.pushState(...)` のように window. を明示して参照する。
+//
+// 対象は、都道府県別進捗・称号コレクション・全国制覇帳などの「サブ画面」。
+// ゲーム本体の質問の戻る(goBack())とは別の仕組みで、ブラウザ履歴に軽く連動させる。
+let isHandlingPopState = false; // popstateの処理中に、さらにpushStateしてしまうのを防ぐフラグ
+function pushNavState(screen, extra){
+  if(isHandlingPopState) return;
+  try{
+    window.history.pushState(Object.assign({ oramachiScreen: screen }, extra || {}), '');
+  }catch(e){ /* historyが使えない環境でもゲーム自体は続行する */ }
+}
+function replaceNavState(screen, extra){
+  try{
+    window.history.replaceState(Object.assign({ oramachiScreen: screen }, extra || {}), '');
+  }catch(e){ /* 同上 */ }
+}
+// ゲーム開始時に呼ぶ。「ここから戻ったらトップ画面」という目印だけを履歴に積む。
+// 質問が進むたびに呼ぶ必要はない(質問ごとに履歴を積むと、既存の「前の質問へ戻る」ボタンと
+// 二重管理になってしまうため)。もう一度あそぶ等で連続してゲームを開始した場合は、
+// 履歴を無駄に積み増さないよう、既に'game'状態ならpushではなくreplaceにする。
+function pushGameNavState(){
+  try{
+    const cur = window.history.state;
+    if(cur && cur.oramachiScreen === 'game'){
+      window.history.replaceState({ oramachiScreen: 'game' }, '');
+    } else {
+      pushNavState('game');
+    }
+  }catch(e){ /* historyが使えない環境でもゲーム自体は続行する */ }
+}
+try{
+  window.addEventListener('popstate', function(ev){
+    isHandlingPopState = true;
+    try{
+      const st = ev.state;
+      if(!st || !st.oramachiScreen || st.oramachiScreen === 'opening'){ renderOpening(); }
+      else if(st.oramachiScreen === 'game'){ renderOpening(); } // ゲーム中・結果画面からは、常にトップ画面へ
+      else if(st.oramachiScreen === 'conquestLog'){ renderConquestLog(); }
+      else if(st.oramachiScreen === 'prefectureCards'){ renderPrefectureCards(); }
+      else if(st.oramachiScreen === 'prefectureDetail'){ renderPrefectureDetail(st.pref); }
+      else if(st.oramachiScreen === 'achievements'){ renderAchievementsPage(); }
+      else { renderOpening(); }
+    } finally {
+      isHandlingPopState = false;
+    }
+  });
+}catch(e){ /* 古い環境などでaddEventListener自体が無い場合も、ゲーム本体は動き続ける */ }
+
 function renderOpening(){
   stampsEl.innerHTML = '';
+  replaceNavState('opening'); // トップ画面は履歴を積み増さず、常に「今の状態」を置き換える
 
   const niigataCount = CITIES.filter(c => c.pref === '新潟県').length;
   const tokyoCount = CITIES.filter(c => c.pref === '東京都' && c.name !== '東京').length;
@@ -2469,6 +2522,7 @@ function formatAchievementDate(iso){
 
 function renderAchievementsPage(){
   stampsEl.innerHTML = '';
+  pushNavState('achievements');
   const ctx = buildAchievementContext(null);
   const stats = ctx.stats;
   const unlockedCount = Object.keys(stats.unlockedAchievements).length;
@@ -2537,6 +2591,7 @@ function prefTierInfo(done, total){
 
 function renderPrefectureCards(){
   stampsEl.innerHTML = '';
+  pushNavState('prefectureCards');
   const ctx = buildAchievementContext(null);
   const normalCities = ctx.normalCities;
   const prefOrder = [...new Set(normalCities.map(c => c.pref))];
@@ -2580,6 +2635,7 @@ function renderPrefectureCards(){
 
 function renderPrefectureDetail(pref){
   stampsEl.innerHTML = '';
+  pushNavState('prefectureDetail', { pref });
   const data = loadConquest();
   const conqueredIds = new Set(Object.keys(data.entries));
   const cities = CITIES.filter(c => c.pref === pref && c.name !== '東京');
@@ -2619,6 +2675,7 @@ function renderPrefectureDetail(pref){
 
 function renderConquestLog(){
   stampsEl.innerHTML = '';
+  pushNavState('conquestLog');
   const data = loadConquest();
   const normalCities = CITIES.filter(c => c.name !== '東京');
   const total = normalCityCount();
@@ -2754,6 +2811,7 @@ function confirmDeleteConquest(){
 
 function startMode(mode){
   currentMode = mode;
+  pushGameNavState(); // ここから戻ったらトップ画面、という目印を履歴に積む
   const modeCities = getModeCities(mode);
   scorePool = modeCities.map(city => ({ city, score: 0, objMismatch: 0 }));
   excludedNames = new Set();
