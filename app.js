@@ -28,7 +28,17 @@ const KEYS = ['pop1m','shinkansen','coastal','designated','festival','castle','s
   'ancient_provincial_capital','kokubunji_site','traditional_buildings_district','little_kyoto','giant_buddha','sea_torii','deer_in_city','gassho_zukuri',
   'ferry_available','no_railway_station','shikoku_pilgrimage','olympic_venue','famous_battlefield','kitamaebune_port','famous_fish_catch',
   'kaikyo_machi','gakuto','hula_girl','kannon_zo','koedo','imono_kupola','aeon_laketown','funasshi_famous','takao_mountain','curry_famous','anime_seichi','number_in_name','kigyo_joukamachi','hankyu_line','yayoiken_seichi','hirakata_park','keihan_line','kawachi_ondo','rugby_machi','kougyou_toshi','hyoujun_jigosen','koushien','bikan_chiku','gunkou_machi','seitetsu_kouro','fugu_famous','tire_famous','hamburger_famous','kenkyu_gakuen_toshi','atsui_machi','action_kamen','senbei_famous','tanabata_famous','uirou_famous','southern_seichi','b_kyu_gourmet','beigun_kichi','shinkai_gyo','saboten_machi','combinat_yakei','danjiri_famous','onaji_ookawa','kageki_dan',
-  'animal_in_name','ariake_coast','awa_area','big_small_in_name','bingo_area','body_part_in_name','chikugo_area','chikuho_area','chikuzen_area','chugoku_mountain_basin','chuyo_area','color_in_name','dosan_line','four_plus_name','fukuoka_metro','hakubi_line','hard_to_read_name','hiroshima_metro','honshu_bridge','iyo_area','izumo_area','kagoshima_main_line','kawa_in_name','kitakyushu_area','nanyo_area','new_old_in_name','nippo_main_line','nishitetsu_line','northern_kyushu','okinawa_main_island','okinawa_south_central','osumi_area','paper_industry_shikoku','plant_in_name','pref_name_in_city_name','sakishima_islands','same_name_other_pref','sanin_area','sanin_main_line','sanuki_area','sanyo_area','sanyo_main_line','satsuma_area','sea_word_in_name','setouchi_industrial','shima_in_name','southern_kyushu','ta_in_name','toyo_area','yama_in_name','yosan_line'];
+  'animal_in_name','ariake_coast','awa_area','big_small_in_name','bingo_area','body_part_in_name','chikugo_area','chikuho_area','chikuzen_area','chugoku_mountain_basin','chuyo_area','color_in_name','dosan_line','four_plus_name','fukuoka_metro','hakubi_line','hard_to_read_name','hiroshima_metro','honshu_bridge','iyo_area','izumo_area','kagoshima_main_line','kawa_in_name','kitakyushu_area','nanyo_area','new_old_in_name','nippo_main_line','nishitetsu_line','northern_kyushu','okinawa_main_island','okinawa_south_central','osumi_area','paper_industry_shikoku','plant_in_name','pref_name_in_city_name','sakishima_islands','same_name_other_pref','sanin_area','sanin_main_line','sanuki_area','sanyo_area','sanyo_main_line','satsuma_area','sea_word_in_name','setouchi_industrial','shima_in_name','southern_kyushu','ta_in_name','toyo_area','yama_in_name','yosan_line',
+  'ic_doo','ic_sasson','ic_shiribeshi','ic_doto',
+  'ic_tohoku','ic_hachinohe','ic_aomori','ic_kamaishi','ic_akita','ic_yamagata','ic_tohoku_chuo','ic_nihonkai_tohoku','ic_banetsu','ic_joban',
+  'ic_kanetsu','ic_joshinetsu','ic_hokukanto','ic_higashikanto','ic_tokyo_gaikan','ic_tateyama','ic_shin_kuko',
+  'ic_chuo','ic_nagano','ic_hokuriku','ic_chubu_odan','ic_tokai_hokuriku','ic_tomei','ic_shin_tomei',
+  'ic_meishin','ic_shin_meishin','ic_tomeihan','ic_isewangan','ic_ise','ic_kisei','ic_meinikan',
+  'ic_kinki','ic_hanwa','ic_nishimeihan','ic_maizuru_wakasa','ic_kansai_kuko',
+  'ic_chugoku','ic_sanyo','ic_tottori','ic_yonago','ic_okayama','ic_hamada','ic_matsue','ic_onomichi','ic_hiroshima','ic_harima',
+  'ic_takamatsu','ic_tokushima','ic_matsuyama','ic_kochi',
+  'ic_kyushu','ic_higashi_kyushu','ic_nagasaki','ic_oita','ic_miyazaki','ic_okinawa',
+  'koshien_champion','sumo_yokozuna_ozeki','famous_cape'];
 
 const QUESTIONS = {
   pop1m:         {text:'人口は100万人以上?', icon:'👥'},
@@ -433,7 +443,70 @@ const QUESTIONS = {
   ta_in_name: {text:'自治体名に「田」が入っている？', icon:'🌾'},
   toyo_area: {text:'愛媛県の東予地方ですか?', icon:'🧭'},
   yama_in_name: {text:'自治体名に「山」が入っている？', icon:'⛰️'},
-  yosan_line: {text:'予讃線が通っていますか?', icon:'🚃'}
+  yosan_line: {text:'予讃線が通っていますか?', icon:'🚃'},
+  ic_doo:        {text:'道央道のインターチェンジがある？', icon:'🛣️'},
+  ic_sasson:     {text:'札樽道のインターチェンジがある？', icon:'🛣️'},
+  ic_shiribeshi: {text:'後志道のインターチェンジがある？', icon:'🛣️'},
+  ic_doto:       {text:'道東道のインターチェンジがある？', icon:'🛣️'},
+  ic_tohoku:         {text:'東北道のインターチェンジがある？', icon:'🛣️'},
+  ic_hachinohe:      {text:'八戸道のインターチェンジがある？', icon:'🛣️'},
+  ic_aomori:         {text:'青森道のインターチェンジがある？', icon:'🛣️'},
+  ic_kamaishi:       {text:'釜石道のインターチェンジがある？', icon:'🛣️'},
+  ic_akita:          {text:'秋田道のインターチェンジがある？', icon:'🛣️'},
+  ic_yamagata:       {text:'山形道のインターチェンジがある？', icon:'🛣️'},
+  ic_tohoku_chuo:    {text:'東北中央道のインターチェンジがある？', icon:'🛣️'},
+  ic_nihonkai_tohoku:{text:'日本海東北道のインターチェンジがある？', icon:'🛣️'},
+  ic_banetsu:        {text:'磐越道のインターチェンジがある？', icon:'🛣️'},
+  ic_joban:          {text:'常磐道のインターチェンジがある？', icon:'🛣️'},
+  ic_kanetsu:        {text:'関越道のインターチェンジがある？', icon:'🛣️'},
+  ic_joshinetsu:     {text:'上信越道のインターチェンジがある？', icon:'🛣️'},
+  ic_hokukanto:      {text:'北関東道のインターチェンジがある？', icon:'🛣️'},
+  ic_higashikanto:   {text:'東関東道のインターチェンジがある？', icon:'🛣️'},
+  ic_tokyo_gaikan:   {text:'東京外環道のインターチェンジがある？', icon:'🛣️'},
+  ic_tateyama:       {text:'館山道のインターチェンジがある？', icon:'🛣️'},
+  ic_shin_kuko:      {text:'新空港道のインターチェンジがある？', icon:'🛣️'},
+  ic_chuo:           {text:'中央道のインターチェンジがある？', icon:'🛣️'},
+  ic_nagano:         {text:'長野道のインターチェンジがある？', icon:'🛣️'},
+  ic_hokuriku:       {text:'北陸道のインターチェンジがある？', icon:'🛣️'},
+  ic_chubu_odan:     {text:'中部横断道のインターチェンジがある？', icon:'🛣️'},
+  ic_tokai_hokuriku: {text:'東海北陸道のインターチェンジがある？', icon:'🛣️'},
+  ic_tomei:          {text:'東名高速のインターチェンジがある？', icon:'🛣️'},
+  ic_shin_tomei:     {text:'新東名高速のインターチェンジがある？', icon:'🛣️'},
+  ic_meishin:        {text:'名神高速のインターチェンジがある？', icon:'🛣️'},
+  ic_shin_meishin:   {text:'新名神高速のインターチェンジがある？', icon:'🛣️'},
+  ic_tomeihan:       {text:'東名阪道のインターチェンジがある？', icon:'🛣️'},
+  ic_isewangan:      {text:'伊勢湾岸道のインターチェンジがある？', icon:'🛣️'},
+  ic_ise:            {text:'伊勢道のインターチェンジがある？', icon:'🛣️'},
+  ic_kisei:          {text:'紀勢道のインターチェンジがある？', icon:'🛣️'},
+  ic_meinikan:       {text:'名二環(名古屋第二環状道)のインターチェンジがある？', icon:'🛣️'},
+  ic_kinki:          {text:'近畿道のインターチェンジがある？', icon:'🛣️'},
+  ic_hanwa:          {text:'阪和道のインターチェンジがある？', icon:'🛣️'},
+  ic_nishimeihan:    {text:'西名阪道のインターチェンジがある？', icon:'🛣️'},
+  ic_maizuru_wakasa: {text:'舞鶴若狭道のインターチェンジがある？', icon:'🛣️'},
+  ic_kansai_kuko:    {text:'関西空港道のインターチェンジがある？', icon:'🛣️'},
+  ic_chugoku:        {text:'中国道のインターチェンジがある？', icon:'🛣️'},
+  ic_sanyo:          {text:'山陽道のインターチェンジがある？', icon:'🛣️'},
+  ic_tottori:        {text:'鳥取道のインターチェンジがある？', icon:'🛣️'},
+  ic_yonago:         {text:'米子道のインターチェンジがある？', icon:'🛣️'},
+  ic_okayama:        {text:'岡山道のインターチェンジがある？', icon:'🛣️'},
+  ic_hamada:         {text:'浜田道のインターチェンジがある？', icon:'🛣️'},
+  ic_matsue:         {text:'松江道のインターチェンジがある？', icon:'🛣️'},
+  ic_onomichi:       {text:'尾道道のインターチェンジがある？', icon:'🛣️'},
+  ic_hiroshima:      {text:'広島道のインターチェンジがある？', icon:'🛣️'},
+  ic_harima:         {text:'播磨道のインターチェンジがある？', icon:'🛣️'},
+  ic_takamatsu:      {text:'高松道のインターチェンジがある？', icon:'🛣️'},
+  ic_tokushima:      {text:'徳島道のインターチェンジがある？', icon:'🛣️'},
+  ic_matsuyama:      {text:'松山道のインターチェンジがある？', icon:'🛣️'},
+  ic_kochi:          {text:'高知道のインターチェンジがある？', icon:'🛣️'},
+  ic_kyushu:         {text:'九州道のインターチェンジがある？', icon:'🛣️'},
+  ic_higashi_kyushu: {text:'東九州道のインターチェンジがある？', icon:'🛣️'},
+  ic_nagasaki:       {text:'長崎道のインターチェンジがある？', icon:'🛣️'},
+  ic_oita:           {text:'大分道のインターチェンジがある？', icon:'🛣️'},
+  ic_miyazaki:       {text:'宮崎道のインターチェンジがある？', icon:'🛣️'},
+  ic_okinawa:        {text:'沖縄道のインターチェンジがある？', icon:'🛣️'},
+  koshien_champion:     {text:'甲子園(春・夏)の優勝校がある？', icon:'⚾'},
+  sumo_yokozuna_ozeki:  {text:'昭和以降、横綱または大関を輩出した？', icon:'🤼'},
+  famous_cape:          {text:'有名な岬がある？', icon:'🌊'}
 };
 
 // cities.jsonの軽量化対応: 保存時、各自治体のtagsは「trueだったキーだけの配列」に
@@ -1734,6 +1807,40 @@ const MODE_ONLY_KEYS = {
   kyushu: ['northern_kyushu','southern_kyushu','ariake_coast','fukuoka_metro','kitakyushu_area','chikugo_area','chikuho_area','chikuzen_area','satsuma_area','osumi_area','okinawa_main_island','okinawa_south_central','sakishima_islands','kagoshima_main_line','nippo_main_line','nishitetsu_line']
 };
 
+// 高速道路インターチェンジ質問(ic_*)の出題範囲。
+// これらの路線は県境をまたぐため、MODE_ONLY_KEYS(1タグ=1地方)ではなく、
+// 「1つのICタグ → 出題を許可する地方版の集合」として別テーブルで管理する。
+// 全国版では常に出題対象。地方版では、その路線が実際に通る地方版でのみ出題する。
+// 例: 東名(ic_tomei)は関東と中部を通るので、関東版・中部版・全国版で出題される。
+const IC_ROUTE_GROUPS = {
+  // 北海道
+  ic_doo: ['hokkaido'], ic_sasson: ['hokkaido'], ic_shiribeshi: ['hokkaido'], ic_doto: ['hokkaido'],
+  // 東北
+  ic_tohoku: ['tohoku'], ic_hachinohe: ['tohoku'], ic_aomori: ['tohoku'], ic_kamaishi: ['tohoku'],
+  ic_akita: ['tohoku'], ic_yamagata: ['tohoku'], ic_tohoku_chuo: ['tohoku'],
+  ic_nihonkai_tohoku: ['tohoku'], ic_banetsu: ['tohoku'], ic_joban: ['tohoku'],
+  // 関東・中部
+  ic_kanetsu: ['chubu','kanto'], ic_joshinetsu: ['chubu','kanto'], ic_hokukanto: ['kanto'],
+  ic_higashikanto: ['kanto'], ic_tokyo_gaikan: ['kanto'], ic_tateyama: ['kanto'], ic_shin_kuko: ['kanto'],
+  ic_chuo: ['chubu','kanto'], ic_nagano: ['chubu'], ic_hokuriku: ['chubu','kinki'],
+  ic_chubu_odan: ['chubu'], ic_tokai_hokuriku: ['chubu'],
+  ic_tomei: ['chubu','kanto'], ic_shin_tomei: ['chubu','kanto'],
+  // 近畿・中部
+  ic_meishin: ['chubu','kinki'], ic_shin_meishin: ['kinki'], ic_tomeihan: ['chubu','kinki'],
+  ic_isewangan: ['chubu','kinki'], ic_ise: ['kinki'], ic_kisei: ['kinki'], ic_meinikan: ['chubu'],
+  ic_kinki: ['kinki'], ic_hanwa: ['kinki'], ic_nishimeihan: ['kinki'],
+  ic_maizuru_wakasa: ['chubu','kinki'], ic_kansai_kuko: ['kinki'],
+  // 中国・近畿
+  ic_chugoku: ['chugoku','kinki'], ic_sanyo: ['chugoku','kinki'], ic_tottori: ['chugoku'],
+  ic_yonago: ['chugoku'], ic_okayama: ['chugoku'], ic_hamada: ['chugoku'], ic_matsue: ['chugoku'],
+  ic_onomichi: ['chugoku'], ic_hiroshima: ['chugoku'], ic_harima: ['kinki'],
+  // 四国
+  ic_takamatsu: ['shikoku'], ic_tokushima: ['shikoku'], ic_matsuyama: ['shikoku'], ic_kochi: ['shikoku'],
+  // 九州・沖縄
+  ic_kyushu: ['kyushu'], ic_higashi_kyushu: ['kyushu'], ic_nagasaki: ['kyushu'],
+  ic_oita: ['kyushu'], ic_miyazaki: ['kyushu'], ic_okinawa: ['kyushu'],
+};
+
 // 県・都の限定質問を「地方版でも出す」ための対応表。
 // niigata の質問は chubu でも、tokyo の質問は kanto でも出題する。
 const MODE_ONLY_ALSO_IN_REGION = {
@@ -1751,6 +1858,12 @@ function modeAllowsGroup(mode, group){
 
 function activeKeysForMode(mode){
   return KEYS.filter(k => {
+    // 高速道路IC質問は複数地方をまたぐことがあるので専用テーブルで判定する。
+    // 全国版なら常に出題、地方版ならその路線が通る地方版のときだけ出題する。
+    if(IC_ROUTE_GROUPS[k]){
+      if(mode === 'all') return true;
+      return IC_ROUTE_GROUPS[k].includes(mode);
+    }
     for(const group in MODE_ONLY_KEYS){
       if(MODE_ONLY_KEYS[group].includes(k)){
         return modeAllowsGroup(mode, group);
@@ -1798,6 +1911,14 @@ function computeGroupShares(topCities){
 }
 // このキーが地方・県限定質問で、対応する地方・県の候補シェアが十分高ければブースト量を返す。
 function regionBoostFor(key, groupShares){
+  // 高速道路IC質問(複数地方対応)は、通る地方のいずれかのシェアが閾値を超えたらブースト。
+  if(IC_ROUTE_GROUPS[key]){
+    for(const g of IC_ROUTE_GROUPS[key]){
+      const s = groupShares[g];
+      if(s != null && s >= REGION_BOOST_SHARE_THRESHOLD) return REGION_BOOST_AMOUNT;
+    }
+    return 0;
+  }
   const group = KEY_TO_MODE_GROUP[key];
   if(!group) return 0;
   const share = groupShares[group];
@@ -2125,6 +2246,9 @@ const TAG_GAME_CATEGORY = {
   "kougyou_toshi": "人口・行政",
   "hyoujun_jigosen": "地理",
   "koushien": "観光・娯楽",
+  "koshien_champion": "観光・娯楽",
+  "sumo_yokozuna_ozeki": "観光・娯楽",
+  "famous_cape": "地理",
   "bikan_chiku": "観光・娯楽",
   "gunkou_machi": "歴史・文化",
   "seitetsu_kouro": "人口・行政",
@@ -2157,6 +2281,31 @@ const TAG_GAME_CATEGORY = {
   "formed_after_2000": "人口・行政",
   "national_university": "学問",
   "expressway_junction": "交通",
+  "ic_doo": "交通",
+  "ic_sasson": "交通",
+  "ic_shiribeshi": "交通",
+  "ic_doto": "交通",
+  "ic_tohoku": "交通",
+  "ic_hachinohe": "交通",
+  "ic_aomori": "交通",
+  "ic_kamaishi": "交通",
+  "ic_akita": "交通",
+  "ic_yamagata": "交通",
+  "ic_tohoku_chuo": "交通",
+  "ic_nihonkai_tohoku": "交通",
+  "ic_banetsu": "交通",
+  "ic_joban": "交通",
+  "ic_kanetsu": "交通", "ic_joshinetsu": "交通", "ic_hokukanto": "交通", "ic_higashikanto": "交通",
+  "ic_tokyo_gaikan": "交通", "ic_tateyama": "交通", "ic_shin_kuko": "交通",
+  "ic_chuo": "交通", "ic_nagano": "交通", "ic_hokuriku": "交通", "ic_chubu_odan": "交通",
+  "ic_tokai_hokuriku": "交通", "ic_tomei": "交通", "ic_shin_tomei": "交通",
+  "ic_meishin": "交通", "ic_shin_meishin": "交通", "ic_tomeihan": "交通", "ic_isewangan": "交通",
+  "ic_ise": "交通", "ic_kisei": "交通", "ic_meinikan": "交通",
+  "ic_kinki": "交通", "ic_hanwa": "交通", "ic_nishimeihan": "交通", "ic_maizuru_wakasa": "交通", "ic_kansai_kuko": "交通",
+  "ic_chugoku": "交通", "ic_sanyo": "交通", "ic_tottori": "交通", "ic_yonago": "交通", "ic_okayama": "交通",
+  "ic_hamada": "交通", "ic_matsue": "交通", "ic_onomichi": "交通", "ic_hiroshima": "交通", "ic_harima": "交通",
+  "ic_takamatsu": "交通", "ic_tokushima": "交通", "ic_matsuyama": "交通", "ic_kochi": "交通",
+  "ic_kyushu": "交通", "ic_higashi_kyushu": "交通", "ic_nagasaki": "交通", "ic_oita": "交通", "ic_miyazaki": "交通", "ic_okinawa": "交通",
   "hiragana_name": "その他",
   "direction_in_name": "その他",
   "old_province_name": "歴史・文化",
