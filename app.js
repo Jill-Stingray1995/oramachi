@@ -561,6 +561,8 @@ let currentResult = null;   // 確定した結果を一元管理する: {city, s
 let lastGuessCity = null;   // 直近に画面へ出した「もしかして」候補(訂正フォームの参考表示用)
 let answerLog = [];         // このゲーム内で実際に回答した内容の記録: {key, val, weight}(historyと同じ並び順)
                               // 「地元バレポイント」を、質問を出した後に振り返って計算するために使う。
+let modeStartCount = 0;      // 今のモードを開始した時点の自治体数(候補数表示の分母に使う)
+let lastDisplayedRemainingCount = null; // 候補数表示を単調減少させるための直近表示値
 let forcedGuessCity = null; // 客観的質問で候補が1件に絞れたときに、確認画面へ渡す指定候補
 let stableTopStreak = 0;    // 1位候補が連続して変わっていない回数(推測タイミングの安定判定用)
 let lastTopName = null;
@@ -1176,6 +1178,71 @@ function regionBoostFor(key, groupShares){
   return 0;
 }
 
+// ==================== 質問の「序盤・中盤・終盤」段階分類 ====================
+// カテゴリごとの既定の段階。「地理・統計・人口の基本区分」は序盤、
+// 「交通・産業・歴史・大学」は中盤、「名物・特産品・作品ゆかり・遊び心」は終盤、が基本方針。
+// カテゴリの既定値だけでは実態に合わないキーは PHASE_KEY_OVERRIDES で個別に上書きする。
+const PHASE_CATEGORY_DEFAULT = {
+  '統計': 'early',
+  '地理': 'early',
+  '人口・行政': 'early',
+  '交通': 'middle',
+  '学問': 'middle',
+  '歴史・文化': 'middle',
+  '観光・娯楽': 'late',
+  '食': 'late',
+  '遊び心': 'late',
+  'その他': 'late',
+};
+
+const PHASE_KEY_OVERRIDES = {
+  // 人口・行政のうち、都市の性格・産業寄りの細かい話は中盤
+  bedtown: 'middle', formed_after_2000: 'middle', kenkyu_gakuen_toshi: 'middle',
+  sapporo_metro: 'middle', sendai_metro: 'middle', keihanshin_area: 'middle',
+  monozukuri: 'middle', kougyou_toshi: 'middle', kigyo_joukamachi: 'middle',
+  seitetsu_kouro: 'middle', imono_kupola: 'middle', tire_famous: 'middle', nuclearpowerplant: 'middle',
+  // 名前・方言系の計算タグは、個性が強く決め手になりやすいので終盤
+  kana_name: 'late', kansai_dialect: 'late', tohoku_dialect: 'late', ryukyu_dialect: 'late', pop_3digit: 'late',
+
+  // 歴史・文化のうち、「城下町・宿場町・門前町・軍港」など町の性格を表すものは中盤
+  castle: 'middle', worldheritage: 'middle', ruins: 'middle', shrine_temple: 'middle',
+  former_capital: 'middle', sengoku_warlord: 'middle', old_province_name: 'middle',
+  gokaido_shukuba: 'middle', monzen: 'middle', gunkou_machi: 'middle', beigun_kichi: 'middle',
+  ancient_provincial_capital: 'middle', traditional_buildings_district: 'middle',
+
+  // 地理カテゴリのうち、実質的に特産品・産業に近いものは終盤
+  glasses_industry: 'late', cutlery_industry: 'late', towel_industry: 'late',
+  musical_instruments: 'late', gold_leaf: 'late', denim_industry: 'late',
+  pearl_farming: 'late', shipbuilding: 'late', furniture_industry: 'late',
+  washi_famous: 'late', pharmaceutical_industry: 'late', fireworks_industry: 'late',
+  stone_industry: 'late', lacquerware_famous: 'late',
+};
+// 地方・県限定タグ(MODE_ONLY_KEYS)は、個別指定が無ければ中盤に位置づける。
+// (全国版では「地方ブースト」が効いてくる=候補が絞れてきた中盤〜終盤で出やすいため)
+for(const __phaseGroup in MODE_ONLY_KEYS){
+  MODE_ONLY_KEYS[__phaseGroup].forEach(k => { if(!(k in PHASE_KEY_OVERRIDES)) PHASE_KEY_OVERRIDES[k] = 'middle'; });
+}
+
+// この質問キーが「序盤(early)・中盤(middle)・終盤(late)」のどれに属するかを返す。
+function phaseOf(key){
+  if(PHASE_KEY_OVERRIDES[key]) return PHASE_KEY_OVERRIDES[key];
+  const cat = categoryOf(key);
+  return PHASE_CATEGORY_DEFAULT[cat] || 'middle';
+}
+
+// 候補数と質問数の両方から、今がどの段階かを判定する。候補数を優先し、質問数は補助的に使う。
+const PHASE_POOL_SIZE_EARLY = 180;  // 候補がこれ以上ならまだ序盤
+const PHASE_POOL_SIZE_LATE = 20;    // 候補がこれ以下ならもう終盤
+const PHASE_QCOUNT_EARLY_MAX = 6;   // (中間の候補数のとき)この質問数まではまだ序盤寄り
+const PHASE_QCOUNT_LATE_MIN = 17;   // (中間の候補数のとき)この質問数からは終盤寄り
+function currentQuestionPhase(poolSize, qCount){
+  if(poolSize >= PHASE_POOL_SIZE_EARLY) return 'early';
+  if(poolSize <= PHASE_POOL_SIZE_LATE) return 'late';
+  if(qCount <= PHASE_QCOUNT_EARLY_MAX) return 'early';
+  if(qCount >= PHASE_QCOUNT_LATE_MIN) return 'late';
+  return 'middle';
+}
+
 // 1手先の質問だけで残り候補を評価する(2手先読みの内側で使う軽量版)
 function bestSplitDiff(pool, excludeKeys){
   let best = Infinity;
@@ -1566,6 +1633,7 @@ const FUN_ACTIVATION_POOL_SIZE = 10; // 候補がこの件数以下に絞れて�
 const HIGH_PRIORITY_BONUS = 45;
 const HIGH_PRIORITY_EARLY_PENALTY = 15; // 序盤はむしろ少し出にくくしておく
 const CATEGORY_REPEAT_PENALTY = 9; // 同じジャンルを1回出すたびに、次の選ばれやすさをこれだけ下げる
+const RECENT_CATEGORY_PENALTY = 1.5; // 直近の質問と同じジャンルに対する、軽めの追加減点
 
 let askedCategoryCounts = {}; // ゲーム開始時にリセットする(startMode参照)
 
@@ -1612,6 +1680,20 @@ function entropyPick(){
   }
   if(candidateQuestions.length === 0) return unused[0] || null;
 
+  // 【質問の段階(序盤・中盤・終盤)】完全に絞り込む(ハードフィルタ)と、その段階にちょうど良い
+  // 質問が無いときに情報利得の高い質問を選べず絞り込みが非効率になるため、
+  // 「段階が合わない質問には軽い減点」というソフトな優先付けにする。
+  // 候補が多い(序盤)ほど段階の一致を重視し、候補が絞れてくる(終盤)ほど、
+  // 段階の自然さより「早く絞り込むこと」を優先する(終盤で多少ジャンルが飛ぶのは許容する)。
+  // 追加質問フェーズ(最初の推測が外れた後)は、常に終盤相当として扱う。
+  const nowPhase = (questionPhase === 'extra') ? 'late' : currentQuestionPhase(truePoolSize, questionCount);
+  const PHASE_MISMATCH_PENALTY = 2.5;
+  const phasePenaltyWeight = truePoolSize > 100 ? 1 : (truePoolSize > 30 ? 0.5 : 0.15);
+  function phasePenalty(k){
+    if(decisiveSet.has(k)) return 0; // 決め手質問は段階を問わず優先する
+    return phaseOf(k) === nowPhase ? 0 : PHASE_MISMATCH_PENALTY * phasePenaltyWeight;
+  }
+
   // 【カテゴリ3連続防止】同じジャンルが3問以上連続しないよう、可能な限り避ける。
   // ただし、それがこの局面での決め手質問だったり、他に選べる質問が無い場合は例外として許可する。
   const nonStreak = candidateQuestions.filter(k => !wouldExceedCategoryStreak(k) || decisiveSet.has(k));
@@ -1620,6 +1702,17 @@ function entropyPick(){
   // 【地方ブースト】全国版で候補が特定の地方・県に偏ってきたら、その地方限定質問を優先する。
   const groupShares = computeGroupShares(topCities);
 
+  // 【直近3問のジャンル偏り】直前と同じカテゴリ、直近3問で多く使われたカテゴリには軽い減点を加える。
+  // (askedCategoryCountsによるゲーム全体を通じた減点とは別に、局所的な「連続しすぎ」も軽く抑える)
+  const recentCats = asked.slice(-3).map(categoryOf);
+  function recentStreakPenalty(k){
+    const cat = categoryOf(k);
+    let penalty = 0;
+    if(recentCats[recentCats.length-1] === cat) penalty += RECENT_CATEGORY_PENALTY; // 直前と同じ
+    penalty += recentCats.filter(c => c === cat).length * (RECENT_CATEGORY_PENALTY * 0.5); // 直近3問での出現回数
+    return penalty;
+  }
+
   // 候補が多いときは計算量を抑えるため、まず1手先の診断で上位グループに絞り込む
   const prelim = finalCandidates.map(k=>{
     const yes = topCities.filter(c=>c.tags[k]).length;
@@ -1627,7 +1720,8 @@ function entropyPick(){
     // 「yesが1件だけ」のような質問は、それが今の対象なら一発で決め手になる(飛び級)ので、
     // 候補が絞れてきた場面では積極的に優先する。
     const isDecisive = (yes === 1 || no === 1);
-    const diff = priorityAdjust(k, Math.abs(yes - no), truePoolSize, isDecisive) - regionBoostFor(k, groupShares);
+    const diff = priorityAdjust(k, Math.abs(yes - no), truePoolSize, isDecisive) - regionBoostFor(k, groupShares)
+      + (isDecisive ? 0 : recentStreakPenalty(k)) + phasePenalty(k);
     return { k, diff };
   }).sort((a,b)=> a.diff - b.diff);
   const shortlist = prelim.slice(0, Math.min(12, prelim.length)).map(s=>s.k);
@@ -1640,7 +1734,8 @@ function entropyPick(){
     // 2手目でそれぞれの枝を最も良く絞り込めた場合の「最悪残存数」を見る
     const worstYes = bestSplitDiff(yesGroup, usedAfter);
     const worstNo = bestSplitDiff(noGroup, usedAfter);
-    const minimax = priorityAdjust(k, Math.max(worstYes, worstNo), truePoolSize, isDecisive) - regionBoostFor(k, groupShares);
+    const minimax = priorityAdjust(k, Math.max(worstYes, worstNo), truePoolSize, isDecisive) - regionBoostFor(k, groupShares)
+      + (isDecisive ? 0 : recentStreakPenalty(k)) + phasePenalty(k);
     return { k, minimax };
   });
 
@@ -1876,6 +1971,8 @@ function startMode(mode){
   knownPopMin = -Infinity;
   knownPopMax = Infinity;
   answerLog = [];
+  modeStartCount = modeCities.length;
+  lastDisplayedRemainingCount = null;
 
   if(modeCities.length === 0){
     stage.innerHTML = `
@@ -1911,6 +2008,7 @@ function renderQuestion(){
 
   // このジャンルが実際に出題されたことを記録する前の状態も履歴に残す(戻るボタン用)
   const categorySnapshotBefore = { ...askedCategoryCounts };
+  const remainingCountSnapshotBefore = lastDisplayedRemainingCount;
 
   // このジャンルが実際に出題されたことを記録(次以降の選ばれやすさ調整に使う)
   const cat = categoryOf(key);
@@ -1927,6 +2025,7 @@ function renderQuestion(){
     askedCategoryCounts: categorySnapshotBefore,
     knownPopMin: knownPopMin,
     knownPopMax: knownPopMax,
+    remainingCount: remainingCountSnapshotBefore,
     key: key
   });
 
@@ -1938,6 +2037,11 @@ function renderQuestion(){
   const displayMax = questionPhase === 'extra' ? MAX_EXTRA_Q : MAX_Q;
   const countLabel = questionPhase === 'extra' ? `追加質問 ${displayCount}／${displayMax}` : `質問 ${displayCount}／${displayMax}`;
 
+  // 「826マチ → 残り約42マチ」のような、候補の絞れ具合を示す補助表示。
+  const remainingNow = estimateRemainingCountForDisplay();
+  const progressLabel = `${modeStartCount}マチ → 残り約${remainingNow}マチ`;
+  const moraleLabel = moraleText(remainingNow, modeStartCount);
+
   const backBtn = history.length > 1
     ? `<button class="btn-back" onclick="goBack()">← 前の質問に戻る</button>`
     : '';
@@ -1946,11 +2050,12 @@ function renderQuestion(){
     <div class="mascot-wrap"><div class="bob pop">${mascotSVG('think')}</div></div>
     <div class="bubble"><span class="icon">${q.icon}</span>${q.text}</div>
     <div class="count-line">${countLabel}</div>
+    <div class="progress-line"><span class="progress-count">${progressLabel}</span><span class="progress-morale">${moraleLabel}</span></div>
     <div class="choices">
       <button class="btn btn-yes" onclick="answer('${key}', true)">はい</button>
       <button class="btn btn-no" onclick="answer('${key}', false)">いいえ</button>
-      <button class="btn btn-maybe-yes" onclick="answer('${key}', true, PARTIAL_WEIGHT)">たぶんそう・部分的にそう</button>
-      <button class="btn btn-maybe-no" onclick="answer('${key}', false, PARTIAL_WEIGHT)">たぶんいいえ・そうでもない</button>
+      <button class="btn btn-maybe-yes" onclick="answer('${key}', true, PARTIAL_WEIGHT)">たぶんそう</button>
+      <button class="btn btn-maybe-no" onclick="answer('${key}', false, PARTIAL_WEIGHT)">たぶん違う</button>
       <button class="btn btn-unknown" onclick="answer('${key}', null)">わからない・スキップ</button>
     </div>
     ${backBtn}
@@ -1972,6 +2077,7 @@ function goBack(){
   askedCategoryCounts = prev.askedCategoryCounts || {};
   knownPopMin = prev.knownPopMin != null ? prev.knownPopMin : -Infinity;
   knownPopMax = prev.knownPopMax != null ? prev.knownPopMax : Infinity;
+  lastDisplayedRemainingCount = prev.remainingCount != null ? prev.remainingCount : null;
   answerLog.length = asked.length; // 戻った分の回答ログも一緒に切り詰める(asked と常に同じ長さで揃える)
   forcedNextKey = prev.key; // 同じ質問を再表示する
   renderQuestion();
@@ -1993,6 +2099,34 @@ function topConfidence(){
   return probs[0] != null ? probs[0] : 0;
 }
 
+// 「だいたいこのくらい残っている」という目安の候補数。スコアによる評価であり完全な除外方式では
+// ないため、確率が極端に低いものだけ目安から除く(=断定はしない、画面表示側で「約」を付ける)。
+const REMAINING_COUNT_PROB_THRESHOLD = 0.001;
+function estimateRemainingCountRaw(){
+  const sorted = sortedPool();
+  if(sorted.length === 0) return 0;
+  if(sorted.length === 1) return 1;
+  const probs = candidateProbabilities(sorted);
+  const count = probs.filter(p => p >= REMAINING_COUNT_PROB_THRESHOLD).length;
+  return Math.max(1, count);
+}
+// 表示用: 一度減った数字が質問の巡り合わせで急に増えて見えないよう、単調減少に保つ。
+function estimateRemainingCountForDisplay(){
+  const raw = estimateRemainingCountRaw();
+  if(lastDisplayedRemainingCount == null || raw < lastDisplayedRemainingCount){
+    lastDisplayedRemainingCount = raw;
+  }
+  return lastDisplayedRemainingCount;
+}
+// 候補の絞れ具合に応じた、おらっちの一言。
+function moraleText(remaining, total){
+  const ratio = total > 0 ? remaining / total : 1;
+  if(remaining <= 3) return 'もう分かったかも！';
+  if(ratio <= 0.05) return 'かなり絞れてきた！';
+  if(ratio <= 0.3) return 'だいぶ見えてきたべ';
+  return 'まだ考え中……';
+}
+
 // 1位候補が連続して変わっていないかを記録する(「安定した推測」判定に使う)
 function updateStableStreak(){
   const sorted = sortedPool();
@@ -2010,11 +2144,32 @@ function updateStableStreak(){
 }
 
 // 今、推測に進んでよいかを判定する(いずれかを満たせばOK)。
+// 「わからない」「たぶん」の回答が多い場合は、性急な推測を避けるための目安。
+const AMBIGUOUS_RATIO_THRESHOLD = 0.4;  // 曖昧な回答がこの割合以上なら慎重にする
+const TOP1_MISMATCH_CAUTION = 2;        // 1位候補が客観的回答とこの回数以上矛盾していたら慎重にする
+function ambiguousAnswerRatio(){
+  if(answerLog.length === 0) return 0;
+  const ambiguous = answerLog.filter(r => r.val === null || r.weight < 1).length;
+  return ambiguous / answerLog.length;
+}
+
 function shouldGuessNow(){
   const sorted = sortedPool();
   if(sorted.length <= 1) return true; // 候補が1つに絞れた
   const top1 = sorted[0], top2 = sorted[1];
   const margin = (top1 && top2) ? top1.score - top2.score : Infinity;
+
+  // 曖昧回答(わからない・たぶん)が多い、または1位候補が客観的回答と何度も矛盾している場合は、
+  // 性急な推測を避け、より慎重な「安定判定」基準だけで判断する。
+  const ambiguousHigh = ambiguousAnswerRatio() >= AMBIGUOUS_RATIO_THRESHOLD;
+  const top1MismatchHigh = !!(top1 && (top1.objMismatch || 0) >= TOP1_MISMATCH_CAUTION);
+  if(ambiguousHigh || top1MismatchHigh){
+    if(questionPhase === 'normal' && questionCount >= MIN_QUESTIONS_FOR_STABLE_GUESS && stableTopStreak >= STABLE_STREAK_REQUIRED){
+      return true;
+    }
+    return false;
+  }
+
   if(margin >= CONFIDENCE_MARGIN) return true; // 1位と2位の差が十分大きい
   if(topConfidence() >= GUESS_CONFIDENCE_THRESHOLD) return true; // 1位候補の確率が高い
   if(questionPhase === 'normal' && questionCount >= MIN_QUESTIONS_FOR_STABLE_GUESS && stableTopStreak >= STABLE_STREAK_REQUIRED){
