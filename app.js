@@ -3191,7 +3191,7 @@ function labelFor(k){
 }
 
 // おらマチ オリジナルマスコット「おらっち」(角/触角なし・まんまる目・ω口)
-const MASCOT_ASSET_VERSION = '20260714d';
+const MASCOT_ASSET_VERSION = '20260714e';
 const MASCOT_IMAGES = {
   normal: `mascot-normal.png?v=${MASCOT_ASSET_VERSION}`,
   wink:   `mascot-wink.png?v=${MASCOT_ASSET_VERSION}`,
@@ -3461,7 +3461,7 @@ function renderOpening(){
       <button class="conquest-entry-btn" onclick="renderConquestLog()">📖 全国制覇帳</button>
       <button class="conquest-entry-btn" onclick="renderAchievementsPage()">🏅 称号一覧</button>
     </div>
-    ${renderStatsBlock()}
+    <div id="liveStatsTop">${renderStatsBlock()}</div>
   `;
 
   // DOMへ追加した次のフレームで登場・浮遊・ウインクを開始する。
@@ -4749,8 +4749,9 @@ async function fetchLiveStats(){
     if(!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
     liveStats = data;
-    if(typeof renderOpening === 'function' && stage && stage.innerHTML.includes('どのモードであそぶ')){
-      renderOpening(); // トップページ表示中なら反映のため再描画
+    if(stage && stage.innerHTML.includes('どのモードであそぶ')){
+      const liveStatsTop = document.getElementById('liveStatsTop');
+      if(liveStatsTop) liveStatsTop.innerHTML = renderStatsBlock();
     }
   }catch(e){
     console.warn('おらマチ: 統計の取得に失敗しました', e);
