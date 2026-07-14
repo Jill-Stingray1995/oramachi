@@ -2069,7 +2069,7 @@ const MODE_ONLY_KEYS = {
     'joetsu_region','chuetsu_region','uono_river','borders_gunma','borders_toyama'
   ],
   tokyo: [
-    'todai_campus','waseda_campus','keio_campus','sophia_campus','meiji_campus','aoyama_campus','rikkyo_campus','chuo_campus','hosei_campus','tus_campus','diet_building','sensoji','kasai_park','tokyu_line','keikyu_line','rinkai_line','yurikamome','tokyo_monorail','toden_arakawa','nippori_toneri','sumida_river','meguro_river','shakujii_river','borders_other_pref_tokyo','borders_kanagawa','borders_saitama','borders_chiba','ochanomizu_univ','gakushuin_univ','toyo_univ','komazawa_univ','seijo_univ','kokugakuin_univ','senshu_univ','jr_line','no_jr','yamanote_line','keihintohoku_line','chuo_sobu','tokyo_station','ueno_station','shinagawa_station','akihabara_station','shimbashi_station','kinshicho_station','kamata_station','nippori_station','tsunagari_mayu_police','koiwa_or_kasairinkai_station','tora_san_home','tsubasa_hometown','tv_station_area','sazae_family','hachiko_area','yose_hall','sailor_moon_stage','tokiwa_so','godzilla_head','rakugo_stage','sanma_famous'
+    'todai_campus','waseda_campus','keio_campus','sophia_campus','meiji_campus','aoyama_campus','rikkyo_campus','chuo_campus','hosei_campus','tus_campus','diet_building','sensoji','kasai_park','odakyu_line','keio_inokashira_line','tokyu_line','keikyu_line','rinkai_line','yurikamome','tokyo_monorail','toden_arakawa','nippori_toneri','sumida_river','meguro_river','shakujii_river','borders_other_pref_tokyo','borders_kanagawa','borders_saitama','borders_chiba','ochanomizu_univ','gakushuin_univ','toyo_univ','komazawa_univ','seijo_univ','kokugakuin_univ','senshu_univ','jr_line','no_jr','yamanote_line','keihintohoku_line','chuo_sobu','tokyo_station','ueno_station','shinagawa_station','akihabara_station','shimbashi_station','kinshicho_station','kamata_station','nippori_station','tsunagari_mayu_police','koiwa_or_kasairinkai_station','tora_san_home','tsubasa_hometown','tv_station_area','sazae_family','hachiko_area','yose_hall','sailor_moon_stage','tokiwa_so','godzilla_head','rakugo_stage','sanma_famous'
   ],
   // 地方版別質問:キーをここに足すと、その地方版と全国版だけで出題される。
   hokkaido: ['douou_area','doutou_area','dohoku_area','sapporo_metro','ishikari_plain','historical_port_hokkaido','industrial_port_hokkaido','hakodate_honsen','ishikari_river'],
@@ -2172,6 +2172,19 @@ function cityMatchesGroup(city, group){
 
 const REGION_BOOST_SHARE_THRESHOLD = 0.3; // 候補のこの割合以上がその地方・県ならブースト対象にする
 const REGION_BOOST_AMOUNT = 6;            // ブーストの強さ(priorityAdjust後のdiffから差し引く量)
+
+// 東京の私鉄・鉄道路線タグ群。東京都版では、これらは23区・多摩地域の市を細かく
+// 区別する重要な決め手になるが、路線を持つ市が少ないため情報利得だけでは埋もれて
+// 出題されにくい(regionBoostは全国版専用で東京都版では効かない)。そこで東京都版に
+// 限り、候補がある程度絞れた段階でこれらを優先的に出すためのグループとして定義する。
+const TOKYO_RAIL_KEYS = new Set([
+  'odakyu_line','keio_inokashira_line','tokyu_line','keikyu_line','seibu_line','tobu_line','keisei_line',
+  'tsukuba_express','rinkai_line','yurikamome','tokyo_monorail','toden_arakawa','nippori_toneri',
+  'yamanote_line','keihintohoku_line','chuo_sobu','tobu_tojo_line','sotetsu_line'
+]);
+const TOKYO_RAIL_BOOST = 10;        // 東京都版で路線質問に与える優遇量
+const TOKYO_RAIL_POOL_SIZE = 25;    // 候補がこの件数以下になったら路線質問を優先し始める
+const TOKYO_RAIL_SHARE_THRESHOLD = 0.3; // 全国版で候補のこの割合以上が東京都なら路線質問を優先
 
 // 現在の候補プール(topCities)の中で、各地方・県限定グループが占める割合を計算する。
 // 全国版(currentMode==='all')のときだけ意味を持つ(地方版では既に常時有効なため不要)。
@@ -2927,7 +2940,7 @@ let askedStatsCount = 0; // 同一ゲーム内で出題した統計質問(人口
 const DECISIVE_BOOST = 15;      // 「今答えれば一発で決着する」質問への優遇度
 const DECISIVE_POOL_SIZE = 12;  // 候補がこの件数以下のときだけ、決め手質問を優遇する(遊び心の発動タイミングに近づける)
 
-function priorityAdjust(k, diff, poolSize, isDecisive){
+function priorityAdjust(k, diff, poolSize, isDecisive, groupShares){
   if(HIGH_PRIORITY_KEYS.has(k)){
     return poolSize <= FUN_ACTIVATION_POOL_SIZE
       ? Math.max(0, diff - HIGH_PRIORITY_BONUS)
@@ -2937,6 +2950,19 @@ function priorityAdjust(k, diff, poolSize, isDecisive){
   // 同じジャンルが連続していても優先的に出す(杉並区のような、固有の目印タグ待ちで長引くケースを防ぐ)
   if(isDecisive && poolSize <= DECISIVE_POOL_SIZE){
     return Math.max(0, diff - DECISIVE_BOOST);
+  }
+  // 【東京の私鉄・鉄道路線の優先】候補が東京都の自治体に絞れてきたら、路線質問を優先して
+  // 出す。23区・多摩地域の市は路線で区別できることが多いのに、路線を持つ市が少なく
+  // 情報利得だけでは埋もれてしまうため(例: 府中市の京王線、東急線・京急線)。
+  //  - 東京都版: 候補が絞れた段階で常に優先。
+  //  - 全国版: 候補の多くが東京都の自治体になった段階(groupShares.tokyo が高い)で優先。
+  if(TOKYO_RAIL_KEYS.has(k) && poolSize <= TOKYO_RAIL_POOL_SIZE){
+    const tokyoShare = groupShares ? groupShares['tokyo'] : null;
+    const tokyoFocused = (currentMode === 'tokyo') ||
+      (currentMode === 'all' && tokyoShare != null && tokyoShare >= TOKYO_RAIL_SHARE_THRESHOLD);
+    if(tokyoFocused){
+      return Math.max(0, diff - TOKYO_RAIL_BOOST);
+    }
   }
   const cat = categoryOf(k);
   const repeatCount = askedCategoryCounts[cat] || 0;
@@ -3034,7 +3060,7 @@ function entropyPick(){
     // 「yesが1件だけ」のような質問は、それが今の対象なら一発で決め手になる(飛び級)ので、
     // 候補が絞れてきた場面では積極的に優先する。
     const isDecisive = (yes === 1 || no === 1);
-    const diff = priorityAdjust(k, Math.abs(yes - no), truePoolSize, isDecisive) - regionBoostFor(k, groupShares)
+    const diff = priorityAdjust(k, Math.abs(yes - no), truePoolSize, isDecisive, groupShares) - regionBoostFor(k, groupShares)
       + (isDecisive ? 0 : recentStreakPenalty(k)) + phasePenalty(k);
     return { k, diff };
   }).sort((a,b)=> a.diff - b.diff);
@@ -3049,7 +3075,7 @@ function entropyPick(){
     // 2手目でそれぞれの枝を最も良く絞り込めた場合の「最悪残存数」を見る
     const worstYes = bestSplitDiff(yesGroup, usedAfter);
     const worstNo = bestSplitDiff(noGroup, usedAfter);
-    const minimax = priorityAdjust(k, Math.max(worstYes, worstNo), truePoolSize, isDecisive) - regionBoostFor(k, groupShares)
+    const minimax = priorityAdjust(k, Math.max(worstYes, worstNo), truePoolSize, isDecisive, groupShares) - regionBoostFor(k, groupShares)
       + (isDecisive ? 0 : recentStreakPenalty(k)) + phasePenalty(k);
     return { k, minimax };
   });
