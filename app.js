@@ -3191,7 +3191,7 @@ function labelFor(k){
 }
 
 // おらマチ オリジナルマスコット「おらっち」(角/触角なし・まんまる目・ω口)
-const MASCOT_ASSET_VERSION = '20260714c';
+const MASCOT_ASSET_VERSION = '20260714d';
 const MASCOT_IMAGES = {
   normal: `mascot-normal.png?v=${MASCOT_ASSET_VERSION}`,
   wink:   `mascot-wink.png?v=${MASCOT_ASSET_VERSION}`,
@@ -3222,6 +3222,16 @@ function stopOpeningMascotAnimation(){
 function openingMascotHTML(){
   return `
     <div class="opening-mascot-shell" id="openingMascotShell">
+      <div class="opening-smoke" id="openingSmoke" aria-hidden="true">
+        <span class="opening-smoke-puff"></span>
+        <span class="opening-smoke-puff"></span>
+        <span class="opening-smoke-puff"></span>
+        <span class="opening-smoke-puff"></span>
+        <span class="opening-smoke-puff"></span>
+        <span class="opening-smoke-puff"></span>
+        <span class="opening-smoke-puff"></span>
+      </div>
+      <span class="opening-pon" id="openingPon" aria-hidden="true">ぽん！</span>
       <img class="mascot opening-mascot-image" id="openingMascotImage"
         src="${MASCOT_IMAGES.normal}" alt="おらっち" draggable="false">
     </div>`;
@@ -3230,49 +3240,80 @@ function startOpeningMascotAnimation(){
   stopOpeningMascotAnimation();
   const shell = document.getElementById('openingMascotShell');
   const image = document.getElementById('openingMascotImage');
+  const smoke = document.getElementById('openingSmoke');
+  const pon = document.getElementById('openingPon');
   if(!shell || !image) return;
 
   const winkPreload = new Image();
   winkPreload.src = MASCOT_IMAGES.wink;
 
-  if(typeof shell.animate === 'function'){
-    openingMascotAnimations.push(shell.animate([
-      { opacity:0, transform:'translateY(28px) scale(.68) rotate(-7deg)' },
-      { opacity:1, transform:'translateY(-8px) scale(1.10) rotate(3deg)', offset:.62 },
-      { opacity:1, transform:'translateY(0) scale(1) rotate(0)' }
-    ], { duration:780, easing:'cubic-bezier(.22,1.45,.36,1)', fill:'both' }));
-
+  if(typeof image.animate === 'function'){
+    // 煙の奥から小さく現れ、勢いよく「ぽん！」と飛び出して着地する。
     openingMascotAnimations.push(image.animate([
-      { transform:'translateY(0) rotate(-1.5deg)' },
-      { transform:'translateY(-10px) rotate(1.5deg)' },
-      { transform:'translateY(0) rotate(-1.5deg)' }
-    ], { duration:2800, easing:'ease-in-out', iterations:Infinity, delay:500 }));
+      { opacity:0, transform:'translateY(58px) scale(.16) rotate(-12deg)' },
+      { opacity:1, transform:'translateY(-18px) scale(1.22) rotate(7deg)', offset:.38 },
+      { opacity:1, transform:'translateY(5px) scale(.92) rotate(-4deg)', offset:.62 },
+      { opacity:1, transform:'translateY(-6px) scale(1.07) rotate(2deg)', offset:.82 },
+      { opacity:1, transform:'translateY(0) scale(1) rotate(0)' }
+    ], { duration:1020, delay:80, easing:'cubic-bezier(.2,1.55,.35,1)', fill:'both' }));
+
+    if(smoke){
+      const smokeMoves = [
+        [-58,-20],[-39,-35],[-18,-28],[8,-39],[28,-28],[47,-34],[63,-17]
+      ];
+      smoke.querySelectorAll('.opening-smoke-puff').forEach((puff, index) => {
+        const [x,y] = smokeMoves[index] || [0,-28];
+        openingMascotAnimations.push(puff.animate([
+          { opacity:0, transform:'translate(0,4px) scale(.2)' },
+          { opacity:.96, transform:'translate(0,0) scale(1.18)', offset:.24 },
+          { opacity:.72, transform:`translate(${x * .48}px,${y * .48}px) scale(1.05)`, offset:.52 },
+          { opacity:0, transform:`translate(${x}px,${y}px) scale(.7)` }
+        ], { duration:900, delay:index * 35, easing:'ease-out', fill:'both' }));
+      });
+    }
+
+    if(pon){
+      openingMascotAnimations.push(pon.animate([
+        { opacity:0, transform:'translate(-8px,10px) rotate(-8deg) scale(.35)' },
+        { opacity:1, transform:'translate(4px,-3px) rotate(9deg) scale(1.28)', offset:.34 },
+        { opacity:1, transform:'translate(0,0) rotate(6deg) scale(1)', offset:.72 },
+        { opacity:0, transform:'translate(8px,-12px) rotate(10deg) scale(.9)' }
+      ], { duration:900, delay:300, easing:'ease-out', fill:'both' }));
+    }
+
+    // 飛び出しが終わってから、トップページらしい穏やかな浮遊を続ける。
+    openingMascotAnimations.push(image.animate([
+      { transform:'translateY(0) rotate(-1.4deg)' },
+      { transform:'translateY(-10px) rotate(1.4deg)' },
+      { transform:'translateY(0) rotate(-1.4deg)' }
+    ], { duration:3000, easing:'ease-in-out', iterations:Infinity, delay:1180 }));
   }else{
-    shell.classList.add('opening-mascot-css-fallback');
-    image.classList.add('opening-mascot-float-fallback');
+    image.classList.add('opening-mascot-css-fallback', 'opening-mascot-float-fallback');
+    if(smoke) smoke.classList.add('opening-smoke-css-fallback');
+    if(pon) pon.classList.add('opening-pon-css-fallback');
   }
 
   const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
   async function winkTwice(){
     if(!image.isConnected) return false;
     image.src = MASCOT_IMAGES.wink;
-    await wait(180);
+    await wait(620); // 以前より長く閉じ、ウインクだと分かるようにする
     if(!image.isConnected) return false;
     image.src = MASCOT_IMAGES.normal;
-    await wait(115);
+    await wait(260);
     if(!image.isConnected) return false;
     image.src = MASCOT_IMAGES.wink;
-    await wait(150);
+    await wait(470);
     if(!image.isConnected) return false;
     image.src = MASCOT_IMAGES.normal;
     return true;
   }
   async function winkLoop(){
-    await wait(1500);
+    await wait(2300); // 飛び出し演出を見せてから最初のウインク
     while(image.isConnected){
       const continued = await winkTwice();
       if(!continued) break;
-      await wait(4000);
+      await wait(4700);
     }
   }
   winkLoop();
@@ -3386,7 +3427,7 @@ function renderOpening(){
   const tokyoCount = CITIES.filter(c => c.pref === '東京都' && c.name !== '東京').length;
 
   stage.innerHTML = `
-    <div class="mascot-wrap">${openingMascotHTML()}</div>
+    <div class="mascot-wrap opening-mascot-wrap">${openingMascotHTML()}</div>
     <div class="bubble"><span class="icon">🗾</span>どのモードであそぶ？</div>
 
     <div class="mode-select">
