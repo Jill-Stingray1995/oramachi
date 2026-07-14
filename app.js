@@ -3193,7 +3193,6 @@ function labelFor(k){
 // おらマチ オリジナルマスコット「おらっち」(角/触角なし・まんまる目・ω口)
 const MASCOT_IMAGES = {
   normal: 'mascot-normal.png',
-  wink:   'mascot-wink.png',
   think:  'mascot-think.png',
   happy:  'mascot-happy.png',
   sad:    'mascot-sad.png'
@@ -3204,14 +3203,15 @@ function mascotSVG(mood, extraClass = ''){
   return `<img class="${className}" src="${src}" alt="おらっち" draggable="false">`;
 }
 
-// トップページ専用。通常画像とウインク画像を同じ位置に重ね、
-// CSSで一瞬だけ表示を切り替えるため、GIFより軽く輪郭もにじまない。
+// トップページ専用。まばたき用の別画像(mascot-wink.png)は目の変化が
+// 数ピクセルしかなく実際の表示サイズ(132px)ではほぼ見えなかったため、
+// 画像1枚のままCSSで縦方向に一瞬つぶす(スクワッシュ)方式に変更した。
+// こちらは画像の出来に左右されず、確実にまばたきに見える。
 function openingMascotHTML(){
   return `
     <div class="opening-mascot-pop">
       <div class="opening-mascot-motion">
-        <img class="mascot opening-mascot-frame opening-mascot-normal" src="${MASCOT_IMAGES.normal}" alt="おらっち" draggable="false">
-        <img class="mascot opening-mascot-frame opening-mascot-wink" src="${MASCOT_IMAGES.wink}" alt="" aria-hidden="true" draggable="false">
+        <img class="mascot opening-mascot-blink" src="${MASCOT_IMAGES.normal}" alt="おらっち" draggable="false">
       </div>
     </div>`;
 }

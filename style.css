@@ -84,7 +84,7 @@ color: inherit;}
   .blink{ animation: blink 4.5s ease-in-out infinite; transform-origin: center; }
   @keyframes blink{ 0%,92%,100%{transform:scaleY(1)} 96%{transform:scaleY(0.1)} }
 
-  /* ---- トップページのおらっち: 登場 → ふわふわ → 定期的にウインク ---- */
+  /* ---- トップページのおらっち: 登場 → ふわふわ → 定期的にまばたき ---- */
   .opening-mascot-pop{
     animation: opening-mascot-appear .7s cubic-bezier(.22,1.45,.36,1) both;
     transform-origin: center bottom;
@@ -94,15 +94,11 @@ color: inherit;}
     animation: opening-mascot-float 3.2s ease-in-out infinite;
     transform-origin: center 88%;
   }
-  .opening-mascot-frame{
-    position:absolute; inset:0; width:100%; height:100%;
-  }
-  .opening-mascot-normal{
-    animation: opening-normal-frame 5.8s steps(1,end) infinite;
-  }
-  .opening-mascot-wink{
-    opacity:0;
-    animation: opening-wink-frame 5.8s steps(1,end) infinite;
+  /* 画像を差し替えず、縦方向に一瞬つぶして「まばたき」に見せる。
+     画像の出来(まばたき絵の視認性)に左右されないので確実に動いて見える。 */
+  .opening-mascot-blink{
+    animation: opening-blink-squash 5.8s ease-in-out infinite;
+    transform-origin: center 46%;
   }
   @keyframes opening-mascot-appear{
     0%{ opacity:0; transform:translateY(24px) scale(.72) rotate(-5deg); }
@@ -113,13 +109,9 @@ color: inherit;}
     0%,100%{ transform:translateY(0) rotate(-1deg); }
     50%{ transform:translateY(-7px) rotate(1deg); }
   }
-  @keyframes opening-normal-frame{
-    0%,81%,84%,87%,100%{ opacity:1; }
-    82%,83%,85%,86%{ opacity:0; }
-  }
-  @keyframes opening-wink-frame{
-    0%,81%,84%,87%,100%{ opacity:0; }
-    82%,83%,85%,86%{ opacity:1; }
+  @keyframes opening-blink-squash{
+    0%,90%,100%{ transform:scaleY(1); }
+    93%,96%{ transform:scaleY(0.14); }
   }
 
   /* ---- 正解結果のおらっち: 飛び出してジャンプし、キラキラが広がる ---- */
@@ -163,14 +155,13 @@ color: inherit;}
 
   @media (prefers-reduced-motion: reduce){
     .bob, .shake, .pop, .opening-mascot-pop, .opening-mascot-motion,
-    .opening-mascot-normal, .opening-mascot-wink, .happy-burst, .happy-dance,
+    .opening-mascot-blink, .happy-burst, .happy-dance,
     .happy-sparkle, *{
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
     }
-    .opening-mascot-normal{ opacity:1 !important; }
-    .opening-mascot-wink, .happy-sparkle{ opacity:0 !important; }
+    .happy-sparkle{ opacity:0 !important; }
   }
 
   .bubble{
