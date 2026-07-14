@@ -3194,7 +3194,7 @@ function labelFor(k){
 const MASCOT_ASSET_VERSION = '20260714g';
 const MASCOT_IMAGES = {
   normal: `mascot-normal.png?v=${MASCOT_ASSET_VERSION}`,
-  wink:   `mascot-wink-v2.png?v=${MASCOT_ASSET_VERSION}`,
+  wink:   `mascot-wink-v3.png?v=${MASCOT_ASSET_VERSION}`,
   think:  `mascot-think.png?v=${MASCOT_ASSET_VERSION}`,
   happy:  `mascot-happy.png?v=${MASCOT_ASSET_VERSION}`,
   sad:    `mascot-sad.png?v=${MASCOT_ASSET_VERSION}`
