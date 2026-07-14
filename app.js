@@ -3191,10 +3191,10 @@ function labelFor(k){
 }
 
 // おらマチ オリジナルマスコット「おらっち」(角/触角なし・まんまる目・ω口)
-const MASCOT_ASSET_VERSION = '20260714f';
+const MASCOT_ASSET_VERSION = '20260714g';
 const MASCOT_IMAGES = {
   normal: `mascot-normal.png?v=${MASCOT_ASSET_VERSION}`,
-  wink:   `mascot-wink.png?v=${MASCOT_ASSET_VERSION}`,
+  wink:   `mascot-wink-v2.png?v=${MASCOT_ASSET_VERSION}`,
   think:  `mascot-think.png?v=${MASCOT_ASSET_VERSION}`,
   happy:  `mascot-happy.png?v=${MASCOT_ASSET_VERSION}`,
   sad:    `mascot-sad.png?v=${MASCOT_ASSET_VERSION}`
