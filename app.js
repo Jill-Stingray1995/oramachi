@@ -3191,11 +3191,13 @@ function labelFor(k){
 }
 
 // おらマチ オリジナルマスコット「おらっち」(角/触角なし・まんまる目・ω口)
+const MASCOT_ASSET_VERSION = '20260714c';
 const MASCOT_IMAGES = {
-  normal: 'mascot-normal.png',
-  think:  'mascot-think.png',
-  happy:  'mascot-happy.png',
-  sad:    'mascot-sad.png'
+  normal: `mascot-normal.png?v=${MASCOT_ASSET_VERSION}`,
+  wink:   `mascot-wink.png?v=${MASCOT_ASSET_VERSION}`,
+  think:  `mascot-think.png?v=${MASCOT_ASSET_VERSION}`,
+  happy:  `mascot-happy.png?v=${MASCOT_ASSET_VERSION}`,
+  sad:    `mascot-sad.png?v=${MASCOT_ASSET_VERSION}`
 };
 function mascotSVG(mood, extraClass = ''){
   const src = MASCOT_IMAGES[mood] || MASCOT_IMAGES.normal;
@@ -3203,28 +3205,125 @@ function mascotSVG(mood, extraClass = ''){
   return `<img class="${className}" src="${src}" alt="おらっち" draggable="false">`;
 }
 
-// トップページ専用。まばたき用の別画像(mascot-wink.png)は目の変化が
-// 数ピクセルしかなく実際の表示サイズ(132px)ではほぼ見えなかったため、
-// 画像1枚のままCSSで縦方向に一瞬つぶす(スクワッシュ)方式に変更した。
-// こちらは画像の出来に左右されず、確実にまばたきに見える。
+// トップページ専用。1枚の画像をJavaScriptでnormal/winkへ切り替える。
+// CSSアニメーションを減らす端末設定でも、指定された演出は確実に動かす。
+let openingMascotTimer = null;
+let openingMascotAnimations = [];
+function stopOpeningMascotAnimation(){
+  if(openingMascotTimer){
+    clearTimeout(openingMascotTimer);
+    openingMascotTimer = null;
+  }
+  openingMascotAnimations.forEach(animation => {
+    try{ animation.cancel(); }catch(e){}
+  });
+  openingMascotAnimations = [];
+}
 function openingMascotHTML(){
   return `
-    <div class="opening-mascot-pop">
-      <div class="opening-mascot-motion">
-        <img class="mascot opening-mascot-blink" src="${MASCOT_IMAGES.normal}" alt="おらっち" draggable="false">
-      </div>
+    <div class="opening-mascot-shell" id="openingMascotShell">
+      <img class="mascot opening-mascot-image" id="openingMascotImage"
+        src="${MASCOT_IMAGES.normal}" alt="おらっち" draggable="false">
     </div>`;
 }
+function startOpeningMascotAnimation(){
+  stopOpeningMascotAnimation();
+  const shell = document.getElementById('openingMascotShell');
+  const image = document.getElementById('openingMascotImage');
+  if(!shell || !image) return;
 
-// 正解結果にだけ使う、飛び出し・ジャンプ・キラキラの喜び演出。
+  const winkPreload = new Image();
+  winkPreload.src = MASCOT_IMAGES.wink;
+
+  if(typeof shell.animate === 'function'){
+    openingMascotAnimations.push(shell.animate([
+      { opacity:0, transform:'translateY(28px) scale(.68) rotate(-7deg)' },
+      { opacity:1, transform:'translateY(-8px) scale(1.10) rotate(3deg)', offset:.62 },
+      { opacity:1, transform:'translateY(0) scale(1) rotate(0)' }
+    ], { duration:780, easing:'cubic-bezier(.22,1.45,.36,1)', fill:'both' }));
+
+    openingMascotAnimations.push(image.animate([
+      { transform:'translateY(0) rotate(-1.5deg)' },
+      { transform:'translateY(-10px) rotate(1.5deg)' },
+      { transform:'translateY(0) rotate(-1.5deg)' }
+    ], { duration:2800, easing:'ease-in-out', iterations:Infinity, delay:500 }));
+  }else{
+    shell.classList.add('opening-mascot-css-fallback');
+    image.classList.add('opening-mascot-float-fallback');
+  }
+
+  const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+  async function winkTwice(){
+    if(!image.isConnected) return false;
+    image.src = MASCOT_IMAGES.wink;
+    await wait(180);
+    if(!image.isConnected) return false;
+    image.src = MASCOT_IMAGES.normal;
+    await wait(115);
+    if(!image.isConnected) return false;
+    image.src = MASCOT_IMAGES.wink;
+    await wait(150);
+    if(!image.isConnected) return false;
+    image.src = MASCOT_IMAGES.normal;
+    return true;
+  }
+  async function winkLoop(){
+    await wait(1500);
+    while(image.isConnected){
+      const continued = await winkTwice();
+      if(!continued) break;
+      await wait(4000);
+    }
+  }
+  winkLoop();
+}
+
+// 正解画面専用。Web Animations APIで飛び出し・ジャンプ・キラキラを再生する。
 function happyCelebrationMascotHTML(){
   return `
-    <div class="share-mascot happy-celebration">
+    <div class="share-mascot happy-celebration" id="happyCelebration">
       <span class="happy-sparkle happy-sparkle-1" aria-hidden="true">✦</span>
       <span class="happy-sparkle happy-sparkle-2" aria-hidden="true">★</span>
       <span class="happy-sparkle happy-sparkle-3" aria-hidden="true">✦</span>
-      <div class="happy-burst"><div class="happy-dance">${mascotSVG('happy', 'happy-mascot-image')}</div></div>
+      <span class="happy-sparkle happy-sparkle-4" aria-hidden="true">★</span>
+      <div class="happy-mascot-motion" id="happyMascotMotion">${mascotSVG('happy', 'happy-mascot-image')}</div>
     </div>`;
+}
+function playHappyMascotAnimation(){
+  const motion = document.getElementById('happyMascotMotion');
+  const celebration = document.getElementById('happyCelebration');
+  if(!motion || !celebration) return;
+
+  if(typeof motion.animate === 'function'){
+    motion.animate([
+      { opacity:0, transform:'translateY(48px) scale(.25) rotate(-16deg)' },
+      { opacity:1, transform:'translateY(-18px) scale(1.28) rotate(9deg)', offset:.34 },
+      { opacity:1, transform:'translateY(5px) scale(.90) rotate(-6deg)', offset:.56 },
+      { opacity:1, transform:'translateY(-8px) scale(1.12) rotate(4deg)', offset:.76 },
+      { opacity:1, transform:'translateY(0) scale(1) rotate(0)' }
+    ], { duration:950, easing:'cubic-bezier(.22,1.45,.36,1)', fill:'both' });
+
+    motion.animate([
+      { transform:'translateY(0) rotate(0) scale(1)' },
+      { transform:'translateY(-12px) rotate(-8deg) scale(1.04)' },
+      { transform:'translateY(0) rotate(0) scale(1)' },
+      { transform:'translateY(-12px) rotate(8deg) scale(1.04)' },
+      { transform:'translateY(0) rotate(0) scale(1)' }
+    ], { duration:720, easing:'ease-in-out', iterations:3, delay:850 });
+
+    celebration.querySelectorAll('.happy-sparkle').forEach((sparkle, index) => {
+      const x = [-22, 22, 25, -25][index] || 0;
+      const y = [-24, -20, 16, 14][index] || -20;
+      sparkle.animate([
+        { opacity:0, transform:'translate(0,8px) scale(.15) rotate(0deg)' },
+        { opacity:1, transform:`translate(${x * .45}px,${y * .45}px) scale(1.45) rotate(35deg)`, offset:.35 },
+        { opacity:0, transform:`translate(${x}px,${y}px) scale(.65) rotate(100deg)` }
+      ], { duration:1350, easing:'ease-out', delay:180 + index * 130, fill:'both' });
+    });
+  }else{
+    motion.classList.add('happy-mascot-css-fallback');
+    celebration.classList.add('happy-sparkles-css-fallback');
+  }
 }
 
 // ==================== 端末・ブラウザの「戻る」操作への対応 ====================
@@ -3324,6 +3423,8 @@ function renderOpening(){
     ${renderStatsBlock()}
   `;
 
+  // DOMへ追加した次のフレームで登場・浮遊・ウインクを開始する。
+  requestAnimationFrame(startOpeningMascotAnimation);
   footEl.textContent = `対応エリア 全国全ての市と東京23区 ・ 新潟県 全市町村`;
 }
 
@@ -4829,6 +4930,8 @@ function correct(isRight, overrideCity){
       </div>
       <div id="shareImageStatus" class="share-image-status"></div>
     `;
+    // DOMへ追加した直後に喜びの演出を再生する。
+    requestAnimationFrame(playHappyMascotAnimation);
     // 正解またはギブアップまで到達したときだけ、ゲーム完了として1回送る。
     trackGaEvent('oramachi_game_complete', {
       ...analyticsModeParams(currentMode),

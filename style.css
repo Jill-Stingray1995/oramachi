@@ -84,84 +84,62 @@ color: inherit;}
   .blink{ animation: blink 4.5s ease-in-out infinite; transform-origin: center; }
   @keyframes blink{ 0%,92%,100%{transform:scaleY(1)} 96%{transform:scaleY(0.1)} }
 
-  /* ---- トップページのおらっち: 登場 → ふわふわ → 定期的にまばたき ---- */
-  .opening-mascot-pop{
-    animation: opening-mascot-appear .7s cubic-bezier(.22,1.45,.36,1) both;
-    transform-origin: center bottom;
+
+  /* トップページ専用マスコット。主な動きはJavaScriptで実行する。 */
+  .opening-mascot-shell{
+    position:relative; width:132px; height:132px; transform-origin:center bottom;
+    will-change:transform, opacity;
   }
-  .opening-mascot-motion{
-    position:relative; width:132px; height:132px;
-    animation: opening-mascot-float 3.2s ease-in-out infinite;
-    transform-origin: center 88%;
+  .opening-mascot-image{
+    display:block; width:100%; height:100%; object-fit:contain;
+    will-change:transform;
   }
-  /* 画像を差し替えず、縦方向に一瞬つぶして「まばたき」に見せる。
-     画像の出来(まばたき絵の視認性)に左右されないので確実に動いて見える。 */
-  .opening-mascot-blink{
-    animation: opening-blink-squash 5.8s ease-in-out infinite;
-    transform-origin: center 46%;
+  .opening-mascot-css-fallback{ animation:openingMascotAppearFallback .78s cubic-bezier(.22,1.45,.36,1) both; }
+  .opening-mascot-float-fallback{ animation:openingMascotFloatFallback 2.8s .5s ease-in-out infinite; }
+  @keyframes openingMascotAppearFallback{
+    0%{opacity:0;transform:translateY(28px) scale(.68) rotate(-7deg)}
+    62%{opacity:1;transform:translateY(-8px) scale(1.10) rotate(3deg)}
+    100%{opacity:1;transform:translateY(0) scale(1) rotate(0)}
   }
-  @keyframes opening-mascot-appear{
-    0%{ opacity:0; transform:translateY(24px) scale(.72) rotate(-5deg); }
-    65%{ opacity:1; transform:translateY(-4px) scale(1.07) rotate(2deg); }
-    100%{ opacity:1; transform:translateY(0) scale(1) rotate(0); }
-  }
-  @keyframes opening-mascot-float{
-    0%,100%{ transform:translateY(0) rotate(-1deg); }
-    50%{ transform:translateY(-7px) rotate(1deg); }
-  }
-  @keyframes opening-blink-squash{
-    0%,90%,100%{ transform:scaleY(1); }
-    93%,96%{ transform:scaleY(0.14); }
+  @keyframes openingMascotFloatFallback{
+    0%,100%{transform:translateY(0) rotate(-1.5deg)}
+    50%{transform:translateY(-10px) rotate(1.5deg)}
   }
 
-  /* ---- 正解結果のおらっち: 飛び出してジャンプし、キラキラが広がる ---- */
+  /* 正解時専用。画像の周囲を隠さず喜びの動きを見せる。 */
   .happy-celebration{ position:relative; overflow:visible; isolation:isolate; }
-  .happy-burst{
-    animation: happy-burst .78s cubic-bezier(.22,1.45,.36,1) both;
-    transform-origin:center bottom;
-  }
-  .happy-dance{
-    animation: happy-dance .62s .72s ease-in-out 3;
-    transform-origin:center bottom;
-  }
+  .happy-mascot-motion{ transform-origin:center bottom; will-change:transform, opacity; }
   .happy-mascot-image{ display:block; }
   .happy-sparkle{
-    position:absolute; z-index:2; color:var(--gold); line-height:1;
-    opacity:0; pointer-events:none;
-    text-shadow:0 1px 0 #FFFDF6;
-    animation: happy-sparkle 1.35s ease-out both;
+    position:absolute; z-index:2; color:var(--gold); line-height:1; opacity:0;
+    pointer-events:none; text-shadow:0 1px 0 #FFFDF6; font-weight:900;
   }
-  .happy-sparkle-1{ left:-10px; top:-7px; font-size:17px; animation-delay:.18s; }
-  .happy-sparkle-2{ right:-12px; top:1px; font-size:13px; animation-delay:.34s; }
-  .happy-sparkle-3{ right:1px; bottom:-8px; font-size:15px; animation-delay:.5s; }
-  @keyframes happy-burst{
-    0%{ opacity:0; transform:translateY(24px) scale(.35) rotate(-12deg); }
-    38%{ opacity:1; transform:translateY(-10px) scale(1.24) rotate(7deg); }
-    62%{ transform:translateY(2px) scale(.92) rotate(-4deg); }
-    82%{ transform:translateY(-3px) scale(1.07) rotate(2deg); }
-    100%{ opacity:1; transform:translateY(0) scale(1) rotate(0); }
+  .happy-sparkle-1{left:-13px;top:-13px;font-size:18px}
+  .happy-sparkle-2{right:-15px;top:-7px;font-size:15px}
+  .happy-sparkle-3{right:-8px;bottom:-12px;font-size:17px}
+  .happy-sparkle-4{left:-10px;bottom:-10px;font-size:14px}
+  .happy-mascot-css-fallback{ animation:happyMascotFallback 1s cubic-bezier(.22,1.45,.36,1) both; }
+  .happy-sparkles-css-fallback .happy-sparkle{ animation:happySparkleFallback 1.3s ease-out both; }
+  @keyframes happyMascotFallback{
+    0%{opacity:0;transform:translateY(48px) scale(.25) rotate(-16deg)}
+    35%{opacity:1;transform:translateY(-18px) scale(1.28) rotate(9deg)}
+    60%{transform:translateY(5px) scale(.90) rotate(-6deg)}
+    80%{transform:translateY(-8px) scale(1.12) rotate(4deg)}
+    100%{opacity:1;transform:translateY(0) scale(1) rotate(0)}
   }
-  @keyframes happy-dance{
-    0%,100%{ transform:translateY(0) rotate(0); }
-    25%{ transform:translateY(-7px) rotate(-7deg); }
-    50%{ transform:translateY(0) rotate(0); }
-    75%{ transform:translateY(-7px) rotate(7deg); }
-  }
-  @keyframes happy-sparkle{
-    0%{ opacity:0; transform:translate(0,7px) scale(.2) rotate(0); }
-    35%{ opacity:1; transform:translate(0,-3px) scale(1.25) rotate(25deg); }
-    100%{ opacity:0; transform:translate(0,-14px) scale(.65) rotate(70deg); }
+  @keyframes happySparkleFallback{
+    0%{opacity:0;transform:translateY(8px) scale(.15) rotate(0)}
+    35%{opacity:1;transform:translateY(-8px) scale(1.4) rotate(35deg)}
+    100%{opacity:0;transform:translateY(-24px) scale(.65) rotate(100deg)}
   }
 
+  /* 既存の一般演出だけを短くする。指定されたマスコット演出は停止しない。 */
   @media (prefers-reduced-motion: reduce){
-    .bob, .shake, .pop, .opening-mascot-pop, .opening-mascot-motion,
-    .opening-mascot-blink, .happy-burst, .happy-dance,
-    .happy-sparkle, *{
-      animation-duration: 0.01ms !important;
+    .bob, .shake, .pop{
+      animation-duration: 0.2s !important;
       animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
+      transition-duration: 0.2s !important;
     }
-    .happy-sparkle{ opacity:0 !important; }
   }
 
   .bubble{
@@ -539,7 +517,6 @@ color: inherit;}
   @media (max-width: 360px){
     .logo-text{ font-size: 26px; }
     .mascot{ width:108px; height:108px; }
-    .opening-mascot-motion{ width:108px; height:108px; }
     .bubble{ font-size: 14px; padding: 12px 14px; }
     .btn{ font-size: 14.5px; padding: 12px 8px; }
     .result-name{ font-size: 26px; }
@@ -553,7 +530,6 @@ color: inherit;}
     .app{ max-width: 480px; }
     .card{ padding: 30px 30px 24px; border-radius: 26px; }
     .mascot{ width:154px; height:154px; }
-    .opening-mascot-motion{ width:154px; height:154px; }
     .bubble{ font-size: 17px; padding: 16px 20px; }
     .btn{ font-size: 17px; padding: 16px 12px; }
   }
