@@ -872,6 +872,16 @@ const EXCLUSIVE_CHECK_GROUPS = [
    'tsukuba_express','rinkai_line','toden_arakawa','yurikamome','tokyo_monorail','nippori_toneri'],
   ['joetsu_region','chuetsu_region','kaetsu_region'],
   ['nihonkai','taiheiyo','setonaikai'],
+  // 【追加】東京都: 「多摩地区?」に(自信を持って)はいと答えたら、23区にしか無い特定の
+  // ランドマーク・大学キャンパス・主要駅は聞くまでもなく「いいえ」だと分かる(逆も同様)。
+  // データ上、tama_area=trueとこれらのタグが両方trueになる市は1件も無いため、
+  // 私鉄路線と同じ仕組みでデータから自動学習させる。
+  ['tama_area','is_tokyo_ward',
+   'todai_campus','waseda_campus','keio_campus','sophia_campus','meiji_campus','aoyama_campus','rikkyo_campus','chuo_campus','hosei_campus','tus_campus',
+   'imperial_palace','diet_building','ginza','tokyo_tower_ward','tocho','tokyo_dome_ward','sensoji','skytree_ward','toyosu_market','haneda_ward',
+   'shibuya_crossing','shibamata_taishakuten','kasai_park','broadway_nakano','koenji_area','shimokitazawa','jiyugaoka','shakujii_park',
+   'ochanomizu_univ','gakushuin_univ','toyo_univ','komazawa_univ','seijo_univ','kokugakuin_univ','senshu_univ',
+   'tokyo_station','ikebukuro_station','ueno_station','shinagawa_station','akihabara_station','shimbashi_station','kitasenju_station','kinshicho_station'],
 ];
 let EXCLUSIVE_MAP = {};
 
@@ -948,8 +958,15 @@ function isOppositeStatsAlreadyAsked(key){
 // 面積の直後に人口密度(またはその逆)を連続させない
 const AREA_KEYS = new Set(['areaLarge','areaCompact']);
 const DENSITY_KEYS = new Set(['densityHigh','densityLow']);
+// 【重要】ここで見る「直近の質問」は、必ず実際にプレイヤーへ表示した質問(history)から取る。
+// asked配列にはEXCLUSIVE_MAPによる自動除外分(1回のトリガーで数十件増えることがある)も
+// 積まれているため、asked の末尾をそのまま使うと「直近の質問」が自動除外の残骸になり、
+// このジャンル連続防止ロジックが正しく働かなくなる。
+function lastDisplayedKeys(n){
+  return history.slice(-n).map(h => h.key);
+}
 function isAreaDensityBackToBack(key){
-  const last = asked[asked.length - 1];
+  const last = lastDisplayedKeys(1)[0];
   if(!last) return false;
   if(AREA_KEYS.has(key) && DENSITY_KEYS.has(last)) return true;
   if(DENSITY_KEYS.has(key) && AREA_KEYS.has(last)) return true;
@@ -957,10 +974,11 @@ function isAreaDensityBackToBack(key){
 }
 // 同じジャンルを3問以上連続させない(決め手になる質問は例外として許可する)。
 function wouldExceedCategoryStreak(key){
-  if(asked.length < 2) return false;
+  const last2 = lastDisplayedKeys(2);
+  if(last2.length < 2) return false;
   const cat = categoryOf(key);
-  const last2 = asked.slice(-2).map(categoryOf);
-  return last2[0] === cat && last2[1] === cat;
+  const last2Cat = last2.map(categoryOf);
+  return last2Cat[0] === cat && last2Cat[1] === cat;
 }
 const MAX_Q = 34;           // 通常質問の上限
 const MAX_EXTRA_Q = 4;      // 「ちがう」の後の追加質問の上限
@@ -983,8 +1001,8 @@ const STABLE_STREAK_REQUIRED = 3;          // 1位候補が何問連続で変わ
 
 // ---- 候補の完全除外条件(ここに挙げた場合だけ、スコアを下げるのではなく候補から完全に外す) ----
 // 「わからない」やあいまいな回答1回だけでは絶対に消えないよう、しきい値は厳しめに設定する。
-const OBJECTIVE_CONTRADICTION_LIMIT = 3; // 明確な(フル確信度の)客観的回答にこの回数以上矛盾したら除外する
-const EXTREME_LOW_PROB_THRESHOLD = 0.001; // 候補確率(softmax)がこれを下回ったら除外候補にする
+const OBJECTIVE_CONTRADICTION_LIMIT = 5; // 明確な(フル確信度の)客観的回答にこの回数以上矛盾したら除外する
+const EXTREME_LOW_PROB_THRESHOLD = 0.0002; // 候補確率(softmax)がこれを下回ったら除外候補にする
 const MIN_POOL_FOR_PROB_PRUNE = 20;       // 候補がこれより少ない終盤では確率による除外は行わない(僅差の逆転を守るため)
 
 // 上位候補5〜15自治体の違いを優先する、追加質問フェーズ用の絞り込み件数
@@ -1980,11 +1998,11 @@ function updateDebugPanel(){
     return `  ${i+1}. ${e.city.name}(${e.city.pref}) score=${e.score.toFixed(2)} prob=${p}% mismatch=${e.objMismatch||0}`;
   }).join('\n');
 
-  const lastKey = asked[asked.length - 1];
+  const lastKey = lastDisplayedKeys(1)[0];
   const trueCount = lastKey != null ? sorted.filter(e => e.city.tags[lastKey]).length : '-';
   const falseCount = lastKey != null ? sorted.length - (typeof trueCount === 'number' ? trueCount : 0) : '-';
 
-  const catHistory = asked.slice(-8).map(k => `${k}(${categoryOf(k)})`).join(', ') || '(なし)';
+  const catHistory = lastDisplayedKeys(8).map(k => `${k}(${categoryOf(k)})`).join(', ') || '(なし)';
   const lastCat = lastKey ? categoryOf(lastKey) : '(なし)';
 
   const popRangeText = `${knownPopMin === -Infinity ? '下限不明' : knownPopMin+'人以上'} 〜 ${knownPopMax === Infinity ? '上限不明' : knownPopMax+'人未満'}`;
@@ -2081,6 +2099,18 @@ const MODE_ONLY_KEYS = {
   shikoku: ['yosan_line','dosan_line','sanuki_area','awa_area','iyo_area','toyo_area','chuyo_area','nanyo_area','honshu_bridge','paper_industry_shikoku'],
   kyushu: ['northern_kyushu','southern_kyushu','ariake_coast','fukuoka_metro','kitakyushu_area','chikugo_area','chikuho_area','chikuzen_area','satsuma_area','osumi_area','okinawa_main_island','okinawa_south_central','sakishima_islands','kagoshima_main_line','nippo_main_line','nishitetsu_line']
 };
+
+// 【地方ごとの排他関係を全国に拡張】東京都(多摩地区/23区)で行った「地理的に絶対に
+// 両立しない組み合わせをデータから自動学習する」やり方を、MODE_ONLY_KEYSに登録済みの
+// 地方限定タグ群を単位にして全国へ広げる。各地方の限定タグ+日本海/太平洋/瀬戸内海を
+// まとめて1グループとし、実際に両方trueになる市が1件も無いペアだけを自動検出する。
+// 例: 「山陰本線が通っている?」にはいと答えたら、山陰本線は日本海側を走るため
+// 「瀬戸内海に面している?」は聞くまでもなく「いいえ」だと分かる。
+// MODE_ONLY_KEYSを単位にしているので、タグを追加・変更しても自動で追従する。
+for(const __regionGroup in MODE_ONLY_KEYS){
+  const __combined = [...new Set([...MODE_ONLY_KEYS[__regionGroup], 'nihonkai', 'taiheiyo', 'setonaikai'])];
+  EXCLUSIVE_CHECK_GROUPS.push(__combined);
+}
 
 // 高速道路インターチェンジ質問(ic_*)の出題範囲。
 // これらの路線は県境をまたぐため、MODE_ONLY_KEYS(1タグ=1地方)ではなく、
@@ -2185,6 +2215,48 @@ const TOKYO_RAIL_KEYS = new Set([
 const TOKYO_RAIL_BOOST = 10;        // 東京都版で路線質問に与える優遇量
 const TOKYO_RAIL_POOL_SIZE = 25;    // 候補がこの件数以下になったら路線質問を優先し始める
 const TOKYO_RAIL_SHARE_THRESHOLD = 0.3; // 全国版で候補のこの割合以上が東京都なら路線質問を優先
+
+// 【地方ブーストの全国拡張】TOKYO_RAIL_KEYSと同じ発想(「その地方に絞れてきたら、
+// 情報利得だけでは埋もれがちな決め手質問を優先する」)を、東京以外の地方にも広げたもの。
+// 例: 九州・沖縄に絞れてきたら「モノレールが走っている?」を優先する(那覇市・浦添市・
+// 北九州市の決め手になりやすいが、モノレールがある市自体は全国的に少なく埋もれがち)。
+// キー: MODE_ONLY_KEYSと同じ地方グループ名。値: その地方で優先したいキーの配列。
+// (地方限定タグではなく全国で出題されうるタグを想定。地方限定タグの優先はregionBoostForが別途担う)
+const REGION_KEY_BOOST = {
+  // 九州・沖縄: モノレール(那覇市・浦添市・北九州市)、鉄道駅が無い(沖縄本島の市)は
+  // 決め手になりやすいが、全国的には少数派で情報利得だけでは埋もれがち。
+  // 実測: no_railway_stationは対象9市average 21.2→19.3問に改善(5シード)。
+  kyushu: ['monorail', 'no_railway_station'],
+  // 近畿: 阪急線・京阪線は大阪都市圏の市を区別する決め手になるが、東京の私鉄と同じ理由で埋もれがち。
+  // 実測: hankyu_lineは対象12市average 18.0→16.2問に改善、失敗も1→0件に(5シード)。
+  // keihan_lineは対象10市average 17.5→16.6問に改善(5シード)。
+  kinki: ['hankyu_line', 'keihan_line'],
+  // 中部: 合掌造り集落(南砺市・高山市)は該当2市のみだが、非常に特徴的な決め手。
+  // 実測: 対象2市average 13.8→13.3問にわずかに改善(5シード、サンプルは少なめ)。
+  chubu: ['gassho_zukuri'],
+  // 【検証の結果、追加を見送ったもの】
+  // - shikoku: udon_famous(うどんが有名)は対象8市average 14.8→15.1問とほぼ横ばいで見送り。
+  // - hokkaido: drift_ice(流氷)は対象3市average 26.3→29.0問と悪化したため見送り。
+  // - chugoku: shipbuilding(造船で知られる)は対象5市average 20.6→20.7問とほぼ横ばいで見送り。
+  //   (いずれも「その質問を選ばせる」こと自体が、他の質問順序の乱数連鎖に影響し、
+  //   狙いと違う方向に転ぶことがあるため。効果が実測で確認できたものだけを採用した)
+  //
+  // 【新潟県・東京都限定タグの全国版対応】TOKYO_RAIL_KEYSと同じ「候補プールが絞れて
+  // から優先する」仕組みを、新潟・東京の限定タグ全体(MODE_ONLY_KEYS.niigata / .tokyo)
+  // にも広げたもの。
+  // 実測: 「ほぼ確定してから出す」つもりで閾値0.7を試したところ、むしろ他地方と同じ
+  // 緩い閾値0.3の方が効率的だった(新潟: 平均14.31→0.7で13.81→0.3で13.66問、
+  // 東京: 平均17.79→0.7で17.63→0.3で17.12問。いずれも正答率100%は維持)。
+  // 30%程度候補が絞れた時点で使い始めた方が、質問を無駄にしにくいため。
+  // そのため他地方と同じ閾値をそのまま使う(専用の高い閾値は採用しなかった)。
+  niigata: MODE_ONLY_KEYS.niigata,
+  tokyo: MODE_ONLY_KEYS.tokyo,
+};
+const REGION_KEY_BOOST_AMOUNT = 8;
+const REGION_KEY_BOOST_POOL_SIZE = 25;
+const REGION_KEY_BOOST_SHARE_THRESHOLD = 0.3;
+const REGION_KEY_BOOST_LOOKUP = {}; // キー→地方グループ名の逆引き
+for(const __g in REGION_KEY_BOOST){ REGION_KEY_BOOST[__g].forEach(k => { REGION_KEY_BOOST_LOOKUP[k] = __g; }); }
 
 // 現在の候補プール(topCities)の中で、各地方・県限定グループが占める割合を計算する。
 // 全国版(currentMode==='all')のときだけ意味を持つ(地方版では既に常時有効なため不要)。
@@ -2964,6 +3036,17 @@ function priorityAdjust(k, diff, poolSize, isDecisive, groupShares){
       return Math.max(0, diff - TOKYO_RAIL_BOOST);
     }
   }
+  // 【地方ブースト(東京以外)】REGION_KEY_BOOSTに登録されたキーは、対応する地方に
+  // 候補が絞れてきた場面で優先する。TOKYO_RAIL_KEYSの判定とまったく同じ考え方。
+  const boostGroup = REGION_KEY_BOOST_LOOKUP[k];
+  if(boostGroup && poolSize <= REGION_KEY_BOOST_POOL_SIZE){
+    const share = groupShares ? groupShares[boostGroup] : null;
+    const regionFocused = (currentMode === boostGroup) ||
+      (currentMode === 'all' && share != null && share >= REGION_KEY_BOOST_SHARE_THRESHOLD);
+    if(regionFocused){
+      return Math.max(0, diff - REGION_KEY_BOOST_AMOUNT);
+    }
+  }
   const cat = categoryOf(k);
   const repeatCount = askedCategoryCounts[cat] || 0;
   // 候補が絞れてきたら、ジャンルの偏りより「早く絞り込むこと」を優先する。
@@ -3044,7 +3127,9 @@ function entropyPick(){
 
   // 【直近3問のジャンル偏り】直前と同じカテゴリ、直近3問で多く使われたカテゴリには軽い減点を加える。
   // (askedCategoryCountsによるゲーム全体を通じた減点とは別に、局所的な「連続しすぎ」も軽く抑える)
-  const recentCats = asked.slice(-3).map(categoryOf);
+  // ここも実際に表示した質問(history)基準。asked.slice(-3)だとEXCLUSIVE_MAPの自動除外分の
+  // 残骸を見てしまい、直近ジャンル判定が崩れる。
+  const recentCats = lastDisplayedKeys(3).map(categoryOf);
   function recentStreakPenalty(k){
     const cat = categoryOf(k);
     let penalty = 0;
@@ -3579,8 +3664,13 @@ function renderQuestion(){
 
   const phaseCount = questionPhase === 'extra' ? extraQuestionCount : questionCount;
   const phaseMax = questionPhase === 'extra' ? MAX_EXTRA_Q : MAX_Q;
-
-  if(!key || phaseCount >= phaseMax || sortedPool().length <= 1 || asked.length > HARD_MAX_Q){
+  // 【重要】askedには実際に表示した質問だけでなく、EXCLUSIVE_MAPによる自動除外分
+  // (「多摩地区?」にはいと答えたら23区限定タグ群を一括で「いいえ」扱いにする、など)も
+  // 積まれる。自動除外は1回のトリガーで数十件まとめて増えることがあるため、
+  // askedの長さをそのまま安全装置の判定に使うと、実質の質問数が少ないうちに
+  // 誤って強制終了してしまう。ここは必ず実質の質問数(questionCount+extraQuestionCount)で判定する。
+  const realQuestionCount = questionCount + extraQuestionCount;
+  if(!key || phaseCount >= phaseMax || sortedPool().length <= 1 || realQuestionCount > HARD_MAX_Q){
     return renderGuess();
   }
 
@@ -3843,7 +3933,12 @@ function answer(key, val, weight){
   if(val === true && weight >= 1 && EXCLUSIVE_MAP[key]){
     // 「西武線がある?」に確信を持って「はい」と答えたなら、絶対に両立しない「東急線がある?」は
     // 実際には聞かずに「いいえ」だったことにして、次の質問をもっと有効に使う。
-    // これも確定した客観的事実として扱うので、矛盾カウントの対象にする。
+    // スコアへの反映(加点/減点)は直接答えた場合と同様に行うが、objMismatch(完全除外の
+    // 判定に使う「矛盾回数」)には含めない。理由: これは「プレイヤーが直接答えた事実」では
+    // なく「別の回答からの推論」であり、その元になった回答自体が誤答(勘違い)だった場合、
+    // 1つの間違いがEXCLUSIVE_MAPを通じて数十件の「推論による矛盾」を連鎖的に生み、
+    // 本来まだ正解になり得る候補まで即座に完全除外してしまう(誤答からの巻き返しを
+    // 不当に難しくする)ことが実測で確認できたため。
     EXCLUSIVE_MAP[key].forEach(otherKey => {
       if(asked.includes(otherKey)) return;
       asked.push(otherKey);
@@ -3852,7 +3947,6 @@ function answer(key, val, weight){
           e.score += OBJ_MATCH_BONUS;
         } else {
           e.score -= OBJ_MISMATCH_PENALTY;
-          e.objMismatch = (e.objMismatch || 0) + 1;
         }
       });
     });
