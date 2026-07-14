@@ -3193,13 +3193,38 @@ function labelFor(k){
 // おらマチ オリジナルマスコット「おらっち」(角/触角なし・まんまる目・ω口)
 const MASCOT_IMAGES = {
   normal: 'mascot-normal.png',
+  wink:   'mascot-wink.png',
   think:  'mascot-think.png',
   happy:  'mascot-happy.png',
   sad:    'mascot-sad.png'
 };
-function mascotSVG(mood){
+function mascotSVG(mood, extraClass = ''){
   const src = MASCOT_IMAGES[mood] || MASCOT_IMAGES.normal;
-  return `<img class="mascot" src="${src}" alt="おらっち" draggable="false">`;
+  const className = extraClass ? `mascot ${extraClass}` : 'mascot';
+  return `<img class="${className}" src="${src}" alt="おらっち" draggable="false">`;
+}
+
+// トップページ専用。通常画像とウインク画像を同じ位置に重ね、
+// CSSで一瞬だけ表示を切り替えるため、GIFより軽く輪郭もにじまない。
+function openingMascotHTML(){
+  return `
+    <div class="opening-mascot-pop">
+      <div class="opening-mascot-motion">
+        <img class="mascot opening-mascot-frame opening-mascot-normal" src="${MASCOT_IMAGES.normal}" alt="おらっち" draggable="false">
+        <img class="mascot opening-mascot-frame opening-mascot-wink" src="${MASCOT_IMAGES.wink}" alt="" aria-hidden="true" draggable="false">
+      </div>
+    </div>`;
+}
+
+// 正解結果にだけ使う、飛び出し・ジャンプ・キラキラの喜び演出。
+function happyCelebrationMascotHTML(){
+  return `
+    <div class="share-mascot happy-celebration">
+      <span class="happy-sparkle happy-sparkle-1" aria-hidden="true">✦</span>
+      <span class="happy-sparkle happy-sparkle-2" aria-hidden="true">★</span>
+      <span class="happy-sparkle happy-sparkle-3" aria-hidden="true">✦</span>
+      <div class="happy-burst"><div class="happy-dance">${mascotSVG('happy', 'happy-mascot-image')}</div></div>
+    </div>`;
 }
 
 // ==================== 端末・ブラウザの「戻る」操作への対応 ====================
@@ -3262,7 +3287,7 @@ function renderOpening(){
   const tokyoCount = CITIES.filter(c => c.pref === '東京都' && c.name !== '東京').length;
 
   stage.innerHTML = `
-    <div class="mascot-wrap"><div class="bob pop">${mascotSVG('normal')}</div></div>
+    <div class="mascot-wrap">${openingMascotHTML()}</div>
     <div class="bubble"><span class="icon">🗾</span>どのモードであそぶ？</div>
 
     <div class="mode-select">
@@ -4766,7 +4791,7 @@ function correct(isRight, overrideCity){
       <div class="share-card" id="shareCard">
         <div class="share-card-head">
           <span class="share-eyebrow">おらマチ診断</span>
-          <div class="share-mascot pop">${mascotSVG('happy')}</div>
+          ${happyCelebrationMascotHTML()}
         </div>
         <div class="hanko">あたり</div>
         <div class="result-name">${displayName(guess)}</div>

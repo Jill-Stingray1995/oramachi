@@ -84,8 +84,93 @@ color: inherit;}
   .blink{ animation: blink 4.5s ease-in-out infinite; transform-origin: center; }
   @keyframes blink{ 0%,92%,100%{transform:scaleY(1)} 96%{transform:scaleY(0.1)} }
 
+  /* ---- トップページのおらっち: 登場 → ふわふわ → 定期的にウインク ---- */
+  .opening-mascot-pop{
+    animation: opening-mascot-appear .7s cubic-bezier(.22,1.45,.36,1) both;
+    transform-origin: center bottom;
+  }
+  .opening-mascot-motion{
+    position:relative; width:132px; height:132px;
+    animation: opening-mascot-float 3.2s ease-in-out infinite;
+    transform-origin: center 88%;
+  }
+  .opening-mascot-frame{
+    position:absolute; inset:0; width:100%; height:100%;
+  }
+  .opening-mascot-normal{
+    animation: opening-normal-frame 5.8s steps(1,end) infinite;
+  }
+  .opening-mascot-wink{
+    opacity:0;
+    animation: opening-wink-frame 5.8s steps(1,end) infinite;
+  }
+  @keyframes opening-mascot-appear{
+    0%{ opacity:0; transform:translateY(24px) scale(.72) rotate(-5deg); }
+    65%{ opacity:1; transform:translateY(-4px) scale(1.07) rotate(2deg); }
+    100%{ opacity:1; transform:translateY(0) scale(1) rotate(0); }
+  }
+  @keyframes opening-mascot-float{
+    0%,100%{ transform:translateY(0) rotate(-1deg); }
+    50%{ transform:translateY(-7px) rotate(1deg); }
+  }
+  @keyframes opening-normal-frame{
+    0%,81%,84%,87%,100%{ opacity:1; }
+    82%,83%,85%,86%{ opacity:0; }
+  }
+  @keyframes opening-wink-frame{
+    0%,81%,84%,87%,100%{ opacity:0; }
+    82%,83%,85%,86%{ opacity:1; }
+  }
+
+  /* ---- 正解結果のおらっち: 飛び出してジャンプし、キラキラが広がる ---- */
+  .happy-celebration{ position:relative; overflow:visible; isolation:isolate; }
+  .happy-burst{
+    animation: happy-burst .78s cubic-bezier(.22,1.45,.36,1) both;
+    transform-origin:center bottom;
+  }
+  .happy-dance{
+    animation: happy-dance .62s .72s ease-in-out 3;
+    transform-origin:center bottom;
+  }
+  .happy-mascot-image{ display:block; }
+  .happy-sparkle{
+    position:absolute; z-index:2; color:var(--gold); line-height:1;
+    opacity:0; pointer-events:none;
+    text-shadow:0 1px 0 #FFFDF6;
+    animation: happy-sparkle 1.35s ease-out both;
+  }
+  .happy-sparkle-1{ left:-10px; top:-7px; font-size:17px; animation-delay:.18s; }
+  .happy-sparkle-2{ right:-12px; top:1px; font-size:13px; animation-delay:.34s; }
+  .happy-sparkle-3{ right:1px; bottom:-8px; font-size:15px; animation-delay:.5s; }
+  @keyframes happy-burst{
+    0%{ opacity:0; transform:translateY(24px) scale(.35) rotate(-12deg); }
+    38%{ opacity:1; transform:translateY(-10px) scale(1.24) rotate(7deg); }
+    62%{ transform:translateY(2px) scale(.92) rotate(-4deg); }
+    82%{ transform:translateY(-3px) scale(1.07) rotate(2deg); }
+    100%{ opacity:1; transform:translateY(0) scale(1) rotate(0); }
+  }
+  @keyframes happy-dance{
+    0%,100%{ transform:translateY(0) rotate(0); }
+    25%{ transform:translateY(-7px) rotate(-7deg); }
+    50%{ transform:translateY(0) rotate(0); }
+    75%{ transform:translateY(-7px) rotate(7deg); }
+  }
+  @keyframes happy-sparkle{
+    0%{ opacity:0; transform:translate(0,7px) scale(.2) rotate(0); }
+    35%{ opacity:1; transform:translate(0,-3px) scale(1.25) rotate(25deg); }
+    100%{ opacity:0; transform:translate(0,-14px) scale(.65) rotate(70deg); }
+  }
+
   @media (prefers-reduced-motion: reduce){
-    .bob, .shake, .pop, *{ animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    .bob, .shake, .pop, .opening-mascot-pop, .opening-mascot-motion,
+    .opening-mascot-normal, .opening-mascot-wink, .happy-burst, .happy-dance,
+    .happy-sparkle, *{
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    .opening-mascot-normal{ opacity:1 !important; }
+    .opening-mascot-wink, .happy-sparkle{ opacity:0 !important; }
   }
 
   .bubble{
@@ -463,6 +548,7 @@ color: inherit;}
   @media (max-width: 360px){
     .logo-text{ font-size: 26px; }
     .mascot{ width:108px; height:108px; }
+    .opening-mascot-motion{ width:108px; height:108px; }
     .bubble{ font-size: 14px; padding: 12px 14px; }
     .btn{ font-size: 14.5px; padding: 12px 8px; }
     .result-name{ font-size: 26px; }
@@ -476,6 +562,7 @@ color: inherit;}
     .app{ max-width: 480px; }
     .card{ padding: 30px 30px 24px; border-radius: 26px; }
     .mascot{ width:154px; height:154px; }
+    .opening-mascot-motion{ width:154px; height:154px; }
     .bubble{ font-size: 17px; padding: 16px 20px; }
     .btn{ font-size: 17px; padding: 16px 12px; }
   }
