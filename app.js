@@ -15,7 +15,7 @@ const KEYS = ['shinkansen','coastal','designated','festival','castle','snow_fest
   'yamagata_shinkansen_station','akita_shinkansen_station',
   'is_village','shinano_river','agano_river','uono_river',
   'borders_yamagata','borders_fukushima','borders_gunma','borders_nagano','borders_toyama',
-  'todai_campus','waseda_campus','keio_campus','sophia_campus','meiji_campus','aoyama_campus','rikkyo_campus','chuo_campus','hosei_campus','tus_campus','imperial_palace','diet_building','ginza','tokyo_tower_ward','tocho','tokyo_dome_ward','sensoji','skytree_ward','toyosu_market','haneda_ward','shibuya_crossing','shibamata_taishakuten','kasai_park','broadway_nakano','koenji_area','shimokitazawa','jiyugaoka','shakujii_park','odakyu_line','keio_inokashira_line','tokyu_line','keikyu_line','seibu_line','tobu_line','keisei_line','tsukuba_express','rinkai_line','yurikamome','tokyo_monorail','toden_arakawa','nippori_toneri','tokyo_bay','tama_river','sumida_river','arakawa_river','edogawa_river','meguro_river','shakujii_river','borders_other_pref_tokyo','borders_kanagawa','borders_saitama','borders_chiba','ochanomizu_univ','gakushuin_univ','toyo_univ','komazawa_univ','seijo_univ','kokugakuin_univ','senshu_univ','jr_line','no_jr','yamanote_line','keihintohoku_line','chuo_rapid','chuo_sobu','joban_line','saikyo_line','tokyo_station','ikebukuro_station','ueno_station','shinagawa_station','akihabara_station','shimbashi_station','kitasenju_station','kinshicho_station','ogikubo_station','kamata_station','akabane_station','nippori_station','tsunagari_mayu_police','koiwa_or_kasairinkai_station','tora_san_home','tsubasa_hometown','tv_station_area','sazae_family','hachiko_area','yose_hall','sailor_moon_stage','tokiwa_so','godzilla_head','rakugo_stage','sanma_famous',
+  'todai_campus','waseda_campus','keio_campus','sophia_campus','meiji_campus','aoyama_campus','rikkyo_campus','chuo_campus','hosei_campus','tus_campus','imperial_palace','diet_building','ginza','tokyo_tower_ward','tocho','tokyo_dome_ward','sensoji','skytree_ward','toyosu_market','haneda_ward','shibuya_crossing','shibamata_taishakuten','kasai_park','broadway_nakano','koenji_area','shimokitazawa','jiyugaoka','shakujii_park','odakyu_line','keio_inokashira_line','tokyu_line','keikyu_line','seibu_line','tobu_line','keisei_line','tsukuba_express','rinkai_line','yurikamome','toden_arakawa','nippori_toneri','tokyo_bay','tama_river','sumida_river','arakawa_river','edogawa_river','meguro_river','shakujii_river','borders_other_pref_tokyo','borders_kanagawa','borders_saitama','borders_chiba','ochanomizu_univ','gakushuin_univ','toyo_univ','komazawa_univ','seijo_univ','senshu_univ','jr_line','no_jr','yamanote_line','keihintohoku_line','chuo_rapid','chuo_sobu','joban_line','saikyo_line','tokyo_station','ikebukuro_station','ueno_station','kinshicho_station','ogikubo_station','kamata_station','akabane_station','nippori_station','tsunagari_mayu_police','tv_station_area','sazae_family','hachiko_area','yose_hall','sailor_moon_stage','tokiwa_so','godzilla_head','rakugo_stage','sanma_famous',
   'monzen','bedtown','skijyou','geopark','nuclearpowerplant','monozukuri','chukakushi','tokureishi',
   'douou_area','doutou_area','dohoku_area','sapporo_metro','ishikari_plain','historical_port_hokkaido','industrial_port_hokkaido','hakodate_honsen','ishikari_river',
   'tsugaru_area','sendai_metro','kitakami_basin','shonai_area','hamadori_area','nakadori_area','aizu_area','sanriku_area',
@@ -183,7 +183,6 @@ const QUESTIONS = {
   tsukuba_express: {text:'つくばエクスプレスの駅がある?', icon:'🚄'},
   rinkai_line: {text:'りんかい線の駅がある?', icon:'🚃'},
   yurikamome: {text:'ゆりかもめの駅がある?', icon:'🚝'},
-  tokyo_monorail: {text:'東京モノレールの駅がある?', icon:'🚝'},
   toden_arakawa: {text:'都電荒川線の駅・停留場がある?', icon:'🚋'},
   nippori_toneri: {text:'日暮里・舎人ライナーの駅がある?', icon:'🚝'},
   tokyo_bay: {text:'東京湾に面している?', icon:'🌊'},
@@ -202,7 +201,6 @@ const QUESTIONS = {
   toyo_univ: {text:'東洋大学の主要キャンパスがある?', icon:'🎓'},
   komazawa_univ: {text:'駒澤大学がある?', icon:'🎓'},
   seijo_univ: {text:'成城大学がある?', icon:'🎓'},
-  kokugakuin_univ: {text:'國學院大學の主要キャンパスがある?', icon:'🎓'},
   senshu_univ: {text:'専修大学の都心キャンパスがある?', icon:'🎓'},
   jr_line: {text:'JRの駅がある?', icon:'🚉'},
   no_jr: {text:'JRの駅がない?', icon:'🚫'},
@@ -215,19 +213,12 @@ const QUESTIONS = {
   tokyo_station: {text:'東京駅がある?', icon:'🚉'},
   ikebukuro_station: {text:'池袋駅がある?', icon:'🚉'},
   ueno_station: {text:'上野駅がある?', icon:'🚉'},
-  shinagawa_station: {text:'品川駅がある?', icon:'🚉'},
-  akihabara_station: {text:'秋葉原駅がある?', icon:'🚉'},
-  shimbashi_station: {text:'新橋駅がある?', icon:'🚉'},
-  kitasenju_station: {text:'北千住駅がある?', icon:'🚉'},
   kinshicho_station: {text:'錦糸町駅がある?', icon:'🚉'},
   ogikubo_station: {text:'荻窪駅がある?', icon:'🚉'},
   kamata_station: {text:'蒲田駅がある?', icon:'🚉'},
   akabane_station: {text:'赤羽駅がある?', icon:'🚉'},
   nippori_station: {text:'日暮里駅がある?', icon:'🚉'},
   tsunagari_mayu_police: {text:'眉毛が繋がったおまわりさんがいる?', icon:'👮'},
-  koiwa_or_kasairinkai_station: {text:'小岩駅・葛西臨海公園駅のどちらかがある?', icon:'🚉'},
-  tora_san_home: {text:'フーテンの寅さんの実家がある?', icon:'🎬'},
-  tsubasa_hometown: {text:'サッカー少年・大空翼くんゆかりのマチ?', icon:'⚽'},
   tv_station_area: {text:'テレビ局が立地する?', icon:'📺'},
   sazae_family: {text:'国民的4コマ漫画の一家が住んでいる?', icon:'🏠'},
   hachiko_area: {text:'駅前で主人を待ち続けた犬が有名?', icon:'🐕'},
@@ -869,7 +860,7 @@ let scorePool = []; // [{city, score}] 形式。はい/いいえで完全に消�
 // 対象は誤学習を防ぐため、地理的に意味のある安全なタグ群だけに絞る。
 const EXCLUSIVE_CHECK_GROUPS = [
   ['odakyu_line','keio_inokashira_line','tokyu_line','keikyu_line','seibu_line','tobu_line','keisei_line',
-   'tsukuba_express','rinkai_line','toden_arakawa','yurikamome','tokyo_monorail','nippori_toneri'],
+   'tsukuba_express','rinkai_line','toden_arakawa','yurikamome','nippori_toneri'],
   ['joetsu_region','chuetsu_region','kaetsu_region'],
   ['nihonkai','taiheiyo','setonaikai'],
   // 【追加】東京都: 「多摩地区?」に(自信を持って)はいと答えたら、23区にしか無い特定の
@@ -880,8 +871,8 @@ const EXCLUSIVE_CHECK_GROUPS = [
    'todai_campus','waseda_campus','keio_campus','sophia_campus','meiji_campus','aoyama_campus','rikkyo_campus','chuo_campus','hosei_campus','tus_campus',
    'imperial_palace','diet_building','ginza','tokyo_tower_ward','tocho','tokyo_dome_ward','sensoji','skytree_ward','toyosu_market','haneda_ward',
    'shibuya_crossing','shibamata_taishakuten','kasai_park','broadway_nakano','koenji_area','shimokitazawa','jiyugaoka','shakujii_park',
-   'ochanomizu_univ','gakushuin_univ','toyo_univ','komazawa_univ','seijo_univ','kokugakuin_univ','senshu_univ',
-   'tokyo_station','ikebukuro_station','ueno_station','shinagawa_station','akihabara_station','shimbashi_station','kitasenju_station','kinshicho_station'],
+   'ochanomizu_univ','gakushuin_univ','toyo_univ','komazawa_univ','seijo_univ','senshu_univ',
+   'tokyo_station','ikebukuro_station','ueno_station','kinshicho_station'],
 ];
 let EXCLUSIVE_MAP = {};
 
@@ -2087,7 +2078,7 @@ const MODE_ONLY_KEYS = {
     'joetsu_region','chuetsu_region','uono_river','borders_gunma','borders_toyama'
   ],
   tokyo: [
-    'todai_campus','waseda_campus','keio_campus','sophia_campus','meiji_campus','aoyama_campus','rikkyo_campus','chuo_campus','hosei_campus','tus_campus','diet_building','sensoji','kasai_park','odakyu_line','keio_inokashira_line','tokyu_line','keikyu_line','rinkai_line','yurikamome','tokyo_monorail','toden_arakawa','nippori_toneri','sumida_river','meguro_river','shakujii_river','borders_other_pref_tokyo','borders_kanagawa','borders_saitama','borders_chiba','ochanomizu_univ','gakushuin_univ','toyo_univ','komazawa_univ','seijo_univ','kokugakuin_univ','senshu_univ','jr_line','no_jr','yamanote_line','keihintohoku_line','chuo_sobu','tokyo_station','ueno_station','shinagawa_station','akihabara_station','shimbashi_station','kinshicho_station','kamata_station','nippori_station','tsunagari_mayu_police','koiwa_or_kasairinkai_station','tora_san_home','tsubasa_hometown','tv_station_area','sazae_family','hachiko_area','yose_hall','sailor_moon_stage','tokiwa_so','godzilla_head','rakugo_stage','sanma_famous'
+    'todai_campus','waseda_campus','keio_campus','sophia_campus','meiji_campus','aoyama_campus','rikkyo_campus','chuo_campus','hosei_campus','tus_campus','diet_building','sensoji','kasai_park','odakyu_line','keio_inokashira_line','tokyu_line','keikyu_line','rinkai_line','yurikamome','toden_arakawa','nippori_toneri','sumida_river','meguro_river','shakujii_river','borders_other_pref_tokyo','borders_kanagawa','borders_saitama','borders_chiba','ochanomizu_univ','gakushuin_univ','toyo_univ','komazawa_univ','seijo_univ','senshu_univ','jr_line','no_jr','yamanote_line','keihintohoku_line','chuo_sobu','tokyo_station','ueno_station','kinshicho_station','kamata_station','nippori_station','tsunagari_mayu_police','tv_station_area','sazae_family','hachiko_area','yose_hall','sailor_moon_stage','tokiwa_so','godzilla_head','rakugo_stage','sanma_famous'
   ],
   // 地方版別質問:キーをここに足すと、その地方版と全国版だけで出題される。
   hokkaido: ['douou_area','doutou_area','dohoku_area','sapporo_metro','ishikari_plain','historical_port_hokkaido','industrial_port_hokkaido','hakodate_honsen','ishikari_river'],
@@ -2209,7 +2200,7 @@ const REGION_BOOST_AMOUNT = 6;            // ブーストの強さ(priorityAdjus
 // 限り、候補がある程度絞れた段階でこれらを優先的に出すためのグループとして定義する。
 const TOKYO_RAIL_KEYS = new Set([
   'odakyu_line','keio_inokashira_line','tokyu_line','keikyu_line','seibu_line','tobu_line','keisei_line',
-  'tsukuba_express','rinkai_line','yurikamome','tokyo_monorail','toden_arakawa','nippori_toneri',
+  'tsukuba_express','rinkai_line','yurikamome','toden_arakawa','nippori_toneri',
   'yamanote_line','keihintohoku_line','chuo_sobu','tobu_tojo_line','sotetsu_line'
 ]);
 const TOKYO_RAIL_BOOST = 10;        // 東京都版で路線質問に与える優遇量
@@ -2426,7 +2417,6 @@ const TAG_GAME_CATEGORY = {
   "tsukuba_express": "交通",
   "rinkai_line": "交通",
   "yurikamome": "交通",
-  "tokyo_monorail": "交通",
   "toden_arakawa": "交通",
   "nippori_toneri": "交通",
   "jr_line": "交通",
@@ -2450,16 +2440,11 @@ const TAG_GAME_CATEGORY = {
   "tokyo_station": "交通",
   "ikebukuro_station": "交通",
   "ueno_station": "交通",
-  "shinagawa_station": "交通",
-  "akihabara_station": "交通",
-  "shimbashi_station": "交通",
-  "kitasenju_station": "交通",
   "kinshicho_station": "交通",
   "ogikubo_station": "交通",
   "kamata_station": "交通",
   "akabane_station": "交通",
   "nippori_station": "交通",
-  "koiwa_or_kasairinkai_station": "交通",
   "designated": "人口・行政",
   "capital": "人口・行政",
   "is_town_village": "人口・行政",
@@ -2552,12 +2537,9 @@ const TAG_GAME_CATEGORY = {
   "toyo_univ": "学問",
   "komazawa_univ": "学問",
   "seijo_univ": "学問",
-  "kokugakuin_univ": "学問",
   "senshu_univ": "学問",
   "imperial_university": "学問",
   "tsunagari_mayu_police": "遊び心",
-  "tora_san_home": "遊び心",
-  "tsubasa_hometown": "遊び心",
   "tv_station_area": "遊び心",
   "sazae_family": "遊び心",
   "hachiko_area": "遊び心",
@@ -2987,7 +2969,7 @@ function categoryOf(k){ return TAG_GAME_CATEGORY[k] || "その他"; }
 // 遊び心系だけは特別扱い: 候補が絞れてきた終盤の「決め手」として使いたいので、
 // ジャンルバランスとは別に、序盤は出にくく・終盤(候補少数)は優先させる。
 const HIGH_PRIORITY_KEYS = new Set([
-  'tsunagari_mayu_police','tora_san_home','tsubasa_hometown','tv_station_area','sazae_family','hachiko_area','yose_hall','sailor_moon_stage','tokiwa_so','godzilla_head','rakugo_stage','sanma_famous','action_kamen','funasshi_famous','southern_seichi','yayoiken_seichi','kitanotakeshi'
+  'tsunagari_mayu_police','tv_station_area','sazae_family','hachiko_area','yose_hall','sailor_moon_stage','tokiwa_so','godzilla_head','rakugo_stage','sanma_famous','action_kamen','funasshi_famous','southern_seichi','yayoiken_seichi','kitanotakeshi'
 ]);
 const FUN_ACTIVATION_POOL_SIZE = 10; // 候補がこの件数以下に絞れてから遊び心系を優先し始める
 const HIGH_PRIORITY_BONUS = 45;
