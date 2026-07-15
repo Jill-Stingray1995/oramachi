@@ -34,7 +34,7 @@ const KEYS = ['hitachi_seaside_park','tsuchiura_hanabi','koga_kubo','toride_geid
   'ancient_provincial_capital','kokubunji_site','traditional_buildings_district','little_kyoto','giant_buddha','sea_torii','deer_in_city','gassho_zukuri',
   'ferry_available','no_railway_station','shikoku_pilgrimage','olympic_venue','famous_battlefield','kitamaebune_port','famous_fish_catch',
   'kaikyo_machi','gakuto','hula_girl','kannon_zo','koedo','imono_kupola','aeon_laketown','funasshi_famous','takao_mountain','curry_famous','anime_seichi','number_in_name','kigyo_joukamachi','hankyu_line','yayoiken_seichi','hirakata_park','keihan_line','kawachi_ondo','rugby_machi','kougyou_toshi','hyoujun_jigosen','koushien','bikan_chiku','gunkou_machi','seitetsu_kouro','fugu_famous','tire_famous','hamburger_famous','kenkyu_gakuen_toshi','atsui_machi','action_kamen','senbei_famous','tanabata_famous','uirou_famous','southern_seichi','b_kyu_gourmet','beigun_kichi','shinkai_gyo','saboten_machi','combinat_yakei','danjiri_famous','onaji_ookawa','kageki_dan',
-  'animal_in_name','ariake_coast','awa_area','big_small_in_name','bingo_area','body_part_in_name','chikugo_area','chikuho_area','chikuzen_area','chugoku_mountain_basin','chuyo_area','color_in_name','dosan_line','four_plus_name','fukuoka_metro','hakubi_line','hard_to_read_name','hiroshima_metro','honshu_bridge','iyo_area','izumo_area','kagoshima_main_line','kawa_in_name','kitakyushu_area','nanyo_area','new_old_in_name','nippo_main_line','nishitetsu_line','northern_kyushu','okinawa_main_island','okinawa_south_central','osumi_area','paper_industry_shikoku','plant_in_name','pref_name_in_city_name','sakishima_islands','same_name_other_pref','sanin_area','sanin_main_line','sanuki_area','sanyo_area','sanyo_main_line','satsuma_area','sea_word_in_name','setouchi_industrial','shima_in_name','southern_kyushu','ta_in_name','toyo_area','yama_in_name','yosan_line',
+  'animal_in_name','ariake_coast','big_small_in_name','bingo_area','body_part_in_name','chikugo_area','chikuho_area','chikuzen_area','chugoku_mountain_basin','chuyo_area','color_in_name','dosan_line','four_plus_name','fukuoka_metro','hakubi_line','hard_to_read_name','hiroshima_metro','honshu_bridge','izumo_area','kagoshima_main_line','kawa_in_name','kitakyushu_area','nanyo_area','new_old_in_name','nippo_main_line','nishitetsu_line','northern_kyushu','okinawa_main_island','okinawa_south_central','osumi_area','paper_industry_shikoku','plant_in_name','pref_name_in_city_name','sakishima_islands','same_name_other_pref','sanin_area','sanin_main_line','sanyo_area','sanyo_main_line','satsuma_area','sea_word_in_name','setouchi_industrial','shima_in_name','southern_kyushu','ta_in_name','toyo_area','yama_in_name','yosan_line',
   'ic_doo','ic_sasson','ic_shiribeshi','ic_doto',
   'ic_tohoku','ic_hachinohe','ic_aomori','ic_kamaishi','ic_akita','ic_yamagata','ic_tohoku_chuo','ic_nihonkai_tohoku','ic_banetsu','ic_joban',
   'ic_kanetsu','ic_joshinetsu','ic_hokukanto','ic_higashikanto','ic_tokyo_gaikan','ic_tateyama','ic_shin_kuko',
@@ -51,6 +51,7 @@ const KEYS = ['hitachi_seaside_park','tsuchiura_hanabi','koga_kubo','toride_geid
   'bijin_town','tachineputa','oirase','osorezan','shakoki_dogu','seibien','jodogahama','goishi_coast','miyazawa_kenji','tensho_chi','amber_kuji','tono_monogatari','geibikei','ipponmatsu','ohtani_shohei','zashiki_warashi','appi_kogen','ishinomori','chagu_chagu','shiogama_shrine','fukahire','shiroishi_umen','sendai_airport','jaxa_kakuda','takekoma_shrine','meiji_mura','kano_eiko','blue_impulse','naruko_onsen','town_to_city_2016',
   'basketball_town','kamakura_yokote','akita_inu_hachiko','namahage','inaniwa_udon','oyu_stone_circle','yuri_kogen_railway','blumen_akita','odate_noshiro_airport','tdk_town','kakunodate_tazawako','sankyo_soko','higashizawa_rose','ayame_park','hanagasa_tendo','hiragana_station','ginzan_onsen','kumano_taisha','tsuburaya_eiji','matsukawaura','kiku_ningyo_nihonmatsu','abukumado','kacchu_keiba','anpogaki','william_park','natural_gas_town',
   'region_hokkaido','region_tohoku','region_kanto','region_chubu','region_kinki','region_chugoku','region_shikoku','region_kyushu',
+  'pref_hokkaido','pref_aomori','pref_iwate','pref_miyagi','pref_akita','pref_yamagata','pref_fukushima','pref_ibaraki','pref_tochigi','pref_gunma','pref_saitama','pref_chiba','pref_tokyo','pref_kanagawa','pref_niigata','pref_toyama','pref_ishikawa','pref_fukui','pref_yamanashi','pref_nagano','pref_gifu','pref_shizuoka','pref_aichi','pref_mie','pref_shiga','pref_kyoto','pref_osaka','pref_hyogo','pref_nara','pref_wakayama','pref_tottori','pref_shimane','pref_okayama','pref_hiroshima','pref_yamaguchi','pref_tokushima','pref_kagawa','pref_ehime','pref_kochi','pref_fukuoka','pref_saga','pref_nagasaki','pref_kumamoto','pref_oita','pref_miyazaki','pref_kagoshima','pref_okinawa',
   'kitasubaru','kita_no_kuni','kita_no_shonan','shizumine','shimotsuma_movie','hitachi_kokufu','toyoda_castle','moriya_junction','namegata_farm','hananuki','happogahara','kanuma_tsuchi','nasu_yoichi','jichi_medical','bihada_onsen','moomin_park','ageo_sodou','iroha_toi','okegawa_benibana','ishito_zakura','kinchakuda','heirinji','lucky_star','johnson_town','saika_matsuri','mizuko_kaizuka','smallest_city','yashio_hanamomo','yoshikawa_namazu','shiraoka_nashi','kurohama_kaizuka','hanyu_yurugp','inzai_datacenter','kamagaya_farm','iioka_cape','tomisato_suika','sanbu_sugi','keisei_rose','aqualine_gate','yotsukaido_name','onari_kaido','yachimata_peanuts','nashibou','soza_ueki','blueberry_origin','kishozeisei_center','summerland','hamura_zeki','baseside_street','zama_himawari','zushi_marina','ayase_no_station','nono_odoriji','linear_center','shakou_elevator','saruhashi','enbaragawa','sanshu_kawara','nonbori_arai','akame_taki','oiwayama_dotaku','tokaido_nakasendo','koka_ninja','take_no_michi','aioi_matsu','banshu_soroban_ono','katsuragi_tsutsuji','matabei_zakura','kishu_herazao','negoroji','kokusan_denim','konrei_kagu','nora_dokei','onga_pump','koinoki','hiyoko','kubote_san','taku_seibyo','minamata_museum','kikuchi_keikoku','mikoshiki_coast','amakusa_bridges','ikoma_kogen','senbon_icho','sogi_no_taki','orion_beer'];
 
 const QUESTIONS = {
@@ -843,7 +844,6 @@ const QUESTIONS = {
   famous_fish_catch:           {text:'漁獲される特定の魚介で全国的に有名?', icon:'🐟', subjective:true},
   animal_in_name: {text:'自治体名に動物を表す漢字が入っている？', icon:'🐾'},
   ariake_coast: {text:'有明海に面していますか?', icon:'🧭'},
-  awa_area: {text:'阿波地方にありますか?', icon:'🧭'},
   big_small_in_name: {text:'自治体名に「大」または「小」が入っている？', icon:'🔠'},
   bingo_area: {text:'備後地方にありますか?', icon:'🧭'},
   body_part_in_name: {text:'自治体名に体の一部を表す漢字が入っている？', icon:'👁️'},
@@ -860,7 +860,6 @@ const QUESTIONS = {
   hard_to_read_name: {text:'難読地名として知られている？', icon:'❓', subjective:true},
   hiroshima_metro: {text:'広島都市圏に含まれますか?', icon:'🧭'},
   honshu_bridge: {text:'本州方面と橋で結ばれていますか?', icon:'🧭'},
-  iyo_area: {text:'伊予地方にありますか?', icon:'🧭'},
   izumo_area: {text:'出雲地方にありますか?', icon:'🧭'},
   kagoshima_main_line: {text:'鹿児島本線が通っていますか?', icon:'🚃'},
   kawa_in_name: {text:'自治体名に「川」が入っている？', icon:'🏞️'},
@@ -880,7 +879,6 @@ const QUESTIONS = {
   same_name_other_pref: {text:'同名の市が別の都道府県にもある？', icon:'👯'},
   sanin_area: {text:'山陰地方にありますか?', icon:'🧭'},
   sanin_main_line: {text:'山陰本線が通っていますか?', icon:'🚃'},
-  sanuki_area: {text:'讃岐地方にありますか?', icon:'🧭'},
   sanyo_area: {text:'山陽地方にありますか?', icon:'🧭'},
   sanyo_main_line: {text:'山陽本線が通っていますか?', icon:'🚃'},
   satsuma_area: {text:'薩摩地方にありますか?', icon:'🧭'},
@@ -1085,6 +1083,54 @@ const QUESTIONS = {
   region_chugoku: {text:'中国地方にありますか?', icon:'🗾'},
   region_shikoku: {text:'四国地方にありますか?', icon:'🗾'},
   region_kyushu: {text:'九州・沖縄地方にありますか?', icon:'🗾'},
+  // 47都道府県を直接たずねる質問。序盤の総当たりを防ぐため、出題時期と回数を厳しく制御する(canAskPrefQuestion)。
+  pref_hokkaido: {text:'北海道にありますか?', icon:'📍'},
+  pref_aomori: {text:'青森県にありますか?', icon:'📍'},
+  pref_iwate: {text:'岩手県にありますか?', icon:'📍'},
+  pref_miyagi: {text:'宮城県にありますか?', icon:'📍'},
+  pref_akita: {text:'秋田県にありますか?', icon:'📍'},
+  pref_yamagata: {text:'山形県にありますか?', icon:'📍'},
+  pref_fukushima: {text:'福島県にありますか?', icon:'📍'},
+  pref_ibaraki: {text:'茨城県にありますか?', icon:'📍'},
+  pref_tochigi: {text:'栃木県にありますか?', icon:'📍'},
+  pref_gunma: {text:'群馬県にありますか?', icon:'📍'},
+  pref_saitama: {text:'埼玉県にありますか?', icon:'📍'},
+  pref_chiba: {text:'千葉県にありますか?', icon:'📍'},
+  pref_tokyo: {text:'東京都にありますか?', icon:'📍'},
+  pref_kanagawa: {text:'神奈川県にありますか?', icon:'📍'},
+  pref_niigata: {text:'新潟県にありますか?', icon:'📍'},
+  pref_toyama: {text:'富山県にありますか?', icon:'📍'},
+  pref_ishikawa: {text:'石川県にありますか?', icon:'📍'},
+  pref_fukui: {text:'福井県にありますか?', icon:'📍'},
+  pref_yamanashi: {text:'山梨県にありますか?', icon:'📍'},
+  pref_nagano: {text:'長野県にありますか?', icon:'📍'},
+  pref_gifu: {text:'岐阜県にありますか?', icon:'📍'},
+  pref_shizuoka: {text:'静岡県にありますか?', icon:'📍'},
+  pref_aichi: {text:'愛知県にありますか?', icon:'📍'},
+  pref_mie: {text:'三重県にありますか?', icon:'📍'},
+  pref_shiga: {text:'滋賀県にありますか?', icon:'📍'},
+  pref_kyoto: {text:'京都府にありますか?', icon:'📍'},
+  pref_osaka: {text:'大阪府にありますか?', icon:'📍'},
+  pref_hyogo: {text:'兵庫県にありますか?', icon:'📍'},
+  pref_nara: {text:'奈良県にありますか?', icon:'📍'},
+  pref_wakayama: {text:'和歌山県にありますか?', icon:'📍'},
+  pref_tottori: {text:'鳥取県にありますか?', icon:'📍'},
+  pref_shimane: {text:'島根県にありますか?', icon:'📍'},
+  pref_okayama: {text:'岡山県にありますか?', icon:'📍'},
+  pref_hiroshima: {text:'広島県にありますか?', icon:'📍'},
+  pref_yamaguchi: {text:'山口県にありますか?', icon:'📍'},
+  pref_tokushima: {text:'徳島県にありますか?', icon:'📍'},
+  pref_kagawa: {text:'香川県にありますか?', icon:'📍'},
+  pref_ehime: {text:'愛媛県にありますか?', icon:'📍'},
+  pref_kochi: {text:'高知県にありますか?', icon:'📍'},
+  pref_fukuoka: {text:'福岡県にありますか?', icon:'📍'},
+  pref_saga: {text:'佐賀県にありますか?', icon:'📍'},
+  pref_nagasaki: {text:'長崎県にありますか?', icon:'📍'},
+  pref_kumamoto: {text:'熊本県にありますか?', icon:'📍'},
+  pref_oita: {text:'大分県にありますか?', icon:'📍'},
+  pref_miyazaki: {text:'宮崎県にありますか?', icon:'📍'},
+  pref_kagoshima: {text:'鹿児島県にありますか?', icon:'📍'},
+  pref_okinawa: {text:'沖縄県にありますか?', icon:'📍'},
   kitasubaru: {text:'市立天文台「きたすばる」がある？', icon:'🔭'},
   kita_no_kuni: {text:'ドラマ『北の国から』の主な舞台？', icon:'📺'},
   kita_no_shonan: {text:'「北の湘南」と呼ばれている？', icon:'🏖️'},
@@ -1179,7 +1225,8 @@ const QUESTIONS = {
 // 復元対象のキー一覧は、実行時計算タグ(kana_name等、enrichComputedTagsが後で設定する)
 // を除いたもの。旧形式(既にオブジェクトのcities.json)が来た場合はそのまま何もしない。
 const COMPUTED_ONLY_TAG_KEYS = new Set(['kana_name','kansai_dialect','ryukyu_dialect',
-  'region_hokkaido','region_tohoku','region_kanto','region_chubu','region_kinki','region_chugoku','region_shikoku','region_kyushu']);
+  'region_hokkaido','region_tohoku','region_kanto','region_chubu','region_kinki','region_chugoku','region_shikoku','region_kyushu',
+  'pref_hokkaido','pref_aomori','pref_iwate','pref_miyagi','pref_akita','pref_yamagata','pref_fukushima','pref_ibaraki','pref_tochigi','pref_gunma','pref_saitama','pref_chiba','pref_tokyo','pref_kanagawa','pref_niigata','pref_toyama','pref_ishikawa','pref_fukui','pref_yamanashi','pref_nagano','pref_gifu','pref_shizuoka','pref_aichi','pref_mie','pref_shiga','pref_kyoto','pref_osaka','pref_hyogo','pref_nara','pref_wakayama','pref_tottori','pref_shimane','pref_okayama','pref_hiroshima','pref_yamaguchi','pref_tokushima','pref_kagawa','pref_ehime','pref_kochi','pref_fukuoka','pref_saga','pref_nagasaki','pref_kumamoto','pref_oita','pref_miyazaki','pref_kagoshima','pref_okinawa']);
 function expandCompactTags(city){
   if(!Array.isArray(city.tags)) return city; // 既にオブジェクト形式ならそのまま(後方互換)
   const trueSet = new Set(city.tags);
@@ -1222,6 +1269,9 @@ function enrichComputedTags(city){
   if(PRIVATE_RAILWAY_LINE_KEYS.some(k => t[k] === true)) t.private_railway = true;
   // 【8地方判定】県から所属する地方を機械的に決めて、全国版で「どの地方か」を
   // 早く絞り込めるようにする(東海の市と九州の市が最後まで競合するのを防ぐ)。
+  // 【47都道府県判定】県名から機械的に決まるので、データに持たず実行時に計算する。
+  // 終盤で候補が同一地方に固まったときの決め手として使う(出題時期はPREF_QUESTION_KEYSで制御)。
+  for(const pk in PREF_KEY_TO_NAME){ t[pk] = (city.pref === PREF_KEY_TO_NAME[pk]); }
   const region = REGION_OF_PREF[city.pref] || null;
   t.region_hokkaido = region === 'hokkaido';
   t.region_tohoku   = region === 'tohoku';
@@ -1233,6 +1283,57 @@ function enrichComputedTags(city){
   t.region_kyushu   = region === 'kyushu';
   return city;
 }
+
+// 都道府県質問のキー → 県名。47都道府県ぶんの「〇〇にありますか?」質問に使う。
+const PREF_KEY_TO_NAME = {
+  pref_hokkaido: '北海道',
+  pref_aomori: '青森県',
+  pref_iwate: '岩手県',
+  pref_miyagi: '宮城県',
+  pref_akita: '秋田県',
+  pref_yamagata: '山形県',
+  pref_fukushima: '福島県',
+  pref_ibaraki: '茨城県',
+  pref_tochigi: '栃木県',
+  pref_gunma: '群馬県',
+  pref_saitama: '埼玉県',
+  pref_chiba: '千葉県',
+  pref_tokyo: '東京都',
+  pref_kanagawa: '神奈川県',
+  pref_niigata: '新潟県',
+  pref_toyama: '富山県',
+  pref_ishikawa: '石川県',
+  pref_fukui: '福井県',
+  pref_yamanashi: '山梨県',
+  pref_nagano: '長野県',
+  pref_gifu: '岐阜県',
+  pref_shizuoka: '静岡県',
+  pref_aichi: '愛知県',
+  pref_mie: '三重県',
+  pref_shiga: '滋賀県',
+  pref_kyoto: '京都府',
+  pref_osaka: '大阪府',
+  pref_hyogo: '兵庫県',
+  pref_nara: '奈良県',
+  pref_wakayama: '和歌山県',
+  pref_tottori: '鳥取県',
+  pref_shimane: '島根県',
+  pref_okayama: '岡山県',
+  pref_hiroshima: '広島県',
+  pref_yamaguchi: '山口県',
+  pref_tokushima: '徳島県',
+  pref_kagawa: '香川県',
+  pref_ehime: '愛媛県',
+  pref_kochi: '高知県',
+  pref_fukuoka: '福岡県',
+  pref_saga: '佐賀県',
+  pref_nagasaki: '長崎県',
+  pref_kumamoto: '熊本県',
+  pref_oita: '大分県',
+  pref_miyazaki: '宮崎県',
+  pref_kagoshima: '鹿児島県',
+  pref_okinawa: '沖縄県',
+};
 
 // 県→8地方のマッピング(全国版の地方判定タグ用)。東京は関東に含める。
 const REGION_OF_PREF = {
@@ -2611,7 +2712,7 @@ const MODE_ONLY_KEYS = {
     'kaike_onsen','kurayoshi_shirakabe','sesshu_teien','iwami_ginzan','gonokawa_kako','horumon_udon','kinojo','bitchu_matsuyama','saijo_sake','mihara_tako','kiri_no_umi','hiroshima_westmost','anno_hideaki','tokuyama_combinat','kintaikyo','cement_glass',
     'denim_industry','sea_torii','fugu_famous','yamata_no_orochi','hibagon','mori_motonari','hiruzen_highland','miyamoto_musashi_station','akiyoshidai','mizuki_shigeru_road','yasugi_bushi','gonokawa','donticchi_fish','shokasonjuku','motonosumi_shrine','bizen_ware','osafune_sword_museum','naoshima_gateway','horseshoe_crab_museum','astronomy_city','sunameri','naval_academy','goldfish_lantern','ito_hirobumi_birthplace','train_factory','kokusan_denim','konrei_kagu'
   ],
-  shikoku: ['yosan_line','dosan_line','sanuki_area','awa_area','iyo_area','toyo_area','chuyo_area','nanyo_area','honshu_bridge','paper_industry_shikoku',
+  shikoku: ['yosan_line','dosan_line','toyo_area','chuyo_area','nanyo_area','honshu_bridge','paper_industry_shikoku',
     'led_valley','naruto_uzushio','kincho_tanuki','awa_dochu','mima_udatsu','iya_kazurabashi','marugame_uchiwa','chichibugahama','zenigata_sunae','setoohashi_shikoku','kukai_birthplace','tebukuro_industry','uchinuki','garyu_sanso','kezuribushi','yawatahama_champon','seiyo_geopark','botchan_theater','kochi_ryoma_airport','chinkabashi','noichi_zoo','muroto_geopark','nabeyaki_ramen','daruma_yuhi','ashizuri_misaki','tosabushi','yanase_museum',
     'shikoku_pilgrimage','nora_dokei'
   ],
@@ -2852,22 +2953,79 @@ for(const __phaseGroup in MODE_ONLY_KEYS){
   MODE_ONLY_KEYS[__phaseGroup].forEach(k => { if(!(k in PHASE_KEY_OVERRIDES)) PHASE_KEY_OVERRIDES[k] = 'middle'; });
 }
 
-// この質問キーが「序盤(early)・中盤(middle)・終盤(late)」のどれに属するかを返す。
+// ==================== 地域を絞る質問の出題順(4段階) ====================
+// 「広い地域 → 都道府県 → 県内の細かい地域」の順に効かせたいので、段階を明示的に指定する。
+//   序盤(early)            : 8地方(関東地方? 中部地方? など)
+//   序盤と中盤の間(early_middle): 複数県にまたがる広域(北関東3県? 北陸3県? 京阪神? など)
+//   中盤(middle)           : 47都道府県(岐阜県にありますか? など)
+//   終盤(late)             : 県内の地方別(中越地方? 道北地方? など)
+
+// 【序盤】地方をまたぐ広域質問。8地方の質問と同じ時期に使う。
+// 紀伊半島は近畿(和歌山)と近畿(三重)、東海地方は中部と近畿(三重)にまたがるため、
+// 「まず大きく地域を切る」用途として序盤に置く。
+const PHASE_EARLY_WIDE_AREA_KEYS = ['kii_peninsula','tokai_area'];
+
+// 【序盤と中盤の間】複数県をまとめた広域。地方は決まったが都道府県はまだ、という時期に使う。
+const PHASE_EARLY_MIDDLE_KEYS = [
+  'north_kanto','sanriku_area','hokuriku_three_pref','koshin_area','keihanshin_area',
+  'sanin_area','sanyo_area','northern_kyushu','southern_kyushu',
+  // 以下は主観が混じるため即時除外の対象外だが、出題時期は同じ
+  'ryomo_area','chugoku_mountain_basin','hanshin_area','ariake_coast',
+];
+
+// 【終盤】県内・地方内をさらに細かく割る地域質問。
+const PHASE_LATE_SUBREGION_KEYS = [
+  'douou_area','doutou_area','dohoku_area','sapporo_metro',
+  'tsugaru_area','shonai_area','hamadori_area','nakadori_area','aizu_area','sendai_metro',
+  'tama_area','tokatsu_area','shonan_area',
+  'joetsu_region','chuetsu_region','kaetsu_region','noto_area',
+  'hokushin_area','toshin_area','chushin_area','nanshin_area',
+  'izu_area','suruga_area','totomi_area','hida_area','mino_area','owari_area','mikawa_area',
+  'hokusetsu_area','kawachi_area','senshu_area','harima_area','tajima_area','tamba_area',
+  'kyoto_north','nara_basin',
+  'bingo_area','izumo_area','hiroshima_metro','toyo_area','chuyo_area','nanyo_area',
+  'chikuzen_area','chikugo_area','chikuho_area','kitakyushu_area','fukuoka_metro',
+  'satsuma_area','osumi_area','okinawa_main_island','okinawa_south_central','sakishima_islands',
+];
+
+PHASE_EARLY_WIDE_AREA_KEYS.forEach(k => { PHASE_KEY_OVERRIDES[k] = 'early'; });
+PHASE_EARLY_MIDDLE_KEYS.forEach(k => { PHASE_KEY_OVERRIDES[k] = 'early_middle'; });
+PHASE_LATE_SUBREGION_KEYS.forEach(k => { PHASE_KEY_OVERRIDES[k] = 'late'; });
+
+// 都道府県質問(pref_*)は中盤。「広い地域 → 都道府県 → 県内の細かい地域」の真ん中にあたる。
+// ジャンルは「地理」だが、地理の既定(序盤)のままだと序盤に出てしまうため個別に上書きする。
+// 実際の出題可否は PREF_QUESTION_KEYS 側の制限(質問数・候補数・間隔・回数)でも二重に守る。
+Object.keys(PREF_KEY_TO_NAME).forEach(k => { PHASE_KEY_OVERRIDES[k] = 'middle'; });
+
+// この質問キーが「序盤(early)・序盤と中盤の間(early_middle)・中盤(middle)・終盤(late)」の
+// どれに属するかを返す。
 function phaseOf(key){
   if(PHASE_KEY_OVERRIDES[key]) return PHASE_KEY_OVERRIDES[key];
   const cat = categoryOf(key);
   return PHASE_CATEGORY_DEFAULT[cat] || 'middle';
 }
 
-// 候補数と質問数の両方から、今がどの段階かを判定する。候補数を優先し、質問数は補助的に使う。
-const PHASE_POOL_SIZE_EARLY = 180;  // 候補がこれ以上ならまだ序盤
-const PHASE_POOL_SIZE_LATE = 20;    // 候補がこれ以下ならもう終盤
-const PHASE_QCOUNT_EARLY_MAX = 6;   // (中間の候補数のとき)この質問数まではまだ序盤寄り
-const PHASE_QCOUNT_LATE_MIN = 17;   // (中間の候補数のとき)この質問数からは終盤寄り
+// 候補数と質問数の両方から、今がどの段階かを判定する。
+// 段階は early → early_middle → middle → late の4つ。
+//   early        : 8地方・海・人口規模など、まず大きく切る質問
+//   early_middle : 8地方は決まったが都道府県までは絞れていない時期。複数県にまたがる
+//                  広域質問(北関東3県・北陸3県・京阪神・山陰/山陽・北部九州/南九州など)
+//   middle       : 47都道府県、鉄道・高速・産業・歴史など
+//   late         : 県内の地方別(中越・道北など)、名物・施設など個別の決め手
+//
+// 【質問数を主、候補数を従にしている理由】
+// 地方質問の即時除外により候補数は数問で一気に落ちる(825→203→…)。候補数を主にすると
+// early(180件以上)から middle/late へ飛んでしまい、early_middle がほとんど訪れない。
+// 実測では366局面中 early_middle はわずか4局面だった。そこで質問数で段階を進め、
+// 候補数は「もう十分絞れているなら前倒しで終盤にする」補助として使う。
+const PHASE_POOL_SIZE_LATE = 20;           // 候補がこれ以下なら質問数によらず終盤
+const PHASE_QCOUNT_EARLY_MAX = 4;          // この質問数までは序盤
+const PHASE_QCOUNT_EARLY_MIDDLE_MAX = 8;   // この質問数までは序盤と中盤の間
+const PHASE_QCOUNT_LATE_MIN = 15;          // この質問数からは終盤
 function currentQuestionPhase(poolSize, qCount){
-  if(poolSize >= PHASE_POOL_SIZE_EARLY) return 'early';
   if(poolSize <= PHASE_POOL_SIZE_LATE) return 'late';
   if(qCount <= PHASE_QCOUNT_EARLY_MAX) return 'early';
+  if(qCount <= PHASE_QCOUNT_EARLY_MIDDLE_MAX) return 'early_middle';
   if(qCount >= PHASE_QCOUNT_LATE_MIN) return 'late';
   return 'middle';
 }
@@ -3702,6 +3860,53 @@ const TAG_GAME_CATEGORY = {
   "region_chugoku": "地理",
   "region_shikoku": "地理",
   "region_kyushu": "地理",
+  "pref_hokkaido": "地理",
+  "pref_aomori": "地理",
+  "pref_iwate": "地理",
+  "pref_miyagi": "地理",
+  "pref_akita": "地理",
+  "pref_yamagata": "地理",
+  "pref_fukushima": "地理",
+  "pref_ibaraki": "地理",
+  "pref_tochigi": "地理",
+  "pref_gunma": "地理",
+  "pref_saitama": "地理",
+  "pref_chiba": "地理",
+  "pref_tokyo": "地理",
+  "pref_kanagawa": "地理",
+  "pref_niigata": "地理",
+  "pref_toyama": "地理",
+  "pref_ishikawa": "地理",
+  "pref_fukui": "地理",
+  "pref_yamanashi": "地理",
+  "pref_nagano": "地理",
+  "pref_gifu": "地理",
+  "pref_shizuoka": "地理",
+  "pref_aichi": "地理",
+  "pref_mie": "地理",
+  "pref_shiga": "地理",
+  "pref_kyoto": "地理",
+  "pref_osaka": "地理",
+  "pref_hyogo": "地理",
+  "pref_nara": "地理",
+  "pref_wakayama": "地理",
+  "pref_tottori": "地理",
+  "pref_shimane": "地理",
+  "pref_okayama": "地理",
+  "pref_hiroshima": "地理",
+  "pref_yamaguchi": "地理",
+  "pref_tokushima": "地理",
+  "pref_kagawa": "地理",
+  "pref_ehime": "地理",
+  "pref_kochi": "地理",
+  "pref_fukuoka": "地理",
+  "pref_saga": "地理",
+  "pref_nagasaki": "地理",
+  "pref_kumamoto": "地理",
+  "pref_oita": "地理",
+  "pref_miyazaki": "地理",
+  "pref_kagoshima": "地理",
+  "pref_okinawa": "地理",
   "kitasubaru": "学問",
   "kita_no_kuni": "観光・娯楽",
   "kita_no_shonan": "遊び心",
@@ -3883,7 +4088,6 @@ const TAG_GAME_CATEGORY = {
   "ferry_available": "交通","no_railway_station": "交通",
   "animal_in_name": "遊び心",
   "ariake_coast": "地理",
-  "awa_area": "地理",
   "big_small_in_name": "遊び心",
   "bingo_area": "地理",
   "body_part_in_name": "遊び心",
@@ -3900,7 +4104,6 @@ const TAG_GAME_CATEGORY = {
   "hard_to_read_name": "遊び心",
   "hiroshima_metro": "地理",
   "honshu_bridge": "地理",
-  "iyo_area": "地理",
   "izumo_area": "地理",
   "kagoshima_main_line": "交通",
   "kawa_in_name": "遊び心",
@@ -3920,7 +4123,6 @@ const TAG_GAME_CATEGORY = {
   "same_name_other_pref": "遊び心",
   "sanin_area": "地理",
   "sanin_main_line": "交通",
-  "sanuki_area": "地理",
   "sanyo_area": "地理",
   "sanyo_main_line": "交通",
   "satsuma_area": "地理",
@@ -4014,6 +4216,138 @@ function priorityAdjust(k, diff, poolSize, isDecisive, groupShares){
   return adjusted;
 }
 
+// ==================== 都道府県質問の出題ルール ====================
+// 「〇〇県にありますか?」は終盤の決め手として強力だが、序盤から出すと県名の総当たりになり
+// ゲームとして面白くない。そこで、この質問だけは特別扱いして出題時期と回数を制限する。
+// 判定はすべて entropyPick() の候補絞り込みで行う(スコアではなく、候補に含めるか否か)。
+const PREF_QUESTION_KEYS = new Set(Object.keys(PREF_KEY_TO_NAME));
+const PREF_MIN_QUESTIONS       = 8;   // これ以下の質問数では絶対に出さない(序盤は通常質問を優先)
+const PREF_UNLOCK_POOL         = 15;  // 残り候補がこれ以下なら解禁
+const PREF_UNLOCK_QCOUNT       = 12;  // 質問数がこれ以上なら解禁
+const PREF_UNLOCK_DOMINANT     = 0.6; // 同一県が残り候補のこの割合以上を占めるなら解禁
+const PREF_GAP_AFTER           = 3;   // 一度出したら、通常質問をこの数だけ挟むまで出さない
+const PREF_MAX_PER_GAME        = 1;   // 1ゲームの原則上限
+const PREF_MAX_RESCUE          = 2;   // 質問数が上限に近い救済時の上限
+const PREF_RESCUE_REMAINING_Q  = 5;   // 残り質問数がこれ以下なら救済措置とみなす
+const PREF_MIN_YES_RATIO       = 0.2; // はい側が残り候補のこの割合未満なら情報量が小さいので出さない
+
+function isPrefQuestion(key){ return PREF_QUESTION_KEYS.has(key); }
+
+// これまでに実際に出題した都道府県質問の数と、直前に出してから何問経ったか
+function prefAskedCount(){ return asked.filter(k => isPrefQuestion(k)).length; }
+function questionsSinceLastPref(){
+  for(let i = asked.length - 1; i >= 0; i--){
+    if(isPrefQuestion(asked[i])) return asked.length - 1 - i;
+  }
+  return Infinity; // まだ一度も出していない
+}
+
+// 都道府県質問を今この場面で出してよいか(キー単位ではなく場面の判定)
+function prefQuestionAllowedNow(poolSize){
+  const qCount = questionCount + extraQuestionCount;
+  if(qCount < PREF_MIN_QUESTIONS) return false;              // 1. 序盤では出さない
+
+  // 3. 1ゲーム原則1回。ただし質問数が上限に近い場面だけ、救済として2回まで許す
+  const phaseMax = questionPhase === 'extra' ? MAX_EXTRA_Q : MAX_Q;
+  const phaseCount = questionPhase === 'extra' ? extraQuestionCount : questionCount;
+  const nearLimit = (phaseMax - phaseCount) <= PREF_RESCUE_REMAINING_Q;
+  const cap = nearLimit ? PREF_MAX_RESCUE : PREF_MAX_PER_GAME;
+  if(prefAskedCount() >= cap) return false;
+
+  // 4. 総当たり禁止: 一度出したら通常質問を3問以上挟む
+  if(questionsSinceLastPref() < PREF_GAP_AFTER) return false;
+
+  // 2. 解禁条件: 候補が少ない / 質問数が多い / 同一県が候補の大半を占める のいずれか
+  if(poolSize <= PREF_UNLOCK_POOL) return true;
+  if(qCount >= PREF_UNLOCK_QCOUNT) return true;
+  return false;
+}
+
+// 6. 地方質問を優先する: 地方がまだ絞れていない段階では都道府県質問を使わない。
+// 「全候補が完全に1地方」まで求めると、残り候補に他地方が1市混じるだけで永久に解禁されず、
+// 実測では25ゲーム中4回しか成立しなかった(=都道府県質問がほぼ死に質問になる)。
+// 仕様の意図は「地方がある程度特定された後に使う」なので、最も多い地方が候補の
+// REGION_DOMINANT_RATIO以上を占めていれば「特定された」とみなす。
+const REGION_DOMINANT_RATIO = 0.6;
+function regionNarrowedDown(cities){
+  if(!cities.length) return false;
+  const count = {};
+  for(const c of cities){
+    for(const rk of REGION_QUESTION_KEYS){
+      if(c.tags[rk]){ count[rk] = (count[rk] || 0) + 1; break; }
+    }
+  }
+  const top = Math.max(0, ...Object.values(count));
+  return (top / cities.length) >= REGION_DOMINANT_RATIO;
+}
+
+// 【序盤〜中盤前半の地名質問ブースト】
+// 地名で候補を切る質問(8地方 → 複数県にまたがる広域)は、分類が細かいほど「はい」が
+// 少数派になり、情報量では半々に割れる通常質問に必ず負ける。実測では8地方の質問が
+// 1問も出ないゲームばかりだった。
+//
+//   他の都道府県と境を接している? 382/443 → 情報量 0.996
+//   関東地方ですか?               203/622 → 情報量 0.805
+//   北海道地方ですか?              35/790 → 情報量 0.253
+//
+// しかし地名質問には情報量では測れない価値がある。答えると即時除外が働いて候補が一気に
+// 減り、そのあとの「都道府県 → 県内の地方別」という流れの起点になる。
+// そこで、その質問を使いたい時期に限って加点(スコアを引き下げ)を与える。
+// スコアは「小さいほど良い」ので、値を引くことが優先を意味する。
+//
+// 【総当たりを防ぐ2つの歯止め】
+// (1) はい側が少なすぎる地名質問はブーストしない
+//     全部を等しく持ち上げると「北海道?→いいえ」「関東?→いいえ」「九州?→いいえ」…と
+//     1つずつ潰す総当たりになり、かえって遠回りになる(実測で平均19.4→22.2問に悪化)。
+//     「はい」が候補の一定割合を占めるものだけを優先すれば、当たれば一気に絞れ、
+//     外れてもそれなりに減る。結果として「いま一番大きい地域から聞く」形になる。
+// (2) 地名質問を出した直後は、しばらくブーストしない
+//     ブーストが続くと地名質問が数問連続し、地名の総当たりに見えてしまう。
+//     直近 AREA_BOOST_GAP 問以内に地名質問を出していたら加点しない(通常質問を挟ませる)。
+//     ※ブーストしないだけで、その質問自体の実力で選ばれることは妨げない。
+const AREA_BOOST_AMOUNT       = 60;   // 地名質問を選ばせるための加点
+const AREA_BOOST_MIN_YES      = 0.15; // はい側がこの割合未満の地名質問はブーストしない
+const AREA_BOOST_GAP          = 2;    // 直近この問数以内に地名質問を出していたらブーストしない
+const REGION_BOOST_QCOUNT_MAX = 8;    // ①8地方: この質問数までブースト(地方が決まるまで粘る)
+const WIDE_AREA_BOOST_QCOUNT_MAX = 12;// ②広域: この質問数までブースト
+
+// ②の広域質問のうち、ブースト対象にするもの(主観が混じる4件も出題時期は同じなので含める)
+const WIDE_AREA_BOOST_KEYS = new Set(PHASE_EARLY_MIDDLE_KEYS);
+
+// 直近に地名質問を出していないか(総当たり防止)
+function areaQuestionAskedRecently(){
+  return lastDisplayedKeys(AREA_BOOST_GAP)
+    .some(k => REGION_QUESTION_KEYS.has(k) || WIDE_AREA_BOOST_KEYS.has(k));
+}
+
+function earlyRegionBoostFor(key, cities){
+  if(questionPhase === 'extra') return 0;
+  if(!cities.length) return 0;
+
+  const isRegion = REGION_QUESTION_KEYS.has(key);
+  const isWide   = WIDE_AREA_BOOST_KEYS.has(key);
+  if(!isRegion && !isWide) return 0;
+
+  const regionDone = regionNarrowedDown(cities);
+
+  // ①8地方: 地方が決まるまで。決まったらもう不要。
+  if(isRegion){
+    if(regionDone) return 0;
+    if(questionCount > REGION_BOOST_QCOUNT_MAX) return 0;
+  }
+  // ②広域: 8地方が決まってから使う。決まる前に出すと「北関東3県?」「山陽地方?」…と
+  // 全国を相手に広域名を総当たりすることになり、かえって遠回りになる。
+  else {
+    if(!regionDone) return 0;
+    if(questionCount > WIDE_AREA_BOOST_QCOUNT_MAX) return 0;
+  }
+
+  if(areaQuestionAskedRecently()) return 0;            // (2) 連続させない
+  const yes = cities.filter(c => c.tags[key]).length;
+  if((yes / cities.length) < AREA_BOOST_MIN_YES) return 0; // (1) はいが少なすぎるものは除く
+  return AREA_BOOST_AMOUNT;
+}
+
 function entropyPick(){
   const poolInfo = questionPhase === 'extra' ? extraPhaseCities() : topPoolCities();
   const topCities = poolInfo.cities;
@@ -4022,6 +4356,11 @@ function entropyPick(){
   // 【統計質問の重複防止】(1)人口の範囲から答えが確定している質問 (2)面積/人口密度の反対概念
   // (3)面積の直後の人口密度(またはその逆)は、そもそも候補から外す。
   unused = unused.filter(k => !isPopQuestionRedundant(k) && !isOppositeStatsAlreadyAsked(k) && !isAreaDensityBackToBack(k));
+
+  // 【都道府県質問の制限】場面の条件を満たさないときは、候補からまとめて外す。
+  const prefOkNow = prefQuestionAllowedNow(truePoolSize) && regionNarrowedDown(topCities);
+  if(!prefOkNow) unused = unused.filter(k => !isPrefQuestion(k));
+
   const candidateQuestions = [];
   const decisiveSet = new Set();
 
@@ -4029,6 +4368,9 @@ function entropyPick(){
     const yes = topCities.filter(c=>c.tags[k]).length;
     const no = topCities.length - yes;
     if(yes===0 || no===0) continue; // 情報量ゼロの質問は除外
+    // 5. 情報量が大きい場合だけ出題する: はい側が極端に少ない県質問は総当たりの入口になるので外す
+    // (例: 残り10市のうち新潟県が1市だけ → 「新潟県にありますか?」は出さない)
+    if(isPrefQuestion(k) && (yes / topCities.length) < PREF_MIN_YES_RATIO) continue;
     if(yes === 1 || no === 1) decisiveSet.add(k);
     candidateQuestions.push(k);
   }
@@ -4062,7 +4404,12 @@ function entropyPick(){
   // 追加質問フェーズ(最初の推測が外れた後)は、常に終盤相当として扱う。
   const nowPhase = (questionPhase === 'extra') ? 'late' : currentQuestionPhase(truePoolSize, questionCount);
   const PHASE_MISMATCH_PENALTY = 2.5;
-  const phasePenaltyWeight = truePoolSize > 100 ? 1 : (truePoolSize > 30 ? 0.5 : 0.15);
+  // 段階の効かせ具合。currentQuestionPhase() が質問数を主にしているので、ここも質問数で合わせる。
+  // (候補数を基準にすると、地方質問の即時除外で候補が一気に100件以下へ落ちた瞬間に
+  //  重みが0.5〜0.15まで下がり、段階の指定がほとんど効かなくなってしまう)
+  // 終盤は「決め手を優先したい」ので軽くし、序盤〜中盤は段階の順序をしっかり守らせる。
+  const phasePenaltyWeight = questionCount <= PHASE_QCOUNT_EARLY_MIDDLE_MAX ? 1
+                           : (questionCount < PHASE_QCOUNT_LATE_MIN ? 0.6 : 0.15);
   function phasePenalty(k){
     if(decisiveSet.has(k)) return 0; // 決め手質問は段階を問わず優先する
     return phaseOf(k) === nowPhase ? 0 : PHASE_MISMATCH_PENALTY * phasePenaltyWeight;
@@ -4097,6 +4444,7 @@ function entropyPick(){
     // 候補が絞れてきた場面では積極的に優先する。
     const isDecisive = (yes === 1 || no === 1);
     const diff = priorityAdjust(k, Math.abs(yes - no), truePoolSize, isDecisive, groupShares) - regionBoostFor(k, groupShares)
+      - earlyRegionBoostFor(k, topCities)
       + (isDecisive ? 0 : recentStreakPenalty(k)) + phasePenalty(k);
     return { k, diff };
   }).sort((a,b)=> a.diff - b.diff);
@@ -4112,6 +4460,7 @@ function entropyPick(){
     const worstYes = bestSplitDiff(yesGroup, usedAfter);
     const worstNo = bestSplitDiff(noGroup, usedAfter);
     const minimax = priorityAdjust(k, Math.max(worstYes, worstNo), truePoolSize, isDecisive, groupShares) - regionBoostFor(k, groupShares)
+      - earlyRegionBoostFor(k, topCities)
       + (isDecisive ? 0 : recentStreakPenalty(k)) + phasePenalty(k);
     return { k, minimax };
   });
@@ -4975,24 +5324,39 @@ function shouldGuessNow(){
   return false;
 }
 
-// 【地方・東京23区の質問による即時絞り込み】
-// 「関東地方(東京含む)にありますか?」のような地方の質問は、市の所在地から機械的に決まり、
-// 8地方は互いに重ならない(1つの市は必ずどれか1地方だけに属する)。つまり住んでいる人が
-// 迷う余地がなく、他のタグのように「解釈の幅」も無い。
+// 【地方・地域・東京23区の質問による即時絞り込み】
+// 「関東地方(東京含む)にありますか?」のような地域の質問は、市の所在地から機械的に決まり、
+// 属するか属さないかがはっきりしている。つまり住んでいる人が迷う余地がなく、
+// 他のタグのように「解釈の幅」も無い。
 // そのため、はい/いいえ をフル確信度(「たぶん」ではない)で答えたら、その時点で
-// 矛盾する地方の市は候補から即座に外してよい。
+// 矛盾する市は候補から即座に外してよい。
 //   ・「関東?」→ はい  … 関東以外の市を全部外す
 //   ・「関東?」→ いいえ … 関東の市を全部外す
+//   ・「中越地方?」→ はい … 中越以外の市を全部外す
 // 「わからない」「たぶん」(weight<1)では絶対に発動させない。誤操作した場合に取り返しが
 // つかなくなるのを避けるため、除外の結果が空になるときは何もしない(安全装置)。
+//
+// 【対象外にしているもの】
+//   ・両毛地域 / 中国山地の盆地 / 阪神間 / 有明海に面している
+//       … 範囲の捉え方に主観が混じり、住民でも判断が割れうるので除外しない(減点のみ)。
+//   ・紀伊半島 / 東海地方
+//       … 複数の地方にまたがり、どこまでを含むかの解釈が分かれるので除外しない(減点のみ)。
 const REGION_QUESTION_KEYS = new Set([
   'region_hokkaido','region_tohoku','region_kanto','region_chubu',
   'region_kinki','region_chugoku','region_shikoku','region_kyushu'
 ]);
+
+// 8地方と同じ「即時除外」を適用する地域質問(広域 + 県内の地方別)。
+// PHASE_EARLY_MIDDLE_KEYS / PHASE_LATE_SUBREGION_KEYS から、主観が混じるものだけ外して作る。
+const SUBJECTIVE_AREA_KEYS = new Set(['ryomo_area','chugoku_mountain_basin','hanshin_area','ariake_coast']);
+const AREA_PRUNE_KEYS = new Set(
+  [...PHASE_EARLY_MIDDLE_KEYS, ...PHASE_LATE_SUBREGION_KEYS].filter(k => !SUBJECTIVE_AREA_KEYS.has(k))
+);
+
 function pruneByRegionAnswer(key, val, weight){
   if(val === null || weight < 1) return;   // 「わからない」「たぶん」では発動しない
 
-  if(REGION_QUESTION_KEYS.has(key)){
+  if(REGION_QUESTION_KEYS.has(key) || AREA_PRUNE_KEYS.has(key)){
     const kept = scorePool.filter(e => (e.city.tags[key] === true) === (val === true));
     if(kept.length > 0) scorePool = kept;  // 空になるなら何もしない(安全装置)
     return;
@@ -5172,6 +5536,13 @@ const FALSE_LANDMARK_TEXT_OVERRIDES = {
 function naturalizeQuestionText(key, answerValue = true){
   const q = QUESTIONS[key] || STATS_QUESTIONS[key];
   if(!q || !q.text) return key;
+
+  // 【都道府県質問】「新潟県にありますか?」は機械的に語尾を変えると
+  // 「新潟県にあります」「新潟県にありません」となって硬いので、専用の言い回しにする。
+  if(PREF_KEY_TO_NAME[key]){
+    const pname = PREF_KEY_TO_NAME[key];
+    return answerValue === false ? `${pname}にはない` : `${pname}にある`;
+  }
 
   let t = q.text
     .replace(/[?？](?=（)/g, '')
