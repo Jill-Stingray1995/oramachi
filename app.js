@@ -1079,9 +1079,9 @@ const QUESTIONS = {
   natural_gas_town: {text:'天然ガスの産出量が日本有数？', icon:'🔥'},
   region_hokkaido: {text:'北海道地方にありますか?', icon:'🗾'},
   region_tohoku: {text:'東北地方にありますか?', icon:'🗾'},
-  region_kanto: {text:'関東地方(東京含む)にありますか?', icon:'🗾'},
-  region_chubu: {text:'中部地方にありますか?', icon:'🗾'},
-  region_kinki: {text:'近畿地方にありますか?', icon:'🗾'},
+  region_kanto: {text:'関東地方(山梨県除外)ですか?', icon:'🗾'},
+  region_chubu: {text:'中部地方(三重県除外、山梨県含む)ですか?', icon:'🗾'},
+  region_kinki: {text:'近畿地方(三重県含む)ですか?', icon:'🗾'},
   region_chugoku: {text:'中国地方にありますか?', icon:'🗾'},
   region_shikoku: {text:'四国地方にありますか?', icon:'🗾'},
   region_kyushu: {text:'九州・沖縄地方にありますか?', icon:'🗾'},
@@ -4975,6 +4975,41 @@ function shouldGuessNow(){
   return false;
 }
 
+// 【地方・東京23区の質問による即時絞り込み】
+// 「関東地方(東京含む)にありますか?」のような地方の質問は、市の所在地から機械的に決まり、
+// 8地方は互いに重ならない(1つの市は必ずどれか1地方だけに属する)。つまり住んでいる人が
+// 迷う余地がなく、他のタグのように「解釈の幅」も無い。
+// そのため、はい/いいえ をフル確信度(「たぶん」ではない)で答えたら、その時点で
+// 矛盾する地方の市は候補から即座に外してよい。
+//   ・「関東?」→ はい  … 関東以外の市を全部外す
+//   ・「関東?」→ いいえ … 関東の市を全部外す
+// 「わからない」「たぶん」(weight<1)では絶対に発動させない。誤操作した場合に取り返しが
+// つかなくなるのを避けるため、除外の結果が空になるときは何もしない(安全装置)。
+const REGION_QUESTION_KEYS = new Set([
+  'region_hokkaido','region_tohoku','region_kanto','region_chubu',
+  'region_kinki','region_chugoku','region_shikoku','region_kyushu'
+]);
+function pruneByRegionAnswer(key, val, weight){
+  if(val === null || weight < 1) return;   // 「わからない」「たぶん」では発動しない
+
+  if(REGION_QUESTION_KEYS.has(key)){
+    const kept = scorePool.filter(e => (e.city.tags[key] === true) === (val === true));
+    if(kept.length > 0) scorePool = kept;  // 空になるなら何もしない(安全装置)
+    return;
+  }
+
+  // 【東京23区の質問も同じ扱いにする】
+  // 「東京23区のどれかである?」に確信を持って はい と答えたなら、23区以外の市は
+  // すべて矛盾する(他の地方はもちろん、同じ関東の多摩地区や横浜市なども当てはまらない)。
+  // 地方の質問と同様に、迷う余地のない客観的な事実なので即座に絞り込む。
+  // 「いいえ」側は絞り込まない: 消えるのが23件だけで効果が薄いわりに、押し間違えたときの
+  // 損失(23区が正解なら二度と当たらない)が大きいため、従来どおり減点にとどめる。
+  if(key === 'is_tokyo_ward' && val === true){
+    const kept = scorePool.filter(e => e.city.tags.is_tokyo_ward === true);
+    if(kept.length > 0) scorePool = kept;
+  }
+}
+
 // 候補を完全除外する: (1)複数の客観的回答と明確に矛盾する場合、(2)候補が十分多い場面で
 // 確率が極端に低くなった場合。一度「ちがう」と言われた候補の除外(excludedNames)とは別の仕組み。
 // どちらも「わからない」やあいまいな回答1回だけでは発動しないよう、しきい値は厳しめにしている。
@@ -5069,6 +5104,7 @@ function answer(key, val, weight){
     });
   }
 
+  pruneByRegionAnswer(key, val, weight);
   pruneObviouslyWrongCandidates();
   updateStableStreak();
 
