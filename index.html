@@ -35,7 +35,15 @@
 <!-- Google AdSense審査時：AdSense管理画面で発行されたコードを、この直前または直後の<head>内に貼り付けます。架空のca-pub IDは入れないでください。 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=20260714f">
+<!-- 【キャッシュ対策】
+     GitHubに新しいファイルを上げても、ブラウザが古いキャッシュを使い続けて
+     更新が反映されない…という問題を防ぐための指定。
+     index.html 自体をキャッシュさせないことで、下の app.js / style.css の
+     バージョン番号(?v=)が必ず新しいものとして読み込まれる。 -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<link rel="stylesheet" href="style.css?v=ef549f6bf4">
 <link rel="manifest" href="./manifest.json?v=20260713">
 <meta name="theme-color" content="#263A5C">
 <!-- Safariのお気に入り・ブラウザタブ用 -->
@@ -97,6 +105,6 @@
   </footer>
 </div>
 
-<script src="app.js?v=20260714ad"></script>
+<script src="app.js?v=a490b0fc6e"></script>
 </body>
 </html>
