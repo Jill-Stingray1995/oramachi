@@ -1,8 +1,8 @@
 const KEYS = ['shinkansen','coastal','designated','festival','castle','snow_festival','worldheritage','snow','basin','airport','capital','noodle','mascot_famous',
-  'nihonkai','taiheiyo','setonaikai','famous_mountain','big_river','subway','onsen','sake','fireworks','castle_town','port_town','rice_region',
-  'kana_name','kansai_dialect','tohoku_dialect','ryukyu_dialect','is_town_village','is_tokyo_ward',
+  'nihonkai','taiheiyo','setonaikai','famous_mountain','big_river','big_bay','hot_40c','subway','onsen','sake','fireworks','castle_town','port_town','rice_region',
+  'kana_name','kansai_dialect','ryukyu_dialect','is_town_village','is_tokyo_ward',
   'ruins','lakeside','shrine_temple','bakumatsu_port','fruit_famous','sumo_basho','jleague','npb',
-  'former_capital','grid_streets','kokuho_building','historical_statue','twelve_castles','sengoku_warlord','tram','famous_garden',
+  'former_capital','grid_streets','kokuho_building','twelve_castles','sengoku_warlord','tram','famous_garden',
   'volcano_view','car_town','private_railway','monorail','remote_island','mining_heritage','night_view','war_damage',
   'ferris_wheel','theme_park','zoo','aquarium','brand_beef','kintetsu','kanji_one_char',
   'chinatown','sand_dunes','imperial_university','famous_tower','famous_market','exotic_port','dome_stadium','tea_region',
@@ -15,7 +15,7 @@ const KEYS = ['shinkansen','coastal','designated','festival','castle','snow_fest
   'yamagata_shinkansen_station','akita_shinkansen_station',
   'is_village','shinano_river','agano_river','uono_river',
   'borders_yamagata','borders_fukushima','borders_gunma','borders_nagano','borders_toyama',
-  'todai_campus','waseda_campus','keio_campus','sophia_campus','meiji_campus','aoyama_campus','rikkyo_campus','chuo_campus','hosei_campus','tus_campus','imperial_palace','diet_building','ginza','tokyo_tower_ward','tocho','tokyo_dome_ward','sensoji','skytree_ward','toyosu_market','haneda_ward','shibuya_crossing','shibamata_taishakuten','kasai_park','broadway_nakano','koenji_area','shimokitazawa','jiyugaoka','shakujii_park','odakyu_line','keio_inokashira_line','tokyu_line','keikyu_line','seibu_line','tobu_line','keisei_line','tsukuba_express','rinkai_line','yurikamome','toden_arakawa','nippori_toneri','tokyo_bay','tama_river','sumida_river','arakawa_river','edogawa_river','meguro_river','shakujii_river','borders_other_pref_tokyo','borders_kanagawa','borders_saitama','borders_chiba','ochanomizu_univ','gakushuin_univ','toyo_univ','komazawa_univ','seijo_univ','senshu_univ','jr_line','no_jr','yamanote_line','keihintohoku_line','chuo_rapid','chuo_sobu','joban_line','saikyo_line','tokyo_station','ikebukuro_station','ueno_station','kinshicho_station','ogikubo_station','kamata_station','akabane_station','nippori_station','tsunagari_mayu_police','tv_station_area','sazae_family','hachiko_area','yose_hall','sailor_moon_stage','tokiwa_so','godzilla_head','rakugo_stage','sanma_famous',
+  'todai_campus','waseda_campus','keio_campus','meiji_campus','rikkyo_campus','chuo_campus','tus_campus','imperial_palace','ginza','tokyo_tower_ward','tokyo_dome_ward','sensoji','skytree_ward','toyosu_market','haneda_ward','shibamata_taishakuten','kasai_park','broadway_nakano','koenji_area','jiyugaoka','shakujii_park','odakyu_line','keio_inokashira_line','tokyu_line','keikyu_line','seibu_line','tobu_line','keisei_line','tsukuba_express','rinkai_line','yurikamome','toden_arakawa','nippori_toneri','tokyo_bay','tama_river','sumida_river','arakawa_river','edogawa_river','meguro_river','shakujii_river','borders_kanagawa','borders_saitama','borders_chiba','yamanote_line','keihintohoku_line','chuo_rapid','chuo_sobu','joban_line','saikyo_line','ueno_station','akabane_station','nippori_station','tsunagari_mayu_police','tv_station_area','sazae_family','hachiko_area','yose_hall','sailor_moon_stage','godzilla_head','rakugo_stage','sanma_famous',
   'monzen','bedtown','skijyou','geopark','nuclearpowerplant','monozukuri','chukakushi','tokureishi',
   'douou_area','doutou_area','dohoku_area','sapporo_metro','ishikari_plain','historical_port_hokkaido','industrial_port_hokkaido','hakodate_honsen','ishikari_river',
   'tsugaru_area','sendai_metro','kitakami_basin','shonai_area','hamadori_area','nakadori_area','aizu_area','sanriku_area',
@@ -39,90 +39,90 @@ const KEYS = ['shinkansen','coastal','designated','festival','castle','snow_fest
   'ic_takamatsu','ic_tokushima','ic_matsuyama','ic_kochi',
   'ic_kyushu','ic_higashi_kyushu','ic_nagasaki','ic_oita','ic_miyazaki','ic_okinawa',
   'koshien_champion','sumo_yokozuna_ozeki','famous_cape',
-  'yamata_no_orochi','hibagon','mori_motonari','hiruzen_highland','miyamoto_musashi_station','akiyoshidai','mizuki_shigeru_road','yasugi_bushi','gonokawa','donticchi_fish','shokasonjuku','motonosumi_shrine','bizen_ware','osafune_sword_museum','naoshima_gateway','horseshoe_crab_museum','astronomy_city','sunameri','naval_academy','goldfish_lantern','ito_hirobumi_birthplace','train_factory','stork','hyonosen','takeda_castle','tamba_dinosaur','black_soybeans','japan_navel','banshu_abacus','miki_hardware','balloon_city','sake_birthplace','peron_festival','ako_ronin','awaji_puppet_theater','nijigen_no_mori','akechi_mitsuhide_castle','gunze_birthplace','amanohashidate','singing_sand','miyama_thatched_village','hozugawa_boat_ride','bamboo_path','doushisha','nagaoka_tenmangu','joruriji','jrosyu_ume','ritsumeikan','pm_birthplace',
+  'yamata_no_orochi','hibagon','mori_motonari','hiruzen_highland','miyamoto_musashi_station','akiyoshidai','mizuki_shigeru_road','yasugi_bushi','gonokawa','donticchi_fish','shokasonjuku','motonosumi_shrine','bizen_ware','osafune_sword_museum','naoshima_gateway','horseshoe_crab_museum','astronomy_city','sunameri','naval_academy','goldfish_lantern','ito_hirobumi_birthplace','train_factory','stork','hyonosen','takeda_castle','tamba_dinosaur','black_soybeans','japan_navel','miki_hardware','balloon_city','sake_birthplace','peron_festival','ako_ronin','awaji_puppet_theater','nijigen_no_mori','akechi_mitsuhide_castle','gunze_birthplace','nihon_sankei','singing_sand','miyama_thatched_village','hozugawa_boat_ride','doushisha','nagaoka_tenmangu','joruriji','jrosyu_ume','ritsumeikan','pm_birthplace',
   'name_has_betsu','hokkaido_greenland','famous_prison','yakitori_famous_bibai','coal_mine_shaft','drift_ice','suffolk_sheep','ammonite_fossil','matsuo_jingisukan','sweet_road','least_populous_city','urokodango','bear_park','fighters_farm',
   'in_aomori','in_iwate','in_miyagi','in_akita','in_yamagata','in_fukushima',
   'bijin_town','tachineputa','oirase','osorezan','shakoki_dogu','seibien','jodogahama','goishi_coast','miyazawa_kenji','tensho_chi','amber_kuji','tono_monogatari','geibikei','ipponmatsu','ohtani_shohei','zashiki_warashi','appi_kogen','ishinomori','chagu_chagu','shiogama_shrine','fukahire','shiroishi_umen','sendai_airport','jaxa_kakuda','takekoma_shrine','meiji_mura','kano_eiko','blue_impulse','naruko_onsen','town_to_city_2016',
   'basketball_town','kamakura_yokote','akita_inu_hachiko','namahage','inaniwa_udon','oyu_stone_circle','yuri_kogen_railway','blumen_akita','odate_noshiro_airport','tdk_town','kakunodate_tazawako','sankyo_soko','higashizawa_rose','ayame_park','hanagasa_tendo','hiragana_station','ginzan_onsen','kumano_taisha','tsuburaya_eiji','matsukawaura','kiku_ningyo_nihonmatsu','abukumado','kacchu_keiba','anpogaki','william_park','natural_gas_town',
   'region_hokkaido','region_tohoku','region_kanto','region_chubu','region_kinki','region_chugoku','region_shikoku','region_kyushu',
-  'kitasubaru','kita_no_kuni','kita_no_shonan','shizumine','yuki_tsumugi','shimotsuma_movie','shimodate_sl','hitachi_kokufu','toyoda_castle','moriya_junction','namegata_farm','hananuki','happogahara','kanuma_tsuchi','moka_sl','nasu_yoichi','jichi_medical','bihada_onsen','tomioka_silk','moomin_park','ageo_sodou','iroha_toi','okegawa_benibana','ishito_zakura','kinchakuda','heirinji','lucky_star','johnson_town','saika_matsuri','mizuko_kaizuka','smallest_city','yashio_hanamomo','yoshikawa_namazu','shiraoka_nashi','kurohama_kaizuka','hanyu_yurugp','kanto_tanabata','inzai_datacenter','kamagaya_farm','iioka_cape','tomisato_suika','sanbu_sugi','keisei_rose','aqualine_gate','yotsukaido_name','onari_kaido','yachimata_peanuts','nashibou','soza_ueki','blueberry_origin','kishozeisei_center','summerland','hamura_zeki','baseside_street','zama_himawari','zushi_marina','ayase_no_station','nono_odoriji','linear_center','yamanashi_medical','kanto_kannon','shakou_elevator','saruhashi','fusion_lab','enbaragawa','sanshu_kawara','nonbori_arai','akame_taki','oiwayama_dotaku','tokaido_nakasendo','koka_ninja','kinginshi','take_no_michi','aioi_matsu','banshu_soroban_ono','izanagi_jingu','katsuragi_tsutsuji','matabei_zakura','kishu_herazao','negoroji','kokusan_denim','konrei_kagu','nora_dokei','onga_pump','koinoki','hiyoko','kubote_san','taku_seibyo','minamata_museum','kikuchi_keikoku','mikoshiki_coast','amakusa_bridges','ikoma_kogen','senbon_icho','sogi_no_taki','orion_beer'];
+  'kitasubaru','kita_no_kuni','kita_no_shonan','shizumine','yuki_tsumugi','shimotsuma_movie','shimodate_sl','hitachi_kokufu','toyoda_castle','moriya_junction','namegata_farm','hananuki','happogahara','kanuma_tsuchi','moka_sl','nasu_yoichi','jichi_medical','bihada_onsen','tomioka_silk','moomin_park','ageo_sodou','iroha_toi','okegawa_benibana','ishito_zakura','kinchakuda','heirinji','lucky_star','johnson_town','saika_matsuri','mizuko_kaizuka','smallest_city','yashio_hanamomo','yoshikawa_namazu','shiraoka_nashi','kurohama_kaizuka','hanyu_yurugp','inzai_datacenter','kamagaya_farm','iioka_cape','tomisato_suika','sanbu_sugi','keisei_rose','aqualine_gate','yotsukaido_name','onari_kaido','yachimata_peanuts','nashibou','soza_ueki','blueberry_origin','kishozeisei_center','summerland','hamura_zeki','baseside_street','zama_himawari','zushi_marina','ayase_no_station','nono_odoriji','linear_center','yamanashi_medical','kanto_kannon','shakou_elevator','saruhashi','fusion_lab','enbaragawa','sanshu_kawara','nonbori_arai','akame_taki','oiwayama_dotaku','tokaido_nakasendo','koka_ninja','take_no_michi','aioi_matsu','banshu_soroban_ono','katsuragi_tsutsuji','matabei_zakura','kishu_herazao','negoroji','kokusan_denim','konrei_kagu','nora_dokei','onga_pump','koinoki','hiyoko','kubote_san','taku_seibyo','minamata_museum','kikuchi_keikoku','mikoshiki_coast','amakusa_bridges','ikoma_kogen','senbon_icho','sogi_no_taki','orion_beer'];
 
 const QUESTIONS = {
   shinkansen:    {text:'新幹線の駅がある?', icon:'🚄'},
   coastal:       {text:'海に面している?', icon:'🌊'},
   designated:    {text:'政令指定都市?', icon:'🏙️'},
-  festival:      {text:'全国的に有名なお祭りがある?', icon:'🎆'},
-  castle:        {text:'有名なお城がある?', icon:'🏯'},
-  worldheritage: {text:'近くに世界遺産がある?', icon:'⛩️'},
-  snow:          {text:'雪がたくさん降る地域?', icon:'❄️'},
-  snow_festival: {text:'雪まつり・雪を使ったイベントで知られる?', icon:'❄️'},
+  festival:      {text:'全国的に有名なお祭りがある?', icon:'🎆', subjective:true},
+  castle:        {text:'有名なお城がある?', icon:'🏯', subjective:true},
+  worldheritage: {text:'市内に世界遺産の構成資産がある?', icon:'⛩️'},
+  snow:          {text:'豪雪地帯・特別豪雪地帯に指定されている?', icon:'❄️'},
+  hot_40c:       {text:'観測史上40℃以上の気温を記録したことがある?', icon:'🌡️'},
+  snow_festival: {text:'雪まつり・雪を使ったイベントで知られる?', icon:'❄️', subjective:true},
   basin: {text:'盆地にある?', icon:'🏔️'},
-  airport:       {text:'市内(近く)に空港がある?', icon:'✈️'},
+  airport:       {text:'市内に定期旅客便のある空港がある?', icon:'✈️'},
   capital:       {text:'日本の首都?', icon:'🗼'},
   noodle:        {text:'名物グルメは麺料理?', icon:'🍜'},
-  mascot_famous: {text:'全国区で有名なご当地キャラがいる?', icon:'🧸'},
-  nihonkai:      {text:'日本海側にある?', icon:'🌅'},
-  taiheiyo:      {text:'太平洋側にある?', icon:'🌊'},
+  mascot_famous: {text:'全国区で有名なご当地キャラがいる?', icon:'🧸', subjective:true},
+  nihonkai:      {text:'日本海側の海に面している?', icon:'🌅'},
+  taiheiyo:      {text:'太平洋側の海に面している?', icon:'🌊'},
   setonaikai:    {text:'瀬戸内海に面している?', icon:'⛵'},
-  famous_mountain:{text:'有名な山がある?', icon:'⛰️'},
-  big_river:     {text:'大きな川が流れている?', icon:'🏞️'},
+  famous_mountain:{text:'有名な山がある?', icon:'⛰️', subjective:true},
+  big_river:     {text:'大きな川が流れている?', icon:'🏞️', subjective:true},
+  big_bay:       {text:'大きな湾に面している?', icon:'⚓', subjective:true},
   subway:        {text:'地下鉄が走っている?', icon:'🚇'},
-  onsen:         {text:'温泉地として知られている?', icon:'♨️'},
-  sake:          {text:'酒蔵・日本酒で知られている?', icon:'🍶'},
-  fireworks:     {text:'花火大会で有名である?', icon:'🎇'},
+  onsen:         {text:'温泉地として知られている?', icon:'♨️', subjective:true},
+  sake:          {text:'酒蔵・日本酒で知られている?', icon:'🍶', subjective:true},
+  fireworks:     {text:'花火大会で有名である?', icon:'🎇', subjective:true},
   castle_town:   {text:'城下町だった?', icon:'🏯'},
   port_town:     {text:'港町として栄えた?', icon:'⚓'},
-  rice_region:   {text:'米どころとして知られている?', icon:'🌾'},
+  rice_region:   {text:'米どころとして知られている?', icon:'🌾', subjective:true},
   kana_name:     {text:'自治体名にひらがな・カタカナを含む?', icon:'🔤'},
   kansai_dialect:{text:'関西弁圏に含まれる?', icon:'🗣️'},
-  tohoku_dialect:{text:'東北方言圏に含まれる?', icon:'🗣️'},
   ryukyu_dialect:{text:'琉球諸語・沖縄方言の地域?', icon:'🗣️'},
   is_town_village:{text:'市ではなく町または村である?', icon:'🏘️'},
   is_tokyo_ward: {text:'東京23区のどれかである?', icon:'🗼'},
-  ruins:          {text:'遺跡・古墳で有名?', icon:'🏛️'},
+  ruins:          {text:'遺跡・古墳で有名?', icon:'🏛️', subjective:true},
   lakeside:       {text:'湖畔のマチですか?', icon:'🚣'},
-  shrine_temple:  {text:'寺社仏閣が有名?', icon:'🛕'},
+  shrine_temple:  {text:'寺社仏閣が有名?', icon:'🛕', subjective:true},
   bakumatsu_port: {text:'幕末の開港五港のひとつ?', icon:'🚢'},
-  fruit_famous:   {text:'くだものが有名?', icon:'🍎'},
+  fruit_famous:   {text:'くだものが有名?', icon:'🍎', subjective:true},
   sumo_basho:     {text:'大相撲の本場所が開催される?', icon:'🤼'},
   jleague:        {text:'Jリーグチームの本拠地がある?', icon:'⚽'},
   npb:            {text:'プロ野球チーム(NPB)の本拠地がある?', icon:'⚾'},
   former_capital:   {text:'過去に「都」が置かれたことがある?', icon:'👑'},
   grid_streets:     {text:'街の中心部は碁盤の目のよう?', icon:'🔲'},
   kokuho_building:  {text:'国宝がある、建っている?', icon:'📜'},
-  historical_statue:{text:'歴史上の有名人物の銅像がありますか?', icon:'🗿'},
   twelve_castles:   {text:'現存十二天守の城はありますか?', icon:'🏰'},
-  sengoku_warlord:  {text:'有名な戦国武将ゆかりの地ですか?', icon:'⚔️'},
+  sengoku_warlord:  {text:'有名な戦国武将ゆかりの地ですか?', icon:'⚔️', subjective:true},
   tram:             {text:'路面電車が走っていますか?', icon:'🚋'},
-  famous_garden:    {text:'有名な庭園がありますか?', icon:'🌳'},
-  volcano_view:     {text:'市街地から有名な火山が見えますか?', icon:'🌋'},
-  car_town:         {text:'自動車に関係があるマチ?', icon:'🚗'},
+  famous_garden:    {text:'有名な庭園がありますか?', icon:'🌳', subjective:true},
+  volcano_view:     {text:'市街地から有名な火山が見えますか?', icon:'🌋', subjective:true},
+  car_town:         {text:'自動車メーカーの本社または主要工場がある?', icon:'🚗'},
   private_railway:  {text:'私鉄が走っている?', icon:'🚈'},
   monorail:         {text:'モノレールが走っている?', icon:'🚝'},
   remote_island:    {text:'もしかして離島に存在する?', icon:'🌴'},
-  mining_heritage:  {text:'有名な鉱山・炭鉱跡がありますか?', icon:'⛏️'},
-  night_view:       {text:'夜景が有名なマチですか?', icon:'🌃'},
+  mining_heritage:  {text:'有名な鉱山・炭鉱跡がありますか?', icon:'⛏️', subjective:true},
+  night_view:       {text:'日本三大夜景を誇るマチ?', icon:'🌃'},
   war_damage:       {text:'戦時中に非常に多くの被害を受けましたか?', icon:'🕯️'},
   ferris_wheel:     {text:'観覧車はありますか?', icon:'🎡'},
   theme_park:       {text:'テーマパークはありますか?', icon:'🎢'},
   zoo:              {text:'動物園はありますか?', icon:'🦁'},
   aquarium:         {text:'水族館はありますか?', icon:'🐠'},
-  brand_beef:       {text:'有名なブランド牛肉はありますか?', icon:'🥩'},
+  brand_beef:       {text:'有名なブランド牛肉はありますか?', icon:'🥩', subjective:true},
   kintetsu:         {text:'近鉄が通っていますか?', icon:'🚃'},
   kanji_one_char:   {text:'マチの名前が漢字一文字ですか?', icon:'📛'},
-  chinatown:            {text:'有名な中華街がありますか?', icon:'🏮'},
-  sand_dunes:           {text:'有名な砂丘がありますか?', icon:'🏜️'},
+  chinatown:            {text:'有名な中華街がありますか?', icon:'🏮', subjective:true},
+  sand_dunes:           {text:'有名な砂丘がありますか?', icon:'🏜️', subjective:true},
   imperial_university:  {text:'旧帝国大学がありますか?', icon:'🎓'},
-  famous_tower:         {text:'有名なタワーがありますか?', icon:'🗼'},
-  famous_market:        {text:'有名な市場・朝市がありますか?', icon:'🐟'},
+  famous_tower:         {text:'有名なタワーがありますか?', icon:'🗼', subjective:true},
+  famous_market:        {text:'有名な市場・朝市がありますか?', icon:'🐟', subjective:true},
   exotic_port:          {text:'異国情緒の港町ですか?', icon:'🛳️'},
   dome_stadium:         {text:'ドーム球場がありますか?', icon:'🏟️'},
-  tea_region:           {text:'茶どころとして有名ですか?', icon:'🍵'},
-  gokaido_shukuba:      {text:'江戸の五街道の宿場町として知られている?', icon:'🚶'},
-  pottery_famous:       {text:'焼き物・陶磁器で知られている?', icon:'🏺'},
-  traditional_craft:    {text:'有名な伝統工芸で知られている?', icon:'🎨'},
+  tea_region:           {text:'茶どころとして有名ですか?', icon:'🍵', subjective:true},
+  gokaido_shukuba:      {text:'江戸の五街道の宿場町として知られている?', icon:'🚶', subjective:true},
+  pottery_famous:       {text:'焼き物・陶磁器で知られている?', icon:'🏺', subjective:true},
+  traditional_craft:    {text:'有名な伝統工芸で知られている?', icon:'🎨', subjective:true},
   horse_racing:         {text:'競馬場がある?', icon:'🐎'},
-  literary_figure:      {text:'有名な作家・文学者ゆかりの街?', icon:'✒️'},
+  literary_figure:      {text:'有名な作家・文学者ゆかりの街?', icon:'✒️', subjective:true},
   joetsu_region:              {text:'上越地方?', icon:'🗾'},
   chuetsu_region:              {text:'中越地方?', icon:'🗾'},
   kaetsu_region:               {text:'下越地方?', icon:'🗾'},
@@ -145,32 +145,25 @@ const QUESTIONS = {
   borders_gunma:               {text:'群馬県と接している?', icon:'🗺️'},
   borders_nagano:              {text:'長野県と接している?', icon:'🗺️'},
   borders_toyama:              {text:'富山県と接している?', icon:'🗺️'},
-  todai_campus: {text:'東京大学の有名キャンパスがある?', icon:'🎓'},
+  todai_campus: {text:'東京大学の有名キャンパスがある?', icon:'🎓', subjective:true},
   waseda_campus: {text:'早稲田大学の主要キャンパスがある?', icon:'🎓'},
   keio_campus: {text:'慶應義塾大学の主要キャンパスがある?', icon:'🎓'},
-  sophia_campus: {text:'上智大学の主要キャンパスがある?', icon:'🎓'},
   meiji_campus: {text:'明治大学のキャンパスがある?', icon:'🎓'},
-  aoyama_campus: {text:'青山学院大学の主要キャンパスがある?', icon:'🎓'},
   rikkyo_campus: {text:'立教大学の主要キャンパスがある?', icon:'🎓'},
   chuo_campus: {text:'中央大学の主要キャンパスがある?', icon:'🎓'},
-  hosei_campus: {text:'法政大学の主要キャンパスがある?', icon:'🎓'},
   tus_campus: {text:'東京理科大学の主要キャンパスがある?', icon:'🎓'},
   imperial_palace: {text:'皇居がある?', icon:'🏯'},
-  diet_building: {text:'国会議事堂がある?', icon:'🏛️'},
   ginza: {text:'銀座がある?', icon:'💎'},
   tokyo_tower_ward: {text:'東京タワーがある?', icon:'🗼'},
-  tocho: {text:'東京都庁がある?', icon:'🏢'},
   tokyo_dome_ward: {text:'東京ドームがある?', icon:'⚾'},
   sensoji: {text:'浅草寺がある?', icon:'⛩️'},
   skytree_ward: {text:'東京スカイツリーがある?', icon:'🗼'},
   toyosu_market: {text:'豊洲市場がある?', icon:'🐟'},
   haneda_ward: {text:'羽田空港がある?', icon:'✈️'},
-  shibuya_crossing: {text:'渋谷スクランブル交差点がある?', icon:'🚦'},
   shibamata_taishakuten: {text:'柴又帝釈天がある?', icon:'⛩️'},
   kasai_park: {text:'葛西臨海公園がある?', icon:'🎡'},
   broadway_nakano: {text:'ブロードウェイがある?', icon:'🏬'},
   koenji_area: {text:'高円寺・阿佐ヶ谷・荻窪のどれかがある?', icon:'🎸'},
-  shimokitazawa: {text:'下北沢がある?', icon:'🎭'},
   jiyugaoka: {text:'自由が丘がある?', icon:'🍰'},
   shakujii_park: {text:'石神井公園がある?', icon:'🌳'},
   odakyu_line: {text:'小田急線の駅がある?', icon:'🚃'},
@@ -192,30 +185,16 @@ const QUESTIONS = {
   edogawa_river: {text:'江戸川に接している?', icon:'🏞️'},
   meguro_river: {text:'目黒川が流れている?', icon:'🏞️'},
   shakujii_river: {text:'石神井川が流れている?', icon:'🏞️'},
-  borders_other_pref_tokyo: {text:'他県と接している?', icon:'🗺️'},
   borders_kanagawa: {text:'神奈川県と接している?', icon:'🗺️'},
   borders_saitama: {text:'埼玉県と接している?', icon:'🗺️'},
   borders_chiba: {text:'千葉県と接している?', icon:'🗺️'},
-  ochanomizu_univ: {text:'お茶の水女子大学がある?', icon:'🎓'},
-  gakushuin_univ: {text:'学習院大学がある?', icon:'🎓'},
-  toyo_univ: {text:'東洋大学の主要キャンパスがある?', icon:'🎓'},
-  komazawa_univ: {text:'駒澤大学がある?', icon:'🎓'},
-  seijo_univ: {text:'成城大学がある?', icon:'🎓'},
-  senshu_univ: {text:'専修大学の都心キャンパスがある?', icon:'🎓'},
-  jr_line: {text:'JRの駅がある?', icon:'🚉'},
-  no_jr: {text:'JRの駅がない?', icon:'🚫'},
   yamanote_line: {text:'山手線の駅がある?', icon:'🚃'},
   keihintohoku_line: {text:'京浜東北線の駅がある?', icon:'🚃'},
   chuo_rapid: {text:'中央線快速の駅がある?', icon:'🚃'},
   chuo_sobu: {text:'中央・総武線各駅停車の駅がある?', icon:'🚃'},
   joban_line: {text:'常磐線系統の駅がある?', icon:'🚃'},
   saikyo_line: {text:'埼京線の駅がある?', icon:'🚃'},
-  tokyo_station: {text:'東京駅がある?', icon:'🚉'},
-  ikebukuro_station: {text:'池袋駅がある?', icon:'🚉'},
   ueno_station: {text:'上野駅がある?', icon:'🚉'},
-  kinshicho_station: {text:'錦糸町駅がある?', icon:'🚉'},
-  ogikubo_station: {text:'荻窪駅がある?', icon:'🚉'},
-  kamata_station: {text:'蒲田駅がある?', icon:'🚉'},
   akabane_station: {text:'赤羽駅がある?', icon:'🚉'},
   nippori_station: {text:'日暮里駅がある?', icon:'🚉'},
   tsunagari_mayu_police: {text:'眉毛が繋がったおまわりさんがいる?', icon:'👮'},
@@ -224,61 +203,60 @@ const QUESTIONS = {
   hachiko_area: {text:'駅前で主人を待ち続けた犬が有名?', icon:'🐕'},
   yose_hall: {text:'落語の定席寄席がある?', icon:'🎤'},
   sailor_moon_stage: {text:'月にかわっておしおきする戦士の舞台?', icon:'🌙'},
-  tokiwa_so: {text:'漫画家たちの伝説的アパートがある?', icon:'✏️'},
   godzilla_head: {text:'巨大な怪獣の頭がビルから出ている?', icon:'🦖'},
   rakugo_stage:  {text:'有名な古典落語の舞台として知られる?', icon:'🎙️'},
-  sanma_famous:  {text:'さんまで有名?', icon:'🐟'},
-  monzen:           {text:'有名な門前町ですか?', icon:'🙏'},
-  bedtown:          {text:'ベッドタウンとして知られている?', icon:'🏠'},
-  skijyou:          {text:'有名なスキー場がある?', icon:'⛷️'},
+  sanma_famous:  {text:'さんまで有名?', icon:'🐟', subjective:true},
+  monzen:           {text:'有名な門前町ですか?', icon:'🙏', subjective:true},
+  bedtown:          {text:'東京23区または政令指定都市のベッドタウン?', icon:'🏠'},
+  skijyou:          {text:'有名なスキー場がある?', icon:'⛷️', subjective:true},
   geopark:          {text:'ジオパークに指定されている?', icon:'🌋'},
   nuclearpowerplant:{text:'原子力発電所がある?', icon:'☢️'},
-  monozukuri:       {text:'ものづくり(製造業)で知られている?', icon:'🏭'},
+  monozukuri:       {text:'ものづくり(製造業)で知られている?', icon:'🏭', subjective:true},
   chukakushi:       {text:'中核市ですか?', icon:'🏛️'},
   tokureishi:       {text:'施行時特例市(かつての特例市)ですか?', icon:'📜'},
   kaikyo_machi:        {text:'海峡のマチ?', icon:'🌊'},
   gakuto:              {text:'「楽都」と呼ばれる音楽のまち?', icon:'🎵'},
   hula_girl:           {text:'『フラガール』のふるさと?', icon:'🌺'},
-  kannon_zo:           {text:'観音像が有名?', icon:'🗿'},
+  kannon_zo:           {text:'観音像が有名?', icon:'🗿', subjective:true},
   koedo:               {text:'「小江戸」と呼ばれるマチ?', icon:'🏮'},
-  imono_kupola:        {text:'鋳物産業・キューポラの街として知られる?', icon:'🏭'},
+  imono_kupola:        {text:'鋳物産業・キューポラの街として知られる?', icon:'🏭', subjective:true},
   aeon_laketown:       {text:'イオンレイクタウンがある?', icon:'🛍️'},
-  funasshi_famous:     {text:'ふなっしーで全国的に知られた?', icon:'🍐'},
+  funasshi_famous:     {text:'ふなっしーで全国的に知られた?', icon:'🍐', subjective:true},
   takao_mountain:      {text:'高尾山がある?', icon:'⛰️'},
-  curry_famous:        {text:'カレーで有名なマチ?', icon:'🍛'},
+  curry_famous:        {text:'カレーで有名なマチ?', icon:'🍛', subjective:true},
   anime_seichi:        {text:'アニメの聖地?', icon:'📺'},
   number_in_name:      {text:'市名に数字(一、二、三…)が入っている?', icon:'🔢'},
-  kigyo_joukamachi:    {text:'企業城下町として知られる?', icon:'🏢'},
+  kigyo_joukamachi:    {text:'企業城下町として知られる?', icon:'🏢', subjective:true},
   hankyu_line:         {text:'阪急電車が通っている?', icon:'🚃'},
   yayoiken_seichi:     {text:'聖地となったやよい軒がある?', icon:'🍚'},
   hirakata_park:       {text:'ひらかたパークがある?', icon:'🎡'},
   keihan_line:         {text:'京阪電車が通っている?', icon:'🚃'},
-  kawachi_ondo:        {text:'河内音頭で知られる?', icon:'🎶'},
+  kawachi_ondo:        {text:'河内音頭で知られる?', icon:'🎶', subjective:true},
   rugby_machi:         {text:'ラグビーのまち?', icon:'🏉'},
-  kougyou_toshi:       {text:'工業都市のイメージが強い?', icon:'🏭'},
+  kougyou_toshi:       {text:'工業都市のイメージが強い?', icon:'🏭', subjective:true},
   hyoujun_jigosen:     {text:'日本標準時子午線が通る?', icon:'🕐'},
   koushien:            {text:'阪神甲子園球場がある?', icon:'⚾'},
-  bikan_chiku:         {text:'美観地区で有名?', icon:'🏯'},
+  bikan_chiku:         {text:'美観地区で有名?', icon:'🏯', subjective:true},
   gunkou_machi:        {text:'軍港のまち?', icon:'⚓'},
   seitetsu_kouro:      {text:'製鉄所の高炉がある?', icon:'🏭'},
-  fugu_famous:         {text:'ふぐで有名?', icon:'🐡'},
-  tire_famous:         {text:'タイヤで有名?', icon:'🛞'},
-  hamburger_famous:    {text:'ハンバーガーで有名?', icon:'🍔'},
-  kenkyu_gakuen_toshi: {text:'研究学園都市として知られる?', icon:'🔬'},
+  fugu_famous:         {text:'ふぐで有名?', icon:'🐡', subjective:true},
+  tire_famous:         {text:'タイヤで有名?', icon:'🛞', subjective:true},
+  hamburger_famous:    {text:'ハンバーガーで有名?', icon:'🍔', subjective:true},
+  kenkyu_gakuen_toshi: {text:'研究学園都市として知られる?', icon:'🔬', subjective:true},
   atsui_machi:         {text:'「暑い街」として全国ニュースになりやすい?', icon:'🌡️'},
   action_kamen:        {text:'アクション仮面が好きな5歳児が住んでいる?', icon:'🦸'},
-  senbei_famous:       {text:'せんべいで有名?', icon:'🍘'},
-  tanabata_famous:     {text:'七夕まつりで有名?', icon:'🎋'},
-  uirou_famous:        {text:'ういろうで有名?', icon:'🍡'},
+  senbei_famous:       {text:'せんべいで有名?', icon:'🍘', subjective:true},
+  tanabata_famous:     {text:'七夕まつりで有名?', icon:'🎋', subjective:true},
+  uirou_famous:        {text:'ういろうで有名?', icon:'🍡', subjective:true},
   southern_seichi:     {text:'サザンオールスターズの聖地?', icon:'🎤'},
-  b_kyu_gourmet:       {text:'有名なB級グルメがある?', icon:'🍜'},
+  b_kyu_gourmet:       {text:'有名なB級グルメがある?', icon:'🍜', subjective:true},
   beigun_kichi:        {text:'米軍基地がある?', icon:'🎖️'},
   shinkai_gyo:         {text:'深海魚で有名?', icon:'🐟'},
   saboten_machi:       {text:'サボテンのまちとして知られる?', icon:'🌵'},
-  combinat_yakei:      {text:'コンビナート夜景で有名?', icon:'🌃'},
-  danjiri_famous:      {text:'だんじり祭で全国的に有名?', icon:'🎊'},
-  onaji_ookawa:        {text:'市名と同じ大きな川が流れている?', icon:'🏞️'},
-  kageki_dan:          {text:'有名な歌劇団の本拠地?', icon:'🎭'},
+  combinat_yakei:      {text:'コンビナート夜景で有名?', icon:'🌃', subjective:true},
+  danjiri_famous:      {text:'だんじり祭で全国的に有名?', icon:'🎊', subjective:true},
+  onaji_ookawa:        {text:'市名と同じ大きな川が流れている?', icon:'🏞️', subjective:true},
+  kageki_dan:          {text:'有名な歌劇団の本拠地?', icon:'🎭', subjective:true},
   kitanotakeshi:       {text:'北野武が幼少期を過ごしたマチ?', icon:'🎞️'},
   musashino_line:      {text:'JR武蔵野線が通っている?', icon:'🚃'},
   ekimei_chigau:       {text:'市の中心駅の名前が市名と異なる?', icon:'🚉'},
@@ -292,7 +270,7 @@ const QUESTIONS = {
   old_province_name:   {text:'名前が旧国名に由来する?', icon:'📜'},
   public_racing_venue: {text:'公営競技場(競馬・競輪・ボート・オートレース)がある?', icon:'🚤'},
   national_government_park: {text:'国営公園がある?', icon:'🌳'},
-  film_city:           {text:'映画・映像のまちとして知られる?', icon:'🎬'},
+  film_city:           {text:'映画・映像のまちとして知られる?', icon:'🎬', subjective:true},
   shinsengumi:         {text:'新選組ゆかりのまち?', icon:'⚔️'},
   shonan_area:         {text:'「湘南」と呼ばれる地域にある?', icon:'🏄'},
   white_mirin_origin:  {text:'白みりん発祥の地?', icon:'🍶'},
@@ -347,30 +325,30 @@ const QUESTIONS = {
   nara_basin:         {text:'奈良盆地にありますか?', icon:'🧭'},
   kii_peninsula:      {text:'紀伊半島にありますか?', icon:'🧭'},
   nankai_line:        {text:'南海電車が通っていますか?', icon:'🚃'},
-  glasses_industry:            {text:'メガネ産業で有名?', icon:'🤓'},
-  cutlery_industry:            {text:'刃物・包丁で有名?', icon:'🔪'},
-  towel_industry:              {text:'タオルで有名?', icon:'🧺'},
-  musical_instruments:         {text:'楽器製造で有名?', icon:'🎹'},
+  glasses_industry:            {text:'メガネ産業で有名?', icon:'🤓', subjective:true},
+  cutlery_industry:            {text:'刃物・包丁で有名?', icon:'🔪', subjective:true},
+  towel_industry:              {text:'タオルで有名?', icon:'🧺', subjective:true},
+  musical_instruments:         {text:'楽器製造で有名?', icon:'🎹', subjective:true},
   gold_leaf:                   {text:'金箔で有名?', icon:'✨'},
   denim_industry:              {text:'デニム・ジーンズで有名?', icon:'👖'},
-  pearl_farming:               {text:'真珠の養殖で有名?', icon:'🦪'},
-  shipbuilding:                {text:'造船業で有名?', icon:'🚢'},
-  furniture_industry:          {text:'家具の産地として有名?', icon:'🪑'},
-  washi_famous:                {text:'和紙の産地として有名?', icon:'📜'},
-  pharmaceutical_industry:     {text:'製薬産業で知られる?', icon:'💊'},
-  fireworks_industry:          {text:'花火の製造で有名?', icon:'🎆'},
-  stone_industry:              {text:'石材・石切りで有名?', icon:'🪨'},
-  soy_sauce_famous:            {text:'醤油の生産で有名?', icon:'🍶'},
-  vinegar_famous:              {text:'酢の生産で有名?', icon:'🍶'},
+  pearl_farming:               {text:'真珠の養殖で有名?', icon:'🦪', subjective:true},
+  shipbuilding:                {text:'造船業で有名?', icon:'🚢', subjective:true},
+  furniture_industry:          {text:'家具の産地として有名?', icon:'🪑', subjective:true},
+  washi_famous:                {text:'和紙の産地として有名?', icon:'📜', subjective:true},
+  pharmaceutical_industry:     {text:'製薬産業で知られる?', icon:'💊', subjective:true},
+  fireworks_industry:          {text:'花火の製造で有名?', icon:'🎆', subjective:true},
+  stone_industry:              {text:'石材・石切りで有名?', icon:'🪨', subjective:true},
+  soy_sauce_famous:            {text:'醤油の生産で有名?', icon:'🍶', subjective:true},
+  vinegar_famous:              {text:'酢の生産で有名?', icon:'🍶', subjective:true},
   miso_famous:                 {text:'八丁味噌で有名?', icon:'🍲'},
-  gyoza_famous:                {text:'餃子で有名?', icon:'🥟'},
-  yakisoba_famous:             {text:'焼きそばで有名?', icon:'🍜'},
-  udon_famous:                 {text:'うどんで有名?', icon:'🍜'},
-  soba_famous:                 {text:'そばで有名?', icon:'🍜'},
-  ramen_famous:                {text:'ラーメンで有名?', icon:'🍜'},
+  gyoza_famous:                {text:'餃子で有名?', icon:'🥟', subjective:true},
+  yakisoba_famous:             {text:'焼きそばで有名?', icon:'🍜', subjective:true},
+  udon_famous:                 {text:'うどんで有名?', icon:'🍜', subjective:true},
+  soba_famous:                 {text:'そばで有名?', icon:'🍜', subjective:true},
+  ramen_famous:                {text:'ラーメンで有名?', icon:'🍜', subjective:true},
   castella_famous:             {text:'カステラで有名?', icon:'🍰'},
-  kamaboko_famous:             {text:'かまぼこで有名?', icon:'🍥'},
-  lacquerware_famous:          {text:'漆器で有名?', icon:'🥢'},
+  kamaboko_famous:             {text:'かまぼこで有名?', icon:'🍥', subjective:true},
+  lacquerware_famous:          {text:'漆器で有名?', icon:'🥢', subjective:true},
   ancient_provincial_capital:  {text:'古代の国府が置かれていた?', icon:'🏛️'},
   kokubunji_site:              {text:'国分寺・国分尼寺跡がある?', icon:'🏯'},
   traditional_buildings_district: {text:'重要伝統的建造物群保存地区がある?', icon:'🏘️'},
@@ -383,9 +361,9 @@ const QUESTIONS = {
   no_railway_station:          {text:'市内に鉄道駅がひとつもない?', icon:'🚉'},
   shikoku_pilgrimage:          {text:'四国八十八ヶ所の札所がある?', icon:'🙏'},
   olympic_venue:               {text:'オリンピック競技が開催された?', icon:'🏅'},
-  famous_battlefield:          {text:'有名な古戦場がある?', icon:'⚔️'},
+  famous_battlefield:          {text:'有名な古戦場がある?', icon:'⚔️', subjective:true},
   kitamaebune_port:            {text:'北前船の寄港地として栄えた?', icon:'⛵'},
-  famous_fish_catch:           {text:'漁獲される特定の魚介で全国的に有名?', icon:'🐟'},
+  famous_fish_catch:           {text:'漁獲される特定の魚介で全国的に有名?', icon:'🐟', subjective:true},
   animal_in_name: {text:'自治体名に動物を表す漢字が入っている？', icon:'🐾'},
   ariake_coast: {text:'有明海に面していますか?', icon:'🧭'},
   awa_area: {text:'阿波地方にありますか?', icon:'🧭'},
@@ -402,7 +380,7 @@ const QUESTIONS = {
   four_plus_name: {text:'市の名前が4文字以上？（「市」を除く）', icon:'📏'},
   fukuoka_metro: {text:'福岡都市圏に含まれますか?', icon:'🧭'},
   hakubi_line: {text:'伯備線が通っていますか?', icon:'🚃'},
-  hard_to_read_name: {text:'難読地名として知られている？', icon:'❓'},
+  hard_to_read_name: {text:'難読地名として知られている？', icon:'❓', subjective:true},
   hiroshima_metro: {text:'広島都市圏に含まれますか?', icon:'🧭'},
   honshu_bridge: {text:'本州方面と橋で結ばれていますか?', icon:'🧭'},
   iyo_area: {text:'伊予地方にありますか?', icon:'🧭'},
@@ -418,7 +396,7 @@ const QUESTIONS = {
   okinawa_main_island: {text:'沖縄本島にありますか?', icon:'🧭'},
   okinawa_south_central: {text:'沖縄本島の中南部にありますか?', icon:'🧭'},
   osumi_area: {text:'大隅地方にありますか?', icon:'🧭'},
-  paper_industry_shikoku: {text:'製紙業で知られるマチですか?', icon:'🏭'},
+  paper_industry_shikoku: {text:'製紙業で知られるマチですか?', icon:'🏭', subjective:true},
   plant_in_name: {text:'自治体名に植物を表す漢字が入っている？', icon:'🌿'},
   pref_name_in_city_name: {text:'自治体名に都道府県名が含まれている？', icon:'🗾'},
   sakishima_islands: {text:'宮古・八重山地域にありますか?', icon:'🧭'},
@@ -499,15 +477,15 @@ const QUESTIONS = {
   ic_okinawa:        {text:'沖縄道のインターチェンジがある？', icon:'🛣️'},
   koshien_champion:     {text:'甲子園(春・夏)の優勝校がある？', icon:'⚾'},
   sumo_yokozuna_ozeki:  {text:'昭和以降、横綱または大関を輩出した？', icon:'🤼'},
-  famous_cape:          {text:'有名な岬がある？', icon:'🌊'},
+  famous_cape:          {text:'有名な岬がある？', icon:'🌊', subjective:true},
   yamata_no_orochi: {text:'ヤマタノオロチ神話の舞台として知られる？', icon:'🏯'},
-  hibagon: {text:'謎の類人猿「ヒバゴン」で知られる？', icon:'✨'},
+  hibagon: {text:'謎の類人猿「ヒバゴン」で知られる？', icon:'✨', subjective:true},
   mori_motonari: {text:'毛利元就の本拠・郡山城がある？', icon:'🏯'},
   hiruzen_highland: {text:'蒜山高原がある？', icon:'🗺️'},
   miyamoto_musashi_station: {text:'「宮本武蔵駅」がある？', icon:'✨'},
   akiyoshidai: {text:'秋吉台や秋芳洞で有名？', icon:'🎡'},
   mizuki_shigeru_road: {text:'水木しげるロードがある？', icon:'🎡'},
-  yasugi_bushi: {text:'どじょうすくいで知られる？', icon:'🏯'},
+  yasugi_bushi: {text:'どじょうすくいで知られる？', icon:'🏯', subjective:true},
   gonokawa: {text:'江の川が流れている？', icon:'🗺️'},
   donticchi_fish: {text:'「どんちっち三魚」という水産ブランドがある？', icon:'🍽️'},
   shokasonjuku: {text:'吉田松陰の松下村塾がある？', icon:'🏯'},
@@ -522,13 +500,12 @@ const QUESTIONS = {
   goldfish_lantern: {text:'金魚ちょうちんで有名？', icon:'🎡'},
   ito_hirobumi_birthplace: {text:'初代内閣総理大臣・伊藤博文の生誕地？', icon:'🏯'},
   train_factory: {text:'新幹線などの鉄道車両を製造する工場がある？', icon:'🏭'},
-  stork: {text:'コウノトリで知られるマチ？', icon:'🎡'},
+  stork: {text:'コウノトリで知られるマチ？', icon:'🎡', subjective:true},
   hyonosen: {text:'兵庫県最高峰の氷ノ山がある？', icon:'🗺️'},
   takeda_castle: {text:'「天空の城」と呼ばれる竹田城跡がある？', icon:'🎡'},
   tamba_dinosaur: {text:'恐竜化石「丹波竜」が発見された？', icon:'✨'},
-  black_soybeans: {text:'黒豆や黒枝豆で全国的に有名？', icon:'🍽️'},
+  black_soybeans: {text:'黒豆や黒枝豆で全国的に有名？', icon:'🍽️', subjective:true},
   japan_navel: {text:'東経135度と北緯35度が交わる「日本のへそ」？', icon:'🗺️'},
-  banshu_abacus: {text:'播州そろばんの産地？', icon:'🏭'},
   miki_hardware: {text:'大工道具などの「三木金物」で有名？', icon:'🏭'},
   balloon_city: {text:'「気球の飛ぶまち」を掲げている？', icon:'✨'},
   sake_birthplace: {text:'日本酒発祥の地を名乗っている？', icon:'🍽️'},
@@ -538,20 +515,19 @@ const QUESTIONS = {
   nijigen_no_mori: {text:'ニジゲンノモリがある？', icon:'🎡'},
   akechi_mitsuhide_castle: {text:'明智光秀が築いた城がある？', icon:'🏯'},
   gunze_birthplace: {text:'グンゼ発祥の地？', icon:'🏭'},
-  amanohashidate: {text:'日本三景がある？', icon:'🎡'},
-  singing_sand: {text:'鳴き砂の浜で知られる？', icon:'🎡'},
+  nihon_sankei: {text:'日本三景がある？', icon:'⛩️'},
+  singing_sand: {text:'鳴き砂の浜で知られる？', icon:'🎡', subjective:true},
   miyama_thatched_village: {text:'美山かやぶきの里がある？', icon:'🎡'},
   hozugawa_boat_ride: {text:'嵐山まで続く保津川下りの出発地？', icon:'🎡'},
-  bamboo_path: {text:'観光名所「竹の径」がある？', icon:'🎡'},
   doushisha: {text:'同志社大学のキャンパスがある？', icon:'🎓'},
   nagaoka_tenmangu: {text:'長岡天満宮がある？', icon:'🎡'},
   joruriji: {text:'国宝の九体阿弥陀如来像がある浄瑠璃寺がある？', icon:'🏯'},
-  jrosyu_ume: {text:'青谷梅林と「城州白」という梅で知られる？', icon:'🍽️'},
+  jrosyu_ume: {text:'青谷梅林と「城州白」という梅で知られる？', icon:'🍽️', subjective:true},
   ritsumeikan: {text:'立命館大学のキャンパスがある？', icon:'🎓'},
   pm_birthplace: {text:'歴代の内閣総理大臣が生まれたマチ？', icon:'🏛️'},
   name_has_betsu: {text:'市名に「別」が入る？', icon:'🔤'},
   hokkaido_greenland: {text:'北海道グリーンランドがある？', icon:'🎢'},
-  famous_prison: {text:'有名な監獄がある？', icon:'🔒'},
+  famous_prison: {text:'明治期の旧監獄の建物が保存されている？', icon:'🔒'},
   yakitori_famous_bibai: {text:'焼き鳥で有名？', icon:'🍢'},
   coal_mine_shaft: {text:'旧炭鉱の立坑櫓が残っている？', icon:'⛏️'},
   drift_ice: {text:'流氷の接岸で有名？', icon:'🧊'},
@@ -562,7 +538,7 @@ const QUESTIONS = {
   least_populous_city: {text:'日本で人口が最も少ない市？', icon:'👤'},
   urokodango: {text:'ウロコダンゴが名物？', icon:'🍡'},
   bear_park: {text:'CMが有名なクマ牧場がある？', icon:'🐻'},
-  fighters_farm: {text:'ファイターズの2軍施設が移転してくる？', icon:'⚾'},
+  fighters_farm: {text:'プロ野球球団のファーム施設の移転予定地？', icon:'⚾'},
   in_aomori: {text:'青森県にある？', icon:'🍎'},
   in_iwate: {text:'岩手県にある？', icon:'🗻'},
   in_miyagi: {text:'宮城県にある？', icon:'🌾'},
@@ -584,7 +560,7 @@ const QUESTIONS = {
   geibikei: {text:'猊鼻渓がある？', icon:'⛰️'},
   ipponmatsu: {text:'奇跡の一本松がある？', icon:'🌲'},
   ohtani_shohei: {text:'大谷翔平の出身地？', icon:'⚾'},
-  zashiki_warashi: {text:'座敷わらしで知られる金田一温泉がある？', icon:'👘'},
+  zashiki_warashi: {text:'座敷わらしで知られる金田一温泉がある？', icon:'👘', subjective:true},
   appi_kogen: {text:'安比高原がある？', icon:'⛷️'},
   ishinomori: {text:'石ノ森章太郎の出身地？', icon:'🎨'},
   chagu_chagu: {text:'チャグチャグ馬コの出発地がある？', icon:'🐴'},
@@ -594,7 +570,7 @@ const QUESTIONS = {
   sendai_airport: {text:'仙台空港の旅客ターミナルがある？', icon:'✈️'},
   jaxa_kakuda: {text:'JAXAの宇宙センターがある？', icon:'🚀'},
   takekoma_shrine: {text:'竹駒神社がある？', icon:'⛩️'},
-  meiji_mura: {text:'明治村がある？', icon:'🏛️'},
+  meiji_mura: {text:'「明治村」として観光資源にしている？', icon:'🏛️'},
   kano_eiko: {text:'狩野英孝の出身地？', icon:'😎'},
   blue_impulse: {text:'ブルーインパルスの本拠地がある？', icon:'✈️'},
   naruko_onsen: {text:'鳴子温泉郷がある？', icon:'♨️'},
@@ -644,7 +620,7 @@ const QUESTIONS = {
   toyoda_castle: {text:'天守閣風の地域交流センター「豊田城」がある？', icon:'🏯'},
   moriya_junction: {text:'つくばエクスプレスと、取手方面へ向かう私鉄が接続する駅がある？', icon:'🚉'},
   namegata_farm: {text:'廃校を活用したサツマイモの体験型農業テーマパークがある？', icon:'🍠'},
-  hananuki: {text:'紅葉で知られる花貫渓谷がある？', icon:'🍁'},
+  hananuki: {text:'紅葉で知られる花貫渓谷がある？', icon:'🍁', subjective:true},
   happogahara: {text:'八方ヶ原に大規模なレンゲツツジの群生地がある？', icon:'🌺'},
   kanuma_tsuchi: {text:'盆栽や園芸に使われる、黄色い軽石質の土の産地？', icon:'🪴'},
   moka_sl: {text:'9600形蒸気機関車を走行可能な状態で展示する施設がある？', icon:'🚂'},
@@ -654,7 +630,7 @@ const QUESTIONS = {
   tomioka_silk: {text:'世界遺産に登録された明治政府の官営模範製糸場がある？', icon:'🧶'},
   moomin_park: {text:'ムーミンの物語を再現したテーマパークがある？', icon:'🎢'},
   ageo_sodou: {text:'1973年に通勤客が列車を占拠した国鉄騒動の舞台？', icon:'🚃'},
-  iroha_toi: {text:'野火止用水を新河岸川の対岸へ渡した「いろは樋」で知られる？', icon:'💧'},
+  iroha_toi: {text:'野火止用水を新河岸川の対岸へ渡した「いろは樋」で知られる？', icon:'💧', subjective:true},
   okegawa_benibana: {text:'中山道の宿場町で、紅花を市のシンボルとしている？', icon:'🌺'},
   ishito_zakura: {text:'日本五大桜の一つ「石戸蒲ザクラ」がある？', icon:'🌸'},
   kinchakuda: {text:'巾着田の大規模な曼珠沙華群生地がある？', icon:'🌺'},
@@ -665,11 +641,10 @@ const QUESTIONS = {
   mizuko_kaizuka: {text:'国指定史跡の水子貝塚がある？', icon:'🏺'},
   smallest_city: {text:'全国で最も面積が小さい市？', icon:'📏'},
   yashio_hanamomo: {text:'中川沿いに大規模な花桃の名所がある？', icon:'🌸'},
-  yoshikawa_namazu: {text:'ナマズ料理と「なまずの里」で知られる？', icon:'🐟'},
+  yoshikawa_namazu: {text:'ナマズ料理と「なまずの里」で知られる？', icon:'🐟', subjective:true},
   shiraoka_nashi: {text:'特産の梨に「美人」を冠したブランド名がある？', icon:'🍐'},
   kurohama_kaizuka: {text:'国指定史跡の黒浜貝塚がある？', icon:'🏺'},
   hanyu_yurugp: {text:'全国各地のご当地キャラクターが集まる大規模イベントが開かれる？', icon:'🧸'},
-  kanto_tanabata: {text:'関東三大七夕祭りの一つが開かれる？', icon:'🎋'},
   inzai_datacenter: {text:'国内有数のデータセンター集積地として知られる？', icon:'💾'},
   kamagaya_farm: {text:'北海道日本ハムファイターズのファーム球場がある？', icon:'⚾'},
   iioka_cape: {text:'九十九里浜の東端に飯岡刑部岬がある？', icon:'🌊'},
@@ -679,7 +654,7 @@ const QUESTIONS = {
   aqualine_gate: {text:'東京湾アクアラインの千葉県側の玄関口？', icon:'🌉'},
   yotsukaido_name: {text:'市名が、四方向へ延びる街道の交差点に由来する？', icon:'🛣️'},
   onari_kaido: {text:'徳川家康の鷹狩りに使われた御成街道の終点だった？', icon:'🦅'},
-  yachimata_peanuts: {text:'落花生の産地として全国的に有名？', icon:'🥜'},
+  yachimata_peanuts: {text:'落花生の産地として全国的に有名？', icon:'🥜', subjective:true},
   nashibou: {text:'「なし坊」という梨のキャラクターがいる？', icon:'🍐'},
   soza_ueki: {text:'植木・苗木の出荷が全国有数？', icon:'🌱'},
   blueberry_origin: {text:'日本で初めてブルーベリーが農産物として栽培された？', icon:'🫐'},
@@ -697,18 +672,16 @@ const QUESTIONS = {
   shakou_elevator: {text:'住宅地と駅を結ぶ大型斜行エレベーターがある？', icon:'🛗'},
   saruhashi: {text:'日本三奇橋の一つ「猿橋」がある？', icon:'🌉'},
   fusion_lab: {text:'核融合科学研究所と大型ヘリカル装置がある？', icon:'⚛️'},
-  enbaragawa: {text:'円原川の伏流水と、木漏れ日の光芒で知られる？', icon:'🌿'},
+  enbaragawa: {text:'円原川の伏流水と、木漏れ日の光芒で知られる？', icon:'🌿', subjective:true},
   sanshu_kawara: {text:'三州瓦の主要産地で、かわら美術館がある？', icon:'🧱'},
   nonbori_arai: {text:'五条川で、こいのぼりの「のんぼり洗い」が行われる？', icon:'🎏'},
   akame_taki: {text:'赤目四十八滝がある？', icon:'💦'},
   oiwayama_dotaku: {text:'大岩山遺跡から日本最大級の銅鐸が出土した？', icon:'🔔'},
   tokaido_nakasendo: {text:'東海道と中山道が分岐・合流した宿場町？', icon:'🛤️'},
-  koka_ninja: {text:'忍者の里と信楽焼の両方で知られる？', icon:'🥷'},
-  kinginshi: {text:'金銀糸の生産量が全国有数？', icon:'🧵'},
+  koka_ninja: {text:'忍者の里と信楽焼の両方で知られる？', icon:'🥷', subjective:true},
   take_no_michi: {text:'竹林の散策路「竹の径」がある？', icon:'🎋'},
-  aioi_matsu: {text:'「相生の松」と尉と姥の伝説で知られる謡曲の舞台？', icon:'🌲'},
+  aioi_matsu: {text:'「相生の松」と尉と姥の伝説で知られる謡曲の舞台？', icon:'🌲', subjective:true},
   banshu_soroban_ono: {text:'播州そろばんの産地？', icon:'🧮'},
-  izanagi_jingu: {text:'国生み神話ゆかりの伊弉諾神宮がある？', icon:'⛩️'},
   katsuragi_tsutsuji: {text:'葛城山に「一目百万本」と呼ばれるツツジ群落がある？', icon:'🌺'},
   matabei_zakura: {text:'樹齢約300年とされる「又兵衛桜」がある？', icon:'🌸'},
   kishu_herazao: {text:'伝統工芸品「紀州へら竿」の産地？', icon:'🎣'},
@@ -723,7 +696,7 @@ const QUESTIONS = {
   taku_seibyo: {text:'孔子をまつる、現存最古級の聖廟がある？', icon:'🎓'},
   minamata_museum: {text:'四大公害病の一つについて学べる市立資料館がある？', icon:'🏫'},
   kikuchi_keikoku: {text:'阿蘇外輪山北西部に、避暑地として有名な渓谷がある？', icon:'🍁'},
-  mikoshiki_coast: {text:'干潟の曲線と夕日で知られる御輿来海岸がある？', icon:'🌅'},
+  mikoshiki_coast: {text:'干潟の曲線と夕日で知られる御輿来海岸がある？', icon:'🌅', subjective:true},
   amakusa_bridges: {text:'九州本土と島々を結ぶ5本の橋の大部分が市内にある？', icon:'🌉'},
   ikoma_kogen: {text:'コスモスの名所「生駒高原」がある？', icon:'🌼'},
   senbon_icho: {text:'個人が山を開いて作った「千本イチョウ」の名所がある？', icon:'🌳'},
@@ -736,7 +709,7 @@ const QUESTIONS = {
 // {キー: true/false, ...} というオブジェクト形式へ復元してから、他の処理へ渡す。
 // 復元対象のキー一覧は、実行時計算タグ(kana_name等、enrichComputedTagsが後で設定する)
 // を除いたもの。旧形式(既にオブジェクトのcities.json)が来た場合はそのまま何もしない。
-const COMPUTED_ONLY_TAG_KEYS = new Set(['kana_name','kansai_dialect','tohoku_dialect','ryukyu_dialect',
+const COMPUTED_ONLY_TAG_KEYS = new Set(['kana_name','kansai_dialect','ryukyu_dialect',
   'region_hokkaido','region_tohoku','region_kanto','region_chubu','region_kinki','region_chugoku','region_shikoku','region_kyushu']);
 function expandCompactTags(city){
   if(!Array.isArray(city.tags)) return city; // 既にオブジェクト形式ならそのまま(後方互換)
@@ -750,18 +723,34 @@ function expandCompactTags(city){
   return city;
 }
 
+// 【私鉄タグの自動補完】「小田急線の駅がある?」がtrueなら、当然「私鉄が走っている?」もtrue。
+// これを手入力で揃えようとすると必ず付け忘れが出て、同じプレイの中で
+//   「私鉄が走っている?」→ いいえ
+//   「小田急線の駅がある?」→ はい
+// という矛盾が起きてしまう(実際に156自治体で発生していた)。そこで、個別の私鉄路線タグの
+// どれかがtrueなら private_railway も自動でtrueにする。
+// 重要: 単純に「この14路線のOR」で上書きしてはいけない。富山地方鉄道(富山市)、
+// 江ノ電(鎌倉市)、ことでん(高松市)のように、ここに挙がっていない私鉄だけが走る自治体が
+// 48件あり、上書きするとそれらが誤ってfalseになってしまう。あくまで「元がtrueなら維持、
+// 個別路線がtrueなら追加でtrue」という論理和(OR)にする。
+const PRIVATE_RAILWAY_LINE_KEYS = [
+  'odakyu_line','keio_inokashira_line','tokyu_line','keikyu_line','seibu_line','tobu_line',
+  'keisei_line','tsukuba_express','meitetsu_line','kintetsu','hankyu_line','keihan_line',
+  'nankai_line','nishitetsu_line'
+];
+
 function enrichComputedTags(city){
   const t = city.tags;
   // 自治体名にひらがな・カタカナが含まれるか(簡易判定)
   t.kana_name = /[\u3040-\u30FF]/.test(city.name);
   const kansaiPrefs = ['大阪府','京都府','兵庫県','奈良県','滋賀県','和歌山県'];
-  const tohokuPrefs = ['青森県','岩手県','宮城県','秋田県','山形県','福島県'];
   const ryukyuPrefs = ['沖縄県'];
   t.kansai_dialect = kansaiPrefs.includes(city.pref);
-  t.tohoku_dialect = tohokuPrefs.includes(city.pref);
   t.ryukyu_dialect = ryukyuPrefs.includes(city.pref);
   t.is_town_village = t.is_town_village ?? false;
   t.is_tokyo_ward = t.is_tokyo_ward ?? false;
+  // 個別の私鉄路線タグがひとつでもtrueなら、private_railwayもtrueにする(元の値は残す)
+  if(PRIVATE_RAILWAY_LINE_KEYS.some(k => t[k] === true)) t.private_railway = true;
   // 【8地方判定】県から所属する地方を機械的に決めて、全国版で「どの地方か」を
   // 早く絞り込めるようにする(東海の市と九州の市が最後まで競合するのを防ぐ)。
   const region = REGION_OF_PREF[city.pref] || null;
@@ -868,24 +857,61 @@ const EXCLUSIVE_CHECK_GROUPS = [
   // データ上、tama_area=trueとこれらのタグが両方trueになる市は1件も無いため、
   // 私鉄路線と同じ仕組みでデータから自動学習させる。
   ['tama_area','is_tokyo_ward',
-   'todai_campus','waseda_campus','keio_campus','sophia_campus','meiji_campus','aoyama_campus','rikkyo_campus','chuo_campus','hosei_campus','tus_campus',
-   'imperial_palace','diet_building','ginza','tokyo_tower_ward','tocho','tokyo_dome_ward','sensoji','skytree_ward','toyosu_market','haneda_ward',
-   'shibuya_crossing','shibamata_taishakuten','kasai_park','broadway_nakano','koenji_area','shimokitazawa','jiyugaoka','shakujii_park',
-   'ochanomizu_univ','gakushuin_univ','toyo_univ','komazawa_univ','seijo_univ','senshu_univ',
-   'tokyo_station','ikebukuro_station','ueno_station','kinshicho_station'],
+   'todai_campus','waseda_campus','keio_campus','meiji_campus','rikkyo_campus','chuo_campus','tus_campus',
+   'imperial_palace','ginza','tokyo_tower_ward','tokyo_dome_ward','sensoji','skytree_ward','toyosu_market','haneda_ward',
+   'shibamata_taishakuten','kasai_park','broadway_nakano','koenji_area','jiyugaoka','shakujii_park',
+   
+   'ueno_station'],
 ];
 let EXCLUSIVE_MAP = {};
+// 【例外つき排他ルール】現実には「ほとんど両立しないが、ごく少数だけ両方に当てはまる」
+// 組み合わせがある。例: 太平洋と瀬戸内海は普通どちらか一方だが、和歌山市や鳴門市は
+// 実際に両方の海に面している。日本海と瀬戸内海も、下関市・北九州市は関門海峡を挟んで
+// 両方に面している。
+// 「1件でも両方trueなら排他とみなさない」という全か無かの判定だと、こうした数市の
+// ために「太平洋?」→「瀬戸内海?」の自動除外という便利な仕組みを全部あきらめることに
+// なってしまう。そこで、両方trueの市がEXCLUSIVE_MAX_EXCEPTIONS件以下なら排他として扱い、
+// その少数の例外市だけを自動除外の対象から守る(下のEXCLUSIVE_EXCEPTIONSを参照)。
+const EXCLUSIVE_MAX_EXCEPTIONS = 8;
+// 例外は「少数の例外」でなければならない。絶対数だけで判定すると、包含関係にあるタグの組を
+// 排他だと誤解してしまう。
+// 例: is_tokyo_ward(23区=23件)と todai_campus(東大キャンパス=文京区・目黒区の2件)は、
+// 文京区が両方trueなので「例外2件」に見えるが、実際は排他ではなく「23区の中に東大がある」
+// という包含関係。これを排他扱いにすると、「東京23区のどれか?」に はい と答えた瞬間、
+// 23区を区別するための名所質問(東大・浅草寺・東京タワー…)が全部「いいえ」と自動回答され、
+// 二度と聞かれなくなってしまう。
+// そこで「両方trueの件数が、少ない方のタグの件数に対してこの割合以下」も条件に加える。
+// (上の例では 2/2 = 100% なので排他とみなさない。太平洋と瀬戸内海は 6/72 = 8% なので排他)
+const EXCLUSIVE_MAX_EXCEPTION_RATIO = 0.2;
+// キー: `${k1}|${k2}` / 値: 両方trueの「例外」自治体IDのSet
+let EXCLUSIVE_EXCEPTIONS = {};
 
 function computeExclusiveMap(){
   EXCLUSIVE_MAP = {};
+  EXCLUSIVE_EXCEPTIONS = {};
+  // 日本海/太平洋/瀬戸内海のように、複数のグループに同じキーが登場することがある
+  //(地方別グループにこの3つを毎回加えているため)。同じ組を二重登録しないよう記録する。
+  const seenPairs = new Set();
   EXCLUSIVE_CHECK_GROUPS.forEach(group => {
     for(let i = 0; i < group.length; i++){
       for(let j = i + 1; j < group.length; j++){
         const k1 = group[i], k2 = group[j];
-        const bothTrue = CITIES.some(c => c.tags[k1] && c.tags[k2]);
-        if(!bothTrue){
-          (EXCLUSIVE_MAP[k1] = EXCLUSIVE_MAP[k1] || []).push(k2);
-          (EXCLUSIVE_MAP[k2] = EXCLUSIVE_MAP[k2] || []).push(k1);
+        if(k1 === k2) continue;
+        const pairId = k1 < k2 ? `${k1}|${k2}` : `${k2}|${k1}`;
+        if(seenPairs.has(pairId)) continue;
+        seenPairs.add(pairId);
+        const n1 = CITIES.reduce((a, c) => a + (c.tags[k1] ? 1 : 0), 0);
+        const n2 = CITIES.reduce((a, c) => a + (c.tags[k2] ? 1 : 0), 0);
+        if(n1 === 0 || n2 === 0) continue; // 片方が0件なら排他かどうか判断できない
+        const bothCities = CITIES.filter(c => c.tags[k1] && c.tags[k2]);
+        if(bothCities.length > EXCLUSIVE_MAX_EXCEPTIONS) continue;                       // 例外が多すぎる
+        if(bothCities.length > Math.min(n1, n2) * EXCLUSIVE_MAX_EXCEPTION_RATIO) continue; // 排他ではなく包含関係
+        (EXCLUSIVE_MAP[k1] = EXCLUSIVE_MAP[k1] || []).push(k2);
+        (EXCLUSIVE_MAP[k2] = EXCLUSIVE_MAP[k2] || []).push(k1);
+        if(bothCities.length > 0){
+          const ids = new Set(bothCities.map(c => cityId(c)));
+          EXCLUSIVE_EXCEPTIONS[`${k1}|${k2}`] = ids;
+          EXCLUSIVE_EXCEPTIONS[`${k2}|${k1}`] = ids;
         }
       }
     }
@@ -1001,17 +1027,18 @@ const EXTRA_PHASE_POOL_MIN = 5;
 const EXTRA_PHASE_POOL_MAX = 15;
 
 // 質問を「客観的(事実)」か「主観的(印象・評判)」かに分類する。
-// 「有名」「イメージ」「知られ」等、評判・印象に基づく言い回しを含む質問は主観的として扱う。
-// 主観的質問(印象・評判で人によって答えが分かれる質問)を判定するキーワード。
-// 「有名」「知られ」は日本語として自然な言い回しに過ぎず、中身が事実データの質問
-// (温泉地・焼き物・秋吉台など、そのタグを持つ市が明確に決まっているもの)まで
-// 主観扱いにすると、はいと答えても矛盾する市が候補に残ってしまう。そのため、
-// 純粋に主観的な言い回し(イメージ・雰囲気・色が強い)だけを主観キーワードとする。
-const SUBJECTIVE_KEYWORDS = ['イメージ', '色が強い', '雰囲気'];
+// 【方針】質問文に含まれる語(「有名」「知られている」など)から機械的に推測するのはやめて、
+// 質問ごとに subjective: true を明示する。理由:
+//  ・「有名」は日本語として自然なだけの言い回しで、中身が事実データの質問(秋吉台がある・
+//    浅草寺がある など)にも普通に使われる。語で判定すると、そういう質問まで主観扱いになる。
+//  ・逆に「温泉地として知られている?」「大きな川が流れている?」のように、人によって
+//    答えが割れる質問が客観扱いのままだと、「いいえ」と答えただけで正解候補が強く沈む。
+// どちらの誤りも語の有無では見分けられないため、質問を作る人が明示する方式にする。
+// 使い方: QUESTIONSの定義に subjective: true を足すだけ。
+//   festival: {text:'全国的に有名なお祭りがある?', icon:'🎆', subjective:true},
 function isSubjectiveQuestion(key){
   const q = QUESTIONS[key] || STATS_QUESTIONS[key];
-  if(!q || !q.text) return false;
-  return SUBJECTIVE_KEYWORDS.some(w => q.text.includes(w));
+  return !!(q && q.subjective === true);
 }
 
 // シード指定可能な乱数(指定しない場合は通常のMath.randomを使う)。
@@ -1106,7 +1133,7 @@ function isAnonymousReportingEnabled(){
 const CONQUEST_STORAGE_KEY = 'oramachi_conquest_v1';
 const CONQUEST_VERSION = 1;
 function emptyConquestData(){
-  return { version: CONQUEST_VERSION, entries: {}, specialEntries: {} };
+  return { version: CONQUEST_VERSION, entries: {} };
 }
 function loadConquest(){
   try{
@@ -1120,7 +1147,13 @@ function loadConquest(){
       saveConquest(empty); // localStorage側も安全な状態に書き戻しておく
       return empty;
     }
-    if(typeof parsed.specialEntries !== 'object' || parsed.specialEntries === null) parsed.specialEntries = {};
+    // 【旧データの掃除】以前は「東京23区部」を特別地域(specialEntries)として別枠で
+    // 記録していたが、23区を個別に出題する方式へ変更したため、この枠自体を廃止した。
+    // 古い記録が残っている場合はここで捨て、localStorageからも消しておく。
+    if('specialEntries' in parsed){
+      delete parsed.specialEntries;
+      try{ saveConquest(parsed); }catch(e){ /* 保存に失敗してもゲームは続行する */ }
+    }
     return parsed;
   }catch(e){
     console.warn('おらマチ: 制覇帳データの読み込みに失敗したため初期化します(破損データの可能性)', e);
@@ -1216,11 +1249,9 @@ function todayJstDateString(){
 }
 
 // 正解が確定した瞬間だけ呼ばれる。制覇帳へ記録し、結果画面用のメッセージ種別を返す。
-// 「東京23区部」は通常自治体とは別枠(specialEntries)に記録し、通常の制覇率には含めない。
 function recordConquest(city, questionCount, mode){
   const data = loadConquest();
-  const isSpecial = city.name === '東京';
-  const bucket = isSpecial ? data.specialEntries : data.entries;
+  const bucket = data.entries;
   const id = cityId(city);
   const now = new Date().toISOString();
   const existing = bucket[id];
@@ -1251,7 +1282,7 @@ function recordConquest(city, questionCount, mode){
     }
   }
   const saved = saveConquest(data);
-  return { status, isSpecial, saved, entry: bucket[id] };
+  return { status, saved, entry: bucket[id] };
 }
 
 // 通常自治体数(=「東京」集計エントリを除いた実際の収録数)。制覇率の分母に使う。
@@ -1740,7 +1771,7 @@ let currentMode = 'all';
 const MODES = {
   all: {
     label: '全国版',
-    description: '人口5万人以上の市、および新潟県の自治体と東京23区'
+    description: '日本全国の市と新潟県の町村が対象です。東京都は多摩地区の市と23区を区ごとに当てます。'
   },
   niigata: {
     label: '新潟県版',
@@ -1872,7 +1903,11 @@ function getModeCities(mode){
     // 地方版: その地方の自治体だけに絞る(集計エントリ「東京」は除外)
     return CITIES.filter(c => regionOf(c.pref) === MODES[mode].region && c.name !== '東京');
   }
-  return [...CITIES];
+  // 全国版も同様に「東京」を除外する。23区が個別に入っているため、集計エントリと併存させると
+  // タグの持ち主が食い違って矛盾が起きる(「東京」は相撲・NPB・東京ドームがtrueなのに、
+  // 実際にそれらがある両国=墨田区・文京区はfalse。逆に東京タワーは港区だけtrueで「東京」はfalse)。
+  // 他の政令市が「札幌市」のように市単位で入っているのと揃えて、23区は区単位で当てる。
+  return CITIES.filter(c => c.name !== '東京');
 }
 const stage = document.getElementById('stage');
 const stampsEl = document.getElementById('stamps');
@@ -2078,7 +2113,7 @@ const MODE_ONLY_KEYS = {
     'joetsu_region','chuetsu_region','uono_river','borders_gunma','borders_toyama'
   ],
   tokyo: [
-    'todai_campus','waseda_campus','keio_campus','sophia_campus','meiji_campus','aoyama_campus','rikkyo_campus','chuo_campus','hosei_campus','tus_campus','diet_building','sensoji','kasai_park','odakyu_line','keio_inokashira_line','tokyu_line','keikyu_line','rinkai_line','yurikamome','toden_arakawa','nippori_toneri','sumida_river','meguro_river','shakujii_river','borders_other_pref_tokyo','borders_kanagawa','borders_saitama','borders_chiba','ochanomizu_univ','gakushuin_univ','toyo_univ','komazawa_univ','seijo_univ','senshu_univ','jr_line','no_jr','yamanote_line','keihintohoku_line','chuo_sobu','tokyo_station','ueno_station','kinshicho_station','kamata_station','nippori_station','tsunagari_mayu_police','tv_station_area','sazae_family','hachiko_area','yose_hall','sailor_moon_stage','tokiwa_so','godzilla_head','rakugo_stage','sanma_famous'
+    'todai_campus','waseda_campus','keio_campus','meiji_campus','rikkyo_campus','chuo_campus','tus_campus','sensoji','kasai_park','odakyu_line','keio_inokashira_line','tokyu_line','keikyu_line','rinkai_line','yurikamome','toden_arakawa','nippori_toneri','sumida_river','meguro_river','shakujii_river','borders_kanagawa','borders_saitama','borders_chiba','yamanote_line','keihintohoku_line','chuo_sobu','ueno_station','nippori_station','tsunagari_mayu_police','tv_station_area','sazae_family','hachiko_area','yose_hall','sailor_moon_stage','godzilla_head','rakugo_stage','sanma_famous'
   ],
   // 地方版別質問:キーをここに足すと、その地方版と全国版だけで出題される。
   hokkaido: ['douou_area','doutou_area','dohoku_area','sapporo_metro','ishikari_plain','historical_port_hokkaido','industrial_port_hokkaido','hakodate_honsen','ishikari_river'],
@@ -2301,7 +2336,7 @@ const PHASE_KEY_OVERRIDES = {
   monozukuri: 'middle', kougyou_toshi: 'middle', kigyo_joukamachi: 'middle',
   seitetsu_kouro: 'middle', imono_kupola: 'middle', tire_famous: 'middle', nuclearpowerplant: 'middle',
   // 名前・方言系の計算タグは、個性が強く決め手になりやすいので終盤
-  kana_name: 'late', kansai_dialect: 'late', tohoku_dialect: 'late', ryukyu_dialect: 'late',
+  kana_name: 'late', kansai_dialect: 'late', ryukyu_dialect: 'late',
 
   // 歴史・文化のうち、「城下町・宿場町・門前町・軍港」など町の性格を表すものは中盤
   castle: 'middle', worldheritage: 'middle', ruins: 'middle', shrine_temple: 'middle',
@@ -2371,6 +2406,8 @@ const TAG_GAME_CATEGORY = {
   "setonaikai": "地理",
   "famous_mountain": "地理",
   "big_river": "地理",
+  "big_bay": "地理",
+  "hot_40c": "地理",
   "snow": "地理",
   "basin": "地理",
   "lakeside": "地理",
@@ -2395,7 +2432,6 @@ const TAG_GAME_CATEGORY = {
   "edogawa_river": "地理",
   "meguro_river": "地理",
   "shakujii_river": "地理",
-  "borders_other_pref_tokyo": "地理",
   "borders_kanagawa": "地理",
   "borders_saitama": "地理",
   "borders_chiba": "地理",
@@ -2419,8 +2455,6 @@ const TAG_GAME_CATEGORY = {
   "yurikamome": "交通",
   "toden_arakawa": "交通",
   "nippori_toneri": "交通",
-  "jr_line": "交通",
-  "no_jr": "交通",
   "yamanote_line": "交通",
   "keihintohoku_line": "交通",
   "chuo_rapid": "交通",
@@ -2437,12 +2471,7 @@ const TAG_GAME_CATEGORY = {
   "nishikyushu_shinkansen_station": "交通",
   "yamagata_shinkansen_station": "交通",
   "akita_shinkansen_station": "交通",
-  "tokyo_station": "交通",
-  "ikebukuro_station": "交通",
   "ueno_station": "交通",
-  "kinshicho_station": "交通",
-  "ogikubo_station": "交通",
-  "kamata_station": "交通",
   "akabane_station": "交通",
   "nippori_station": "交通",
   "designated": "人口・行政",
@@ -2451,7 +2480,6 @@ const TAG_GAME_CATEGORY = {
   "is_tokyo_ward": "人口・行政",
   "kana_name": "人口・行政",
   "kansai_dialect": "人口・行政",
-  "tohoku_dialect": "人口・行政",
   "ryukyu_dialect": "人口・行政",
   "is_village": "人口・行政",
   "bedtown": "人口・行政",
@@ -2474,7 +2502,6 @@ const TAG_GAME_CATEGORY = {
   "former_capital": "歴史・文化",
   "grid_streets": "歴史・文化",
   "kokuho_building": "歴史・文化",
-  "historical_statue": "歴史・文化",
   "twelve_castles": "歴史・文化",
   "sengoku_warlord": "歴史・文化",
   "war_damage": "歴史・文化",
@@ -2485,7 +2512,6 @@ const TAG_GAME_CATEGORY = {
   "horse_racing": "歴史・文化",
   "literary_figure": "歴史・文化",
   "imperial_palace": "歴史・文化",
-  "diet_building": "歴史・文化",
   "sensoji": "歴史・文化",
   "shibamata_taishakuten": "歴史・文化",
   "monzen": "歴史・文化",
@@ -2508,16 +2534,13 @@ const TAG_GAME_CATEGORY = {
   "jleague": "観光・娯楽",
   "npb": "観光・娯楽",
   "sumo_basho": "観光・娯楽",
-  "tocho": "観光・娯楽",
   "tokyo_tower_ward": "観光・娯楽",
   "tokyo_dome_ward": "観光・娯楽",
   "skytree_ward": "観光・娯楽",
   "haneda_ward": "観光・娯楽",
-  "shibuya_crossing": "観光・娯楽",
   "kasai_park": "観光・娯楽",
   "broadway_nakano": "観光・娯楽",
   "koenji_area": "観光・娯楽",
-  "shimokitazawa": "観光・娯楽",
   "jiyugaoka": "観光・娯楽",
   "shakujii_park": "観光・娯楽",
   "skijyou": "観光・娯楽",
@@ -2525,19 +2548,10 @@ const TAG_GAME_CATEGORY = {
   "todai_campus": "学問",
   "waseda_campus": "学問",
   "keio_campus": "学問",
-  "sophia_campus": "学問",
   "meiji_campus": "学問",
-  "aoyama_campus": "学問",
   "rikkyo_campus": "学問",
   "chuo_campus": "学問",
-  "hosei_campus": "学問",
   "tus_campus": "学問",
-  "ochanomizu_univ": "学問",
-  "gakushuin_univ": "学問",
-  "toyo_univ": "学問",
-  "komazawa_univ": "学問",
-  "seijo_univ": "学問",
-  "senshu_univ": "学問",
   "imperial_university": "学問",
   "tsunagari_mayu_police": "遊び心",
   "tv_station_area": "遊び心",
@@ -2545,7 +2559,6 @@ const TAG_GAME_CATEGORY = {
   "hachiko_area": "遊び心",
   "yose_hall": "遊び心",
   "sailor_moon_stage": "遊び心",
-  "tokiwa_so": "遊び心",
   "godzilla_head": "遊び心",
   "rakugo_stage": "遊び心",
   "sanma_famous": "遊び心",
@@ -2617,7 +2630,6 @@ const TAG_GAME_CATEGORY = {
   "tamba_dinosaur": "遊び心",
   "black_soybeans": "食",
   "japan_navel": "地理",
-  "banshu_abacus": "その他",
   "miki_hardware": "その他",
   "balloon_city": "遊び心",
   "sake_birthplace": "食",
@@ -2627,11 +2639,10 @@ const TAG_GAME_CATEGORY = {
   "nijigen_no_mori": "観光・娯楽",
   "akechi_mitsuhide_castle": "歴史・文化",
   "gunze_birthplace": "その他",
-  "amanohashidate": "観光・娯楽",
+  "nihon_sankei": "観光・娯楽",
   "singing_sand": "観光・娯楽",
   "miyama_thatched_village": "観光・娯楽",
   "hozugawa_boat_ride": "観光・娯楽",
-  "bamboo_path": "観光・娯楽",
   "doushisha": "学問",
   "nagaoka_tenmangu": "観光・娯楽",
   "joruriji": "歴史・文化",
@@ -2758,7 +2769,6 @@ const TAG_GAME_CATEGORY = {
   "shiraoka_nashi": "食",
   "kurohama_kaizuka": "歴史・文化",
   "hanyu_yurugp": "遊び心",
-  "kanto_tanabata": "観光・娯楽",
   "inzai_datacenter": "その他",
   "kamagaya_farm": "観光・娯楽",
   "iioka_cape": "地理",
@@ -2793,11 +2803,9 @@ const TAG_GAME_CATEGORY = {
   "oiwayama_dotaku": "歴史・文化",
   "tokaido_nakasendo": "歴史・文化",
   "koka_ninja": "観光・娯楽",
-  "kinginshi": "その他",
   "take_no_michi": "観光・娯楽",
   "aioi_matsu": "歴史・文化",
   "banshu_soroban_ono": "その他",
-  "izanagi_jingu": "歴史・文化",
   "katsuragi_tsutsuji": "地理",
   "matabei_zakura": "観光・娯楽",
   "kishu_herazao": "その他",
@@ -2969,7 +2977,7 @@ function categoryOf(k){ return TAG_GAME_CATEGORY[k] || "その他"; }
 // 遊び心系だけは特別扱い: 候補が絞れてきた終盤の「決め手」として使いたいので、
 // ジャンルバランスとは別に、序盤は出にくく・終盤(候補少数)は優先させる。
 const HIGH_PRIORITY_KEYS = new Set([
-  'tsunagari_mayu_police','tv_station_area','sazae_family','hachiko_area','yose_hall','sailor_moon_stage','tokiwa_so','godzilla_head','rakugo_stage','sanma_famous','action_kamen','funasshi_famous','southern_seichi','yayoiken_seichi','kitanotakeshi'
+  'tsunagari_mayu_police','tv_station_area','sazae_family','hachiko_area','yose_hall','sailor_moon_stage','godzilla_head','rakugo_stage','sanma_famous','action_kamen','funasshi_famous','southern_seichi','yayoiken_seichi','kitanotakeshi'
 ]);
 const FUN_ACTIVATION_POOL_SIZE = 10; // 候補がこの件数以下に絞れてから遊び心系を優先し始める
 const HIGH_PRIORITY_BONUS = 45;
@@ -3671,16 +3679,6 @@ function renderConquestLog(){
   const mostFrequent = entryList.slice().sort((a,b) => b.count - a.count).filter(e => e.count > 1).slice(0, 8);
   const unconquered = normalCities.filter(c => !conqueredIds.has(cityId(c))).slice(0, 30);
 
-  const specialEntry = Object.values(data.specialEntries)[0];
-  const specialHtml = `
-    <div class="conquest-special-block">
-      <div class="conquest-section-title">特別地域</div>
-      ${specialEntry
-        ? `<div class="conquest-special-row">🗼 東京23区部 ・ ${specialEntry.count}回正解 ・ 最少${specialEntry.minQuestions}問 ・ 初回 ${specialEntry.firstAt.slice(0,10)}</div>`
-        : `<div class="conquest-special-row conquest-muted">🗼 東京23区部 ・ まだ未制覇です</div>`}
-      <div class="conquest-hint">「東京23区部」は特別地域として別枠で記録し、通常自治体の制覇率には含めていません。</div>
-    </div>`;
-
   stage.innerHTML = `
     <div class="mascot-wrap"><div class="pop">${mascotSVG('normal')}</div></div>
     <div class="bubble"><span class="icon">📖</span>全国制覇帳</div>
@@ -3689,8 +3687,6 @@ function renderConquestLog(){
       <div class="conquest-summary-main">収録自治体 ${conqueredCount}／${total} を制覇(${rate}%)</div>
       <div class="conquest-hint">※現在ゲームに収録している自治体を基準にした制覇率です。日本の全自治体を制覇したという意味ではありません。</div>
     </div>
-
-    ${specialHtml}
 
     <div class="conquest-section-title">地方別の進捗</div>
     <div class="conquest-region-list">${regionListHtml || '<div class="conquest-muted">データがありません</div>'}</div>
@@ -4091,7 +4087,18 @@ function answer(key, val, weight){
     EXCLUSIVE_MAP[key].forEach(otherKey => {
       if(asked.includes(otherKey)) return;
       asked.push(otherKey);
+      // 【例外市の保護】和歌山市のように、実際に太平洋と瀬戸内海の両方に面している市は、
+      // 「太平洋?」→「瀬戸内海は"いいえ"のはず」という推論が当てはまらない。
+      // この推論はプレイヤーが実際に答えたものではないので、当てはまらない市を不利にしては
+      // いけない。かといって何もしないと、他の候補だけが加点されて相対的に沈んでしまう。
+      // そこで例外市には他の候補と同じ加点を与え、この推論では順位が動かないようにする
+      //(=「瀬戸内海?」は実際には聞かれていないので、そこで差がつかないのが正しい)。
+      const exceptions = EXCLUSIVE_EXCEPTIONS[`${key}|${otherKey}`];
       scorePool.forEach(e => {
+        if(exceptions && exceptions.has(cityId(e.city))){
+          e.score += OBJ_MATCH_BONUS; // 例外市: 推論の対象外なので、他の候補と同じ扱いにする
+          return;
+        }
         if(e.city.tags[otherKey] === false){
           e.score += OBJ_MATCH_BONUS;
         } else {
@@ -4159,7 +4166,6 @@ function isLandmarkDeprioritized(key){
 const FALSE_LANDMARK_TEXT_OVERRIDES = {
   // 否定形の質問や、機械的な語尾変換では意味が不自然になりやすいもの
   is_town_village: '市である',
-  no_jr: 'JRの駅がある',
   no_railway_station: '市内に鉄道駅がある',
   kokuho_building: '国宝がない',
   ekimei_chigau: '市の中心駅の名前が市名と同じである',
@@ -4853,8 +4859,7 @@ function correct(isRight, overrideCity){
     // 自己ベスト比較のため、記録を更新する前の最少質問数を取っておく。
     const prevBestQuestions = (() => {
       const data = loadConquest();
-      const bucket = (guess.name === '東京') ? data.specialEntries : data.entries;
-      const existing = bucket[cityId(guess)];
+      const existing = data.entries[cityId(guess)];
       return existing ? existing.minQuestions : null;
     })();
     const conquestResult = recordConquest(guess, totalQuestions, currentMode);
@@ -4882,11 +4887,7 @@ function correct(isRight, overrideCity){
     const mapHtml = buildCityMapHtml(guess);
 
     let conquestLine = '';
-    if(conquestResult.isSpecial){
-      conquestLine = conquestResult.status === 'new'
-        ? '新しく「東京23区部」を特別地域として記録しました！'
-        : '「東京23区部」は今回も記録されました(特別地域)';
-    } else if(conquestResult.status === 'new'){
+    if(conquestResult.status === 'new'){
       conquestLine = `新しく${displayName(guess)}を制覇しました！`;
     } else if(conquestResult.status === 'newRecord'){
       conquestLine = `${displayName(guess)}は${conquestResult.entry.count}回目の正解、最少記録を更新しました！`;
@@ -5055,7 +5056,7 @@ async function boot(){
     CITIES.forEach(enrichStatsTags);
     activateStatsQuestions();
     computeExclusiveMap(); // 路線図などから「絶対に両立しない」組み合わせを学習する
-    footEl.textContent = `対応エリア ${CITIES.length}市 ・ データはcities.jsonから読み込み`;
+    footEl.textContent = `対応エリア ${getModeCities('all').length}市 ・ データはcities.jsonから読み込み`;
     renderOpening();
     fetchLiveStats(); // 「最近当てられたマチ」「プレイ回数」を非同期で取得(失敗しても無視)
   }catch(e){
