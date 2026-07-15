@@ -647,7 +647,7 @@ const QUESTIONS = {
   keio_inokashira_line: {text:'京王線または井の頭線の駅がある?', icon:'🚃'},
   tokyu_line: {text:'東急線の駅がある?', icon:'🚃'},
   keikyu_line: {text:'京急線の駅がある?', icon:'🚃'},
-  seibu_line: {text:'西武線の駅がある?', icon:'🚃'},
+  seibu_line: {text:'西武鉄道の駅がある?', icon:'🚃'},
   tobu_main_station: {text:'東武鉄道(東上線・越生線以外)の駅がある?', icon:'🚃'},
   tobu_tojo_station: {text:'東武東上線の駅がある?', icon:'🚃'},
   utsunomiya_station: {text:'宇都宮線(黒磯以南)の駅がある?', icon:'🚃'},
@@ -2969,6 +2969,9 @@ const PHASE_EARLY_WIDE_AREA_KEYS = ['kii_peninsula','tokai_area'];
 const PHASE_EARLY_MIDDLE_KEYS = [
   'north_kanto','sanriku_area','hokuriku_three_pref','koshin_area','keihanshin_area',
   'sanin_area','sanyo_area','northern_kyushu','southern_kyushu',
+  // 都道府県庁の所在地かどうかも、地方が決まった後に「県内のどのマチか」を大きく切る質問。
+  // 各県に必ず1つあり、答えは客観的にはっきりしているので即時除外の対象にもする。
+  'prefectural_capital',
   // 以下は主観が混じるため即時除外の対象外だが、出題時期は同じ
   'ryomo_area','chugoku_mountain_basin','hanshin_area','ariake_coast',
 ];

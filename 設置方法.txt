@@ -1,0 +1,57 @@
+【キャッシュ対策ファイルの設置方法】
+
+「GitHubに上げてもページが更新されない」を直すためのファイルです。
+ドット(.)で始まるファイルはパソコンで見えないことがあるため、
+見える名前のコピーも同梱しています。
+
+──────────────────────────────
+■ 必要なファイル(4つ)
+──────────────────────────────
+
+1. index.html
+   → そのまま上書きでOK(キャッシュ対策済み)
+
+2. bump-version.js
+   → そのまま置くだけ
+
+3. .nojekyll  (中身は空のファイル)
+   → ZIP内に見えなければ、
+     「NOJEKYLL_これを_.nojekyll_にリネーム.txt」を
+     「.nojekyll」という名前に変更して置いてください。
+
+4. .github/workflows/bump-version.yml
+   → ZIP内に .github フォルダが見えなければ、
+     「DOTGITHUB_workflows_bump-version.yml」を使ってください。
+     GitHubのサイト上で以下の名前で新規作成するのが簡単です:
+       .github/workflows/bump-version.yml
+
+──────────────────────────────
+■ GitHubで1度だけ必要な設定
+──────────────────────────────
+
+リポジトリ画面 →
+  Settings → Actions → General → Workflow permissions
+  → 「Read and write permissions」を選んで Save
+
+これをしないと、GitHubがindex.htmlを書き換えられません。
+
+──────────────────────────────
+■ 3と4が面倒な場合
+──────────────────────────────
+
+1と2だけでも効果があります。その場合は、
+GitHubにアップする前に毎回このコマンドを実行してください:
+
+    node bump-version.js
+
+──────────────────────────────
+■ GitHubのサイト上で直接ファイルを作る方法
+──────────────────────────────
+
+「Add file」→「Create new file」を押し、
+ファイル名の欄に次のように入力すると、
+自動でフォルダが作られます:
+
+    .github/workflows/bump-version.yml
+
+.nojekyll も同じ方法で作れます(中身は空のままでOK)。
