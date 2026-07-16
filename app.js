@@ -2547,8 +2547,8 @@ const MODES = {
   hokkaido: { label: '北海道版', region: '北海道' },
   tohoku:   { label: '東北版',   region: '東北' },
   kanto:    { label: '関東版',   region: '関東' },
-  chubu:    { label: '中部版',   region: '中部' },
-  kinki:    { label: '近畿版',   region: '近畿' },
+  chubu:    { label: '中部版（山梨含む）',   region: '中部' },
+  kinki:    { label: '近畿版（三重含む）',   region: '近畿' },
   chugoku:  { label: '中国版',   region: '中国' },
   shikoku:  { label: '四国版',   region: '四国' },
   kyushu:   { label: '九州・沖縄版', region: '九州・沖縄' }
