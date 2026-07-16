@@ -548,7 +548,7 @@ const QUESTIONS = {
   big_bay:       {text:'大きな湾に面している？', icon:'⚓', subjective:true},
   subway:        {text:'地下鉄が走っている？', icon:'🚇'},
   onsen:         {text:'温泉地として知られている？', icon:'♨️', subjective:true},
-  sake:          {text:'酒蔵・日本酒で知られている？', icon:'🍶', subjective:true},
+  sake:          {text:'日本酒を造る酒蔵がある？', icon:'🍶'},
   fireworks:     {text:'花火大会で有名である？', icon:'🎇', subjective:true},
   castle_town:   {text:'城下町だった？', icon:'🏯'},
   port_town:     {text:'港町として栄えた？', icon:'⚓', subjective:true},
@@ -2999,6 +2999,11 @@ function modeAllowsGroup(mode, group){
   if(mode === 'all') return true;      // 全国版はすべて出す
   if(mode === group) return true;       // その版そのもの
   if(MODE_ONLY_ALSO_IN_REGION[group] === mode) return true; // 県限定を対応地方版でも出す
+  // 【capitalsモード専用】県庁所在地・東京23区限定モードには東京23区が23件含まれるため、
+  // 東京都限定グループ(is_tokyo_ward等)も出題対象にする。多摩地区限定の質問(tama_area等)も
+  // 同じグループに含まれるが、対象に多摩地区の市が無いため情報量ゼロとなり、通常の
+  // 出題ロジック側で自動的に選ばれなくなる(実害はない)。
+  if(mode === 'capitals' && group === 'tokyo') return true;
   return false;
 }
 
@@ -3067,7 +3072,9 @@ const REGION_KEY_BOOST = {
   // 九州・沖縄: モノレール(那覇市・浦添市・北九州市)、鉄道駅が無い(沖縄本島の市)は
   // 決め手になりやすいが、全国的には少数派で情報利得だけでは埋もれがち。
   // 実測: no_railway_stationは対象9市average 21.2→19.3問に改善(5シード)。
-  kyushu: ['monorail', 'no_railway_station'],
+  // saga_balloon_festa(バルーンフェスタ=佐賀市)・takasakiyama_saru(高崎山のサル=大分市)は
+  // それぞれ1市限定だが、九州・沖縄に絞れた後の決め手として優先する。
+  kyushu: ['monorail', 'no_railway_station', 'saga_balloon_festa', 'takasakiyama_saru'],
   // 近畿: 阪急線・京阪線は大阪都市圏の市を区別する決め手になるが、東京の私鉄と同じ理由で埋もれがち。
   // 実測: hankyu_lineは対象12市average 18.0→16.2問に改善、失敗も1→0件に(5シード)。
   // keihan_lineは対象10市average 17.5→16.6問に改善(5シード)。
@@ -4371,6 +4378,17 @@ function categoryOf(k){ return TAG_GAME_CATEGORY[k] || "その他"; }
 const HIGH_PRIORITY_KEYS = new Set([
   'tsunagari_mayu_police','tv_station_area','sazae_family','hachiko_area','yose_hall','sailor_moon_stage','godzilla_head','rakugo_stage','sanma_famous','action_kamen','funasshi_famous','southern_seichi','yayoiken_seichi','kitanotakeshi'
 ]);
+// 【常時加点】HIGH_PRIORITY_KEYSと違い、候補数に関わらずいつでも一定量を加点したい質問。
+// (HIGH_PRIORITY_KEYSは「候補が絞れてから使う」設計で、候補が多い間はむしろ出にくくなる
+// ペナルティが付くため、単純に「優先度を上げたい」という用途には合わなかった)
+const ALWAYS_BOOST_KEYS = new Set([
+  'nihon_sanmeien', // 日本三名園(偕楽園=水戸市・兼六園=金沢市・後楽園=岡山市)。3市を一発で見分ける決め手質問。
+  'dome_stadium',   // ドーム球場(札幌市・名古屋市・大阪市・福岡市)。
+  'sumo_basho',     // 大相撲の本場所(名古屋市・大阪市・福岡市)。
+  'chinatown',      // 中華街(横浜市・神戸市・長崎市)。
+  'sand_dunes',     // 砂丘(新潟市・鳥取市)。
+]);
+const ALWAYS_BOOST_AMOUNT = 40;
 const FUN_ACTIVATION_POOL_SIZE = 10; // 候補がこの件数以下に絞れてから遊び心系を優先し始める
 const HIGH_PRIORITY_BONUS = 45;
 const HIGH_PRIORITY_EARLY_PENALTY = 15; // 序盤はむしろ少し出にくくしておく
@@ -4403,6 +4421,9 @@ function priorityAdjust(k, diff, poolSize, isDecisive, groupShares){
     return poolSize <= FUN_ACTIVATION_POOL_SIZE
       ? Math.max(0, diff - HIGH_PRIORITY_BONUS)
       : diff + HIGH_PRIORITY_EARLY_PENALTY;
+  }
+  if(ALWAYS_BOOST_KEYS.has(k)){
+    return Math.max(0, diff - ALWAYS_BOOST_AMOUNT);
   }
   // 候補が絞れてきた場面で「これに はい/いいえ が返ってきたら一発で決着する」質問は、
   // 同じジャンルが連続していても優先的に出す(杉並区のような、固有の目印タグ待ちで長引くケースを防ぐ)
@@ -4634,6 +4655,18 @@ function areaQuestionAskedRecently(){
 function earlyRegionBoostFor(key, cities){
   if(questionPhase === 'extra') return 0;
   if(!cities.length) return 0;
+
+  // 【capitalsモード専用】「東京23区のどれかである?」は、このモード(69件)では
+  // 東京23区(23件≒33%)とそれ以外を大きく2分する強力な質問。地方質問(8地方)と同じ
+  // 扱いで序盤に優先させる(ご要望により)。「23区かどうか」は8地方の絞り込みとは
+  // 別の軸なので、地方が判明したかどうかでは止めない(はい割合が下がったら自然に止まる)。
+  if(currentMode === 'capitals' && key === 'is_tokyo_ward'){
+    if(questionCount > REGION_BOOST_QCOUNT_MAX) return 0;
+    if(areaQuestionAskedRecently()) return 0;
+    const yes = cities.filter(c => c.tags[key]).length;
+    if((yes / cities.length) < AREA_BOOST_MIN_YES) return 0;
+    return AREA_BOOST_AMOUNT;
+  }
 
   const isRegion = REGION_QUESTION_KEYS.has(key);
   const isWide   = WIDE_AREA_BOOST_KEYS.has(key);
