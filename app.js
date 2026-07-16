@@ -1214,6 +1214,107 @@ const QUESTIONS = {
   orion_beer: {text:'オリオンビールの工場がある？', icon:'🍺'}
 };
 
+// ==================== 質問の補足(ヘルプ) ====================
+// ここに列挙したキーの質問だけ、質問画面に「ⓘ どういう意味？」ボタンを表示する。
+// (一覧にないキーはボタン自体を出さない。対象・文言は指示された一覧をそのまま使用し、
+// Claude側の判断で対象を増やしたり文言を書き換えたりしていない)
+const QUESTION_HELP = {
+  densityHigh: '人口密度が全国の自治体の上位約20％なら「はい」です。',
+  densityLow: '人口密度が全国の自治体の下位約20％なら「はい」です。',
+  areaLarge: '面積が全国の自治体の上位約20％なら「はい」です。',
+  areaCompact: '面積が全国の自治体の下位約20％なら「はい」です。',
+  designated: '行政区が置かれている、国指定の大都市です。',
+  chukakushi: '都道府県の仕事の一部を担う、国指定の都市です。',
+  tokureishi: '2015年の制度廃止時に特例市だった自治体です。',
+  worldheritage: '世界遺産全体ではなく、その一部となる建物や遺跡でも該当します。',
+  snow: '雪の印象ではなく、法律による指定を基準にしています。',
+  active_volcano: '市域の一部に活火山が含まれていれば「はい」です。',
+  airport: '自衛隊基地や定期便のない飛行場は含みません。',
+  geopark: '市域の全部または一部がジオパークなら「はい」です。',
+  bedtown: '大都市へ通勤する人が多く、昼夜間人口比率95未満を目安にしています。',
+  formed_after_2000: '複数の自治体が合併し、新しい市として発足した場合です。',
+  national_university: 'キャンパスだけでなく、大学本部が置かれている場合です。',
+  expressway_junction: '複数の高速道路を直接乗り換える施設です。通常のICとは別です。',
+  public_racing_venue: '国や自治体の認可を受けた公営競技の本場が対象です。',
+  national_government_park: '国が管理する都市公園です。国立公園とは別です。',
+  traditional_buildings_district: '国が選定した、歴史的な町並みの保存地区です。',
+  ferry_available: '現在も定期運航する旅客航路が市内の港にあれば「はい」です。',
+  no_railway_station: '旅客が利用できる鉄道駅を基準にしています。',
+  olympic_venue: '夏季・冬季を問わず、正式競技の会場になった場合です。',
+  koshien_champion: '現在その市に所在する高校が優勝したことがあるかで判定します。',
+  sumo_yokozuna_ozeki: '力士の出身地を基準にし、最高位が横綱・大関なら該当します。',
+  pm_birthplace: '選挙区や本籍地ではなく、実際の出生地を基準にしています。',
+  coastal: '市区町村の区域に海岸線があれば「はい」です。',
+  nihonkai: '日本海につながる湾や海峡に面する場合も含みます。',
+  taiheiyo: '太平洋につながる湾や海峡に面する場合も含みます。',
+  setonaikai: '大阪湾・播磨灘・燧灘などの海域も含みます。',
+  uchibo: '東京湾側を「内房」としています。',
+  sotobo: '太平洋側を「外房」としています。',
+  basin: '周囲を山地に囲まれた平地に市街地がある場合です。',
+  lakeside: '市域が湖岸に接していれば「はい」です。',
+  big_bay: '東京湾・大阪湾・広島湾など主要な湾を基準にしています。',
+  private_railway: 'JR以外の旅客鉄道に駅があれば「はい」です。',
+  subway: '地下を走るだけのJR・私鉄ではなく、地下鉄路線が対象です。',
+  tram: '道路上または道路沿いを走る軌道路線が対象です。',
+  remote_island: '自治体の中心部が本土と陸続きでない島にある場合です。',
+  borders_other_pref: '陸上で県境を接している場合です。海を挟むだけでは該当しません。',
+  hyoujun_jigosen: '日本標準時の基準となる東経135度の線です。',
+  ekimei_chigau: '代表的な中心駅の駅名が、市名と一致しない場合です。',
+  honshu_bridge: '鉄道橋または道路橋で、本州と直接行き来できる場合です。',
+  bakumatsu_port: '函館・横浜・新潟・神戸・長崎の五港です。',
+  former_capital: '天皇の宮殿と政治の中心が置かれたことがあるかで判定します。',
+  kokuho_building: '美術品だけではなく、国宝に指定された建造物が対象です。',
+  twelve_castles: '江戸時代以前の天守が現在まで残る12城です。',
+  gokaido_shukuba: '東海道・中山道・日光・奥州・甲州街道の宿場です。',
+  imperial_university: '戦前の帝国大学を前身とする国立大学です。',
+  old_province_name: '武蔵・相模・信濃・越前など、昔の国名が由来の場合です。',
+  ancient_provincial_capital: '昔の国ごとに置かれた役所の所在地です。',
+  kokubunji_site: '奈良時代に国ごとに建てられた寺院の跡です。',
+  kitamaebune_port: '江戸～明治期、日本海側を航行した商船の寄港地です。',
+  joetsu_region: '新潟県の南西部、上越・妙高・糸魚川周辺です。',
+  chuetsu_region: '新潟県の中央部、長岡・柏崎・魚沼周辺です。',
+  kaetsu_region: '新潟県の北東部、新潟・新発田・村上周辺です。',
+  douou_area: '石狩・空知・後志・胆振・日高周辺です。',
+  doutou_area: 'オホーツク・十勝・釧路・根室周辺です。',
+  dohoku_area: '上川・留萌・宗谷周辺です。',
+  tsugaru_area: '青森県西部の、青森・弘前・五所川原周辺です。',
+  shonai_area: '山形県の日本海側、鶴岡・酒田周辺です。',
+  hamadori_area: '福島県東部の太平洋沿岸地域です。',
+  nakadori_area: '福島県中央部の福島・郡山・白河周辺です。',
+  aizu_area: '福島県西部の会津若松周辺です。',
+  sanriku_area: '青森県南東部から宮城県沿岸に続く地域です。',
+  tama_area: '東京23区を除く、東京都西部の地域です。',
+  tokatsu_area: '千葉県北西部の松戸・柏・野田周辺です。',
+  ryomo_area: '群馬県東部と栃木県南西部にまたがる地域です。',
+  koshin_area: '山梨県と長野県を合わせた地域です。',
+  tokai_area: '岐阜・静岡・愛知・三重の地域です。',
+  owari_area: '名古屋市を含む愛知県西部です。',
+  mikawa_area: '岡崎・豊田・豊橋などの愛知県東部です。',
+  suruga_area: '静岡県中部から東部にかけての地域です。',
+  totomi_area: '浜松・磐田・掛川などの静岡県西部です。',
+  hokushin_area: '長野市・中野市・飯山市周辺です。',
+  toshin_area: '上田市・佐久市・小諸市周辺です。',
+  chushin_area: '松本市・安曇野市・大町市周辺です。',
+  nanshin_area: '諏訪・伊那・飯田周辺です。',
+  hokusetsu_area: '大阪府北部の豊中・吹田・高槻周辺です。',
+  kawachi_area: '大阪府東部の東大阪・八尾・河内長野周辺です。',
+  senshu_area: '堺市以南の大阪府南西部です。',
+  hanshin_area: '大阪市と神戸市の間に位置する地域です。',
+  harima_area: '姫路・明石・加古川など兵庫県南西部です。',
+  tajima_area: '豊岡・養父・朝来など兵庫県北部です。',
+  tamba_area: '丹波・丹波篠山周辺の兵庫県中東部です。',
+  bingo_area: '福山市を中心とする広島県東部です。',
+  chikuzen_area: '福岡市・宗像・朝倉など福岡県北西部です。',
+  chikugo_area: '久留米・大牟田・柳川など福岡県南部です。',
+  chikuho_area: '飯塚・直方・田川など福岡県内陸部です。',
+  toyo_area: '四国中央・新居浜・西条・今治周辺です。',
+  chuyo_area: '松山市とその周辺地域です。',
+  nanyo_area: '宇和島・八幡浜・大洲・西予周辺です。',
+  satsuma_area: '鹿児島県の薩摩半島側です。',
+  osumi_area: '鹿児島県の大隅半島側です。',
+  sakishima_islands: '宮古島・石垣島など先島諸島の地域です。',
+};
+
 // cities.jsonの軽量化対応: 保存時、各自治体のtagsは「trueだったキーだけの配列」に
 // 圧縮されている(ファイルサイズを大幅に削減するため)。起動時、ここで元の
 // {キー: true/false, ...} というオブジェクト形式へ復元してから、他の処理へ渡す。
@@ -1597,8 +1698,12 @@ function buildChallengeHintCandidates(city){
   const nameCore = displayName(city).replace(/[市区町村]$/, '');
   const candidates = [];
   const seenTexts = new Set(); // 同じ文言(例: 都道府県=地方名が同じ北海道)の重複を防ぐ
+  // 【都道府県が分かれば地方は自明】都道府県質問(pref_*)が使える自治体では、地方質問(region_*)は
+  // 情報として冗長になるので出さない。都道府県データが無い場合だけ地方質問を使う。
+  const hasPrefTag = Object.keys(city.tags).some(k => city.tags[k] === true && isPrefQuestion(k));
   Object.keys(city.tags).forEach(key => {
     if(city.tags[key] !== true) return;
+    if(hasPrefTag && REGION_QUESTION_KEYS.has(key)) return; // 都道府県質問がある場合、地方質問は使わない
     if(CHALLENGE_EXCLUDED_NAME_HINT_KEYS.has(key)) return; // 自治体名そのものを暗示する質問は使わない
     const q = QUESTIONS[key] || STATS_QUESTIONS[key];
     if(!q || !q.text) return;
@@ -1675,6 +1780,200 @@ function saveChallengeStats(data){
 
 // 現在進行中の挑戦状ゲームの状態。トップページ・通常モードとは完全に独立している。
 let challengeGameState = null; // { city, hints, hintsShown, guessAttempts, finished }
+
+// ==================== 質問の補足・報告機能 ====================
+// HTMLへ挿入するテキストをエスケープする(ユーザー入力=報告コメント等を安全に扱うため)。
+function escapeHtml(str){
+  if(str == null) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+// onclick="...('${key}')" のようにJS文字列リテラルへ埋め込む値を安全にする。
+// (対象は質問キー等の内部データのみで、ユーザー自由入力はここに通さない)
+function escapeJsString(str){
+  return String(str == null ? '' : str).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+}
+// ゲーム終了時(正解・降参のいずれか)に呼ばれ、たまっていたスキップ履歴をまとめて1回で送信する。
+// 通信回数を抑えるため、質問のたびに送るのではなくここでまとめる。
+function sendQuestionSkipsBatch(){
+  if(pendingQuestionSkips.length === 0) return;
+  const skips = pendingQuestionSkips;
+  pendingQuestionSkips = [];
+  if(!CORRECTIONS_ENDPOINT_URL || !isAnonymousReportingEnabled()) return;
+  try{
+    fetch(CORRECTIONS_ENDPOINT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ type: 'question_skips_batch', mode: currentMode, skips, createdAt: new Date().toISOString() })
+    }).catch(err => {
+      console.warn('おらマチ: スキップ履歴の送信に失敗しました', err);
+    });
+  }catch(e){
+    console.warn('おらマチ: スキップ履歴送信処理でエラー', e);
+  }
+}
+
+let questionHelpOpen = false; // 現在の質問で補足欄が開いているか(次の質問へ進んだらfalseに戻す)
+let reportedQuestionKeysInGame = new Set(); // このゲーム内で既に報告した質問キー(連打・二重送信防止)
+let pendingQuestionSkips = []; // 「わからない」でスキップされた質問の記録(ゲーム終了時にまとめて送信する)
+// ==================== この質問を報告 ====================
+const QUESTION_REPORT_REASONS = ['意味が分からない', '答えが違うと思う', '判断できない質問', '表現が分かりにくい'];
+let reportModalLastFocusedEl = null; // 閉じたときにフォーカスを戻す元の要素
+let reportModalKeydownHandler = null; // Escキー等のリスナー(閉じるときに確実に外す)
+let reportModalTargetKey = null; // 現在報告しようとしている質問のキー
+
+function openQuestionReportModal(key){
+  if(reportedQuestionKeysInGame.has(key)) return; // 二重送信防止(念のためJS側でも止める)
+  const q = QUESTIONS[key];
+  if(!q) return;
+  reportModalTargetKey = key;
+  reportModalLastFocusedEl = document.activeElement;
+
+  const root = document.getElementById('modalRoot');
+  if(!root) return;
+  const reasonsHtml = QUESTION_REPORT_REASONS.map((r, i) => `
+    <label class="report-reason-item">
+      <input type="radio" name="reportReason" value="${escapeHtml(r)}" ${i === 0 ? 'checked' : ''}>
+      <span>${escapeHtml(r)}</span>
+    </label>`).join('');
+
+  root.innerHTML = `
+    <div class="modal-overlay" id="reportModalOverlay">
+      <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="reportModalTitle">
+        <div class="modal-header">
+          <h2 id="reportModalTitle">⚑ この質問を報告</h2>
+          <button type="button" class="modal-close-btn" id="reportModalCloseBtn" aria-label="閉じる">×</button>
+        </div>
+        <div class="modal-body">
+          <p class="modal-question-text">${escapeHtml(q.text)}</p>
+          <div class="report-reason-list">${reasonsHtml}</div>
+          <label class="report-comment-label" for="reportCommentInput">コメント(任意・100文字まで)</label>
+          <textarea id="reportCommentInput" maxlength="100" rows="3" placeholder="気になった点があれば教えてください"></textarea>
+          <div class="report-status" id="reportStatus" aria-live="polite"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="modal-btn-secondary" id="reportModalCancelBtn">キャンセル</button>
+          <button type="button" class="modal-btn-primary" id="reportSubmitBtn">送信する</button>
+        </div>
+      </div>
+    </div>`;
+
+  const closeBtn = document.getElementById('reportModalCloseBtn');
+  const cancelBtn = document.getElementById('reportModalCancelBtn');
+  const submitBtn = document.getElementById('reportSubmitBtn');
+  const overlay = document.getElementById('reportModalOverlay');
+  closeBtn.addEventListener('click', closeQuestionReportModal);
+  cancelBtn.addEventListener('click', closeQuestionReportModal);
+  submitBtn.addEventListener('click', submitQuestionReport);
+  overlay.addEventListener('click', (e) => { if(e.target === overlay) closeQuestionReportModal(); });
+
+  reportModalKeydownHandler = (e) => {
+    if(e.key === 'Escape'){ closeQuestionReportModal(); return; }
+    if(e.key === 'Tab'){ trapFocusInModal(e, overlay.querySelector('.modal-box')); }
+  };
+  document.addEventListener('keydown', reportModalKeydownHandler);
+  closeBtn.focus();
+}
+
+// モーダル内でTabキーによるフォーカスが外へ漏れないようにする(簡易フォーカストラップ)。
+function trapFocusInModal(e, box){
+  if(!box) return;
+  const focusable = box.querySelectorAll('button, input, textarea, [tabindex]:not([tabindex="-1"])');
+  if(focusable.length === 0) return;
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+  if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+  else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+}
+
+function closeQuestionReportModal(){
+  const root = document.getElementById('modalRoot');
+  if(root) root.innerHTML = '';
+  if(reportModalKeydownHandler){
+    document.removeEventListener('keydown', reportModalKeydownHandler);
+    reportModalKeydownHandler = null;
+  }
+  if(reportModalLastFocusedEl && typeof reportModalLastFocusedEl.focus === 'function'){
+    reportModalLastFocusedEl.focus();
+  }
+  reportModalTargetKey = null;
+}
+
+function submitQuestionReport(){
+  const key = reportModalTargetKey;
+  if(!key) return;
+  const q = QUESTIONS[key];
+  const statusEl = document.getElementById('reportStatus');
+  const submitBtn = document.getElementById('reportSubmitBtn');
+  const setStatus = (msg) => { if(statusEl) statusEl.textContent = msg; };
+
+  const selectedRadio = document.querySelector('input[name="reportReason"]:checked');
+  const reason = selectedRadio ? selectedRadio.value : QUESTION_REPORT_REASONS[0];
+  const commentInput = document.getElementById('reportCommentInput');
+  const comment = commentInput ? commentInput.value.slice(0, 100) : '';
+
+  if(submitBtn) submitBtn.disabled = true; // 連打防止
+  setStatus('送信しています…');
+
+  const entry = {
+    type: 'question_report',
+    questionKey: key,
+    questionText: q ? q.text : '',
+    reason: reason,
+    comment: comment,
+    gameMode: currentMode,
+    createdAt: new Date().toISOString()
+  };
+
+  reportedQuestionKeysInGame.add(key); // 送信を試みた時点で「報告済み」にする(再送はできるが同時多発は防ぐ)
+  trackGaEvent('question_report_submit', { question_key: key, reason: reason, mode: currentMode });
+
+  const finish = (ok) => {
+    if(ok){
+      setStatus('報告を受け付けました。ありがとうございます。');
+      setTimeout(() => { closeQuestionReportModal(); }, 1200);
+    } else {
+      setStatus('送信できませんでした。もう一度お試しください。');
+      reportedQuestionKeysInGame.delete(key); // 失敗時は再報告できるように戻す
+      if(submitBtn) submitBtn.disabled = false;
+    }
+  };
+
+  if(!CORRECTIONS_ENDPOINT_URL || !isAnonymousReportingEnabled()){
+    // 送信先が未設定、または匿名送信がOFFの場合は、ローカルでの受付だけ行う(エラーにはしない)。
+    finish(true);
+    return;
+  }
+  try{
+    fetch(CORRECTIONS_ENDPOINT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify(entry)
+    }).then(() => finish(true)).catch(() => finish(false));
+  }catch(e){
+    console.warn('おらマチ: 質問報告の送信でエラー', e);
+    finish(false);
+  }
+}
+
+// 「ⓘ どういう意味？」ボタン: 補足欄の開閉をトグルする。
+// stage.innerHTML全体を再構築せず、対象のDOM要素だけを直接操作することで、
+// 「開閉時に大きく画面が跳ねない」「回答状態や質問時間をリセットしない」を両立させる。
+function toggleQuestionHelp(){
+  const panel = document.getElementById('questionHelpPanel');
+  const btn = document.getElementById('questionHelpBtn');
+  if(!panel || !btn) return;
+  questionHelpOpen = !questionHelpOpen;
+  panel.classList.toggle('open', questionHelpOpen);
+  panel.setAttribute('aria-hidden', questionHelpOpen ? 'false' : 'true');
+  btn.setAttribute('aria-expanded', questionHelpOpen ? 'true' : 'false');
+}
 
 // 入力文字列から、自治体名の候補を検索する。「市」「区」「町」「村」の有無や、
 // 前後の空白といった軽微な表記違いは無視して部分一致させる。
@@ -2365,6 +2664,283 @@ function currentJstHour(){
 }
 
 // 正解が確定した瞬間だけ呼ばれる。制覇帳へ記録し、結果画面用のメッセージ種別を返す。
+// ==================== 制覇帳データの書き出し・読み込み ====================
+const SAVE_EXPORT_APP_ID = 'oramachi';
+const SAVE_EXPORT_VERSION = 1; // 対応バージョン(将来データ形式を変える場合はここを上げ、読み込み側で分岐する)
+
+function todayDateStringForFilename(){
+  return todayJstDateString(); // 既存の日本時間の日付文字列(YYYY-MM-DD)をそのまま使う
+}
+
+// 現在の制覇帳データをJSONファイルとしてダウンロードする。
+// アクセス解析用ID等は一切含めず、制覇帳の復元に必要なデータだけを書き出す。
+function exportSaveData(){
+  const statusEl = document.getElementById('saveIoStatus');
+  const setStatus = (msg) => { if(statusEl) statusEl.textContent = msg; };
+  try{
+    const conquest = loadConquest();
+    const payload = {
+      app: SAVE_EXPORT_APP_ID,
+      version: SAVE_EXPORT_VERSION,
+      exportedAt: new Date().toISOString(),
+      data: {
+        conquest: { version: conquest.version, entries: conquest.entries }
+      }
+    };
+    const json = JSON.stringify(payload, null, 2);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `oramachi-save-${todayDateStringForFilename()}.json`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+    setStatus('セーブデータを書き出しました。');
+    trackGaEvent('save_data_export', {});
+  }catch(e){
+    console.warn('おらマチ: セーブデータの書き出しに失敗しました', e);
+    setStatus('書き出しに失敗しました。もう一度お試しください。');
+  }
+}
+
+// ファイル選択ダイアログを開く。<input type="file">を動的に作って使い捨てる。
+function openImportSaveFileDialog(){
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'application/json,.json';
+  input.style.display = 'none';
+  input.addEventListener('change', () => {
+    const file = input.files && input.files[0];
+    if(file) readImportSaveFile(file);
+    input.remove();
+  });
+  document.body.appendChild(input);
+  input.click();
+}
+
+function readImportSaveFile(file){
+  const statusEl = document.getElementById('saveIoStatus');
+  const setStatus = (msg) => { if(statusEl) statusEl.textContent = msg; };
+  setStatus('ファイルを読み込んでいます…');
+  const reader = new FileReader();
+  reader.onload = () => {
+    let parsed;
+    try{
+      parsed = JSON.parse(reader.result);
+    }catch(e){
+      setStatus('ファイルの形式が正しくありません(JSONとして読み込めませんでした)。');
+      return;
+    }
+    const validation = validateImportedSaveData(parsed);
+    if(!validation.ok){
+      setStatus('読み込めませんでした: ' + validation.reason);
+      return;
+    }
+    renderImportModeChoiceModal(validation.conquest);
+  };
+  reader.onerror = () => {
+    setStatus('ファイルの読み込みに失敗しました。');
+  };
+  reader.readAsText(file);
+}
+
+// 読み込んだJSONの内容を検証する。問題があれば ok:false と理由を返すだけで、
+// 現在のデータには一切触れない(呼び出し側もこの時点ではまだ何も変更しない)。
+function validateImportedSaveData(parsed){
+  if(!parsed || typeof parsed !== 'object') return { ok: false, reason: 'データの形式が正しくありません。' };
+  if(parsed.app !== SAVE_EXPORT_APP_ID) return { ok: false, reason: 'おらマチのセーブデータではないようです。' };
+  if(typeof parsed.version !== 'number' || parsed.version > SAVE_EXPORT_VERSION){
+    return { ok: false, reason: '対応していないバージョンのデータです。' };
+  }
+  if(!parsed.data || typeof parsed.data !== 'object') return { ok: false, reason: '必要なデータが見つかりません。' };
+  const conquest = parsed.data.conquest;
+  if(!conquest || typeof conquest !== 'object' || Array.isArray(conquest)
+     || typeof conquest.entries !== 'object' || conquest.entries === null || Array.isArray(conquest.entries)){
+    return { ok: false, reason: '制覇帳のデータが見つかりません。' };
+  }
+
+  // 各エントリの型・自治体IDの妥当性を確認する。1件でも不正なら、ファイル全体を安全側で拒否する。
+  const validCityIds = new Set(CITIES.map(c => cityId(c)));
+  const entries = conquest.entries;
+  for(const id of Object.keys(entries)){
+    const e = entries[id];
+    if(!e || typeof e !== 'object' || Array.isArray(e)) return { ok: false, reason: '制覇帳データの内容が壊れています。' };
+    if(!validCityIds.has(id)) return { ok: false, reason: '認識できない自治体のデータが含まれています。' };
+    if(typeof e.name !== 'string' || typeof e.pref !== 'string') return { ok: false, reason: '制覇帳データの内容が壊れています。' };
+    if(!Number.isFinite(e.count) || !Number.isFinite(e.minQuestions)) return { ok: false, reason: '制覇帳データの内容が壊れています。' };
+    if(!Array.isArray(e.modes)) return { ok: false, reason: '制覇帳データの内容が壊れています。' };
+  }
+  return { ok: true, conquest: { version: typeof conquest.version === 'number' ? conquest.version : CONQUEST_VERSION, entries } };
+}
+
+// 「統合する」か「上書きする」かを選ぶ確認画面。初期選択は安全な「統合する」にする。
+function renderImportModeChoiceModal(importedConquest){
+  const root = document.getElementById('modalRoot');
+  if(!root) return;
+  const importedCount = Object.keys(importedConquest.entries).length;
+  root.innerHTML = `
+    <div class="modal-overlay" id="importModalOverlay">
+      <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="importModalTitle">
+        <div class="modal-header">
+          <h2 id="importModalTitle">セーブデータの読み込み</h2>
+          <button type="button" class="modal-close-btn" id="importModalCloseBtn" aria-label="閉じる">×</button>
+        </div>
+        <div class="modal-body">
+          <p class="modal-question-text">${importedCount}件の自治体データが見つかりました。取り込み方法を選んでください。</p>
+          <div class="report-reason-list">
+            <label class="report-reason-item">
+              <input type="radio" name="importMode" value="merge" checked>
+              <span>現在のデータと統合する(推奨)</span>
+            </label>
+            <label class="report-reason-item">
+              <input type="radio" name="importMode" value="overwrite">
+              <span>現在のデータを上書きする</span>
+            </label>
+          </div>
+          <div class="report-status" id="importStatus" aria-live="polite"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="modal-btn-secondary" id="importModalCancelBtn">キャンセル</button>
+          <button type="button" class="modal-btn-primary" id="importModalConfirmBtn">読み込む</button>
+        </div>
+      </div>
+    </div>`;
+
+  const closeBtn = document.getElementById('importModalCloseBtn');
+  const cancelBtn = document.getElementById('importModalCancelBtn');
+  const confirmBtn = document.getElementById('importModalConfirmBtn');
+  const overlay = document.getElementById('importModalOverlay');
+  const close = () => { root.innerHTML = ''; document.removeEventListener('keydown', keyHandler); };
+  closeBtn.addEventListener('click', close);
+  cancelBtn.addEventListener('click', close);
+  overlay.addEventListener('click', (e) => { if(e.target === overlay) close(); });
+  const keyHandler = (e) => { if(e.key === 'Escape') close(); };
+  document.addEventListener('keydown', keyHandler);
+  confirmBtn.addEventListener('click', () => {
+    const selected = document.querySelector('input[name="importMode"]:checked');
+    const mode = selected ? selected.value : 'merge';
+    if(mode === 'overwrite'){
+      renderOverwriteConfirmModal(importedConquest, close);
+    } else {
+      applyImportedConquest(importedConquest, 'merge');
+      close();
+    }
+  });
+  closeBtn.focus();
+}
+
+// 上書き前の最終確認(依頼要件: 上書きの場合は確認画面を出す)。
+function renderOverwriteConfirmModal(importedConquest, closeParentModal){
+  const root = document.getElementById('modalRoot');
+  if(!root) return;
+  root.innerHTML = `
+    <div class="modal-overlay" id="overwriteConfirmOverlay">
+      <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="overwriteConfirmTitle">
+        <div class="modal-header">
+          <h2 id="overwriteConfirmTitle">本当に上書きしますか？</h2>
+        </div>
+        <div class="modal-body">
+          <p class="modal-question-text">現在の全国制覇帳の記録は消え、読み込んだデータだけが残ります。この操作は取り消せません。</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="modal-btn-secondary" id="overwriteCancelBtn">やめる</button>
+          <button type="button" class="modal-btn-primary" id="overwriteConfirmBtn">上書きする</button>
+        </div>
+      </div>
+    </div>`;
+  const cancelBtn = document.getElementById('overwriteCancelBtn');
+  const confirmBtn = document.getElementById('overwriteConfirmBtn');
+  const overlay = document.getElementById('overwriteConfirmOverlay');
+  cancelBtn.addEventListener('click', () => { root.innerHTML = ''; });
+  overlay.addEventListener('click', (e) => { if(e.target === overlay) root.innerHTML = ''; });
+  confirmBtn.addEventListener('click', () => {
+    applyImportedConquest(importedConquest, 'overwrite');
+    root.innerHTML = '';
+  });
+  cancelBtn.focus();
+}
+
+// 統合/上書きを実際に適用する。失敗時は現在のデータを一切変更しないよう、
+// 変更前のデータをいったん退避してから書き込み、例外が起きたら復元する。
+function applyImportedConquest(importedConquest, mode){
+  const before = loadConquest(); // 失敗時に戻すための退避データ
+  try{
+    let result;
+    let mergedCount = 0;
+    let newCount = 0;
+    if(mode === 'overwrite'){
+      result = { version: CONQUEST_VERSION, entries: { ...importedConquest.entries } };
+      newCount = Object.keys(importedConquest.entries).length;
+    } else {
+      // 統合: 同じ自治体は「回数は合算・最短質問数は小さい方・日時は古い方/新しい方・modesは和集合」で統合する。
+      const merged = { ...before.entries };
+      Object.keys(importedConquest.entries).forEach(id => {
+        const incoming = importedConquest.entries[id];
+        const existing = merged[id];
+        if(!existing){
+          merged[id] = { ...incoming };
+          newCount++;
+        } else {
+          merged[id] = {
+            id, name: incoming.name || existing.name, pref: incoming.pref || existing.pref,
+            firstAt: (existing.firstAt && incoming.firstAt) ? (existing.firstAt < incoming.firstAt ? existing.firstAt : incoming.firstAt) : (existing.firstAt || incoming.firstAt),
+            lastAt: (existing.lastAt && incoming.lastAt) ? (existing.lastAt > incoming.lastAt ? existing.lastAt : incoming.lastAt) : (existing.lastAt || incoming.lastAt),
+            count: (Number.isFinite(existing.count) ? existing.count : 1) + (Number.isFinite(incoming.count) ? incoming.count : 1),
+            minQuestions: Math.min(
+              Number.isFinite(existing.minQuestions) ? existing.minQuestions : Infinity,
+              Number.isFinite(incoming.minQuestions) ? incoming.minQuestions : Infinity
+            ),
+            modes: Array.from(new Set([...(existing.modes || []), ...(incoming.modes || [])])),
+          };
+          mergedCount++;
+        }
+      });
+      result = { version: CONQUEST_VERSION, entries: merged };
+    }
+    saveConquest(result);
+    renderImportResultModal({ mode, newCount, mergedCount, total: Object.keys(result.entries).length });
+    trackGaEvent('save_data_import', { mode, new_count: newCount, merged_count: mergedCount });
+    // 制覇帳の内容が変わったので、開いていればすぐに反映されるよう画面を再描画する。
+    renderConquestLog();
+  }catch(e){
+    console.warn('おらマチ: セーブデータの読み込み適用に失敗したため、変更前の状態に戻します', e);
+    try{ saveConquest(before); }catch(e2){ /* 復元も失敗したら諦める(元データは壊していない) */ }
+    renderImportResultModal({ mode, error: true });
+  }
+}
+
+// 完了時に、読み込んだ件数や統合結果を表示する。
+function renderImportResultModal(info){
+  const root = document.getElementById('modalRoot');
+  if(!root) return;
+  const bodyText = info.error
+    ? 'データの読み込みに失敗しました。現在のデータは変更していません。'
+    : (info.mode === 'overwrite'
+      ? `上書きが完了しました。合計 ${info.total} 件の自治体が登録されています。`
+      : `統合が完了しました。新しく ${info.newCount} 件を追加し、${info.mergedCount} 件を更新しました(合計 ${info.total} 件)。`);
+  root.innerHTML = `
+    <div class="modal-overlay" id="importResultOverlay">
+      <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="importResultTitle">
+        <div class="modal-header">
+          <h2 id="importResultTitle">${info.error ? '読み込みエラー' : '読み込み完了'}</h2>
+        </div>
+        <div class="modal-body">
+          <p class="modal-question-text">${escapeHtml(bodyText)}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="modal-btn-primary" id="importResultCloseBtn">閉じる</button>
+        </div>
+      </div>
+    </div>`;
+  const closeBtn = document.getElementById('importResultCloseBtn');
+  const overlay = document.getElementById('importResultOverlay');
+  closeBtn.addEventListener('click', () => { root.innerHTML = ''; });
+  overlay.addEventListener('click', (e) => { if(e.target === overlay) root.innerHTML = ''; });
+  closeBtn.focus();
+}
+
 function recordConquest(city, questionCount, mode){
   const data = loadConquest();
   const bucket = data.entries;
@@ -6406,6 +6982,17 @@ function renderConquestLog(){
           <span>匿名のプレイ結果をゲーム改善のため送信する</span>
         </label>
         <p class="settings-hint">オフにすると、プレイ結果の自動送信が止まります(訂正フォームを送信ボタンで送る場合は、この設定に関わらず送信されます)。詳しくは<a href="./privacy.html" target="_blank" rel="noopener noreferrer">プライバシーポリシー</a>をご覧ください。</p>
+
+        <div class="save-io-block">
+          <div class="save-io-title">全国制覇帳のバックアップ</div>
+          <p class="settings-hint">機種変更などに備えて、制覇帳のデータをファイルに書き出したり、読み込んで復元したりできます。</p>
+          <div class="save-io-actions">
+            <button class="link-btn" onclick="exportSaveData()">📤 セーブデータを書き出す</button>
+            <button class="link-btn" onclick="openImportSaveFileDialog()">📥 セーブデータを読み込む</button>
+          </div>
+          <div id="saveIoStatus" class="settings-hint" aria-live="polite"></div>
+        </div>
+
         <button class="danger-btn" onclick="confirmDeleteConquest()">全国制覇帳の記録を削除する</button>
         <div id="deleteConquestStatus"></div>
       </div>
@@ -6622,6 +7209,9 @@ function startMode(mode){
   isReplayedFromGiveup = false;
   answerHistoryPanelContext = 'ingame';
   dailyChallengeActive = null; // 「今日のチャレンジ」経由でなければ必ずnull(通常プレイとして扱う)
+  questionHelpOpen = false;
+  reportedQuestionKeysInGame = new Set();
+  pendingQuestionSkips = [];
   modeStartCount = modeCities.length;
   lastDisplayedRemainingCount = null;
 
@@ -6708,6 +7298,7 @@ function renderQuestion(){
 // 質問が二重に記録されてしまうため)。
 function renderQuestionScreen(key){
   const q = QUESTIONS[key];
+  questionHelpOpen = false; // 新しい質問に切り替わったら、前の質問で開いていた補足は必ず閉じた状態に戻す
 
   const displayCount = questionPhase === 'extra' ? extraQuestionCount : questionCount;
   const displayMax = questionPhase === 'extra' ? MAX_EXTRA_Q : MAX_Q;
@@ -6735,9 +7326,23 @@ function renderQuestionScreen(key){
     ? `<button class="btn-answer-history" onclick="renderAnswerHistoryPanel()">📝 これまでの回答</button>`
     : '';
 
+  // 【質問の補足】指定された一覧(QUESTION_HELP)にあるキーだけボタンを出す。無いキーは何も表示しない。
+  const helpText = QUESTION_HELP[key];
+  const questionHelpHtml = helpText
+    ? `<button type="button" class="question-help-btn" id="questionHelpBtn"
+        aria-expanded="false" aria-controls="questionHelpPanel" onclick="toggleQuestionHelp()">ⓘ どういう意味？</button>
+      <div class="question-help-panel" id="questionHelpPanel" role="region" aria-hidden="true">
+        <span class="question-help-icon" aria-hidden="true">ⓘ</span><span class="question-help-text">${escapeHtml(helpText)}</span>
+      </div>`
+    : '';
+  // 【この質問を報告】常時表示。既にこのゲーム内で報告済みの質問はボタンを無効化して連打を防ぐ。
+  const alreadyReported = reportedQuestionKeysInGame.has(key);
+  const reportBtnHtml = `<button type="button" class="question-report-btn" onclick="openQuestionReportModal('${escapeJsString(key)}')" ${alreadyReported ? 'disabled' : ''}>${alreadyReported ? '報告済み' : '⚑ この質問を報告'}</button>`;
+
   stage.innerHTML = `
     <div class="mascot-wrap"><div class="bob pop">${mascotSVG(mascotMood)}</div></div>
     <div class="bubble"><span class="icon">${q.icon}</span>${q.text}</div>
+    ${questionHelpHtml}
     <div class="count-line">${countLabel}</div>
     <div class="progress-line"><span class="progress-count">${progressLabel}</span><span class="progress-morale">${moraleLabel}</span></div>
     <div class="choices">
@@ -6750,6 +7355,9 @@ function renderQuestionScreen(key){
     <div class="question-sub-actions">
       ${backBtn}
       ${answerHistoryBtn}
+    </div>
+    <div class="question-meta-actions">
+      ${reportBtnHtml}
     </div>
   `;
   questionShownAt = Date.now(); // 回答時間の計測開始(この質問が画面に出た時刻)
@@ -7254,6 +7862,18 @@ function applyAnswerCore(key, val, weight){
 }
 
 function answer(key, val, weight){
+  if(val === null){
+    // 「わからない・スキップ」が選ばれた質問を記録する。GA4へは都度送るが、
+    // GAS(スプレッドシート)への送信は通信回数を減らすため、ゲーム終了時にまとめて送る。
+    const questionNumber = questionPhase === 'extra' ? extraQuestionCount : questionCount;
+    pendingQuestionSkips.push({ questionKey: key, gameMode: currentMode, questionNumber, helpOpened: questionHelpOpen });
+    trackGaEvent('question_skipped', {
+      question_key: key,
+      game_mode: currentMode,
+      question_number: questionNumber,
+      help_opened: questionHelpOpen
+    });
+  }
   const forced = applyAnswerCore(key, val, weight);
   if(forced) return renderGuess();
 
@@ -8264,7 +8884,7 @@ function renderThanks(wasNearMiss, correctCityLabel, matchedCity, mismatches){
     <div class="bubble"><span class="icon">🙏</span>ありがとう！おらっちが修行します</div>
     ${nearMissLine}
     ${mismatchHtml}
-    <button class="again" onclick="restart()">もう一度あそぶ</button>
+    ${dailyChallengeActive ? '' : `<button class="again" onclick="restart()">もう一度あそぶ</button>`}
     ${shareBtn ? `<div class="result-actions-secondary">${shareBtn}</div>` : ''}
   `;
 }
@@ -8493,7 +9113,7 @@ function correct(isRight, overrideCity){
       ${achievementHtml}
       <div class="result-actions-primary">
         <button class="share-btn share-btn-image" id="shareImageBtn" onclick="shareResultImage()">📸 画像でシェア</button>
-        <button class="again" onclick="restart()">もう一度あそぶ</button>
+        ${dailyChallengeActive ? '' : `<button class="again" onclick="restart()">もう一度あそぶ</button>`}
       </div>
       <div class="result-actions-secondary">
         <button class="share-btn-text" onclick="shareToX(currentResult.city, currentResult.questionCount)">
@@ -8519,6 +9139,7 @@ function correct(isRight, overrideCity){
     });
 
     sendGameResult('success', currentResult.city);
+    sendQuestionSkipsBatch(); // このゲーム中に「わからない」でスキップされた質問をまとめて送信
 
     // 【今日のチャレンジ】このゲームが「今日のチャレンジ」経由で始まっていた場合だけ判定する。
     // 通常プレイ(dailyChallengeActiveがnull)には一切影響しない。
@@ -8580,6 +9201,7 @@ function renderExtraIntro(){
 }
 
 function renderGiveUp(){
+  sendQuestionSkipsBatch(); // このゲーム中に「わからない」でスキップされた質問をまとめて送信
   // 【惜しかった候補】最後まで残っていた候補を、推理結果(スコア順=sortedPool)の
   // 上位から最大3件だけ見せる。単純な配列の先頭ではなく、実際に絞り込みで
   // 上位に残っていた=おらっちが最後まで迷っていた自治体を選ぶ。
@@ -8599,7 +9221,7 @@ function renderGiveUp(){
     <div class="fact">現在のデータ範囲(${getModeCities(currentMode).length}自治体)では絞り込みきれませんでした。データが増えるともっと当たりやすくなります。</div>
     ${hint}
     ${renderCorrectionForm()}
-    <button class="again" onclick="restart()">もう一度あそぶ</button>
+    ${dailyChallengeActive ? '' : `<button class="again" onclick="restart()">もう一度あそぶ</button>`}
     <div class="result-actions-secondary">
       <button class="link-btn" onclick="renderOpening()">別の地域版であそぶ</button>
       <button class="link-btn" onclick="renderConquestLog()">📖 全国制覇帳を見る</button>
@@ -8627,7 +9249,7 @@ function restart(){
 // 訪問のたびに落とし直しており、起動が遅くなる最大の原因になっていた。
 // URLに中身のハッシュを付ければ、更新したときだけ新しいURLになるので、
 // 「常に最新」を保ったままブラウザのキャッシュを使える(2回目以降の起動が速くなる)。
-const CITIES_VERSION = 'f4697167cb';
+const CITIES_VERSION = 'c98aac0a7f';
 
 async function boot(){
   try{

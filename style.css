@@ -370,6 +370,101 @@ color: inherit;}
 
   /* 【これまでの回答】質問画面の下、戻るボタンと横並びにする小さめのボタン。
      画面を圧迫しないよう、控えめなサイズ・色にしている。 */
+  /* ---- 質問の補足(ⓘ どういう意味？) ---- */
+  .question-help-btn{
+    display: flex; align-items: center; justify-content: center;
+    margin: 6px auto 0; padding: 6px 16px;
+    min-height: 44px; min-width: 44px; /* タップ領域を最低44px確保する */
+    background: #FFFDF6; color: var(--indigo-deep);
+    border: 1.2px solid var(--indigo-deep); border-radius: 999px;
+    font-family: 'Zen Maru Gothic', sans-serif; font-weight: 700; font-size: 11.5px;
+    cursor: pointer;
+  }
+  .question-help-btn:active{ transform: scale(0.97); }
+  .question-help-panel{
+    max-height: 0; overflow: hidden;
+    background: rgba(38,58,92,0.06);
+    border-radius: 10px;
+    margin: 0 auto; max-width: 320px; padding: 0 12px;
+    transition: max-height .22s ease, margin .22s ease, padding .22s ease;
+  }
+  .question-help-panel.open{
+    max-height: 160px; padding: 8px 12px; margin: 6px auto 0;
+  }
+  .question-help-icon{
+    color: var(--indigo-deep); font-weight: 800; margin-right: 5px;
+  }
+  .question-help-text{
+    font-size: 12.5px; color: var(--ink); line-height: 1.55;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .question-help-panel{ transition: none; }
+  }
+
+  /* ---- この質問を報告 ---- */
+  .question-meta-actions{
+    display: flex; justify-content: center; margin-top: 10px;
+  }
+  .question-report-btn{
+    min-height: 44px; padding: 6px 12px;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: none; border: none; color: var(--ink-soft);
+    font-family: 'Zen Maru Gothic', sans-serif; font-size: 10.5px;
+    cursor: pointer; text-decoration: underline; text-underline-offset: 2px;
+  }
+  .question-report-btn:disabled{ cursor: default; text-decoration: none; opacity: .6; }
+  .question-report-btn:active:not(:disabled){ opacity: .7; }
+
+  /* ---- モーダル共通(質問報告・データ読み込み確認などで使う) ---- */
+  .modal-overlay{
+    position: fixed; inset: 0; background: rgba(20,20,15,0.5);
+    display: flex; align-items: center; justify-content: center;
+    padding: 16px; z-index: 200;
+  }
+  .modal-box{
+    background: #FFFDF6; border-radius: 16px; width: 100%; max-width: 360px;
+    max-height: 86vh; overflow-y: auto;
+    box-shadow: 0 8px 28px rgba(20,20,15,0.28);
+  }
+  .modal-header{
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px 8px; border-bottom: 1px solid var(--line);
+  }
+  .modal-header h2{ font-size: 15px; margin: 0; color: var(--indigo-deep); }
+  .modal-close-btn{
+    background: none; border: none; font-size: 20px; line-height: 1;
+    color: var(--ink-soft); cursor: pointer; padding: 6px; min-width: 44px; min-height: 44px;
+  }
+  .modal-body{ padding: 12px 16px; }
+  .modal-question-text{
+    font-size: 12.5px; color: var(--ink-soft); background: var(--paper-deep);
+    border-radius: 8px; padding: 8px 10px; margin: 0 0 10px;
+  }
+  .report-reason-list{ display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; }
+  .report-reason-item{
+    display: flex; align-items: center; gap: 8px; min-height: 44px;
+    font-size: 13px; color: var(--ink); padding: 6px 4px; cursor: pointer;
+  }
+  .report-reason-item input{ width: 19px; height: 19px; accent-color: var(--vermillion); }
+  .report-comment-label{ display:block; font-size: 11px; color: var(--ink-soft); margin-bottom: 4px; }
+  #reportCommentInput{
+    width: 100%; box-sizing: border-box; border: 1.2px solid var(--line); border-radius: 8px;
+    padding: 8px 10px; font-family: 'Zen Maru Gothic', sans-serif; font-size: 12.5px; color: var(--ink);
+    resize: vertical;
+  }
+  #reportCommentInput:focus{ outline: none; border-color: var(--indigo-deep); }
+  .report-status{ min-height: 18px; font-size: 11.5px; color: var(--indigo-deep); margin-top: 8px; text-align: center; }
+  .modal-footer{
+    display: flex; gap: 8px; padding: 10px 16px 16px;
+  }
+  .modal-btn-secondary, .modal-btn-primary{
+    flex: 1; padding: 10px; border-radius: 10px; font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 700; font-size: 13px; cursor: pointer; min-height: 44px;
+  }
+  .modal-btn-secondary{ background: none; border: 1.2px solid var(--line); color: var(--ink-soft); }
+  .modal-btn-primary{ background: var(--vermillion); border: none; color: #FFFDF6; }
+  .modal-btn-primary:active, .modal-btn-secondary:active{ transform: scale(0.97); }
+
   .question-sub-actions{
     display: flex; flex-direction: column; align-items: center; gap: 2px;
     margin-top: 4px;
@@ -841,6 +936,18 @@ color: inherit;}
   .settings-toggle-row{ display:flex; align-items:center; gap:8px; font-size: 13px; color: var(--ink); }
   .settings-hint{ font-size: 10.5px; color: var(--ink-soft); line-height:1.6; margin: 6px 0 10px; }
   .settings-hint a{ color: var(--indigo); }
+
+  .save-io-block{
+    background: var(--paper-deep); border-radius: 10px;
+    padding: 10px 12px; margin: 10px 0 14px;
+  }
+  .save-io-title{ font-size: 12.5px; font-weight: 800; color: var(--indigo-deep); margin-bottom: 4px; }
+  .save-io-actions{ display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+  .save-io-actions .link-btn{
+    width: 100%; box-sizing: border-box; text-align: center;
+    min-height: 40px; display: flex; align-items: center; justify-content: center;
+  }
+
   .danger-btn{
     display:block; width:100%; padding: 9px; border-radius: 10px; border: 1.5px solid var(--vermillion);
     background: transparent; color: var(--vermillion-deep);
