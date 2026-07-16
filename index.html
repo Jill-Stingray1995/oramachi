@@ -34,6 +34,9 @@
 <meta name="twitter:image" content="https://oramachi-jp.com/icon-512.png">
 <!-- Google AdSense審査時：AdSense管理画面で発行されたコードを、この直前または直後の<head>内に貼り付けます。架空のca-pub IDは入れないでください。 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<!-- フォントの本体は fonts.gstatic.com から配信される。接続の準備だけ先に済ませておくと、
+     フォントが表示されるまでの待ち時間が短くなる。 -->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
 <!-- 【キャッシュ対策】
      GitHubに新しいファイルを上げても、ブラウザが古いキャッシュを使い続けて
@@ -44,6 +47,11 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <link rel="stylesheet" href="style.css?v=2960eb1c74">
+<!-- 【先読み】cities.json(全マチのデータ)を、app.js の読み込みと並行して取りに行く。
+     これを書かないと、app.js(425KB)のダウンロードと解析が終わってから
+     ようやくデータの取得が始まるため、起動までが直列につながって遅くなる。
+     ?v= の値は bump-version.js が cities.json の中身から自動で書き換える。 -->
+<link rel="preload" href="cities.json?v=641f675908" as="fetch" crossorigin>
 <link rel="manifest" href="./manifest.json?v=20260713">
 <meta name="theme-color" content="#263A5C">
 <!-- Safariのお気に入り・ブラウザタブ用 -->
@@ -105,6 +113,6 @@
   </footer>
 </div>
 
-<script src="app.js?v=866c248690"></script>
+<script defer src="app.js?v=67a2846599"></script>
 </body>
 </html>

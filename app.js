@@ -4682,7 +4682,7 @@ function labelFor(k){
 }
 
 // おらマチ オリジナルマスコット「おらっち」(角/触角なし・まんまる目・ω口)
-const MASCOT_ASSET_VERSION = '20260714h';
+const MASCOT_ASSET_VERSION = '20260716a'; // 画像を軽量化(500px→320px・減色)したので更新
 const MASCOT_IMAGES = {
   normal: `mascot-normal.png?v=${MASCOT_ASSET_VERSION}`,
   wink:   `mascot-wink.png?v=${MASCOT_ASSET_VERSION}`,
@@ -6725,6 +6725,13 @@ function renderGiveUp(){
 function restart(){
   startMode(currentMode);
 }
+// 【cities.json のバージョン】bump-version.js が cities.json の中身から自動で書き換える。
+// 以前は cache:'no-store' で毎回必ず再ダウンロードしていたため、407KBのデータを
+// 訪問のたびに落とし直しており、起動が遅くなる最大の原因になっていた。
+// URLに中身のハッシュを付ければ、更新したときだけ新しいURLになるので、
+// 「常に最新」を保ったままブラウザのキャッシュを使える(2回目以降の起動が速くなる)。
+const CITIES_VERSION = '641f675908';
+
 async function boot(){
   try{
     // ネットワークが詰まって応答が返らない場合に「読み込み中」のまま止まらないよう、
@@ -6733,7 +6740,7 @@ async function boot(){
     const timeoutId = controller ? setTimeout(() => controller.abort(), 20000) : null;
     let res;
     try{
-      res = await fetch('./cities.json', { cache: 'no-store', signal: controller ? controller.signal : undefined });
+      res = await fetch('./cities.json?v=' + CITIES_VERSION, { signal: controller ? controller.signal : undefined });
     } finally {
       if(timeoutId) clearTimeout(timeoutId);
     }

@@ -41,8 +41,40 @@ function hashOf(file){
 let html = fs.readFileSync(INDEX, 'utf-8');
 let changed = 0;
 
+// ── ① cities.json のバージョンを app.js の中へ書き込む ─────────────
+// app.js は cities.json を「./cities.json?v=◯◯」という形で読み込んでいる。
+// この◯◯を cities.json の中身から計算した値にしておくと、
+// データを更新したときだけURLが変わり、ブラウザは新しいデータを取りに行く。
+// 逆に変更が無ければURLも変わらないので、2回目以降の起動はキャッシュから
+// 一瞬で読み込める(407KBのデータを毎回落とし直さずに済む)。
+//
+// 【順番が大事】先に app.js を書き換えてから、そのあとで app.js のハッシュを計算する。
+// (逆にすると、書き換え前の古いハッシュが index.html に入ってしまう)
+const APP_PATH = path.join(DIR, 'app.js');
+if(fs.existsSync(APP_PATH) && fs.existsSync(path.join(DIR, 'cities.json'))){
+  const citiesV = hashOf('cities.json');
+  let appSrc = fs.readFileSync(APP_PATH, 'utf-8');
+  const re = /(const CITIES_VERSION = ')([^']*)(';)/;
+  const m = appSrc.match(re);
+  if(!m){
+    console.warn('  ! app.js に CITIES_VERSION が見つかりませんでした');
+  } else if(m[2] !== citiesV){
+    appSrc = appSrc.replace(re, `$1${citiesV}$3`);
+    fs.writeFileSync(APP_PATH, appSrc);
+    changed++;
+    console.log(`  cities.json: ${m[2]} -> ${citiesV}  (app.js に書き込み)`);
+  } else {
+    console.log(`  cities.json: ${citiesV} (変更なし)`);
+  }
+}
+
+// ── ② index.html の ?v= を書き換える ─────────────────────────
+
 // 対象: index.html から読み込んでいる自前のファイル
-const TARGETS = ['app.js', 'style.css'];
+// index.html から ?v= 付きで読み込んでいる自前のファイル。
+// cities.json は <link rel="preload"> の先読みURLがここに含まれる
+// (app.js 側の CITIES_VERSION と同じ値になるよう、上で先に書き換えている)。
+const TARGETS = ['app.js', 'style.css', 'cities.json'];
 
 for(const file of TARGETS){
   const v = hashOf(file);
