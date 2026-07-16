@@ -1505,6 +1505,25 @@ let lastGuessCity = null;   // 直近に画面へ出した「もしかして」�
 // 「実は候補に入っていました」というフィードバックを出すために使う。
 let giveUpPoolSnapshot = null;
 let answerLog = [];         // このゲーム内で実際に回答した内容の記録: {key, val, weight, responseMs}(historyと同じ並び順)
+// 「これまでの回答」機能で使用】1回目の推測が外れて追加質問フェーズへ移った
+// タイミングを記録する。「history.length がこの値に達したら、通常フェーズ→追加質問フェーズへの
+// 切り替え処理を行う」という形で、回答再生(replayAnswersFrom)時にフェーズ遷移を再現するために使う。
+let guessFailureLog = []; // [{ atHistoryLength, excludedCityName }, ...]
+// 【不正解の原因分析】訂正フォームで特定できた「本当のマチ」のデータと、そこから計算した
+// 矛盾リスト。降参画面(renderThanks)から「回答を直して推理を再開する」を押したときに使う。
+let lastCorrectionMatchedCity = null;
+let lastCorrectionMismatches = [];
+let lastCorrectionWasNearMiss = false;
+let lastCorrectionCityLabel = null;
+// 「これまでの回答」パネルが、どちらの文脈から開かれたかを覚えておく。
+// 'ingame'  … 通常のゲーム中(質問画面)から開いた。閉じると元の質問へ戻る。
+// 'review'  … 不正解後の見直し(renderThanks)から開いた。閉じると降参完了画面へ戻る。
+let answerHistoryPanelContext = 'ingame';
+// 降参(giveup)として既に統計記録された後、「回答を直して推理を再開する」経由で
+// ゲームを続けているかどうか。trueの間にcorrect(true)で正解すると、recordGameStats()の
+// 基礎カウンタ(totalPlays・回答内訳・プレイ日付)を二重に加算しないようにする
+// (giveup記録時に既に1回分カウント済みのため)。
+let isReplayedFromGiveup = false;
 let questionShownAt = null; // 現在の質問が画面に表示された時刻(回答時間の計測用)
                               // 「地元バレポイント」を、質問を出した後に振り返って計算するために使う。
 let modeStartCount = 0;      // 今のモードを開始した時点の自治体数(候補数表示の分母に使う)
@@ -1960,20 +1979,26 @@ function normalCityCount(){
 // answerLog(このプレイの回答内訳)から、回答種別ごとの累計を集計して加算する。
 function recordGameStats(outcome, guess, totalQuestions){
   const stats = loadStats();
-  stats.totalPlays += 1;
+  // 【降参後の再挑戦】既にrenderGiveUp()で「giveup」として基礎カウンタ
+  // (totalPlays・回答内訳・プレイ日付・maxQuestionReachedCount)が加算済みの場合、
+  // ここでもう一度加算すると二重カウントになってしまう。isReplayedFromGiveupが立っている
+  // 間は、この基礎カウンタ部分だけをスキップし、成否に応じた集計(totalCorrect等)だけ行う。
+  if(!isReplayedFromGiveup){
+    stats.totalPlays += 1;
 
-  // 回答種別の内訳をこのプレイのanswerLogから集計する
-  answerLog.forEach(rec => {
-    if(rec.val === null){ stats.answerCounts.unknown++; return; }
-    const isFull = rec.weight >= 1;
-    if(rec.val === true) { isFull ? stats.answerCounts.yes++ : stats.answerCounts.maybeYes++; }
-    else { isFull ? stats.answerCounts.no++ : stats.answerCounts.maybeNo++; }
-  });
+    // 回答種別の内訳をこのプレイのanswerLogから集計する
+    answerLog.forEach(rec => {
+      if(rec.val === null){ stats.answerCounts.unknown++; return; }
+      const isFull = rec.weight >= 1;
+      if(rec.val === true) { isFull ? stats.answerCounts.yes++ : stats.answerCounts.maybeYes++; }
+      else { isFull ? stats.answerCounts.no++ : stats.answerCounts.maybeNo++; }
+    });
 
-  const dateStr = todayJstDateString();
-  if(!stats.playedDates.includes(dateStr)) stats.playedDates.push(dateStr);
+    const dateStr = todayJstDateString();
+    if(!stats.playedDates.includes(dateStr)) stats.playedDates.push(dateStr);
 
-  if(totalQuestions >= (MAX_Q + MAX_EXTRA_Q)) stats.maxQuestionReachedCount += 1;
+    if(totalQuestions >= (MAX_Q + MAX_EXTRA_Q)) stats.maxQuestionReachedCount += 1;
+  }
 
   if(outcome === 'success'){
     stats.totalCorrect += 1;
@@ -5134,6 +5159,7 @@ try{
       if(!st || !st.oramachiScreen || st.oramachiScreen === 'opening'){ renderOpening(); }
       else if(st.oramachiScreen === 'game'){ renderOpening(); } // ゲーム中・結果画面からは、常にトップ画面へ
       else if(st.oramachiScreen === 'conquestLog'){ renderConquestLog(); }
+      else if(st.oramachiScreen === 'conquestMap'){ renderConquestMapView(); }
       else if(st.oramachiScreen === 'prefectureCards'){ renderPrefectureCards(); }
       else if(st.oramachiScreen === 'prefectureDetail'){ renderPrefectureDetail(st.pref); }
       else if(st.oramachiScreen === 'achievements'){ renderAchievementsPage(); }
@@ -5406,6 +5432,76 @@ function setAchievementFilter(f){
 
 // ==================== 都道府県カード画面 ====================
 // 達成率に応じた色分けクラスを返す(色だけに頼らず、文字・アイコンでも状態を示す)。
+// ==================== 全国制覇帳: 日本地図(タイルグリッド) ====================
+// 47都道府県を、実際の地理的な隣接関係を保った単純化グリッド(タイルマップ)で配置する。
+// 外部の地図画像・APIは一切使わず、この座標だけで自前のSVGを組み立てる。
+// col: 0が基準(西ほどマイナス、東ほどプラス) / row: 0が北、南ほど大きい値。
+const PREF_GRID_POSITIONS = {
+  '北海道': [6, 0],
+  '青森県': [6, 2],
+  '秋田県': [5, 3], '岩手県': [7, 3],
+  '山形県': [5, 4], '宮城県': [7, 4],
+  '新潟県': [4, 5], '福島県': [6, 5],
+  '石川県': [2, 6], '富山県': [3, 6], '長野県': [4, 6], '群馬県': [5, 6], '栃木県': [6, 6], '茨城県': [7, 6],
+  '福井県': [2, 7], '岐阜県': [3, 7], '山梨県': [5, 7], '埼玉県': [6, 7], '千葉県': [7, 7],
+  '滋賀県': [2, 8], '愛知県': [3, 8], '静岡県': [4, 8], '東京都': [6, 8],
+  '京都府': [1, 8], '島根県': [-2, 8], '鳥取県': [-1, 8],
+  '三重県': [3, 9], '神奈川県': [6, 9],
+  '長崎県': [-6, 9], '佐賀県': [-5, 9], '福岡県': [-4, 9], '山口県': [-3, 9], '広島県': [-2, 9], '岡山県': [-1, 9],
+  '兵庫県': [0, 9], '大阪府': [1, 9], '奈良県': [2, 9],
+  '熊本県': [-5, 10], '大分県': [-4, 10],
+  '愛媛県': [-2, 10], '香川県': [-1, 10], '徳島県': [0, 10], '和歌山県': [2, 10],
+  '鹿児島県': [-5, 11], '宮崎県': [-4, 11], '高知県': [-1, 11],
+  '沖縄県': [-6, 13],
+};
+const MAP_TILE_SIZE = 30;
+const MAP_TILE_GAP = 3;
+const MAP_COL_OFFSET = 7; // 最小col(-6)でも0以上になるようにする
+
+// 達成率(0〜1)から地図タイルの塗り色を決める。prefTierInfo()の分類(未着手/挑戦中/達成中/
+// コンプリート)と統一しておく(地図とカード一覧で同じ基準になるように)。
+function mapTileColorFor(done, total){
+  if(total <= 0 || done <= 0) return '#e4e0d0'; // 未着手: 薄いグレージュ
+  const pct = done / total;
+  if(pct >= 1) return '#D4A017';                // コンプリート: 金色
+  if(pct >= 0.5) return '#C1432E';               // 達成中(50%以上): 濃い朱色
+  return '#E8A798';                              // 挑戦中(50%未満): 薄い朱色
+}
+
+// 日本地図全体のSVGを組み立てる。prefGroupsは { 都道府県名: {total, done} } の形。
+// clickable=trueなら各タイルにonclickを付ける(全国制覇帳の地図タブ用)。
+// falseなら装飾のみ(シェア画像生成用のcanvas描画とは別に、DOM表示用としてこの関数を使う)。
+function buildJapanMapSvg(prefGroups, options){
+  options = options || {};
+  const cols = Object.values(PREF_GRID_POSITIONS).map(p => p[0]);
+  const rows = Object.values(PREF_GRID_POSITIONS).map(p => p[1]);
+  const maxCol = Math.max(...cols) + MAP_COL_OFFSET;
+  const maxRow = Math.max(...rows);
+  const width = (maxCol + 2) * (MAP_TILE_SIZE + MAP_TILE_GAP);
+  const height = (maxRow + 2) * (MAP_TILE_SIZE + MAP_TILE_GAP);
+
+  const tiles = Object.keys(PREF_GRID_POSITIONS).map(pref => {
+    const [col, row] = PREF_GRID_POSITIONS[pref];
+    const x = (col + MAP_COL_OFFSET) * (MAP_TILE_SIZE + MAP_TILE_GAP);
+    const y = row * (MAP_TILE_SIZE + MAP_TILE_GAP);
+    const g = prefGroups[pref] || { total: 0, done: 0 };
+    const color = mapTileColorFor(g.done, g.total);
+    const isComplete = g.total > 0 && g.done >= g.total;
+    const shortName = pref.replace(/[都道府県]$/, '');
+    const clickAttr = options.clickable ? ` class="map-tile" onclick="onMapTileClick('${pref}')"` : ' class="map-tile-static"';
+    // 100%制覇の県は星マーク、それ以外は短縮名だけ表示する(狭いタイル内でも読める文字数に絞る)。
+    const label = isComplete ? '★' : shortName;
+    return `<g${clickAttr} data-pref="${pref}">
+      <rect x="${x}" y="${y}" width="${MAP_TILE_SIZE}" height="${MAP_TILE_SIZE}" rx="5"
+        fill="${color}" stroke="${isComplete ? '#8a6d00' : '#263A5C'}" stroke-width="${isComplete ? 1.6 : 1}"/>
+      <text x="${x + MAP_TILE_SIZE/2}" y="${y + MAP_TILE_SIZE/2 + 4}" font-size="${isComplete ? 13 : 10}"
+        text-anchor="middle" fill="${isComplete ? '#5a4700' : (g.done>0 ? '#FBF6E8' : '#6b6555')}" font-family="'Zen Maru Gothic',sans-serif">${label}</text>
+    </g>`;
+  }).join('');
+
+  return `<svg viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg" class="japan-map-svg">${tiles}</svg>`;
+}
+
 function prefTierInfo(done, total){
   if(total <= 0 || done <= 0) return { cls: 'pref-tier-0', icon: '☆', label: '未着手' };
   const pct = done / total;
@@ -5498,6 +5594,230 @@ function renderPrefectureDetail(pref){
   `;
 }
 
+// 都道府県タイルをタップしたときの処理。既存の詳細画面をそのまま使う
+// (達成自治体数・対象自治体数・達成率・正解済み/未制覇自治体の一覧は、
+//  renderPrefectureDetail() が既に表示している)。
+function onMapTileClick(pref){
+  trackGaEvent('conquest_map_pref_tap', { pref });
+  renderPrefectureDetail(pref);
+}
+
+// 全国制覇帳の「地図で見る」タブ。日本地図(SVG・タイルグリッド)で都道府県ごとの
+// 達成状況を色分け表示する。一覧表示(renderConquestLog)とはボタンで切り替えられる。
+// ==================== 全国制覇帳: 日本地図の画像共有 ====================
+// generateShareImageCanvas()(結果画面用)と同じ考え方で、外部ライブラリなしの
+// Canvas 2D APIだけで、地図タイルと達成状況をまとめた画像を作る。
+async function generateConquestMapImageCanvas(){
+  const ctx2 = buildAchievementContext(null);
+  const prefGroups = ctx2.prefGroups;
+  const total = normalCityCount();
+  const conqueredCount = ctx2.distinctCount;
+  const rate = total > 0 ? (100 * conqueredCount / total).toFixed(1) : '0.0';
+
+  const canvas = document.createElement('canvas');
+  canvas.width = SHARE_IMAGE_W;
+  canvas.height = SHARE_IMAGE_H;
+  const ctx = canvas.getContext('2d');
+  if(!ctx) return null;
+
+  ctx.fillStyle = '#F7F1E3';
+  ctx.fillRect(0, 0, SHARE_IMAGE_W, SHARE_IMAGE_H);
+  ctx.strokeStyle = 'rgba(38,58,92,0.15)';
+  ctx.lineWidth = 6;
+  ctx.strokeRect(18, 18, SHARE_IMAGE_W - 36, SHARE_IMAGE_H - 36);
+
+  const FONT = "'Hiragino Sans','Yu Gothic','Meiryo',sans-serif";
+
+  // ロゴ
+  const logoY = 80;
+  ctx.beginPath(); ctx.arc(90, logoY, 38, 0, Math.PI*2); ctx.fillStyle = '#263A5C'; ctx.fill();
+  ctx.fillStyle = '#263A5C';
+  ctx.font = `bold 40px ${FONT}`;
+  ctx.textBaseline = 'middle';
+  ctx.textAlign = 'left';
+  ctx.fillText('おらマチ', 140, logoY);
+
+  // タイトル・達成率
+  ctx.textAlign = 'center';
+  ctx.font = `bold 36px ${FONT}`;
+  ctx.fillStyle = '#263A5C';
+  ctx.fillText('全国制覇帳', SHARE_IMAGE_W/2, 170);
+  ctx.font = `bold 64px ${FONT}`;
+  ctx.fillStyle = '#C1432E';
+  ctx.fillText(`達成率 ${rate}%`, SHARE_IMAGE_W/2, 240);
+  ctx.font = `32px ${FONT}`;
+  ctx.fillStyle = '#3a3a34';
+  ctx.fillText(`${conqueredCount} / ${total} 自治体を制覇`, SHARE_IMAGE_W/2, 290);
+
+  // 地図タイル(PREF_GRID_POSITIONSをそのまま使い、Canvas座標に変換して描画)
+  const cols = Object.values(PREF_GRID_POSITIONS).map(p => p[0]);
+  const rows = Object.values(PREF_GRID_POSITIONS).map(p => p[1]);
+  const maxCol = Math.max(...cols) + MAP_COL_OFFSET;
+  const maxRow = Math.max(...rows);
+  const mapAreaW = SHARE_IMAGE_W - 160;
+  const mapAreaH = 780;
+  const tile = Math.min(mapAreaW / (maxCol + 2), mapAreaH / (maxRow + 2));
+  const gap = tile * 0.1;
+  const mapW = (maxCol + 2) * (tile + gap);
+  const mapH = (maxRow + 2) * (tile + gap);
+  const mapX0 = (SHARE_IMAGE_W - mapW) / 2;
+  const mapY0 = 340;
+
+  Object.keys(PREF_GRID_POSITIONS).forEach(pref => {
+    const [col, row] = PREF_GRID_POSITIONS[pref];
+    const x = mapX0 + (col + MAP_COL_OFFSET) * (tile + gap);
+    const y = mapY0 + row * (tile + gap);
+    const g = prefGroups[pref] || { total: 0, done: 0 };
+    const isComplete = g.total > 0 && g.done >= g.total;
+    ctx.fillStyle = mapTileColorFor(g.done, g.total);
+    ctx.beginPath();
+    const r = tile * 0.18;
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + tile, y, x + tile, y + tile, r);
+    ctx.arcTo(x + tile, y + tile, x, y + tile, r);
+    ctx.arcTo(x, y + tile, x, y, r);
+    ctx.arcTo(x, y, x + tile, y, r);
+    ctx.closePath();
+    ctx.fill();
+    ctx.strokeStyle = isComplete ? '#8a6d00' : '#263A5C';
+    ctx.lineWidth = isComplete ? 1.6 : 1;
+    ctx.stroke();
+    if(isComplete){
+      ctx.fillStyle = '#5a4700';
+      ctx.font = `${tile*0.55}px ${FONT}`;
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText('★', x + tile/2, y + tile/2 + 1);
+    }
+  });
+
+  // フッター(サイト名)
+  ctx.textAlign = 'center';
+  ctx.font = `28px ${FONT}`;
+  ctx.fillStyle = '#8a8578';
+  ctx.fillText('おらマチ | oramachi-jp.com', SHARE_IMAGE_W/2, SHARE_IMAGE_H - 60);
+
+  return canvas;
+}
+
+async function shareConquestMapImage(){
+  const statusEl = document.getElementById('mapShareStatus');
+  const setStatus = (msg) => { if(statusEl) statusEl.textContent = msg; };
+
+  trackGaEvent('share', { method: 'image_button', content_type: 'conquest_map' });
+  trackGaEvent('share_button_click', { method: 'conquest_map_image' });
+
+  setStatus('画像を作成しています…');
+  let canvas;
+  try{
+    canvas = await generateConquestMapImageCanvas();
+    if(canvas) trackGaEvent('share_image_generated', { content_type: 'conquest_map' });
+  }catch(e){
+    console.warn('おらマチ: 制覇地図の画像生成に失敗しました', e);
+    canvas = null;
+  }
+  if(!canvas){ setStatus('画像の生成に失敗しました。しばらくしてからもう一度お試しください。'); return; }
+
+  const blob = await canvasToBlob(canvas);
+  if(!blob){ setStatus('画像の生成に失敗しました。しばらくしてからもう一度お試しください。'); return; }
+
+  const fileName = 'oramachi_conquest_map.png';
+  const file = (typeof File !== 'undefined') ? new File([blob], fileName, { type: 'image/png' }) : null;
+  const text = 'おらマチの全国制覇帳だべ！ #おらマチ';
+  const pageUrl = location.href.split('#')[0];
+
+  // 1. Web Share API(画像ファイル対応)
+  if(file && navigator.canShare && navigator.canShare({ files: [file] }) && navigator.share){
+    try{
+      await navigator.share({ files: [file], text, url: pageUrl, title: 'おらマチ 全国制覇帳' });
+      setStatus('');
+      trackGaEvent('share_completed', { method: 'web_share_api', content_type: 'conquest_map' });
+      incrementShareCount();
+      return;
+    }catch(e){
+      if(e && e.name === 'AbortError'){ setStatus(''); trackGaEvent('share_cancelled', { method: 'web_share_api' }); return; }
+      console.warn('おらマチ: 地図画像の共有に失敗したため保存にフォールバックします', e);
+    }
+  }
+
+  // 2. 画像を端末へ保存(ダウンロード)
+  try{
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+    setStatus('画像を保存しました。SNSアプリなどから画像を選んで共有してください。');
+    trackGaEvent('share_completed', { method: 'image_download', content_type: 'conquest_map' });
+    incrementShareCount();
+  }catch(e){
+    console.warn('おらマチ: 地図画像の保存に失敗しました', e);
+    setStatus('画像の保存に対応していない環境です。');
+  }
+}
+
+function renderConquestMapView(){
+  stampsEl.innerHTML = '';
+  pushNavState('conquestMap');
+  const ctx = buildAchievementContext(null);
+  const prefGroups = ctx.prefGroups;
+  const total = normalCityCount();
+  const conqueredCount = ctx.distinctCount;
+  const rate = total > 0 ? (100 * conqueredCount / total).toFixed(1) : '0.0';
+
+  // 100%制覇した都道府県の一覧(特別表示用)
+  const completedPrefs = Object.keys(prefGroups).filter(p => {
+    const g = prefGroups[p];
+    return g.total > 0 && g.done >= g.total;
+  });
+  // 完全制覇した地方の一覧(お祝い演出用)
+  const completedRegions = REGION_ORDER.filter(r => ctx.regionFullyConquered(r));
+
+  const mapSvg = buildJapanMapSvg(prefGroups, { clickable: true });
+
+  const celebrationHtml = completedRegions.length
+    ? `<div class="map-celebration">🎉 ${completedRegions.join('・')}地方を制覇しました！</div>`
+    : '';
+  const completedPrefsHtml = completedPrefs.length
+    ? `<div class="map-completed-line">🏆 100%制覇: ${completedPrefs.join('、')}</div>`
+    : '';
+
+  stage.innerHTML = `
+    <div class="mascot-wrap"><div class="pop">${mascotSVG('normal')}</div></div>
+    <div class="bubble"><span class="icon">🗾</span>日本地図で見る全国制覇帳</div>
+
+    <div class="conquest-summary">
+      <div class="conquest-summary-main">収録自治体 ${conqueredCount}／${total} を制覇(${rate}%)</div>
+    </div>
+    ${celebrationHtml}
+
+    <div class="japan-map-wrap" id="japanMapWrap">${mapSvg}</div>
+
+    <div class="map-legend">
+      <span class="map-legend-item"><span class="map-legend-swatch" style="background:#e4e0d0"></span>未着手</span>
+      <span class="map-legend-item"><span class="map-legend-swatch" style="background:#E8A798"></span>挑戦中(50%未満)</span>
+      <span class="map-legend-item"><span class="map-legend-swatch" style="background:#C1432E"></span>達成中(50%以上)</span>
+      <span class="map-legend-item"><span class="map-legend-swatch" style="background:#D4A017"></span>★コンプリート</span>
+    </div>
+    ${completedPrefsHtml}
+    <div class="conquest-hint">都道府県のマスをタップすると詳細を見られます。</div>
+
+    <div class="map-share-row">
+      <button class="share-btn-text" id="mapShareBtn" onclick="shareConquestMapImage()">📸 地図を画像でシェア</button>
+    </div>
+    <div id="mapShareStatus" class="share-image-status"></div>
+
+    <div class="conquest-nav-row">
+      <button class="link-btn" onclick="renderConquestLog()">📋 一覧表示に戻る</button>
+      <button class="link-btn" onclick="renderPrefectureCards()">🗂️ カード表示で見る</button>
+    </div>
+    <button class="again" onclick="renderOpening()">トップ画面へ戻る</button>
+  `;
+  trackGaEvent('conquest_map_view');
+}
+
 function renderConquestLog(){
   stampsEl.innerHTML = '';
   pushNavState('conquestLog');
@@ -5558,6 +5878,7 @@ function renderConquestLog(){
     <div class="conquest-region-list">${regionListHtml || '<div class="conquest-muted">データがありません</div>'}</div>
 
     <div class="conquest-nav-row">
+      <button class="link-btn" onclick="renderConquestMapView()">🗺️ 日本地図で見る</button>
       <button class="link-btn" onclick="renderPrefectureCards()">🗾 都道府県別進捗をカードで見る</button>
       <button class="link-btn" onclick="renderAchievementsPage()">🏅 称号一覧を見る</button>
     </div>
@@ -5622,6 +5943,108 @@ function confirmDeleteConquest(){
   }
 }
 
+// ==================== これまでの回答/回答変更 ====================
+// 指定インデックスの回答を書き換えた上で、ゲーム開始時点から全回答を再生し、
+// 状態(scorePool・excludedNames・地元バレポイント用のanswerLog等)を正しく再構築する。
+// 「これまでの回答」一覧から回答を変更したときに呼ばれる。
+//
+// 設計方針: 既存の answer()/renderQuestion() のコア処理(applyAnswerCore/pushQuestionState)を
+// そのまま再利用することで、通常のゲームプレイと全く同じロジックパスを通す。
+// これにより、スコア計算・即時除外(applyPrune)・EXCLUSIVE_MAPの推論などを再実装せずに済み、
+// 新しいバグを埋め込むリスクを最小化している。
+//
+// 戻り値: 変更後にゲームが確定してしまった(候補が0件などで救済フローに入った)場合は
+// そちらの画面がそのまま表示される。呼び出し元は特に後処理をしなくてよい。
+function replayAnswersWithChange(changeIndex, newVal, newWeight){
+  // 1. 変更前のタイムライン(質問キー・回答・元のフェーズ)を、historyとanswerLogから復元する。
+  //    history[i].key が i番目に出題された質問、answerLog[i] がその回答(順序が対応している)。
+  //    【重要】historyには「まだ回答していない、今表示中の質問」が1件多く含まれることがある
+  //    (renderQuestion()が次の質問をhistoryへpushした直後、まだユーザーが回答していない状態)。
+  //    そのため再生対象は必ず answerLog.length を基準にする(history.length ではない)。
+  if(changeIndex < 0 || changeIndex >= answerLog.length) return false;
+  const timeline = answerLog.map((a, i) => ({
+    key: history[i].key,
+    val: a.val,
+    weight: a.weight,
+    originalPhase: history[i].questionPhase || 'normal',
+  }));
+  timeline[changeIndex] = { ...timeline[changeIndex], val: newVal, weight: newWeight };
+
+  // 2. 「1回目の推測が外れて追加質問フェーズへ切り替わった」タイミングを、変更前の記録から控える。
+  //    (どのhistory.lengthの時点で切り替わったか、その時に除外された市名)
+  //    【重要】ここで再現するのは「除外していた候補を復活させる」効果だけにとどめる。
+  //    guessAttempts・questionPhase・extraQuestionCountを機械的に上書きしてしまうと、
+  //    「回答を直したことで、実は1回目の質問だけで当てられるようになった」場合でも
+  //    強制的に追加質問フェーズ(最大5問)に押し込められ、かえって当てにくくなってしまう
+  //    (実測で確認済み)。回答を修正した以上、今度は通常フローの判定にすべて委ねる。
+  //    フェーズ自体は、各質問が「元々どちらのフェーズで聞かれたか」(originalPhase)にだけ
+  //    従わせる(questionCount/extraQuestionCountのカウント整合性を保つため)。
+  const failurePoints = guessFailureLog.map(g => ({ atHistoryLength: g.atHistoryLength, excludedCityName: g.excludedCityName }));
+
+  // 3. ゲーム状態を、startMode() と同じ内容でリセットする(currentMode・modeStartCount等、
+  //    モード自体に関する値は変更しない=そのまま引き継ぐ)。
+  const modeCities = getModeCities(currentMode);
+  scorePool = modeCities.map(city => ({ city, score: 0, objMismatch: 0 }));
+  prunedOutPool = [];
+  lastPickWasOneCity = false;
+  excludedNames = new Set();
+  guessAttempts = 0;
+  notifiedCandidateMilestones = new Set();
+  asked = [];
+  questionCount = 0;
+  extraQuestionCount = 0;
+  questionPhase = 'normal';
+  history = [];
+  forcedNextKey = null;
+  forcedGuessCity = null;
+  askedCategoryCounts = {};
+  askedStatsCount = 0;
+  currentResult = null;
+  lastGuessCity = null;
+  stableTopStreak = 0;
+  lastTopName = null;
+  knownPopMin = -Infinity;
+  knownPopMax = Infinity;
+  answerLog = [];
+  guessFailureLog = [];
+
+  // 4. タイムラインを順に再生する。
+  for(let i = 0; i < timeline.length; i++){
+    // このタイミングで(変更前は)候補の即時除外が発生していたなら、その復活だけを再現する。
+    const failure = failurePoints.find(f => f.atHistoryLength === history.length);
+    if(failure){
+      if(failure.excludedCityName) excludedNames.add(failure.excludedCityName);
+      restorePrunedCandidates();
+    }
+    // この質問が元々どちらのフェーズで聞かれていたかに合わせる(カウント整合性のため)。
+    // 通常→追加質問への切り替わりが初めて必要になった時だけ、質問数のカウント基盤
+    // (extraQuestionCount)を初期化する。guessAttemptsは「実際に追加質問の記録がある場合」
+    // だけ1にする(effectiveMaxQ等の追加質問側の上限判定に必要なため)。
+    if(timeline[i].originalPhase === 'extra' && questionPhase !== 'extra'){
+      questionPhase = 'extra';
+      extraQuestionCount = 0;
+      guessAttempts = 1;
+    }
+    pushQuestionState(timeline[i].key);
+    applyAnswerCore(timeline[i].key, timeline[i].val, timeline[i].weight);
+    // 再生中に候補が1件へ絞れて forcedGuessCity が立っても、画面遷移(renderGuess)はしない。
+    // scorePool自体は正しく更新済みなので、次の回答の反映には影響しない。
+    forcedGuessCity = null;
+  }
+  // 【重要】最後の質問への回答まで再生し終えた"直後"に候補復活が発生していた場合
+  // (=ちょうど最後の質問の後で1回目の推測が外れていた場合)、ループ内のチェックだけでは
+  // 検出できない(ループはtimeline.length回で終わり、その後のhistory.lengthは判定されないため)。
+  // ここでもう一度だけ確認する。
+  const finalFailure = failurePoints.find(f => f.atHistoryLength === history.length);
+  if(finalFailure){
+    if(finalFailure.excludedCityName) excludedNames.add(finalFailure.excludedCityName);
+    restorePrunedCandidates();
+
+  }
+
+  return true;
+}
+
 function startMode(mode){
   currentMode = mode;
   pushGameNavState(); // ここから戻ったらトップ画面、という目印を履歴に積む
@@ -5649,6 +6072,9 @@ function startMode(mode){
   knownPopMin = -Infinity;
   knownPopMax = Infinity;
   answerLog = [];
+  guessFailureLog = [];
+  isReplayedFromGiveup = false;
+  answerHistoryPanelContext = 'ingame';
   modeStartCount = modeCities.length;
   lastDisplayedRemainingCount = null;
 
@@ -5672,24 +6098,10 @@ function startMode(mode){
 }
 let forcedNextKey = null; // 「戻る」で復元したときに、同じ質問を出すための指定
 
-function renderQuestion(){
-  renderStamps();
-  const key = forcedNextKey || entropyPick();
-  forcedNextKey = null;
-
-  const phaseCount = questionPhase === 'extra' ? extraQuestionCount : questionCount;
-  // 「わからない」で無駄打ちになった分だけ上限を延ばす(effectiveMaxQ)
-  const phaseMax = effectiveMaxQ(questionPhase);
-  // 【重要】askedには実際に表示した質問だけでなく、EXCLUSIVE_MAPによる自動除外分
-  // (「多摩地区?」にはいと答えたら23区限定タグ群を一括で「いいえ」扱いにする、など)も
-  // 積まれる。自動除外は1回のトリガーで数十件まとめて増えることがあるため、
-  // askedの長さをそのまま安全装置の判定に使うと、実質の質問数が少ないうちに
-  // 誤って強制終了してしまう。ここは必ず実質の質問数(questionCount+extraQuestionCount)で判定する。
-  const realQuestionCount = questionCount + extraQuestionCount;
-  if(!key || phaseCount >= phaseMax || sortedPool().length <= 1 || realQuestionCount >= ABSOLUTE_MAX_Q || realQuestionCount > HARD_MAX_Q + unknownAllowanceQ()){
-    return renderGuess();
-  }
-
+// 【質問出題の状態更新】historyへのスナップショット保存、asked追加、questionCount更新。
+// 画面描画は行わない。通常のrenderQuestion()と、「これまでの回答」機能での再生の
+// 両方から呼ばれる共通処理。
+function pushQuestionState(key){
   // このジャンルが実際に出題されたことを記録する前の状態も履歴に残す(戻るボタン用)
   const categorySnapshotBefore = { ...askedCategoryCounts };
   const remainingCountSnapshotBefore = lastDisplayedRemainingCount;
@@ -5719,6 +6131,35 @@ function renderQuestion(){
 
   asked.push(key);
   if(questionPhase === 'extra'){ extraQuestionCount++; } else { questionCount++; }
+}
+
+function renderQuestion(){
+  renderStamps();
+  const key = forcedNextKey || entropyPick();
+  forcedNextKey = null;
+
+  const phaseCount = questionPhase === 'extra' ? extraQuestionCount : questionCount;
+  // 「わからない」で無駄打ちになった分だけ上限を延ばす(effectiveMaxQ)
+  const phaseMax = effectiveMaxQ(questionPhase);
+  // 【重要】askedには実際に表示した質問だけでなく、EXCLUSIVE_MAPによる自動除外分
+  // (「多摩地区?」にはいと答えたら23区限定タグ群を一括で「いいえ」扱いにする、など)も
+  // 積まれる。自動除外は1回のトリガーで数十件まとめて増えることがあるため、
+  // askedの長さをそのまま安全装置の判定に使うと、実質の質問数が少ないうちに
+  // 誤って強制終了してしまう。ここは必ず実質の質問数(questionCount+extraQuestionCount)で判定する。
+  const realQuestionCount = questionCount + extraQuestionCount;
+  if(!key || phaseCount >= phaseMax || sortedPool().length <= 1 || realQuestionCount >= ABSOLUTE_MAX_Q || realQuestionCount > HARD_MAX_Q + unknownAllowanceQ()){
+    return renderGuess();
+  }
+
+  pushQuestionState(key);
+  renderQuestionScreen(key);
+}
+
+// 【画面描画のみ】質問画面のHTMLを構築して表示する。history/asked/questionCountの更新は
+// 行わない(renderQuestion()側で既に済んでいる前提)。「これまでの回答」パネルを閉じて
+// 元の質問へ戻るときにも、この関数だけを呼び直す(pushQuestionStateを再度呼ぶと
+// 質問が二重に記録されてしまうため)。
+function renderQuestionScreen(key){
   const q = QUESTIONS[key];
 
   const displayCount = questionPhase === 'extra' ? extraQuestionCount : questionCount;
@@ -5742,6 +6183,10 @@ function renderQuestion(){
   const backBtn = history.length > 1
     ? `<button class="btn-back" onclick="goBack()">← 前の質問に戻る</button>`
     : '';
+  // 【これまでの回答】1問でも回答済みならボタンを出す(まだ0問なら一覧が空になるため出さない)。
+  const answerHistoryBtn = answerLog.length > 0
+    ? `<button class="btn-answer-history" onclick="renderAnswerHistoryPanel()">📝 これまでの回答</button>`
+    : '';
 
   stage.innerHTML = `
     <div class="mascot-wrap"><div class="bob pop">${mascotSVG(mascotMood)}</div></div>
@@ -5755,12 +6200,123 @@ function renderQuestion(){
       <button class="btn btn-maybe-no" onclick="answer('${key}', false, PARTIAL_WEIGHT)">たぶん違う</button>
       <button class="btn btn-unknown" onclick="answer('${key}', null)">わからない・スキップ</button>
     </div>
-    ${backBtn}
+    <div class="question-sub-actions">
+      ${backBtn}
+      ${answerHistoryBtn}
+    </div>
   `;
   questionShownAt = Date.now(); // 回答時間の計測開始(この質問が画面に出た時刻)
   animateCandidateCount(remainingBefore, remainingNow); // 候補数の変化演出
   notifyCandidateMilestone(remainingNow);
   updateDebugPanel();
+}
+
+// ==================== これまでの回答 一覧・編集 ====================
+// 回答(val, weight)を表示用ラベルに変換する。「戻る」ボタンや結果画面でも
+// 同じ判定基準(現在ゲームで使用している5択)を使うため、ここに集約しておく。
+function answerValueLabel(val, weight){
+  if(val === null) return { label: 'わからない', cls: 'unknown' };
+  const full = weight == null || weight >= 1;
+  if(val === true) return full ? { label: 'はい', cls: 'yes' } : { label: 'たぶんそう', cls: 'maybe-yes' };
+  return full ? { label: 'いいえ', cls: 'no' } : { label: 'たぶん違う', cls: 'maybe-no' };
+}
+
+// 「これまでの回答」一覧を表示する。質問画面の上に被せる形(stage.innerHTMLを丸ごと
+// 置き換える)だが、閉じるときは元の画面(質問画面 or 降参完了画面)だけを再描画するので、
+// history/asked/questionCountの二重登録は発生しない。
+//
+// answerHistoryPanelContext が 'review' のときは、不正解の原因分析(lastCorrectionMismatches)
+// で見つかった、矛盾していた質問を目立たせて表示する。
+function renderAnswerHistoryPanel(){
+  const isReview = answerHistoryPanelContext === 'review';
+  const highlightKeys = isReview ? new Set(lastCorrectionMismatches.map(m => m.key)) : new Set();
+
+  const items = answerLog.map((a, i) => {
+    const q = QUESTIONS[a.key];
+    if(!q) return ''; // 万一データ不整合があっても描画を止めない
+    const v = answerValueLabel(a.val, a.weight);
+    const isHighlighted = highlightKeys.has(a.key);
+    return `
+      <li class="answer-history-item${isHighlighted ? ' answer-history-item-flagged' : ''}" onclick="renderAnswerEditFor(${i})">
+        <span class="answer-history-num">${i + 1}</span>
+        <span class="answer-history-q">${isHighlighted ? '⚠️ ' : ''}${q.text}</span>
+        <span class="answer-history-val answer-history-val-${v.cls}">${v.label}</span>
+      </li>`;
+  }).join('');
+
+  const hint = isReview
+    ? '⚠️ の付いた質問が、実際のデータと違っていた回答です'
+    : 'タップすると回答を直せます';
+
+  stage.innerHTML = `
+    <div class="mascot-wrap"><div class="pop">${mascotSVG('think')}</div></div>
+    <div class="bubble"><span class="icon">📝</span>これまでの回答だべ</div>
+    <div class="answer-history-hint">${hint}</div>
+    <ul class="answer-history-list">${items}</ul>
+    <button class="again" onclick="closeAnswerHistoryPanel()">閉じる</button>
+  `;
+  updateDebugPanel();
+}
+
+// 一覧に戻らず、そのまま元の画面へ戻る(回答は変更しない)。
+// 通常のゲーム中(ingame)なら元の質問画面へ、不正解後の見直し(review)なら降参完了画面へ戻る。
+function closeAnswerHistoryPanel(){
+  if(answerHistoryPanelContext === 'review'){
+    return renderThanks(lastCorrectionWasNearMiss, lastCorrectionCityLabel, lastCorrectionMatchedCity, lastCorrectionMismatches);
+  }
+  const pendingKey = asked[asked.length - 1];
+  renderQuestionScreen(pendingKey);
+}
+
+// i番目の回答を編集する画面。現在ゲームで使っているのと同じ5択をそのまま使う。
+function renderAnswerEditFor(index){
+  const entry = answerLog[index];
+  if(!entry) return renderAnswerHistoryPanel();
+  const q = QUESTIONS[entry.key];
+  const current = answerValueLabel(entry.val, entry.weight);
+  // 見直し文脈では、実際のデータ(あれば)も一緒に見せて判断しやすくする。
+  const actualLine = (answerHistoryPanelContext === 'review' && lastCorrectionMatchedCity && typeof lastCorrectionMatchedCity.tags[entry.key] === 'boolean')
+    ? `<div class="answer-edit-actual">${lastCorrectionMatchedCity.pref}${displayName(lastCorrectionMatchedCity)}の実際: <b>${lastCorrectionMatchedCity.tags[entry.key] ? 'はい' : 'いいえ'}</b></div>`
+    : '';
+
+  stage.innerHTML = `
+    <div class="mascot-wrap"><div class="pop">${mascotSVG('think')}</div></div>
+    <div class="bubble"><span class="icon">${q.icon}</span>${q.text}</div>
+    <div class="answer-edit-current">今の回答: <b class="answer-history-val-${current.cls}">${current.label}</b>（${index + 1}問目）</div>
+    ${actualLine}
+    <div class="choices">
+      <button class="btn btn-yes" onclick="applyAnswerEdit(${index}, true, 1)">はい</button>
+      <button class="btn btn-no" onclick="applyAnswerEdit(${index}, false, 1)">いいえ</button>
+      <button class="btn btn-maybe-yes" onclick="applyAnswerEdit(${index}, true, ${PARTIAL_WEIGHT})">たぶんそう</button>
+      <button class="btn btn-maybe-no" onclick="applyAnswerEdit(${index}, false, ${PARTIAL_WEIGHT})">たぶん違う</button>
+      <button class="btn btn-unknown" onclick="applyAnswerEdit(${index}, null, 1)">わからない・スキップ</button>
+    </div>
+    <button class="link-btn" onclick="renderAnswerHistoryPanel()">変更せず一覧に戻る</button>
+  `;
+  updateDebugPanel();
+}
+
+// 回答を変更し、全回答を再生して状態を再構築したうえで、ゲームを続行(または再開)する。
+function applyAnswerEdit(index, newVal, newWeight){
+  const wasReview = answerHistoryPanelContext === 'review';
+  const ok = replayAnswersWithChange(index, newVal, newWeight);
+  if(!ok) return renderAnswerHistoryPanel(); // 万一失敗しても一覧に戻すだけでエラーにしない
+  // 見直し文脈から編集した場合、通常のゲーム進行に戻す(以後は普通の質問画面として扱う)。
+  if(wasReview){
+    answerHistoryPanelContext = 'ingame';
+    isReplayedFromGiveup = true; // 統計の二重カウント防止用(recordGameStatsで参照する)
+    trackGaEvent('oramachi_replay_from_mismatch', { ...analyticsModeParams(currentMode) });
+  }
+  // 再生後、次に聞くべき質問(または「もしかして」画面・降参画面)を通常のフローで表示する。
+  // 候補が0件になるような極端な矛盾があっても、既存のrenderQuestion()内の安全装置
+  // (sortedPool().length<=1でrenderGuess()へ)にそのままつながる。
+  renderQuestion();
+}
+
+// 降参完了画面の「回答を直して推理を再開する」から呼ばれる。
+function startReplayFromMismatch(){
+  answerHistoryPanelContext = 'review';
+  renderAnswerHistoryPanel();
 }
 
 function goBack(){
@@ -5781,6 +6337,8 @@ function goBack(){
   knownPopMax = prev.knownPopMax != null ? prev.knownPopMax : Infinity;
   lastDisplayedRemainingCount = prev.remainingCount != null ? prev.remainingCount : null;
   answerLog.length = asked.length; // 戻った分の回答ログも一緒に切り詰める(asked と常に同じ長さで揃える)
+  // 戻った先が「1回目の推測が外れる前」なら、その記録も取り消す(再生時の整合性のため)
+  guessFailureLog = guessFailureLog.filter(g => g.atHistoryLength <= history.length);
   forcedNextKey = prev.key; // 同じ質問を再表示する
   renderQuestion();
 }
@@ -6061,7 +6619,10 @@ function pruneObviouslyWrongCandidates(){
   }
 }
 
-function answer(key, val, weight){
+// 【回答のコア処理】スコア更新・即時除外・EXCLUSIVE_MAP推論など、画面描画を伴わない部分。
+// 通常のanswer()と、「これまでの回答」機能での回答再生の両方から呼ばれる共通処理。
+// 戻り値: true = 候補が1件に絞れてforcedGuessCityが設定された(呼び出し元でrenderGuess()するか判断する)
+function applyAnswerCore(key, val, weight){
   weight = weight == null ? 1 : weight;
   const subjective = isSubjectiveQuestion(key);
   const matchBonus = subjective ? SUBJ_MATCH_BONUS : OBJ_MATCH_BONUS;
@@ -6078,7 +6639,7 @@ function answer(key, val, weight){
     const uniqueMatches = scorePool.filter(e => !excludedNames.has(e.city.name) && e.city.tags[key] === true);
     if(uniqueMatches.length === 1){
       forcedGuessCity = uniqueMatches[0].city;
-      return renderGuess();
+      return true;
     }
   }
 
@@ -6142,6 +6703,12 @@ function answer(key, val, weight){
   pruneByRegionAnswer(key, val, weight);
   pruneObviouslyWrongCandidates();
   updateStableStreak();
+  return false;
+}
+
+function answer(key, val, weight){
+  const forced = applyAnswerCore(key, val, weight);
+  if(forced) return renderGuess();
 
   // 通常質問側の「最低質問数に達するまでは早押ししない」制約(追加質問側は毎回判定してよい)
   if(questionPhase === 'normal' && questionCount < MIN_Q_BEFORE_EARLY_GUESS){
@@ -7011,6 +7578,62 @@ function renderSuccessCorrectionForm(){
   if(holder) holder.innerHTML = renderCorrectionForm();
 }
 
+// 訂正フォームで入力された(都道府県, 市区町村名の自由記述)から、CITIESデータの該当自治体を
+// 特定する。表記ゆれがあるため、都道府県が一致し、かつ市区町村名が前方一致(「府中」→
+// 「府中市」等)する場合のみ一致とみなす、控えめな判定にしている(誤って別の市と紐付けないため)。
+// 【不正解の原因分析】answerLog(このゲームで実際に回答した内容)と、本当のマチのデータ
+// (matched.tags)を比較し、矛盾していた回答を抽出する。
+//
+// 除外するもの:
+//   ・val === null(「わからない」) … スコアに一切影響しないため、原因にはなり得ない。
+//   ・matched.tags[key] が boolean でない(データ不足・未設定) … 断定できないので誤回答扱いしない。
+//
+// 重要度(severity)の目安:
+//   ・フル確信度(weight>=1)の矛盾を最重要とする(スコアへの影響が最も大きいため)。
+//   ・「たぶんそう/たぶん違う」(weight<1)は影響が半分なので、重要度も一段下げる。
+//   ・EXCLUSIVE_MAPによる自動推論(=answerLogには記録されない)は、そもそもここでは扱わない
+//     (プレイヤーが直接答えたことではないため。既存のEXCLUSIVE_MAP設計時の判断を踏襲)。
+//
+// 戻り値は重要度が高い順に並べた配列: [{ key, question, userLabel, actualLabel, weight, severity }]
+function computeAnswerMismatches(matched){
+  if(!matched) return [];
+  const results = [];
+  answerLog.forEach(entry => {
+    if(entry.val === null) return; // 「わからない」は原因にならない
+    const actual = matched.tags[entry.key];
+    if(typeof actual !== 'boolean') return; // データが無い項目は断定しない
+    if(actual === entry.val) return; // 矛盾していない
+
+    const q = QUESTIONS[entry.key];
+    if(!q) return; // 万一定義が見つからない場合はスキップ(表示崩れ防止)
+
+    const weight = entry.weight == null ? 1 : entry.weight;
+    const isFull = weight >= 1;
+    results.push({
+      key: entry.key,
+      question: q.text,
+      userLabel: answerValueLabel(entry.val, weight).label,
+      actualLabel: actual ? 'はい' : 'いいえ',
+      weight,
+      severity: isFull ? 2 : 1, // 2=フル確信度の矛盾(最重要) / 1=あいまいな回答での矛盾
+    });
+  });
+  // 重要度が高い順、同じ重要度なら回答した順(古い方=序盤の判断ミスを先に見せる)
+  results.sort((a, b) => b.severity - a.severity);
+  return results;
+}
+
+function findCityByPrefAndFreeText(pref, cityText){
+  const normalize = s => (s || '').replace(/\s/g, '');
+  const inputCityNorm = normalize(cityText);
+  return CITIES.find(c => {
+    if(c.name === '東京') return false;
+    if(c.pref !== pref) return false;
+    const n = normalize(displayName(c));
+    return n === inputCityNorm || n.startsWith(inputCityNorm) || inputCityNorm.startsWith(n.replace(/[市区町村]$/, ''));
+  }) || null;
+}
+
 function submitCorrection(){
   const prefEl = document.getElementById('correctionPref');
   const cityEl = document.getElementById('correctionCity');
@@ -7046,27 +7669,29 @@ function submitCorrection(){
 
   sendCorrectionToSheet(entry);
 
+  // 入力された「本当のマチ」がCITIESデータのどれに該当するかを特定する(表記ゆれに強い
+  // 前方一致判定)。見つかれば、不正解時の原因分析(computeAnswerMismatches)と
+  // 「惜しい候補」判定の両方に使う。見つからなければ、どちらの機能も行わない
+  // (誤って別の市のデータと比較しないため)。
+  const matched = findCityByPrefAndFreeText(pref, city);
+
   // 【惜しい候補との突合】降参画面で表示していた候補の中に、入力された本当の地元が
-  // 含まれていたかを判定する。表記ゆれがあるため、都道府県が一致し、かつ市区町村名が
-  // 前方一致(「府中」→「府中市」等)する場合のみ一致とみなす、控えめな判定にしている。
-  // 一致しなければ何も言わない(誤って「候補に入っていました」と言わないようにするため)。
+  // 含まれていたかを判定する。一致しなければ何も言わない(誤って「候補に入っていました」と
+  // 言わないようにするため)。
   let wasNearMiss = false;
-  if(giveUpPoolSnapshot && giveUpPoolSnapshot.length){
-    const normalize = s => (s || '').replace(/\s/g, '');
-    const inputCityNorm = normalize(city);
-    const matched = CITIES.find(c => {
-      if(c.name === '東京') return false;
-      if(c.pref !== pref) return false;
-      const n = normalize(displayName(c));
-      return n === inputCityNorm || n.startsWith(inputCityNorm) || inputCityNorm.startsWith(n.replace(/[市区町村]$/, ''));
-    });
-    if(matched && giveUpPoolSnapshot.includes(cityId(matched))) wasNearMiss = true;
+  if(matched && giveUpPoolSnapshot && giveUpPoolSnapshot.length){
+    if(giveUpPoolSnapshot.includes(cityId(matched))) wasNearMiss = true;
   }
 
-  renderThanks(wasNearMiss, `${pref}${city}`);
+  // 【不正解の原因分析】本当のマチのデータが特定できたら、これまでの回答と比較して、
+  // 矛盾していた(=不正解の原因になった可能性がある)回答を抽出しておく。
+  const mismatches = matched ? computeAnswerMismatches(matched) : [];
+
+  renderThanks(wasNearMiss, `${pref}${city}`, matched, mismatches);
 }
 
-function renderThanks(wasNearMiss, correctCityLabel){
+function renderThanks(wasNearMiss, correctCityLabel, matchedCity, mismatches){
+  mismatches = mismatches || [];
   const nearMissLine = wasNearMiss
     ? `<div class="fact">実はおらっちの候補に入っていました！次はきっと当てられます。</div>`
     : '';
@@ -7078,13 +7703,57 @@ function renderThanks(wasNearMiss, correctCityLabel){
         結果をシェア
       </button>`
     : '';
+
+  // 【不正解の原因】本当のマチが特定できて、かつ矛盾していた回答があれば表示する。
+  // 「回答を直して再開する」→「見直しをやめて戻る」の往復で使うため、必要な情報をすべて控えておく。
+  lastCorrectionMatchedCity = matchedCity || null;
+  lastCorrectionMismatches = mismatches;
+  lastCorrectionWasNearMiss = wasNearMiss;
+  lastCorrectionCityLabel = correctCityLabel;
+  const mismatchHtml = buildMismatchSectionHtml(matchedCity, mismatches);
+
   stage.innerHTML = `
     <div class="mascot-wrap"><div class="pop">${mascotSVG('happy')}</div></div>
     <div class="bubble"><span class="icon">🙏</span>ありがとう！おらっちが修行します</div>
     ${nearMissLine}
+    ${mismatchHtml}
     <button class="again" onclick="restart()">もう一度あそぶ</button>
     ${shareBtn ? `<div class="result-actions-secondary">${shareBtn}</div>` : ''}
   `;
+}
+
+// 「〇〇市のデータと違っていた回答が◯個ありました」ブロックのHTMLを組み立てる。
+// 件数が多い場合は、最初は上位3件だけ見せて「すべて見る」で展開する。
+const MISMATCH_INITIAL_SHOW = 3;
+function buildMismatchSectionHtml(matchedCity, mismatches){
+  if(!matchedCity || mismatches.length === 0) return '';
+  const cityLabel = `${matchedCity.pref}${displayName(matchedCity)}`;
+  const rows = mismatches.map((m, i) => `
+    <li class="mismatch-item${i >= MISMATCH_INITIAL_SHOW ? ' mismatch-item-extra' : ''}">
+      <span class="mismatch-q">${m.question}</span>
+      <span class="mismatch-compare">
+        <span class="mismatch-user">あなたの回答: <b>${m.userLabel}</b></span>
+        <span class="mismatch-actual">${cityLabel}の実際: <b>${m.actualLabel}</b></span>
+      </span>
+    </li>`).join('');
+  const moreBtn = mismatches.length > MISMATCH_INITIAL_SHOW
+    ? `<button class="link-btn" onclick="toggleMismatchExtra(this)">すべて見る(あと${mismatches.length - MISMATCH_INITIAL_SHOW}件)</button>`
+    : '';
+
+  return `
+    <div class="mismatch-block">
+      <div class="mismatch-title">${cityLabel}のデータと違っていた回答が${mismatches.length}個ありました</div>
+      <ul class="mismatch-list">${rows}</ul>
+      ${moreBtn}
+      <button class="btn-teach" onclick="startReplayFromMismatch()">回答を直して推理を再開する</button>
+    </div>`;
+}
+
+// 「すべて見る」ボタン: 隠れている項目(mismatch-item-extra)を表示する。
+function toggleMismatchExtra(btn){
+  const list = btn.previousElementSibling;
+  if(list) list.querySelectorAll('.mismatch-item-extra').forEach(el => el.classList.add('mismatch-item-shown'));
+  btn.remove();
 }
 
 // 不正解確定(降参→訂正フォーム送信)後のシェア。正解自治体名はユーザーの入力そのもの
@@ -7304,6 +7973,9 @@ function correct(isRight, overrideCity){
     guessAttempts = 1;
     questionPhase = 'extra';
     extraQuestionCount = 0;
+    // 「これまでの回答」機能で回答を再生する際に、このタイミング(通常フェーズ→追加質問
+    // フェーズへの切り替え)を正確に再現するために記録しておく。
+    guessFailureLog.push({ atHistoryLength: history.length, excludedCityName: guess.name });
     return renderExtraIntro();
   }
 

@@ -368,6 +368,97 @@ color: inherit;}
   }
   .btn-back:active{ opacity: 0.6; }
 
+  /* 【これまでの回答】質問画面の下、戻るボタンと横並びにする小さめのボタン。
+     画面を圧迫しないよう、控えめなサイズ・色にしている。 */
+  .question-sub-actions{
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+    margin-top: 4px;
+  }
+  .btn-answer-history{
+    display:block; margin-top: 4px; padding: 8px 14px;
+    background: var(--paper-deep); color: var(--indigo-deep);
+    border: 1.5px solid var(--line); border-radius: 999px;
+    font-family:'Zen Maru Gothic', sans-serif;
+    font-weight:700; font-size: 12px; cursor:pointer;
+  }
+  .btn-answer-history:active{ transform: scale(0.97); }
+
+  /* 【これまでの回答 一覧】長くなってもスマホで圧迫しないよう、
+     カード内に収まる高さでスクロールさせる。 */
+  .answer-history-hint{ font-size: 11.5px; color: var(--ink-soft); margin-bottom: 8px; }
+  .answer-history-list{
+    list-style: none; margin: 0 0 12px; padding: 0;
+    max-height: 340px; overflow-y: auto;
+    border-top: 1px solid var(--line);
+    text-align: left;
+    -webkit-overflow-scrolling: touch;
+  }
+  .answer-history-item{
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 4px;
+    border-bottom: 1px solid var(--line);
+    cursor: pointer;
+  }
+  .answer-history-item:active{ background: rgba(38,58,92,0.05); }
+  .answer-history-num{
+    flex: 0 0 auto;
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--indigo-deep); color: #FBF6E8;
+    font-size: 10.5px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .answer-history-q{ flex: 1; font-size: 12.5px; color: var(--ink); line-height: 1.4; }
+  .answer-history-val{
+    flex: 0 0 auto; font-size: 11px; font-weight: 800;
+    padding: 3px 9px; border-radius: 999px; white-space: nowrap;
+  }
+  .answer-history-val-yes{ background: rgba(46,125,80,0.14); color: #2e7d50; }
+  .answer-history-val-no{ background: rgba(193,67,46,0.14); color: var(--vermillion-deep); }
+  .answer-history-val-maybe-yes{ background: rgba(46,125,80,0.08); color: #2e7d50; }
+  .answer-history-val-maybe-no{ background: rgba(193,67,46,0.08); color: var(--vermillion-deep); }
+  .answer-history-val-unknown{ background: rgba(38,58,92,0.08); color: var(--ink-soft); }
+
+  /* 【回答の編集】5択ボタンは既存の.choicesスタイルをそのまま使う。今の回答だけ強調表示。 */
+  .answer-edit-current{
+    font-size: 12.5px; color: var(--ink-soft); margin-bottom: 12px;
+  }
+  .answer-edit-current b{ font-weight: 800; padding: 2px 8px; border-radius: 999px; }
+  .answer-edit-actual{
+    font-size: 12px; color: var(--vermillion-deep); margin: -6px 0 12px;
+    background: rgba(193,67,46,0.08); border-radius: 10px; padding: 6px 10px;
+  }
+  .answer-edit-actual b{ font-weight: 800; }
+
+  /* 「これまでの回答」一覧で、不正解の原因になった可能性がある質問を目立たせる。 */
+  .answer-history-item-flagged{ background: rgba(193,67,46,0.06); }
+  .answer-history-item-flagged .answer-history-q{ color: var(--vermillion-deep); font-weight: 700; }
+
+  /* 【不正解の原因】降参完了画面に表示するブロック。 */
+  .mismatch-block{
+    margin: 14px 0; padding: 12px 14px;
+    background: var(--paper-deep); border-radius: 14px;
+    text-align: left;
+  }
+  .mismatch-title{
+    font-size: 13px; font-weight: 800; color: var(--vermillion-deep);
+    margin-bottom: 8px; line-height: 1.5;
+  }
+  .mismatch-list{ list-style: none; margin: 0; padding: 0; }
+  .mismatch-item{
+    padding: 8px 4px; border-bottom: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .mismatch-item:last-child{ border-bottom: none; }
+  .mismatch-item-extra{ display: none; }
+  .mismatch-item-extra.mismatch-item-shown{ display: flex; }
+  .mismatch-q{ font-size: 12.5px; color: var(--ink); line-height: 1.4; }
+  .mismatch-compare{
+    display: flex; flex-wrap: wrap; gap: 6px 14px;
+    font-size: 11px; color: var(--ink-soft);
+  }
+  .mismatch-user b{ color: var(--vermillion-deep); font-weight: 800; }
+  .mismatch-actual b{ color: #2e7d50; font-weight: 800; }
+
   .result-name{ font-family:'Shippori Mincho', serif; font-size: 30px; color: var(--indigo-deep); margin: 6px 0 0; }
   .result-pref{ font-size:13px; color: var(--ink-soft); margin-bottom:10px; }
   .hanko{
@@ -530,6 +621,40 @@ color: inherit;}
 
   /* ---- 全国制覇帳 画面 ---- */
   .conquest-summary{ background: var(--paper-deep); border-radius: 12px; padding: 12px 14px; margin: 10px 0 6px; text-align:center; }
+
+  /* ---- 全国制覇帳: 日本地図(タイルグリッド) ---- */
+  .japan-map-wrap{
+    margin: 12px 0; padding: 10px;
+    background: var(--paper-deep); border-radius: 16px;
+    overflow-x: auto; /* 狭い画面でも横スクロールで全体を見られる */
+    display: flex; justify-content: center;
+  }
+  .japan-map-svg{ width: 100%; max-width: 420px; height: auto; }
+  .map-tile{ cursor: pointer; }
+  .map-tile:active rect{ opacity: 0.75; }
+  .map-tile-static{ pointer-events: none; }
+  .map-legend{
+    display: flex; flex-wrap: wrap; gap: 8px 14px;
+    justify-content: center; margin: 8px 0 4px;
+  }
+  .map-legend-item{ display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--ink-soft); }
+  .map-legend-swatch{
+    display: inline-block; width: 13px; height: 13px; border-radius: 4px;
+    border: 1px solid rgba(38,58,92,0.25);
+  }
+  .map-celebration{
+    background: linear-gradient(135deg, rgba(212,160,23,0.18), rgba(193,67,46,0.10));
+    border: 1.5px solid var(--gold);
+    border-radius: 12px; padding: 10px 14px; margin: 8px 0;
+    text-align: center; font-weight: 800; font-size: 13px; color: var(--vermillion-deep);
+    animation: mapCelebrationPop .6s cubic-bezier(.34,1.56,.64,1);
+  }
+  @keyframes mapCelebrationPop{ 0%{transform:scale(.85); opacity:0} 100%{transform:scale(1); opacity:1} }
+  .map-completed-line{ font-size: 11.5px; color: var(--ink-soft); text-align:center; margin: 4px 0; line-height: 1.6; }
+  .map-share-row{ margin: 10px 0 4px; display: flex; justify-content: center; }
+  @media (prefers-reduced-motion: reduce){
+    .map-celebration{ animation-duration: .15s; }
+  }
   .conquest-summary-main{ font-size: 16px; font-weight:700; color: var(--indigo-deep); }
   .conquest-hint{ font-size: 10.5px; color: var(--ink-soft); margin-top: 4px; line-height:1.5; }
   .conquest-section-title{ font-size: 12.5px; font-weight:700; color: var(--ink); margin: 14px 0 6px; text-align:left; }
