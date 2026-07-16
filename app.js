@@ -3019,6 +3019,18 @@ const PHASE_POOL_SIZE_LATE = 20;           // 候補がこれ以下なら質問�
 const PHASE_QCOUNT_EARLY_MAX = 4;          // この質問数までは序盤
 const PHASE_QCOUNT_EARLY_MIDDLE_MAX = 8;   // この質問数までは序盤と中盤の間
 const PHASE_QCOUNT_LATE_MIN = 15;          // この質問数からは終盤
+
+// 序盤は「上位から最低これだけは選択肢に入れて、その中からランダムに選ぶ」数。
+// 毎回同じ質問(「海に面している?」など)から始まって単調になるのを防ぐためのもの。
+// 大きくするほど質問が散らばるが、遠回りな質問も混じるので平均質問数は少し増える。
+// 候補がたくさん残っている序盤ほど「どの質問でもそれなりに絞れる」ので広く取り、
+// 進むにつれて精度優先で狭めていく。
+function minChoicesFor(qCount){
+  if(qCount <= 2) return 8;  // 入りの数問は大きく散らす(ゲームの印象を決めるところ)
+  if(qCount <= 5) return 6;
+  if(qCount <= PHASE_QCOUNT_EARLY_MIDDLE_MAX) return 4;
+  return 1;                  // 中盤以降は精度優先(僅差のものだけでランダム)
+}
 function currentQuestionPhase(poolSize, qCount){
   if(poolSize <= PHASE_POOL_SIZE_LATE) return 'late';
   if(qCount <= PHASE_QCOUNT_EARLY_MAX) return 'early';
@@ -4299,7 +4311,7 @@ function regionNarrowedDown(cities){
 const AREA_BOOST_AMOUNT       = 60;   // 地名質問を選ばせるための加点
 const AREA_BOOST_MIN_YES      = 0.15; // はい側がこの割合未満の地名質問はブーストしない
 const AREA_BOOST_GAP          = 2;    // 直近この問数以内に地名質問を出していたらブーストしない
-const REGION_BOOST_QCOUNT_MAX = 8;    // ①8地方: この質問数までブースト(地方が決まるまで粘る)
+const REGION_BOOST_QCOUNT_MAX = 20;   // ①8地方: 地方が決まるまで粘る(決まれば下の regionDone で止まる)
 const WIDE_AREA_BOOST_QCOUNT_MAX = 12;// ②広域: この質問数までブースト
 
 // ②の広域質問のうち、ブースト対象にするもの(主観が混じる4件も出題時期は同じなので含める)
@@ -4321,7 +4333,7 @@ function earlyRegionBoostFor(key, cities){
 
   const regionDone = regionNarrowedDown(cities);
 
-  // ①8地方: 地方が決まるまで。決まったらもう不要。
+  // ①8地方: 地方が決まるまで続ける。決まったらもう不要。
   if(isRegion){
     if(regionDone) return 0;
     if(questionCount > REGION_BOOST_QCOUNT_MAX) return 0;
@@ -4461,8 +4473,26 @@ function entropyPick(){
   // 僅差の質問はまとめてプールし、ランダムに選ぶ(毎回同じ質問順に固定されないようにする)。
   // 候補がまだ多い序盤は、多少精度を犠牲にしてもマージンを広げ、入りの質問を毎回変える。
   // (常に同じ質問から始まって単調になるのを防ぐ)。終盤は精度優先でマージンを狭く保つ。
-  const poolMargin = truePoolSize > 150 ? 4 : (truePoolSize > 40 ? 2 : 1);
-  const pool = scored.filter(s => s.minimax <= best + poolMargin).map(s => s.k);
+  //
+  // 【マージンだけでは足りない】
+  // スコアが僅差の質問がたまたま無いと、マージンを広げても選択肢は1つのままになる。
+  // 実測では序盤(1-4問目)の3割が1択で、「海に面している?」が9割のゲームで出ていた。
+  // そこで、序盤は「上位から最低でもこれだけは選択肢に入れる」下限も設ける。
+  // 精度への影響を抑えるため、下限で拾うのは上位のものだけ(scoredは昇順=良い順)。
+  const poolMargin = truePoolSize > 150 ? 6 : (truePoolSize > 40 ? 3 : 1);
+  let pool = scored.filter(s => s.minimax <= best + poolMargin).map(s => s.k);
+  const minChoices = minChoicesFor(questionCount);
+  if(pool.length < minChoices){
+    // 下限を満たすまで上位から足す。ただし地名質問(8地方・広域)は、直前に地名質問を
+    // 出していたら足さない。ここで足すと「関東?」「中部?」…と地名が連続してしまい、
+    // せっかくの総当たり防止(areaQuestionAskedRecently)が骨抜きになるため。
+    const areaBlocked = areaQuestionAskedRecently();
+    const fill = scored.filter(s =>
+      !(areaBlocked && (REGION_QUESTION_KEYS.has(s.k) || WIDE_AREA_BOOST_KEYS.has(s.k)))
+    ).map(s => s.k);
+    pool = fill.slice(0, Math.min(minChoices, fill.length));
+    if(pool.length === 0) pool = scored.slice(0, 1).map(s => s.k); // 安全装置
+  }
   const picked = shuffle(pool)[0];
 
   // デバッグパネル用: 質問選択時の評価上位候補を記録しておく(ゲームロジックには影響しない)
