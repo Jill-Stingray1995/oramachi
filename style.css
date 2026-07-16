@@ -1016,6 +1016,156 @@ color: inherit;}
   margin: 10px 0 18px;
 }
 
+/* ---- 今日のチャレンジ ---- */
+/* ---- おらマチからの挑戦状 ---- */
+.challenge-entry-card{
+  position: relative;
+  background: linear-gradient(135deg, #fdf8ec, #f5ecd6);
+  border: 1.5px solid var(--indigo-deep);
+  border-radius: 4px; /* 巻物・証書らしく角を立たせる */
+  padding: 14px 16px;
+  margin: 16px 0;
+  box-shadow: 0 3px 0 rgba(38,58,92,0.15);
+}
+.challenge-entry-card::before{
+  content: "";
+  position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+  background: repeating-linear-gradient(180deg, var(--vermillion) 0 8px, transparent 8px 16px);
+}
+.challenge-entry-title{ font-size: 14px; font-weight: 800; color: var(--indigo-deep); margin-bottom: 4px; }
+.challenge-entry-desc{ font-size: 12px; color: var(--ink-soft); margin-bottom: 10px; line-height: 1.5; }
+.challenge-entry-btn{
+  width: 100%;
+  background: var(--indigo-deep); color: #FBF6E8;
+  border: none; border-radius: 4px; padding: 10px;
+  font-family: 'Zen Maru Gothic', sans-serif; font-weight: 800; font-size: 13px;
+  cursor: pointer;
+}
+.challenge-entry-btn:active{ transform: scale(0.97); }
+
+/* 挑戦状モード内の画面全体に、少し証書らしい雰囲気を出す */
+.challenge-bubble{ background: var(--vermillion-deep); }
+.challenge-hint-list{
+  list-style: none; margin: 12px 0; padding: 0;
+  background: #fdf8ec; border: 1px solid var(--line); border-radius: 4px;
+  padding: 4px 12px;
+}
+.challenge-hint-item{
+  display: flex; align-items: baseline; gap: 8px;
+  padding: 8px 0; font-size: 13px; color: var(--ink); line-height: 1.5;
+  border-bottom: 1px dashed var(--line);
+}
+.challenge-hint-item:last-child{ border-bottom: none; }
+.challenge-hint-num{
+  flex-shrink: 0; font-size: 10.5px; font-weight: 800; color: var(--vermillion-deep);
+  background: rgba(193,67,46,0.1); border-radius: 999px; padding: 2px 8px; white-space: nowrap;
+}
+.challenge-hint-btn{
+  width: 100%; background: none; border: 1.5px solid var(--vermillion); border-radius: 10px;
+  padding: 9px; font-family: 'Zen Maru Gothic', sans-serif; font-weight: 700; font-size: 12.5px;
+  color: var(--vermillion-deep); cursor: pointer; margin-bottom: 10px;
+}
+.challenge-hint-btn:active{ transform: scale(0.97); }
+.challenge-hint-max{ font-size: 11.5px; color: var(--ink-soft); text-align: center; margin-bottom: 10px; }
+
+.challenge-answer-block{ margin: 10px 0; }
+.challenge-input{
+  width: 100%; box-sizing: border-box;
+  border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px;
+  font-family: 'Zen Maru Gothic', sans-serif; font-size: 14px; color: var(--ink);
+  margin-bottom: 6px;
+}
+.challenge-input:focus{ outline: none; border-color: var(--indigo-deep); }
+.challenge-candidates{ display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px; }
+.challenge-candidate-item{
+  text-align: left; background: var(--paper-deep); border: 1px solid var(--line);
+  border-radius: 8px; padding: 8px 10px; font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 12.5px; color: var(--ink); cursor: pointer;
+}
+.challenge-candidate-item:active{ background: rgba(38,58,92,0.08); }
+.challenge-submit-btn{
+  width: 100%; background: var(--vermillion); color: #FFFDF6;
+  border: none; border-radius: 10px; padding: 11px;
+  font-family: 'Zen Maru Gothic', sans-serif; font-weight: 800; font-size: 14px;
+  cursor: pointer;
+}
+.challenge-submit-btn:disabled{ background: var(--line); color: var(--ink-soft); cursor: not-allowed; }
+.challenge-submit-btn:not(:disabled):active{ transform: scale(0.97); }
+
+.challenge-miss-line{ font-size: 15px; font-weight: 700; color: var(--ink); margin: 10px 0; }
+.challenge-score{ font-size: 30px; font-weight: 900; color: var(--vermillion-deep); margin: 6px 0; }
+.challenge-score-sub{ display: block; font-size: 12px; font-weight: 500; color: var(--ink-soft); margin-top: 2px; }
+.challenge-result-card{ border: 1.5px solid var(--indigo-deep); }
+
+.daily-challenge-card{
+  background: linear-gradient(135deg, rgba(38,58,92,0.06), rgba(193,67,46,0.05));
+  border: 1.5px solid var(--line);
+  border-radius: 16px;
+  padding: 12px 14px;
+  margin: 14px 0;
+}
+.daily-challenge-card-head{
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 4px;
+  margin-bottom: 4px;
+}
+.daily-challenge-card-label{ font-size: 12px; font-weight: 800; color: var(--indigo-deep); }
+.daily-challenge-card-streak{ font-size: 10.5px; font-weight: 700; color: var(--vermillion-deep); }
+.daily-challenge-card-theme{ font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 10px; line-height: 1.4; }
+.daily-challenge-card-actions{ display: flex; gap: 8px; align-items: center; }
+.daily-challenge-card-btn{
+  flex: 1;
+  background: var(--vermillion); color: #FFFDF6;
+  border: none; border-radius: 10px; padding: 9px 10px;
+  font-family: 'Zen Maru Gothic', sans-serif; font-weight: 800; font-size: 13px;
+  cursor: pointer;
+}
+.daily-challenge-card-btn:active{ transform: scale(0.97); }
+.daily-challenge-card-done{
+  flex: 1; text-align: center; font-size: 12.5px; font-weight: 700;
+  color: #2e7d50; background: rgba(46,125,80,0.1);
+  border-radius: 10px; padding: 9px 10px;
+}
+.daily-challenge-card-history{
+  background: none; border: 1px solid var(--line); border-radius: 10px;
+  padding: 9px 10px; font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 11.5px; color: var(--ink-soft); cursor: pointer; white-space: nowrap;
+}
+
+/* ---- 結果画面: 今日のチャレンジ達成演出 ---- */
+.daily-challenge-result{
+  margin: 8px 0 4px; padding: 10px 12px;
+  background: rgba(212,160,23,0.1); border: 1.5px solid var(--gold);
+  border-radius: 12px; text-align: center;
+  animation: dailyChallengePop .5s cubic-bezier(.34,1.56,.64,1);
+}
+.daily-challenge-result-miss{ background: rgba(38,58,92,0.05); border-color: var(--line); }
+@keyframes dailyChallengePop{ 0%{transform:scale(.9); opacity:0} 100%{transform:scale(1); opacity:1} }
+.daily-challenge-stamp{ display: flex; align-items: center; justify-content: center; gap: 8px; }
+.daily-challenge-stamp-label{ font-size: 13px; font-weight: 800; color: var(--vermillion-deep); }
+.daily-challenge-stamp-date{
+  font-size: 11px; font-weight: 700; color: #FFFDF6; background: var(--indigo-deep);
+  border-radius: 999px; padding: 2px 8px;
+}
+.daily-challenge-result-theme{ font-size: 11.5px; color: var(--ink-soft); margin-top: 4px; }
+.daily-challenge-streak-line{ font-size: 12px; font-weight: 700; color: var(--vermillion-deep); margin-top: 4px; }
+.daily-challenge-milestone{ font-size: 12px; font-weight: 800; color: var(--gold); margin-top: 4px; }
+@media (prefers-reduced-motion: reduce){
+  .daily-challenge-result{ animation-duration: .15s; }
+}
+
+/* ---- チャレンジ記録画面 ---- */
+.daily-challenge-history-streak{ font-size: 12.5px; color: var(--vermillion-deep); font-weight: 700; text-align: center; margin: 8px 0; }
+.daily-challenge-stamp-grid{
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(54px, 1fr));
+  gap: 8px; margin: 10px 0;
+}
+.daily-challenge-stamp-item{
+  aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, rgba(212,160,23,0.18), rgba(193,67,46,0.10));
+  border: 1.5px solid var(--gold); border-radius: 50%;
+}
+.daily-challenge-stamp-item-date{ font-size: 10px; font-weight: 800; color: var(--vermillion-deep); }
+
 .mode-select{
   display: grid;
   gap: 12px;
@@ -1055,6 +1205,17 @@ color: inherit;}
   font-weight: 900;
   color: var(--vermillion);
   text-align: center;
+}
+.beginner-badge{
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #FFFDF6;
+  background: var(--indigo-deep);
+  border-radius: 999px;
+  padding: 2px 8px;
+  vertical-align: middle;
+  margin-left: 2px;
 }
 .mode-btn-primary .mode-desc{
   display: block;

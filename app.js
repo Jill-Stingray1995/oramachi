@@ -1524,6 +1524,438 @@ let answerHistoryPanelContext = 'ingame';
 // 基礎カウンタ(totalPlays・回答内訳・プレイ日付)を二重に加算しないようにする
 // (giveup記録時に既に1回分カウント済みのため)。
 let isReplayedFromGiveup = false;
+
+// ==================== 今日のチャレンジ ====================
+// 日本時間の日付を基準に、1日1つのお題を決定的に選ぶ(同じ日は必ず同じお題になる)。
+// type: 'theme'(自由なお題、正解すれば達成) / 'region'(指定した地方版で正解すれば達成) /
+//       'condition'(全国版で、特定の条件を満たして正解すれば達成)
+const DAILY_CHALLENGE_THEMES = [
+  { id: 'living',        text: '今住んでいるマチ',            type: 'theme' },
+  { id: 'born',           text: '生まれたマチ',                type: 'theme' },
+  { id: 'travel',         text: '旅行で好きになったマチ',      type: 'theme' },
+  { id: 'lived_before',    text: '以前住んでいたマチ',           type: 'theme' },
+  { id: 'family',          text: '家族にゆかりのあるマチ',       type: 'theme' },
+  { id: 'hokkaido_tohoku', text: '北海道・東北版',              type: 'region', modes: ['hokkaido', 'tohoku'] },
+  { id: 'kanto_chubu',     text: '関東・中部版',                type: 'region', modes: ['kanto', 'chubu'] },
+  { id: 'kinki_chugoku',   text: '近畿・中国版',                type: 'region', modes: ['kinki', 'chugoku'] },
+  { id: 'shikoku_kyushu',  text: '四国・九州沖縄版',            type: 'region', modes: ['shikoku', 'kyushu'] },
+  { id: 'within20',       text: '20問以内に当てさせよう',       type: 'condition', condition: 'within20' },
+  { id: 'no_unknown',     text: '「わからない」を使わずに当てさせよう', type: 'condition', condition: 'no_unknown' },
+  { id: 'no_maybe',       text: '「たぶんそう」「たぶん違う」を使わずに当てさせよう', type: 'condition', condition: 'no_maybe' },
+];
+const DAILY_CHALLENGE_STORAGE_KEY = 'oramachi_daily_challenge_v1';
+const DAILY_CHALLENGE_VERSION = 1;
+// 「今日のチャレンジ」から開始したゲームだけ達成判定をする(通常プレイには一切影響しない)。
+let dailyChallengeActive = null; // null=通常プレイ中 / {id, type, ...} = チャレンジ中のお題
+let dailyChallengeResult = null; // 直近の正解が「今日のチャレンジ」の判定結果だった場合の詳細(結果画面の演出用)
+
+// ==================== おらマチからの挑戦状 ====================
+// 通常モードとは逆に、おらっちが選んだ自治体をヒントを頼りにプレイヤーが当てるモード。
+// 全国制覇帳・正答率など通常モードの統計には一切混ぜず、専用のlocalStorageキーで管理する。
+const CHALLENGE_STORAGE_KEY = 'oramachi_challenge_v1';
+const CHALLENGE_VERSION = 1;
+const CHALLENGE_MAX_HINTS = 5;
+const CHALLENGE_SCORE_BY_HINTS = { 1: 1000, 2: 800, 3: 600, 4: 400, 5: 200 };
+
+// ヒントの優先グループ(小さいほど先に出す)。
+//   1: 地方・都道府県・海などの広い特徴
+//   2: 人口・地形・鉄道・道路
+//   3: 産業・歴史・文化
+//   4: 名物・観光地・ご当地キャラクター
+//   5: それ以外(遊び心・その他=1市限定になりやすい決定的な特徴)
+const CHALLENGE_HINT_GROUP_BY_CATEGORY = {
+  '地理': 1,
+  '統計': 2, '人口・行政': 2, '交通': 2,
+  '歴史・文化': 3, '学問': 3,
+  '観光・娯楽': 4, '食': 4,
+  '遊び心': 5, 'その他': 5,
+};
+function challengeHintGroupFor(key){
+  if(isPrefQuestion(key) || REGION_QUESTION_KEYS.has(key)) return 1;
+  return CHALLENGE_HINT_GROUP_BY_CATEGORY[categoryOf(key)] || 5;
+}
+// グループ1(広い特徴)の中でも、都道府県・地方(pref_*/region_*)を最優先にする。
+// 「海に面している」等の他の地理タグは同じグループ1だが、これらより後回しにしたい。
+function challengeHintSubOrderFor(key){
+  return (isPrefQuestion(key) || REGION_QUESTION_KEYS.has(key)) ? 0 : 1;
+}
+// 【名前そのものの特徴を暗示する質問は使わない】「自治体名に色を表す漢字が入っている」
+// 「自治体名に都道府県名が含まれる」のような質問は、市名そのものを直接示唆する強力な
+// ヒントになってしまい、「地元がバレる理由」としては強すぎる。当てっこの醍醐味である
+// 「地理・産業・観光地から絞り込む」楽しさを損なうため、この種の質問は除外する。
+const CHALLENGE_EXCLUDED_NAME_HINT_KEYS = new Set([
+  'katakana_city_name', 'kana_name', 'number_in_name', 'hiragana_name', 'direction_in_name',
+  'animal_in_name', 'big_small_in_name', 'body_part_in_name', 'color_in_name', 'four_plus_name',
+  'hard_to_read_name', 'kawa_in_name', 'new_old_in_name', 'plant_in_name', 'pref_name_in_city_name',
+  'same_name_other_pref', 'sea_word_in_name', 'shima_in_name', 'ta_in_name', 'yama_in_name',
+  'yotsukaido_name', 'name_same_as_route', 'name_has_betsu', 'old_province_name',
+]);
+
+// 指定した自治体から、ヒントとして使える候補(自治体名を含まない、自然な文章に変換できるもの)を
+// すべて集める。呼び出し元(出題対象の選定/実際のヒント組み立て)の両方で共有する。
+function buildChallengeHintCandidates(city){
+  const nameCore = displayName(city).replace(/[市区町村]$/, '');
+  const candidates = [];
+  const seenTexts = new Set(); // 同じ文言(例: 都道府県=地方名が同じ北海道)の重複を防ぐ
+  Object.keys(city.tags).forEach(key => {
+    if(city.tags[key] !== true) return;
+    if(CHALLENGE_EXCLUDED_NAME_HINT_KEYS.has(key)) return; // 自治体名そのものを暗示する質問は使わない
+    const q = QUESTIONS[key] || STATS_QUESTIONS[key];
+    if(!q || !q.text) return;
+    // 自治体名そのものが質問文に含まれる場合、答えが直接分かってしまうので除外する。
+    if(nameCore && q.text.includes(nameCore)) return;
+    const naturalText = naturalizeQuestionText(key, true);
+    if(!naturalText || naturalText === key) return; // 変換に失敗した(未対応の)ものは使わない
+    if(seenTexts.has(naturalText)) return; // 既に同じ文言のヒントがあれば重複させない
+    seenTexts.add(naturalText);
+    candidates.push({ key, text: naturalText, group: challengeHintGroupFor(key), subOrder: challengeHintSubOrderFor(key), subjective: !!q.subjective });
+  });
+  return candidates;
+}
+
+// 出題対象になり得る自治体の一覧(5個以上の自然なヒントが作れるもの)。
+// 825件のループを毎回行うのはやや重いため、初回に計算した結果をキャッシュしておく。
+let challengeEligibleCitiesCache = null;
+function getChallengeEligibleCities(){
+  if(challengeEligibleCitiesCache) return challengeEligibleCitiesCache;
+  challengeEligibleCitiesCache = CITIES.filter(c => c.name !== '東京' && buildChallengeHintCandidates(c).length >= 5);
+  return challengeEligibleCitiesCache;
+}
+
+// 対象自治体のヒントを、優先グループ(1〜5)順に「各グループから最低1つ」選んでいく。
+// 地理カテゴリのように該当タグが多い自治体でも、1ジャンルだけでヒントが埋まらないようにする。
+// 1周目でグループ1→5の順に1件ずつ取り、まだ枠が余っていれば2周目でグループ1から
+// 順に埋めていく(同グループ内は客観的な質問を先、主観的な質問を後にしてある)。
+function buildOrderedChallengeHints(city){
+  const candidates = buildChallengeHintCandidates(city);
+  const byGroup = { 1: [], 2: [], 3: [], 4: [], 5: [] };
+  candidates.forEach(c => byGroup[c.group].push(c));
+  Object.values(byGroup).forEach(arr => arr.sort((a, b) => {
+    if(a.subOrder !== b.subOrder) return a.subOrder - b.subOrder;
+    return (a.subjective ? 1 : 0) - (b.subjective ? 1 : 0);
+  }));
+
+  const result = [];
+  for(let g = 1; g <= 5 && result.length < CHALLENGE_MAX_HINTS; g++){
+    if(byGroup[g].length > 0) result.push(byGroup[g].shift());
+  }
+  for(let g = 1; g <= 5 && result.length < CHALLENGE_MAX_HINTS; g++){
+    while(byGroup[g].length > 0 && result.length < CHALLENGE_MAX_HINTS){
+      result.push(byGroup[g].shift());
+    }
+  }
+  return result.map(c => c.text);
+}
+
+function emptyChallengeStatsData(){
+  return { version: CHALLENGE_VERSION, bestScore: 0, totalPlays: 0, totalCorrect: 0 };
+}
+function loadChallengeStats(){
+  try{
+    const raw = localStorage.getItem(CHALLENGE_STORAGE_KEY);
+    if(!raw) return emptyChallengeStatsData();
+    const parsed = JSON.parse(raw);
+    if(!parsed || typeof parsed !== 'object' || parsed.version !== CHALLENGE_VERSION){
+      const empty = emptyChallengeStatsData();
+      saveChallengeStats(empty);
+      return empty;
+    }
+    return parsed;
+  }catch(e){
+    console.warn('おらマチ: 挑戦状モードデータの読み込みに失敗したため初期化します', e);
+    const empty = emptyChallengeStatsData();
+    try{ saveChallengeStats(empty); }catch(e2){ /* 保存も失敗する場合は諦める */ }
+    return empty;
+  }
+}
+function saveChallengeStats(data){
+  try{ localStorage.setItem(CHALLENGE_STORAGE_KEY, JSON.stringify(data)); }
+  catch(e){ console.warn('おらマチ: 挑戦状モードデータの保存に失敗しました', e); }
+}
+
+// 現在進行中の挑戦状ゲームの状態。トップページ・通常モードとは完全に独立している。
+let challengeGameState = null; // { city, hints, hintsShown, guessAttempts, finished }
+
+// 入力文字列から、自治体名の候補を検索する。「市」「区」「町」「村」の有無や、
+// 前後の空白といった軽微な表記違いは無視して部分一致させる。
+function searchChallengeCityCandidates(inputText){
+  const normalize = s => (s || '').trim().replace(/\s/g, '').replace(/[市区町村]$/, '');
+  const inputNorm = normalize(inputText);
+  if(!inputNorm) return [];
+  const matches = CITIES.filter(c => {
+    if(c.name === '東京') return false;
+    const name = displayName(c);
+    return normalize(name).includes(inputNorm) || name.includes(inputText.trim());
+  });
+  // 同名の市区町村があれば都道府県も表示して区別できるようにする。
+  const nameCounts = {};
+  matches.forEach(c => { const n = displayName(c); nameCounts[n] = (nameCounts[n] || 0) + 1; });
+  return matches.slice(0, 8).map(c => ({
+    id: cityId(c),
+    label: nameCounts[displayName(c)] > 1 ? `${displayName(c)}（${c.pref}）` : displayName(c),
+  }));
+}
+
+// 「おらマチからの挑戦状」を開始する。全国制覇帳・正答率など通常モードの統計には
+// 一切影響しない、完全に独立したゲーム状態(challengeGameState)で管理する。
+function startChallengeMode(){
+  const eligible = getChallengeEligibleCities();
+  if(eligible.length === 0){
+    // 万一対象が0件でもエラーにせず、案内を出すだけに留める。
+    stage.innerHTML = `
+      <div class="mascot-wrap"><div class="shake">${mascotSVG('sad')}</div></div>
+      <div class="bubble"><span class="icon">🙏</span>今は挑戦状を出せるマチがありません</div>
+      <button class="again" onclick="renderOpening()">トップ画面へ戻る</button>
+    `;
+    return;
+  }
+  const city = eligible[Math.floor(Math.random() * eligible.length)];
+  const hints = buildOrderedChallengeHints(city);
+  challengeGameState = { city, hints, hintsShown: 1, guessAttempts: 0, finished: false };
+  pushGameNavState();
+  trackGaEvent('challenge_mode_start', {});
+  renderChallengeMode();
+}
+
+function renderChallengeMode(){
+  stampsEl.innerHTML = '';
+  const st = challengeGameState;
+  if(!st){ return renderOpening(); }
+
+  const hintsHtml = st.hints.slice(0, st.hintsShown).map((h, i) => `
+    <li class="challenge-hint-item"><span class="challenge-hint-num">ヒント${i + 1}</span>${h}</li>`).join('');
+  const moreHintBtn = st.hintsShown < st.hints.length
+    ? `<button class="challenge-hint-btn" onclick="showNextChallengeHint()">次のヒントを見る（残り${st.hints.length - st.hintsShown}）</button>`
+    : `<div class="challenge-hint-max">これが最後のヒントです</div>`;
+
+  stage.innerHTML = `
+    <div class="mascot-wrap"><div class="pop">${mascotSVG('normal')}</div></div>
+    <div class="bubble challenge-bubble"><span class="icon">📜</span>おらマチからの挑戦状！</div>
+    <ul class="challenge-hint-list">${hintsHtml}</ul>
+    ${moreHintBtn}
+
+    <div class="challenge-answer-block">
+      <input type="text" id="challengeInput" class="challenge-input" placeholder="マチの名前を入力…" autocomplete="off" oninput="onChallengeInputChange()">
+      <div id="challengeCandidates" class="challenge-candidates"></div>
+      <button class="challenge-submit-btn" id="challengeSubmitBtn" onclick="submitChallengeGuess()" disabled>これで回答する</button>
+    </div>
+    <button class="link-btn" onclick="giveUpChallenge()">諦めて答えを見る</button>
+  `;
+  updateDebugPanel();
+}
+
+// 入力欄の内容が変わるたびに呼ばれ、候補一覧を更新する。
+let challengeSelectedCityId = null;
+function onChallengeInputChange(){
+  const input = document.getElementById('challengeInput');
+  const list = document.getElementById('challengeCandidates');
+  const btn = document.getElementById('challengeSubmitBtn');
+  challengeSelectedCityId = null;
+  if(btn) btn.disabled = true;
+  if(!input || !list) return;
+  const candidates = searchChallengeCityCandidates(input.value);
+  list.innerHTML = candidates.map(c => `
+    <button type="button" class="challenge-candidate-item" onclick="selectChallengeCandidate('${c.id.replace(/'/g, "\\'")}', '${c.label.replace(/'/g, "\\'")}')">${c.label}</button>`).join('');
+}
+function selectChallengeCandidate(id, label){
+  challengeSelectedCityId = id;
+  const input = document.getElementById('challengeInput');
+  const list = document.getElementById('challengeCandidates');
+  const btn = document.getElementById('challengeSubmitBtn');
+  if(input) input.value = label;
+  if(list) list.innerHTML = '';
+  if(btn) btn.disabled = false;
+}
+
+function showNextChallengeHint(){
+  const st = challengeGameState;
+  if(!st || st.finished) return;
+  if(st.hintsShown < st.hints.length) st.hintsShown++;
+  renderChallengeMode();
+}
+
+function submitChallengeGuess(){
+  const st = challengeGameState;
+  if(!st || st.finished || !challengeSelectedCityId) return;
+  st.guessAttempts++;
+  const isCorrect = challengeSelectedCityId === cityId(st.city);
+  if(isCorrect){
+    finishChallengeMode(true);
+    return;
+  }
+  // 不正解: すぐに答えは見せず、次のヒントを促す。最大ヒント数まで開示済みなら結果発表。
+  if(st.hintsShown >= st.hints.length){
+    finishChallengeMode(false);
+    return;
+  }
+  st.hintsShown++;
+  challengeSelectedCityId = null;
+  stage.innerHTML = `
+    <div class="mascot-wrap"><div class="shake">${mascotSVG('think')}</div></div>
+    <div class="bubble challenge-bubble"><span class="icon">🤔</span>惜しい！次のヒントを見る？</div>
+    <button class="again" onclick="renderChallengeMode()">次のヒントを見る</button>
+  `;
+}
+
+function giveUpChallenge(){
+  const st = challengeGameState;
+  if(!st || st.finished) return;
+  finishChallengeMode(false, true);
+}
+
+// ゲームを終了させ、結果画面を表示する。統計(loadChallengeStats)もここで更新する。
+function finishChallengeMode(success, gaveUp){
+  const st = challengeGameState;
+  if(!st) return;
+  st.finished = true;
+  const hintsUsed = st.hintsShown;
+  const score = success ? (CHALLENGE_SCORE_BY_HINTS[hintsUsed] || CHALLENGE_SCORE_BY_HINTS[CHALLENGE_MAX_HINTS]) : 0;
+  st.success = success;
+  st.score = score;
+
+  const stats = loadChallengeStats();
+  stats.totalPlays += 1;
+  if(success){
+    stats.totalCorrect += 1;
+    if(score > stats.bestScore) stats.bestScore = score;
+  }
+  saveChallengeStats(stats);
+  trackGaEvent('challenge_mode_complete', { result: success ? 'correct' : 'incorrect', hints_used: hintsUsed, score });
+
+  renderChallengeResult(success, score, hintsUsed);
+}
+
+function renderChallengeResult(success, score, hintsUsed){
+  const st = challengeGameState;
+  const city = st.city;
+  const resultLine = success
+    ? `<div class="hanko">せいかい</div>`
+    : `<div class="challenge-miss-line">正解は「${displayName(city)}」でした</div>`;
+  const scoreLine = success ? `<div class="challenge-score">${score}点<span class="challenge-score-sub">（ヒント${hintsUsed}個で正解）</span></div>` : '';
+
+  stage.innerHTML = `
+    <div class="share-card challenge-result-card" id="challengeResultCard">
+      <div class="share-card-head">
+        <span class="share-eyebrow">おらマチからの挑戦状</span>
+        ${success ? happyCelebrationMascotHTML() : `<div class="mascot-wrap"><div class="pop">${mascotSVG('sad')}</div></div>`}
+      </div>
+      ${resultLine}
+      <div class="result-name">${displayName(city)}</div>
+      <div class="result-pref">${city.pref}</div>
+      ${scoreLine}
+      <div class="fact">${city.fact || ''}</div>
+    </div>
+    <div class="result-actions-primary">
+      <button class="again" onclick="startChallengeMode()">もう一度挑戦する</button>
+    </div>
+    <div class="result-actions-secondary">
+      <button class="share-btn-text" onclick="shareChallengeResult()">
+        <svg class="x-icon" viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        結果をシェア
+      </button>
+      <button class="link-btn" onclick="renderOpening()">トップへ戻る</button>
+    </div>
+  `;
+  updateDebugPanel();
+}
+
+function shareChallengeResult(){
+  const st = challengeGameState;
+  if(!st) return;
+  trackGaEvent('share', { method: 'x_text', content_type: 'challenge_result' });
+  trackGaEvent('share_button_click', { method: 'x_text_challenge' });
+  incrementShareCount();
+  const text = st.success
+    ? `🦝 おらマチからの挑戦状に正解！\n「${displayName(st.city)}」を${st.hintsShown}個のヒントで当てて${st.score}点でした。 #おらマチ`
+    : `🦝 おらマチからの挑戦状に挑戦！\n正解は「${displayName(st.city)}」でした。次は当ててみせる！ #おらマチ`;
+  const pageUrl = location.href.split('#')[0];
+  const intent = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(pageUrl)}`;
+  window.open(intent, '_blank', 'noopener,noreferrer');
+}
+
+function emptyDailyChallengeData(){
+  return { version: DAILY_CHALLENGE_VERSION, completedDates: [], currentStreak: 0, maxStreak: 0, history: [] };
+}
+function loadDailyChallengeData(){
+  try{
+    const raw = localStorage.getItem(DAILY_CHALLENGE_STORAGE_KEY);
+    if(!raw) return emptyDailyChallengeData();
+    const parsed = JSON.parse(raw);
+    if(!parsed || typeof parsed !== 'object' || parsed.version !== DAILY_CHALLENGE_VERSION
+       || !Array.isArray(parsed.completedDates) || !Array.isArray(parsed.history)){
+      console.warn('おらマチ: 今日のチャレンジデータの形式が不正なため、初期化します');
+      const empty = emptyDailyChallengeData();
+      saveDailyChallengeData(empty);
+      return empty;
+    }
+    return parsed;
+  }catch(e){
+    console.warn('おらマチ: 今日のチャレンジデータの読み込みに失敗したため初期化します', e);
+    const empty = emptyDailyChallengeData();
+    try{ saveDailyChallengeData(empty); }catch(e2){ /* 保存も失敗する場合は諦める */ }
+    return empty;
+  }
+}
+function saveDailyChallengeData(data){
+  try{ localStorage.setItem(DAILY_CHALLENGE_STORAGE_KEY, JSON.stringify(data)); }
+  catch(e){ console.warn('おらマチ: 今日のチャレンジデータの保存に失敗しました', e); }
+}
+
+// 日付文字列(YYYY-MM-DD)から、決定的な0以上の整数を作る簡易ハッシュ。
+// 「同じ日は必ず同じ値」「日によって変わる」の両方を満たせればよいので、暗号強度は不要。
+function simpleDateHash(dateStr){
+  let h = 0;
+  for(let i = 0; i < dateStr.length; i++){
+    h = (h * 31 + dateStr.charCodeAt(i)) >>> 0;
+  }
+  return h;
+}
+
+// 今日のお題を返す。地方型のお題は、含まれる2地方のうちどちらを実際に開始するかも
+// ここで(日付から決定的に)確定させ、themeオブジェクトの resolvedMode に入れておく。
+function getTodaysChallenge(){
+  const dateStr = todayJstDateString();
+  const hash = simpleDateHash(dateStr);
+  const theme = DAILY_CHALLENGE_THEMES[hash % DAILY_CHALLENGE_THEMES.length];
+  let resolvedMode = 'all';
+  if(theme.type === 'region'){
+    resolvedMode = theme.modes[Math.floor(hash / DAILY_CHALLENGE_THEMES.length) % theme.modes.length];
+  }
+  return { ...theme, dateStr, resolvedMode };
+}
+
+// 今日、既に達成済みかどうか。
+function isTodaysChallengeCompleted(){
+  const data = loadDailyChallengeData();
+  return data.completedDates.includes(todayJstDateString());
+}
+
+// トップページの「今日のチャレンジ」カードのHTMLを組み立てる。目立たせすぎて通常の
+// 開始ボタン(ビギナー版)を邪魔しないよう、コンパクトな1枚のカードに収める。
+function renderDailyChallengeCardHtml(){
+  const theme = getTodaysChallenge();
+  const completed = isTodaysChallengeCompleted();
+  const data = loadDailyChallengeData();
+  const streakLine = data.currentStreak >= 2
+    ? `<span class="daily-challenge-card-streak">🔥 ${data.currentStreak}日連続達成中</span>`
+    : '';
+  const statusHtml = completed
+    ? `<span class="daily-challenge-card-done">✓ 今日は達成済み</span>`
+    : `<button class="daily-challenge-card-btn" onclick="startDailyChallenge()">挑戦する</button>`;
+
+  return `
+    <div class="daily-challenge-card">
+      <div class="daily-challenge-card-head">
+        <span class="daily-challenge-card-label">📅 今日のチャレンジ</span>
+        ${streakLine}
+      </div>
+      <div class="daily-challenge-card-theme">今日は「${theme.text}」で挑戦</div>
+      <div class="daily-challenge-card-actions">
+        ${statusHtml}
+        <button class="daily-challenge-card-history" onclick="renderDailyChallengeHistory()">記録を見る</button>
+      </div>
+    </div>`;
+}
 let questionShownAt = null; // 現在の質問が画面に表示された時刻(回答時間の計測用)
                               // 「地元バレポイント」を、質問を出した後に振り返って計算するために使う。
 let modeStartCount = 0;      // 今のモードを開始した時点の自治体数(候補数表示の分母に使う)
@@ -5160,6 +5592,7 @@ try{
       else if(st.oramachiScreen === 'game'){ renderOpening(); } // ゲーム中・結果画面からは、常にトップ画面へ
       else if(st.oramachiScreen === 'conquestLog'){ renderConquestLog(); }
       else if(st.oramachiScreen === 'conquestMap'){ renderConquestMapView(); }
+      else if(st.oramachiScreen === 'dailyChallengeHistory'){ renderDailyChallengeHistory(); }
       else if(st.oramachiScreen === 'prefectureCards'){ renderPrefectureCards(); }
       else if(st.oramachiScreen === 'prefectureDetail'){ renderPrefectureDetail(st.pref); }
       else if(st.oramachiScreen === 'achievements'){ renderAchievementsPage(); }
@@ -5188,13 +5621,15 @@ function renderOpening(){
          優先順位: ①キャラクター ②メインコピー ③開始ボタン ④説明 ⑤今日の挑戦者数 -->
     <h1 class="catch-copy" id="catchCopy">あなたの地元、<br class="catch-copy-br">30問以内で当てます。</h1>
     <button class="mode-btn mode-btn-primary" onclick="startMode('capitals')">
-      <span class="mode-title">さっそく遊んでみる！</span>
+      <span class="mode-title">さっそく遊んでみる！ <span class="beginner-badge">ビギナー版</span></span>
       <span class="mode-desc">全国の道府県庁所在地と東京23区から当てます</span>
     </button>
     <p class="catch-copy-sub">
       今のところ全国の市・東京23区・新潟県の町村に対応！<br>
       「はい」「いいえ」で答えるだけ。おらっちがあなたの地元を推理します。
     </p>
+
+    ${renderDailyChallengeCardHtml()}
 
     <div class="mode-select">
       <div class="mode-sub-head">モードを選んであそぶ</div>
@@ -5225,6 +5660,13 @@ function renderOpening(){
           </button>`).join('')}
       </div>
     </div>
+
+    <div class="challenge-entry-card">
+      <div class="challenge-entry-title">📜 おらマチからの挑戦状</div>
+      <div class="challenge-entry-desc">ヒントを頼りに、おらっちが選んだマチを当てよう！</div>
+      <button class="challenge-entry-btn" onclick="startChallengeMode()">挑戦状を受け取る</button>
+    </div>
+
     <div class="opening-sub-nav">
       <button class="conquest-entry-btn" onclick="renderConquestLog()">📖 全国制覇帳</button>
       <button class="conquest-entry-btn" onclick="renderAchievementsPage()">🏅 称号一覧</button>
@@ -5369,6 +5811,39 @@ function renderStatsDetailBody(detail){
     ${sampleNote}
     <p class="stats-period-note">集計期間: ${STATS_PERIOD_LABELS[statsPagePeriod]}</p>
   `;
+}
+
+// 「今日のチャレンジ」の過去の達成記録一覧。トップページの「記録を見る」から開く。
+function renderDailyChallengeHistory(){
+  stampsEl.innerHTML = '';
+  pushNavState('dailyChallengeHistory');
+  const data = loadDailyChallengeData();
+  const total = data.completedDates.length;
+  const sortedHistory = [...data.history].sort((a, b) => b.date.localeCompare(a.date));
+
+  const streakHtml = data.currentStreak >= 2
+    ? `<div class="daily-challenge-history-streak">🔥 現在${data.currentStreak}日連続達成中(最長${data.maxStreak}日)</div>`
+    : (data.maxStreak >= 2 ? `<div class="daily-challenge-history-streak">これまでの最長連続記録: ${data.maxStreak}日</div>` : '');
+
+  const stampsHtml = sortedHistory.length
+    ? `<div class="daily-challenge-stamp-grid">${sortedHistory.map(h => `
+        <div class="daily-challenge-stamp-item" title="${h.themeText || ''}">
+          <div class="daily-challenge-stamp-item-date">${h.date.slice(5).replace('-', '/')}</div>
+        </div>`).join('')}</div>`
+    : `<div class="conquest-muted">まだ達成記録がありません。今日のチャレンジに挑戦してみましょう！</div>`;
+
+  stage.innerHTML = `
+    <div class="mascot-wrap"><div class="pop">${mascotSVG('normal')}</div></div>
+    <div class="bubble"><span class="icon">📅</span>チャレンジ記録</div>
+    <div class="conquest-summary">
+      <div class="conquest-summary-main">これまで ${total} 日達成</div>
+    </div>
+    ${streakHtml}
+    <div class="conquest-section-title">達成スタンプ</div>
+    ${stampsHtml}
+    <button class="again" onclick="renderOpening()">トップ画面へ戻る</button>
+  `;
+  updateDebugPanel();
 }
 
 function renderAchievementsPage(){
@@ -6065,6 +6540,57 @@ function replayAnswersWithChange(changeIndex, newVal, newWeight){
   return true;
 }
 
+// 「今日のチャレンジ」カードの「挑戦する」ボタンから呼ばれる。
+// 通常のstartMode()をそのまま使い、その直後にチャレンジ情報をセットするだけなので、
+// 既存のゲーム進行ロジックには一切手を加えていない。
+// 日付文字列(YYYY-MM-DD)に days 日を加算(負なら減算)した文字列を返す。
+// Dateオブジェクトのローカルタイムゾーン依存のgetDate/setDateは使わず、
+// UTCの年月日として扱って計算するため、実行環境のタイムゾーンに関わらず結果が安定する。
+function addDaysToDateString(dateStr, days){
+  const [y, m, d] = dateStr.split('-').map(Number);
+  const dt = new Date(Date.UTC(y, m - 1, d));
+  dt.setUTCDate(dt.getUTCDate() + days);
+  return dt.toISOString().slice(0, 10);
+}
+
+// 「今日のチャレンジ」を達成したときに呼ぶ。同じ日に何度呼ばれても、記録は1回分だけ増える
+// (completedDatesに今日の日付が既にあれば、streakやhistoryを増やさず何もしない)。
+// 戻り値: { justAchieved, streak, isNewStreakMilestone } (呼び出し元で演出に使う)
+function recordDailyChallengeCompletion(theme, totalQuestions){
+  const data = loadDailyChallengeData();
+  const today = todayJstDateString();
+  if(data.completedDates.includes(today)){
+    return { justAchieved: false, streak: data.currentStreak, isNewStreakMilestone: false };
+  }
+
+  // 連続記録の判定: 前回達成日が「昨日」なら継続、そうでなければ今日から1日目としてやり直す。
+  // 【前向きな表現の方針】途切れたこと自体を責める文言はどこにも出さない。あくまで
+  // 「これまで◯日達成」という積み上げの数字だけを見せる。
+  const sortedDates = [...data.completedDates].sort();
+  const lastDate = sortedDates[sortedDates.length - 1];
+  const yesterday = addDaysToDateString(today, -1);
+  const continuing = lastDate === yesterday;
+  data.currentStreak = continuing ? data.currentStreak + 1 : 1;
+  if(data.currentStreak > data.maxStreak) data.maxStreak = data.currentStreak;
+  data.completedDates.push(today);
+  data.history.push({ date: today, themeId: theme.id, themeText: theme.text, questionCount: totalQuestions || null, at: new Date().toISOString() });
+  // 履歴が無限に膨らまないよう、直近120件程度に留める(スタンプ帳として十分な量)。
+  if(data.history.length > 120) data.history = data.history.slice(-120);
+
+  const isNewStreakMilestone = (data.currentStreak % 7 === 0);
+  saveDailyChallengeData(data);
+  trackGaEvent('daily_challenge_complete', { theme_id: theme.id, streak: data.currentStreak });
+  if(isNewStreakMilestone) trackGaEvent('daily_challenge_streak_milestone', { streak: data.currentStreak });
+  return { justAchieved: true, streak: data.currentStreak, isNewStreakMilestone };
+}
+
+function startDailyChallenge(){
+  const theme = getTodaysChallenge();
+  trackGaEvent('daily_challenge_start', { theme_id: theme.id, mode: theme.resolvedMode });
+  startMode(theme.resolvedMode);
+  dailyChallengeActive = theme;
+}
+
 function startMode(mode){
   currentMode = mode;
   pushGameNavState(); // ここから戻ったらトップ画面、という目印を履歴に積む
@@ -6095,6 +6621,7 @@ function startMode(mode){
   guessFailureLog = [];
   isReplayedFromGiveup = false;
   answerHistoryPanelContext = 'ingame';
+  dailyChallengeActive = null; // 「今日のチャレンジ」経由でなければ必ずnull(通常プレイとして扱う)
   modeStartCount = modeCities.length;
   lastDisplayedRemainingCount = null;
 
@@ -7917,6 +8444,24 @@ function correct(isRight, overrideCity){
     // 称号獲得演出(新しく解除された称号があるときだけ表示。1件ずつ確認できる形にする)
     const achievementHtml = `<div id="achievementToastContainer">${renderAchievementToastCard(newAchievements)}</div>`;
 
+    // 【今日のチャレンジ】達成した場合だけ、日付入りスタンプと短い演出を表示する。
+    // 同じ日に2回目以降で条件を満たしても、スタンプ自体は増やさない(すでに達成済みの旨を伝える)。
+    const dailyChallengeHtml = (dailyChallengeResult && dailyChallengeResult.achieved)
+      ? `<div class="daily-challenge-result">
+          <div class="daily-challenge-stamp">
+            <span class="daily-challenge-stamp-label">${dailyChallengeResult.justAchieved ? '今日のチャレンジ達成' : '今日はすでに達成済み'}</span>
+            <span class="daily-challenge-stamp-date">${todayJstDateString()}</span>
+          </div>
+          <div class="daily-challenge-result-theme">お題: ${dailyChallengeResult.theme.text}</div>
+          ${dailyChallengeResult.justAchieved && dailyChallengeResult.streak >= 2 ? `<div class="daily-challenge-streak-line">これまで${dailyChallengeResult.streak}日連続で達成中！</div>` : ''}
+          ${dailyChallengeResult.justAchieved && dailyChallengeResult.isNewStreakMilestone ? `<div class="daily-challenge-milestone">🎉 ${dailyChallengeResult.streak}日連続達成のごほうびスタンプ！</div>` : ''}
+        </div>`
+      : (dailyChallengeActive
+        ? `<div class="daily-challenge-result daily-challenge-result-miss">
+            <div class="daily-challenge-result-theme">今日のお題「${dailyChallengeActive.text}」は今回は条件を満たせませんでした。またいつでも挑戦できます！</div>
+          </div>`
+        : '');
+
     stage.innerHTML = `
       <div class="share-card" id="shareCard">
         <div class="share-card-head">
@@ -7926,6 +8471,7 @@ function correct(isRight, overrideCity){
         <div class="hanko">あたり</div>
         <div class="result-name">${displayName(guess)}</div>
         <div class="result-pref">${guess.pref}</div>
+        ${dailyChallengeHtml}
         <div class="result-line">おらっちが <b>${totalQuestions}問</b> で当てました!</div>
         ${praiseHtml}
         ${bestHtml}
@@ -7973,6 +8519,24 @@ function correct(isRight, overrideCity){
     });
 
     sendGameResult('success', currentResult.city);
+
+    // 【今日のチャレンジ】このゲームが「今日のチャレンジ」経由で始まっていた場合だけ判定する。
+    // 通常プレイ(dailyChallengeActiveがnull)には一切影響しない。
+    dailyChallengeResult = null;
+    if(dailyChallengeActive){
+      const cond = dailyChallengeActive;
+      let achieved = false;
+      if(cond.type === 'theme' || cond.type === 'region'){
+        achieved = true; // 正解できた時点で条件達成(テーマ/地方は「その範囲で正解する」ことが条件のため)
+      } else if(cond.type === 'condition'){
+        if(cond.condition === 'within20') achieved = totalQuestions <= 20;
+        else if(cond.condition === 'no_unknown') achieved = !answerLog.some(a => a.val === null);
+        else if(cond.condition === 'no_maybe') achieved = !answerLog.some(a => a.weight != null && a.weight < 1);
+      }
+      const recordResult = achieved ? recordDailyChallengeCompletion(cond, totalQuestions) : null;
+      dailyChallengeResult = { theme: cond, achieved, ...(recordResult || {}) };
+    }
+
     updateDebugPanel();
     return;
   }
