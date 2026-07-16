@@ -3311,11 +3311,11 @@ const ACHIEVEMENTS = [
     } },
   { id:'hidden_lost_local', name:'地元なのに迷子', description:'過去にゲームが誤推測したことが2回以上ある自治体を、後のプレイで正解する', category:'hidden', rarity:2, hidden:true,
     check: ctx => !!ctx.game && ctx.game.success && (ctx.game.misguessedBeforeCount || 0) >= 2 },
-  { id:'hidden_max30', name:'おらっちも分かりません', description:'最大30問まで到達する', category:'hidden', rarity:1, hidden:true,
+  { id:'hidden_max30', name:'おらっちも分かりません', description:'質問の上限まで到達する', category:'hidden', rarity:1, hidden:true,
     check: ctx => !!ctx.game && ctx.game.totalQuestions >= (MAX_Q + MAX_EXTRA_Q) },
   { id:'hidden_extra_win', name:'もう一問いかせて！', description:'追加質問へ進んだ後に正解する', category:'hidden', rarity:2, hidden:true,
     check: ctx => !!ctx.game && ctx.game.success && ctx.game.guessAttempts >= 1 },
-  { id:'hidden_last_question', name:'大逆転の地元バレ', description:'30問目で正解する', category:'hidden', rarity:4, hidden:true,
+  { id:'hidden_last_question', name:'大逆転の地元バレ', description:'最後の質問で正解する', category:'hidden', rarity:4, hidden:true,
     check: ctx => !!ctx.game && ctx.game.success && ctx.game.totalQuestions === (MAX_Q + MAX_EXTRA_Q) },
   { id:'hidden_second_guess', name:'たぬきに化かされた', description:'最初の推測は不正解で、次の推測で正解する', category:'hidden', rarity:2, hidden:true,
     check: ctx => !!ctx.game && ctx.game.success && ctx.game.guessAttempts === 1 },
@@ -6195,7 +6195,7 @@ function renderOpening(){
 
     <!-- 【キャッチコピー】5秒で内容が伝わることを優先し、文章は増やしすぎない。
          優先順位: ①キャラクター ②メインコピー ③開始ボタン ④説明 ⑤今日の挑戦者数 -->
-    <h1 class="catch-copy" id="catchCopy">あなたの地元、<br class="catch-copy-br">30問以内で当てます。</h1>
+    <h1 class="catch-copy" id="catchCopy">あなたの地元、<br class="catch-copy-br">おらっちが当てます。</h1>
     <button class="mode-btn mode-btn-primary" onclick="startMode('capitals')">
       <span class="mode-title">さっそく遊んでみる！ <span class="beginner-badge">ビギナー版</span></span>
       <span class="mode-desc">全国の道府県庁所在地と東京23区から当てます</span>
