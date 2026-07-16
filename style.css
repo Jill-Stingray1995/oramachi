@@ -92,12 +92,10 @@ color: inherit;}
   .qbar-head{
     position: absolute; top: 50%;
     transform: translate(-50%, -50%);
-    font-size: 22px; line-height: 1;
-    color: var(--vermillion);
+    font-size: 22px; line-height: 1; /* 大きめに表示(以前の12pxより拡大) */
     filter: drop-shadow(0 1px 2px rgba(0,0,0,0.22));
     transition: left .35s ease;
   }
-  .qbar-head svg{ display:block; }
   /* 追加質問中は色を変えて、通常質問との違いが分かるようにする */
   .qbar-extra{ background: rgba(38,58,92,0.08); }
   .qbar-extra .qbar-fill{
@@ -833,12 +831,15 @@ color: inherit;}
    スマホの一画面目でも開始ボタンまで見えるよう、余白を詰めめにしている。 */
 .catch-copy{
   font-family: 'Zen Maru Gothic', sans-serif;
-  font-size: 22px;
+  /* 画面幅に応じて15px〜19pxの範囲で自動調整し、狭い画面でも1行に収まりやすくする。
+     nowrapで固定すると収まらない端末で画面外にはみ出す恐れがあるため、可変サイズにしている。 */
+  font-size: clamp(15px, 4.8vw, 19px);
   font-weight: 900;
   line-height: 1.45;
   color: var(--indigo-deep);
   text-align: center;
   margin: 4px 0 14px;
+  white-space: nowrap;
 }
 .catch-copy-br{ display: none; } /* PCなど横幅に余裕があるときは折り返さない */
 .catch-copy-sub{

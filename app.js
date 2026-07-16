@@ -45,7 +45,7 @@ const KEYS = ['hitachi_seaside_park','tsuchiura_hanabi','koga_kubo','toride_geid
   'ic_takamatsu','ic_tokushima','ic_matsuyama','ic_kochi',
   'ic_kyushu','ic_higashi_kyushu','ic_nagasaki','ic_oita','ic_miyazaki','ic_okinawa',
   'koshien_champion','sumo_yokozuna_ozeki','famous_cape',
-  'yamata_no_orochi','hibagon','mori_motonari','hiruzen_highland','miyamoto_musashi_station','akiyoshidai','mizuki_shigeru_road','yasugi_bushi','gonokawa','donticchi_fish','shokasonjuku','motonosumi_shrine','bizen_ware','osafune_sword_museum','naoshima_gateway','horseshoe_crab_museum','astronomy_city','sunameri','naval_academy','goldfish_lantern','ito_hirobumi_birthplace','train_factory','stork','hyonosen','takeda_castle','tamba_dinosaur','black_soybeans','japan_navel','miki_hardware','balloon_city','sake_birthplace','peron_festival','ako_ronin','awaji_puppet_theater','nijigen_no_mori','akechi_mitsuhide_castle','gunze_birthplace','nihon_sankei','singing_sand','miyama_thatched_village','hozugawa_boat_ride','doushisha','nagaoka_tenmangu','joruriji','jrosyu_ume','ritsumeikan','pm_birthplace',
+  'yamata_no_orochi','hibagon','mori_motonari','hiruzen_highland','miyamoto_musashi_station','akiyoshidai','mizuki_shigeru_road','yasugi_bushi','gonokawa','donticchi_fish','shokasonjuku','motonosumi_shrine','bizen_ware','osafune_sword_museum','naoshima_gateway','horseshoe_crab_museum','astronomy_city','sunameri','naval_academy','goldfish_lantern','ito_hirobumi_birthplace','train_factory','stork','hyonosen','takeda_castle','tamba_dinosaur','black_soybeans','japan_navel','miki_hardware','balloon_city','saga_balloon_festa','sake_birthplace','peron_festival','ako_ronin','awaji_puppet_theater','nijigen_no_mori','akechi_mitsuhide_castle','gunze_birthplace','nihon_sankei','singing_sand','miyama_thatched_village','hozugawa_boat_ride','doushisha','nagaoka_tenmangu','joruriji','jrosyu_ume','ritsumeikan','pm_birthplace',
   'name_has_betsu','hokkaido_greenland','famous_prison','yakitori_famous_bibai','coal_mine_shaft','drift_ice','suffolk_sheep','ammonite_fossil','matsuo_jingisukan','sweet_road','least_populous_city','urokodango','bear_park','fighters_farm',
   
   'bijin_town','yoshi_ikuzo','oirase','osorezan','shakoki_dogu','seibien','jodogahama','goishi_coast','miyazawa_kenji','tensho_chi','amber_kuji','tono_monogatari','geibikei','ipponmatsu','ohtani_shohei','zashiki_warashi','appi_kogen','ishinomori','chagu_chagu','shiogama_shrine','fukahire','shiroishi_umen','sendai_airport','jaxa_kakuda','takekoma_shrine','meiji_mura','kano_eiko','blue_impulse','naruko_onsen','town_to_city_2016',
@@ -982,6 +982,7 @@ const QUESTIONS = {
   japan_navel: {text:'東経135度と北緯35度が交わる「日本のへそ」？', icon:'🗺️'},
   miki_hardware: {text:'大工道具などの「三木金物」で有名？', icon:'🏭', subjective:true},
   balloon_city: {text:'「気球の飛ぶまち」を掲げている？', icon:'✨'},
+  saga_balloon_festa: {text:'バルーンフェスタで有名なマチ？', icon:'🎈', subjective:true},
   sake_birthplace: {text:'日本酒発祥の地を名乗っている？', icon:'🍽️'},
   peron_festival: {text:'ペーロン競漕の祭りで有名？', icon:'🎡', subjective:true},
   ako_ronin: {text:'忠臣蔵と赤穂浪士のまち？', icon:'🏯'},
@@ -2531,6 +2532,10 @@ const MODES = {
     label: '全国版',
     description: '日本全国の市と新潟県の町村が対象です。東京都は多摩地区の市と23区を区ごとに当てます。'
   },
+  capitals: {
+    label: '県庁所在地・23区版',
+    description: '県庁所在地と東京23区だけで当てます'
+  },
   niigata: {
     label: '新潟県版',
     description: '新潟県の市町村だけで当てます'
@@ -2650,6 +2655,11 @@ function isPrefAdjacent(a, b){
 }
 
 function getModeCities(mode){
+  if(mode === 'capitals'){
+    // 「さっそく遊んでみる」用の入り口モード。県庁所在地(新宿区含む47件)と
+    // 東京23区(23件)の合算だが、新宿区は両方に該当するため重複しないようフィルタする。
+    return CITIES.filter(c => c.name !== '東京' && (c.tags.prefectural_capital || c.tags.is_tokyo_ward));
+  }
   if(mode === 'niigata'){
     return CITIES.filter(c => c.pref === '新潟県');
   }
@@ -2836,15 +2846,6 @@ function shuffle(arr){
   return a;
 }
 
-// 進行バーの目印に使う鳥居アイコン。色付き絵文字(⛩)はCSSで色を変えられないため、
-// currentColorで塗るSVGにして、進行バー側の赤色・大きさ指定を効かせている。
-const TORII_ICON_SVG = '<svg viewBox="0 0 24 22" width="1em" height="1em" fill="none" xmlns="http://www.w3.org/2000/svg">'
-  + '<path d="M1 6.5L3 3h18l2 3.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>'
-  + '<path d="M2.4 9H21.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>'
-  + '<path d="M6 9v11M18 9v11" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>'
-  + '<path d="M12 9v6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>'
-  + '</svg>';
-
 function renderStamps(){
   // 【進行バー】以前は上限34問ぶんの鳥居スタンプを並べていたが、スマホでは小さく詰まって
   // 圧迫感が出ていた。34個並べる代わりに、5問ごとの目盛りが付いた1本のバーで表す。
@@ -2876,12 +2877,12 @@ function renderStamps(){
   bar.appendChild(fill);
 
   // 現在地の目印。通常質問は鳥居、追加質問は虫めがねで区別する。
-  // 絵文字の⛩は色付きの絵文字でCSSから色を変えられないため、
-  // 色・大きさを自在に変えられるSVGの鳥居アイコンに差し替えている。
+  // ⛩は色付きの絵文字(CSSのcolorでは色を変えられない)だが、鳥居らしい見た目を
+  // 優先してご指定のとおり絵文字のまま使う。大きさはCSS側のfont-sizeで調整する。
   const head = document.createElement('span');
   head.className = 'qbar-head';
   head.style.left = (ratio * 100) + '%';
-  head.innerHTML = isExtra ? '🔎' : TORII_ICON_SVG;
+  head.textContent = isExtra ? '🔎' : '⛩';
   bar.appendChild(head);
 
   stampsEl.appendChild(bar);
@@ -2936,7 +2937,7 @@ const MODE_ONLY_KEYS = {
   ],
   kyushu: ['northern_kyushu','southern_kyushu','ariake_coast','fukuoka_metro','kitakyushu_area','chikugo_area','chikuho_area','chikuzen_area','satsuma_area','osumi_area','okinawa_main_island','okinawa_south_central','sakishima_islands','kagoshima_main_line','nippo_main_line','nishitetsu_line',
     'nakoku_no_oka','miike_tanko','sakurai_futamigaura','ushikubi_sueki','munakata_hetsugu','goshogatani_kogoishi','funabaru_kofun','hikari_no_michi','tanabata_jinja','nogata_meteorite','yanagawa_kudari','yame_gyokuro','sakuta_no_unade','tagawa_sekitan','hishino_suisha','oda_hiroki_museum','kiyomizudera_teien','toyota_kyushu','chikugo_yoshii','karatsu_kunchi','tosu_junction','okawachiyama','takeo_onsen_romon','ogi_yokan','kunenan','yutoku_inari','ureshino_bihada','isahaya_meganebashi','nagasaki_airport_omura','koi_no_oyogu_machi','hara_castle','unzen_jigoku','fukuejima_onidake','ajifry_seichi','tsushima_border','mugi_shochu_iki','nanatsugama_shonyudo','hirado_oranda','igusa_yatsushiro','sakitsu_shuraku','takaba_countrypark','hiryu_no_kane','misumi_nishiko','mandako_greenland','aoi_aso_jinja','kusasenrigahama','takasakiyama_saru','fukuzawa_karaage','bungo_futamigaura','usa_jingu','usuki_magaibutsu','harajiri_no_taki','kinrinko_yufuin','oka_castle','showa_no_machi','sandwich_jokamachi','futagoji','tsukumi_sakura_maguro','sekinoo_taki','nobeoka_ishigaki','umagase_cross','saitobaru_kofun','toimisaki_uma','ebino_kogen','shirokuma_tenmonkan','shiobitashi_onsen','kokuritsu_taiiku_univ','kamou_no_okusu','tsuru_ettochi','kinsakubaru_keihan','satsumayaki_miyama','bonotsu_ganjin','mizonokuchi_doketsu','chiran_bukeyashiki','daguri_misaki','makurazaki_station','bontan_shika','teppokan','satsuma_ryugakusei','koza_eisa','kaichu_doro_katsuren','okinawa_convention','heiwa_kinen_himeyuri','senagajima_umikaji','kabira_bay','irabu_ohashi','sefa_utaki',
-    'kyushu_shinkansen_station','nishikyushu_shinkansen_station','castella_famous','hamburger_famous','onga_pump','koinoki','hiyoko','kubote_san','taku_seibyo','minamata_museum','kikuchi_keikoku','mikoshiki_coast','amakusa_bridges','ikoma_kogen','senbon_icho','sogi_no_taki','orion_beer'
+    'kyushu_shinkansen_station','nishikyushu_shinkansen_station','castella_famous','hamburger_famous','onga_pump','koinoki','hiyoko','kubote_san','taku_seibyo','minamata_museum','kikuchi_keikoku','mikoshiki_coast','amakusa_bridges','ikoma_kogen','senbon_icho','sogi_no_taki','orion_beer','saga_balloon_festa'
   ]
 };
 
@@ -3992,6 +3993,7 @@ const TAG_GAME_CATEGORY = {
   "japan_navel": "地理",
   "miki_hardware": "その他",
   "balloon_city": "遊び心",
+  "saga_balloon_festa": "遊び心",
   "sake_birthplace": "食",
   "peron_festival": "観光・娯楽",
   "ako_ronin": "歴史・文化",
@@ -4481,6 +4483,13 @@ const PREF_REGION_DONE_MIN_Q   = 4;   // 早期解禁の場面での質問数の
 // 加点しないと、候補9件で「秋田県ですか?」(2/7に割れる)は「名前がひらがな?」(4/5に割れる)に
 // 効率で負けて、実測では50ゲーム中1回も出なかった。地名で大きく分ける流れを作るための下駄。
 const PREF_BOOST_AMOUNT        = 22;
+// capitalsモードで都道府県質問を解禁する候補数の目安。69件を数問(地方質問・一般質問)で
+// このくらいまで絞ってから、都道府県で一気に仕上げる。
+const PREF_CAPITALS_UNLOCK_POOL = 25;
+// capitalsモード(県庁所在地・23区限定)専用。地方質問のブースト(60)にも対抗できるよう、
+// 全国版向けの加点(22)よりずっと大きくする。都道府県ごとに候補が最大1〜2件しかない
+// このモードでは、都道府県質問こそが最も効率よく絞れる手段のため。
+const PREF_BOOST_AMOUNT_CAPITALS = 80;
 
 function isPrefQuestion(key){ return PREF_QUESTION_KEYS.has(key); }
 
@@ -4502,6 +4511,16 @@ function areaOrPrefAskedRecently(n){
 // 地方が判明していて候補も減っている「都道府県質問を使いたい場面」かどうか。
 // 直前2問以内に地方・都道府県質問を出していたら、地名が続いて総当たりに見えるので見送る。
 function prefRegionUnlockNow(poolSize, regionDone){
+  // 【capitalsモード専用】県庁所在地・東京23区限定(69件)では、47都道府県を1つずつ
+  // 聞くのは非効率(1問で1件しか減らせない)。かといって「地方が判明してから」という
+  // 条件は、この母集団では地方がどこも突出して多くならない(最多の関東でも42%)ため、
+  // 全国版向けの閾値(0.6)では成立せず、緩めても即座に成立してしまい、地方質問による
+  // 絞り込みが働かなくなる問題があった(実測で確認済み)。
+  // そこで、地方の判明有無ではなく「候補数」を直接見て解禁する。序盤の一般質問・地方質問で
+  // ある程度絞れてから都道府県で仕上げる、という自然な流れになる。
+  if(currentMode === 'capitals'){
+    return poolSize <= PREF_CAPITALS_UNLOCK_POOL && !areaOrPrefAskedRecently(PREF_AREA_RECENT_GAP);
+  }
   return !!regionDone
     && poolSize <= PREF_REGION_DONE_POOL
     && !areaOrPrefAskedRecently(PREF_AREA_RECENT_GAP);
@@ -4542,6 +4561,12 @@ function prefQuestionAllowedNow(poolSize, regionDone){
 // 仕様の意図は「地方がある程度特定された後に使う」なので、最も多い地方が候補の
 // REGION_DOMINANT_RATIO以上を占めていれば「特定された」とみなす。
 const REGION_DOMINANT_RATIO = 0.6;
+// capitalsモード(69件)は8地方に分けても最多の関東で42%程度にしかならず、
+// 全国版向けの0.6という閾値では絶対に「判明」と判定されない。
+// ただし①8地方質問そのもののブースト停止判定にはこの緩和閾値を使わない
+// (使うと1問目から「地方判明済み」扱いになり、地方質問が全く出なくなってしまうため。実測で確認済み)。
+// ②広域質問・都道府県質問の「解禁」判定にだけ、この緩和した閾値を使う。
+const REGION_DOMINANT_RATIO_CAPITALS = 0.35;
 function regionNarrowedDown(cities){
   if(!cities.length) return false;
   const count = {};
@@ -4552,6 +4577,19 @@ function regionNarrowedDown(cities){
   }
   const top = Math.max(0, ...Object.values(count));
   return (top / cities.length) >= REGION_DOMINANT_RATIO;
+}
+// ②広域質問・都道府県質問の解禁だけに使う、capitalsモードでは緩和した判定。
+function regionNarrowedDownForWideUnlock(cities){
+  if(!cities.length) return false;
+  if(currentMode !== 'capitals') return regionNarrowedDown(cities);
+  const count = {};
+  for(const c of cities){
+    for(const rk of REGION_QUESTION_KEYS){
+      if(c.tags[rk]){ count[rk] = (count[rk] || 0) + 1; break; }
+    }
+  }
+  const top = Math.max(0, ...Object.values(count));
+  return (top / cities.length) >= REGION_DOMINANT_RATIO_CAPITALS;
 }
 
 // 【序盤〜中盤前半の地名質問ブースト】
@@ -4601,7 +4639,7 @@ function earlyRegionBoostFor(key, cities){
   const isWide   = WIDE_AREA_BOOST_KEYS.has(key);
   if(!isRegion && !isWide) return 0;
 
-  const regionDone = regionNarrowedDown(cities);
+  const regionDone = regionNarrowedDown(cities); // ①(8地方)の停止判定は常に厳格な閾値
 
   // ①8地方: 地方が決まるまで続ける。決まったらもう不要。
   if(isRegion){
@@ -4610,8 +4648,9 @@ function earlyRegionBoostFor(key, cities){
   }
   // ②広域: 8地方が決まってから使う。決まる前に出すと「北関東3県?」「山陽地方?」…と
   // 全国を相手に広域名を総当たりすることになり、かえって遠回りになる。
+  // capitalsモードでは、①と同じ厳格な閾値だと絶対に成立しないため緩和した判定を使う。
   else {
-    if(!regionDone) return 0;
+    if(!regionNarrowedDownForWideUnlock(cities)) return 0;
     if(questionCount > WIDE_AREA_BOOST_QCOUNT_MAX) return 0;
   }
 
@@ -4625,7 +4664,9 @@ function earlyRegionBoostFor(key, cities){
 function prefBoostFor(key, poolSize, regionDone){
   if(!isPrefQuestion(key)) return 0;
   if(!prefRegionUnlockNow(poolSize, regionDone)) return 0;
-  return PREF_BOOST_AMOUNT;
+  // capitalsモードでは、都道府県質問がこのモードの主力の絞り込み手段になるため、
+  // 全国版向けの加点(PREF_BOOST_AMOUNT=22)よりも大きく優遇する。
+  return currentMode === 'capitals' ? PREF_BOOST_AMOUNT_CAPITALS : PREF_BOOST_AMOUNT;
 }
 
 function entropyPick(){
@@ -4637,10 +4678,20 @@ function entropyPick(){
   // (3)面積の直後の人口密度(またはその逆)は、そもそも候補から外す。
   unused = unused.filter(k => !isPopQuestionRedundant(k) && !isOppositeStatsAlreadyAsked(k) && !isAreaDensityBackToBack(k));
 
+  // 【capitalsモード専用】県庁所在地・東京23区限定モードでは、都道府県を直接特定する質問
+  // (pref_*、例えば「佐賀県にありますか?」)を出題対象から完全に除外する。
+  // 「県庁所在地は当然、県名がわかれば一発で当たってしまう」ため、当てっこゲームとして
+  // 単調で面白みに欠けるという判断による。地方質問(8地方)や広域質問は引き続き使う。
+  if(currentMode === 'capitals'){
+    unused = unused.filter(k => !isPrefQuestion(k));
+  }
+
   // 【都道府県質問の制限】場面の条件を満たさないときは、候補からまとめて外す。
   // 地方が絞れているか(都道府県質問の解禁判定と、早期解禁の両方で使う)
   const regionDoneNow = regionNarrowedDown(topCities);
-  const prefOkNow = prefQuestionAllowedNow(truePoolSize, regionDoneNow) && regionDoneNow;
+  // capitalsモードは候補数ベースで都道府県を解禁する(prefRegionUnlockNow内で判定済み)ため、
+  // 地方判明(regionDoneNow)の有無をここで別途必須にはしない。
+  const prefOkNow = prefQuestionAllowedNow(truePoolSize, regionDoneNow) && (regionDoneNow || currentMode === 'capitals');
   if(!prefOkNow) unused = unused.filter(k => !isPrefQuestion(k));
 
   const candidateQuestions = [];
@@ -4659,6 +4710,9 @@ function entropyPick(){
   const ONE_CITY_STREAK_PENALTY = 25;
   function oneCityPenalty(k){
     if(!decisiveSet.has(k)) return 0;
+    // 【capitalsモード専用】都道府県質問は「1市限定質問の総当たり」ではなく、
+    // このモードにおける本来の効率的な絞り込みそのものなので、減点の対象から外す。
+    if(currentMode === 'capitals' && isPrefQuestion(k)) return 0;
     if(decisiveActive) return 0;               // 十分絞れているので優遇してよい場面
     return ONE_CITY_PENALTY + (lastPickWasOneCity ? ONE_CITY_STREAK_PENALTY : 0);
   }
@@ -4670,8 +4724,15 @@ function entropyPick(){
     // 5. 情報量が大きい場合だけ出題する: はい側が極端に少ない県質問は総当たりの入口になるので外す
     // (例: 残り10市のうち新潟県が1市だけ → 「新潟県にありますか?」は出さない)
     // 該当が1市だけの都道府県質問は、実質「その1市ですか?」と同じで総当たりになるので出さない。
-    if(isPrefQuestion(k) && yes < PREF_MIN_YES_COUNT) continue;
-    if(isPrefQuestion(k) && (yes / topCities.length) < PREF_MIN_YES_RATIO) continue;
+    //
+    // 【capitalsモード専用】県庁所在地・東京23区限定では、1つの都道府県から県庁所在地が
+    // 1件しか候補に残らないため、都道府県質問は必ず「はい=1件」になる。これは全国版なら
+    // 総当たりだが、capitalsモードでは「その都道府県ですか?」がそのまま「その1市ですか?」の
+    // 効率的な言い換えになる(どの市にも必ず用意されている、抜け漏れのない決め手質問として使える)。
+    // そのため、このモードだけ最低該当数・比率の制約を外す。
+    const prefMinYesCount = currentMode === 'capitals' ? 1 : PREF_MIN_YES_COUNT;
+    if(isPrefQuestion(k) && yes < prefMinYesCount) continue;
+    if(isPrefQuestion(k) && currentMode !== 'capitals' && (yes / topCities.length) < PREF_MIN_YES_RATIO) continue;
     if(yes === 1 || no === 1) decisiveSet.add(k);
     candidateQuestions.push(k);
   }
@@ -4712,6 +4773,8 @@ function entropyPick(){
   const phasePenaltyWeight = questionCount <= PHASE_QCOUNT_EARLY_MIDDLE_MAX ? 1
                            : (questionCount < PHASE_QCOUNT_LATE_MIN ? 0.6 : 0.15);
   function phasePenalty(k){
+    // capitalsモードの都道府県質問は、どの段階でも優先してよい(このモードの主力の絞り込み手段)。
+    if(currentMode === 'capitals' && isPrefQuestion(k)) return 0;
     // 決め手質問は段階を問わず優先する。ただし候補が十分絞れている場面に限る
     // (候補が多いうちから優先すると、1市ずつ潰す総当たりになってしまう)。
     if(decisiveSet.has(k) && decisiveActive) return 0;
@@ -5060,12 +5123,12 @@ function renderOpening(){
     <!-- 【キャッチコピー】5秒で内容が伝わることを優先し、文章は増やしすぎない。
          優先順位: ①キャラクター ②メインコピー ③開始ボタン ④説明 ⑤今日の挑戦者数 -->
     <h1 class="catch-copy" id="catchCopy">あなたの地元、<br class="catch-copy-br">30問以内で当てます。</h1>
-    <button class="mode-btn mode-btn-primary" onclick="startMode('all')">
-      <span class="mode-title">🦝 さっそく遊んでみる</span>
-      <span class="mode-desc">全国版であそぶ</span>
+    <button class="mode-btn mode-btn-primary" onclick="startMode('capitals')">
+      <span class="mode-title">さっそく遊んでみる！</span>
+      <span class="mode-desc">全国の道府県庁所在地と東京23区から当てます</span>
     </button>
     <p class="catch-copy-sub">
-      全国の市・東京23区・新潟県の町村に対応！<br>
+      今のところ全国の市・東京23区・新潟県の町村に対応！<br>
       「はい」「いいえ」で答えるだけ。おらっちがあなたの地元を推理します。
     </p>
 
@@ -7270,7 +7333,7 @@ function restart(){
 // 訪問のたびに落とし直しており、起動が遅くなる最大の原因になっていた。
 // URLに中身のハッシュを付ければ、更新したときだけ新しいURLになるので、
 // 「常に最新」を保ったままブラウザのキャッシュを使える(2回目以降の起動が速くなる)。
-const CITIES_VERSION = '641f675908';
+const CITIES_VERSION = 'f4697167cb';
 
 async function boot(){
   try{
