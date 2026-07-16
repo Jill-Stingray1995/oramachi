@@ -48,7 +48,7 @@ const KEYS = ['hitachi_seaside_park','tsuchiura_hanabi','koga_kubo','toride_geid
   'yamata_no_orochi','hibagon','mori_motonari','hiruzen_highland','miyamoto_musashi_station','akiyoshidai','mizuki_shigeru_road','yasugi_bushi','gonokawa','donticchi_fish','shokasonjuku','motonosumi_shrine','bizen_ware','osafune_sword_museum','naoshima_gateway','horseshoe_crab_museum','astronomy_city','sunameri','naval_academy','goldfish_lantern','ito_hirobumi_birthplace','train_factory','stork','hyonosen','takeda_castle','tamba_dinosaur','black_soybeans','japan_navel','miki_hardware','balloon_city','sake_birthplace','peron_festival','ako_ronin','awaji_puppet_theater','nijigen_no_mori','akechi_mitsuhide_castle','gunze_birthplace','nihon_sankei','singing_sand','miyama_thatched_village','hozugawa_boat_ride','doushisha','nagaoka_tenmangu','joruriji','jrosyu_ume','ritsumeikan','pm_birthplace',
   'name_has_betsu','hokkaido_greenland','famous_prison','yakitori_famous_bibai','coal_mine_shaft','drift_ice','suffolk_sheep','ammonite_fossil','matsuo_jingisukan','sweet_road','least_populous_city','urokodango','bear_park','fighters_farm',
   
-  'bijin_town','tachineputa','oirase','osorezan','shakoki_dogu','seibien','jodogahama','goishi_coast','miyazawa_kenji','tensho_chi','amber_kuji','tono_monogatari','geibikei','ipponmatsu','ohtani_shohei','zashiki_warashi','appi_kogen','ishinomori','chagu_chagu','shiogama_shrine','fukahire','shiroishi_umen','sendai_airport','jaxa_kakuda','takekoma_shrine','meiji_mura','kano_eiko','blue_impulse','naruko_onsen','town_to_city_2016',
+  'bijin_town','yoshi_ikuzo','oirase','osorezan','shakoki_dogu','seibien','jodogahama','goishi_coast','miyazawa_kenji','tensho_chi','amber_kuji','tono_monogatari','geibikei','ipponmatsu','ohtani_shohei','zashiki_warashi','appi_kogen','ishinomori','chagu_chagu','shiogama_shrine','fukahire','shiroishi_umen','sendai_airport','jaxa_kakuda','takekoma_shrine','meiji_mura','kano_eiko','blue_impulse','naruko_onsen','town_to_city_2016',
   'basketball_town','kamakura_yokote','akita_inu_hachiko','namahage','inaniwa_udon','oyu_stone_circle','yuri_kogen_railway','blumen_akita','odate_noshiro_airport','tdk_town','kakunodate_tazawako','sankyo_soko','higashizawa_rose','ayame_park','hanagasa_tendo','hiragana_station','ginzan_onsen','kumano_taisha','tsuburaya_eiji','matsukawaura','kiku_ningyo_nihonmatsu','abukumado','kacchu_keiba','anpogaki','william_park','natural_gas_town',
   'region_hokkaido','region_tohoku','region_kanto','region_chubu','region_kinki','region_chugoku','region_shikoku','region_kyushu',
   'pref_hokkaido','pref_aomori','pref_iwate','pref_miyagi','pref_akita','pref_yamagata','pref_fukushima','pref_ibaraki','pref_tochigi','pref_gunma','pref_saitama','pref_chiba','pref_tokyo','pref_kanagawa','pref_niigata','pref_toyama','pref_ishikawa','pref_fukui','pref_yamanashi','pref_nagano','pref_gifu','pref_shizuoka','pref_aichi','pref_mie','pref_shiga','pref_kyoto','pref_osaka','pref_hyogo','pref_nara','pref_wakayama','pref_tottori','pref_shimane','pref_okayama','pref_hiroshima','pref_yamaguchi','pref_tokushima','pref_kagawa','pref_ehime','pref_kochi','pref_fukuoka','pref_saga','pref_nagasaki','pref_kumamoto','pref_oita','pref_miyazaki','pref_kagoshima','pref_okinawa',
@@ -1014,7 +1014,7 @@ const QUESTIONS = {
   bear_park: {text:'CMが有名なクマ牧場がある？', icon:'🐻'},
   fighters_farm: {text:'プロ野球球団のファーム施設の移転予定地？', icon:'⚾'},
   bijin_town: {text:'日本一美人が多いと言われているマチ？', icon:'💃', subjective:true},
-  tachineputa: {text:'巨大な立佞武多で有名？', icon:'🏮', subjective:true},
+  yoshi_ikuzo: {text:'「テレビも無え!ラジオも無え!」と歌われるマチ?', icon:'🎤'},
   oirase: {text:'奥入瀬渓流がある？', icon:'🍃'},
   osorezan: {text:'恐山がある？', icon:'⛰️'},
   shakoki_dogu: {text:'遮光器土偶が出土した？', icon:'🗿'},
@@ -1407,6 +1407,10 @@ function activateStatsQuestions(){
 
 let CITIES = [];
 let scorePool = []; // [{city, score}] 形式。はい/いいえで完全に消すのではなく、加点/減点で判断する
+// 即時除外などで候補から外した分の置き場。捨てずにここへ避けておき、スコアの加減点は
+// scorePool と同じように続ける。1回目の推測が外れたら、ここから候補へ戻して復活させる
+// (=「絞り込みのどこかが間違っていた」とみなして、消してしまった正解を救うため)。
+let prunedOutPool = [];
 
 // 「路線図」のように、地理的に絶対に両立しない組み合わせをデータから自動学習する。
 // (例: 西武線と東急線は、どちらも通っている自治体が1件も無いので「排他」と判定できる)
@@ -1562,8 +1566,31 @@ function wouldExceedCategoryStreak(key){
   return last2Cat[0] === cat && last2Cat[1] === cat;
 }
 const MAX_Q = 34;           // 通常質問の上限
-const MAX_EXTRA_Q = 4;      // 「ちがう」の後の追加質問の上限
+const MAX_EXTRA_Q = 5;      // 「ちがう」の後の追加質問の上限(5問で固定。下の救済では延ばさない)
 const HARD_MAX_Q = MAX_Q + MAX_EXTRA_Q + 10; // 暴走防止の絶対的な安全装置(通常は到達しない)
+const ABSOLUTE_MAX_Q = 50;  // 1ゲームで出す質問の絶対的な上限(下の「わからない」救済を含めてもここは超えない)
+
+// 【「わからない」を多く使ったときの救済】
+// 「わからない」は候補の重みを一切動かさないので、その質問は完全に無駄打ちになる。
+// 34問のうち10問を「わからない」で使うと、実質24問しか絞り込みに使えていないのに
+// 上限に達して打ち切られてしまう(実測では「わからない」40%で5/20件が上限到達で失敗)。
+// そこで、無駄打ちになった分だけ上限を延ばして、実質の質問数を確保する。
+// 正直に「わからない」と答える人が損をしないようにするための調整。
+// ただし、延ばした結果でも ABSOLUTE_MAX_Q(50問)は超えない。長すぎると飽きるため。
+const UNKNOWN_EXTRA_Q_MAX = 10;   // 上限を延ばせる最大の問数(延々と続かないための歯止め)
+function unknownAllowanceQ(){
+  const wasted = answerLog.filter(r => r.val === null).length;
+  return Math.min(wasted, UNKNOWN_EXTRA_Q_MAX);
+}
+// 「わからない」の分を上乗せした、いまのフェーズの実質的な上限。
+// 追加質問(extra)は常に MAX_EXTRA_Q 問で固定にする。ここを延ばすと、1回目が外れた後に
+// 延々と質問が続いて間延びするため(「わからない」の救済は通常質問側だけで行う)。
+function effectiveMaxQ(phase){
+  if(phase === 'extra') return MAX_EXTRA_Q;
+  const base = MAX_Q + unknownAllowanceQ();
+  // 全体で50問を超えないよう、いまのフェーズに残せる分に制限する
+  return Math.min(base, Math.max(1, ABSOLUTE_MAX_Q - extraQuestionCount));
+}
 
 // ---- スコア方式のパラメータ ----
 // 客観的質問(事実で確認できる)ほど強く反映し、主観的質問(印象・評判)は反映を控えめにする。
@@ -2267,6 +2294,38 @@ function sortedPool(){
     .sort((a, b) => b.score - a.score);
 }
 
+// スコアの加減点は「候補から外した分」にも同じように行う。
+// こうしておくと、あとで復活させたときに、外した時点で時間が止まった古いスコアではなく、
+// 最後まで正しく計算されたスコアで他の候補と比べられる。
+function allScoreEntries(){
+  return prunedOutPool.length ? scorePool.concat(prunedOutPool) : scorePool;
+}
+
+// 候補を絞り込む共通処理。捨てずに prunedOutPool へ避ける。
+// kept が空になる場合は何もしない(安全装置)。
+function applyPrune(kept){
+  if(kept.length === 0 || kept.length === scorePool.length) return;
+  const keptSet = new Set(kept);
+  scorePool.forEach(e => { if(!keptSet.has(e)) prunedOutPool.push(e); });
+  scorePool = kept;
+}
+
+// 【1回目の推測が外れたときの救済】
+// 1回目が外れたということは、ここまでの絞り込みのどこかが間違っている可能性が高い。
+// (「関東地方?」を押し間違えた、うろ覚えで「新幹線の駅がある?」に答えた、など)
+// 即時除外は取り返しがつかないため、消してしまった正解は追加質問を何問足しても
+// 絶対に当たらない。実測でも、追加質問へ進んだ26件のうち14件は正解が既に消えており、
+// その14件の的中率は0%だった(正解が生きている12件は50%当たっていた)。
+// そこで、外した候補を全部戻してから追加質問に入る。
+// 戻す候補は加減点を受け続けているので、矛盾が多いものは自然と下位に沈む。
+function restorePrunedCandidates(){
+  if(prunedOutPool.length === 0) return 0;
+  const n = prunedOutPool.length;
+  scorePool = scorePool.concat(prunedOutPool);
+  prunedOutPool = [];
+  return n;
+}
+
 // スコアが1位に近い(=まだ僅差で競っている)自治体を中心に集める。
 // 【第3段階での修正】以前は単純に「並び順の先頭40件」で打ち切っていたため、
 // 全スコアが同点の序盤(全国版など)では cities.json の並び順(北海道・東北が先頭)の
@@ -2688,7 +2747,7 @@ const MODE_ONLY_KEYS = {
     'banei_keiba','ebetsu_renga','kitami_hakka','shikotsuko_futoko','hamanasu_no_oka','northernmost_city','shio_kazunoko','canadian_world','garinko_go','nosappu_misaki','hokkaido_greenland','yakitori_famous_bibai','coal_mine_shaft','drift_ice','suffolk_sheep','ammonite_fossil','matsuo_jingisukan','sweet_road','least_populous_city','urokodango','bear_park','kitasubaru','kita_no_kuni','kita_no_shonan'
   ],
   tohoku:   ['tsugaru_area','sendai_metro','kitakami_basin','shonai_area','hamadori_area','nakadori_area','aizu_area','sanriku_area',
-    'hirosaki_tenshu','hasshoku_center','misawa_flight','ishiwari_zakura','mutsu_kokufu','kanto_matsuri','kamo_kurage','uesugi_jinja','jionji','shinjo_matsuri','saito_mokichi','hanamiyama','nanko_park','yamagata_shinkansen_station','akita_shinkansen_station','gakuto','hula_girl','bijin_town','tachineputa','oirase','osorezan','shakoki_dogu','seibien','jodogahama','goishi_coast','miyazawa_kenji','tensho_chi','amber_kuji','tono_monogatari','geibikei','ipponmatsu','ohtani_shohei','zashiki_warashi','appi_kogen','ishinomori','chagu_chagu','shiogama_shrine','fukahire','shiroishi_umen','sendai_airport','jaxa_kakuda','takekoma_shrine','kano_eiko','blue_impulse','naruko_onsen','town_to_city_2016','basketball_town','kamakura_yokote','akita_inu_hachiko','namahage','inaniwa_udon','oyu_stone_circle','yuri_kogen_railway','blumen_akita','odate_noshiro_airport','tdk_town','kakunodate_tazawako','sankyo_soko','higashizawa_rose','ayame_park','hanagasa_tendo','hiragana_station','ginzan_onsen','kumano_taisha','tsuburaya_eiji','matsukawaura','kiku_ningyo_nihonmatsu','abukumado','kacchu_keiba','anpogaki','william_park'
+    'hirosaki_tenshu','hasshoku_center','misawa_flight','ishiwari_zakura','mutsu_kokufu','kanto_matsuri','kamo_kurage','uesugi_jinja','jionji','shinjo_matsuri','saito_mokichi','hanamiyama','nanko_park','yamagata_shinkansen_station','akita_shinkansen_station','gakuto','hula_girl','bijin_town','yoshi_ikuzo','oirase','osorezan','shakoki_dogu','seibien','jodogahama','goishi_coast','miyazawa_kenji','tensho_chi','amber_kuji','tono_monogatari','geibikei','ipponmatsu','ohtani_shohei','zashiki_warashi','appi_kogen','ishinomori','chagu_chagu','shiogama_shrine','fukahire','shiroishi_umen','sendai_airport','jaxa_kakuda','takekoma_shrine','kano_eiko','blue_impulse','naruko_onsen','town_to_city_2016','basketball_town','kamakura_yokote','akita_inu_hachiko','namahage','inaniwa_udon','oyu_stone_circle','yuri_kogen_railway','blumen_akita','odate_noshiro_airport','tdk_town','kakunodate_tazawako','sankyo_soko','higashizawa_rose','ayame_park','hanagasa_tendo','hiragana_station','ginzan_onsen','kumano_taisha','tsuburaya_eiji','matsukawaura','kiku_ningyo_nihonmatsu','abukumado','kacchu_keiba','anpogaki','william_park'
   ],
   kanto:    ['north_kanto','tama_area','tokatsu_area','ryomo_area','tone_river_area','sotetsu_line',
     'uchibo','sotobo','musashino_line','shonan_area','odakyu_line','keio_inokashira_line','tokyu_line','keikyu_line','seibu_line','tobu_main_station','tobu_tojo_station','utsunomiya_station','takasaki_line_station','keisei_line','tsukuba_express','tokyo_bay','tama_river','arakawa_river','edogawa_river','keihintohoku_line','chuo_sobu','joban_line','saikyo_line','silk_heritage','silk_textile','moka_sl_line','kururi_line','watarase_line','kamaboko_famous','koedo','imono_kupola','aeon_laketown','funasshi_famous','action_kamen','senbei_famous','southern_seichi','natural_gas_town','shizumine','shimotsuma_movie','hitachi_kokufu','toyoda_castle','moriya_junction','namegata_farm','hananuki','happogahara','kanuma_tsuchi','nasu_yoichi','jichi_medical','bihada_onsen','moomin_park','ageo_sodou','iroha_toi','okegawa_benibana','ishito_zakura','kinchakuda','heirinji','lucky_star','johnson_town','saika_matsuri','mizuko_kaizuka','smallest_city','yashio_hanamomo','yoshikawa_namazu','shiraoka_nashi','kurohama_kaizuka','hanyu_yurugp','inzai_datacenter','kamagaya_farm','iioka_cape','tomisato_suika','sanbu_sugi','keisei_rose','aqualine_gate','yotsukaido_name','onari_kaido','yachimata_peanuts','nashibou','soza_ueki','zama_himawari','zushi_marina','ayase_no_station',
@@ -3800,7 +3859,7 @@ const TAG_GAME_CATEGORY = {
   "bear_park": "観光・娯楽",
   "fighters_farm": "観光・娯楽",
   "bijin_town": "遊び心",
-  "tachineputa": "観光・娯楽",
+  "yoshi_ikuzo": "遊び心",
   "oirase": "地理",
   "osorezan": "観光・娯楽",
   "shakoki_dogu": "歴史・文化",
@@ -4251,7 +4310,7 @@ function prefQuestionAllowedNow(poolSize){
   if(qCount < PREF_MIN_QUESTIONS) return false;              // 1. 序盤では出さない
 
   // 3. 1ゲーム原則1回。ただし質問数が上限に近い場面だけ、救済として2回まで許す
-  const phaseMax = questionPhase === 'extra' ? MAX_EXTRA_Q : MAX_Q;
+  const phaseMax = effectiveMaxQ(questionPhase);
   const phaseCount = questionPhase === 'extra' ? extraQuestionCount : questionCount;
   const nearLimit = (phaseMax - phaseCount) <= PREF_RESCUE_REMAINING_Q;
   const cap = nearLimit ? PREF_MAX_RESCUE : PREF_MAX_PER_GAME;
@@ -5092,6 +5151,7 @@ function startMode(mode){
   pushGameNavState(); // ここから戻ったらトップ画面、という目印を履歴に積む
   const modeCities = getModeCities(mode);
   scorePool = modeCities.map(city => ({ city, score: 0, objMismatch: 0 }));
+  prunedOutPool = [];
   excludedNames = new Set();
   guessAttempts = 0;
   asked = [];
@@ -5139,14 +5199,15 @@ function renderQuestion(){
   forcedNextKey = null;
 
   const phaseCount = questionPhase === 'extra' ? extraQuestionCount : questionCount;
-  const phaseMax = questionPhase === 'extra' ? MAX_EXTRA_Q : MAX_Q;
+  // 「わからない」で無駄打ちになった分だけ上限を延ばす(effectiveMaxQ)
+  const phaseMax = effectiveMaxQ(questionPhase);
   // 【重要】askedには実際に表示した質問だけでなく、EXCLUSIVE_MAPによる自動除外分
   // (「多摩地区?」にはいと答えたら23区限定タグ群を一括で「いいえ」扱いにする、など)も
   // 積まれる。自動除外は1回のトリガーで数十件まとめて増えることがあるため、
   // askedの長さをそのまま安全装置の判定に使うと、実質の質問数が少ないうちに
   // 誤って強制終了してしまう。ここは必ず実質の質問数(questionCount+extraQuestionCount)で判定する。
   const realQuestionCount = questionCount + extraQuestionCount;
-  if(!key || phaseCount >= phaseMax || sortedPool().length <= 1 || realQuestionCount > HARD_MAX_Q){
+  if(!key || phaseCount >= phaseMax || sortedPool().length <= 1 || realQuestionCount >= ABSOLUTE_MAX_Q || realQuestionCount > HARD_MAX_Q + unknownAllowanceQ()){
     return renderGuess();
   }
 
@@ -5163,6 +5224,7 @@ function renderQuestion(){
   // このタイミング(まだこの質問を聞く前)の状態と、聞く質問のキーを履歴に保存する
   history.push({
     scorePool: scorePool.map(e => ({ city: e.city, score: e.score, objMismatch: e.objMismatch || 0 })),
+    prunedOutPool: prunedOutPool.map(e => ({ city: e.city, score: e.score, objMismatch: e.objMismatch || 0 })),
     excludedNames: new Set(excludedNames),
     asked: [...asked],
     questionCount: questionCount,
@@ -5223,6 +5285,7 @@ function goBack(){
   const prev = history.pop(); // その前(=戻りたい状態)を取り出す
   if(!prev) return;
   scorePool = prev.scorePool;
+  prunedOutPool = prev.prunedOutPool || [];
   excludedNames = prev.excludedNames;
   asked = prev.asked;
   questionCount = prev.questionCount;
@@ -5455,8 +5518,7 @@ function pruneByRegionAnswer(key, val, weight){
   if(val === null || weight < 1) return;   // 「わからない」「たぶん」では発動しない
 
   if(REGION_QUESTION_KEYS.has(key) || AREA_PRUNE_KEYS.has(key) || OBJECTIVE_PRUNE_KEYS.has(key)){
-    const kept = scorePool.filter(e => (e.city.tags[key] === true) === (val === true));
-    if(kept.length > 0) scorePool = kept;  // 空になるなら何もしない(安全装置)
+    applyPrune(scorePool.filter(e => (e.city.tags[key] === true) === (val === true)));
     return;
   }
 
@@ -5467,8 +5529,7 @@ function pruneByRegionAnswer(key, val, weight){
   // 「いいえ」側は絞り込まない: 消えるのが23件だけで効果が薄いわりに、押し間違えたときの
   // 損失(23区が正解なら二度と当たらない)が大きいため、従来どおり減点にとどめる。
   if(key === 'is_tokyo_ward' && val === true){
-    const kept = scorePool.filter(e => e.city.tags.is_tokyo_ward === true);
-    if(kept.length > 0) scorePool = kept;
+    applyPrune(scorePool.filter(e => e.city.tags.is_tokyo_ward === true));
   }
 }
 
@@ -5477,14 +5538,12 @@ function pruneByRegionAnswer(key, val, weight){
 // どちらも「わからない」やあいまいな回答1回だけでは発動しないよう、しきい値は厳しめにしている。
 function pruneObviouslyWrongCandidates(){
   // (1) フル確信度の客観的回答にOBJECTIVE_CONTRADICTION_LIMIT回以上矛盾した候補を除外
-  const afterObjective = scorePool.filter(e => (e.objMismatch || 0) < OBJECTIVE_CONTRADICTION_LIMIT);
-  if(afterObjective.length > 0) scorePool = afterObjective; // 空になる場合は何もしない(安全装置)
+  applyPrune(scorePool.filter(e => (e.objMismatch || 0) < OBJECTIVE_CONTRADICTION_LIMIT));
 
   // (2) 候補が十分多いときだけ、確率(softmax)が極端に低い候補を除外する(終盤の僅差候補は守る)
   if(scorePool.length >= MIN_POOL_FOR_PROB_PRUNE){
     const probs = candidateProbabilities(scorePool);
-    const afterProb = scorePool.filter((e, i) => probs[i] >= EXTREME_LOW_PROB_THRESHOLD);
-    if(afterProb.length > 0) scorePool = afterProb; // 空になる場合は何もしない(安全装置)
+    applyPrune(scorePool.filter((e, i) => probs[i] >= EXTREME_LOW_PROB_THRESHOLD));
   }
 }
 
@@ -5516,7 +5575,7 @@ function answer(key, val, weight){
     // フル確信度の客観的質問に矛盾した回数(objMismatch)も、ここで一緒に数えておく
     // (「候補を完全除外する条件」の判定に使う。あいまいな回答では絶対に増えない)。
     const isFullConfidenceObjective = !subjective && weight >= 1;
-    scorePool.forEach(e => {
+    allScoreEntries().forEach(e => {
       if(e.city.tags[key] === val){
         e.score += matchBonus * weight;
       } else {
@@ -5552,7 +5611,7 @@ function answer(key, val, weight){
       // そこで例外市には他の候補と同じ加点を与え、この推論では順位が動かないようにする
       //(=「瀬戸内海?」は実際には聞かれていないので、そこで差がつかないのが正しい)。
       const exceptions = EXCLUSIVE_EXCEPTIONS[`${key}|${otherKey}`];
-      scorePool.forEach(e => {
+      allScoreEntries().forEach(e => {
         if(exceptions && exceptions.has(cityId(e.city))){
           e.score += OBJ_MATCH_BONUS; // 例外市: 推論の対象外なので、他の候補と同じ扱いにする
           return;
@@ -6444,7 +6503,13 @@ function correct(isRight, overrideCity){
 
   if(guessAttempts === 0){
     // 【第6段階】最初の推測が外れても、2位・3位の候補をそのまま連続表示するのではなく、
-    // 上位候補を絞り込む追加質問(最大4問)を挟んでから、改めて1回だけ推測し直す。
+    // 上位候補を絞り込む追加質問(最大MAX_EXTRA_Q問)を挟んでから、改めて1回だけ推測し直す。
+    //
+    // 【救済】追加質問に入る前に、即時除外などで候補から外した分を全部戻す。
+    // 1回目が外れた=ここまでの絞り込みのどこかが間違っている、ということなので、
+    // 消してしまった正解を追加質問で選び直せるようにする。戻さないままだと、正解が
+    // 既に消えているゲームでは追加質問を何問足しても絶対に当たらない。
+    restorePrunedCandidates();
     guessAttempts = 1;
     questionPhase = 'extra';
     extraQuestionCount = 0;
