@@ -4669,6 +4669,11 @@ function prefBoostFor(key, poolSize, regionDone){
   return currentMode === 'capitals' ? PREF_BOOST_AMOUNT_CAPITALS : PREF_BOOST_AMOUNT;
 }
 
+// capitalsモード(県庁所在地・東京23区限定)では実質ほぼ無意味な質問。
+//   ・prefectural_capital(都道府県庁の所在地?) … 対象69件中67件がtrue(県庁所在地+新宿区)で絞り込み効果が薄い。
+//   ・popUnder50k(人口は5万人未満?) … 県庁所在地・東京23区は基本的に人口が多く、ほぼ全件falseになる。
+const CAPITALS_EXCLUDED_KEYS = new Set(['prefectural_capital', 'popUnder50k']);
+
 function entropyPick(){
   const poolInfo = questionPhase === 'extra' ? extraPhaseCities() : topPoolCities();
   const topCities = poolInfo.cities;
@@ -4679,11 +4684,11 @@ function entropyPick(){
   unused = unused.filter(k => !isPopQuestionRedundant(k) && !isOppositeStatsAlreadyAsked(k) && !isAreaDensityBackToBack(k));
 
   // 【capitalsモード専用】県庁所在地・東京23区限定モードでは、都道府県を直接特定する質問
-  // (pref_*、例えば「佐賀県にありますか?」)を出題対象から完全に除外する。
-  // 「県庁所在地は当然、県名がわかれば一発で当たってしまう」ため、当てっこゲームとして
-  // 単調で面白みに欠けるという判断による。地方質問(8地方)や広域質問は引き続き使う。
+  // (pref_*、例えば「佐賀県にありますか?」)や、ほぼ無意味な質問(CAPITALS_EXCLUDED_KEYS)を
+  // 出題対象から完全に除外する。「県庁所在地は当然、県名がわかれば一発で当たってしまう」ため、
+  // 当てっこゲームとして単調で面白みに欠けるという判断による。地方質問・広域質問は引き続き使う。
   if(currentMode === 'capitals'){
-    unused = unused.filter(k => !isPrefQuestion(k));
+    unused = unused.filter(k => !isPrefQuestion(k) && !CAPITALS_EXCLUDED_KEYS.has(k));
   }
 
   // 【都道府県質問の制限】場面の条件を満たさないときは、候補からまとめて外す。

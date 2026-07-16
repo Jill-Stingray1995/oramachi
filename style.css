@@ -808,6 +808,8 @@ color: inherit;}
   }
   @media (min-width: 700px){
     body{ padding-top: 48px; }
+    /* PCは横幅に余裕があるので、改行せず1行で表示する */
+    .catch-copy-br{ display: none; }
     /* PCではカードが細く、結果の説明文やGoogleマップが小さく見えるので少し広げる。
        スマホ(700px未満)は従来どおり440pxのまま。横に伸ばしすぎると世界観が崩れるため、
        広げるのは520pxまでに留める。 */
@@ -831,17 +833,20 @@ color: inherit;}
    スマホの一画面目でも開始ボタンまで見えるよう、余白を詰めめにしている。 */
 .catch-copy{
   font-family: 'Zen Maru Gothic', sans-serif;
-  /* 画面幅に応じて15px〜19pxの範囲で自動調整し、狭い画面でも1行に収まりやすくする。
-     nowrapで固定すると収まらない端末で画面外にはみ出す恐れがあるため、可変サイズにしている。 */
+  /* 画面幅に応じて15px〜19pxの範囲で自動調整する。 */
   font-size: clamp(15px, 4.8vw, 19px);
   font-weight: 900;
   line-height: 1.45;
   color: var(--indigo-deep);
   text-align: center;
   margin: 4px 0 14px;
-  white-space: nowrap;
+  /* 【重要】white-space:nowrapだと、想定より文字幅が広い端末でテキストが右へ
+     はみ出し、「中央揃えのはずなのに右にずれて見える」問題があったため削除した。
+     代わりに、スマホでは<br class="catch-copy-br">で確実に2行に分ける(下記)ことで
+     幅超過そのものを防ぎ、PC(横幅に余裕がある画面)だけ1行にする。 */
 }
-.catch-copy-br{ display: none; } /* PCなど横幅に余裕があるときは折り返さない */
+/* デフォルト(スマホ)では「あなたの地元、」で改行し2行構成にする。中央揃えのまま安定する。 */
+.catch-copy-br{ display: block; }
 .catch-copy-sub{
   font-size: 12.5px;
   line-height: 1.7;
@@ -849,19 +854,6 @@ color: inherit;}
   text-align: center;
   margin: 10px 0 18px;
 }
-
-/* メインCTA(いちばん最初に押してほしいボタン)。他のモードボタンより一段目立たせる。 */
-.mode-btn-primary{
-  background: linear-gradient(135deg, var(--vermillion), var(--vermillion-deep));
-  border-color: var(--vermillion-deep);
-  color: #FFFDF6;
-  text-align: center;
-  padding: 17px 14px;
-  box-shadow: 0 5px 0 var(--vermillion-deep);
-}
-.mode-btn-primary .mode-title{ font-size: 17px; font-weight: 900; }
-.mode-btn-primary .mode-desc{ color: rgba(255,253,246,0.85); }
-.mode-btn-primary:active{ box-shadow: 0 2px 0 var(--vermillion-deep); }
 
 .mode-select{
   display: grid;
@@ -881,6 +873,35 @@ color: inherit;}
   cursor: pointer;
   box-shadow: 0 4px 0 rgba(38,58,92,0.12);
 }
+
+/* メインCTA(いちばん最初に押してほしいボタン)。他のモードボタンより一段目立たせる。
+   .mode-btn(基本クラス、text-align:leftなど)より後ろに書くことで、上書きされずに
+   確実に効くようにしている(以前は先に書いていたため、text-align:centerなどが
+   基本クラスに上書きされてしまっていた)。
+   以前は朱色のグラデーション背景+白文字だったが、コントラストが低く説明文が
+   見えにくかったため、白背景+太い朱色の枠・文字というはっきりした配色に変更した。 */
+.mode-btn-primary{
+  background: #FFFDF6;
+  border: 3px solid var(--vermillion);
+  color: var(--vermillion-deep);
+  text-align: center;
+  padding: 17px 14px;
+  box-shadow: 0 5px 0 var(--vermillion);
+}
+.mode-btn-primary .mode-title{
+  display: block;
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--vermillion);
+  text-align: center;
+}
+.mode-btn-primary .mode-desc{
+  display: block;
+  color: var(--indigo-deep); /* 白背景になったので、はっきり読める色にする */
+  text-align: center;
+  margin-top: 2px;
+}
+.mode-btn-primary:active{ box-shadow: 0 2px 0 var(--vermillion); }
 
 .mode-btn:active{
   transform: scale(0.98);
