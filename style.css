@@ -86,14 +86,18 @@ color: inherit;}
     background: var(--line);
     opacity: .9;
   }
-  /* 現在地の目印(通常質問=鳥居 / 追加質問=虫めがね) */
+  /* 現在地の目印(通常質問=鳥居 / 追加質問=虫めがね)。
+     鳥居はSVG化してあり、ここでの color がそのまま塗り色になる(currentColor)。
+     以前の絵文字版より大きく・朱色をはっきり出す。 */
   .qbar-head{
     position: absolute; top: 50%;
     transform: translate(-50%, -50%);
-    font-size: 12px; line-height: 1;
-    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.18));
+    font-size: 22px; line-height: 1;
+    color: var(--vermillion);
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.22));
     transition: left .35s ease;
   }
+  .qbar-head svg{ display:block; }
   /* 追加質問中は色を変えて、通常質問との違いが分かるようにする */
   .qbar-extra{ background: rgba(38,58,92,0.08); }
   .qbar-extra .qbar-fill{
@@ -120,6 +124,22 @@ color: inherit;}
   @keyframes shake{ 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
   .pop{ animation: pop .5s cubic-bezier(.34,1.56,.64,1); }
   @keyframes pop{ 0%{transform:scale(.7); opacity:0} 100%{transform:scale(1); opacity:1} }
+
+  /* 【もうわかった！ジャンプ演出】推測画面に切り替わった瞬間、おらっちが1回だけ飛び跳ねる。
+     既存の pop(登場フェードイン)と同時に付くので、1本のアニメーションにまとめて
+     transform の奪い合いが起きないようにしている。
+     transform と opacity だけで作っているので描画コストが軽く、
+     画面外にはみ出さない範囲(上方向 26px 程度)に収めている。 */
+  .pop.mascot-guess-jump{ animation: popGuessJump 1s cubic-bezier(.34,1.56,.64,1) 1; }
+  @keyframes popGuessJump{
+    0%   { transform: scale(.7)            translateY(0);    opacity:0; }
+    16%  { transform: scale(1)             translateY(0);    opacity:1; }   /* 登場完了 */
+    28%  { transform: scale(1.06,0.9)      translateY(5px)   rotate(0deg); } /* 少し沈み込む */
+    48%  { transform: scale(0.94,1.1)      translateY(-26px) rotate(-6deg); } /* ぴょんと跳ぶ・空中で傾く */
+    66%  { transform: scale(1.07,0.88)     translateY(2px)   rotate(2deg); }  /* 着地して少し潰れる */
+    82%  { transform: scale(0.98,1.04)     translateY(-5px)  rotate(-1deg); } /* 小さく弾む */
+    100% { transform: scale(1)             translateY(0)     rotate(0deg); } /* 元の位置に戻る */
+  }
   .blink{ animation: blink 4.5s ease-in-out infinite; transform-origin: center; }
   @keyframes blink{ 0%,92%,100%{transform:scaleY(1)} 96%{transform:scaleY(0.1)} }
 
@@ -259,7 +279,7 @@ color: inherit;}
 
   /* 既存の一般演出だけを短くする。指定されたマスコット演出は停止しない。 */
   @media (prefers-reduced-motion: reduce){
-    .bob, .shake, .pop{
+    .bob, .shake, .pop, .mascot-guess-jump{
       animation-duration: 0.2s !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.2s !important;
@@ -284,6 +304,31 @@ color: inherit;}
     font-size: 11px; color: var(--ink-soft); margin-bottom: 14px; flex-wrap: wrap;
   }
   .progress-count{ opacity: 0.85; }
+  /* 【候補数の演出】数字部分だけ大きく・色付きにして目立たせる */
+  .progress-count-num{
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--vermillion);
+    display: inline-block;
+    transform-origin: center;
+  }
+  .progress-count-num.count-pop{ animation: countPop .4s ease; }
+  .progress-count-num.count-pop-strong{ animation: countPopStrong .55s ease; }
+  @keyframes countPop{
+    0%{ transform: scale(1); }
+    40%{ transform: scale(1.28); }
+    100%{ transform: scale(1); }
+  }
+  @keyframes countPopStrong{
+    0%{ transform: scale(1); color: var(--vermillion); }
+    35%{ transform: scale(1.5); color: var(--vermillion-deep); }
+    100%{ transform: scale(1); color: var(--vermillion); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .progress-count-num.count-pop, .progress-count-num.count-pop-strong{
+      animation-duration: 0.15s !important;
+    }
+  }
   .progress-morale{
     color: var(--indigo-deep); font-weight:700; font-size: 11.5px;
     background: var(--paper-deep); border-radius: 8px; padding: 2px 8px;
@@ -433,13 +478,57 @@ color: inherit;}
   .share-image-status{ text-align:center; font-size: 11.5px; color: var(--ink-soft); min-height: 14px; margin-top: 6px; }
 
   /* ---- トップ画面: 制覇帳・称号への入口 ---- */
-  .opening-sub-nav{ display:flex; gap:8px; margin: 14px 0 4px; }
+  .opening-sub-nav{ display:flex; flex-wrap: wrap; gap:8px; margin: 14px 0 4px; }
+  .opening-sub-nav .conquest-entry-btn{ flex: 1 1 calc(50% - 4px); min-width: 100px; }
   .conquest-entry-btn{
     display:block; width:100%; padding: 11px; border-radius: 12px;
     border: 1.5px solid var(--line); background: #fff; color: var(--indigo-deep);
     font-family:'Zen Maru Gothic', sans-serif; font-weight:700; font-size:13px; cursor:pointer;
   }
   .conquest-entry-btn:active{ transform: scale(0.98); }
+
+  /* ---- みんなの統計 画面 ---- */
+  .stats-period-tabs{ display:flex; gap:6px; justify-content:center; margin: 10px 0 14px; }
+  .stats-period-tab{
+    padding: 6px 14px; border-radius: 999px; border: 1.5px solid var(--line);
+    background: #fff; color: var(--ink-soft); font-family:'Zen Maru Gothic', sans-serif;
+    font-size: 12px; font-weight: 700; cursor: pointer;
+  }
+  .stats-period-tab.active{ background: var(--indigo-deep); border-color: var(--indigo-deep); color: #FBF6E8; }
+  .stats-empty{ padding: 20px 10px; text-align:center; color: var(--ink-soft); font-size: 13px; line-height: 1.8; }
+  .stats-empty-sub{ font-size: 11.5px; margin-top: 4px; }
+  .stats-section{ margin-bottom: 18px; text-align: left; }
+  .stats-section-title{ font-size: 14px; font-weight: 800; color: var(--indigo-deep); margin-bottom: 8px; }
+  .stats-overview-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .stats-overview-item{
+    background: var(--paper-deep); border-radius: 12px; padding: 10px; text-align: center;
+  }
+  .stats-overview-item .v{ font-size: 19px; font-weight: 900; color: var(--vermillion-deep); }
+  .stats-overview-item .l{ font-size: 10.5px; color: var(--ink-soft); margin-top: 2px; }
+  .stats-ranking-list{ list-style: none; margin:0; padding:0; counter-reset: stats-rank; }
+  .stats-ranking-list li{
+    counter-increment: stats-rank;
+    display: flex; justify-content: space-between; align-items: center; gap: 8px;
+    padding: 7px 4px; border-bottom: 1px solid var(--line); font-size: 12.5px;
+  }
+  .stats-ranking-list li::before{
+    content: counter(stats-rank); flex: 0 0 auto;
+    width: 18px; height: 18px; border-radius: 50%; background: var(--indigo-deep); color:#FBF6E8;
+    font-size: 10px; font-weight: 700; display:flex; align-items:center; justify-content:center;
+    margin-right: 4px;
+  }
+  .stats-ranking-name{ flex: 1; color: var(--ink); }
+  .stats-ranking-value{ color: var(--ink-soft); font-size: 11px; white-space: nowrap; }
+  .stats-ranking-empty{ font-size: 12px; color: var(--ink-soft); padding: 10px 4px; }
+  .stats-more summary{
+    cursor: pointer; font-size: 12.5px; font-weight: 700; color: var(--indigo);
+    padding: 8px 0; list-style: none;
+  }
+  .stats-more summary::-webkit-details-marker{ display:none; }
+  .stats-more summary::before{ content: '▸ '; }
+  .stats-more[open] summary::before{ content: '▾ '; }
+  .stats-sample-note{ font-size: 10.5px; color: var(--ink-soft); margin-top: 6px; }
+  .stats-period-note{ font-size: 10.5px; color: var(--ink-soft); text-align:center; margin-top: 10px; }
 
   /* ---- 全国制覇帳 画面 ---- */
   .conquest-summary{ background: var(--paper-deep); border-radius: 12px; padding: 12px 14px; margin: 10px 0 6px; text-align:center; }
@@ -557,6 +646,36 @@ color: inherit;}
 
   /* ---- 自己ベスト表示(結果画面) ---- */
   .best-line{ font-size: 11.5px; color: var(--ink-soft); margin-bottom: 10px; }
+
+  /* 【惜しかった候補】降参画面で、最後まで残っていた候補を見せるブロック */
+  .near-miss-block{
+    margin: 10px 0;
+    padding: 10px 14px;
+    background: var(--paper-deep);
+    border-radius: 12px;
+    text-align: left;
+  }
+  .near-miss-title{ font-size: 12.5px; font-weight: 700; color: var(--indigo-deep); margin-bottom: 6px; line-height: 1.5; }
+  .near-miss-list{ list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 3px; }
+  .near-miss-list li{ font-size: 12.5px; color: var(--ink); padding-left: 4px; }
+  .near-miss-list li::before{ content: '・'; color: var(--vermillion); }
+
+  /* 【正解時の褒め言葉】質問数評価の星と一言、該当時は特別メッセージを重ねて表示する。 */
+  .praise-block{ margin: 6px 0 12px; }
+  .praise-stars{ color: var(--gold); font-size: 18px; letter-spacing: 2px; }
+  .praise-line{ font-size: 14.5px; font-weight: 700; color: var(--indigo-deep); margin-top: 2px; }
+  .praise-special{
+    display: flex; align-items: flex-start; gap: 6px;
+    justify-content: center; text-align: left;
+    margin-top: 8px; padding: 8px 12px;
+    background: linear-gradient(135deg, rgba(193,67,46,0.09), rgba(193,67,46,0.03));
+    border: 1px solid rgba(193,67,46,0.25);
+    border-radius: 12px;
+  }
+  .praise-special-emoji{ font-size: 18px; line-height: 1.3; }
+  .praise-special-text{ display: flex; flex-direction: column; gap: 1px; }
+  .praise-special-title{ font-size: 13px; font-weight: 800; color: var(--vermillion-deep); }
+  .praise-special-body{ font-size: 11px; color: var(--ink-soft); }
 
   /* ---- 設定欄 ---- */
   .settings-block{ text-align:left; margin-top: 8px; }
@@ -684,6 +803,10 @@ color: inherit;}
     .info-chip .value{ font-size:10.5px; }
     .share-mascot, .share-mascot .mascot{ width:44px; height:44px; }
     .star-row{ font-size:12px; }
+    /* 小さい画面ほど、一画面目に開始ボタンが収まるよう余白と文字を詰める */
+    .catch-copy{ font-size: 19px; margin: 2px 0 10px; }
+    .catch-copy-sub{ font-size: 11.5px; margin: 8px 0 14px; }
+    .mode-btn-primary{ padding: 14px 12px; }
   }
   @media (min-width: 700px){
     body{ padding-top: 48px; }
@@ -706,6 +829,39 @@ color: inherit;}
     .share-btn:hover{ background:#000; filter: brightness(1.3); }
     .btn-teach:hover{ filter: brightness(1.08); }
   }
+/* 【トップページのキャッチコピー】5秒で内容が伝わることを狙い、文字数を絞っている。
+   スマホの一画面目でも開始ボタンまで見えるよう、余白を詰めめにしている。 */
+.catch-copy{
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 1.45;
+  color: var(--indigo-deep);
+  text-align: center;
+  margin: 4px 0 14px;
+}
+.catch-copy-br{ display: none; } /* PCなど横幅に余裕があるときは折り返さない */
+.catch-copy-sub{
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  text-align: center;
+  margin: 10px 0 18px;
+}
+
+/* メインCTA(いちばん最初に押してほしいボタン)。他のモードボタンより一段目立たせる。 */
+.mode-btn-primary{
+  background: linear-gradient(135deg, var(--vermillion), var(--vermillion-deep));
+  border-color: var(--vermillion-deep);
+  color: #FFFDF6;
+  text-align: center;
+  padding: 17px 14px;
+  box-shadow: 0 5px 0 var(--vermillion-deep);
+}
+.mode-btn-primary .mode-title{ font-size: 17px; font-weight: 900; }
+.mode-btn-primary .mode-desc{ color: rgba(255,253,246,0.85); }
+.mode-btn-primary:active{ box-shadow: 0 2px 0 var(--vermillion-deep); }
+
 .mode-select{
   display: grid;
   gap: 12px;
@@ -832,6 +988,15 @@ color: inherit;}
   border-top: 1px dashed var(--line);
   text-align: center;
 }
+/* 【今日の挑戦者数】数字を大きく見せて、遊んでいる人の実在感を伝える。
+   誇張のない実データのみを表示し、水増しやアニメーションでの誇大演出はしない。 */
+.visitor-count-line{
+  display: flex; align-items: baseline; justify-content: center; gap: 4px;
+  margin-bottom: 8px;
+}
+.visitor-count-label{ font-size: 11.5px; color: var(--ink-soft); }
+.visitor-count-num{ font-size: 22px; font-weight: 900; color: var(--vermillion-deep); }
+.visitor-count-unit{ font-size: 12px; color: var(--ink-soft); }
 .count-stats{
   font-size: 12px;
   color: var(--ink-soft);

@@ -1407,6 +1407,10 @@ function activateStatsQuestions(){
 
 let CITIES = [];
 let lastPickWasOneCity = false; // 直前に出した質問が「1市限定質問」だったか(連続を避けるため)
+// 【候補数の節目GA4計測】1ゲームにつき、各節目を1回だけ送るための記録。
+// startMode()でリセットする。
+let notifiedCandidateMilestones = new Set();
+const CANDIDATE_MILESTONES = [100, 50, 20, 10, 5, 3, 1];
 let scorePool = []; // [{city, score}] 形式。はい/いいえで完全に消すのではなく、加点/減点で判断する
 // 即時除外などで候補から外した分の置き場。捨てずにここへ避けておき、スコアの加減点は
 // scorePool と同じように続ける。1回目の推測が外れたら、ここから候補へ戻して復活させる
@@ -1495,6 +1499,10 @@ let questionPhase = 'normal'; // 'normal' | 'extra'
 let history = []; // 「戻る」ボタン用の履歴(質問を出す直前の状態を保存)
 let currentResult = null;   // 確定した結果を一元管理する: {city, success, questionCount, mode, barePoints}
 let lastGuessCity = null;   // 直近に画面へ出した「もしかして」候補(訂正フォームの参考表示用)
+// 降参(renderGiveUp)時点で候補に残っていた自治体のcityId一覧。
+// 訂正フォームで入力された本当の地元がこの中に含まれていたら、
+// 「実は候補に入っていました」というフィードバックを出すために使う。
+let giveUpPoolSnapshot = null;
 let answerLog = [];         // このゲーム内で実際に回答した内容の記録: {key, val, weight, responseMs}(historyと同じ並び順)
 let questionShownAt = null; // 現在の質問が画面に表示された時刻(回答時間の計測用)
                               // 「地元バレポイント」を、質問を出した後に振り返って計算するために使う。
@@ -1787,6 +1795,11 @@ function emptyStatsData(){
     achievementOrder: [],           // 称号を獲得した順番(称号IDの配列)
     lastResult: null,               // 直近の正解: { city, pref, at }
     recentRegions: [],              // 直近に正解した都道府県名(隣接判定の隠し称号用。最大3件保持)
+    // 【今回追加】称号拡充のための追加フィールド。既存フィールドの意味・型は一切変えていない。
+    shareCount: 0,                  // シェア操作(画像・X文章)を実際に行った回数
+    mapViewCount: 0,                // 結果画面の地図を表示した回数
+    statsPageViewedAt: null,        // 統計ページを初めて見たISO日時(null=未閲覧)
+    personalBestUpdateCount: 0,     // 自己最短記録を更新した回数(初回登録は含まない)
   };
 }
 function loadStats(){
@@ -1810,7 +1823,8 @@ function loadStats(){
     if(typeof merged.misguessedCityCounts !== 'object' || merged.misguessedCityCounts === null) merged.misguessedCityCounts = {};
     // 数値フィールドが壊れている(NaN・文字列など)場合は0にフォールバックし、正解回数などがNaNにならないようにする
     ['totalPlays','totalCorrect','currentStreak','maxStreak','firstGuessCorrectCount',
-     'laterGuessCorrectCount','extraQuestionCorrectCount','maxQuestionReachedCount'].forEach(k => {
+     'laterGuessCorrectCount','extraQuestionCorrectCount','maxQuestionReachedCount',
+     'shareCount','mapViewCount','personalBestUpdateCount'].forEach(k => {
       if(!Number.isFinite(merged[k])) merged[k] = 0;
     });
     ['yes','no','maybeYes','maybeNo','unknown'].forEach(k => {
@@ -1834,10 +1848,68 @@ function saveStats(data){
   }
 }
 // 日本時間(JST, UTC+9固定)でのYYYY-MM-DDを返す。
+// ==================== 今日の挑戦者数 ====================
+// 【設計】個人を特定できる情報は一切保存・送信しない。
+// - 端末ごとにランダムな匿名ID(内容に意味を持たない文字列)をlocalStorageへ1つだけ保存する。
+// - 同じ日(日本時間)に同じ端末から重ねて送らないよう、「最後に送った日付」も記録しておく。
+//   これにより、ページを何度再読み込みしても「今日の挑戦者」としては1人分にしかならない。
+// - ユニーク集計(重複除去)はサーバー側(Google Apps Script)で行う。クライアント側は
+//   「今日まだ送っていなければ、匿名IDを1回だけ送る」ところまでしか行わない。
+// - 送信は、既存の「匿名のプレイ結果を送信する」設定がOFFなら行わない(プレイ結果送信と同じ扱い)。
+const VISITOR_ID_KEY = 'oramachi_visitor_id';
+const VISITOR_LAST_SENT_KEY = 'oramachi_visitor_last_sent_date';
+
+function getOrCreateVisitorId(){
+  try{
+    let id = localStorage.getItem(VISITOR_ID_KEY);
+    if(!id){
+      // crypto.randomUUIDが使えない環境向けの簡易フォールバック(個人情報は含まない乱数)
+      id = (typeof crypto !== 'undefined' && crypto.randomUUID)
+        ? crypto.randomUUID()
+        : 'v-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 10);
+      localStorage.setItem(VISITOR_ID_KEY, id);
+    }
+    return id;
+  }catch(e){
+    return null; // localStorageが使えない環境では計測しない
+  }
+}
+
+// 今日まだ送っていなければ、匿名IDを1回だけGASへ送る。
+// (fetchLiveStatsと同じCORRECTIONS_ENDPOINT_URLへ type:'visitor' として送る想定。
+//  サーバー側での日付ごとのユニーク集計方法は apps-script-corrections.gs 側の対応が必要)
+function reportTodayVisitorOnce(){
+  if(!CORRECTIONS_ENDPOINT_URL) return;
+  if(!isAnonymousReportingEnabled()) return;
+  const today = todayJstDateString();
+  try{
+    if(localStorage.getItem(VISITOR_LAST_SENT_KEY) === today) return; // 今日はもう送信済み
+    const visitorId = getOrCreateVisitorId();
+    if(!visitorId) return;
+    fetch(CORRECTIONS_ENDPOINT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ type: 'visitor', visitorId, dateJst: today, timestamp: new Date().toISOString() })
+    }).catch(err => {
+      console.warn('おらマチ: 挑戦者数の送信に失敗しました(オフライン等の可能性)', err);
+    });
+    localStorage.setItem(VISITOR_LAST_SENT_KEY, today);
+  }catch(e){
+    console.warn('おらマチ: 挑戦者数の送信処理でエラー', e);
+  }
+}
+
 function todayJstDateString(){
   const now = new Date();
   const jst = new Date(now.getTime() + 9 * 60 * 60 * 1000);
   return jst.toISOString().slice(0, 10);
+}
+// 日本時間での「現在の時(0〜23)」。朝/深夜プレイの称号判定に使う。
+function currentJstHour(){
+  const now = new Date();
+  const jst = new Date(now.getTime() + 9 * 60 * 60 * 1000);
+  return jst.getUTCHours();
 }
 
 // 正解が確定した瞬間だけ呼ばれる。制覇帳へ記録し、結果画面用のメッセージ種別を返す。
@@ -2215,6 +2287,56 @@ const ACHIEVEMENTS = [
     check: ctx => !!ctx.game && ctx.game.success && ctx.game.guessAttempts === 1 },
   { id:'hidden_revenge', name:'今度こそ当てるべ', description:'過去にゲームが誤推測したことがある自治体を、後のプレイで正解する', category:'hidden', rarity:1, hidden:true,
     check: ctx => !!ctx.game && ctx.game.success && (ctx.game.misguessedBeforeCount || 0) >= 1 },
+
+  // ==================== 今回追加した称号 ====================
+  // 【プレイ回数系】既存のdistinct系(異なる自治体を何件正解したか)とは別に、
+  // 累計プレイ回数(成功・失敗を問わない=totalPlays)を基準にした称号。
+  { id:'plays_10', name:'地元推理見習い', description:'累計10回プレイする', category:'basic', rarity:1, hidden:false,
+    check: ctx => ctx.stats.totalPlays >= 10 },
+  { id:'plays_50', name:'地元推理名人', description:'累計50回プレイする', category:'basic', rarity:2, hidden:false,
+    check: ctx => ctx.stats.totalPlays >= 50 },
+  { id:'plays_100', name:'百戦錬磨のたぬき', description:'累計100回プレイする', category:'basic', rarity:3, hidden:false,
+    check: ctx => ctx.stats.totalPlays >= 100 },
+  { id:'plays_1000', name:'千本ノック', description:'累計1000回プレイする', category:'basic', rarity:5, hidden:false,
+    check: ctx => ctx.stats.totalPlays >= 1000 },
+
+  // 【制覇数系】全国の半分を制覇する節目。
+  { id:'collection_half', name:'全国折り返し地点', description:'現在の対象自治体の50%を正解する', category:'collection', rarity:4, hidden:false,
+    check: ctx => ctx.normalCities.length > 0 && ctx.distinctCount >= Math.ceil(ctx.normalCities.length * 0.5) },
+
+  // 【質問数系】自己最短記録を更新したときに解除される(既に解除済みの称号は再判定されないため、
+  // 実質「初めて自己記録を更新したとき」に1回だけ解除される)。
+  { id:'record_breaker', name:'記録更新の達人', description:'自己最短記録を更新する', category:'speed', rarity:2, hidden:false,
+    check: ctx => !!ctx.game && ctx.game.success && !!ctx.game.isNewRecord },
+
+  // 【連続正解系】既存の3・5・10・20・30に加えて25・50を追加。
+  { id:'streak_25', name:'連勝街道まっしぐら', description:'25回連続正解する', category:'streak', rarity:4, hidden:false,
+    check: ctx => ctx.stats.currentStreak >= 25 },
+  { id:'streak_50', name:'伝説のマチ勘', description:'50回連続正解する', category:'streak', rarity:5, hidden:false,
+    check: ctx => ctx.stats.currentStreak >= 50 },
+
+  // 【回答スタイル系】「わからない」「たぶんそう」「たぶん違う」を1問も使わず、
+  // すべて「はい」「いいえ」で正解する(既存の即断即決＋はっきり答える人を、1プレイで同時に満たす版)。
+  { id:'style_no_miss', name:'ノーミス推理', description:'正解した1プレイで「わからない」「たぶんそう」「たぶん違う」を一度も使わない', category:'style', rarity:2, hidden:false,
+    check: ctx => {
+      if(!ctx.game || !ctx.game.success) return false;
+      const log = ctx.game.answerLogSnapshot || [];
+      return log.length > 0 && log.every(r => r.val !== null && r.weight >= 1);
+    } },
+
+  // 【特殊称号】時間帯・シェア・地図・統計ページ
+  { id:'time_morning', name:'朝のおらマチ', description:'朝5時〜9時にプレイする', category:'unique', rarity:1, hidden:false,
+    check: () => { const h = currentJstHour(); return h >= 5 && h < 9; } },
+  { id:'time_midnight', name:'夜ふかし推理', description:'深夜0時〜4時にプレイする', category:'unique', rarity:1, hidden:false,
+    check: () => { const h = currentJstHour(); return h >= 0 && h < 4; } },
+  { id:'share_first', name:'シェアありがとう', description:'結果を初めてシェアする', category:'unique', rarity:1, hidden:false,
+    check: ctx => (ctx.stats.shareCount || 0) >= 1 },
+  { id:'share_many', name:'推理を広めし者', description:'結果を10回シェアする', category:'unique', rarity:3, hidden:false,
+    check: ctx => (ctx.stats.shareCount || 0) >= 10 },
+  { id:'map_lover', name:'地図好き', description:'結果画面の地図を10回表示する', category:'unique', rarity:1, hidden:false,
+    check: ctx => (ctx.stats.mapViewCount || 0) >= 10 },
+  { id:'data_lover', name:'データ好き', description:'統計ページを初めて見る', category:'unique', rarity:1, hidden:false,
+    check: ctx => !!ctx.stats.statsPageViewedAt },
 ];
 // 配列内で、条件関数fnを満たす要素がn回連続する箇所があるかを調べる(隠し称号の判定補助)。
 function hasConsecutive(arr, fn, n){
@@ -2714,6 +2836,15 @@ function shuffle(arr){
   return a;
 }
 
+// 進行バーの目印に使う鳥居アイコン。色付き絵文字(⛩)はCSSで色を変えられないため、
+// currentColorで塗るSVGにして、進行バー側の赤色・大きさ指定を効かせている。
+const TORII_ICON_SVG = '<svg viewBox="0 0 24 22" width="1em" height="1em" fill="none" xmlns="http://www.w3.org/2000/svg">'
+  + '<path d="M1 6.5L3 3h18l2 3.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>'
+  + '<path d="M2.4 9H21.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>'
+  + '<path d="M6 9v11M18 9v11" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>'
+  + '<path d="M12 9v6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>'
+  + '</svg>';
+
 function renderStamps(){
   // 【進行バー】以前は上限34問ぶんの鳥居スタンプを並べていたが、スマホでは小さく詰まって
   // 圧迫感が出ていた。34個並べる代わりに、5問ごとの目盛りが付いた1本のバーで表す。
@@ -2744,11 +2875,13 @@ function renderStamps(){
   fill.style.width = (ratio * 100) + '%';
   bar.appendChild(fill);
 
-  // 現在地の目印。通常質問は鳥居、追加質問は虫めがねで区別する
+  // 現在地の目印。通常質問は鳥居、追加質問は虫めがねで区別する。
+  // 絵文字の⛩は色付きの絵文字でCSSから色を変えられないため、
+  // 色・大きさを自在に変えられるSVGの鳥居アイコンに差し替えている。
   const head = document.createElement('span');
   head.className = 'qbar-head';
   head.style.left = (ratio * 100) + '%';
-  head.textContent = isExtra ? '🔎' : '⛩';
+  head.innerHTML = isExtra ? '🔎' : TORII_ICON_SVG;
   bar.appendChild(head);
 
   stampsEl.appendChild(bar);
@@ -4903,6 +5036,7 @@ try{
       else if(st.oramachiScreen === 'prefectureCards'){ renderPrefectureCards(); }
       else if(st.oramachiScreen === 'prefectureDetail'){ renderPrefectureDetail(st.pref); }
       else if(st.oramachiScreen === 'achievements'){ renderAchievementsPage(); }
+      else if(st.oramachiScreen === 'stats'){ renderStatsPage(); }
       else { renderOpening(); }
     } finally {
       isHandlingPopState = false;
@@ -4916,15 +5050,31 @@ function renderOpening(){
 
   const niigataCount = CITIES.filter(c => c.pref === '新潟県').length;
   const tokyoCount = CITIES.filter(c => c.pref === '東京都' && c.name !== '東京').length;
+  // 「全国◯自治体」のような数字は、cities.jsonの実データから毎回算出する(手打ちの固定値にしない)。
+  // 「東京」は23区の集計用データなので対象自治体数には含めない。
+  const totalCount = CITIES.filter(c => c.name !== '東京').length;
 
   stage.innerHTML = `
     <div class="mascot-wrap opening-mascot-wrap">${openingMascotHTML()}</div>
-    <div class="bubble"><span class="icon">🗾</span>どのモードであそぶ？</div>
+
+    <!-- 【キャッチコピー】5秒で内容が伝わることを優先し、文章は増やしすぎない。
+         優先順位: ①キャラクター ②メインコピー ③開始ボタン ④説明 ⑤今日の挑戦者数 -->
+    <h1 class="catch-copy" id="catchCopy">あなたの地元、<br class="catch-copy-br">30問以内で当てます。</h1>
+    <button class="mode-btn mode-btn-primary" onclick="startMode('all')">
+      <span class="mode-title">🦝 さっそく遊んでみる</span>
+      <span class="mode-desc">全国版であそぶ</span>
+    </button>
+    <p class="catch-copy-sub">
+      全国の市・東京23区・新潟県の町村に対応！<br>
+      「はい」「いいえ」で答えるだけ。おらっちがあなたの地元を推理します。
+    </p>
 
     <div class="mode-select">
+      <div class="mode-sub-head">モードを選んであそぶ</div>
       <button class="mode-btn" onclick="startMode('all')">
         <span class="mode-title">全国版</span>
         <span class="mode-desc">日本の全ての市、および新潟県の町村と東京23区から当てます</span>
+        <span class="mode-count">現在 ${totalCount} 自治体</span>
       </button>
 
       <button class="mode-btn mode-niigata" onclick="startMode('niigata')">
@@ -4951,6 +5101,7 @@ function renderOpening(){
     <div class="opening-sub-nav">
       <button class="conquest-entry-btn" onclick="renderConquestLog()">📖 全国制覇帳</button>
       <button class="conquest-entry-btn" onclick="renderAchievementsPage()">🏅 称号一覧</button>
+      <button class="conquest-entry-btn" onclick="renderStatsPage()">📊 みんなの統計</button>
     </div>
     <div id="liveStatsTop">${renderStatsBlock()}</div>
   `;
@@ -4958,6 +5109,8 @@ function renderOpening(){
   // DOMへ追加した次のフレームで登場・浮遊・ウインクを開始する。
   requestAnimationFrame(startOpeningMascotAnimation);
   footEl.textContent = `対応エリア 全国全ての市と東京23区 ・ 新潟県 全市町村`;
+  trackGaEvent('catchcopy_view'); // キャッチコピーの表示計測(GA4)
+  reportTodayVisitorOnce(); // 「今日の挑戦者数」の集計用(今日まだ未送信の場合のみ)
 }
 
 // ==================== 全国制覇帳 画面 ====================
@@ -4977,6 +5130,118 @@ function formatAchievementDate(iso){
     const d = new Date(iso);
     return `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日獲得`;
   }catch(e){ return ''; }
+}
+
+// ==================== みんなの統計ページ ====================
+// 【設計】このページで見せる「みんなの統計」(苦戦した自治体・当てやすい自治体など)は、
+// 全ユーザー分のプレイ結果を集計しないと出せない値のため、サーバー側(Google Apps Script)の
+// 集計結果(liveStats.statsDetail)を使う。GAS側がまだこの集計に対応していない場合は
+// statsDetailがundefinedのままなので、「集計中です」という案内を表示し、
+// 存在しないデータをでっち上げて表示することはしない。
+// 期間切り替え('all'|'month'|'30d')は、サーバー側が複数期間分のデータを返せる場合に有効になる。
+let statsPagePeriod = 'all'; // 'all' | 'month' | 'recent30'
+const STATS_PERIOD_LABELS = { all: '累計', month: '今月', recent30: '直近30日' };
+
+function renderStatsPage(){
+  stampsEl.innerHTML = '';
+  pushNavState('stats');
+  trackGaEvent('stats_page_view');
+
+  // 「データ好き」称号: 統計ページを初めて見た時刻を記録する。
+  const stats = loadStats();
+  if(!stats.statsPageViewedAt){
+    stats.statsPageViewedAt = new Date().toISOString();
+    saveStats(stats);
+    const unlocked = checkAchievements(null);
+    if(unlocked.length){
+      // トップページ以外(このページ)で獲得した場合も、称号自体はきちんと記録される。
+      // 演出はページ下部に軽く出す(結果画面のような大きなトーストは、統計ページの文脈に合わないため)。
+      setTimeout(() => {
+        const box = document.getElementById('statsAchievementNotice');
+        if(box) box.innerHTML = renderAchievementToastCard(unlocked);
+      }, 0);
+    }
+  }
+
+  const detail = liveStats && liveStats.statsDetail;
+  const periodTabs = ['all', 'month', 'recent30'].map(p => `
+    <button class="stats-period-tab${p === statsPagePeriod ? ' active' : ''}" onclick="switchStatsPeriod('${p}')">${STATS_PERIOD_LABELS[p]}</button>
+  `).join('');
+
+  const body = detail ? renderStatsDetailBody(detail) : `
+    <div class="stats-empty">
+      <p>まだ「みんなの統計」を集計できるだけのデータが揃っていません。</p>
+      <p class="stats-empty-sub">プレイが増えると、苦戦した自治体ランキングなどが表示されるようになります。</p>
+    </div>`;
+
+  stage.innerHTML = `
+    <div class="mascot-wrap"><div class="pop">${mascotSVG('think')}</div></div>
+    <div class="bubble"><span class="icon">📊</span>みんなの統計だべ</div>
+    <div class="stats-period-tabs">${periodTabs}</div>
+    <div id="statsPageBody">${body}</div>
+    <div id="statsAchievementNotice"></div>
+    <button class="link-btn" onclick="renderOpening()">トップへ戻る</button>
+  `;
+  updateDebugPanel();
+}
+
+function switchStatsPeriod(period){
+  statsPagePeriod = period;
+  trackGaEvent('stats_ranking_view', { period });
+  renderStatsPage();
+}
+
+// 自治体ランキング(苦戦した/当てやすい/質問数が多い・少ない)を1つのテーブルとして描画する共通処理
+function renderCityRankingList(list, valueLabel, valueFormatter){
+  if(!list || list.length === 0) return `<div class="stats-ranking-empty">まだ十分なデータがありません</div>`;
+  return `<ol class="stats-ranking-list">
+    ${list.slice(0, 10).map(row => `
+      <li>
+        <span class="stats-ranking-name">${row.pref} ${row.name}</span>
+        <span class="stats-ranking-value">${valueFormatter(row)}</span>
+      </li>`).join('')}
+  </ol>`;
+}
+
+function renderStatsDetailBody(detail){
+  const sampleNote = detail.minSampleSize
+    ? `<p class="stats-sample-note">※プレイ${detail.minSampleSize}回以上の自治体のみを集計対象にしています</p>`
+    : '';
+  return `
+    <div class="stats-section">
+      <div class="stats-section-title">📈 全体のプレイ状況</div>
+      <div class="stats-overview-grid">
+        <div class="stats-overview-item"><div class="v">${liveStats.todayPlays ?? '–'}</div><div class="l">今日のプレイ回数</div></div>
+        <div class="stats-overview-item"><div class="v">${liveStats.totalPlays ?? '–'}</div><div class="l">累計プレイ回数</div></div>
+        <div class="stats-overview-item"><div class="v">${detail.overallAccuracy != null ? detail.overallAccuracy.toFixed(1) + '%' : '–'}</div><div class="l">全体正答率</div></div>
+        <div class="stats-overview-item"><div class="v">${detail.overallAvgQuestions != null ? detail.overallAvgQuestions.toFixed(1) + '問' : '–'}</div><div class="l">全体平均質問数</div></div>
+      </div>
+    </div>
+
+    <div class="stats-section">
+      <div class="stats-section-title">😵 みんなが苦戦した自治体</div>
+      ${renderCityRankingList(detail.hardestCities, '正答率', row => `正答率 ${row.accuracy.toFixed(1)}%／平均${row.avgQuestions.toFixed(1)}問`)}
+    </div>
+
+    <div class="stats-section">
+      <div class="stats-section-title">🎯 最も当てやすい自治体</div>
+      ${renderCityRankingList(detail.easiestCities, '正答率', row => `正答率 ${row.accuracy.toFixed(1)}%／平均${row.avgQuestions.toFixed(1)}問`)}
+    </div>
+
+    <details class="stats-more">
+      <summary>もっと見る</summary>
+      <div class="stats-section">
+        <div class="stats-section-title">🐢 平均質問数が多い自治体</div>
+        ${renderCityRankingList(detail.mostQuestionsCities, '平均質問数', row => `平均${row.avgQuestions.toFixed(1)}問`)}
+      </div>
+      <div class="stats-section">
+        <div class="stats-section-title">⚡ 平均質問数が少ない自治体</div>
+        ${renderCityRankingList(detail.fewestQuestionsCities, '平均質問数', row => `平均${row.avgQuestions.toFixed(1)}問`)}
+      </div>
+    </details>
+    ${sampleNote}
+    <p class="stats-period-note">集計期間: ${STATS_PERIOD_LABELS[statsPagePeriod]}</p>
+  `;
 }
 
 function renderAchievementsPage(){
@@ -5265,6 +5530,8 @@ function startMode(mode){
   lastPickWasOneCity = false;
   excludedNames = new Set();
   guessAttempts = 0;
+  giveUpPoolSnapshot = null;
+  notifiedCandidateMilestones = new Set();
   asked = [];
   questionCount = 0;
   extraQuestionCount = 0;
@@ -5359,8 +5626,11 @@ function renderQuestion(){
 
   // 「826マチ → 残り約42マチ」のような、候補の絞れ具合を示す補助表示。
   // 文言と表情を必ず同じ判定(thinkingStatusFor)から取るため、片方だけ変わることはない。
+  // 【候補数の演出】アニメーションを発火させるため、描画前の値を控えておく
+  // (estimateRemainingCountForDisplayを呼ぶと lastDisplayedRemainingCount 自体が更新されるため、先に取っておく)。
+  const remainingBefore = lastDisplayedRemainingCount;
   const remainingNow = estimateRemainingCountForDisplay();
-  const progressLabel = `${modeStartCount}マチ → 残り約${remainingNow}マチ`;
+  const progressLabel = `${modeStartCount}マチ → 残り約<span class="progress-count-num" id="progressCountNum">${remainingNow}</span>マチ`;
   const status = thinkingStatusFor(remainingNow, modeStartCount);
   const moraleLabel = status.text;
   // 新しいゲームを開始した最初の質問(まだ1問も答えていない)だけは、
@@ -5387,6 +5657,8 @@ function renderQuestion(){
     ${backBtn}
   `;
   questionShownAt = Date.now(); // 回答時間の計測開始(この質問が画面に出た時刻)
+  animateCandidateCount(remainingBefore, remainingNow); // 候補数の変化演出
+  notifyCandidateMilestone(remainingNow);
   updateDebugPanel();
 }
 
@@ -5456,6 +5728,36 @@ function estimateRemainingCountForDisplay(){
 }
 // 候補の絞れ具合に応じた、おらっちの一言と表情を同時に返す。
 // (文字だけ変わって表情が変わらない、という状態を作らないため、必ずこの関数を経由する)
+// 【候補数の演出】数字が変わった(減った)瞬間に、少し拡大して元に戻る短い演出を入れる。
+// 候補が10以下まで絞れている場面は、少し強めの演出にして「絞れてきた感」を出す。
+// transform(scale)だけで作っているのでレイアウトは動かず、回答ボタンの操作も妨げない。
+// prefers-reduced-motion環境ではCSS側(.progress-count-num系)で自動的に短縮される。
+const CANDIDATE_COUNT_STRONG_THRESHOLD = 10; // これ以下の候補数では強めの演出にする
+// 候補数が節目(100/50/20/10/5/3/1)を初めて下回った瞬間だけGA4へ送る。
+// 同じ節目を同じゲーム内で何度も送らないよう notifiedCandidateMilestones で管理する。
+function notifyCandidateMilestone(remaining){
+  if(remaining == null) return;
+  for(const m of CANDIDATE_MILESTONES){
+    if(remaining <= m && !notifiedCandidateMilestones.has(m)){
+      notifiedCandidateMilestones.add(m);
+      trackGaEvent('candidate_count_milestone', { milestone: m, remaining });
+    }
+  }
+}
+
+function animateCandidateCount(before, after){
+  const el = document.getElementById('progressCountNum');
+  if(!el) return;
+  if(before == null || before === after) return; // 初回表示・変化なしの場合は演出しない
+  const strong = after != null && after <= CANDIDATE_COUNT_STRONG_THRESHOLD;
+  const cls = strong ? 'count-pop-strong' : 'count-pop';
+  // 連続で質問に答えたときに前のアニメーションが残っていても正しく再生されるよう、
+  // 一度クラスを外してから(reflowを挟んで)付け直す。
+  el.classList.remove('count-pop', 'count-pop-strong');
+  void el.offsetWidth; // reflowを強制してアニメーションを再始動させる
+  el.classList.add(cls);
+}
+
 function thinkingStatusFor(remaining, total){
   const ratio = total > 0 ? remaining / total : 1;
   if(remaining <= 3) return { text: 'もう分かったかも！', mood: 'happy' };
@@ -5759,8 +6061,15 @@ function renderGuess(){
   lastGuessCity = guess;
   const isRetry = guessAttempts > 0;
   const bubbleText = isRetry ? 'うーん、もしかしてこっちかも?' : 'もしかして、この街では?';
+  // 【もうわかった！ジャンプ演出】初回の推測(isRetry===false)のときだけ、
+  // おらっちが喜んで飛び跳ねる。2回目以降の推測(訂正後の再推測)では、
+  // 既に一度見た演出を繰り返さないようにするため付けない。
+  // クラスは表示と同時に1回だけ付与するので、演出の有無がボタン操作の
+  // タイミングに影響しない(正解発表を遅らせない)。
+  const jumpClass = isRetry ? '' : ' mascot-guess-jump';
+  if(!isRetry) trackGaEvent('final_guess_animation', { ...analyticsModeParams(currentMode) });
   stage.innerHTML = `
-    <div class="mascot-wrap"><div class="pop">${mascotSVG('happy')}</div></div>
+    <div class="mascot-wrap"><div class="pop${jumpClass}">${mascotSVG('happy')}</div></div>
     <div class="bubble"><span class="icon">💭</span>${bubbleText}</div>
     <div class="result-name">${displayName(guess)}</div>
     <div class="result-pref">${guess.pref}</div>
@@ -6066,6 +6375,52 @@ function computeBarePoints(finalCity){
 
 // 診断カード用: 既存のtagsだけから「雪国度」「都市規模」「ご当地色」を1〜5段階で算出
 // (cities.jsonに新しいフィールドを追加せず、既存タグの組み合わせだけで計算する)
+// ==================== 正解時の褒め言葉 ====================
+// 【質問数に応じた基本評価】星評価は初期実装として質問数だけで決める
+// (自治体ごとの難易度=誤答率などは考慮しない。将来の拡張候補)。
+// 同じ状況でも毎回まったく同じ文言にならないよう、各段階で数種類から抽選する。
+const PRAISE_TIERS = [
+  { max: 10, stars: 5, lines: ['驚異的！ おらマチ名人！', '神業の推理でした！', 'おらっちもびっくりの速さ！'] },
+  { max: 15, stars: 4, lines: ['すごい！ かなり早い！', 'お見事なひらめき！', 'かなりの推理力です！'] },
+  { max: 20, stars: 3, lines: ['お見事！', 'よく当てました！', 'いい調子です！'] },
+  { max: 25, stars: 2, lines: ['じっくり推理して的中！', '粘り強い推理でした！', '着実に絞り込みましたね'] },
+  { max: Infinity, stars: 1, lines: ['最後までありがとう！', '長い推理、お疲れさまでした！', '最後まで付き合ってくれてありがとう！'] },
+];
+function basePraiseFor(totalQuestions){
+  const tier = PRAISE_TIERS.find(t => totalQuestions <= t.max);
+  const line = tier.lines[Math.floor(Math.random() * tier.lines.length)];
+  return { stars: tier.stars, line };
+}
+
+// 【特別メッセージ】該当する場合に基本評価より優先して表示する。上から順に判定し、
+// 最初に該当した1件だけを使う(大げさになりすぎないよう複数は重ねない)。
+// 地方制覇・全国制覇率の節目は、対応する称号がちょうど今回解除されたかどうかで判定する
+// (二重に判定条件を持たず、称号の定義と食い違いが起きないようにするため)。
+function specialPraiseFor(info){
+  if(info.isNewRecord){
+    return { emoji: '🎉', title: '最短記録更新！', body: `これまでの記録を${info.recordDiff}問更新しました。` };
+  }
+  if(info.isFirstEverPlay){
+    return { emoji: '🌟', title: 'はじめてのプレイで的中！', body: '幸先のいいスタートです。' };
+  }
+  if(info.isStreakRecord){
+    return { emoji: '🔥', title: '連続正解記録更新！', body: `現在${info.streakCount}連続正解中です。` };
+  }
+  if(info.regionAchievement){
+    return { emoji: '🗾', title: '地方制覇達成！', body: `「${info.regionAchievement.name}」を獲得しました。` };
+  }
+  if(info.collectionAchievement){
+    return { emoji: '🏆', title: '制覇数の節目に到達！', body: `「${info.collectionAchievement.name}」を獲得しました。` };
+  }
+  if(info.isFirstWinOfCity){
+    return { emoji: '🎯', title: `はじめて${info.cityName}を制覇！`, body: '全国制覇帳に新しく記録されました。' };
+  }
+  if(info.newAchievementsCount > 0){
+    return { emoji: '🏅', title: '新しい称号を獲得しました！', body: '' };
+  }
+  return null;
+}
+
 function calcStars(city){
   const t = city.tags;
   const cap = n => Math.max(1, Math.min(5, n));
@@ -6104,9 +6459,47 @@ function starString(n){
   return '★'.repeat(n) + '☆'.repeat(5 - n);
 }
 
-function buildShareText(city, totalQuestions){
+// 【シェア文のバリエーション】状況に応じて異なる文言を返す。
+// 優先順位: 自己最短記録更新 > 新しい称号を獲得 > 通常の正解 / 不正解。
+// options:
+//   isNewRecord: bool          … 自己最短記録を更新したか
+//   newAchievement: {name}     … 今回新しく獲得した称号のうち代表の1件(あれば)
+//   success: bool              … 正解できたかどうか(false=不正解シェア用)
+//   correctCityLabel: string   … 不正解時、訂正フォームで入力された「本当の地元」の表示名
+//   distinctCount: number      … 現在の全国制覇数(称号シェア用)
+function buildShareText(city, totalQuestions, options){
+  options = options || {};
   const q = totalQuestions != null ? totalQuestions : questionCount;
-  return `おらマチに${q}問で【${displayName(city)}】を当てられた！地元、けっこうバレる。 #おらマチ`;
+  const cityLabel = city ? `${city.pref}${displayName(city)}` : '';
+
+  if(options.isNewRecord && city){
+    return `🎉 自己最短記録更新！\n${q}問で「${cityLabel}」を的中！\n#おらマチ`;
+  }
+  if(options.newAchievement){
+    const distinctLabel = options.distinctCount != null ? `\n現在${options.distinctCount}自治体を制覇中。` : '';
+    return `🏅「${options.newAchievement.name}」の称号を獲得しました！${distinctLabel}\n#おらマチ`;
+  }
+  if(options.success === false){
+    const correctLabel = options.correctCityLabel || '???';
+    return `🦝 おらっちでも見抜けなかった！\n今回の正解は「${correctLabel}」でした。\nあなたの地元も挑戦してみませんか？\n#おらマチ #まちあてゲーム`;
+  }
+  return `🦝 おらマチで挑戦！\n${q}問で「${cityLabel}」を当てられました！\nあなたの地元は隠し通せる？\n#おらマチ #まちあてゲーム`;
+}
+
+// シェア操作(X文章・画像)が実際に行われた回数を加算し、シェア系の称号を再判定する。
+// 正解結果画面の外(既にcurrentResultが無い場面)から呼ばれることもあるため、
+// 称号判定は「今回のゲーム情報無し(ctx.game=null)」で行い、シェア系以外の
+// game依存の称号(hidden系など)が誤って解除されないようにする。
+function incrementShareCount(){
+  const stats = loadStats();
+  stats.shareCount = (stats.shareCount || 0) + 1;
+  saveStats(stats);
+  const unlocked = checkAchievements(null);
+  if(unlocked.length && stage && stage.innerHTML.includes('share-card')){
+    // 結果画面を表示中なら、称号獲得演出を追加で出す(既存のトースト表示を流用)
+    const container = document.getElementById('achievementToastContainer');
+    if(container) container.innerHTML = renderAchievementToastCard(unlocked);
+  }
 }
 
 function shareToX(city, totalQuestions, trackShare = true){
@@ -6115,13 +6508,25 @@ function shareToX(city, totalQuestions, trackShare = true){
     trackGaEvent('share', {
       method: 'x_text',
       content_type: 'game_result',
-      item_id: displayName(city),
+      item_id: city ? displayName(city) : '',
       ...analyticsModeParams(currentMode),
       question_count: q
     });
+    trackGaEvent('share_button_click', { method: 'x_text' });
+    incrementShareCount(); // シェア系称号の判定に使う累計回数
   }
 
-  const text = buildShareText(city, totalQuestions);
+  // 今シェアしようとしている結果が、直近の正解結果(currentResult)と同じものであれば、
+  // 記録更新・称号獲得の情報を自動的にシェア文へ反映する(呼び出し側で毎回渡さずに済むように)。
+  const isSameAsCurrent = currentResult && currentResult.city && city && cityId(currentResult.city) === cityId(city);
+  const shareOptions = isSameAsCurrent ? {
+    isNewRecord: currentResult.isNewRecord,
+    newAchievement: (currentResult.newAchievements && currentResult.newAchievements[0]) || null,
+    distinctCount: Object.keys(loadConquest().entries).length,
+    success: currentResult.success,
+  } : {};
+
+  const text = buildShareText(city, totalQuestions, shareOptions);
   const pageUrl = location.href.split('#')[0];
   const intent = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(pageUrl)}`;
   window.open(intent, '_blank', 'noopener,noreferrer');
@@ -6220,8 +6625,25 @@ async function generateShareImageCanvas(){
   ctx.fillStyle = '#263A5C';
   ctx.fillText(`おらっちが ${q}問 で当てました!`, SHARE_IMAGE_W/2, 660);
 
+  // 【星評価・自己ベスト・称号・全国制覇数】結果画面の褒め言葉と同じ質問数基準で星を出す。
+  // 自己ベスト更新・新称号は、あれば優先してバッジ風に添える(無ければ全国制覇数だけ表示)。
+  const shareStars = basePraiseFor(q).stars;
+  ctx.textAlign = 'center';
+  ctx.font = `bold 40px ${FONT}`;
+  ctx.fillStyle = '#D4A017';
+  ctx.fillText('★'.repeat(shareStars) + '☆'.repeat(5 - shareStars), SHARE_IMAGE_W/2, 712);
+
+  const distinctCountForImage = Object.keys(loadConquest().entries).length;
+  const badgeParts = [];
+  if(currentResult.isNewRecord) badgeParts.push('🎉 自己ベスト更新！');
+  if(currentResult.newAchievements && currentResult.newAchievements.length) badgeParts.push(`🏅 ${currentResult.newAchievements[0].name}`);
+  badgeParts.push(`🗾 全国制覇 ${distinctCountForImage}自治体`);
+  ctx.font = `bold 28px ${FONT}`;
+  ctx.fillStyle = '#C1432E';
+  ctx.fillText(badgeParts.join('　'), SHARE_IMAGE_W/2, 758);
+
   // 地元バレポイント
-  let y = 750;
+  let y = 810;
   if(barePoints.length){
     ctx.textAlign = 'left';
     ctx.font = `bold 36px ${FONT}`;
@@ -6288,25 +6710,33 @@ async function shareResultImage(){
   let canvas;
   try{
     canvas = await generateShareImageCanvas();
+    if(canvas) trackGaEvent('share_image_generated', { item_id: displayName(currentResult.city) });
   }catch(e){
     console.warn('おらマチ: 画像カードの生成に失敗しました', e);
     canvas = null;
   }
 
-  const text = buildShareText(currentResult.city, currentResult.questionCount);
+  const text = buildShareText(currentResult.city, currentResult.questionCount, {
+    isNewRecord: currentResult.isNewRecord,
+    newAchievement: (currentResult.newAchievements && currentResult.newAchievements[0]) || null,
+    distinctCount: Object.keys(loadConquest().entries).length,
+    success: currentResult.success,
+  });
   const pageUrl = location.href.split('#')[0];
 
   if(!canvas){
     // 画像生成に失敗しても、通常の文章シェアは必ず使えるようにする。
+    // ボタン利用としては既に上のtrackGaEvent('share', {method:'image_button',...})で計測済みなので、
+    // ここは「実際に文章シェアへ進んだ」ことが分かるよう true で送る(二重計測ではなく別イベント扱い)。
     setStatus('画像の生成に失敗したため、文章でシェアします。');
-    shareToX(currentResult.city, currentResult.questionCount, false);
+    shareToX(currentResult.city, currentResult.questionCount, true);
     return;
   }
 
   const blob = await canvasToBlob(canvas);
   if(!blob){
     setStatus('画像の生成に失敗したため、文章でシェアします。');
-    shareToX(currentResult.city, currentResult.questionCount, false);
+    shareToX(currentResult.city, currentResult.questionCount, true);
     return;
   }
 
@@ -6318,10 +6748,12 @@ async function shareResultImage(){
     try{
       await navigator.share({ files: [file], text, url: pageUrl, title: 'おらマチ' });
       setStatus('');
+      trackGaEvent('share_completed', { method: 'web_share_api' });
+      incrementShareCount();
       return;
     }catch(e){
       // ユーザーがキャンセルした場合などはエラーにせず、静かに終える
-      if(e && e.name === 'AbortError'){ setStatus(''); return; }
+      if(e && e.name === 'AbortError'){ setStatus(''); trackGaEvent('share_cancelled', { method: 'web_share_api' }); return; }
       console.warn('おらマチ: 画像共有に失敗したため保存にフォールバックします', e);
     }
   }
@@ -6337,6 +6769,8 @@ async function shareResultImage(){
     a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 4000);
     setStatus('画像を保存しました。SNSアプリなどから画像を選んで共有してください。');
+    trackGaEvent('share_completed', { method: 'image_download' });
+    incrementShareCount();
     return;
   }catch(e){
     console.warn('おらマチ: 画像の保存に失敗しました', e);
@@ -6344,7 +6778,7 @@ async function shareResultImage(){
 
   // 3. 最終フォールバック: 文章シェア
   setStatus('画像の共有・保存に対応していない環境のため、文章でシェアします。');
-  shareToX(currentResult.city, currentResult.questionCount, false);
+  shareToX(currentResult.city, currentResult.questionCount, true);
 }
 
 // 「ちがう」を押した後の訂正フォーム用データ・関数
@@ -6421,9 +6855,13 @@ async function fetchLiveStats(){
     if(!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
     liveStats = data;
-    if(stage && stage.innerHTML.includes('どのモードであそぶ')){
-      const liveStatsTop = document.getElementById('liveStatsTop');
-      if(liveStatsTop) liveStatsTop.innerHTML = renderStatsBlock();
+    // 「トップページが今表示されているか」は、文言の一致(以前はここで固定文言を
+    // 探していたが、キャッチコピー変更で文言が変わり判定できなくなっていた)ではなく、
+    // トップページにしか存在しない liveStatsTop 要素の有無で判定する。
+    const liveStatsTop = document.getElementById('liveStatsTop');
+    if(liveStatsTop){
+      liveStatsTop.innerHTML = renderStatsBlock();
+      if(Number.isFinite(liveStats.todayVisitors)) trackGaEvent('daily_visitors_displayed', { count: liveStats.todayVisitors });
     }
   }catch(e){
     console.warn('おらマチ: 統計の取得に失敗しました', e);
@@ -6439,8 +6877,14 @@ function renderStatsBlock(){
   const countHtml = (liveStats.totalPlays != null)
     ? `<div class="count-stats">これまで <b>${liveStats.totalPlays}</b> 回プレイ ・ 今日は <b>${liveStats.todayPlays || 0}</b> 回</div>`
     : '';
-  if(!recentHtml && !countHtml) return '';
-  return `<div class="stats-block-top">${countHtml}${recentHtml}</div>`;
+  // 【今日の挑戦者数】「○回遊ばれた」(プレイ回数)ではなく「○人が挑戦した」(ユニーク端末数)を表示する。
+  // サーバー側(Google Apps Script)がまだ対応していない・集計に失敗した場合は liveStats.todayVisitors が
+  // undefined のままになるので、その場合は何も表示しない(0人と断定したり、数字を水増ししたりしない)。
+  const visitorHtml = Number.isFinite(liveStats.todayVisitors)
+    ? `<div class="visitor-count-line"><span class="visitor-count-label">今日の挑戦者</span><span class="visitor-count-num">${liveStats.todayVisitors}</span><span class="visitor-count-unit">人</span></div>`
+    : '';
+  if(!recentHtml && !countHtml && !visitorHtml) return '';
+  return `<div class="stats-block-top">${visitorHtml}${countHtml}${recentHtml}</div>`;
 }
 
 function renderCorrectionForm(){
@@ -6501,15 +6945,57 @@ function submitCorrection(){
 
   sendCorrectionToSheet(entry);
 
-  renderThanks();
+  // 【惜しい候補との突合】降参画面で表示していた候補の中に、入力された本当の地元が
+  // 含まれていたかを判定する。表記ゆれがあるため、都道府県が一致し、かつ市区町村名が
+  // 前方一致(「府中」→「府中市」等)する場合のみ一致とみなす、控えめな判定にしている。
+  // 一致しなければ何も言わない(誤って「候補に入っていました」と言わないようにするため)。
+  let wasNearMiss = false;
+  if(giveUpPoolSnapshot && giveUpPoolSnapshot.length){
+    const normalize = s => (s || '').replace(/\s/g, '');
+    const inputCityNorm = normalize(city);
+    const matched = CITIES.find(c => {
+      if(c.name === '東京') return false;
+      if(c.pref !== pref) return false;
+      const n = normalize(displayName(c));
+      return n === inputCityNorm || n.startsWith(inputCityNorm) || inputCityNorm.startsWith(n.replace(/[市区町村]$/, ''));
+    });
+    if(matched && giveUpPoolSnapshot.includes(cityId(matched))) wasNearMiss = true;
+  }
+
+  renderThanks(wasNearMiss, `${pref}${city}`);
 }
 
-function renderThanks(){
+function renderThanks(wasNearMiss, correctCityLabel){
+  const nearMissLine = wasNearMiss
+    ? `<div class="fact">実はおらっちの候補に入っていました！次はきっと当てられます。</div>`
+    : '';
+  // 【不正解時のシェア】訂正フォームで教えてもらった「本当の地元」を使って文章を作る。
+  // このゲーム自体は正解を知らないため、シェアできるのは訂正フォーム送信後だけ。
+  const shareBtn = correctCityLabel
+    ? `<button class="share-btn-text" onclick="shareGiveUpResult('${correctCityLabel.replace(/'/g, "\\'")}')">
+        <svg class="x-icon" viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        結果をシェア
+      </button>`
+    : '';
   stage.innerHTML = `
     <div class="mascot-wrap"><div class="pop">${mascotSVG('happy')}</div></div>
     <div class="bubble"><span class="icon">🙏</span>ありがとう！おらっちが修行します</div>
+    ${nearMissLine}
     <button class="again" onclick="restart()">もう一度あそぶ</button>
+    ${shareBtn ? `<div class="result-actions-secondary">${shareBtn}</div>` : ''}
   `;
+}
+
+// 不正解確定(降参→訂正フォーム送信)後のシェア。正解自治体名はユーザーの入力そのもの
+// (CITIESデータと完全一致するとは限らない自由記述)なので、buildShareTextへ直接文字列で渡す。
+function shareGiveUpResult(correctCityLabel){
+  trackGaEvent('share', { method: 'x_text', content_type: 'giveup_result' });
+  trackGaEvent('share_button_click', { method: 'x_text_giveup' });
+  incrementShareCount();
+  const text = buildShareText(null, null, { success: false, correctCityLabel });
+  const pageUrl = location.href.split('#')[0];
+  const intent = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(pageUrl)}`;
+  window.open(intent, '_blank', 'noopener,noreferrer');
 }
 
 function correct(isRight, overrideCity){
@@ -6538,8 +7024,11 @@ function correct(isRight, overrideCity){
     // 結果画面・シェア文・訂正フォーム・プレイ結果送信・制覇帳・画像共有のすべてで、
     // ここで確定した同じ自治体データ(currentResult.city)を使う。再計算は一切しない。
     const barePoints = computeBarePoints(guess);
-    // 称号判定より前の時点(=recordGameStatsで今回分が加算される前)での誤推測回数を取っておく。
-    const misguessedBeforeCount = (loadStats().misguessedCityCounts[cityId(guess)]) || 0;
+    // 称号判定・褒め言葉判定より前の時点(=recordGameStatsで今回分が加算される前)の値を控えておく。
+    const statsBefore = loadStats();
+    const misguessedBeforeCount = statsBefore.misguessedCityCounts[cityId(guess)] || 0;
+    const prevMaxStreak = statsBefore.maxStreak;     // 連続正解「記録更新」の判定用
+    const prevTotalPlays = statsBefore.totalPlays;   // 「初プレイで正解」の判定用(0なら今回が1回目)
     // 自己ベスト比較のため、記録を更新する前の最少質問数を取っておく。
     const prevBestQuestions = (() => {
       const data = loadConquest();
@@ -6547,16 +7036,58 @@ function correct(isRight, overrideCity){
       return existing ? existing.minQuestions : null;
     })();
     const conquestResult = recordConquest(guess, totalQuestions, currentMode);
-    recordGameStats('success', guess, totalQuestions);
+    const statsAfter = recordGameStats('success', guess, totalQuestions);
+    // 【正解時の褒め言葉・称号判定で共通して使う値】ここでまとめて計算しておく。
+    const isNewRecord = prevBestQuestions != null && totalQuestions < prevBestQuestions;
+    const recordDiff = isNewRecord ? (prevBestQuestions - totalQuestions) : 0;
+    const isStreakRecord = statsAfter.currentStreak > prevMaxStreak && statsAfter.currentStreak >= 3;
+    if(isNewRecord) statsAfter.personalBestUpdateCount = (statsAfter.personalBestUpdateCount || 0) + 1;
+    // 「地図好き」称号のため、結果画面に地図が表示された回数を数える。
+    // 【重要】statsへの追加更新はここでまとめて行い、1回だけsaveStatsする。
+    // (checkAchievements呼び出しの後にstatsAfterを使って再度saveStatsすると、
+    //  checkAchievements内で解除された称号の保存を、この古いオブジェクトで上書きして
+    //  消してしまうバグがあったため、更新は必ずcheckAchievementsより前にまとめる)
+    statsAfter.mapViewCount = (statsAfter.mapViewCount || 0) + 1;
+    saveStats(statsAfter);
     const newAchievements = checkAchievements({
       success: true,
       totalQuestions,
       guessAttempts,
       answerLogSnapshot: [...answerLog],
       misguessedBeforeCount,
+      isNewRecord,
     });
-    currentResult = { city: guess, success: true, questionCount: totalQuestions, mode: currentMode, barePoints, conquestResult, newAchievements };
+    currentResult = { city: guess, success: true, questionCount: totalQuestions, mode: currentMode, barePoints, conquestResult, newAchievements, isNewRecord };
     const stars = calcStars(guess);
+
+    // 【正解時の褒め言葉】質問数の基本評価に、記録更新などがあれば特別メッセージを重ねる。
+    const regionAchievement = newAchievements.find(a => a.category === 'region') || null;
+    const collectionAchievement = newAchievements.find(a => a.category === 'collection') || null;
+    const praiseBase = basePraiseFor(totalQuestions);
+    const praiseSpecial = specialPraiseFor({
+      isNewRecord, recordDiff,
+      isFirstEverPlay: prevTotalPlays === 0,
+      isStreakRecord, streakCount: statsAfter.currentStreak,
+      regionAchievement, collectionAchievement,
+      isFirstWinOfCity: conquestResult.status === 'new',
+      cityName: displayName(guess),
+      newAchievementsCount: newAchievements.length,
+    });
+    if(isNewRecord) trackGaEvent('personal_best_updated', { item_id: displayName(guess), question_count: totalQuestions, improved_by: recordDiff });
+    newAchievements.forEach(a => trackGaEvent('achievement_unlocked', { achievement_id: a.id, achievement_name: a.name, rarity: a.rarity }));
+    const praiseHtml = `
+      <div class="praise-block">
+        <div class="praise-stars">${starString(praiseBase.stars)}</div>
+        <div class="praise-line">${praiseBase.line}</div>
+        ${praiseSpecial ? `
+          <div class="praise-special">
+            <span class="praise-special-emoji">${praiseSpecial.emoji}</span>
+            <span class="praise-special-text">
+              <span class="praise-special-title">${praiseSpecial.title}</span>
+              ${praiseSpecial.body ? `<span class="praise-special-body">${praiseSpecial.body}</span>` : ''}
+            </span>
+          </div>` : ''}
+      </div>`;
 
     const barePointsHtml = barePoints.length
       ? `<div class="barepoints-block">
@@ -6606,6 +7137,7 @@ function correct(isRight, overrideCity){
         <div class="result-name">${displayName(guess)}</div>
         <div class="result-pref">${guess.pref}</div>
         <div class="result-line">おらっちが <b>${totalQuestions}問</b> で当てました!</div>
+        ${praiseHtml}
         ${bestHtml}
         <div class="fact">${guess.fact}</div>
         <div class="stars-block">
@@ -6691,10 +7223,18 @@ function renderExtraIntro(){
 }
 
 function renderGiveUp(){
-  // 最終候補をいくつか表示し、訂正フォーム(既存の正解入力の仕組み)へ自然につなぐ
-  const remainingNames = sortedPool().slice(0, 5).map(e => displayName(e.city));
-  const hint = remainingNames.length
-    ? `<div class="fact">他にはこんな候補も考えていました: ${remainingNames.join('、')}</div>`
+  // 【惜しかった候補】最後まで残っていた候補を、推理結果(スコア順=sortedPool)の
+  // 上位から最大3件だけ見せる。単純な配列の先頭ではなく、実際に絞り込みで
+  // 上位に残っていた=おらっちが最後まで迷っていた自治体を選ぶ。
+  // 都道府県名も添えて、同名・類似市を区別できるようにする。
+  // sortedPoolは同じ自治体を重複して含まないため、重複排除は不要。
+  const nearMiss = sortedPool().slice(0, 3).map(e => `${e.city.pref} ${displayName(e.city)}`);
+  giveUpPoolSnapshot = sortedPool().map(e => cityId(e.city)); // 訂正フォーム送信後の判定用
+  const hint = nearMiss.length
+    ? `<div class="near-miss-block">
+        <div class="near-miss-title">惜しい！<br>おらっちが最後まで迷っていた候補</div>
+        <ul class="near-miss-list">${nearMiss.map(t => `<li>${t}</li>`).join('')}</ul>
+      </div>`
     : '';
   stage.innerHTML = `
     <div class="mascot-wrap"><div class="shake">${mascotSVG('sad')}</div></div>
