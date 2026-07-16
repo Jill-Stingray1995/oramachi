@@ -557,482 +557,482 @@ let ALL_TAG_KEYS = [];
 
 // 既存のタグに日本語ラベル・質問文・アイコンを対応させるマップ(新規タグを追加すると自動でここにも追加登録される)
 const TAG_LABELS = {
-  "hitachi_seaside_park": { "label": "ネモフィラで有名な国営ひたち海浜公園", "question": "ネモフィラで有名な国営ひたち海浜公園がある?", "icon": "💐" },
-  "tsuchiura_hanabi": { "label": "日本三大花火大会の一つに数えられる全国花火競技大", "question": "日本三大花火大会の一つに数えられる全国花火競技大会が開かれる?", "icon": "🎆" },
-  "koga_kubo": { "label": "室町時代に鎌倉公方の流れをくむ公方が拠点を", "question": "室町時代に鎌倉公方の流れをくむ公方が拠点を置いた?", "icon": "🏯" },
-  "toride_geidai": { "label": "利根川沿いにあり、競輪場と東京藝術大学のキャンパ", "question": "利根川沿いにあり、競輪場と東京藝術大学のキャンパスがある?", "icon": "🎨" },
-  "shimodate_gion": { "label": "日本最大級の大神輿が出る下館祇園まつり", "question": "日本最大級の大神輿が出る下館祇園まつりがある?", "icon": "🏮" },
-  "kamisu_gallery": { "label": "海岸沿いの長い防波堤に壁画が並ぶ「1000人画廊", "question": "海岸沿いの長い防波堤に壁画が並ぶ「1000人画廊」がある?", "icon": "🎨" },
-  "tsukumai": { "label": "高さ約14メートルの柱上で曲芸を行う伝統行事「撞", "question": "高さ約14メートルの柱上で曲芸を行う伝統行事「撞舞」がある?", "icon": "🎪" },
-  "ushiku_daibutsu": { "label": "世界最大の大仏", "question": "世界最大の大仏がある?", "icon": "🗿" },
-  "kashima_jingu": { "label": "東国三社の一つ、鹿島神宮", "question": "東国三社の一つ、鹿島神宮がある?", "icon": "⛩️" },
-  "kokuo_jinja": { "label": "平将門を祭る國王神社", "question": "平将門を祭る國王神社がある?", "icon": "⛩️" },
-  "warp_station_edo": { "label": "時代劇の野外撮影施設「ワープステーション江戸」", "question": "時代劇の野外撮影施設「ワープステーション江戸」がある?", "icon": "🎬" },
-  "ryujin_ohashi": { "label": "歩行者専用として国内最大級の竜神大吊橋", "question": "歩行者専用として国内最大級の竜神大吊橋がある?", "icon": "🌉" },
-  "ayumizaki_park": { "label": "霞ヶ浦を一望できる歩崎公園", "question": "霞ヶ浦を一望できる歩崎公園がある?", "icon": "🏞️" },
-  "melon_hokota": { "label": "メロンの産地として全国的に知られる", "question": "メロンの産地として全国的に知られる?", "icon": "🍈" },
-  "ibaraki_airport": { "label": "茨城空港", "question": "茨城空港がある?", "icon": "✈️" },
-  "makabe_district": { "label": "真壁地区に重要伝統的建造物群保存地区", "question": "真壁地区に重要伝統的建造物群保存地区がある?", "icon": "🏘️" },
-  "edosaki_kabocha": { "label": "地理的表示保護制度に登録された江戸崎かぼちゃの産", "question": "地理的表示保護制度に登録された江戸崎かぼちゃの産地?", "icon": "🎃" },
-  "nishishioko_butai": { "label": "組み立て式の農村歌舞伎舞台「西塩子の回り舞台」", "question": "組み立て式の農村歌舞伎舞台「西塩子の回り舞台」がある?", "icon": "🎭" },
-  "itako_ayame": { "label": "あやめまつりで「嫁入り舟」が", "question": "あやめまつりで「嫁入り舟」が運航される?", "icon": "💐" },
-  "oyama_hyojo": { "label": "関ヶ原の戦いの直前に徳川家康が軍議を開いた地", "question": "関ヶ原の戦いの直前に徳川家康が軍議を開いた地?", "icon": "🏯" },
-  "uzumagawa_kura": { "label": "蔵造りの町並みが残り、巴波川で遊覧船が", "question": "蔵造りの町並みが残り、巴波川で遊覧船が運航する?", "icon": "🛶" },
-  "ashikaga_gakko": { "label": "日本最古の学校とされる史跡", "question": "日本最古の学校とされる史跡がある?", "icon": "🎓" },
-  "shiobara_onsen": { "label": "塩原温泉郷", "question": "塩原温泉郷がある?", "icon": "♨️" },
-  "nikko_toshogu": { "label": "世界遺産の東照宮", "question": "世界遺産の東照宮がある?", "icon": "⛩️" },
-  "kyuroku_kan": { "label": "蒸気機関車を展示する「SLキューロク館」", "question": "蒸気機関車を展示する「SLキューロク館」がある?", "icon": "🚂" },
-  "yamaage_matsuri": { "label": "ユネスコ無形文化遺産の山あげ祭が", "question": "ユネスコ無形文化遺産の山あげ祭が行われる?", "icon": "🎭" },
-  "kanto_shinetsu_tsunagu": { "label": "「関東と信越つなぐ○○市？」", "question": "「関東と信越つなぐ○○市?」", "icon": "🛣️" },
-  "tajima_yahei": { "label": "世界遺産の田島弥平旧宅", "question": "世界遺産の田島弥平旧宅がある?", "icon": "🏠" },
-  "kiryu_nokogiri": { "label": "織物工場のノコギリ屋根が多く残り、「球都」と", "question": "織物工場のノコギリ屋根が多く残り、「球都」と呼ばれる?", "icon": "🏭" },
-  "tsutsujigaoka_bunbuku": { "label": "つつじが岡公園と分福茶釜の伝説で知られる", "question": "つつじが岡公園と分福茶釜の伝説で知られる?", "icon": "🌺" },
-  "ikaho_onsen": { "label": "石段街で有名な伊香保温泉", "question": "石段街で有名な伊香保温泉がある?", "icon": "♨️" },
-  "usui_meganebashi": { "label": "碓氷峠の「めがね橋」", "question": "碓氷峠の「めがね橋」がある?", "icon": "🌉" },
-  "tomihiro_museum": { "label": "星野富弘の作品を展示する富弘美術館", "question": "星野富弘の作品を展示する富弘美術館がある?", "icon": "🖼️" },
-  "fukiware_no_taki": { "label": "「東洋のナイアガラ」とも呼ばれる吹割の滝", "question": "「東洋のナイアガラ」とも呼ばれる吹割の滝がある?", "icon": "💦" },
-  "railway_museum": { "label": "国内最大級の鉄道博物館", "question": "国内最大級の鉄道博物館がある?", "icon": "🚄" },
-  "toki_no_kane": { "label": "蔵造りの町並みと「時の鐘」", "question": "蔵造りの町並みと「時の鐘」がある?", "icon": "🔔" },
-  "koku_kinen_park": { "label": "日本初の飛行場跡を整備した航空記念公園", "question": "日本初の飛行場跡を整備した航空記念公園がある?", "icon": "✈️" },
-  "misato_junction": { "label": "東京外環道・常磐道・首都高速が接続するジャンクシ", "question": "東京外環道・常磐道・首都高速が接続するジャンクションがある?", "icon": "🛣️" },
-  "toda_boat": { "label": "1964年東京五輪のボート競技会場", "question": "1964年東京五輪のボート競技会場がある?", "icon": "🚣" },
-  "shibusawa_eiichi": { "label": "渋沢栄一の生誕地", "question": "渋沢栄一の生誕地?", "icon": "💴" },
-  "konosu_hina": { "label": "日本一高いピラミッドひな壇で知られる", "question": "日本一高いピラミッドひな壇で知られる?", "icon": "🎎" },
-  "first_outlet": { "label": "日本初のアウトレットモールが開業した地", "question": "日本初のアウトレットモールが開業した地?", "icon": "🛍️" },
-  "jumbo_koinobori": { "label": "全長100メートルのジャンボこいのぼりを", "question": "全長100メートルのジャンボこいのぼりを揚げる?", "icon": "🎏" },
-  "higashimatsuyama_yakitori": { "label": "豚のカシラ肉をみそだれで食べる「やきとり」で有名", "question": "豚のカシラ肉をみそだれで食べる「やきとり」で有名?", "icon": "🍢" },
-  "seitenkyu": { "label": "日本最大級の道教寺院「聖天宮」", "question": "日本最大級の道教寺院「聖天宮」がある?", "icon": "⛩️" },
-  "riken_hq": { "label": "理化学研究所の本部", "question": "理化学研究所の本部がある?", "icon": "🔬" },
-  "hanawa_hokiichi": { "label": "盲目の国学者・塙保己一の生誕地", "question": "盲目の国学者・塙保己一の生誕地?", "icon": "📚" },
-  "sunaori_amagoi": { "label": "巨大な龍蛇を作る伝統行事「脚折雨乞」", "question": "巨大な龍蛇を作る伝統行事「脚折雨乞」がある?", "icon": "🐉" },
-  "sakitama_zerifry": { "label": "さきたま古墳群とゼリーフライで有名", "question": "さきたま古墳群とゼリーフライで有名?", "icon": "🏺" },
-  "gongendo_sakura": { "label": "桜と菜の花で有名な権現堂桜堤", "question": "桜と菜の花で有名な権現堂桜堤がある?", "icon": "🌸" },
-  "hitachidai_stadium": { "label": "日立台のサッカー専用スタジアム", "question": "日立台のサッカー専用スタジアムがある?", "icon": "⚽" },
-  "suguyaru_ka": { "label": "全国初の「すぐやる課」が", "question": "全国初の「すぐやる課」が設置された?", "icon": "🏢" },
-  "nakayama_hokekyoji": { "label": "日蓮宗の大本山・中山法華経寺", "question": "日蓮宗の大本山・中山法華経寺がある?", "icon": "⛩️" },
-  "kominato_railway": { "label": "小湊鐵道の本社と起点駅", "question": "小湊鐵道の本社と起点駅がある?", "icon": "🚃" },
-  "yatsu_higata": { "label": "ラムサール条約登録湿地の谷津干潟", "question": "ラムサール条約登録湿地の谷津干潟がある?", "icon": "🦆" },
-  "tokyo_disney": { "label": "東京ディズニーリゾート", "question": "東京ディズニーリゾートがある?", "icon": "🎡" },
-  "rekihaku": { "label": "国立歴史民俗博物館", "question": "国立歴史民俗博物館がある?", "icon": "🏛️" },
-  "kikkoman_hq": { "label": "キッコーマンの本社", "question": "キッコーマンの本社がある?", "icon": "🏭" },
-  "abiko_ekisoba": { "label": "大きな唐揚げが乗った駅そばで有名", "question": "大きな唐揚げが乗った駅そばで有名?", "icon": "🍜" },
-  "nomizo_no_taki": { "label": "「濃溝の滝」と呼ばれる亀岩の洞窟", "question": "「濃溝の滝」と呼ばれる亀岩の洞窟がある?", "icon": "💦" },
-  "tokyo_german_village": { "label": "名前に「東京」が付くドイツ風テーマパーク", "question": "名前に「東京」が付くドイツ風テーマパークがある?", "icon": "🎡" },
-  "inubosaki": { "label": "関東最東端の犬吠埼", "question": "関東最東端の犬吠埼がある?", "icon": "🗺️" },
-  "sawara_district": { "label": "佐原地区に江戸情緒を残す重伝建", "question": "佐原地区に江戸情緒を残す重伝建がある?", "icon": "🏘️" },
-  "shirasato_kaigan": { "label": "九十九里浜の白里海岸", "question": "九十九里浜の白里海岸がある?", "icon": "🏖️" },
-  "sunosaki_lighthouse": { "label": "洲埼灯台", "question": "洲埼灯台がある?", "icon": "💡" },
-  "mother_farm_nokogiri": { "label": "マザー牧場と鋸山", "question": "マザー牧場と鋸山がある?", "icon": "🐄" },
-  "boshu_biwa": { "label": "房州ビワの名産地", "question": "房州ビワの名産地?", "icon": "🍑" },
-  "ohara_hadaka": { "label": "大原はだか祭りが", "question": "大原はだか祭りが行われる?", "icon": "🏮" },
-  "kamogawa_seaworld": { "label": "シャチのショーで有名なシーワールド", "question": "シャチのショーで有名なシーワールドがある?", "icon": "🐋" },
-  "katsuura_tantanmen": { "label": "夏でも比較的冷涼で、ご当地タンタンメンで知られる", "question": "夏でも比較的冷涼で、ご当地タンタンメンで知られる?", "icon": "🍜" },
-  "oi_keibajo": { "label": "大井競馬場", "question": "大井競馬場がある?", "icon": "🐎" },
-  "tokyo_daibutsu": { "label": "高さ13メートルの「東京大仏」", "question": "高さ13メートルの「東京大仏」がある?", "icon": "🗿" },
-  "showa_kinen_park": { "label": "国営昭和記念公園", "question": "国営昭和記念公園がある?", "icon": "🌳" },
-  "kichijoji_harmonica": { "label": "吉祥寺駅とハモニカ横丁", "question": "吉祥寺駅とハモニカ横丁がある?", "icon": "🏘️" },
-  "takahata_hijikata": { "label": "高幡不動尊と土方歳三の生誕地", "question": "高幡不動尊と土方歳三の生誕地がある?", "icon": "⛩️" },
-  "shimura_ken": { "label": "志村けんのふるさと", "question": "志村けんのふるさと?", "icon": "😄" },
-  "tama_rokuto": { "label": "多摩六都科学館", "question": "多摩六都科学館がある?", "icon": "🔭" },
-  "ghibli_museum": { "label": "三鷹の森ジブリ美術館", "question": "三鷹の森ジブリ美術館がある?", "icon": "🎬" },
-  "sanrio_puroland": { "label": "サンリオピューロランド", "question": "サンリオピューロランドがある?", "icon": "🎀" },
-  "mitakesan": { "label": "御岳山と御岳渓谷", "question": "御岳山と御岳渓谷がある?", "icon": "🏔️" },
-  "edo_tokyo_tatemono": { "label": "江戸東京たてもの園", "question": "江戸東京たてもの園がある?", "icon": "🏛️" },
-  "kurume_twin": { "label": "福岡県にもそっくりな名前の市", "question": "福岡県にもそっくりな名前の市がある?", "icon": "🔤" },
-  "akishima_kujira": { "label": "約200万年前のクジラ化石が", "question": "約200万年前のクジラ化石が発見された?", "icon": "🐋" },
-  "tamako_yamato": { "label": "多摩湖の大部分があり、市名に旧国名が含まれる", "question": "多摩湖の大部分があり、市名に旧国名が含まれる?", "icon": "🏞️" },
-  "yomiuri_land": { "label": "よみうりランド", "question": "よみうりランドがある?", "icon": "🎢" },
-  "second_smallest_city": { "label": "全国の市で面積が2番目に小さい", "question": "全国の市で面積が2番目に小さい?", "icon": "📏" },
-  "hitotsubashi_univ": { "label": "一橋大学ある文教都市", "question": "一橋大学ある文教都市?", "icon": "🎓" },
-  "jaxa_isas": { "label": "JAXA宇宙科学研究所", "question": "JAXA宇宙科学研究所がある?", "icon": "🚀" },
-  "shirokoro_horumon": { "label": "豚ホルモンを使う「シロコロホルモン」で有名", "question": "豚ホルモンを使う「シロコロホルモン」で有名?", "icon": "🍢" },
-  "izumi_no_mori_awaodori": { "label": "泉の森があり、夏に阿波おどりが", "question": "泉の森があり、夏に阿波おどりが開かれる?", "icon": "💃" },
-  "enoshima": { "label": "江の島", "question": "江の島がある?", "icon": "🏝️" },
-  "omote_tanzawa": { "label": "表丹沢登山の玄関口で、名水百選の湧水群", "question": "表丹沢登山の玄関口で、名水百選の湧水群がある?", "icon": "🏔️" },
-  "ebina_sa": { "label": "東名高速の巨大サービスエリア", "question": "東名高速の巨大サービスエリアがある?", "icon": "🛣️" },
-  "oyama_afuri": { "label": "大山阿夫利神社", "question": "大山阿夫利神社がある?", "icon": "⛩️" },
-  "jogashima_maguro": { "label": "城ヶ島と三崎まぐろで知られる", "question": "城ヶ島と三崎まぐろで知られる?", "icon": "🐟" },
-  "daiyuzan_kintaro": { "label": "大雄山と金太郎伝説で知られる", "question": "大雄山と金太郎伝説で知られる?", "icon": "🏔️" },
-  "okutadami_dam": { "label": "奥只見ダム", "question": "奥只見ダムがある?", "icon": "🏞️" },
-  "hokuetsu_kyoto": { "label": "「北越の小京都」と", "question": "「北越の小京都」と呼ばれる?", "icon": "🏘️" },
-  "knit_gosen": { "label": "ニットの生産高が日本一", "question": "ニットの生産高が日本一?", "icon": "🧶" },
-  "kurokawa_yuden": { "label": "日本最古の油田とされる黒川油田", "question": "日本最古の油田とされる黒川油田がある?", "icon": "🛢️" },
-  "niigata_smallest": { "label": "新潟県で面積が最も小さい市", "question": "新潟県で面積が最も小さい市?", "icon": "📏" },
-  "kitsune_yomeiri": { "label": "「狐の嫁入り行列」が", "question": "「狐の嫁入り行列」が行われる?", "icon": "🦊" },
-  "ryokan_birthplace": { "label": "良寛の生誕地", "question": "良寛の生誕地?", "icon": "📚" },
-  "sakyu_momo": { "label": "「幻の桃」と呼ばれる砂丘桃の産地", "question": "「幻の桃」と呼ばれる砂丘桃の産地?", "icon": "🍑" },
-  "taishitamonja": { "label": "大したもん蛇まつりが", "question": "大したもん蛇まつりが行われる?", "icon": "🐉" },
-  "gomadoyama_ajisai": { "label": "護摩堂山の山頂に約3万株のあじさい園", "question": "護摩堂山の山頂に約3万株のあじさい園がある?", "icon": "💐" },
-  "ryugakubo": { "label": "名水百選の龍ヶ窪", "question": "名水百選の龍ヶ窪がある?", "icon": "💧" },
-  "yahiko_jinja": { "label": "越後一宮の彌彦神社", "question": "越後一宮の彌彦神社がある?", "icon": "⛩️" },
-  "fuji_rock": { "label": "フジロックフェスティバルが", "question": "フジロックフェスティバルが開催される?", "icon": "🎸" },
-  "tama_monorail_extension": { "label": "多摩モノレールの延伸で、市内に初めて鉄道駅が", "question": "多摩モノレールの延伸で、市内に初めて鉄道駅ができる予定?", "icon": "🚝" },
-  "banei_keiba": { "label": "世界で唯一のばんえい競馬が", "question": "世界で唯一のばんえい競馬が開催されている?", "icon": "🐴" },
-  "ebetsu_renga": { "label": "北海道遺産に選ばれた、れんがの産地", "question": "北海道遺産に選ばれた、れんがの産地?", "icon": "🧱" },
-  "kitami_hakka": { "label": "戦前、世界のハッカ流通量の約7割を", "question": "戦前、世界のハッカ流通量の約7割を占めていた?", "icon": "🌿" },
-  "shikotsuko_futoko": { "label": "日本最北の不凍湖", "question": "日本最北の不凍湖がある?", "icon": "🏞️" },
-  "hamanasu_no_oka": { "label": "約180種の植物が自生する「はまなすの丘公園」", "question": "約180種の植物が自生する「はまなすの丘公園」がある?", "icon": "🌸" },
-  "northernmost_city": { "label": "日本最北端の市", "question": "日本最北端の市?", "icon": "🗺️" },
-  "shio_kazunoko": { "label": "塩数の子の加工生産量が日本一", "question": "塩数の子の加工生産量が日本一?", "icon": "🐟" },
-  "canadian_world": { "label": "「赤毛のアン」をテーマにしたカナディアンワールド", "question": "「赤毛のアン」をテーマにしたカナディアンワールドがある?", "icon": "🎡" },
-  "garinko_go": { "label": "世界初の流氷観光砕氷船「ガリンコ号」が", "question": "世界初の流氷観光砕氷船「ガリンコ号」が運航する?", "icon": "🚢" },
-  "nosappu_misaki": { "label": "日本本土最東端の納沙布岬", "question": "日本本土最東端の納沙布岬がある?", "icon": "🗺️" },
-  "hirosaki_tenshu": { "label": "東北地方で唯一、江戸時代から残る天守", "question": "東北地方で唯一、江戸時代から残る天守がある?", "icon": "🏯" },
-  "hasshoku_center": { "label": "巨大な食品市場「八食センター」", "question": "巨大な食品市場「八食センター」がある?", "icon": "🐟" },
-  "misawa_flight": { "label": "世界初の太平洋無着陸横断飛行の出発地", "question": "世界初の太平洋無着陸横断飛行の出発地?", "icon": "✈️" },
-  "ishiwari_zakura": { "label": "大きな花崗岩を割って育つ「石割桜」", "question": "大きな花崗岩を割って育つ「石割桜」がある?", "icon": "🌸" },
-  "mutsu_kokufu": { "label": "奈良・平安時代に陸奥国府と鎮守府が", "question": "奈良・平安時代に陸奥国府と鎮守府が置かれた?", "icon": "🏯" },
-  "kanto_matsuri": { "label": "竿燈まつりが", "question": "竿燈まつりが開催される?", "icon": "🏮" },
-  "kamo_kurage": { "label": "クラゲの展示で有名な加茂水族館", "question": "クラゲの展示で有名な加茂水族館がある?", "icon": "🎐" },
-  "uesugi_jinja": { "label": "上杉謙信を祭る上杉神社", "question": "上杉謙信を祭る上杉神社がある?", "icon": "⛩️" },
-  "jionji": { "label": "東北を代表する古刹・慈恩寺", "question": "東北を代表する古刹・慈恩寺がある?", "icon": "⛩️" },
-  "shinjo_matsuri": { "label": "毎年8月24～26日に、20台の豪華な山車が巡る", "question": "毎年8月24～26日に、20台の豪華な山車が巡る祭りがある?", "icon": "🎏" },
-  "saito_mokichi": { "label": "歌人・斎藤茂吉が生まれたマチ", "question": "歌人・斎藤茂吉が生まれたマチ?", "icon": "📚" },
-  "hanamiyama": { "label": "花見山公園", "question": "花見山公園がある?", "icon": "🌸" },
-  "nanko_park": { "label": "松平定信が「士民共楽」の理念で築いた南湖公園", "question": "松平定信が「士民共楽」の理念で築いた南湖公園がある?", "icon": "🌳" },
-  "nakoku_no_oka": { "label": "須玖岡本遺跡を中心とする「奴国の丘歴史公園」", "question": "須玖岡本遺跡を中心とする「奴国の丘歴史公園」がある?", "icon": "🏺" },
-  "miike_tanko": { "label": "世界遺産の三池炭鉱・宮原坑と三池港", "question": "世界遺産の三池炭鉱・宮原坑と三池港がある?", "icon": "⛏️" },
-  "sakurai_futamigaura": { "label": "海中の夫婦岩と白い鳥居で知られる桜井二見ヶ浦", "question": "海中の夫婦岩と白い鳥居で知られる桜井二見ヶ浦がある?", "icon": "⛩️" },
-  "ushikubi_sueki": { "label": "九州最大の須恵器窯跡群「牛頸須恵器窯跡」", "question": "九州最大の須恵器窯跡群「牛頸須恵器窯跡」がある?", "icon": "🏺" },
-  "munakata_hetsugu": { "label": "沖ノ島を御神体とする三宮のうち、辺津宮", "question": "沖ノ島を御神体とする三宮のうち、辺津宮がある?", "icon": "⛩️" },
-  "goshogatani_kogoishi": { "label": "古代山城の御所ヶ谷神籠石", "question": "古代山城の御所ヶ谷神籠石がある?", "icon": "🏯" },
-  "funabaru_kofun": { "label": "豪華な馬具が古墳とは別の埋納坑から見つかった船原", "question": "豪華な馬具が古墳とは別の埋納坑から見つかった船原古墳がある?", "icon": "🏺" },
-  "hikari_no_michi": { "label": "宮地嶽神社の参道に夕日が重なる「光の道」で知られ", "question": "宮地嶽神社の参道に夕日が重なる「光の道」で知られる?", "icon": "🌇" },
-  "tanabata_jinja": { "label": "織姫を祭る「七夕神社（媛社神社）」", "question": "織姫を祭る「七夕神社（媛社神社）」がある?", "icon": "🎋" },
-  "nogata_meteorite": { "label": "須賀神社に、世界最古級の落下記録を持つ隕石が", "question": "須賀神社に、世界最古級の落下記録を持つ隕石が伝わる?", "icon": "☄️" },
-  "yanagawa_kudari": { "label": "掘割の川下りと北原白秋の生家で知られる", "question": "掘割の川下りと北原白秋の生家で知られる?", "icon": "🛶" },
-  "yame_gyokuro": { "label": "福島地区に白壁の町並みが残り、玉露の産地として知", "question": "福島地区に白壁の町並みが残り、玉露の産地として知られる?", "icon": "🍵" },
-  "sakuta_no_unade": { "label": "日本書紀にも記された古代の用水路「裂田の溝」", "question": "日本書紀にも記された古代の用水路「裂田の溝」がある?", "icon": "💧" },
-  "tagawa_sekitan": { "label": "石炭記念公園に二本煙突と竪坑櫓が残る", "question": "石炭記念公園に二本煙突と竪坑櫓が残る?", "icon": "⛏️" },
-  "hishino_suisha": { "label": "菱野の三連水車と秋月の城下町", "question": "菱野の三連水車と秋月の城下町がある?", "icon": "💧" },
-  "oda_hiroki_museum": { "label": "洋画家・織田廣喜の作品を集めた美術館", "question": "洋画家・織田廣喜の作品を集めた美術館がある?", "icon": "🖼️" },
-  "kiyomizudera_teien": { "label": "雪舟作と伝わる清水寺本坊庭園", "question": "雪舟作と伝わる清水寺本坊庭園がある?", "icon": "🌳" },
-  "toyota_kyushu": { "label": "トヨタ自動車九州の本社と宮田工場", "question": "トヨタ自動車九州の本社と宮田工場がある?", "icon": "🚗" },
-  "chikugo_yoshii": { "label": "筑後吉井の白壁の町並みと果樹園で知られる", "question": "筑後吉井の白壁の町並みと果樹園で知られる?", "icon": "🏘️" },
-  "karatsu_kunchi": { "label": "ユネスコ無形文化遺産の祭りで、多くの曳山が", "question": "ユネスコ無形文化遺産の祭りで、多くの曳山が巡行する?", "icon": "🎏" },
-  "tosu_junction": { "label": "九州道・長崎道・大分道が集まるジャンクション", "question": "九州道・長崎道・大分道が集まるジャンクションがある?", "icon": "🛣️" },
-  "okawachiyama": { "label": "鍋島藩窯が置かれた「秘窯の里・大川内山」", "question": "鍋島藩窯が置かれた「秘窯の里・大川内山」がある?", "icon": "🏺" },
-  "takeo_onsen_romon": { "label": "辰野金吾が設計した朱塗りの楼門がある温泉地", "question": "辰野金吾が設計した朱塗りの楼門がある温泉地?", "icon": "♨️" },
-  "ogi_yokan": { "label": "表面に砂糖の結晶ができる切り羊羹と清水の滝で知ら", "question": "表面に砂糖の結晶ができる切り羊羹と清水の滝で知られる?", "icon": "🍡" },
-  "kunenan": { "label": "紅葉の名所として知られる国の名勝「九年庵」", "question": "紅葉の名所として知られる国の名勝「九年庵」がある?", "icon": "🍁" },
-  "yutoku_inari": { "label": "日本三大稲荷の一つに数えられる祐徳稲荷神社", "question": "日本三大稲荷の一つに数えられる祐徳稲荷神社がある?", "icon": "⛩️" },
-  "ureshino_bihada": { "label": "日本三大美肌の湯の一つと温泉湯どうふで知られる", "question": "日本三大美肌の湯の一つと温泉湯どうふで知られる?", "icon": "♨️" },
-  "isahaya_meganebashi": { "label": "洪水後に公園へ移設された石造二連アーチの眼鏡橋", "question": "洪水後に公園へ移設された石造二連アーチの眼鏡橋がある?", "icon": "🌉" },
-  "nagasaki_airport_omura": { "label": "箕島を造成して造られた長崎空港", "question": "箕島を造成して造られた長崎空港がある?", "icon": "✈️" },
-  "koi_no_oyogu_machi": { "label": "武家屋敷の水路と「鯉の泳ぐまち」で知られる", "question": "武家屋敷の水路と「鯉の泳ぐまち」で知られる?", "icon": "🐟" },
-  "hara_castle": { "label": "キリシタン勢力が籠城した世界遺産・原城跡", "question": "キリシタン勢力が籠城した世界遺産・原城跡がある?", "icon": "🏯" },
-  "unzen_jigoku": { "label": "普賢岳の麓に地獄景観が広がる温泉地", "question": "普賢岳の麓に地獄景観が広がる温泉地がある?", "icon": "♨️" },
-  "fukuejima_onidake": { "label": "福江島の鬼岳と堂崎天主堂", "question": "福江島の鬼岳と堂崎天主堂がある?", "icon": "⛪" },
-  "ajifry_seichi": { "label": "「アジフライの聖地」を掲げる港町", "question": "「アジフライの聖地」を掲げる港町?", "icon": "🐟" },
-  "tsushima_border": { "label": "日本と韓国の国境の島", "question": "日本と韓国の国境の島?", "icon": "🗺️" },
-  "mugi_shochu_iki": { "label": "麦焼酎発祥の地とされ、原の辻遺跡", "question": "麦焼酎発祥の地とされ、原の辻遺跡がある?", "icon": "🍶" },
-  "nanatsugama_shonyudo": { "label": "国の天然記念物に指定された七ツ釜鍾乳洞", "question": "国の天然記念物に指定された七ツ釜鍾乳洞がある?", "icon": "🕳️" },
-  "hirado_oranda": { "label": "江戸時代のオランダ商館が", "question": "江戸時代のオランダ商館が復元されている?", "icon": "🏛️" },
-  "igusa_yatsushiro": { "label": "い草の産地で、地元の人は市名を「やっちろ」と", "question": "い草の産地で、地元の人は市名を「やっちろ」と言う?", "icon": "🌾" },
-  "sakitsu_shuraku": { "label": "世界遺産の﨑津集落", "question": "世界遺産の﨑津集落がある?", "icon": "⛪" },
-  "takaba_countrypark": { "label": "竹迫城跡公園と県農業公園カントリーパーク", "question": "竹迫城跡公園と県農業公園カントリーパークがある?", "icon": "🌳" },
-  "hiryu_no_kane": { "label": "蓮華院誕生寺奥之院に大梵鐘「飛龍の鐘」", "question": "蓮華院誕生寺奥之院に大梵鐘「飛龍の鐘」がある?", "icon": "🔔" },
-  "misumi_nishiko": { "label": "明治期の港湾施設が残る世界遺産・三角西港", "question": "明治期の港湾施設が残る世界遺産・三角西港がある?", "icon": "⚓" },
-  "mandako_greenland": { "label": "世界遺産の万田坑と大型遊園地グリーンランド", "question": "世界遺産の万田坑と大型遊園地グリーンランドがある?", "icon": "⛏️" },
-  "aoi_aso_jinja": { "label": "茅葺き楼門を持つ国宝・青井阿蘇神社", "question": "茅葺き楼門を持つ国宝・青井阿蘇神社がある?", "icon": "⛩️" },
-  "kusasenrigahama": { "label": "草千里ヶ浜と中岳火口", "question": "草千里ヶ浜と中岳火口がある?", "icon": "🌋" },
-  "takasakiyama_saru": { "label": "高崎山のサルが有名", "question": "高崎山のサルが有名?", "icon": "🐒" },
-  "fukuzawa_karaage": { "label": "福澤諭吉が生まれ、からあげの聖地として知られる", "question": "福澤諭吉が生まれ、からあげの聖地として知られる?", "icon": "🍗" },
-  "bungo_futamigaura": { "label": "豊後二見ヶ浦に巨大なしめ縄が", "question": "豊後二見ヶ浦に巨大なしめ縄が張られている?", "icon": "⛩️" },
-  "usa_jingu": { "label": "全国の八幡社の総本宮とされる神宮", "question": "全国の八幡社の総本宮とされる神宮がある?", "icon": "⛩️" },
-  "usuki_magaibutsu": { "label": "国内を代表する国宝の磨崖仏群", "question": "国内を代表する国宝の磨崖仏群がある?", "icon": "🗿" },
-  "harajiri_no_taki": { "label": "「東洋のナイアガラ」とも呼ばれる原尻の滝", "question": "「東洋のナイアガラ」とも呼ばれる原尻の滝がある?", "icon": "💦" },
-  "kinrinko_yufuin": { "label": "金鱗湖と湯の坪街道がある温泉地", "question": "金鱗湖と湯の坪街道がある温泉地?", "icon": "♨️" },
-  "oka_castle": { "label": "「荒城の月」のモデルとされる岡城跡", "question": "「荒城の月」のモデルとされる岡城跡がある?", "icon": "🏯" },
-  "showa_no_machi": { "label": "昭和30年代の商店街を再生した「昭和の町」", "question": "昭和30年代の商店街を再生した「昭和の町」がある?", "icon": "🏘️" },
-  "sandwich_jokamachi": { "label": "二つの武家屋敷地区に商人の町が挟まれた「サンドイ", "question": "二つの武家屋敷地区に商人の町が挟まれた「サンドイッチ型城下町」?", "icon": "🏯" },
-  "futagoji": { "label": "六郷満山文化を代表する両子寺", "question": "六郷満山文化を代表する両子寺がある?", "icon": "⛩️" },
-  "tsukumi_sakura_maguro": { "label": "四浦半島の河津桜と保戸島のマグロ漁業で知られる", "question": "四浦半島の河津桜と保戸島のマグロ漁業で知られる?", "icon": "🌸" },
-  "sekinoo_taki": { "label": "関之尾滝と世界最大級の甌穴群", "question": "関之尾滝と世界最大級の甌穴群がある?", "icon": "💦" },
-  "nobeoka_ishigaki": { "label": "城跡に「千人殺し」と呼ばれる高石垣が残る", "question": "城跡に「千人殺し」と呼ばれる高石垣が残る?", "icon": "🏯" },
-  "umagase_cross": { "label": "柱状節理の断崖・馬ヶ背と「クルスの海」", "question": "柱状節理の断崖・馬ヶ背と「クルスの海」がある?", "icon": "🪨" },
-  "saitobaru_kofun": { "label": "300基以上の古墳が集まる日本最大級の古墳群", "question": "300基以上の古墳が集まる日本最大級の古墳群がある?", "icon": "🏺" },
-  "toimisaki_uma": { "label": "都井岬に野生の御崎馬が", "question": "都井岬に野生の御崎馬が生息する?", "icon": "🐎" },
-  "ebino_kogen": { "label": "霧島連山の韓国岳や不動池を望む高原", "question": "霧島連山の韓国岳や不動池を望む高原がある?", "icon": "🏔️" },
-  "shirokuma_tenmonkan": { "label": "天文館の「しろくま」で有名", "question": "天文館の「しろくま」で有名?", "icon": "🍧" },
-  "shiobitashi_onsen": { "label": "坂本龍馬夫妻が新婚旅行で訪れた塩浸温泉", "question": "坂本龍馬夫妻が新婚旅行で訪れた塩浸温泉がある?", "icon": "♨️" },
-  "kokuritsu_taiiku_univ": { "label": "日本唯一の国立体育大学", "question": "日本唯一の国立体育大学がある?", "icon": "🎓" },
-  "kamou_no_okusu": { "label": "日本一の巨樹とされる蒲生の大クス", "question": "日本一の巨樹とされる蒲生の大クスがある?", "icon": "🌳" },
-  "tsuru_ettochi": { "label": "国内最大級のツルの越冬地", "question": "国内最大級のツルの越冬地がある?", "icon": "🦢" },
-  "kinsakubaru_keihan": { "label": "金作原原生林があり、郷土料理の鶏飯で知られる", "question": "金作原原生林があり、郷土料理の鶏飯で知られる?", "icon": "🌴" },
-  "satsumayaki_miyama": { "label": "薩摩焼の里・美山と妙円寺詣りで知られる", "question": "薩摩焼の里・美山と妙円寺詣りで知られる?", "icon": "🏺" },
-  "bonotsu_ganjin": { "label": "坊津の港町と、鑑真が上陸したと伝わる秋目浦", "question": "坊津の港町と、鑑真が上陸したと伝わる秋目浦がある?", "icon": "⚓" },
-  "mizonokuchi_doketsu": { "label": "巨大な岩壁を貫く天然洞穴「溝ノ口洞穴」", "question": "巨大な岩壁を貫く天然洞穴「溝ノ口洞穴」がある?", "icon": "🕳️" },
-  "chiran_bukeyashiki": { "label": "知覧の武家屋敷庭園群と特攻平和会館", "question": "知覧の武家屋敷庭園群と特攻平和会館がある?", "icon": "🏘️" },
-  "daguri_misaki": { "label": "海を望むダグリ岬遊園地", "question": "海を望むダグリ岬遊園地がある?", "icon": "🎡" },
-  "makurazaki_station": { "label": "JR日本最南端の始発・終着駅があり、かつお節で知", "question": "JR日本最南端の始発・終着駅があり、かつお節で知られる?", "icon": "🚉" },
-  "bontan_shika": { "label": "ボンタンの産地で、沖合の無人島に野生のシカ", "question": "ボンタンの産地で、沖合の無人島に野生のシカがいる?", "icon": "🍊" },
-  "teppokan": { "label": "種子島の歴史と火縄銃を紹介する「鉄砲館」", "question": "種子島の歴史と火縄銃を紹介する「鉄砲館」がある?", "icon": "🏛️" },
-  "satsuma_ryugakusei": { "label": "薩摩藩英国留学生記念館", "question": "薩摩藩英国留学生記念館がある?", "icon": "🏛️" },
-  "koza_eisa": { "label": "全島エイサーまつりと「コザ」の音楽文化で知られる", "question": "全島エイサーまつりと「コザ」の音楽文化で知られる?", "icon": "🥁" },
-  "kaichu_doro_katsuren": { "label": "海中道路と世界遺産の勝連城跡", "question": "海中道路と世界遺産の勝連城跡がある?", "icon": "🌉" },
-  "okinawa_convention": { "label": "沖縄コンベンションセンターとトロピカルビーチ", "question": "沖縄コンベンションセンターとトロピカルビーチがある?", "icon": "🏖️" },
-  "heiwa_kinen_himeyuri": { "label": "平和祈念公園とひめゆりの塔", "question": "平和祈念公園とひめゆりの塔がある?", "icon": "🕊️" },
-  "senagajima_umikaji": { "label": "瀬長島ウミカジテラスと旧海軍司令部壕", "question": "瀬長島ウミカジテラスと旧海軍司令部壕がある?", "icon": "🏖️" },
-  "kabira_bay": { "label": "エメラルドグリーンの海で有名な川平湾", "question": "エメラルドグリーンの海で有名な川平湾がある?", "icon": "🏝️" },
-  "irabu_ohashi": { "label": "海の上を渡る長大な伊良部大橋", "question": "海の上を渡る長大な伊良部大橋がある?", "icon": "🌉" },
-  "sefa_utaki": { "label": "世界遺産の斎場御嶽とニライカナイ橋", "question": "世界遺産の斎場御嶽とニライカナイ橋がある?", "icon": "⛩️" },
-  "kaike_onsen": { "label": "山陰を代表する皆生温泉", "question": "山陰を代表する皆生温泉がある?", "icon": "♨️" },
-  "kurayoshi_shirakabe": { "label": "白壁土蔵群と赤瓦の町並み", "question": "白壁土蔵群と赤瓦の町並みがある?", "icon": "🏘️" },
-  "sesshu_teien": { "label": "雪舟が築いたと伝わる庭園", "question": "雪舟が築いたと伝わる庭園が複数ある?", "icon": "🌳" },
-  "iwami_ginzan": { "label": "石見銀山遺跡", "question": "石見銀山遺跡がある?", "icon": "⛏️" },
-  "gonokawa_kako": { "label": "中国地方最大の河川・江の川の河口", "question": "中国地方最大の河川・江の川の河口がある?", "icon": "🌊" },
-  "nihon_sanmeien": { "label": "日本三名園の一つ", "question": "日本三名園の一つがある?", "icon": "🌳" },
-  "horumon_udon": { "label": "ホルモンうどんで知られる", "question": "ホルモンうどんで知られる?", "icon": "🍜" },
-  "kinojo": { "label": "古代山城の鬼ノ城", "question": "古代山城の鬼ノ城がある?", "icon": "🏯" },
-  "bitchu_matsuyama": { "label": "現存天守の備中松山城", "question": "現存天守の備中松山城がある?", "icon": "🏯" },
-  "saijo_sake": { "label": "日本有数の酒どころ「西条」", "question": "日本有数の酒どころ「西条」がある?", "icon": "🍶" },
-  "mihara_tako": { "label": "タコ料理と海に浮かぶ城跡で知られる", "question": "タコ料理と海に浮かぶ城跡で知られる?", "icon": "🐙" },
-  "kiri_no_umi": { "label": "秋から冬の「霧の海」で知られる", "question": "秋から冬の「霧の海」で知られる?", "icon": "🌫️" },
-  "hiroshima_westmost": { "label": "広島県で最も西に位置する市", "question": "広島県で最も西に位置する市?", "icon": "🗺️" },
-  "anno_hideaki": { "label": "『エヴァンゲリオン』の庵野秀明が生まれたマチ", "question": "『エヴァンゲリオン』の庵野秀明が生まれたマチ?", "icon": "🤖" },
-  "tokuyama_combinat": { "label": "徳山の工場夜景やコンビナートで知られる", "question": "徳山の工場夜景やコンビナートで知られる?", "icon": "🏭" },
-  "kintaikyo": { "label": "五連の木造アーチ橋「錦帯橋」", "question": "五連の木造アーチ橋「錦帯橋」がある?", "icon": "🌉" },
-  "cement_glass": { "label": "セメント産業とガラス文化で知られる", "question": "セメント産業とガラス文化で知られる?", "icon": "🏭" },
-  "led_valley": { "label": "LED関連企業の集積で知られる「光のまち」", "question": "LED関連企業の集積で知られる「光のまち」?", "icon": "💡" },
-  "naruto_uzushio": { "label": "世界最大級の渦潮を間近で見られる", "question": "世界最大級の渦潮を間近で見られる?", "icon": "🌀" },
-  "kincho_tanuki": { "label": "金長たぬきの伝説で知られる", "question": "金長たぬきの伝説で知られる?", "icon": "🦝" },
-  "awa_dochu": { "label": "国の天然記念物「阿波の土柱」", "question": "国の天然記念物「阿波の土柱」がある?", "icon": "🪨" },
-  "mima_udatsu": { "label": "「うだつの町並み」が", "question": "「うだつの町並み」が残っている?", "icon": "🏘️" },
-  "iya_kazurabashi": { "label": "祖谷のかずら橋や大歩危・小歩危", "question": "祖谷のかずら橋や大歩危・小歩危がある?", "icon": "🌉" },
-  "marugame_uchiwa": { "label": "現存天守の城とうちわで有名", "question": "現存天守の城とうちわで有名?", "icon": "🏯" },
-  "chichibugahama": { "label": "水面に空が映る父母ヶ浜", "question": "水面に空が映る父母ヶ浜がある?", "icon": "🏖️" },
-  "zenigata_sunae": { "label": "巨大な寛永通宝の砂絵", "question": "巨大な寛永通宝の砂絵がある?", "icon": "🪙" },
-  "setoohashi_shikoku": { "label": "瀬戸大橋の四国側の玄関口", "question": "瀬戸大橋の四国側の玄関口?", "icon": "🌉" },
-  "kukai_birthplace": { "label": "弘法大師・空海の生誕地とされる", "question": "弘法大師・空海の生誕地とされる?", "icon": "⛩️" },
-  "tebukuro_industry": { "label": "手袋の生産量が日本一として知られる", "question": "手袋の生産量が日本一として知られる?", "icon": "🧤" },
-  "uchinuki": { "label": "名水「うちぬき」が市内各地から湧き出る", "question": "名水「うちぬき」が市内各地から湧き出る?", "icon": "💧" },
-  "garyu_sanso": { "label": "臥龍山荘や肱川の鵜飼で知られる", "question": "臥龍山荘や肱川の鵜飼で知られる?", "icon": "🏯" },
-  "kezuribushi": { "label": "削り節の生産が盛んな港町", "question": "削り節の生産が盛んな港町?", "icon": "🐟" },
-  "yawatahama_champon": { "label": "ご当地麺「○○○（市名）ちゃんぽん」で知られる", "question": "ご当地麺「○○○（市名）ちゃんぽん」で知られる?", "icon": "🍜" },
-  "seiyo_geopark": { "label": "四国○○（市名）ジオパークの中心", "question": "四国○○（市名）ジオパークの中心となる市?", "icon": "🗺️" },
-  "botchan_theater": { "label": "常設劇場「坊っちゃん劇場」", "question": "常設劇場「坊っちゃん劇場」がある?", "icon": "🎭" },
-  "kochi_ryoma_airport": { "label": "高知県の空の玄関、高知龍馬空港", "question": "高知県の空の玄関、高知龍馬空港がある?", "icon": "✈️" },
-  "chinkabashi": { "label": "四万十川に架かる多くの沈下橋で知られる", "question": "四万十川に架かる多くの沈下橋で知られる?", "icon": "🌉" },
-  "noichi_zoo": { "label": "高知県立のいち動物公園", "question": "高知県立のいち動物公園がある?", "icon": "🦁" },
-  "muroto_geopark": { "label": "世界ジオパークに認定された岬", "question": "世界ジオパークに認定された岬がある?", "icon": "🗺️" },
-  "nabeyaki_ramen": { "label": "鍋焼きラーメンをご当地グルメ", "question": "鍋焼きラーメンをご当地グルメとする?", "icon": "🍜" },
-  "daruma_yuhi": { "label": "冬の海に沈む「だるま夕日」で知られる", "question": "冬の海に沈む「だるま夕日」で知られる?", "icon": "🌇" },
-  "ashizuri_misaki": { "label": "四国最南端の足摺岬", "question": "四国最南端の足摺岬がある?", "icon": "🗺️" },
-  "tosabushi": { "label": "一本釣りの鰹節「土佐節」で知られる", "question": "一本釣りの鰹節「土佐節」で知られる?", "icon": "🐟" },
-  "yanase_museum": { "label": "やなせたかし記念館", "question": "やなせたかし記念館がある?", "icon": "🏛️" },
-  "nagashima_nabana": { "label": "国内最大級の遊園地となばなの里", "question": "国内最大級の遊園地となばなの里がある?", "icon": "🎢" },
-  "suzuka_circuit": { "label": "F1日本グランプリが開かれる国際サーキット", "question": "F1日本グランプリが開かれる国際サーキットがある?", "icon": "🏎️" },
-  "magose_hinoki": { "label": "熊野古道の馬越峠と、ヒノキの産地で知られる", "question": "熊野古道の馬越峠と、ヒノキの産地で知られる?", "icon": "🌲" },
-  "sekijuku": { "label": "東海道五十三次の宿場町・関宿が", "question": "東海道五十三次の宿場町・関宿が残る?", "icon": "🏘️" },
-  "toba_aquarium": { "label": "国内有数の飼育種類数を誇る水族館と真珠島", "question": "国内有数の飼育種類数を誇る水族館と真珠島がある?", "icon": "🐠" },
-  "onigajo_hananoiwaya": { "label": "鬼ヶ城・花の窟・七里御浜", "question": "鬼ヶ城・花の窟・七里御浜がある?", "icon": "🪨" },
-  "fujiwaradake_bairin": { "label": "藤原岳と、梅林で知られる農業公園", "question": "藤原岳と、梅林で知られる農業公園がある?", "icon": "🌸" },
-  "parque_ago": { "label": "パルケエスパーニャと英虞湾", "question": "パルケエスパーニャと英虞湾がある?", "icon": "🎡" },
-  "iga_ninja_basho": { "label": "忍者博物館と松尾芭蕉の生家", "question": "忍者博物館と松尾芭蕉の生家がある?", "icon": "🥷" },
-  "kurokabe_chikubu": { "label": "黒壁スクエアと竹生島", "question": "黒壁スクエアと竹生島がある?", "icon": "🏘️" },
-  "hachimanbori": { "label": "八幡堀と水郷、近江商人の町並み", "question": "八幡堀と水郷、近江商人の町並みがある?", "icon": "🛶" },
-  "biwako_ohashi_sagawa": { "label": "琵琶湖大橋の東詰と佐川美術館", "question": "琵琶湖大橋の東詰と佐川美術館がある?", "icon": "🌉" },
-  "jra_training": { "label": "JRAの競走馬トレーニングセンター", "question": "JRAの競走馬トレーニングセンターがある?", "icon": "🐎" },
-  "konan_sanzan": { "label": "国宝建築を持つ「湖南三山」", "question": "国宝建築を持つ「湖南三山」がある?", "icon": "⛩️" },
-  "metasequoia_shirahige": { "label": "メタセコイア並木と湖中の大鳥居がある神社で知られ", "question": "メタセコイア並木と湖中の大鳥居がある神社で知られる?", "icon": "🌳" },
-  "gokasho_eigenji": { "label": "五個荘の近江商人屋敷と永源寺", "question": "五個荘の近江商人屋敷と永源寺がある?", "icon": "🏘️" },
-  "maizuru_akarenga": { "label": "海上自衛隊の基地と赤れんが倉庫群", "question": "海上自衛隊の基地と赤れんが倉庫群がある?", "icon": "⚓" },
-  "byodoin_uji": { "label": "平等院鳳凰堂と高級茶の産地で知られる", "question": "平等院鳳凰堂と高級茶の産地で知られる?", "icon": "⛩️" },
-  "iwashimizu_nagarebashi": { "label": "石清水八幡宮と、増水時に流れるよう造られた木橋", "question": "石清水八幡宮と、増水時に流れるよう造られた木橋がある?", "icon": "⛩️" },
-  "toyonaka_kyujo": { "label": "甲子園の前身大会が最初に開かれた球場跡", "question": "甲子園の前身大会が最初に開かれた球場跡がある?", "icon": "⚾" },
-  "cupnoodle_museum": { "label": "カップヌードルミュージアム", "question": "カップヌードルミュージアムがある?", "icon": "🍜" },
-  "taiyo_no_to": { "label": "太陽の塔と万博記念公園", "question": "太陽の塔と万博記念公園がある?", "icon": "🗿" },
-  "mofu_izumiotsu": { "label": "国産毛布の一大産地", "question": "国産毛布の一大産地?", "icon": "🧣" },
-  "imashirozuka_haniwa": { "label": "大王の古墳と大規模な埴輪工場跡", "question": "大王の古墳と大規模な埴輪工場跡がある?", "icon": "🏺" },
-  "mizuma_nishikinohama": { "label": "水間観音と二色の浜", "question": "水間観音と二色の浜がある?", "icon": "⛩️" },
-  "moriguchi_daikon": { "label": "世界最長級の細長い大根の名の由来となった京街道の", "question": "世界最長級の細長い大根の名の由来となった京街道の宿場町?", "icon": "🥬" },
-  "hikari_no_kyokai": { "label": "安藤忠雄設計の「光の教会」と隠れキリシタンの里", "question": "安藤忠雄設計の「光の教会」と隠れキリシタンの里がある?", "icon": "⛪" },
-  "kansai_airport_city": { "label": "関西国際空港と大型アウトレット", "question": "関西国際空港と大型アウトレットがある?", "icon": "✈️" },
-  "pl_tower": { "label": "PL教団が作った巨大な白い塔", "question": "PL教団が作った巨大な白い塔がある?", "icon": "🗼" },
-  "naritasan_osaka": { "label": "成田山の大阪別院", "question": "成田山の大阪別院がある?", "icon": "⛩️" },
-  "kanshinji_kongoji": { "label": "高野街道と国宝を持つ観心寺・金剛寺", "question": "高野街道と国宝を持つ観心寺・金剛寺がある?", "icon": "⛩️" },
-  "nunose_takenouchi": { "label": "布忍神社の恋みくじと、日本遺産の竹内街道", "question": "布忍神社の恋みくじと、日本遺産の竹内街道がある?", "icon": "⛩️" },
-  "nozaki_mairi": { "label": "野崎まいりと飯盛城跡", "question": "野崎まいりと飯盛城跡がある?", "icon": "⛩️" },
-  "ikegami_sone": { "label": "大規模な弥生時代の環濠集落跡", "question": "大規模な弥生時代の環濠集落跡がある?", "icon": "🏺" },
-  "minoh_katsuoji": { "label": "大滝と「勝運の寺」として知られる寺院", "question": "大滝と「勝運の寺」として知られる寺院がある?", "icon": "🍁" },
-  "kashiwara_budo": { "label": "ブドウ栽培と亀の瀬地すべり地帯で知られる", "question": "ブドウ栽培と亀の瀬地すべり地帯で知られる?", "icon": "🍇" },
-  "ojin_ryo_wine": { "label": "世界遺産の古墳群にある巨大な応神天皇陵とワインで", "question": "世界遺産の古墳群にある巨大な応神天皇陵とワインで知られる?", "icon": "🍷" },
-  "panasonic_hq": { "label": "パナソニックの本社", "question": "パナソニックの本社がある?", "icon": "🏭" },
-  "torikai_depot": { "label": "東海道新幹線の鳥飼車両基地", "question": "東海道新幹線の鳥飼車両基地がある?", "icon": "🚄" },
-  "takashinohama": { "label": "南海高師浜線の終点と臨海工業地帯の工場夜景", "question": "南海高師浜線の終点と臨海工業地帯の工場夜景がある?", "icon": "🏭" },
-  "fujiidera_kannon": { "label": "西国三十三所第5番札所と、国宝の千手観音像", "question": "西国三十三所第5番札所と、国宝の千手観音像がある?", "icon": "⛩️" },
-  "sennan_rosegarden": { "label": "海辺の大型公園と英国式ローズガーデン", "question": "海辺の大型公園と英国式ローズガーデンがある?", "icon": "🌹" },
-  "shijonawate_masatsura": { "label": "楠木正行の終焉の地とされ、室池園地", "question": "楠木正行の終焉の地とされ、室池園地がある?", "icon": "🏯" },
-  "hoshi_no_buranko": { "label": "七夕伝説と、巨大なつり橋「星のブランコ」", "question": "七夕伝説と、巨大なつり橋「星のブランコ」がある?", "icon": "🌉" },
-  "sayamaike": { "label": "日本最古級のため池と、安藤忠雄設計の博物館", "question": "日本最古級のため池と、安藤忠雄設計の博物館がある?", "icon": "💧" },
-  "pichipichi_beach": { "label": "「ぴちぴちビーチ」と和泉砂岩の石工文化で知られる", "question": "「ぴちぴちビーチ」と和泉砂岩の石工文化で知られる?", "icon": "🏖️" },
-  "sumoto_castle_onsen": { "label": "淡路島中央部に城跡と温泉街", "question": "淡路島中央部に城跡と温泉街がある?", "icon": "🏯" },
-  "ashiya_yodoko": { "label": "高級住宅地として知られ、ヨドコウ迎賓館", "question": "高級住宅地として知られ、ヨドコウ迎賓館がある?", "icon": "🏡" },
-  "itami_sake_airport": { "label": "清酒発祥地の一つとされ、大阪国際空港の一部", "question": "清酒発祥地の一つとされ、大阪国際空港の一部がある?", "icon": "🍶" },
-  "katsumeshi_kakurinji": { "label": "郷土料理「かつめし」と国宝建築を持つ寺院", "question": "郷土料理「かつめし」と国宝建築を持つ寺院がある?", "icon": "🍚" },
-  "tada_jinja": { "label": "清和源氏ゆかりの多田神社と妙見山", "question": "清和源氏ゆかりの多田神社と妙見山がある?", "icon": "⛩️" },
-  "sanda_hitohaku": { "label": "県立の「人と自然の博物館」とブランド牛で知られる", "question": "県立の「人と自然の博物館」とブランド牛で知られる?", "icon": "🐄" },
-  "kasai_globe_clock": { "label": "旧軍飛行場跡と世界最大級の地球儀時計", "question": "旧軍飛行場跡と世界最大級の地球儀時計がある?", "icon": "🌐" },
-  "izanagi_yumebutai": { "label": "国生み神話の神社と淡路夢舞台", "question": "国生み神話の神社と淡路夢舞台がある?", "icon": "⛩️" },
-  "tojoko_omocha": { "label": "東条湖のおもちゃ王国と県立播磨中央公園", "question": "東条湖のおもちゃ王国と県立播磨中央公園がある?", "icon": "🎠" },
-  "tatsuno_shoyu_somen": { "label": "しょうゆ醸造と手延べそうめんの産地で知られる", "question": "しょうゆ醸造と手延べそうめんの産地で知られる?", "icon": "🍜" },
-  "takada_sakura_jinaimachi": { "label": "川沿いに約千本の桜が続き、古い寺内町が", "question": "川沿いに約千本の桜が続き、古い寺内町が残る?", "icon": "🌸" },
-  "kingyo_yamatokoriyama": { "label": "金魚養殖で知られる", "question": "金魚養殖で知られる?", "icon": "🐠" },
-  "tenri_shukyo_toshi": { "label": "宗教都市として発展し、巨大な本部神殿", "question": "宗教都市として発展し、巨大な本部神殿がある?", "icon": "⛩️" },
-  "kashihara_jingu": { "label": "神武天皇を祭る神宮と藤原宮跡", "question": "神武天皇を祭る神宮と藤原宮跡がある?", "icon": "⛩️" },
-  "miwa_somen": { "label": "三輪そうめんで知られる", "question": "三輪そうめんで知られる?", "icon": "🍜" },
-  "gojo_kaki_shinmachi": { "label": "柿の産地で、江戸時代の町並みが残る新町通り", "question": "柿の産地で、江戸時代の町並みが残る新町通りがある?", "icon": "🍊" },
-  "katsuragi_kodo": { "label": "葛城古道と高鴨神社、古い町家が", "question": "葛城古道と高鴨神社、古い町家が残る?", "icon": "⛩️" },
-  "ikoma_cablecar": { "label": "日本最古の営業用ケーブルカーと山上遊園地", "question": "日本最古の営業用ケーブルカーと山上遊園地がある?", "icon": "🚡" },
-  "dontsurubo": { "label": "奇岩「屯鶴峯」と二上山の北麓", "question": "奇岩「屯鶴峯」と二上山の北麓に位置する?", "icon": "🪨" },
-  "taimadera_sumo": { "label": "當麻寺と、相撲の始祖を紹介する資料館", "question": "當麻寺と、相撲の始祖を紹介する資料館がある?", "icon": "⛩️" },
-  "uda_seiyaku": { "label": "多くの製薬会社の創業者を輩出した", "question": "多くの製薬会社の創業者を輩出した?", "icon": "💊" },
-  "kuroe_shikki": { "label": "黒江の町並みと紀州漆器で知られる", "question": "黒江の町並みと紀州漆器で知られる?", "icon": "🥢" },
-  "koyasan_gateway_pile": { "label": "高野山への鉄道・道路の玄関口で、パイル織物の産地", "question": "高野山への鉄道・道路の玄関口で、パイル織物の産地?", "icon": "🧶" },
-  "arida_mikan": { "label": "全国有数のミカン産地で、山腹にかんきつ畑が広がる", "question": "全国有数のミカン産地で、山腹にかんきつ畑が広がる?", "icon": "🍊" },
-  "shortest_private_line": { "label": "全長3キロ未満の短い私鉄路線が走る", "question": "全長3キロ未満の短い私鉄路線が走る?", "icon": "🚃" },
-  "kumano_hongu_benkei": { "label": "熊野本宮大社と弁慶ゆかりの地", "question": "熊野本宮大社と弁慶ゆかりの地がある?", "icon": "⛩️" },
-  "kumano_hayatama_gotobiki": { "label": "熊野速玉大社と、巨岩を御神体とする神社", "question": "熊野速玉大社と、巨岩を御神体とする神社がある?", "icon": "⛩️" },
-  "kokawadera_momo": { "label": "西国三十三所第3番札所と桃の産地で知られる", "question": "西国三十三所第3番札所と桃の産地で知られる?", "icon": "🍑" },
-  "vinegar_famous": { "label": "酢の生産", "question": "酢の生産で有名?", "icon": "🍶" },
-  "fujiko_f_birthplace": { "label": "藤子・F・不二雄先生の出身地", "question": "藤子・F・不二雄先生の出身地?", "icon": "📚" },
-  "shinkiro_maibotsurin": { "label": "蜃気楼と埋没林の博物館", "question": "蜃気楼と埋没林の博物館がある?", "icon": "🏛️" },
-  "fujiko_a_buri": { "label": "藤子不二雄A先生の出身地で寒ブリが名物", "question": "藤子不二雄A先生の出身地で寒ブリが名物?", "icon": "🐟" },
-  "hotaruika_museum": { "label": "ホタルイカ専門の体験型博物館", "question": "ホタルイカ専門の体験型博物館がある?", "icon": "🦑" },
-  "tulip_fair": { "label": "国内最大級のチューリップフェア", "question": "国内最大級のチューリップフェアが開かれる?", "icon": "🌷" },
-  "merhen_kenchiku": { "label": "西洋風の「メルヘン建築」が多い", "question": "西洋風の「メルヘン建築」が多い?", "icon": "🏰" },
-  "gokayama_gassho": { "label": "五箇山の合掌造り集落", "question": "五箇山の合掌造り集落がある?", "icon": "🏠" },
-  "kaiwomaru_bridge": { "label": "帆船海王丸と巨大な斜張橋", "question": "帆船海王丸と巨大な斜張橋がある?", "icon": "⛵" },
-  "wakura_notojima": { "label": "和倉温泉と能登島", "question": "和倉温泉と能登島がある?", "icon": "♨️" },
-  "komatsu_origin": { "label": "世界的建設機械メーカーの発祥地", "question": "世界的建設機械メーカーの発祥地?", "icon": "🏭" },
-  "senmaida_shikki": { "label": "白米千枚田と漆器産業で知られる", "question": "白米千枚田と漆器産業で知られる?", "icon": "🌾" },
-  "rokugozaki": { "label": "能登半島の先端に禄剛崎", "question": "能登半島の先端に禄剛崎がある?", "icon": "🗺️" },
-  "kaga_onsenkyo": { "label": "山代・山中・片山津の三温泉", "question": "山代・山中・片山津の三温泉がある?", "icon": "♨️" },
-  "ufo_museum": { "label": "UFOをテーマにした宇宙科学博物館", "question": "UFOをテーマにした宇宙科学博物館がある?", "icon": "🛸" },
-  "shirayama_tedori": { "label": "加賀国一宮と手取峡谷", "question": "加賀国一宮と手取峡谷がある?", "icon": "⛩️" },
-  "matsui_museum": { "label": "松井秀喜の野球博物館", "question": "松井秀喜の野球博物館がある?", "icon": "⚾" },
-  "kehi_jindo": { "label": "気比神宮と「人道の港」の資料館", "question": "気比神宮と「人道の港」の資料館がある?", "icon": "⛩️" },
-  "miketsukuni_saba": { "label": "御食国と鯖街道の起点として知られる", "question": "御食国と鯖街道の起点として知られる?", "icon": "🐟" },
-  "echizen_ono_castle": { "label": "雲海に浮かぶ山城と湧水で知られる", "question": "雲海に浮かぶ山城と湧水で知られる?", "icon": "🏯" },
-  "awara_onsen": { "label": "北陸有数の芦原温泉", "question": "北陸有数の芦原温泉がある?", "icon": "♨️" },
-  "fujiq_highland": { "label": "富士急ハイランド", "question": "富士急ハイランドがある?", "icon": "🎢" },
-  "fuefuki_fruit_park": { "label": "笛吹川フルーツ公園と西沢渓谷", "question": "笛吹川フルーツ公園と西沢渓谷がある?", "icon": "🍇" },
-  "shinpu_shichirigan": { "label": "新府城跡と七里岩の台地", "question": "新府城跡と七里岩の台地がある?", "icon": "🏯" },
-  "katakana_city_name": { "label": "全国で唯一市名にカタカナが入る", "question": "全国で唯一市名にカタカナが入る?", "icon": "🔤" },
-  "kiyosato_hakushu": { "label": "清里高原と白州の蒸溜所", "question": "清里高原と白州の蒸溜所がある?", "icon": "🥃" },
-  "shingen_zutsumi": { "label": "信玄堤と赤坂台総合公園", "question": "信玄堤と赤坂台総合公園がある?", "icon": "🏞️" },
-  "isawa_onsen": { "label": "石和温泉と桃源郷", "question": "石和温泉と桃源郷がある?", "icon": "♨️" },
-  "katsunuma_budo": { "label": "勝沼のぶどう畑と大菩薩嶺", "question": "勝沼のぶどう畑と大菩薩嶺がある?", "icon": "🍇" },
-  "name_same_as_route": { "label": "市名と同じ名前の高速道路や鉄道の路線", "question": "市名と同じ名前の高速道路や鉄道の路線がある?", "icon": "🛣️" },
-  "kamikochi": { "label": "上高地", "question": "上高地がある?", "icon": "🏔️" },
-  "sanada_bessho": { "label": "真田氏の城下町で別所温泉", "question": "真田氏の城下町で別所温泉がある?", "icon": "🏯" },
-  "okaya_silk": { "label": "諏訪湖西岸の製糸業の町で蚕糸博物館", "question": "諏訪湖西岸の製糸業の町で蚕糸博物館がある?", "icon": "🧵" },
-  "ningyogeki_tenryukyo": { "label": "人形劇フェスタと天龍峡で知られる", "question": "人形劇フェスタと天龍峡で知られる?", "icon": "🎭" },
-  "suzaka_garyu": { "label": "蔵の町並みと臥竜公園", "question": "蔵の町並みと臥竜公園がある?", "icon": "🏞️" },
-  "kaikoen_toson": { "label": "懐古園と島崎藤村ゆかりの町", "question": "懐古園と島崎藤村ゆかりの町?", "icon": "🏯" },
-  "takato_sakura": { "label": "高遠城址公園の桜で知られる", "question": "高遠城址公園の桜で知られる?", "icon": "🌸" },
-  "sauce_katsudon": { "label": "ソースカツ丼で有名", "question": "ソースカツ丼で有名?", "icon": "🍚" },
-  "shinpei_ipponki": { "label": "中山晋平記念館と一本木公園", "question": "中山晋平記念館と一本木公園がある?", "icon": "🎵" },
-  "alpen_route_nagano": { "label": "立山黒部アルペンルートの長野側玄関口", "question": "立山黒部アルペンルートの長野側玄関口?", "icon": "🚡" },
-  "kamakura_nanohana": { "label": "かまくらの里と菜の花公園", "question": "かまくらの里と菜の花公園がある?", "icon": "❄️" },
-  "naraijuku_wine": { "label": "奈良井宿と国産ワインで知られる", "question": "奈良井宿と国産ワインで知られる?", "icon": "🍷" },
-  "farthest_from_sea": { "label": "日本で海から最も遠い地点", "question": "日本で海から最も遠い地点がある?", "icon": "🗺️" },
-  "obasute_togura": { "label": "姨捨の棚田と戸倉上山田温泉", "question": "姨捨の棚田と戸倉上山田温泉がある?", "icon": "🌾" },
-  "unnojuku_yunomaru": { "label": "海野宿と湯の丸高原", "question": "海野宿と湯の丸高原がある?", "icon": "🏘️" },
-  "wasabi_farm": { "label": "国内最大級のわさび農場", "question": "国内最大級のわさび農場がある?", "icon": "🌿" },
-  "nagaragawa_ukai": { "label": "長良川の鵜飼で有名", "question": "長良川の鵜飼で有名?", "icon": "🐦" },
-  "okuno_hosomichi_musubi": { "label": "奥の細道むすびの地で「水の都」と呼ばれる", "question": "奥の細道むすびの地で「水の都」と呼ばれる?", "icon": "💧" },
-  "hida_furuimachi": { "label": "飛騨の古い町並みと日本三大美祭", "question": "飛騨の古い町並みと日本三大美祭がある?", "icon": "🏘️" },
-  "mosaic_tile_museum": { "label": "モザイクタイルミュージアムと永保寺", "question": "モザイクタイルミュージアムと永保寺がある?", "icon": "🏛️" },
-  "magome_kurikinton": { "label": "馬籠宿と栗きんとんで知られる", "question": "馬籠宿と栗きんとんで知られる?", "icon": "🌰" },
-  "udatsu_mino": { "label": "うだつの上がる町並みと手すき和紙で知られる", "question": "うだつの上がる町並みと手すき和紙で知られる?", "icon": "🏘️" },
-  "kaseki_museum": { "label": "化石博物館と陶磁器産業で知られる", "question": "化石博物館と陶磁器産業で知られる?", "icon": "🦴" },
-  "iwamura_akechi": { "label": "岩村城下町と明知鉄道", "question": "岩村城下町と明知鉄道がある?", "icon": "🏯" },
-  "otajuku_satoyama": { "label": "中山道太田宿と里山体験型公園", "question": "中山道太田宿と里山体験型公園がある?", "icon": "🏘️" },
-  "toki_outlet": { "label": "陶磁器生産と大型アウトレットで知られる", "question": "陶磁器生産と大型アウトレットで知られる?", "icon": "🏺" },
-  "aerospace_museum": { "label": "国内最大級の航空宇宙博物館", "question": "国内最大級の航空宇宙博物館がある?", "icon": "✈️" },
-  "rose_garden_akechi": { "label": "世界最大級のバラ園と明智城跡", "question": "世界最大級のバラ園と明智城跡がある?", "icon": "🌹" },
-  "fuyu_kaki_origin": { "label": "富有柿発祥の地とされる", "question": "富有柿発祥の地とされる?", "icon": "🍊" },
-  "setogawa_shirakabe": { "label": "瀬戸川と白壁土蔵街", "question": "瀬戸川と白壁土蔵街がある?", "icon": "🏘️" },
-  "usuzumi_zakura": { "label": "樹齢1500年以上とされる淡墨桜", "question": "樹齢1500年以上とされる淡墨桜がある?", "icon": "🌸" },
-  "gujo_odori": { "label": "徹夜で踊るおどりで有名", "question": "徹夜で踊るおどりで有名?", "icon": "💃" },
-  "nihon_sanmeisen": { "label": "日本三名泉の一つ", "question": "日本三名泉の一つがある?", "icon": "♨️" },
-  "kisosansen_wajyu": { "label": "木曽三川が集まる輪中地帯と国営公園", "question": "木曽三川が集まる輪中地帯と国営公園がある?", "icon": "🏞️" },
-  "atami_moa": { "label": "海上花火大会とMOA美術館で知られる", "question": "海上花火大会とMOA美術館で知られる?", "icon": "🎆" },
-  "genbegawa_rakujuen": { "label": "源兵衛川と楽寿園", "question": "源兵衛川と楽寿園がある?", "icon": "💧" },
-  "sengen_taisha": { "label": "浅間大社の総本宮と白糸の滝", "question": "浅間大社の総本宮と白糸の滝がある?", "icon": "⛩️" },
-  "omuroyama_jogasaki": { "label": "大室山と城ヶ崎海岸", "question": "大室山と城ヶ崎海岸がある?", "icon": "🌋" },
-  "horaibashi_sl": { "label": "世界最長級の木造歩道橋とSL列車で知られる", "question": "世界最長級の木造歩道橋とSL列車で知られる?", "icon": "🌉" },
-  "gakunan_tagonoura": { "label": "岳南電車と田子の浦港", "question": "岳南電車と田子の浦港がある?", "icon": "🚃" },
-  "yaizu_katsuo": { "label": "遠洋漁業の港とカツオ・マグロで知られる", "question": "遠洋漁業の港とカツオ・マグロで知られる?", "icon": "🐟" },
-  "kakegawa_castle": { "label": "木造復元天守と花鳥園", "question": "木造復元天守と花鳥園がある?", "icon": "🏯" },
-  "soccer_town_fujieda": { "label": "サッカーの町で東海道の宿場が二つ", "question": "サッカーの町で東海道の宿場が二つある?", "icon": "⚽" },
-  "gotemba_outlet": { "label": "国内最大級のアウトレットと富士山麓の演習場", "question": "国内最大級のアウトレットと富士山麓の演習場がある?", "icon": "🛍️" },
-  "ecopa_hattasan": { "label": "エコパスタジアムと法多山", "question": "エコパスタジアムと法多山がある?", "icon": "🏟️" },
-  "shimoda_port": { "label": "ペリー来航によって開港した港", "question": "ペリー来航によって開港した港がある?", "icon": "⚓" },
-  "fuji_safari": { "label": "富士サファリパーク", "question": "富士サファリパークがある?", "icon": "🦁" },
-  "arai_sekisho": { "label": "新居関所と豊田佐吉記念館", "question": "新居関所と豊田佐吉記念館がある?", "icon": "🏯" },
-  "shuzenji_toi": { "label": "修善寺温泉と土肥金山", "question": "修善寺温泉と土肥金山がある?", "icon": "♨️" },
-  "hamaoka_lighthouse": { "label": "浜岡原子力発電所と白亜の灯台", "question": "浜岡原子力発電所と白亜の灯台がある?", "icon": "💡" },
-  "senkagawa_fukamushi": { "label": "千框棚田と深蒸し茶で知られる", "question": "千框棚田と深蒸し茶で知られる?", "icon": "🍵" },
-  "nirayama_hansharo": { "label": "世界遺産の韮山反射炉", "question": "世界遺産の韮山反射炉がある?", "icon": "🏛️" },
-  "sagara_oil_airport": { "label": "相良油田と県の空の玄関", "question": "相良油田と県の空の玄関がある?", "icon": "🛢️" },
-  "masumida_keori": { "label": "真清田神社と国内有数の毛織物産地", "question": "真清田神社と国内有数の毛織物産地?", "icon": "⛩️" },
-  "toyokawa_inari": { "label": "寺院なのに稲荷と呼ばれる名刹", "question": "寺院なのに稲荷と呼ばれる名刹がある?", "icon": "⛩️" },
-  "tsushima_tenno": { "label": "天王信仰の総本社と車楽舟の祭り", "question": "天王信仰の総本社と車楽舟の祭りがある?", "icon": "⛩️" },
-  "kokonoe_mirin": { "label": "九重味淋の本社と明石公園", "question": "九重味淋の本社と明石公園がある?", "icon": "🏭" },
-  "toyota_origin_kariya": { "label": "トヨタグループ発祥の地で大型PA", "question": "トヨタグループ発祥の地で大型PAがある?", "icon": "🏭" },
-  "toyota_hq": { "label": "世界最大級の自動車会社の本社", "question": "世界最大級の自動車会社の本社がある?", "icon": "🚗" },
-  "nihon_denmark": { "label": "「日本デンマーク」と呼ばれ七夕祭りが有名", "question": "「日本デンマーク」と呼ばれ七夕祭りが有名?", "icon": "🌾" },
-  "matcha_sakushima": { "label": "抹茶の産地で佐久島を市域に含む", "question": "抹茶の産地で佐久島を市域に含む?", "icon": "🍵" },
-  "takeshima_resort": { "label": "竹島と大型海洋リゾート", "question": "竹島と大型海洋リゾートがある?", "icon": "🏝️" },
-  "centrair_manekineko": { "label": "中部国際空港と巨大な招き猫", "question": "中部国際空港と巨大な招き猫がある?", "icon": "✈️" },
-  "mandaraji_fuji": { "label": "曼陀羅寺の藤まつりで知られる", "question": "曼陀羅寺の藤まつりで知られる?", "icon": "🌸" },
-  "komaki_castle": { "label": "織田信長が初めて築いた城山", "question": "織田信長が初めて築いた城山がある?", "icon": "🏯" },
-  "konomiya_hadaka": { "label": "国府宮のはだか祭と植木・苗木で知られる", "question": "国府宮のはだか祭と植木・苗木で知られる?", "icon": "⛩️" },
-  "nagashino_horaiji": { "label": "長篠城跡と鳳来寺山", "question": "長篠城跡と鳳来寺山がある?", "icon": "🏯" },
-  "juraku_daibutsu": { "label": "大規模製鉄所と聚楽園大仏", "question": "大規模製鉄所と聚楽園大仏がある?", "icon": "🗿" },
-  "aichi_kenko_mori": { "label": "あいち健康の森と大倉公園", "question": "あいち健康の森と大倉公園がある?", "icon": "🌳" },
-  "shinmaiko_okada": { "label": "新舞子マリンパークと岡田の古い町並み", "question": "新舞子マリンパークと岡田の古い町並みがある?", "icon": "🏖️" },
-  "kakitsubata_chiryu": { "label": "無量寿寺のかきつばたと東海道の宿場で知られる", "question": "無量寿寺のかきつばたと東海道の宿場で知られる?", "icon": "🌸" },
-  "owariasahi_tower": { "label": "県森林公園と展望タワー", "question": "県森林公園と展望タワーがある?", "icon": "🌳" },
-  "okehazama": { "label": "桶狭間古戦場伝説地と中京競馬場", "question": "桶狭間古戦場伝説地と中京競馬場がある?", "icon": "🏯" },
-  "aichi_bokujo": { "label": "愛知牧場と岩崎城跡", "question": "愛知牧場と岩崎城跡がある?", "icon": "🐄" },
-  "irago_longbeach": { "label": "伊良湖岬と太平洋ロングビーチ", "question": "伊良湖岬と太平洋ロングビーチがある?", "icon": "🏄" },
-  "sendohira_renkon": { "label": "船頭平閘門とレンコン産地で知られる", "question": "船頭平閘門とレンコン産地で知られる?", "icon": "🌿" },
-  "kiyosu_castle": { "label": "清洲城と大規模なビール工場", "question": "清洲城と大規模なビール工場がある?", "icon": "🏯" },
-  "showa_nichijo": { "label": "昭和日常博物館", "question": "昭和日常博物館がある?", "icon": "🏛️" },
-  "kingyo_yatomi": { "label": "金魚養殖と金魚水族館で知られる", "question": "金魚養殖と金魚水族館で知られる?", "icon": "🐠" },
-  "miyoshi_canoe": { "label": "三好池でカヌー競技が盛ん", "question": "三好池でカヌー競技が盛ん?", "icon": "🛶" },
-  "shippoyaki": { "label": "七宝焼を展示・体験できる施設", "question": "七宝焼を展示・体験できる施設がある?", "icon": "🏺" },
-  "ghibli_linimo": { "label": "ジブリパークと磁気浮上式鉄道", "question": "ジブリパークと磁気浮上式鉄道がある?", "icon": "🎡" },
-  "oito_line": { "label": "大糸線", "question": "大糸線が通る?", "icon": "🚃" },
-  "shinano_railway": { "label": "しなの鉄道", "question": "しなの鉄道の駅がある?", "icon": "🚃" },
-  "echizen_railway": { "label": "えちぜん鉄道", "question": "えちぜん鉄道の駅がある?", "icon": "🚃" },
-  "sunzu_line": { "label": "駿豆線", "question": "駿豆線が通る?", "icon": "🚃" },
-  "aikan_railway": { "label": "愛知環状鉄道", "question": "愛知環状鉄道の駅がある?", "icon": "🚃" },
-  "kurobe_torokko": { "label": "峡谷の観光トロッコ列車", "question": "峡谷を走る観光トロッコ列車がある?", "icon": "🚞" },
-  "noto_area": { "label": "能登地域", "question": "能登地域にある?", "icon": "🗺️" },
-  "dinosaur_museum": { "label": "大規模な恐竜博物館", "question": "大規模な恐竜博物館がある?", "icon": "🦕" },
-  "echizen_washi_hamono": { "label": "手すき和紙と打刃物", "question": "手すき和紙と打刃物の産地?", "icon": "🧻" },
-  "tojinbo": { "label": "東尋坊", "question": "東尋坊がある?", "icon": "🌊" },
-  "jomon_venus": { "label": "縄文のビーナス", "question": "縄文のビーナスを所蔵する?", "icon": "🏺" },
-  "rokkoyo": { "label": "日本六古窯", "question": "日本六古窯の産地?", "icon": "🏺" },
-  "mino_ware": { "label": "美濃焼の主要産地", "question": "美濃焼の主要産地?", "icon": "🏺" },
-  "hamono_famous": { "label": "日本有数の刃物産地", "question": "日本有数の刃物産地?", "icon": "🔪" },
-  "tobu_main_station": { "label": "東武鉄道(東上線・越生線以外)", "question": "東武鉄道(東上線・越生線以外)の駅がある?", "icon": "🚃" },
-  "tobu_tojo_station": { "label": "東武東上線", "question": "東武東上線の駅がある?", "icon": "🚃" },
-  "utsunomiya_station": { "label": "宇都宮線(黒磯以南)", "question": "宇都宮線(黒磯以南)の駅がある?", "icon": "🚃" },
-  "takasaki_line_station": { "label": "高崎線", "question": "高崎線の駅がある?", "icon": "🚃" },
-  "active_volcano": { "label": "気象庁指定の活火山", "question": "市内に気象庁指定の活火山がある?", "icon": "🌋" },
-  "uchibo": { "label": "房総半島の内房側", "question": "房総半島の内房側にある?", "icon": "🌊" },
-  "sotobo": { "label": "房総半島の外房側", "question": "房総半島の外房側にある?", "icon": "🌊" },
-  "silk_heritage": { "label": "製糸・養蚕の世界遺産", "question": "製糸・養蚕施設が世界遺産の構成資産になっている?", "icon": "🧶" },
-  "silk_textile": { "label": "無形文化遺産の絹織物", "question": "無形文化遺産の伝統的な絹織物を主に生産している?", "icon": "🧵" },
-  "moka_sl_line": { "label": "真岡鐵道(SL運行路線)", "question": "茨城県西部と栃木県東部を結ぶSL運行路線が通る?", "icon": "🚂" },
-  "kururi_line": { "label": "JR久留里線", "question": "JR久留里線が市内を通る?", "icon": "🚃" },
-  "watarase_line": { "label": "わたらせ渓谷鐵道", "question": "渡良瀬川上流の渓谷沿いを走る第三セクター線が通る?", "icon": "🚃" },
+  "hitachi_seaside_park": { "label": "ネモフィラで有名な国営ひたち海浜公園", "question": "ネモフィラで有名な国営ひたち海浜公園がある？", "icon": "💐" },
+  "tsuchiura_hanabi": { "label": "日本三大花火大会の一つに数えられる全国花火競技大", "question": "日本三大花火大会の一つに数えられる全国花火競技大会が開かれる？", "icon": "🎆" },
+  "koga_kubo": { "label": "室町時代に鎌倉公方の流れをくむ公方が拠点を", "question": "室町時代に鎌倉公方の流れをくむ公方が拠点を置いた？", "icon": "🏯" },
+  "toride_geidai": { "label": "利根川沿いにあり、競輪場と東京藝術大学のキャンパ", "question": "利根川沿いにあり、競輪場と東京藝術大学のキャンパスがある？", "icon": "🎨" },
+  "shimodate_gion": { "label": "日本最大級の大神輿が出る下館祇園まつり", "question": "日本最大級の大神輿が出る下館祇園まつりがある？", "icon": "🏮" },
+  "kamisu_gallery": { "label": "海岸沿いの長い防波堤に壁画が並ぶ「1000人画廊", "question": "海岸沿いの長い防波堤に壁画が並ぶ「1000人画廊」がある？", "icon": "🎨" },
+  "tsukumai": { "label": "高さ約14メートルの柱上で曲芸を行う伝統行事「撞", "question": "高さ約14メートルの柱上で曲芸を行う伝統行事「撞舞」がある？", "icon": "🎪" },
+  "ushiku_daibutsu": { "label": "世界最大の大仏", "question": "世界最大の大仏がある？", "icon": "🗿" },
+  "kashima_jingu": { "label": "東国三社の一つ、鹿島神宮", "question": "東国三社の一つ、鹿島神宮がある？", "icon": "⛩️" },
+  "kokuo_jinja": { "label": "平将門を祭る國王神社", "question": "平将門を祭る國王神社がある？", "icon": "⛩️" },
+  "warp_station_edo": { "label": "時代劇の野外撮影施設「ワープステーション江戸」", "question": "時代劇の野外撮影施設「ワープステーション江戸」がある？", "icon": "🎬" },
+  "ryujin_ohashi": { "label": "歩行者専用として国内最大級の竜神大吊橋", "question": "歩行者専用として国内最大級の竜神大吊橋がある？", "icon": "🌉" },
+  "ayumizaki_park": { "label": "霞ヶ浦を一望できる歩崎公園", "question": "霞ヶ浦を一望できる歩崎公園がある？", "icon": "🏞️" },
+  "melon_hokota": { "label": "メロンの産地として全国的に知られる", "question": "メロンの産地として全国的に知られる？", "icon": "🍈" },
+  "ibaraki_airport": { "label": "茨城空港", "question": "茨城空港がある？", "icon": "✈️" },
+  "makabe_district": { "label": "真壁地区に重要伝統的建造物群保存地区", "question": "真壁地区に重要伝統的建造物群保存地区がある？", "icon": "🏘️" },
+  "edosaki_kabocha": { "label": "地理的表示保護制度に登録された江戸崎かぼちゃの産", "question": "地理的表示保護制度に登録された江戸崎かぼちゃの産地？", "icon": "🎃" },
+  "nishishioko_butai": { "label": "組み立て式の農村歌舞伎舞台「西塩子の回り舞台」", "question": "組み立て式の農村歌舞伎舞台「西塩子の回り舞台」がある？", "icon": "🎭" },
+  "itako_ayame": { "label": "あやめまつりで「嫁入り舟」が", "question": "あやめまつりで「嫁入り舟」が運航される？", "icon": "💐" },
+  "oyama_hyojo": { "label": "関ヶ原の戦いの直前に徳川家康が軍議を開いた地", "question": "関ヶ原の戦いの直前に徳川家康が軍議を開いた地？", "icon": "🏯" },
+  "uzumagawa_kura": { "label": "蔵造りの町並みが残り、巴波川で遊覧船が", "question": "蔵造りの町並みが残り、巴波川で遊覧船が運航する？", "icon": "🛶" },
+  "ashikaga_gakko": { "label": "日本最古の学校とされる史跡", "question": "日本最古の学校とされる史跡がある？", "icon": "🎓" },
+  "shiobara_onsen": { "label": "塩原温泉郷", "question": "塩原温泉郷がある？", "icon": "♨️" },
+  "nikko_toshogu": { "label": "世界遺産の東照宮", "question": "世界遺産の東照宮がある？", "icon": "⛩️" },
+  "kyuroku_kan": { "label": "蒸気機関車を展示する「SLキューロク館」", "question": "蒸気機関車を展示する「SLキューロク館」がある？", "icon": "🚂" },
+  "yamaage_matsuri": { "label": "ユネスコ無形文化遺産の山あげ祭が", "question": "ユネスコ無形文化遺産の山あげ祭が行われる？", "icon": "🎭" },
+  "kanto_shinetsu_tsunagu": { "label": "「関東と信越つなぐ○○市？」", "question": "「関東と信越つなぐ○○市？」", "icon": "🛣️" },
+  "tajima_yahei": { "label": "世界遺産の田島弥平旧宅", "question": "世界遺産の田島弥平旧宅がある？", "icon": "🏠" },
+  "kiryu_nokogiri": { "label": "織物工場のノコギリ屋根が多く残り、「球都」と", "question": "織物工場のノコギリ屋根が多く残り、「球都」と呼ばれる？", "icon": "🏭" },
+  "tsutsujigaoka_bunbuku": { "label": "つつじが岡公園と分福茶釜の伝説で知られる", "question": "つつじが岡公園と分福茶釜の伝説で知られる？", "icon": "🌺" },
+  "ikaho_onsen": { "label": "石段街で有名な伊香保温泉", "question": "石段街で有名な伊香保温泉がある？", "icon": "♨️" },
+  "usui_meganebashi": { "label": "碓氷峠の「めがね橋」", "question": "碓氷峠の「めがね橋」がある？", "icon": "🌉" },
+  "tomihiro_museum": { "label": "星野富弘の作品を展示する富弘美術館", "question": "星野富弘の作品を展示する富弘美術館がある？", "icon": "🖼️" },
+  "fukiware_no_taki": { "label": "「東洋のナイアガラ」とも呼ばれる吹割の滝", "question": "「東洋のナイアガラ」とも呼ばれる吹割の滝がある？", "icon": "💦" },
+  "railway_museum": { "label": "国内最大級の鉄道博物館", "question": "国内最大級の鉄道博物館がある？", "icon": "🚄" },
+  "toki_no_kane": { "label": "蔵造りの町並みと「時の鐘」", "question": "蔵造りの町並みと「時の鐘」がある？", "icon": "🔔" },
+  "koku_kinen_park": { "label": "日本初の飛行場跡を整備した航空記念公園", "question": "日本初の飛行場跡を整備した航空記念公園がある？", "icon": "✈️" },
+  "misato_junction": { "label": "東京外環道・常磐道・首都高速が接続するジャンクシ", "question": "東京外環道・常磐道・首都高速が接続するジャンクションがある？", "icon": "🛣️" },
+  "toda_boat": { "label": "1964年東京五輪のボート競技会場", "question": "1964年東京五輪のボート競技会場がある？", "icon": "🚣" },
+  "shibusawa_eiichi": { "label": "渋沢栄一の生誕地", "question": "渋沢栄一の生誕地？", "icon": "💴" },
+  "konosu_hina": { "label": "日本一高いピラミッドひな壇で知られる", "question": "日本一高いピラミッドひな壇で知られる？", "icon": "🎎" },
+  "first_outlet": { "label": "日本初のアウトレットモールが開業した地", "question": "日本初のアウトレットモールが開業した地？", "icon": "🛍️" },
+  "jumbo_koinobori": { "label": "全長100メートルのジャンボこいのぼりを", "question": "全長100メートルのジャンボこいのぼりを揚げる？", "icon": "🎏" },
+  "higashimatsuyama_yakitori": { "label": "豚のカシラ肉をみそだれで食べる「やきとり」で有名", "question": "豚のカシラ肉をみそだれで食べる「やきとり」で有名？", "icon": "🍢" },
+  "seitenkyu": { "label": "日本最大級の道教寺院「聖天宮」", "question": "日本最大級の道教寺院「聖天宮」がある？", "icon": "⛩️" },
+  "riken_hq": { "label": "理化学研究所の本部", "question": "理化学研究所の本部がある？", "icon": "🔬" },
+  "hanawa_hokiichi": { "label": "盲目の国学者・塙保己一の生誕地", "question": "盲目の国学者・塙保己一の生誕地？", "icon": "📚" },
+  "sunaori_amagoi": { "label": "巨大な龍蛇を作る伝統行事「脚折雨乞」", "question": "巨大な龍蛇を作る伝統行事「脚折雨乞」がある？", "icon": "🐉" },
+  "sakitama_zerifry": { "label": "さきたま古墳群とゼリーフライで有名", "question": "さきたま古墳群とゼリーフライで有名？", "icon": "🏺" },
+  "gongendo_sakura": { "label": "桜と菜の花で有名な権現堂桜堤", "question": "桜と菜の花で有名な権現堂桜堤がある？", "icon": "🌸" },
+  "hitachidai_stadium": { "label": "日立台のサッカー専用スタジアム", "question": "日立台のサッカー専用スタジアムがある？", "icon": "⚽" },
+  "suguyaru_ka": { "label": "全国初の「すぐやる課」が", "question": "全国初の「すぐやる課」が設置された？", "icon": "🏢" },
+  "nakayama_hokekyoji": { "label": "日蓮宗の大本山・中山法華経寺", "question": "日蓮宗の大本山・中山法華経寺がある？", "icon": "⛩️" },
+  "kominato_railway": { "label": "小湊鐵道の本社と起点駅", "question": "小湊鐵道の本社と起点駅がある？", "icon": "🚃" },
+  "yatsu_higata": { "label": "ラムサール条約登録湿地の谷津干潟", "question": "ラムサール条約登録湿地の谷津干潟がある？", "icon": "🦆" },
+  "tokyo_disney": { "label": "東京ディズニーリゾート", "question": "東京ディズニーリゾートがある？", "icon": "🎡" },
+  "rekihaku": { "label": "国立歴史民俗博物館", "question": "国立歴史民俗博物館がある？", "icon": "🏛️" },
+  "kikkoman_hq": { "label": "キッコーマンの本社", "question": "キッコーマンの本社がある？", "icon": "🏭" },
+  "abiko_ekisoba": { "label": "大きな唐揚げが乗った駅そばで有名", "question": "大きな唐揚げが乗った駅そばで有名？", "icon": "🍜" },
+  "nomizo_no_taki": { "label": "「濃溝の滝」と呼ばれる亀岩の洞窟", "question": "「濃溝の滝」と呼ばれる亀岩の洞窟がある？", "icon": "💦" },
+  "tokyo_german_village": { "label": "名前に「東京」が付くドイツ風テーマパーク", "question": "名前に「東京」が付くドイツ風テーマパークがある？", "icon": "🎡" },
+  "inubosaki": { "label": "関東最東端の犬吠埼", "question": "関東最東端の犬吠埼がある？", "icon": "🗺️" },
+  "sawara_district": { "label": "佐原地区に江戸情緒を残す重伝建", "question": "佐原地区に江戸情緒を残す重伝建がある？", "icon": "🏘️" },
+  "shirasato_kaigan": { "label": "九十九里浜の白里海岸", "question": "九十九里浜の白里海岸がある？", "icon": "🏖️" },
+  "sunosaki_lighthouse": { "label": "洲埼灯台", "question": "洲埼灯台がある？", "icon": "💡" },
+  "mother_farm_nokogiri": { "label": "マザー牧場と鋸山", "question": "マザー牧場と鋸山がある？", "icon": "🐄" },
+  "boshu_biwa": { "label": "房州ビワの名産地", "question": "房州ビワの名産地？", "icon": "🍑" },
+  "ohara_hadaka": { "label": "大原はだか祭りが", "question": "大原はだか祭りが行われる？", "icon": "🏮" },
+  "kamogawa_seaworld": { "label": "シャチのショーで有名なシーワールド", "question": "シャチのショーで有名なシーワールドがある？", "icon": "🐋" },
+  "katsuura_tantanmen": { "label": "夏でも比較的冷涼で、ご当地タンタンメンで知られる", "question": "夏でも比較的冷涼で、ご当地タンタンメンで知られる？", "icon": "🍜" },
+  "oi_keibajo": { "label": "大井競馬場", "question": "大井競馬場がある？", "icon": "🐎" },
+  "tokyo_daibutsu": { "label": "高さ13メートルの「東京大仏」", "question": "高さ13メートルの「東京大仏」がある？", "icon": "🗿" },
+  "showa_kinen_park": { "label": "国営昭和記念公園", "question": "国営昭和記念公園がある？", "icon": "🌳" },
+  "kichijoji_harmonica": { "label": "吉祥寺駅とハモニカ横丁", "question": "吉祥寺駅とハモニカ横丁がある？", "icon": "🏘️" },
+  "takahata_hijikata": { "label": "高幡不動尊と土方歳三の生誕地", "question": "高幡不動尊と土方歳三の生誕地がある？", "icon": "⛩️" },
+  "shimura_ken": { "label": "志村けんのふるさと", "question": "志村けんのふるさと？", "icon": "😄" },
+  "tama_rokuto": { "label": "多摩六都科学館", "question": "多摩六都科学館がある？", "icon": "🔭" },
+  "ghibli_museum": { "label": "三鷹の森ジブリ美術館", "question": "三鷹の森ジブリ美術館がある？", "icon": "🎬" },
+  "sanrio_puroland": { "label": "サンリオピューロランド", "question": "サンリオピューロランドがある？", "icon": "🎀" },
+  "mitakesan": { "label": "御岳山と御岳渓谷", "question": "御岳山と御岳渓谷がある？", "icon": "🏔️" },
+  "edo_tokyo_tatemono": { "label": "江戸東京たてもの園", "question": "江戸東京たてもの園がある？", "icon": "🏛️" },
+  "kurume_twin": { "label": "福岡県にもそっくりな名前の市", "question": "福岡県にもそっくりな名前の市がある？", "icon": "🔤" },
+  "akishima_kujira": { "label": "約200万年前のクジラ化石が", "question": "約200万年前のクジラ化石が発見された？", "icon": "🐋" },
+  "tamako_yamato": { "label": "多摩湖の大部分があり、市名に旧国名が含まれる", "question": "多摩湖の大部分があり、市名に旧国名が含まれる？", "icon": "🏞️" },
+  "yomiuri_land": { "label": "よみうりランド", "question": "よみうりランドがある？", "icon": "🎢" },
+  "second_smallest_city": { "label": "全国の市で面積が2番目に小さい", "question": "全国の市で面積が2番目に小さい？", "icon": "📏" },
+  "hitotsubashi_univ": { "label": "一橋大学ある文教都市", "question": "一橋大学ある文教都市？", "icon": "🎓" },
+  "jaxa_isas": { "label": "JAXA宇宙科学研究所", "question": "JAXA宇宙科学研究所がある？", "icon": "🚀" },
+  "shirokoro_horumon": { "label": "豚ホルモンを使う「シロコロホルモン」で有名", "question": "豚ホルモンを使う「シロコロホルモン」で有名？", "icon": "🍢" },
+  "izumi_no_mori_awaodori": { "label": "泉の森があり、夏に阿波おどりが", "question": "泉の森があり、夏に阿波おどりが開かれる？", "icon": "💃" },
+  "enoshima": { "label": "江の島", "question": "江の島がある？", "icon": "🏝️" },
+  "omote_tanzawa": { "label": "表丹沢登山の玄関口で、名水百選の湧水群", "question": "表丹沢登山の玄関口で、名水百選の湧水群がある？", "icon": "🏔️" },
+  "ebina_sa": { "label": "東名高速の巨大サービスエリア", "question": "東名高速の巨大サービスエリアがある？", "icon": "🛣️" },
+  "oyama_afuri": { "label": "大山阿夫利神社", "question": "大山阿夫利神社がある？", "icon": "⛩️" },
+  "jogashima_maguro": { "label": "城ヶ島と三崎まぐろで知られる", "question": "城ヶ島と三崎まぐろで知られる？", "icon": "🐟" },
+  "daiyuzan_kintaro": { "label": "大雄山と金太郎伝説で知られる", "question": "大雄山と金太郎伝説で知られる？", "icon": "🏔️" },
+  "okutadami_dam": { "label": "奥只見ダム", "question": "奥只見ダムがある？", "icon": "🏞️" },
+  "hokuetsu_kyoto": { "label": "「北越の小京都」と", "question": "「北越の小京都」と呼ばれる？", "icon": "🏘️" },
+  "knit_gosen": { "label": "ニットの生産高が日本一", "question": "ニットの生産高が日本一？", "icon": "🧶" },
+  "kurokawa_yuden": { "label": "日本最古の油田とされる黒川油田", "question": "日本最古の油田とされる黒川油田がある？", "icon": "🛢️" },
+  "niigata_smallest": { "label": "新潟県で面積が最も小さい市", "question": "新潟県で面積が最も小さい市？", "icon": "📏" },
+  "kitsune_yomeiri": { "label": "「狐の嫁入り行列」が", "question": "「狐の嫁入り行列」が行われる？", "icon": "🦊" },
+  "ryokan_birthplace": { "label": "良寛の生誕地", "question": "良寛の生誕地？", "icon": "📚" },
+  "sakyu_momo": { "label": "「幻の桃」と呼ばれる砂丘桃の産地", "question": "「幻の桃」と呼ばれる砂丘桃の産地？", "icon": "🍑" },
+  "taishitamonja": { "label": "大したもん蛇まつりが", "question": "大したもん蛇まつりが行われる？", "icon": "🐉" },
+  "gomadoyama_ajisai": { "label": "護摩堂山の山頂に約3万株のあじさい園", "question": "護摩堂山の山頂に約3万株のあじさい園がある？", "icon": "💐" },
+  "ryugakubo": { "label": "名水百選の龍ヶ窪", "question": "名水百選の龍ヶ窪がある？", "icon": "💧" },
+  "yahiko_jinja": { "label": "越後一宮の彌彦神社", "question": "越後一宮の彌彦神社がある？", "icon": "⛩️" },
+  "fuji_rock": { "label": "フジロックフェスティバルが", "question": "フジロックフェスティバルが開催される？", "icon": "🎸" },
+  "tama_monorail_extension": { "label": "多摩モノレールの延伸で、市内に初めて鉄道駅が", "question": "多摩モノレールの延伸で、市内に初めて鉄道駅ができる予定？", "icon": "🚝" },
+  "banei_keiba": { "label": "世界で唯一のばんえい競馬が", "question": "世界で唯一のばんえい競馬が開催されている？", "icon": "🐴" },
+  "ebetsu_renga": { "label": "北海道遺産に選ばれた、れんがの産地", "question": "北海道遺産に選ばれた、れんがの産地？", "icon": "🧱" },
+  "kitami_hakka": { "label": "戦前、世界のハッカ流通量の約7割を", "question": "戦前、世界のハッカ流通量の約7割を占めていた？", "icon": "🌿" },
+  "shikotsuko_futoko": { "label": "日本最北の不凍湖", "question": "日本最北の不凍湖がある？", "icon": "🏞️" },
+  "hamanasu_no_oka": { "label": "約180種の植物が自生する「はまなすの丘公園」", "question": "約180種の植物が自生する「はまなすの丘公園」がある？", "icon": "🌸" },
+  "northernmost_city": { "label": "日本最北端の市", "question": "日本最北端の市？", "icon": "🗺️" },
+  "shio_kazunoko": { "label": "塩数の子の加工生産量が日本一", "question": "塩数の子の加工生産量が日本一？", "icon": "🐟" },
+  "canadian_world": { "label": "「赤毛のアン」をテーマにしたカナディアンワールド", "question": "「赤毛のアン」をテーマにしたカナディアンワールドがある？", "icon": "🎡" },
+  "garinko_go": { "label": "世界初の流氷観光砕氷船「ガリンコ号」が", "question": "世界初の流氷観光砕氷船「ガリンコ号」が運航する？", "icon": "🚢" },
+  "nosappu_misaki": { "label": "日本本土最東端の納沙布岬", "question": "日本本土最東端の納沙布岬がある？", "icon": "🗺️" },
+  "hirosaki_tenshu": { "label": "東北地方で唯一、江戸時代から残る天守", "question": "東北地方で唯一、江戸時代から残る天守がある？", "icon": "🏯" },
+  "hasshoku_center": { "label": "巨大な食品市場「八食センター」", "question": "巨大な食品市場「八食センター」がある？", "icon": "🐟" },
+  "misawa_flight": { "label": "世界初の太平洋無着陸横断飛行の出発地", "question": "世界初の太平洋無着陸横断飛行の出発地？", "icon": "✈️" },
+  "ishiwari_zakura": { "label": "大きな花崗岩を割って育つ「石割桜」", "question": "大きな花崗岩を割って育つ「石割桜」がある？", "icon": "🌸" },
+  "mutsu_kokufu": { "label": "奈良・平安時代に陸奥国府と鎮守府が", "question": "奈良・平安時代に陸奥国府と鎮守府が置かれた？", "icon": "🏯" },
+  "kanto_matsuri": { "label": "竿燈まつりが", "question": "竿燈まつりが開催される？", "icon": "🏮" },
+  "kamo_kurage": { "label": "クラゲの展示で有名な加茂水族館", "question": "クラゲの展示で有名な加茂水族館がある？", "icon": "🎐" },
+  "uesugi_jinja": { "label": "上杉謙信を祭る上杉神社", "question": "上杉謙信を祭る上杉神社がある？", "icon": "⛩️" },
+  "jionji": { "label": "東北を代表する古刹・慈恩寺", "question": "東北を代表する古刹・慈恩寺がある？", "icon": "⛩️" },
+  "shinjo_matsuri": { "label": "毎年8月24～26日に、20台の豪華な山車が巡る", "question": "毎年8月24～26日に、20台の豪華な山車が巡る祭りがある？", "icon": "🎏" },
+  "saito_mokichi": { "label": "歌人・斎藤茂吉が生まれたマチ", "question": "歌人・斎藤茂吉が生まれたマチ？", "icon": "📚" },
+  "hanamiyama": { "label": "花見山公園", "question": "花見山公園がある？", "icon": "🌸" },
+  "nanko_park": { "label": "松平定信が「士民共楽」の理念で築いた南湖公園", "question": "松平定信が「士民共楽」の理念で築いた南湖公園がある？", "icon": "🌳" },
+  "nakoku_no_oka": { "label": "須玖岡本遺跡を中心とする「奴国の丘歴史公園」", "question": "須玖岡本遺跡を中心とする「奴国の丘歴史公園」がある？", "icon": "🏺" },
+  "miike_tanko": { "label": "世界遺産の三池炭鉱・宮原坑と三池港", "question": "世界遺産の三池炭鉱・宮原坑と三池港がある？", "icon": "⛏️" },
+  "sakurai_futamigaura": { "label": "海中の夫婦岩と白い鳥居で知られる桜井二見ヶ浦", "question": "海中の夫婦岩と白い鳥居で知られる桜井二見ヶ浦がある？", "icon": "⛩️" },
+  "ushikubi_sueki": { "label": "九州最大の須恵器窯跡群「牛頸須恵器窯跡」", "question": "九州最大の須恵器窯跡群「牛頸須恵器窯跡」がある？", "icon": "🏺" },
+  "munakata_hetsugu": { "label": "沖ノ島を御神体とする三宮のうち、辺津宮", "question": "沖ノ島を御神体とする三宮のうち、辺津宮がある？", "icon": "⛩️" },
+  "goshogatani_kogoishi": { "label": "古代山城の御所ヶ谷神籠石", "question": "古代山城の御所ヶ谷神籠石がある？", "icon": "🏯" },
+  "funabaru_kofun": { "label": "豪華な馬具が古墳とは別の埋納坑から見つかった船原", "question": "豪華な馬具が古墳とは別の埋納坑から見つかった船原古墳がある？", "icon": "🏺" },
+  "hikari_no_michi": { "label": "宮地嶽神社の参道に夕日が重なる「光の道」で知られ", "question": "宮地嶽神社の参道に夕日が重なる「光の道」で知られる？", "icon": "🌇" },
+  "tanabata_jinja": { "label": "織姫を祭る「七夕神社（媛社神社）」", "question": "織姫を祭る「七夕神社（媛社神社）」がある？", "icon": "🎋" },
+  "nogata_meteorite": { "label": "須賀神社に、世界最古級の落下記録を持つ隕石が", "question": "須賀神社に、世界最古級の落下記録を持つ隕石が伝わる？", "icon": "☄️" },
+  "yanagawa_kudari": { "label": "掘割の川下りと北原白秋の生家で知られる", "question": "掘割の川下りと北原白秋の生家で知られる？", "icon": "🛶" },
+  "yame_gyokuro": { "label": "福島地区に白壁の町並みが残り、玉露の産地として知", "question": "福島地区に白壁の町並みが残り、玉露の産地として知られる？", "icon": "🍵" },
+  "sakuta_no_unade": { "label": "日本書紀にも記された古代の用水路「裂田の溝」", "question": "日本書紀にも記された古代の用水路「裂田の溝」がある？", "icon": "💧" },
+  "tagawa_sekitan": { "label": "石炭記念公園に二本煙突と竪坑櫓が残る", "question": "石炭記念公園に二本煙突と竪坑櫓が残る？", "icon": "⛏️" },
+  "hishino_suisha": { "label": "菱野の三連水車と秋月の城下町", "question": "菱野の三連水車と秋月の城下町がある？", "icon": "💧" },
+  "oda_hiroki_museum": { "label": "洋画家・織田廣喜の作品を集めた美術館", "question": "洋画家・織田廣喜の作品を集めた美術館がある？", "icon": "🖼️" },
+  "kiyomizudera_teien": { "label": "雪舟作と伝わる清水寺本坊庭園", "question": "雪舟作と伝わる清水寺本坊庭園がある？", "icon": "🌳" },
+  "toyota_kyushu": { "label": "トヨタ自動車九州の本社と宮田工場", "question": "トヨタ自動車九州の本社と宮田工場がある？", "icon": "🚗" },
+  "chikugo_yoshii": { "label": "筑後吉井の白壁の町並みと果樹園で知られる", "question": "筑後吉井の白壁の町並みと果樹園で知られる？", "icon": "🏘️" },
+  "karatsu_kunchi": { "label": "ユネスコ無形文化遺産の祭りで、多くの曳山が", "question": "ユネスコ無形文化遺産の祭りで、多くの曳山が巡行する？", "icon": "🎏" },
+  "tosu_junction": { "label": "九州道・長崎道・大分道が集まるジャンクション", "question": "九州道・長崎道・大分道が集まるジャンクションがある？", "icon": "🛣️" },
+  "okawachiyama": { "label": "鍋島藩窯が置かれた「秘窯の里・大川内山」", "question": "鍋島藩窯が置かれた「秘窯の里・大川内山」がある？", "icon": "🏺" },
+  "takeo_onsen_romon": { "label": "辰野金吾が設計した朱塗りの楼門がある温泉地", "question": "辰野金吾が設計した朱塗りの楼門がある温泉地？", "icon": "♨️" },
+  "ogi_yokan": { "label": "表面に砂糖の結晶ができる切り羊羹と清水の滝で知ら", "question": "表面に砂糖の結晶ができる切り羊羹と清水の滝で知られる？", "icon": "🍡" },
+  "kunenan": { "label": "紅葉の名所として知られる国の名勝「九年庵」", "question": "紅葉の名所として知られる国の名勝「九年庵」がある？", "icon": "🍁" },
+  "yutoku_inari": { "label": "日本三大稲荷の一つに数えられる祐徳稲荷神社", "question": "日本三大稲荷の一つに数えられる祐徳稲荷神社がある？", "icon": "⛩️" },
+  "ureshino_bihada": { "label": "日本三大美肌の湯の一つと温泉湯どうふで知られる", "question": "日本三大美肌の湯の一つと温泉湯どうふで知られる？", "icon": "♨️" },
+  "isahaya_meganebashi": { "label": "洪水後に公園へ移設された石造二連アーチの眼鏡橋", "question": "洪水後に公園へ移設された石造二連アーチの眼鏡橋がある？", "icon": "🌉" },
+  "nagasaki_airport_omura": { "label": "箕島を造成して造られた長崎空港", "question": "箕島を造成して造られた長崎空港がある？", "icon": "✈️" },
+  "koi_no_oyogu_machi": { "label": "武家屋敷の水路と「鯉の泳ぐまち」で知られる", "question": "武家屋敷の水路と「鯉の泳ぐまち」で知られる？", "icon": "🐟" },
+  "hara_castle": { "label": "キリシタン勢力が籠城した世界遺産・原城跡", "question": "キリシタン勢力が籠城した世界遺産・原城跡がある？", "icon": "🏯" },
+  "unzen_jigoku": { "label": "普賢岳の麓に地獄景観が広がる温泉地", "question": "普賢岳の麓に地獄景観が広がる温泉地がある？", "icon": "♨️" },
+  "fukuejima_onidake": { "label": "福江島の鬼岳と堂崎天主堂", "question": "福江島の鬼岳と堂崎天主堂がある？", "icon": "⛪" },
+  "ajifry_seichi": { "label": "「アジフライの聖地」を掲げる港町", "question": "「アジフライの聖地」を掲げる港町？", "icon": "🐟" },
+  "tsushima_border": { "label": "日本と韓国の国境の島", "question": "日本と韓国の国境の島？", "icon": "🗺️" },
+  "mugi_shochu_iki": { "label": "麦焼酎発祥の地とされ、原の辻遺跡", "question": "麦焼酎発祥の地とされ、原の辻遺跡がある？", "icon": "🍶" },
+  "nanatsugama_shonyudo": { "label": "国の天然記念物に指定された七ツ釜鍾乳洞", "question": "国の天然記念物に指定された七ツ釜鍾乳洞がある？", "icon": "🕳️" },
+  "hirado_oranda": { "label": "江戸時代のオランダ商館が", "question": "江戸時代のオランダ商館が復元されている？", "icon": "🏛️" },
+  "igusa_yatsushiro": { "label": "い草の産地で、地元の人は市名を「やっちろ」と", "question": "い草の産地で、地元の人は市名を「やっちろ」と言う？", "icon": "🌾" },
+  "sakitsu_shuraku": { "label": "世界遺産の﨑津集落", "question": "世界遺産の﨑津集落がある？", "icon": "⛪" },
+  "takaba_countrypark": { "label": "竹迫城跡公園と県農業公園カントリーパーク", "question": "竹迫城跡公園と県農業公園カントリーパークがある？", "icon": "🌳" },
+  "hiryu_no_kane": { "label": "蓮華院誕生寺奥之院に大梵鐘「飛龍の鐘」", "question": "蓮華院誕生寺奥之院に大梵鐘「飛龍の鐘」がある？", "icon": "🔔" },
+  "misumi_nishiko": { "label": "明治期の港湾施設が残る世界遺産・三角西港", "question": "明治期の港湾施設が残る世界遺産・三角西港がある？", "icon": "⚓" },
+  "mandako_greenland": { "label": "世界遺産の万田坑と大型遊園地グリーンランド", "question": "世界遺産の万田坑と大型遊園地グリーンランドがある？", "icon": "⛏️" },
+  "aoi_aso_jinja": { "label": "茅葺き楼門を持つ国宝・青井阿蘇神社", "question": "茅葺き楼門を持つ国宝・青井阿蘇神社がある？", "icon": "⛩️" },
+  "kusasenrigahama": { "label": "草千里ヶ浜と中岳火口", "question": "草千里ヶ浜と中岳火口がある？", "icon": "🌋" },
+  "takasakiyama_saru": { "label": "高崎山のサルが有名", "question": "高崎山のサルが有名？", "icon": "🐒" },
+  "fukuzawa_karaage": { "label": "福澤諭吉が生まれ、からあげの聖地として知られる", "question": "福澤諭吉が生まれ、からあげの聖地として知られる？", "icon": "🍗" },
+  "bungo_futamigaura": { "label": "豊後二見ヶ浦に巨大なしめ縄が", "question": "豊後二見ヶ浦に巨大なしめ縄が張られている？", "icon": "⛩️" },
+  "usa_jingu": { "label": "全国の八幡社の総本宮とされる神宮", "question": "全国の八幡社の総本宮とされる神宮がある？", "icon": "⛩️" },
+  "usuki_magaibutsu": { "label": "国内を代表する国宝の磨崖仏群", "question": "国内を代表する国宝の磨崖仏群がある？", "icon": "🗿" },
+  "harajiri_no_taki": { "label": "「東洋のナイアガラ」とも呼ばれる原尻の滝", "question": "「東洋のナイアガラ」とも呼ばれる原尻の滝がある？", "icon": "💦" },
+  "kinrinko_yufuin": { "label": "金鱗湖と湯の坪街道がある温泉地", "question": "金鱗湖と湯の坪街道がある温泉地？", "icon": "♨️" },
+  "oka_castle": { "label": "「荒城の月」のモデルとされる岡城跡", "question": "「荒城の月」のモデルとされる岡城跡がある？", "icon": "🏯" },
+  "showa_no_machi": { "label": "昭和30年代の商店街を再生した「昭和の町」", "question": "昭和30年代の商店街を再生した「昭和の町」がある？", "icon": "🏘️" },
+  "sandwich_jokamachi": { "label": "二つの武家屋敷地区に商人の町が挟まれた「サンドイ", "question": "二つの武家屋敷地区に商人の町が挟まれた「サンドイッチ型城下町」？", "icon": "🏯" },
+  "futagoji": { "label": "六郷満山文化を代表する両子寺", "question": "六郷満山文化を代表する両子寺がある？", "icon": "⛩️" },
+  "tsukumi_sakura_maguro": { "label": "四浦半島の河津桜と保戸島のマグロ漁業で知られる", "question": "四浦半島の河津桜と保戸島のマグロ漁業で知られる？", "icon": "🌸" },
+  "sekinoo_taki": { "label": "関之尾滝と世界最大級の甌穴群", "question": "関之尾滝と世界最大級の甌穴群がある？", "icon": "💦" },
+  "nobeoka_ishigaki": { "label": "城跡に「千人殺し」と呼ばれる高石垣が残る", "question": "城跡に「千人殺し」と呼ばれる高石垣が残る？", "icon": "🏯" },
+  "umagase_cross": { "label": "柱状節理の断崖・馬ヶ背と「クルスの海」", "question": "柱状節理の断崖・馬ヶ背と「クルスの海」がある？", "icon": "🪨" },
+  "saitobaru_kofun": { "label": "300基以上の古墳が集まる日本最大級の古墳群", "question": "300基以上の古墳が集まる日本最大級の古墳群がある？", "icon": "🏺" },
+  "toimisaki_uma": { "label": "都井岬に野生の御崎馬が", "question": "都井岬に野生の御崎馬が生息する？", "icon": "🐎" },
+  "ebino_kogen": { "label": "霧島連山の韓国岳や不動池を望む高原", "question": "霧島連山の韓国岳や不動池を望む高原がある？", "icon": "🏔️" },
+  "shirokuma_tenmonkan": { "label": "天文館の「しろくま」で有名", "question": "天文館の「しろくま」で有名？", "icon": "🍧" },
+  "shiobitashi_onsen": { "label": "坂本龍馬夫妻が新婚旅行で訪れた塩浸温泉", "question": "坂本龍馬夫妻が新婚旅行で訪れた塩浸温泉がある？", "icon": "♨️" },
+  "kokuritsu_taiiku_univ": { "label": "日本唯一の国立体育大学", "question": "日本唯一の国立体育大学がある？", "icon": "🎓" },
+  "kamou_no_okusu": { "label": "日本一の巨樹とされる蒲生の大クス", "question": "日本一の巨樹とされる蒲生の大クスがある？", "icon": "🌳" },
+  "tsuru_ettochi": { "label": "国内最大級のツルの越冬地", "question": "国内最大級のツルの越冬地がある？", "icon": "🦢" },
+  "kinsakubaru_keihan": { "label": "金作原原生林があり、郷土料理の鶏飯で知られる", "question": "金作原原生林があり、郷土料理の鶏飯で知られる？", "icon": "🌴" },
+  "satsumayaki_miyama": { "label": "薩摩焼の里・美山と妙円寺詣りで知られる", "question": "薩摩焼の里・美山と妙円寺詣りで知られる？", "icon": "🏺" },
+  "bonotsu_ganjin": { "label": "坊津の港町と、鑑真が上陸したと伝わる秋目浦", "question": "坊津の港町と、鑑真が上陸したと伝わる秋目浦がある？", "icon": "⚓" },
+  "mizonokuchi_doketsu": { "label": "巨大な岩壁を貫く天然洞穴「溝ノ口洞穴」", "question": "巨大な岩壁を貫く天然洞穴「溝ノ口洞穴」がある？", "icon": "🕳️" },
+  "chiran_bukeyashiki": { "label": "知覧の武家屋敷庭園群と特攻平和会館", "question": "知覧の武家屋敷庭園群と特攻平和会館がある？", "icon": "🏘️" },
+  "daguri_misaki": { "label": "海を望むダグリ岬遊園地", "question": "海を望むダグリ岬遊園地がある？", "icon": "🎡" },
+  "makurazaki_station": { "label": "JR日本最南端の始発・終着駅があり、かつお節で知", "question": "JR日本最南端の始発・終着駅があり、かつお節で知られる？", "icon": "🚉" },
+  "bontan_shika": { "label": "ボンタンの産地で、沖合の無人島に野生のシカ", "question": "ボンタンの産地で、沖合の無人島に野生のシカがいる？", "icon": "🍊" },
+  "teppokan": { "label": "種子島の歴史と火縄銃を紹介する「鉄砲館」", "question": "種子島の歴史と火縄銃を紹介する「鉄砲館」がある？", "icon": "🏛️" },
+  "satsuma_ryugakusei": { "label": "薩摩藩英国留学生記念館", "question": "薩摩藩英国留学生記念館がある？", "icon": "🏛️" },
+  "koza_eisa": { "label": "全島エイサーまつりと「コザ」の音楽文化で知られる", "question": "全島エイサーまつりと「コザ」の音楽文化で知られる？", "icon": "🥁" },
+  "kaichu_doro_katsuren": { "label": "海中道路と世界遺産の勝連城跡", "question": "海中道路と世界遺産の勝連城跡がある？", "icon": "🌉" },
+  "okinawa_convention": { "label": "沖縄コンベンションセンターとトロピカルビーチ", "question": "沖縄コンベンションセンターとトロピカルビーチがある？", "icon": "🏖️" },
+  "heiwa_kinen_himeyuri": { "label": "平和祈念公園とひめゆりの塔", "question": "平和祈念公園とひめゆりの塔がある？", "icon": "🕊️" },
+  "senagajima_umikaji": { "label": "瀬長島ウミカジテラスと旧海軍司令部壕", "question": "瀬長島ウミカジテラスと旧海軍司令部壕がある？", "icon": "🏖️" },
+  "kabira_bay": { "label": "エメラルドグリーンの海で有名な川平湾", "question": "エメラルドグリーンの海で有名な川平湾がある？", "icon": "🏝️" },
+  "irabu_ohashi": { "label": "海の上を渡る長大な伊良部大橋", "question": "海の上を渡る長大な伊良部大橋がある？", "icon": "🌉" },
+  "sefa_utaki": { "label": "世界遺産の斎場御嶽とニライカナイ橋", "question": "世界遺産の斎場御嶽とニライカナイ橋がある？", "icon": "⛩️" },
+  "kaike_onsen": { "label": "山陰を代表する皆生温泉", "question": "山陰を代表する皆生温泉がある？", "icon": "♨️" },
+  "kurayoshi_shirakabe": { "label": "白壁土蔵群と赤瓦の町並み", "question": "白壁土蔵群と赤瓦の町並みがある？", "icon": "🏘️" },
+  "sesshu_teien": { "label": "雪舟が築いたと伝わる庭園", "question": "雪舟が築いたと伝わる庭園が複数ある？", "icon": "🌳" },
+  "iwami_ginzan": { "label": "石見銀山遺跡", "question": "石見銀山遺跡がある？", "icon": "⛏️" },
+  "gonokawa_kako": { "label": "中国地方最大の河川・江の川の河口", "question": "中国地方最大の河川・江の川の河口がある？", "icon": "🌊" },
+  "nihon_sanmeien": { "label": "日本三名園の一つ", "question": "日本三名園の一つがある？", "icon": "🌳" },
+  "horumon_udon": { "label": "ホルモンうどんで知られる", "question": "ホルモンうどんで知られる？", "icon": "🍜" },
+  "kinojo": { "label": "古代山城の鬼ノ城", "question": "古代山城の鬼ノ城がある？", "icon": "🏯" },
+  "bitchu_matsuyama": { "label": "現存天守の備中松山城", "question": "現存天守の備中松山城がある？", "icon": "🏯" },
+  "saijo_sake": { "label": "日本有数の酒どころ「西条」", "question": "日本有数の酒どころ「西条」がある？", "icon": "🍶" },
+  "mihara_tako": { "label": "タコ料理と海に浮かぶ城跡で知られる", "question": "タコ料理と海に浮かぶ城跡で知られる？", "icon": "🐙" },
+  "kiri_no_umi": { "label": "秋から冬の「霧の海」で知られる", "question": "秋から冬の「霧の海」で知られる？", "icon": "🌫️" },
+  "hiroshima_westmost": { "label": "広島県で最も西に位置する市", "question": "広島県で最も西に位置する市？", "icon": "🗺️" },
+  "anno_hideaki": { "label": "『エヴァンゲリオン』の庵野秀明が生まれたマチ", "question": "『エヴァンゲリオン』の庵野秀明が生まれたマチ？", "icon": "🤖" },
+  "tokuyama_combinat": { "label": "徳山の工場夜景やコンビナートで知られる", "question": "徳山の工場夜景やコンビナートで知られる？", "icon": "🏭" },
+  "kintaikyo": { "label": "五連の木造アーチ橋「錦帯橋」", "question": "五連の木造アーチ橋「錦帯橋」がある？", "icon": "🌉" },
+  "cement_glass": { "label": "セメント産業とガラス文化で知られる", "question": "セメント産業とガラス文化で知られる？", "icon": "🏭" },
+  "led_valley": { "label": "LED関連企業の集積で知られる「光のまち」", "question": "LED関連企業の集積で知られる「光のまち」？", "icon": "💡" },
+  "naruto_uzushio": { "label": "世界最大級の渦潮を間近で見られる", "question": "世界最大級の渦潮を間近で見られる？", "icon": "🌀" },
+  "kincho_tanuki": { "label": "金長たぬきの伝説で知られる", "question": "金長たぬきの伝説で知られる？", "icon": "🦝" },
+  "awa_dochu": { "label": "国の天然記念物「阿波の土柱」", "question": "国の天然記念物「阿波の土柱」がある？", "icon": "🪨" },
+  "mima_udatsu": { "label": "「うだつの町並み」が", "question": "「うだつの町並み」が残っている？", "icon": "🏘️" },
+  "iya_kazurabashi": { "label": "祖谷のかずら橋や大歩危・小歩危", "question": "祖谷のかずら橋や大歩危・小歩危がある？", "icon": "🌉" },
+  "marugame_uchiwa": { "label": "現存天守の城とうちわで有名", "question": "現存天守の城とうちわで有名？", "icon": "🏯" },
+  "chichibugahama": { "label": "水面に空が映る父母ヶ浜", "question": "水面に空が映る父母ヶ浜がある？", "icon": "🏖️" },
+  "zenigata_sunae": { "label": "巨大な寛永通宝の砂絵", "question": "巨大な寛永通宝の砂絵がある？", "icon": "🪙" },
+  "setoohashi_shikoku": { "label": "瀬戸大橋の四国側の玄関口", "question": "瀬戸大橋の四国側の玄関口？", "icon": "🌉" },
+  "kukai_birthplace": { "label": "弘法大師・空海の生誕地とされる", "question": "弘法大師・空海の生誕地とされる？", "icon": "⛩️" },
+  "tebukuro_industry": { "label": "手袋の生産量が日本一として知られる", "question": "手袋の生産量が日本一として知られる？", "icon": "🧤" },
+  "uchinuki": { "label": "名水「うちぬき」が市内各地から湧き出る", "question": "名水「うちぬき」が市内各地から湧き出る？", "icon": "💧" },
+  "garyu_sanso": { "label": "臥龍山荘や肱川の鵜飼で知られる", "question": "臥龍山荘や肱川の鵜飼で知られる？", "icon": "🏯" },
+  "kezuribushi": { "label": "削り節の生産が盛んな港町", "question": "削り節の生産が盛んな港町？", "icon": "🐟" },
+  "yawatahama_champon": { "label": "ご当地麺「○○○（市名）ちゃんぽん」で知られる", "question": "ご当地麺「○○○（市名）ちゃんぽん」で知られる？", "icon": "🍜" },
+  "seiyo_geopark": { "label": "四国○○（市名）ジオパークの中心", "question": "四国○○（市名）ジオパークの中心となる市？", "icon": "🗺️" },
+  "botchan_theater": { "label": "常設劇場「坊っちゃん劇場」", "question": "常設劇場「坊っちゃん劇場」がある？", "icon": "🎭" },
+  "kochi_ryoma_airport": { "label": "高知県の空の玄関、高知龍馬空港", "question": "高知県の空の玄関、高知龍馬空港がある？", "icon": "✈️" },
+  "chinkabashi": { "label": "四万十川に架かる多くの沈下橋で知られる", "question": "四万十川に架かる多くの沈下橋で知られる？", "icon": "🌉" },
+  "noichi_zoo": { "label": "高知県立のいち動物公園", "question": "高知県立のいち動物公園がある？", "icon": "🦁" },
+  "muroto_geopark": { "label": "世界ジオパークに認定された岬", "question": "世界ジオパークに認定された岬がある？", "icon": "🗺️" },
+  "nabeyaki_ramen": { "label": "鍋焼きラーメンをご当地グルメ", "question": "鍋焼きラーメンをご当地グルメとする？", "icon": "🍜" },
+  "daruma_yuhi": { "label": "冬の海に沈む「だるま夕日」で知られる", "question": "冬の海に沈む「だるま夕日」で知られる？", "icon": "🌇" },
+  "ashizuri_misaki": { "label": "四国最南端の足摺岬", "question": "四国最南端の足摺岬がある？", "icon": "🗺️" },
+  "tosabushi": { "label": "一本釣りの鰹節「土佐節」で知られる", "question": "一本釣りの鰹節「土佐節」で知られる？", "icon": "🐟" },
+  "yanase_museum": { "label": "やなせたかし記念館", "question": "やなせたかし記念館がある？", "icon": "🏛️" },
+  "nagashima_nabana": { "label": "国内最大級の遊園地となばなの里", "question": "国内最大級の遊園地となばなの里がある？", "icon": "🎢" },
+  "suzuka_circuit": { "label": "F1日本グランプリが開かれる国際サーキット", "question": "F1日本グランプリが開かれる国際サーキットがある？", "icon": "🏎️" },
+  "magose_hinoki": { "label": "熊野古道の馬越峠と、ヒノキの産地で知られる", "question": "熊野古道の馬越峠と、ヒノキの産地で知られる？", "icon": "🌲" },
+  "sekijuku": { "label": "東海道五十三次の宿場町・関宿が", "question": "東海道五十三次の宿場町・関宿が残る？", "icon": "🏘️" },
+  "toba_aquarium": { "label": "国内有数の飼育種類数を誇る水族館と真珠島", "question": "国内有数の飼育種類数を誇る水族館と真珠島がある？", "icon": "🐠" },
+  "onigajo_hananoiwaya": { "label": "鬼ヶ城・花の窟・七里御浜", "question": "鬼ヶ城・花の窟・七里御浜がある？", "icon": "🪨" },
+  "fujiwaradake_bairin": { "label": "藤原岳と、梅林で知られる農業公園", "question": "藤原岳と、梅林で知られる農業公園がある？", "icon": "🌸" },
+  "parque_ago": { "label": "パルケエスパーニャと英虞湾", "question": "パルケエスパーニャと英虞湾がある？", "icon": "🎡" },
+  "iga_ninja_basho": { "label": "忍者博物館と松尾芭蕉の生家", "question": "忍者博物館と松尾芭蕉の生家がある？", "icon": "🥷" },
+  "kurokabe_chikubu": { "label": "黒壁スクエアと竹生島", "question": "黒壁スクエアと竹生島がある？", "icon": "🏘️" },
+  "hachimanbori": { "label": "八幡堀と水郷、近江商人の町並み", "question": "八幡堀と水郷、近江商人の町並みがある？", "icon": "🛶" },
+  "biwako_ohashi_sagawa": { "label": "琵琶湖大橋の東詰と佐川美術館", "question": "琵琶湖大橋の東詰と佐川美術館がある？", "icon": "🌉" },
+  "jra_training": { "label": "JRAの競走馬トレーニングセンター", "question": "JRAの競走馬トレーニングセンターがある？", "icon": "🐎" },
+  "konan_sanzan": { "label": "国宝建築を持つ「湖南三山」", "question": "国宝建築を持つ「湖南三山」がある？", "icon": "⛩️" },
+  "metasequoia_shirahige": { "label": "メタセコイア並木と湖中の大鳥居がある神社で知られ", "question": "メタセコイア並木と湖中の大鳥居がある神社で知られる？", "icon": "🌳" },
+  "gokasho_eigenji": { "label": "五個荘の近江商人屋敷と永源寺", "question": "五個荘の近江商人屋敷と永源寺がある？", "icon": "🏘️" },
+  "maizuru_akarenga": { "label": "海上自衛隊の基地と赤れんが倉庫群", "question": "海上自衛隊の基地と赤れんが倉庫群がある？", "icon": "⚓" },
+  "byodoin_uji": { "label": "平等院鳳凰堂と高級茶の産地で知られる", "question": "平等院鳳凰堂と高級茶の産地で知られる？", "icon": "⛩️" },
+  "iwashimizu_nagarebashi": { "label": "石清水八幡宮と、増水時に流れるよう造られた木橋", "question": "石清水八幡宮と、増水時に流れるよう造られた木橋がある？", "icon": "⛩️" },
+  "toyonaka_kyujo": { "label": "甲子園の前身大会が最初に開かれた球場跡", "question": "甲子園の前身大会が最初に開かれた球場跡がある？", "icon": "⚾" },
+  "cupnoodle_museum": { "label": "カップヌードルミュージアム", "question": "カップヌードルミュージアムがある？", "icon": "🍜" },
+  "taiyo_no_to": { "label": "太陽の塔と万博記念公園", "question": "太陽の塔と万博記念公園がある？", "icon": "🗿" },
+  "mofu_izumiotsu": { "label": "国産毛布の一大産地", "question": "国産毛布の一大産地？", "icon": "🧣" },
+  "imashirozuka_haniwa": { "label": "大王の古墳と大規模な埴輪工場跡", "question": "大王の古墳と大規模な埴輪工場跡がある？", "icon": "🏺" },
+  "mizuma_nishikinohama": { "label": "水間観音と二色の浜", "question": "水間観音と二色の浜がある？", "icon": "⛩️" },
+  "moriguchi_daikon": { "label": "世界最長級の細長い大根の名の由来となった京街道の", "question": "世界最長級の細長い大根の名の由来となった京街道の宿場町？", "icon": "🥬" },
+  "hikari_no_kyokai": { "label": "安藤忠雄設計の「光の教会」と隠れキリシタンの里", "question": "安藤忠雄設計の「光の教会」と隠れキリシタンの里がある？", "icon": "⛪" },
+  "kansai_airport_city": { "label": "関西国際空港と大型アウトレット", "question": "関西国際空港と大型アウトレットがある？", "icon": "✈️" },
+  "pl_tower": { "label": "PL教団が作った巨大な白い塔", "question": "PL教団が作った巨大な白い塔がある？", "icon": "🗼" },
+  "naritasan_osaka": { "label": "成田山の大阪別院", "question": "成田山の大阪別院がある？", "icon": "⛩️" },
+  "kanshinji_kongoji": { "label": "高野街道と国宝を持つ観心寺・金剛寺", "question": "高野街道と国宝を持つ観心寺・金剛寺がある？", "icon": "⛩️" },
+  "nunose_takenouchi": { "label": "布忍神社の恋みくじと、日本遺産の竹内街道", "question": "布忍神社の恋みくじと、日本遺産の竹内街道がある？", "icon": "⛩️" },
+  "nozaki_mairi": { "label": "野崎まいりと飯盛城跡", "question": "野崎まいりと飯盛城跡がある？", "icon": "⛩️" },
+  "ikegami_sone": { "label": "大規模な弥生時代の環濠集落跡", "question": "大規模な弥生時代の環濠集落跡がある？", "icon": "🏺" },
+  "minoh_katsuoji": { "label": "大滝と「勝運の寺」として知られる寺院", "question": "大滝と「勝運の寺」として知られる寺院がある？", "icon": "🍁" },
+  "kashiwara_budo": { "label": "ブドウ栽培と亀の瀬地すべり地帯で知られる", "question": "ブドウ栽培と亀の瀬地すべり地帯で知られる？", "icon": "🍇" },
+  "ojin_ryo_wine": { "label": "世界遺産の古墳群にある巨大な応神天皇陵とワインで", "question": "世界遺産の古墳群にある巨大な応神天皇陵とワインで知られる？", "icon": "🍷" },
+  "panasonic_hq": { "label": "パナソニックの本社", "question": "パナソニックの本社がある？", "icon": "🏭" },
+  "torikai_depot": { "label": "東海道新幹線の鳥飼車両基地", "question": "東海道新幹線の鳥飼車両基地がある？", "icon": "🚄" },
+  "takashinohama": { "label": "南海高師浜線の終点と臨海工業地帯の工場夜景", "question": "南海高師浜線の終点と臨海工業地帯の工場夜景がある？", "icon": "🏭" },
+  "fujiidera_kannon": { "label": "西国三十三所第5番札所と、国宝の千手観音像", "question": "西国三十三所第5番札所と、国宝の千手観音像がある？", "icon": "⛩️" },
+  "sennan_rosegarden": { "label": "海辺の大型公園と英国式ローズガーデン", "question": "海辺の大型公園と英国式ローズガーデンがある？", "icon": "🌹" },
+  "shijonawate_masatsura": { "label": "楠木正行の終焉の地とされ、室池園地", "question": "楠木正行の終焉の地とされ、室池園地がある？", "icon": "🏯" },
+  "hoshi_no_buranko": { "label": "七夕伝説と、巨大なつり橋「星のブランコ」", "question": "七夕伝説と、巨大なつり橋「星のブランコ」がある？", "icon": "🌉" },
+  "sayamaike": { "label": "日本最古級のため池と、安藤忠雄設計の博物館", "question": "日本最古級のため池と、安藤忠雄設計の博物館がある？", "icon": "💧" },
+  "pichipichi_beach": { "label": "「ぴちぴちビーチ」と和泉砂岩の石工文化で知られる", "question": "「ぴちぴちビーチ」と和泉砂岩の石工文化で知られる？", "icon": "🏖️" },
+  "sumoto_castle_onsen": { "label": "淡路島中央部に城跡と温泉街", "question": "淡路島中央部に城跡と温泉街がある？", "icon": "🏯" },
+  "ashiya_yodoko": { "label": "高級住宅地として知られ、ヨドコウ迎賓館", "question": "高級住宅地として知られ、ヨドコウ迎賓館がある？", "icon": "🏡" },
+  "itami_sake_airport": { "label": "清酒発祥地の一つとされ、大阪国際空港の一部", "question": "清酒発祥地の一つとされ、大阪国際空港の一部がある？", "icon": "🍶" },
+  "katsumeshi_kakurinji": { "label": "郷土料理「かつめし」と国宝建築を持つ寺院", "question": "郷土料理「かつめし」と国宝建築を持つ寺院がある？", "icon": "🍚" },
+  "tada_jinja": { "label": "清和源氏ゆかりの多田神社と妙見山", "question": "清和源氏ゆかりの多田神社と妙見山がある？", "icon": "⛩️" },
+  "sanda_hitohaku": { "label": "県立の「人と自然の博物館」とブランド牛で知られる", "question": "県立の「人と自然の博物館」とブランド牛で知られる？", "icon": "🐄" },
+  "kasai_globe_clock": { "label": "旧軍飛行場跡と世界最大級の地球儀時計", "question": "旧軍飛行場跡と世界最大級の地球儀時計がある？", "icon": "🌐" },
+  "izanagi_yumebutai": { "label": "国生み神話の神社と淡路夢舞台", "question": "国生み神話の神社と淡路夢舞台がある？", "icon": "⛩️" },
+  "tojoko_omocha": { "label": "東条湖のおもちゃ王国と県立播磨中央公園", "question": "東条湖のおもちゃ王国と県立播磨中央公園がある？", "icon": "🎠" },
+  "tatsuno_shoyu_somen": { "label": "しょうゆ醸造と手延べそうめんの産地で知られる", "question": "しょうゆ醸造と手延べそうめんの産地で知られる？", "icon": "🍜" },
+  "takada_sakura_jinaimachi": { "label": "川沿いに約千本の桜が続き、古い寺内町が", "question": "川沿いに約千本の桜が続き、古い寺内町が残る？", "icon": "🌸" },
+  "kingyo_yamatokoriyama": { "label": "金魚養殖で知られる", "question": "金魚養殖で知られる？", "icon": "🐠" },
+  "tenri_shukyo_toshi": { "label": "宗教都市として発展し、巨大な本部神殿", "question": "宗教都市として発展し、巨大な本部神殿がある？", "icon": "⛩️" },
+  "kashihara_jingu": { "label": "神武天皇を祭る神宮と藤原宮跡", "question": "神武天皇を祭る神宮と藤原宮跡がある？", "icon": "⛩️" },
+  "miwa_somen": { "label": "三輪そうめんで知られる", "question": "三輪そうめんで知られる？", "icon": "🍜" },
+  "gojo_kaki_shinmachi": { "label": "柿の産地で、江戸時代の町並みが残る新町通り", "question": "柿の産地で、江戸時代の町並みが残る新町通りがある？", "icon": "🍊" },
+  "katsuragi_kodo": { "label": "葛城古道と高鴨神社、古い町家が", "question": "葛城古道と高鴨神社、古い町家が残る？", "icon": "⛩️" },
+  "ikoma_cablecar": { "label": "日本最古の営業用ケーブルカーと山上遊園地", "question": "日本最古の営業用ケーブルカーと山上遊園地がある？", "icon": "🚡" },
+  "dontsurubo": { "label": "奇岩「屯鶴峯」と二上山の北麓", "question": "奇岩「屯鶴峯」と二上山の北麓に位置する？", "icon": "🪨" },
+  "taimadera_sumo": { "label": "當麻寺と、相撲の始祖を紹介する資料館", "question": "當麻寺と、相撲の始祖を紹介する資料館がある？", "icon": "⛩️" },
+  "uda_seiyaku": { "label": "多くの製薬会社の創業者を輩出した", "question": "多くの製薬会社の創業者を輩出した？", "icon": "💊" },
+  "kuroe_shikki": { "label": "黒江の町並みと紀州漆器で知られる", "question": "黒江の町並みと紀州漆器で知られる？", "icon": "🥢" },
+  "koyasan_gateway_pile": { "label": "高野山への鉄道・道路の玄関口で、パイル織物の産地", "question": "高野山への鉄道・道路の玄関口で、パイル織物の産地？", "icon": "🧶" },
+  "arida_mikan": { "label": "全国有数のミカン産地で、山腹にかんきつ畑が広がる", "question": "全国有数のミカン産地で、山腹にかんきつ畑が広がる？", "icon": "🍊" },
+  "shortest_private_line": { "label": "全長3キロ未満の短い私鉄路線が走る", "question": "全長3キロ未満の短い私鉄路線が走る？", "icon": "🚃" },
+  "kumano_hongu_benkei": { "label": "熊野本宮大社と弁慶ゆかりの地", "question": "熊野本宮大社と弁慶ゆかりの地がある？", "icon": "⛩️" },
+  "kumano_hayatama_gotobiki": { "label": "熊野速玉大社と、巨岩を御神体とする神社", "question": "熊野速玉大社と、巨岩を御神体とする神社がある？", "icon": "⛩️" },
+  "kokawadera_momo": { "label": "西国三十三所第3番札所と桃の産地で知られる", "question": "西国三十三所第3番札所と桃の産地で知られる？", "icon": "🍑" },
+  "vinegar_famous": { "label": "酢の生産", "question": "酢の生産で有名？", "icon": "🍶" },
+  "fujiko_f_birthplace": { "label": "藤子・F・不二雄先生の出身地", "question": "藤子・F・不二雄先生の出身地？", "icon": "📚" },
+  "shinkiro_maibotsurin": { "label": "蜃気楼と埋没林の博物館", "question": "蜃気楼と埋没林の博物館がある？", "icon": "🏛️" },
+  "fujiko_a_buri": { "label": "藤子不二雄A先生の出身地で寒ブリが名物", "question": "藤子不二雄A先生の出身地で寒ブリが名物？", "icon": "🐟" },
+  "hotaruika_museum": { "label": "ホタルイカ専門の体験型博物館", "question": "ホタルイカ専門の体験型博物館がある？", "icon": "🦑" },
+  "tulip_fair": { "label": "国内最大級のチューリップフェア", "question": "国内最大級のチューリップフェアが開かれる？", "icon": "🌷" },
+  "merhen_kenchiku": { "label": "西洋風の「メルヘン建築」が多い", "question": "西洋風の「メルヘン建築」が多い？", "icon": "🏰" },
+  "gokayama_gassho": { "label": "五箇山の合掌造り集落", "question": "五箇山の合掌造り集落がある？", "icon": "🏠" },
+  "kaiwomaru_bridge": { "label": "帆船海王丸と巨大な斜張橋", "question": "帆船海王丸と巨大な斜張橋がある？", "icon": "⛵" },
+  "wakura_notojima": { "label": "和倉温泉と能登島", "question": "和倉温泉と能登島がある？", "icon": "♨️" },
+  "komatsu_origin": { "label": "世界的建設機械メーカーの発祥地", "question": "世界的建設機械メーカーの発祥地？", "icon": "🏭" },
+  "senmaida_shikki": { "label": "白米千枚田と漆器産業で知られる", "question": "白米千枚田と漆器産業で知られる？", "icon": "🌾" },
+  "rokugozaki": { "label": "能登半島の先端に禄剛崎", "question": "能登半島の先端に禄剛崎がある？", "icon": "🗺️" },
+  "kaga_onsenkyo": { "label": "山代・山中・片山津の三温泉", "question": "山代・山中・片山津の三温泉がある？", "icon": "♨️" },
+  "ufo_museum": { "label": "UFOをテーマにした宇宙科学博物館", "question": "UFOをテーマにした宇宙科学博物館がある？", "icon": "🛸" },
+  "shirayama_tedori": { "label": "加賀国一宮と手取峡谷", "question": "加賀国一宮と手取峡谷がある？", "icon": "⛩️" },
+  "matsui_museum": { "label": "松井秀喜の野球博物館", "question": "松井秀喜の野球博物館がある？", "icon": "⚾" },
+  "kehi_jindo": { "label": "気比神宮と「人道の港」の資料館", "question": "気比神宮と「人道の港」の資料館がある？", "icon": "⛩️" },
+  "miketsukuni_saba": { "label": "御食国と鯖街道の起点として知られる", "question": "御食国と鯖街道の起点として知られる？", "icon": "🐟" },
+  "echizen_ono_castle": { "label": "雲海に浮かぶ山城と湧水で知られる", "question": "雲海に浮かぶ山城と湧水で知られる？", "icon": "🏯" },
+  "awara_onsen": { "label": "北陸有数の芦原温泉", "question": "北陸有数の芦原温泉がある？", "icon": "♨️" },
+  "fujiq_highland": { "label": "富士急ハイランド", "question": "富士急ハイランドがある？", "icon": "🎢" },
+  "fuefuki_fruit_park": { "label": "笛吹川フルーツ公園と西沢渓谷", "question": "笛吹川フルーツ公園と西沢渓谷がある？", "icon": "🍇" },
+  "shinpu_shichirigan": { "label": "新府城跡と七里岩の台地", "question": "新府城跡と七里岩の台地がある？", "icon": "🏯" },
+  "katakana_city_name": { "label": "全国で唯一市名にカタカナが入る", "question": "全国で唯一市名にカタカナが入る？", "icon": "🔤" },
+  "kiyosato_hakushu": { "label": "清里高原と白州の蒸溜所", "question": "清里高原と白州の蒸溜所がある？", "icon": "🥃" },
+  "shingen_zutsumi": { "label": "信玄堤と赤坂台総合公園", "question": "信玄堤と赤坂台総合公園がある？", "icon": "🏞️" },
+  "isawa_onsen": { "label": "石和温泉と桃源郷", "question": "石和温泉と桃源郷がある？", "icon": "♨️" },
+  "katsunuma_budo": { "label": "勝沼のぶどう畑と大菩薩嶺", "question": "勝沼のぶどう畑と大菩薩嶺がある？", "icon": "🍇" },
+  "name_same_as_route": { "label": "市名と同じ名前の高速道路や鉄道の路線", "question": "市名と同じ名前の高速道路や鉄道の路線がある？", "icon": "🛣️" },
+  "kamikochi": { "label": "上高地", "question": "上高地がある？", "icon": "🏔️" },
+  "sanada_bessho": { "label": "真田氏の城下町で別所温泉", "question": "真田氏の城下町で別所温泉がある？", "icon": "🏯" },
+  "okaya_silk": { "label": "諏訪湖西岸の製糸業の町で蚕糸博物館", "question": "諏訪湖西岸の製糸業の町で蚕糸博物館がある？", "icon": "🧵" },
+  "ningyogeki_tenryukyo": { "label": "人形劇フェスタと天龍峡で知られる", "question": "人形劇フェスタと天龍峡で知られる？", "icon": "🎭" },
+  "suzaka_garyu": { "label": "蔵の町並みと臥竜公園", "question": "蔵の町並みと臥竜公園がある？", "icon": "🏞️" },
+  "kaikoen_toson": { "label": "懐古園と島崎藤村ゆかりの町", "question": "懐古園と島崎藤村ゆかりの町？", "icon": "🏯" },
+  "takato_sakura": { "label": "高遠城址公園の桜で知られる", "question": "高遠城址公園の桜で知られる？", "icon": "🌸" },
+  "sauce_katsudon": { "label": "ソースカツ丼で有名", "question": "ソースカツ丼で有名？", "icon": "🍚" },
+  "shinpei_ipponki": { "label": "中山晋平記念館と一本木公園", "question": "中山晋平記念館と一本木公園がある？", "icon": "🎵" },
+  "alpen_route_nagano": { "label": "立山黒部アルペンルートの長野側玄関口", "question": "立山黒部アルペンルートの長野側玄関口？", "icon": "🚡" },
+  "kamakura_nanohana": { "label": "かまくらの里と菜の花公園", "question": "かまくらの里と菜の花公園がある？", "icon": "❄️" },
+  "naraijuku_wine": { "label": "奈良井宿と国産ワインで知られる", "question": "奈良井宿と国産ワインで知られる？", "icon": "🍷" },
+  "farthest_from_sea": { "label": "日本で海から最も遠い地点", "question": "日本で海から最も遠い地点がある？", "icon": "🗺️" },
+  "obasute_togura": { "label": "姨捨の棚田と戸倉上山田温泉", "question": "姨捨の棚田と戸倉上山田温泉がある？", "icon": "🌾" },
+  "unnojuku_yunomaru": { "label": "海野宿と湯の丸高原", "question": "海野宿と湯の丸高原がある？", "icon": "🏘️" },
+  "wasabi_farm": { "label": "国内最大級のわさび農場", "question": "国内最大級のわさび農場がある？", "icon": "🌿" },
+  "nagaragawa_ukai": { "label": "長良川の鵜飼で有名", "question": "長良川の鵜飼で有名？", "icon": "🐦" },
+  "okuno_hosomichi_musubi": { "label": "奥の細道むすびの地で「水の都」と呼ばれる", "question": "奥の細道むすびの地で「水の都」と呼ばれる？", "icon": "💧" },
+  "hida_furuimachi": { "label": "飛騨の古い町並みと日本三大美祭", "question": "飛騨の古い町並みと日本三大美祭がある？", "icon": "🏘️" },
+  "mosaic_tile_museum": { "label": "モザイクタイルミュージアムと永保寺", "question": "モザイクタイルミュージアムと永保寺がある？", "icon": "🏛️" },
+  "magome_kurikinton": { "label": "馬籠宿と栗きんとんで知られる", "question": "馬籠宿と栗きんとんで知られる？", "icon": "🌰" },
+  "udatsu_mino": { "label": "うだつの上がる町並みと手すき和紙で知られる", "question": "うだつの上がる町並みと手すき和紙で知られる？", "icon": "🏘️" },
+  "kaseki_museum": { "label": "化石博物館と陶磁器産業で知られる", "question": "化石博物館と陶磁器産業で知られる？", "icon": "🦴" },
+  "iwamura_akechi": { "label": "岩村城下町と明知鉄道", "question": "岩村城下町と明知鉄道がある？", "icon": "🏯" },
+  "otajuku_satoyama": { "label": "中山道太田宿と里山体験型公園", "question": "中山道太田宿と里山体験型公園がある？", "icon": "🏘️" },
+  "toki_outlet": { "label": "陶磁器生産と大型アウトレットで知られる", "question": "陶磁器生産と大型アウトレットで知られる？", "icon": "🏺" },
+  "aerospace_museum": { "label": "国内最大級の航空宇宙博物館", "question": "国内最大級の航空宇宙博物館がある？", "icon": "✈️" },
+  "rose_garden_akechi": { "label": "世界最大級のバラ園と明智城跡", "question": "世界最大級のバラ園と明智城跡がある？", "icon": "🌹" },
+  "fuyu_kaki_origin": { "label": "富有柿発祥の地とされる", "question": "富有柿発祥の地とされる？", "icon": "🍊" },
+  "setogawa_shirakabe": { "label": "瀬戸川と白壁土蔵街", "question": "瀬戸川と白壁土蔵街がある？", "icon": "🏘️" },
+  "usuzumi_zakura": { "label": "樹齢1500年以上とされる淡墨桜", "question": "樹齢1500年以上とされる淡墨桜がある？", "icon": "🌸" },
+  "gujo_odori": { "label": "徹夜で踊るおどりで有名", "question": "徹夜で踊るおどりで有名？", "icon": "💃" },
+  "nihon_sanmeisen": { "label": "日本三名泉の一つ", "question": "日本三名泉の一つがある？", "icon": "♨️" },
+  "kisosansen_wajyu": { "label": "木曽三川が集まる輪中地帯と国営公園", "question": "木曽三川が集まる輪中地帯と国営公園がある？", "icon": "🏞️" },
+  "atami_moa": { "label": "海上花火大会とMOA美術館で知られる", "question": "海上花火大会とMOA美術館で知られる？", "icon": "🎆" },
+  "genbegawa_rakujuen": { "label": "源兵衛川と楽寿園", "question": "源兵衛川と楽寿園がある？", "icon": "💧" },
+  "sengen_taisha": { "label": "浅間大社の総本宮と白糸の滝", "question": "浅間大社の総本宮と白糸の滝がある？", "icon": "⛩️" },
+  "omuroyama_jogasaki": { "label": "大室山と城ヶ崎海岸", "question": "大室山と城ヶ崎海岸がある？", "icon": "🌋" },
+  "horaibashi_sl": { "label": "世界最長級の木造歩道橋とSL列車で知られる", "question": "世界最長級の木造歩道橋とSL列車で知られる？", "icon": "🌉" },
+  "gakunan_tagonoura": { "label": "岳南電車と田子の浦港", "question": "岳南電車と田子の浦港がある？", "icon": "🚃" },
+  "yaizu_katsuo": { "label": "遠洋漁業の港とカツオ・マグロで知られる", "question": "遠洋漁業の港とカツオ・マグロで知られる？", "icon": "🐟" },
+  "kakegawa_castle": { "label": "木造復元天守と花鳥園", "question": "木造復元天守と花鳥園がある？", "icon": "🏯" },
+  "soccer_town_fujieda": { "label": "サッカーの町で東海道の宿場が二つ", "question": "サッカーの町で東海道の宿場が二つある？", "icon": "⚽" },
+  "gotemba_outlet": { "label": "国内最大級のアウトレットと富士山麓の演習場", "question": "国内最大級のアウトレットと富士山麓の演習場がある？", "icon": "🛍️" },
+  "ecopa_hattasan": { "label": "エコパスタジアムと法多山", "question": "エコパスタジアムと法多山がある？", "icon": "🏟️" },
+  "shimoda_port": { "label": "ペリー来航によって開港した港", "question": "ペリー来航によって開港した港がある？", "icon": "⚓" },
+  "fuji_safari": { "label": "富士サファリパーク", "question": "富士サファリパークがある？", "icon": "🦁" },
+  "arai_sekisho": { "label": "新居関所と豊田佐吉記念館", "question": "新居関所と豊田佐吉記念館がある？", "icon": "🏯" },
+  "shuzenji_toi": { "label": "修善寺温泉と土肥金山", "question": "修善寺温泉と土肥金山がある？", "icon": "♨️" },
+  "hamaoka_lighthouse": { "label": "浜岡原子力発電所と白亜の灯台", "question": "浜岡原子力発電所と白亜の灯台がある？", "icon": "💡" },
+  "senkagawa_fukamushi": { "label": "千框棚田と深蒸し茶で知られる", "question": "千框棚田と深蒸し茶で知られる？", "icon": "🍵" },
+  "nirayama_hansharo": { "label": "世界遺産の韮山反射炉", "question": "世界遺産の韮山反射炉がある？", "icon": "🏛️" },
+  "sagara_oil_airport": { "label": "相良油田と県の空の玄関", "question": "相良油田と県の空の玄関がある？", "icon": "🛢️" },
+  "masumida_keori": { "label": "真清田神社と国内有数の毛織物産地", "question": "真清田神社と国内有数の毛織物産地？", "icon": "⛩️" },
+  "toyokawa_inari": { "label": "寺院なのに稲荷と呼ばれる名刹", "question": "寺院なのに稲荷と呼ばれる名刹がある？", "icon": "⛩️" },
+  "tsushima_tenno": { "label": "天王信仰の総本社と車楽舟の祭り", "question": "天王信仰の総本社と車楽舟の祭りがある？", "icon": "⛩️" },
+  "kokonoe_mirin": { "label": "九重味淋の本社と明石公園", "question": "九重味淋の本社と明石公園がある？", "icon": "🏭" },
+  "toyota_origin_kariya": { "label": "トヨタグループ発祥の地で大型PA", "question": "トヨタグループ発祥の地で大型PAがある？", "icon": "🏭" },
+  "toyota_hq": { "label": "世界最大級の自動車会社の本社", "question": "世界最大級の自動車会社の本社がある？", "icon": "🚗" },
+  "nihon_denmark": { "label": "「日本デンマーク」と呼ばれ七夕祭りが有名", "question": "「日本デンマーク」と呼ばれ七夕祭りが有名？", "icon": "🌾" },
+  "matcha_sakushima": { "label": "抹茶の産地で佐久島を市域に含む", "question": "抹茶の産地で佐久島を市域に含む？", "icon": "🍵" },
+  "takeshima_resort": { "label": "竹島と大型海洋リゾート", "question": "竹島と大型海洋リゾートがある？", "icon": "🏝️" },
+  "centrair_manekineko": { "label": "中部国際空港と巨大な招き猫", "question": "中部国際空港と巨大な招き猫がある？", "icon": "✈️" },
+  "mandaraji_fuji": { "label": "曼陀羅寺の藤まつりで知られる", "question": "曼陀羅寺の藤まつりで知られる？", "icon": "🌸" },
+  "komaki_castle": { "label": "織田信長が初めて築いた城山", "question": "織田信長が初めて築いた城山がある？", "icon": "🏯" },
+  "konomiya_hadaka": { "label": "国府宮のはだか祭と植木・苗木で知られる", "question": "国府宮のはだか祭と植木・苗木で知られる？", "icon": "⛩️" },
+  "nagashino_horaiji": { "label": "長篠城跡と鳳来寺山", "question": "長篠城跡と鳳来寺山がある？", "icon": "🏯" },
+  "juraku_daibutsu": { "label": "大規模製鉄所と聚楽園大仏", "question": "大規模製鉄所と聚楽園大仏がある？", "icon": "🗿" },
+  "aichi_kenko_mori": { "label": "あいち健康の森と大倉公園", "question": "あいち健康の森と大倉公園がある？", "icon": "🌳" },
+  "shinmaiko_okada": { "label": "新舞子マリンパークと岡田の古い町並み", "question": "新舞子マリンパークと岡田の古い町並みがある？", "icon": "🏖️" },
+  "kakitsubata_chiryu": { "label": "無量寿寺のかきつばたと東海道の宿場で知られる", "question": "無量寿寺のかきつばたと東海道の宿場で知られる？", "icon": "🌸" },
+  "owariasahi_tower": { "label": "県森林公園と展望タワー", "question": "県森林公園と展望タワーがある？", "icon": "🌳" },
+  "okehazama": { "label": "桶狭間古戦場伝説地と中京競馬場", "question": "桶狭間古戦場伝説地と中京競馬場がある？", "icon": "🏯" },
+  "aichi_bokujo": { "label": "愛知牧場と岩崎城跡", "question": "愛知牧場と岩崎城跡がある？", "icon": "🐄" },
+  "irago_longbeach": { "label": "伊良湖岬と太平洋ロングビーチ", "question": "伊良湖岬と太平洋ロングビーチがある？", "icon": "🏄" },
+  "sendohira_renkon": { "label": "船頭平閘門とレンコン産地で知られる", "question": "船頭平閘門とレンコン産地で知られる？", "icon": "🌿" },
+  "kiyosu_castle": { "label": "清洲城と大規模なビール工場", "question": "清洲城と大規模なビール工場がある？", "icon": "🏯" },
+  "showa_nichijo": { "label": "昭和日常博物館", "question": "昭和日常博物館がある？", "icon": "🏛️" },
+  "kingyo_yatomi": { "label": "金魚養殖と金魚水族館で知られる", "question": "金魚養殖と金魚水族館で知られる？", "icon": "🐠" },
+  "miyoshi_canoe": { "label": "三好池でカヌー競技が盛ん", "question": "三好池でカヌー競技が盛ん？", "icon": "🛶" },
+  "shippoyaki": { "label": "七宝焼を展示・体験できる施設", "question": "七宝焼を展示・体験できる施設がある？", "icon": "🏺" },
+  "ghibli_linimo": { "label": "ジブリパークと磁気浮上式鉄道", "question": "ジブリパークと磁気浮上式鉄道がある？", "icon": "🎡" },
+  "oito_line": { "label": "大糸線", "question": "大糸線が通る？", "icon": "🚃" },
+  "shinano_railway": { "label": "しなの鉄道", "question": "しなの鉄道の駅がある？", "icon": "🚃" },
+  "echizen_railway": { "label": "えちぜん鉄道", "question": "えちぜん鉄道の駅がある？", "icon": "🚃" },
+  "sunzu_line": { "label": "駿豆線", "question": "駿豆線が通る？", "icon": "🚃" },
+  "aikan_railway": { "label": "愛知環状鉄道", "question": "愛知環状鉄道の駅がある？", "icon": "🚃" },
+  "kurobe_torokko": { "label": "峡谷の観光トロッコ列車", "question": "峡谷を走る観光トロッコ列車がある？", "icon": "🚞" },
+  "noto_area": { "label": "能登地域", "question": "能登地域にある？", "icon": "🗺️" },
+  "dinosaur_museum": { "label": "大規模な恐竜博物館", "question": "大規模な恐竜博物館がある？", "icon": "🦕" },
+  "echizen_washi_hamono": { "label": "手すき和紙と打刃物", "question": "手すき和紙と打刃物の産地？", "icon": "🧻" },
+  "tojinbo": { "label": "東尋坊", "question": "東尋坊がある？", "icon": "🌊" },
+  "jomon_venus": { "label": "縄文のビーナス", "question": "縄文のビーナスを所蔵する？", "icon": "🏺" },
+  "rokkoyo": { "label": "日本六古窯", "question": "日本六古窯の産地？", "icon": "🏺" },
+  "mino_ware": { "label": "美濃焼の主要産地", "question": "美濃焼の主要産地？", "icon": "🏺" },
+  "hamono_famous": { "label": "日本有数の刃物産地", "question": "日本有数の刃物産地？", "icon": "🔪" },
+  "tobu_main_station": { "label": "東武鉄道(東上線・越生線以外)", "question": "東武鉄道(東上線・越生線以外)の駅がある？", "icon": "🚃" },
+  "tobu_tojo_station": { "label": "東武東上線", "question": "東武東上線の駅がある？", "icon": "🚃" },
+  "utsunomiya_station": { "label": "宇都宮線(黒磯以南)", "question": "宇都宮線(黒磯以南)の駅がある？", "icon": "🚃" },
+  "takasaki_line_station": { "label": "高崎線", "question": "高崎線の駅がある？", "icon": "🚃" },
+  "active_volcano": { "label": "気象庁指定の活火山", "question": "市内に気象庁指定の活火山がある？", "icon": "🌋" },
+  "uchibo": { "label": "房総半島の内房側", "question": "房総半島の内房側にある？", "icon": "🌊" },
+  "sotobo": { "label": "房総半島の外房側", "question": "房総半島の外房側にある？", "icon": "🌊" },
+  "silk_heritage": { "label": "製糸・養蚕の世界遺産", "question": "製糸・養蚕施設が世界遺産の構成資産になっている？", "icon": "🧶" },
+  "silk_textile": { "label": "無形文化遺産の絹織物", "question": "無形文化遺産の伝統的な絹織物を主に生産している？", "icon": "🧵" },
+  "moka_sl_line": { "label": "真岡鐵道(SL運行路線)", "question": "茨城県西部と栃木県東部を結ぶSL運行路線が通る？", "icon": "🚂" },
+  "kururi_line": { "label": "JR久留里線", "question": "JR久留里線が市内を通る？", "icon": "🚃" },
+  "watarase_line": { "label": "わたらせ渓谷鐵道", "question": "渡良瀬川上流の渓谷沿いを走る第三セクター線が通る？", "icon": "🚃" },
   "ic_doo": { "label": "道央道のインターチェンジ", "question": "道央道のインターチェンジがある？", "icon": "🛣️" },
   "ic_sasson": { "label": "札樽道のインターチェンジ", "question": "札樽道のインターチェンジがある？", "icon": "🛣️" },
   "ic_shiribeshi": { "label": "後志道のインターチェンジ", "question": "後志道のインターチェンジがある？", "icon": "🛣️" },
@@ -1157,7 +1157,7 @@ const TAG_LABELS = {
   "bear_park": { "label": "CMが有名なクマ牧場", "question": "CMが有名なクマ牧場がある？", "icon": "🐻" },
   "fighters_farm": { "label": "プロ野球球団のファーム施設の移転予定地", "question": "プロ野球球団のファーム施設の移転予定地？", "icon": "⚾" },
   "bijin_town": { "label": "日本一美人が多いと言われているマチ", "question": "日本一美人が多いと言われているマチ？", "icon": "💃" },
-  "yoshi_ikuzo": { "label": "テレビも無え", "question": "「テレビも無え!ラジオも無え!」と歌われるマチ?", "icon": "🎤" },
+  "yoshi_ikuzo": { "label": "テレビも無え", "question": "「テレビも無え!ラジオも無え!」と歌われるマチ？", "icon": "🎤" },
   "oirase": { "label": "奥入瀬渓流", "question": "奥入瀬渓流がある？", "icon": "🍃" },
   "osorezan": { "label": "恐山", "question": "恐山がある？", "icon": "⛰️" },
   "shakoki_dogu": { "label": "遮光器土偶が出土した", "question": "遮光器土偶が出土した？", "icon": "🗿" },
@@ -1265,12 +1265,12 @@ const TAG_LABELS = {
   "zushi_marina": { "label": "湘南の海沿いに大型ヨットハーバーとリゾート施設群", "question": "湘南の海沿いに大型ヨットハーバーとリゾート施設群がある？", "icon": "⛵" },
   "ayase_no_station": { "label": "市内に鉄道駅がなく、厚木基地の一部", "question": "市内に鉄道駅がなく、厚木基地の一部がある？", "icon": "✈️" },
   "nono_odoriji": { "label": "市名に踊り字の「々」が入る唯一の市", "question": "市名に踊り字の「々」が入る唯一の市？", "icon": "🔤" },
-  "linear_center": { "label": "リニア実験線の見学センター", "question": "リニア実験線の見学センターがある?", "icon": "🚄" },
+  "linear_center": { "label": "リニア実験線の見学センター", "question": "リニア実験線の見学センターがある？", "icon": "🚄" },
   "shakou_elevator": { "label": "住宅地と駅を結ぶ大型斜行エレベーター", "question": "住宅地と駅を結ぶ大型斜行エレベーターがある？", "icon": "🛗" },
-  "saruhashi": { "label": "日本三奇橋の猿橋", "question": "日本三奇橋の猿橋がある?", "icon": "🌉" },
-  "enbaragawa": { "label": "伊自良湖と円原川の伏流水", "question": "伊自良湖と円原川の伏流水がある?", "icon": "🌿" },
-  "sanshu_kawara": { "label": "三州瓦の産地で瓦をテーマにした美術館", "question": "三州瓦の産地で瓦をテーマにした美術館がある?", "icon": "🧱" },
-  "nonbori_arai": { "label": "五条川の桜並木と「のんぼり洗い」で知られる", "question": "五条川の桜並木と「のんぼり洗い」で知られる?", "icon": "🎏" },
+  "saruhashi": { "label": "日本三奇橋の猿橋", "question": "日本三奇橋の猿橋がある？", "icon": "🌉" },
+  "enbaragawa": { "label": "伊自良湖と円原川の伏流水", "question": "伊自良湖と円原川の伏流水がある？", "icon": "🌿" },
+  "sanshu_kawara": { "label": "三州瓦の産地で瓦をテーマにした美術館", "question": "三州瓦の産地で瓦をテーマにした美術館がある？", "icon": "🧱" },
+  "nonbori_arai": { "label": "五条川の桜並木と「のんぼり洗い」で知られる", "question": "五条川の桜並木と「のんぼり洗い」で知られる？", "icon": "🎏" },
   "akame_taki": { "label": "赤目四十八滝", "question": "赤目四十八滝がある？", "icon": "💦" },
   "oiwayama_dotaku": { "label": "大岩山遺跡から日本最大級の銅鐸が出土した", "question": "大岩山遺跡から日本最大級の銅鐸が出土した？", "icon": "🔔" },
   "tokaido_nakasendo": { "label": "東海道と中山道が分岐・合流した宿場町", "question": "東海道と中山道が分岐・合流した宿場町？", "icon": "🛤️" },
@@ -1298,29 +1298,29 @@ const TAG_LABELS = {
   "senbon_icho": { "label": "個人が山を開いて作った「千本イチョウ」の名所", "question": "個人が山を開いて作った「千本イチョウ」の名所がある？", "icon": "🌳" },
   "sogi_no_taki": { "label": "「東洋のナイアガラ」と呼ばれる曽木の滝", "question": "「東洋のナイアガラ」と呼ばれる曽木の滝がある？", "icon": "💦" },
   "orion_beer": { "label": "オリオンビールの工場", "question": "オリオンビールの工場がある？", "icon": "🍺" },
-  "ekimei_chigau": { "label": "中心駅名が市名と違う", "question": "市の中心駅の名前が市名と異なる?", "icon": "🚉" },
-  "prefectural_capital": { "label": "県庁所在地", "question": "都道府県庁の所在地?", "icon": "🏛️" },
-  "borders_other_pref": { "label": "他の都道府県と接する", "question": "他の都道府県と境を接している?", "icon": "🗺️" },
-  "formed_after_2000": { "label": "平成の大合併で誕生", "question": "2000年以降の新設合併で誕生した?", "icon": "🤝" },
-  "national_university": { "label": "国立大学の本部がある", "question": "国立大学の本部がある?", "icon": "🎓" },
-  "expressway_junction": { "label": "高速道路のJCTがある", "question": "高速道路のジャンクション(JCT)がある?", "icon": "🛣️" },
-  "hiragana_name": { "label": "名前がすべてひらがな", "question": "名前がすべてひらがな?", "icon": "🔤" },
-  "direction_in_name": { "label": "名前に東西南北が入る", "question": "名前に「東・西・南・北」が入っている?", "icon": "🧭" },
-  "old_province_name": { "label": "旧国名に由来する名前", "question": "名前が旧国名に由来する?", "icon": "📜" },
-  "public_racing_venue": { "label": "公営競技場がある", "question": "公営競技場(競馬・競輪・ボート・オートレース)がある?", "icon": "🚤" },
-  "national_government_park": { "label": "国営公園がある", "question": "国営公園がある?", "icon": "🌳" },
-  "film_city": { "label": "映画・映像のまち", "question": "映画・映像のまちとして知られる?", "icon": "🎬" },
-  "shinsengumi": { "label": "新選組ゆかり", "question": "新選組ゆかりのまち?", "icon": "⚔️" },
-  "shonan_area": { "label": "湘南エリア", "question": "「湘南」と呼ばれる地域にある?", "icon": "🏄" },
-  "white_mirin_origin": { "label": "白みりん発祥", "question": "白みりん発祥の地?", "icon": "🍶" },
-  "hokkaido_shinkansen_station": { "label": "北海道新幹線の駅", "question": "北海道新幹線の駅がある?", "icon": "🚄" },
-  "tohoku_shinkansen_station": { "label": "東北新幹線の駅", "question": "東北新幹線の駅がある?", "icon": "🚄" },
-  "tokaido_shinkansen_station": { "label": "東海道新幹線の駅", "question": "東海道新幹線の駅がある?", "icon": "🚄" },
-  "sanyo_shinkansen_station": { "label": "山陽新幹線の駅", "question": "山陽新幹線の駅がある?", "icon": "🚄" },
-  "kyushu_shinkansen_station": { "label": "九州新幹線の駅", "question": "九州新幹線の駅がある?", "icon": "🚄" },
-  "nishikyushu_shinkansen_station": { "label": "西九州新幹線の駅", "question": "西九州新幹線の駅がある?", "icon": "🚄" },
-  "yamagata_shinkansen_station": { "label": "山形新幹線の駅", "question": "山形新幹線の駅がある?", "icon": "🚄" },
-  "akita_shinkansen_station": { "label": "秋田新幹線の駅", "question": "秋田新幹線の駅がある?", "icon": "🚄" },
+  "ekimei_chigau": { "label": "中心駅名が市名と違う", "question": "市の中心駅の名前が市名と異なる？", "icon": "🚉" },
+  "prefectural_capital": { "label": "県庁所在地", "question": "都道府県庁の所在地？", "icon": "🏛️" },
+  "borders_other_pref": { "label": "他の都道府県と接する", "question": "他の都道府県と境を接している？", "icon": "🗺️" },
+  "formed_after_2000": { "label": "平成の大合併で誕生", "question": "2000年以降の新設合併で誕生した？", "icon": "🤝" },
+  "national_university": { "label": "国立大学の本部がある", "question": "国立大学の本部がある？", "icon": "🎓" },
+  "expressway_junction": { "label": "高速道路のJCTがある", "question": "高速道路のジャンクション(JCT)がある？", "icon": "🛣️" },
+  "hiragana_name": { "label": "名前がすべてひらがな", "question": "名前がすべてひらがな？", "icon": "🔤" },
+  "direction_in_name": { "label": "名前に東西南北が入る", "question": "名前に「東・西・南・北」が入っている？", "icon": "🧭" },
+  "old_province_name": { "label": "旧国名に由来する名前", "question": "名前が旧国名に由来する？", "icon": "📜" },
+  "public_racing_venue": { "label": "公営競技場がある", "question": "公営競技場(競馬・競輪・ボート・オートレース)がある？", "icon": "🚤" },
+  "national_government_park": { "label": "国営公園がある", "question": "国営公園がある？", "icon": "🌳" },
+  "film_city": { "label": "映画・映像のまち", "question": "映画・映像のまちとして知られる？", "icon": "🎬" },
+  "shinsengumi": { "label": "新選組ゆかり", "question": "新選組ゆかりのまち？", "icon": "⚔️" },
+  "shonan_area": { "label": "湘南エリア", "question": "「湘南」と呼ばれる地域にある？", "icon": "🏄" },
+  "white_mirin_origin": { "label": "白みりん発祥", "question": "白みりん発祥の地？", "icon": "🍶" },
+  "hokkaido_shinkansen_station": { "label": "北海道新幹線の駅", "question": "北海道新幹線の駅がある？", "icon": "🚄" },
+  "tohoku_shinkansen_station": { "label": "東北新幹線の駅", "question": "東北新幹線の駅がある？", "icon": "🚄" },
+  "tokaido_shinkansen_station": { "label": "東海道新幹線の駅", "question": "東海道新幹線の駅がある？", "icon": "🚄" },
+  "sanyo_shinkansen_station": { "label": "山陽新幹線の駅", "question": "山陽新幹線の駅がある？", "icon": "🚄" },
+  "kyushu_shinkansen_station": { "label": "九州新幹線の駅", "question": "九州新幹線の駅がある？", "icon": "🚄" },
+  "nishikyushu_shinkansen_station": { "label": "西九州新幹線の駅", "question": "西九州新幹線の駅がある？", "icon": "🚄" },
+  "yamagata_shinkansen_station": { "label": "山形新幹線の駅", "question": "山形新幹線の駅がある？", "icon": "🚄" },
+  "akita_shinkansen_station": { "label": "秋田新幹線の駅", "question": "秋田新幹線の駅がある？", "icon": "🚄" },
   "color_in_name": {
     "label": "名前に色",
     "question": "自治体名に色を表す漢字が入っている？",
@@ -1398,1607 +1398,1607 @@ const TAG_LABELS = {
   },
   "northern_kyushu": {
     "label": "北部九州",
-    "question": "北部九州にありますか?",
+    "question": "北部九州にありますか？",
     "icon": "🧭"
   },
   "southern_kyushu": {
     "label": "南九州",
-    "question": "南九州にありますか?",
+    "question": "南九州にありますか？",
     "icon": "🧭"
   },
   "ariake_coast": {
     "label": "有明海",
-    "question": "有明海に面していますか?",
+    "question": "有明海に面していますか？",
     "icon": "🧭"
   },
   "fukuoka_metro": {
     "label": "福岡都市圏",
-    "question": "福岡都市圏に含まれますか?",
+    "question": "福岡都市圏に含まれますか？",
     "icon": "🧭"
   },
   "kitakyushu_area": {
     "label": "北九州地域",
-    "question": "北九州地域にありますか?",
+    "question": "北九州地域にありますか？",
     "icon": "🧭"
   },
   "chikugo_area": {
     "label": "筑後地方",
-    "question": "筑後地方にありますか?",
+    "question": "筑後地方にありますか？",
     "icon": "🧭"
   },
   "chikuho_area": {
     "label": "筑豊地方",
-    "question": "筑豊地方にありますか?",
+    "question": "筑豊地方にありますか？",
     "icon": "🧭"
   },
   "chikuzen_area": {
     "label": "筑前地方",
-    "question": "筑前地方にありますか?",
+    "question": "筑前地方にありますか？",
     "icon": "🧭"
   },
   "satsuma_area": {
     "label": "薩摩地方",
-    "question": "薩摩地方にありますか?",
+    "question": "薩摩地方にありますか？",
     "icon": "🧭"
   },
   "osumi_area": {
     "label": "大隅地方",
-    "question": "大隅地方にありますか?",
+    "question": "大隅地方にありますか？",
     "icon": "🧭"
   },
   "okinawa_main_island": {
     "label": "沖縄本島",
-    "question": "沖縄本島にありますか?",
+    "question": "沖縄本島にありますか？",
     "icon": "🧭"
   },
   "okinawa_south_central": {
     "label": "沖縄本島中南部",
-    "question": "沖縄本島の中南部にありますか?",
+    "question": "沖縄本島の中南部にありますか？",
     "icon": "🧭"
   },
   "sakishima_islands": {
     "label": "宮古・八重山",
-    "question": "宮古・八重山地域にありますか?",
+    "question": "宮古・八重山地域にありますか？",
     "icon": "🧭"
   },
   "kagoshima_main_line": {
     "label": "鹿児島本線",
-    "question": "鹿児島本線が通っていますか?",
+    "question": "鹿児島本線が通っていますか？",
     "icon": "🚃"
   },
   "nippo_main_line": {
     "label": "日豊本線",
-    "question": "日豊本線が通っていますか?",
+    "question": "日豊本線が通っていますか？",
     "icon": "🚃"
   },
   "nishitetsu_line": {
     "label": "西鉄電車",
-    "question": "西鉄電車が走っていますか?",
+    "question": "西鉄電車が走っていますか？",
     "icon": "🚃"
   },
   "sanin_area": {
     "label": "山陰地方",
-    "question": "山陰地方にありますか?",
+    "question": "山陰地方にありますか？",
     "icon": "🧭"
   },
   "sanyo_area": {
     "label": "山陽地方",
-    "question": "山陽地方にありますか?",
+    "question": "山陽地方にありますか？",
     "icon": "🧭"
   },
   "izumo_area": {
     "label": "出雲地方",
-    "question": "出雲地方にありますか?",
+    "question": "出雲地方にありますか？",
     "icon": "🧭"
   },
   "bingo_area": {
     "label": "備後地方",
-    "question": "備後地方にありますか?",
+    "question": "備後地方にありますか？",
     "icon": "🧭"
   },
   "hiroshima_metro": {
     "label": "広島都市圏",
-    "question": "広島都市圏に含まれますか?",
+    "question": "広島都市圏に含まれますか？",
     "icon": "🧭"
   },
   "chugoku_mountain_basin": {
     "label": "中国山地の盆地",
-    "question": "中国山地の盆地にありますか?",
+    "question": "中国山地の盆地にありますか？",
     "icon": "🧭"
   },
   "setouchi_industrial": {
     "label": "瀬戸内工業地域",
-    "question": "瀬戸内工業地域のマチですか?",
+    "question": "瀬戸内工業地域のマチですか？",
     "icon": "🧭"
   },
   "sanin_main_line": {
     "label": "山陰本線",
-    "question": "山陰本線が通っていますか?",
+    "question": "山陰本線が通っていますか？",
     "icon": "🚃"
   },
   "sanyo_main_line": {
     "label": "山陽本線",
-    "question": "山陽本線が通っていますか?",
+    "question": "山陽本線が通っていますか？",
     "icon": "🚃"
   },
   "hakubi_line": {
     "label": "伯備線",
-    "question": "伯備線が通っていますか?",
+    "question": "伯備線が通っていますか？",
     "icon": "🚃"
   },
   "yosan_line": {
     "label": "予讃線",
-    "question": "予讃線が通っていますか?",
+    "question": "予讃線が通っていますか？",
     "icon": "🚃"
   },
   "dosan_line": {
     "label": "土讃線",
-    "question": "土讃線が通っていますか?",
+    "question": "土讃線が通っていますか？",
     "icon": "🚃"
   },
   "toyo_area": {
     "label": "東予地方",
-    "question": "愛媛県の東予地方ですか?",
+    "question": "愛媛県の東予地方ですか？",
     "icon": "🧭"
   },
   "chuyo_area": {
     "label": "中予地方",
-    "question": "愛媛県の中予地方ですか?",
+    "question": "愛媛県の中予地方ですか？",
     "icon": "🧭"
   },
   "nanyo_area": {
     "label": "南予地方",
-    "question": "愛媛県の南予地方ですか?",
+    "question": "愛媛県の南予地方ですか？",
     "icon": "🧭"
   },
   "honshu_bridge": {
     "label": "本州へ橋",
-    "question": "本州方面と橋で結ばれていますか?",
+    "question": "本州方面と橋で結ばれていますか？",
     "icon": "🧭"
   },
   "paper_industry_shikoku": {
     "label": "製紙業(四国)",
-    "question": "製紙業で知られるマチですか?",
+    "question": "製紙業で知られるマチですか？",
     "icon": "🏭"
   },
   "shinkansen": {
     "label": "新幹線",
-    "question": "新幹線の駅がある?",
+    "question": "新幹線の駅がある？",
     "icon": "🚄"
   },
   "coastal": {
     "label": "海沿い",
-    "question": "海に面している?",
+    "question": "海に面している？",
     "icon": "🌊"
   },
   "designated": {
     "label": "政令指定都市",
-    "question": "政令指定都市?",
+    "question": "政令指定都市？",
     "icon": "🏙️"
   },
   "festival": {
     "label": "有名な祭り",
-    "question": "全国的に有名なお祭りがある?",
+    "question": "全国的に有名なお祭りがある？",
     "icon": "🎆"
   },
   "castle": {
     "label": "城",
-    "question": "有名なお城がある?",
+    "question": "有名なお城がある？",
     "icon": "🏯"
   },
   "snow_festival": {
     "label": "雪まつり",
-    "question": "雪まつり・雪を使ったイベントで知られる?",
+    "question": "雪まつり・雪を使ったイベントで知られる？",
     "icon": "❄️"
   },
   "worldheritage": {
     "label": "世界遺産の構成資産",
-    "question": "市内に世界遺産の構成資産がある?",
+    "question": "市内に世界遺産の構成資産がある？",
     "icon": "⛩️"
   },
   "snow": {
     "label": "豪雪地帯・特別豪雪地帯",
-    "question": "豪雪地帯・特別豪雪地帯に指定されている?",
+    "question": "豪雪地帯・特別豪雪地帯に指定されている？",
     "icon": "❄️"
   },
   "basin": {
     "label": "盆地",
-    "question": "盆地にある?",
+    "question": "盆地にある？",
     "icon": "🏔️"
   },
   "airport": {
     "label": "定期旅客便のある空港",
-    "question": "市内に定期旅客便のある空港がある?",
+    "question": "市内に定期旅客便のある空港がある？",
     "icon": "✈️"
   },
   "capital": {
     "label": "首都(東京)",
-    "question": "日本の首都?",
+    "question": "日本の首都？",
     "icon": "🗼"
   },
   "noodle": {
     "label": "麺料理",
-    "question": "名物グルメは麺料理?",
+    "question": "名物グルメは麺料理？",
     "icon": "🍜"
   },
   "mascot_famous": {
     "label": "有名ご当地キャラ",
-    "question": "全国区で有名なご当地キャラがいる?",
+    "question": "全国区で有名なご当地キャラがいる？",
     "icon": "🧸"
   },
   "nihonkai": {
     "label": "日本海側の海に面している",
-    "question": "日本海側の海に面している?",
+    "question": "日本海側の海に面している？",
     "icon": "🌅"
   },
   "taiheiyo": {
     "label": "太平洋側の海に面している",
-    "question": "太平洋側の海に面している?",
+    "question": "太平洋側の海に面している？",
     "icon": "🌊"
   },
   "setonaikai": {
     "label": "瀬戸内海",
-    "question": "瀬戸内海に面している?",
+    "question": "瀬戸内海に面している？",
     "icon": "⛵"
   },
   "famous_mountain": {
     "label": "有名な山",
-    "question": "有名な山がある?",
+    "question": "有名な山がある？",
     "icon": "⛰️"
   },
   "big_river": {
     "label": "大きな川",
-    "question": "大きな川が流れている?",
+    "question": "大きな川が流れている？",
     "icon": "🏞️"
   },
   "big_bay": {
     "label": "大きな湾に面している",
-    "question": "大きな湾に面している?",
+    "question": "大きな湾に面している？",
     "icon": "⚓"
   },
   "hot_40c": {
     "label": "40℃以上を記録",
-    "question": "観測史上40℃以上の気温を記録したことがある?",
+    "question": "観測史上40℃以上の気温を記録したことがある？",
     "icon": "🌡️"
   },
   "subway": {
     "label": "地下鉄",
-    "question": "地下鉄が走っている?",
+    "question": "地下鉄が走っている？",
     "icon": "🚇"
   },
   "onsen": {
     "label": "温泉",
-    "question": "温泉地として知られている?",
+    "question": "温泉地として知られている？",
     "icon": "♨️"
   },
   "sake": {
     "label": "日本酒",
-    "question": "酒蔵・日本酒で知られている?",
+    "question": "酒蔵・日本酒で知られている？",
     "icon": "🍶"
   },
   "fireworks": {
     "label": "花火大会",
-    "question": "花火大会で有名である?",
+    "question": "花火大会で有名である？",
     "icon": "🎇"
   },
   "castle_town": {
     "label": "城下町",
-    "question": "城下町だった?",
+    "question": "城下町だった？",
     "icon": "🏯"
   },
   "port_town": {
     "label": "港町",
-    "question": "港町として栄えた?",
+    "question": "港町として栄えた？",
     "icon": "⚓"
   },
   "rice_region": {
     "label": "米どころ",
-    "question": "米どころとして知られている?",
+    "question": "米どころとして知られている？",
     "icon": "🌾"
   },
   "kana_name": {
     "label": "ひらがな/カタカナ名",
-    "question": "自治体名にひらがな・カタカナを含む?",
+    "question": "自治体名にひらがな・カタカナを含む？",
     "icon": "🔤"
   },
   "kansai_dialect": {
     "label": "関西弁",
-    "question": "関西弁圏に含まれる?",
+    "question": "関西弁圏に含まれる？",
     "icon": "🗣️"
   },
   "ryukyu_dialect": {
     "label": "琉球方言",
-    "question": "琉球諸語・沖縄方言の地域?",
+    "question": "琉球諸語・沖縄方言の地域？",
     "icon": "🗣️"
   },
   "is_town_village": {
     "label": "町・村",
-    "question": "市ではなく町または村である?",
+    "question": "市ではなく町または村である？",
     "icon": "🏘️"
   },
   "is_tokyo_ward": {
     "label": "東京23区",
-    "question": "東京23区のどれかである?",
+    "question": "東京23区のどれかである？",
     "icon": "🗼"
   },
   "ruins": {
     "label": "遺跡・古墳",
-    "question": "遺跡・古墳で有名?",
+    "question": "遺跡・古墳で有名？",
     "icon": "🏛️"
   },
   "lakeside": {
     "label": "湖畔",
-    "question": "湖畔のマチですか?",
+    "question": "湖畔のマチですか？",
     "icon": "🚣"
   },
   "shrine_temple": {
     "label": "寺社仏閣",
-    "question": "寺社仏閣が有名?",
+    "question": "寺社仏閣が有名？",
     "icon": "🛕"
   },
   "bakumatsu_port": {
     "label": "開港五港",
-    "question": "幕末の開港五港のひとつ?",
+    "question": "幕末の開港五港のひとつ？",
     "icon": "🚢"
   },
   "fruit_famous": {
     "label": "くだもの",
-    "question": "くだものが有名?",
+    "question": "くだものが有名？",
     "icon": "🍎"
   },
   "sumo_basho": {
     "label": "大相撲",
-    "question": "大相撲の本場所が開催される?",
+    "question": "大相撲の本場所が開催される？",
     "icon": "🤼"
   },
   "jleague": {
     "label": "Jリーグ",
-    "question": "Jリーグチームの本拠地がある?",
+    "question": "Jリーグチームの本拠地がある？",
     "icon": "⚽"
   },
   "npb": {
     "label": "プロ野球(NPB)",
-    "question": "プロ野球チーム(NPB)の本拠地がある?",
+    "question": "プロ野球チーム(NPB)の本拠地がある？",
     "icon": "⚾"
   },
   "former_capital": {
     "label": "過去の都",
-    "question": "過去に「都」が置かれたことがある?",
+    "question": "過去に「都」が置かれたことがある？",
     "icon": "👑"
   },
   "grid_streets": {
     "label": "碁盤の目",
-    "question": "街の中心部は碁盤の目のよう?",
+    "question": "街の中心部は碁盤の目のよう？",
     "icon": "🔲"
   },
   "kokuho_building": {
     "label": "国宝建築",
-    "question": "国宝がある、建っている?",
+    "question": "国宝がある、建っている？",
     "icon": "📜"
   },
   "twelve_castles": {
     "label": "現存十二天守",
-    "question": "現存十二天守の城はありますか?",
+    "question": "現存十二天守の城はありますか？",
     "icon": "🏰"
   },
   "sengoku_warlord": {
     "label": "戦国武将ゆかり",
-    "question": "有名な戦国武将ゆかりの地ですか?",
+    "question": "有名な戦国武将ゆかりの地ですか？",
     "icon": "⚔️"
   },
   "tram": {
     "label": "路面電車",
-    "question": "路面電車が走っていますか?",
+    "question": "路面電車が走っていますか？",
     "icon": "🚋"
   },
   "famous_garden": {
     "label": "有名な庭園",
-    "question": "有名な庭園がありますか?",
+    "question": "有名な庭園がありますか？",
     "icon": "🌳"
   },
   "car_town": {
     "label": "自動車メーカーの本社・主要工場",
-    "question": "自動車メーカーの本社または主要工場がある?",
+    "question": "自動車メーカーの本社または主要工場がある？",
     "icon": "🚗"
   },
   "private_railway": {
     "label": "私鉄・第三セクター",
-    "question": "私鉄・第三セクターが走っている?",
+    "question": "私鉄・第三セクターが走っている？",
     "icon": "🚈"
   },
   "monorail": {
     "label": "モノレール",
-    "question": "モノレールが走っている?",
+    "question": "モノレールが走っている？",
     "icon": "🚝"
   },
   "remote_island": {
     "label": "離島",
-    "question": "もしかして離島に存在する?",
+    "question": "もしかして離島に存在する？",
     "icon": "🌴"
   },
   "mining_heritage": {
     "label": "鉱山・炭鉱跡",
-    "question": "有名な鉱山・炭鉱跡がありますか?",
+    "question": "有名な鉱山・炭鉱跡がありますか？",
     "icon": "⛏️"
   },
   "night_view": {
     "label": "日本三大夜景",
-    "question": "日本三大夜景を誇るマチ?",
+    "question": "日本三大夜景を誇るマチ？",
     "icon": "🌃"
   },
   "war_damage": {
     "label": "戦災",
-    "question": "戦時中に非常に多くの被害を受けましたか?",
+    "question": "戦時中に非常に多くの被害を受けましたか？",
     "icon": "🕯️"
   },
   "ferris_wheel": {
     "label": "観覧車",
-    "question": "観覧車はありますか?",
+    "question": "観覧車はありますか？",
     "icon": "🎡"
   },
   "theme_park": {
     "label": "テーマパーク",
-    "question": "テーマパークはありますか?",
+    "question": "テーマパークはありますか？",
     "icon": "🎢"
   },
   "zoo": {
     "label": "動物園",
-    "question": "動物園はありますか?",
+    "question": "動物園はありますか？",
     "icon": "🦁"
   },
   "aquarium": {
     "label": "水族館",
-    "question": "水族館はありますか?",
+    "question": "水族館はありますか？",
     "icon": "🐠"
   },
   "brand_beef": {
     "label": "ブランド牛肉",
-    "question": "有名なブランド牛肉はありますか?",
+    "question": "有名なブランド牛肉はありますか？",
     "icon": "🥩"
   },
   "kintetsu": {
     "label": "近鉄",
-    "question": "近鉄が通っていますか?",
+    "question": "近鉄が通っていますか？",
     "icon": "🚃"
   },
   "kanji_one_char": {
     "label": "漢字一文字",
-    "question": "マチの名前が漢字一文字ですか?",
+    "question": "マチの名前が漢字一文字ですか？",
     "icon": "📛"
   },
   "chinatown": {
     "label": "中華街",
-    "question": "有名な中華街がありますか?",
+    "question": "有名な中華街がありますか？",
     "icon": "🏮"
   },
   "sand_dunes": {
     "label": "砂丘",
-    "question": "有名な砂丘がありますか?",
+    "question": "有名な砂丘がありますか？",
     "icon": "🏜️"
   },
   "imperial_university": {
     "label": "旧帝国大学",
-    "question": "旧帝国大学がありますか?",
+    "question": "旧帝国大学がありますか？",
     "icon": "🎓"
   },
   "famous_tower": {
     "label": "有名なタワー",
-    "question": "有名なタワーがありますか?",
+    "question": "有名なタワーがありますか？",
     "icon": "🗼"
   },
   "famous_market": {
     "label": "市場・朝市",
-    "question": "有名な市場・朝市がありますか?",
+    "question": "有名な市場・朝市がありますか？",
     "icon": "🐟"
   },
   "exotic_port": {
     "label": "異国情緒の港町",
-    "question": "異国情緒の港町ですか?",
+    "question": "異国情緒の港町ですか？",
     "icon": "🛳️"
   },
   "dome_stadium": {
     "label": "ドーム球場",
-    "question": "ドーム球場がありますか?",
+    "question": "ドーム球場がありますか？",
     "icon": "🏟️"
   },
   "tea_region": {
     "label": "茶どころ",
-    "question": "茶どころとして有名ですか?",
+    "question": "茶どころとして有名ですか？",
     "icon": "🍵"
   },
   "gokaido_shukuba": {
     "label": "五街道の宿場町",
-    "question": "江戸の五街道の宿場町として知られている?",
+    "question": "江戸の五街道の宿場町として知られている？",
     "icon": "🚶"
   },
   "pottery_famous": {
     "label": "焼き物・陶磁器",
-    "question": "焼き物・陶磁器で知られている?",
+    "question": "焼き物・陶磁器で知られている？",
     "icon": "🏺"
   },
   "traditional_craft": {
     "label": "伝統工芸",
-    "question": "有名な伝統工芸で知られている?",
+    "question": "有名な伝統工芸で知られている？",
     "icon": "🎨"
   },
   "horse_racing": {
     "label": "競馬場",
-    "question": "競馬場がある?",
+    "question": "競馬場がある？",
     "icon": "🐎"
   },
   "literary_figure": {
     "label": "作家・文学者ゆかり",
-    "question": "有名な作家・文学者ゆかりの街?",
+    "question": "有名な作家・文学者ゆかりの街？",
     "icon": "✒️"
   },
   "monzen": {
     "label": "門前町",
-    "question": "有名な門前町ですか?",
+    "question": "有名な門前町ですか？",
     "icon": "🙏"
   },
   "joetsu_region": {
     "label": "上越地方",
-    "question": "上越地方?",
+    "question": "上越地方？",
     "icon": "🗾"
   },
   "chuetsu_region": {
     "label": "中越地方",
-    "question": "中越地方?",
+    "question": "中越地方？",
     "icon": "🗾"
   },
   "kaetsu_region": {
     "label": "下越地方",
-    "question": "下越地方?",
+    "question": "下越地方？",
     "icon": "🗾"
   },
   "joetsu_shinkansen_station": {
     "label": "上越新幹線の駅",
-    "question": "上越新幹線の駅がある?",
+    "question": "上越新幹線の駅がある？",
     "icon": "🚄"
   },
   "hokuriku_shinkansen_station": {
     "label": "北陸新幹線の駅",
-    "question": "北陸新幹線の駅がある?",
+    "question": "北陸新幹線の駅がある？",
     "icon": "🚄"
   },
   "is_village": {
     "label": "村",
-    "question": "村?",
+    "question": "村？",
     "icon": "🏘️"
   },
   "shinano_river": {
     "label": "信濃川が流れる",
-    "question": "信濃川が流れる?",
+    "question": "信濃川が流れる？",
     "icon": "🏞️"
   },
   "agano_river": {
     "label": "阿賀野川が流れる",
-    "question": "阿賀野川が流れる?",
+    "question": "阿賀野川が流れる？",
     "icon": "🏞️"
   },
   "uono_river": {
     "label": "魚野川が流れる",
-    "question": "魚野川が流れる?",
+    "question": "魚野川が流れる？",
     "icon": "🏞️"
   },
   "borders_yamagata": {
     "label": "山形県と接",
-    "question": "山形県と接している?",
+    "question": "山形県と接している？",
     "icon": "🗺️"
   },
   "borders_fukushima": {
     "label": "福島県と接",
-    "question": "福島県と接している?",
+    "question": "福島県と接している？",
     "icon": "🗺️"
   },
   "borders_gunma": {
     "label": "群馬県と接",
-    "question": "群馬県と接している?",
+    "question": "群馬県と接している？",
     "icon": "🗺️"
   },
   "borders_nagano": {
     "label": "長野県と接",
-    "question": "長野県と接している?",
+    "question": "長野県と接している？",
     "icon": "🗺️"
   },
   "borders_toyama": {
     "label": "富山県と接",
-    "question": "富山県と接している?",
+    "question": "富山県と接している？",
     "icon": "🗺️"
   },
   "todai_campus": {
     "label": "東京大学の有名キャンパス",
-    "question": "東京大学の有名キャンパスがある?",
+    "question": "東京大学の有名キャンパスがある？",
     "icon": "🎓"
   },
   "waseda_campus": {
     "label": "早稲田大学の主要キャンパス",
-    "question": "早稲田大学の主要キャンパスがある?",
+    "question": "早稲田大学の主要キャンパスがある？",
     "icon": "🎓"
   },
   "keio_campus": {
     "label": "慶應義塾大学の主要キャンパス",
-    "question": "慶應義塾大学の主要キャンパスがある?",
+    "question": "慶應義塾大学の主要キャンパスがある？",
     "icon": "🎓"
   },
   "meiji_campus": {
     "label": "明治大学のキャンパス",
-    "question": "明治大学のキャンパスがある?",
+    "question": "明治大学のキャンパスがある？",
     "icon": "🎓"
   },
   "rikkyo_campus": {
     "label": "立教大学の主要キャンパス",
-    "question": "立教大学の主要キャンパスがある?",
+    "question": "立教大学の主要キャンパスがある？",
     "icon": "🎓"
   },
   "chuo_campus": {
     "label": "中央大学の主要キャンパス",
-    "question": "中央大学の主要キャンパスがある?",
+    "question": "中央大学の主要キャンパスがある？",
     "icon": "🎓"
   },
   "tus_campus": {
     "label": "東京理科大学の主要キャンパス",
-    "question": "東京理科大学の主要キャンパスがある?",
+    "question": "東京理科大学の主要キャンパスがある？",
     "icon": "🎓"
   },
   "imperial_palace": {
     "label": "皇居",
-    "question": "皇居がある?",
+    "question": "皇居がある？",
     "icon": "🏯"
   },
   "ginza": {
     "label": "銀座",
-    "question": "銀座がある?",
+    "question": "銀座がある？",
     "icon": "💎"
   },
   "tokyo_tower_ward": {
     "label": "東京タワー",
-    "question": "東京タワーがある?",
+    "question": "東京タワーがある？",
     "icon": "🗼"
   },
   "tokyo_dome_ward": {
     "label": "東京ドーム",
-    "question": "東京ドームがある?",
+    "question": "東京ドームがある？",
     "icon": "⚾"
   },
   "sensoji": {
     "label": "浅草寺",
-    "question": "浅草寺がある?",
+    "question": "浅草寺がある？",
     "icon": "⛩️"
   },
   "skytree_ward": {
     "label": "東京スカイツリー",
-    "question": "東京スカイツリーがある?",
+    "question": "東京スカイツリーがある？",
     "icon": "🗼"
   },
   "toyosu_market": {
     "label": "豊洲市場",
-    "question": "豊洲市場がある?",
+    "question": "豊洲市場がある？",
     "icon": "🐟"
   },
   "haneda_ward": {
     "label": "羽田空港",
-    "question": "羽田空港がある?",
+    "question": "羽田空港がある？",
     "icon": "✈️"
   },
   "shibamata_taishakuten": {
     "label": "柴又帝釈天",
-    "question": "柴又帝釈天がある?",
+    "question": "柴又帝釈天がある？",
     "icon": "⛩️"
   },
   "kasai_park": {
     "label": "葛西臨海公園",
-    "question": "葛西臨海公園がある?",
+    "question": "葛西臨海公園がある？",
     "icon": "🎡"
   },
   "broadway_nakano": {
     "label": "ブロードウェイ",
-    "question": "ブロードウェイがある?",
+    "question": "ブロードウェイがある？",
     "icon": "🏬"
   },
   "koenji_area": {
     "label": "高円寺・阿佐ヶ谷・荻窪のどれか",
-    "question": "高円寺・阿佐ヶ谷・荻窪のどれかがある?",
+    "question": "高円寺・阿佐ヶ谷・荻窪のどれかがある？",
     "icon": "🎸"
   },
   "jiyugaoka": {
     "label": "自由が丘",
-    "question": "自由が丘がある?",
+    "question": "自由が丘がある？",
     "icon": "🍰"
   },
   "shakujii_park": {
     "label": "石神井公園",
-    "question": "石神井公園がある?",
+    "question": "石神井公園がある？",
     "icon": "🌳"
   },
   "odakyu_line": {
     "label": "小田急線の駅",
-    "question": "小田急線の駅がある?",
+    "question": "小田急線の駅がある？",
     "icon": "🚃"
   },
   "keio_inokashira_line": {
     "label": "京王線または井の頭線の駅",
-    "question": "京王線または井の頭線の駅がある?",
+    "question": "京王線または井の頭線の駅がある？",
     "icon": "🚃"
   },
   "tokyu_line": {
     "label": "東急線の駅",
-    "question": "東急線の駅がある?",
+    "question": "東急線の駅がある？",
     "icon": "🚃"
   },
   "keikyu_line": {
     "label": "京急線の駅",
-    "question": "京急線の駅がある?",
+    "question": "京急線の駅がある？",
     "icon": "🚃"
   },
   "seibu_line": {
     "label": "西武鉄道の駅",
-    "question": "西武鉄道の駅がある?",
+    "question": "西武鉄道の駅がある？",
     "icon": "🚃"
   },
   "keisei_line": {
     "label": "京成線の駅",
-    "question": "京成線の駅がある?",
+    "question": "京成線の駅がある？",
     "icon": "🚃"
   },
   "tsukuba_express": {
     "label": "つくばエクスプレスの駅",
-    "question": "つくばエクスプレスの駅がある?",
+    "question": "つくばエクスプレスの駅がある？",
     "icon": "🚄"
   },
   "rinkai_line": {
     "label": "りんかい線の駅",
-    "question": "りんかい線の駅がある?",
+    "question": "りんかい線の駅がある？",
     "icon": "🚃"
   },
   "yurikamome": {
     "label": "ゆりかもめの駅",
-    "question": "ゆりかもめの駅がある?",
+    "question": "ゆりかもめの駅がある？",
     "icon": "🚝"
   },
   "toden_arakawa": {
     "label": "都電荒川線の駅・停留場",
-    "question": "都電荒川線の駅・停留場がある?",
+    "question": "都電荒川線の駅・停留場がある？",
     "icon": "🚋"
   },
   "nippori_toneri": {
     "label": "日暮里・舎人ライナーの駅",
-    "question": "日暮里・舎人ライナーの駅がある?",
+    "question": "日暮里・舎人ライナーの駅がある？",
     "icon": "🚝"
   },
   "tokyo_bay": {
     "label": "東京湾に面",
-    "question": "東京湾に面している?",
+    "question": "東京湾に面している？",
     "icon": "🌊"
   },
   "tama_river": {
     "label": "多摩川に接",
-    "question": "多摩川に接している?",
+    "question": "多摩川に接している？",
     "icon": "🏞️"
   },
   "sumida_river": {
     "label": "隅田川に接",
-    "question": "隅田川に接している?",
+    "question": "隅田川に接している？",
     "icon": "🏞️"
   },
   "arakawa_river": {
     "label": "荒川に接",
-    "question": "荒川に接している?",
+    "question": "荒川に接している？",
     "icon": "🏞️"
   },
   "edogawa_river": {
     "label": "江戸川に接",
-    "question": "江戸川に接している?",
+    "question": "江戸川に接している？",
     "icon": "🏞️"
   },
   "meguro_river": {
     "label": "目黒川が流れている",
-    "question": "目黒川が流れている?",
+    "question": "目黒川が流れている？",
     "icon": "🏞️"
   },
   "shakujii_river": {
     "label": "石神井川が流れている",
-    "question": "石神井川が流れている?",
+    "question": "石神井川が流れている？",
     "icon": "🏞️"
   },
   "borders_kanagawa": {
     "label": "神奈川県と接",
-    "question": "神奈川県と接している?",
+    "question": "神奈川県と接している？",
     "icon": "🗺️"
   },
   "borders_saitama": {
     "label": "埼玉県と接",
-    "question": "埼玉県と接している?",
+    "question": "埼玉県と接している？",
     "icon": "🗺️"
   },
   "borders_chiba": {
     "label": "千葉県と接",
-    "question": "千葉県と接している?",
+    "question": "千葉県と接している？",
     "icon": "🗺️"
   },
   "yamanote_line": {
     "label": "山手線の駅",
-    "question": "山手線の駅がある?",
+    "question": "山手線の駅がある？",
     "icon": "🚃"
   },
   "keihintohoku_line": {
     "label": "京浜東北線の駅",
-    "question": "京浜東北線の駅がある?",
+    "question": "京浜東北線の駅がある？",
     "icon": "🚃"
   },
   "chuo_rapid": {
     "label": "中央線快速の駅",
-    "question": "中央線快速の駅がある?",
+    "question": "中央線快速の駅がある？",
     "icon": "🚃"
   },
   "chuo_sobu": {
     "label": "中央・総武線各駅停車の駅",
-    "question": "中央・総武線各駅停車の駅がある?",
+    "question": "中央・総武線各駅停車の駅がある？",
     "icon": "🚃"
   },
   "joban_line": {
     "label": "常磐線系統の駅",
-    "question": "常磐線系統の駅がある?",
+    "question": "常磐線系統の駅がある？",
     "icon": "🚃"
   },
   "saikyo_line": {
     "label": "埼京線の駅",
-    "question": "埼京線の駅がある?",
+    "question": "埼京線の駅がある？",
     "icon": "🚃"
   },
   "ueno_station": {
     "label": "上野駅",
-    "question": "上野駅がある?",
+    "question": "上野駅がある？",
     "icon": "🚉"
   },
   "akabane_station": {
     "label": "赤羽駅",
-    "question": "赤羽駅がある?",
+    "question": "赤羽駅がある？",
     "icon": "🚉"
   },
   "nippori_station": {
     "label": "日暮里駅",
-    "question": "日暮里駅がある?",
+    "question": "日暮里駅がある？",
     "icon": "🚉"
   },
   "tsunagari_mayu_police": {
     "label": "眉毛が繋がったおまわりさんがいる",
-    "question": "眉毛が繋がったおまわりさんがいる?",
+    "question": "眉毛が繋がったおまわりさんがいる？",
     "icon": "👮"
   },
   "tv_station_area": {
     "label": "テレビ局が立地する",
-    "question": "テレビ局が立地する?",
+    "question": "テレビ局が立地する？",
     "icon": "📺"
   },
   "sazae_family": {
     "label": "国民的4コマ漫画の一家が住んでいる",
-    "question": "国民的4コマ漫画の一家が住んでいる?",
+    "question": "国民的4コマ漫画の一家が住んでいる？",
     "icon": "🏠"
   },
   "hachiko_area": {
     "label": "駅前で主人を待ち続けた犬が有名",
-    "question": "駅前で主人を待ち続けた犬が有名?",
+    "question": "駅前で主人を待ち続けた犬が有名？",
     "icon": "🐕"
   },
   "yose_hall": {
     "label": "落語の定席寄席",
-    "question": "落語の定席寄席がある?",
+    "question": "落語の定席寄席がある？",
     "icon": "🎤"
   },
   "sailor_moon_stage": {
     "label": "月にかわっておしおきする戦士の舞台",
-    "question": "月にかわっておしおきする戦士の舞台?",
+    "question": "月にかわっておしおきする戦士の舞台？",
     "icon": "🌙"
   },
   "godzilla_head": {
     "label": "巨大な怪獣の頭がビルから出ている",
-    "question": "巨大な怪獣の頭がビルから出ている?",
+    "question": "巨大な怪獣の頭がビルから出ている？",
     "icon": "🦖"
   },
   "bedtown": {
     "label": "23区・政令市のベッドタウン",
-    "question": "東京23区または政令指定都市のベッドタウン?",
+    "question": "東京23区または政令指定都市のベッドタウン？",
     "icon": "🏠"
   },
   "skijyou": {
     "label": "有名なスキー場",
-    "question": "有名なスキー場がある?",
+    "question": "有名なスキー場がある？",
     "icon": "⛷️"
   },
   "geopark": {
     "label": "ジオパークに指定されている",
-    "question": "ジオパークに指定されている?",
+    "question": "ジオパークに指定されている？",
     "icon": "🌋"
   },
   "nuclearpowerplant": {
     "label": "原子力発電所",
-    "question": "原子力発電所がある?",
+    "question": "原子力発電所がある？",
     "icon": "☢️"
   },
   "monozukuri": {
     "label": "ものづくり(製造業)で知られている",
-    "question": "ものづくり(製造業)で知られている?",
+    "question": "ものづくり(製造業)で知られている？",
     "icon": "🏭"
   },
   "rakugo_stage": {
     "label": "有名な古典落語の舞台として知られる",
-    "question": "有名な古典落語の舞台として知られる?",
+    "question": "有名な古典落語の舞台として知られる？",
     "icon": "🎙️"
   },
   "sanma_famous": {
     "label": "さんまで有名",
-    "question": "さんまで有名?",
+    "question": "さんまで有名？",
     "icon": "🐟"
   },
   "chukakushi": {
     "label": "中核市",
-    "question": "中核市ですか?",
+    "question": "中核市ですか？",
     "icon": "🏛️"
   },
   "tokureishi": {
     "label": "施行時特例市(かつての特例市)",
-    "question": "施行時特例市(かつての特例市)ですか?",
+    "question": "施行時特例市(かつての特例市)ですか？",
     "icon": "📜"
   },
   "kaikyo_machi": {
     "label": "海峡のマチ",
-    "question": "海峡のマチ?",
+    "question": "海峡のマチ？",
     "icon": "🌊"
   },
   "gakuto": {
     "label": "「楽都」と呼ばれる音楽のまち",
-    "question": "「楽都」と呼ばれる音楽のまち?",
+    "question": "「楽都」と呼ばれる音楽のまち？",
     "icon": "🎵"
   },
   "hula_girl": {
     "label": "『フラガール』のふるさと",
-    "question": "『フラガール』のふるさと?",
+    "question": "『フラガール』のふるさと？",
     "icon": "🌺"
   },
   "kannon_zo": {
     "label": "観音像が有名",
-    "question": "観音像が有名?",
+    "question": "観音像が有名？",
     "icon": "🗿"
   },
   "koedo": {
     "label": "小江戸三市",
-    "question": "舟運と蔵造りの町並みで知られる小江戸三市の一つ?",
+    "question": "舟運と蔵造りの町並みで知られる小江戸三市の一つ？",
     "icon": "🏮"
   },
   "imono_kupola": {
     "label": "鋳物産業・キューポラの街として知られる",
-    "question": "鋳物産業・キューポラの街として知られる?",
+    "question": "鋳物産業・キューポラの街として知られる？",
     "icon": "🏭"
   },
   "aeon_laketown": {
     "label": "イオンレイクタウン",
-    "question": "イオンレイクタウンがある?",
+    "question": "イオンレイクタウンがある？",
     "icon": "🛍️"
   },
   "funasshi_famous": {
     "label": "ふなっしーで全国的に知られた",
-    "question": "ふなっしーで全国的に知られた?",
+    "question": "ふなっしーで全国的に知られた？",
     "icon": "🍐"
   },
   "takao_mountain": {
     "label": "高尾山",
-    "question": "高尾山がある?",
+    "question": "高尾山がある？",
     "icon": "⛰️"
   },
   "curry_famous": {
     "label": "カレーで有名なマチ",
-    "question": "カレーで有名なマチ?",
+    "question": "カレーで有名なマチ？",
     "icon": "🍛"
   },
   "anime_seichi": {
     "label": "アニメの聖地",
-    "question": "アニメの聖地?",
+    "question": "アニメの聖地？",
     "icon": "📺"
   },
   "number_in_name": {
     "label": "市名に数字(一、二、三…)が入っている",
-    "question": "市名に数字(一、二、三…)が入っている?",
+    "question": "市名に数字(一、二、三…)が入っている？",
     "icon": "🔢"
   },
   "kigyo_joukamachi": {
     "label": "企業城下町として知られる",
-    "question": "企業城下町として知られる?",
+    "question": "企業城下町として知られる？",
     "icon": "🏢"
   },
   "hankyu_line": {
     "label": "阪急電車が通っている",
-    "question": "阪急電車が通っている?",
+    "question": "阪急電車が通っている？",
     "icon": "🚃"
   },
   "yayoiken_seichi": {
     "label": "聖地となったやよい軒",
-    "question": "聖地となったやよい軒がある?",
+    "question": "聖地となったやよい軒がある？",
     "icon": "🍚"
   },
   "hirakata_park": {
     "label": "ひらかたパーク",
-    "question": "ひらかたパークがある?",
+    "question": "ひらかたパークがある？",
     "icon": "🎡"
   },
   "keihan_line": {
     "label": "京阪電車が通っている",
-    "question": "京阪電車が通っている?",
+    "question": "京阪電車が通っている？",
     "icon": "🚃"
   },
   "kawachi_ondo": {
     "label": "河内音頭で知られる",
-    "question": "河内音頭で知られる?",
+    "question": "河内音頭で知られる？",
     "icon": "🎶"
   },
   "rugby_machi": {
     "label": "ラグビーのまち",
-    "question": "ラグビーのまち?",
+    "question": "ラグビーのまち？",
     "icon": "🏉"
   },
   "kougyou_toshi": {
     "label": "工業都市のイメージが強い",
-    "question": "工業都市のイメージが強い?",
+    "question": "工業都市のイメージが強い？",
     "icon": "🏭"
   },
   "hyoujun_jigosen": {
     "label": "日本標準時子午線が通る",
-    "question": "日本標準時子午線が通る?",
+    "question": "日本標準時子午線が通る？",
     "icon": "🕐"
   },
   "koushien": {
     "label": "阪神甲子園球場",
-    "question": "阪神甲子園球場がある?",
+    "question": "阪神甲子園球場がある？",
     "icon": "⚾"
   },
   "bikan_chiku": {
     "label": "美観地区で有名",
-    "question": "美観地区で有名?",
+    "question": "美観地区で有名？",
     "icon": "🏯"
   },
   "gunkou_machi": {
     "label": "軍港のまち",
-    "question": "軍港のまち?",
+    "question": "軍港のまち？",
     "icon": "⚓"
   },
   "seitetsu_kouro": {
     "label": "製鉄所の高炉",
-    "question": "製鉄所の高炉がある?",
+    "question": "製鉄所の高炉がある？",
     "icon": "🏭"
   },
   "fugu_famous": {
     "label": "ふぐで有名",
-    "question": "ふぐで有名?",
+    "question": "ふぐで有名？",
     "icon": "🐡"
   },
   "tire_famous": {
     "label": "タイヤで有名",
-    "question": "タイヤで有名?",
+    "question": "タイヤで有名？",
     "icon": "🛞"
   },
   "hamburger_famous": {
     "label": "ハンバーガーで有名",
-    "question": "ハンバーガーで有名?",
+    "question": "ハンバーガーで有名？",
     "icon": "🍔"
   },
   "kenkyu_gakuen_toshi": {
     "label": "研究学園都市として知られる",
-    "question": "研究学園都市として知られる?",
+    "question": "研究学園都市として知られる？",
     "icon": "🔬"
   },
   "atsui_machi": {
     "label": "「暑い街」として全国ニュースになりやすい",
-    "question": "「暑い街」として全国ニュースになりやすい?",
+    "question": "「暑い街」として全国ニュースになりやすい？",
     "icon": "🌡️"
   },
   "action_kamen": {
     "label": "アクション仮面が好きな5歳児が住んでいる",
-    "question": "アクション仮面が好きな5歳児が住んでいる?",
+    "question": "アクション仮面が好きな5歳児が住んでいる？",
     "icon": "🦸"
   },
   "senbei_famous": {
     "label": "せんべいで有名",
-    "question": "せんべいで有名?",
+    "question": "せんべいで有名？",
     "icon": "🍘"
   },
   "tanabata_famous": {
     "label": "七夕まつりで有名",
-    "question": "七夕まつりで有名?",
+    "question": "七夕まつりで有名？",
     "icon": "🎋"
   },
   "uirou_famous": {
     "label": "ういろうで有名",
-    "question": "ういろうで有名?",
+    "question": "ういろうで有名？",
     "icon": "🍡"
   },
   "southern_seichi": {
     "label": "サザンオールスターズの聖地",
-    "question": "サザンオールスターズの聖地?",
+    "question": "サザンオールスターズの聖地？",
     "icon": "🎤"
   },
   "b_kyu_gourmet": {
     "label": "有名なB級グルメ",
-    "question": "有名なB級グルメがある?",
+    "question": "有名なB級グルメがある？",
     "icon": "🍜"
   },
   "beigun_kichi": {
     "label": "米軍基地",
-    "question": "米軍基地がある?",
+    "question": "米軍基地がある？",
     "icon": "🎖️"
   },
   "shinkai_gyo": {
     "label": "深海水族館",
-    "question": "深海水族館がある?",
+    "question": "深海水族館がある？",
     "icon": "🐟"
   },
   "saboten_machi": {
     "label": "サボテンのまちとして知られる",
-    "question": "サボテンのまちとして知られる?",
+    "question": "サボテンのまちとして知られる？",
     "icon": "🌵"
   },
   "combinat_yakei": {
     "label": "コンビナート夜景で有名",
-    "question": "コンビナート夜景で有名?",
+    "question": "コンビナート夜景で有名？",
     "icon": "🌃"
   },
   "danjiri_famous": {
     "label": "だんじり祭で全国的に有名",
-    "question": "だんじり祭で全国的に有名?",
+    "question": "だんじり祭で全国的に有名？",
     "icon": "🎊"
   },
   "onaji_ookawa": {
     "label": "市名と同じ大きな川が流れている",
-    "question": "市名と同じ大きな川が流れている?",
+    "question": "市名と同じ大きな川が流れている？",
     "icon": "🏞️"
   },
   "kageki_dan": {
     "label": "有名な歌劇団の本拠地",
-    "question": "有名な歌劇団の本拠地?",
+    "question": "有名な歌劇団の本拠地？",
     "icon": "🎭"
   },
   "kitanotakeshi": {
     "label": "北野武が幼少期を過ごしたマチ",
-    "question": "北野武が幼少期を過ごしたマチ?",
+    "question": "北野武が幼少期を過ごしたマチ？",
     "icon": "🎞️"
   },
   "musashino_line": {
     "label": "JR武蔵野線",
-    "question": "JR武蔵野線が通っている?",
+    "question": "JR武蔵野線が通っている？",
     "icon": "🚃"
   },
   "douou_area": {
     "label": "道央地方",
-    "question": "道央地方にありますか?",
+    "question": "道央地方にありますか？",
     "icon": "🧭"
   },
   "doutou_area": {
     "label": "道東地方",
-    "question": "道東地方にありますか?",
+    "question": "道東地方にありますか？",
     "icon": "🧭"
   },
   "dohoku_area": {
     "label": "道北地方",
-    "question": "道北地方にありますか?",
+    "question": "道北地方にありますか？",
     "icon": "🧭"
   },
   "sapporo_metro": {
     "label": "札幌都市圏",
-    "question": "札幌都市圏に含まれますか?",
+    "question": "札幌都市圏に含まれますか？",
     "icon": "🏙️"
   },
   "ishikari_plain": {
     "label": "石狩平野",
-    "question": "石狩平野にありますか?",
+    "question": "石狩平野にありますか？",
     "icon": "🌾"
   },
   "historical_port_hokkaido": {
     "label": "歴史的港町(北海道)",
-    "question": "北海道を代表する歴史的な港町ですか?",
+    "question": "北海道を代表する歴史的な港町ですか？",
     "icon": "⚓"
   },
   "industrial_port_hokkaido": {
     "label": "工業港",
-    "question": "工業港のあるマチですか?",
+    "question": "工業港のあるマチですか？",
     "icon": "🏭"
   },
   "hakodate_honsen": {
     "label": "函館本線",
-    "question": "函館本線が通っていますか?",
+    "question": "函館本線が通っていますか？",
     "icon": "🚃"
   },
   "ishikari_river": {
     "label": "石狩川",
-    "question": "石狩川が流れていますか?",
+    "question": "石狩川が流れていますか？",
     "icon": "🏞️"
   },
   "tsugaru_area": {
     "label": "津軽地方",
-    "question": "津軽地方にありますか?",
+    "question": "津軽地方にありますか？",
     "icon": "🧭"
   },
   "sendai_metro": {
     "label": "仙台都市圏",
-    "question": "仙台都市圏に含まれますか?",
+    "question": "仙台都市圏に含まれますか？",
     "icon": "🏙️"
   },
   "kitakami_basin": {
     "label": "北上川流域",
-    "question": "北上川流域のマチですか?",
+    "question": "北上川流域のマチですか？",
     "icon": "🏞️"
   },
   "shonai_area": {
     "label": "庄内地方",
-    "question": "庄内地方にありますか?",
+    "question": "庄内地方にありますか？",
     "icon": "🧭"
   },
   "hamadori_area": {
     "label": "浜通り",
-    "question": "福島県の浜通りにありますか?",
+    "question": "福島県の浜通りにありますか？",
     "icon": "🧭"
   },
   "nakadori_area": {
     "label": "中通り",
-    "question": "福島県の中通りにありますか?",
+    "question": "福島県の中通りにありますか？",
     "icon": "🧭"
   },
   "aizu_area": {
     "label": "会津地方",
-    "question": "会津地方にありますか?",
+    "question": "会津地方にありますか？",
     "icon": "🧭"
   },
   "sanriku_area": {
     "label": "三陸沿岸",
-    "question": "三陸沿岸のマチですか?",
+    "question": "三陸沿岸のマチですか？",
     "icon": "🌊"
   },
   "north_kanto": {
     "label": "北関東3県",
-    "question": "北関東3県のマチですか?",
+    "question": "北関東3県のマチですか？",
     "icon": "🧭"
   },
   "tama_area": {
     "label": "多摩地域",
-    "question": "東京の多摩地域にありますか?",
+    "question": "東京の多摩地域にありますか？",
     "icon": "🧭"
   },
   "tokatsu_area": {
     "label": "東葛地域",
-    "question": "千葉県の東葛地域にありますか?",
+    "question": "千葉県の東葛地域にありますか？",
     "icon": "🧭"
   },
   "ryomo_area": {
     "label": "両毛地域",
-    "question": "群馬県と栃木県にまたがる両毛地域ですか?",
+    "question": "群馬県と栃木県にまたがる両毛地域ですか？",
     "icon": "🧭"
   },
   "tone_river_area": {
     "label": "利根川",
-    "question": "利根川に接していますか?",
+    "question": "利根川に接していますか？",
     "icon": "🏞️"
   },
   "sotetsu_line": {
     "label": "相鉄線",
-    "question": "相鉄線の駅がありますか?",
+    "question": "相鉄線の駅がありますか？",
     "icon": "🚃"
   },
   "hokuriku_three_pref": {
     "label": "北陸3県",
-    "question": "北陸3県のマチですか?",
+    "question": "北陸3県のマチですか？",
     "icon": "🧭"
   },
   "koshin_area": {
     "label": "甲信地方",
-    "question": "甲信地方にありますか?",
+    "question": "甲信地方にありますか？",
     "icon": "🧭"
   },
   "tokai_area": {
     "label": "東海地方",
-    "question": "東海地方にありますか?",
+    "question": "東海地方にありますか？",
     "icon": "🧭"
   },
   "owari_area": {
     "label": "尾張地方",
-    "question": "愛知県の尾張地方ですか?",
+    "question": "愛知県の尾張地方ですか？",
     "icon": "🧭"
   },
   "mikawa_area": {
     "label": "三河地方",
-    "question": "愛知県の三河地方ですか?",
+    "question": "愛知県の三河地方ですか？",
     "icon": "🧭"
   },
   "izu_area": {
     "label": "伊豆地方",
-    "question": "伊豆地方にありますか?",
+    "question": "伊豆地方にありますか？",
     "icon": "🧭"
   },
   "suruga_area": {
     "label": "駿河地方",
-    "question": "駿河地方にありますか?",
+    "question": "駿河地方にありますか？",
     "icon": "🧭"
   },
   "totomi_area": {
     "label": "遠江地方",
-    "question": "遠江地方にありますか?",
+    "question": "遠江地方にありますか？",
     "icon": "🧭"
   },
   "hida_area": {
     "label": "飛騨地方",
-    "question": "岐阜県の飛騨地方ですか?",
+    "question": "岐阜県の飛騨地方ですか？",
     "icon": "🧭"
   },
   "mino_area": {
     "label": "美濃地方",
-    "question": "岐阜県の美濃地方ですか?",
+    "question": "岐阜県の美濃地方ですか？",
     "icon": "🧭"
   },
   "hokushin_area": {
     "label": "北信地方",
-    "question": "長野県の北信地方ですか?",
+    "question": "長野県の北信地方ですか？",
     "icon": "🧭"
   },
   "toshin_area": {
     "label": "東信地方",
-    "question": "長野県の東信地方ですか?",
+    "question": "長野県の東信地方ですか？",
     "icon": "🧭"
   },
   "chushin_area": {
     "label": "中信地方",
-    "question": "長野県の中信地方ですか?",
+    "question": "長野県の中信地方ですか？",
     "icon": "🧭"
   },
   "nanshin_area": {
     "label": "南信地方",
-    "question": "長野県の南信地方ですか?",
+    "question": "長野県の南信地方ですか？",
     "icon": "🧭"
   },
   "meitetsu_line": {
     "label": "名鉄",
-    "question": "名鉄電車が通っていますか?",
+    "question": "名鉄電車が通っていますか？",
     "icon": "🚃"
   },
   "keihanshin_area": {
     "label": "京阪神",
-    "question": "京阪神地域にありますか?",
+    "question": "京阪神地域にありますか？",
     "icon": "🏙️"
   },
   "hokusetsu_area": {
     "label": "北摂",
-    "question": "北摂地域にありますか?",
+    "question": "北摂地域にありますか？",
     "icon": "🧭"
   },
   "kawachi_area": {
     "label": "河内",
-    "question": "河内地域にありますか?",
+    "question": "河内地域にありますか？",
     "icon": "🧭"
   },
   "senshu_area": {
     "label": "泉州",
-    "question": "泉州地域にありますか?",
+    "question": "泉州地域にありますか？",
     "icon": "🧭"
   },
   "hanshin_area": {
     "label": "阪神間",
-    "question": "阪神間のマチですか?",
+    "question": "阪神間のマチですか？",
     "icon": "🧭"
   },
   "harima_area": {
     "label": "播磨",
-    "question": "播磨地方にありますか?",
+    "question": "播磨地方にありますか？",
     "icon": "🧭"
   },
   "tajima_area": {
     "label": "但馬",
-    "question": "但馬地方にありますか?",
+    "question": "但馬地方にありますか？",
     "icon": "🧭"
   },
   "tamba_area": {
     "label": "丹波",
-    "question": "丹波地方にありますか?",
+    "question": "丹波地方にありますか？",
     "icon": "🧭"
   },
   "kyoto_north": {
     "label": "京都府北部",
-    "question": "京都府北部にありますか?",
+    "question": "京都府北部にありますか？",
     "icon": "🧭"
   },
   "nara_basin": {
     "label": "奈良盆地",
-    "question": "奈良盆地にありますか?",
+    "question": "奈良盆地にありますか？",
     "icon": "🧭"
   },
   "kii_peninsula": {
     "label": "紀伊半島",
-    "question": "紀伊半島にありますか?",
+    "question": "紀伊半島にありますか？",
     "icon": "🧭"
   },
   "nankai_line": {
     "label": "南海線",
-    "question": "南海電車が通っていますか?",
+    "question": "南海電車が通っていますか？",
     "icon": "🚃"
   },
   "glasses_industry": {
     "label": "メガネ産業",
-    "question": "メガネ産業で有名?",
+    "question": "メガネ産業で有名？",
     "icon": "🤓"
   },
   "towel_industry": {
     "label": "タオル",
-    "question": "タオルで有名?",
+    "question": "タオルで有名？",
     "icon": "🧺"
   },
   "musical_instruments": {
     "label": "楽器製造",
-    "question": "楽器製造で有名?",
+    "question": "楽器製造で有名？",
     "icon": "🎹"
   },
   "gold_leaf": {
     "label": "金箔",
-    "question": "金箔で有名?",
+    "question": "金箔で有名？",
     "icon": "✨"
   },
   "denim_industry": {
     "label": "デニム",
-    "question": "デニム・ジーンズで有名?",
+    "question": "デニム・ジーンズで有名？",
     "icon": "👖"
   },
   "pearl_farming": {
     "label": "真珠養殖",
-    "question": "真珠の養殖で有名?",
+    "question": "真珠の養殖で有名？",
     "icon": "🦪"
   },
   "shipbuilding": {
     "label": "造船",
-    "question": "造船業で有名?",
+    "question": "造船業で有名？",
     "icon": "🚢"
   },
   "furniture_industry": {
     "label": "家具",
-    "question": "家具の産地として有名?",
+    "question": "家具の産地として有名？",
     "icon": "🪑"
   },
   "washi_famous": {
     "label": "和紙",
-    "question": "和紙の産地として有名?",
+    "question": "和紙の産地として有名？",
     "icon": "📜"
   },
   "pharmaceutical_industry": {
     "label": "製薬",
-    "question": "製薬産業で知られる?",
+    "question": "製薬産業で知られる？",
     "icon": "💊"
   },
   "fireworks_industry": {
     "label": "花火製造",
-    "question": "花火の製造で有名?",
+    "question": "花火の製造で有名？",
     "icon": "🎆"
   },
   "stone_industry": {
     "label": "石材",
-    "question": "石材・石切りで有名?",
+    "question": "石材・石切りで有名？",
     "icon": "🪨"
   },
   "soy_sauce_famous": {
     "label": "醤油",
-    "question": "醤油の生産で有名?",
+    "question": "醤油の生産で有名？",
     "icon": "🍶"
   },
   "miso_famous": {
     "label": "八丁味噌",
-    "question": "八丁味噌で有名?",
+    "question": "八丁味噌で有名？",
     "icon": "🍲"
   },
   "gyoza_famous": {
     "label": "餃子",
-    "question": "餃子で有名?",
+    "question": "餃子で有名？",
     "icon": "🥟"
   },
   "yakisoba_famous": {
     "label": "焼きそば",
-    "question": "焼きそばで有名?",
+    "question": "焼きそばで有名？",
     "icon": "🍜"
   },
   "udon_famous": {
     "label": "うどん",
-    "question": "うどんで有名?",
+    "question": "うどんで有名？",
     "icon": "🍜"
   },
   "soba_famous": {
     "label": "そば",
-    "question": "そばで有名?",
+    "question": "そばで有名？",
     "icon": "🍜"
   },
   "ramen_famous": {
     "label": "ラーメン",
-    "question": "ラーメンで有名?",
+    "question": "ラーメンで有名？",
     "icon": "🍜"
   },
   "castella_famous": {
     "label": "カステラ",
-    "question": "カステラで有名?",
+    "question": "カステラで有名？",
     "icon": "🍰"
   },
   "kamaboko_famous": {
     "label": "かまぼこ",
-    "question": "かまぼこで有名?",
+    "question": "かまぼこで有名？",
     "icon": "🍥"
   },
   "lacquerware_famous": {
     "label": "漆器",
-    "question": "漆器で有名?",
+    "question": "漆器で有名？",
     "icon": "🥢"
   },
   "ancient_provincial_capital": {
     "label": "国府",
-    "question": "古代の国府が置かれていた?",
+    "question": "古代の国府が置かれていた？",
     "icon": "🏛️"
   },
   "kokubunji_site": {
     "label": "国分寺跡",
-    "question": "国分寺・国分尼寺跡がある?",
+    "question": "国分寺・国分尼寺跡がある？",
     "icon": "🏯"
   },
   "traditional_buildings_district": {
     "label": "重伝建",
-    "question": "重要伝統的建造物群保存地区がある?",
+    "question": "重要伝統的建造物群保存地区がある？",
     "icon": "🏘️"
   },
   "little_kyoto": {
     "label": "小京都",
-    "question": "「小京都」と呼ばれている?",
+    "question": "「小京都」と呼ばれている？",
     "icon": "⛩️"
   },
   "giant_buddha": {
     "label": "大仏・観音像",
-    "question": "巨大な大仏・観音像がある?",
+    "question": "巨大な大仏・観音像がある？",
     "icon": "🗿"
   },
   "sea_torii": {
     "label": "海の大鳥居",
-    "question": "海上や海辺の大鳥居で有名?",
+    "question": "海上や海辺の大鳥居で有名？",
     "icon": "⛩️"
   },
   "deer_in_city": {
     "label": "鹿のまち",
-    "question": "鹿が市街地を歩くことで有名?",
+    "question": "鹿が市街地を歩くことで有名？",
     "icon": "🦌"
   },
   "gassho_zukuri": {
     "label": "合掌造り",
-    "question": "合掌造り集落がある?",
+    "question": "合掌造り集落がある？",
     "icon": "🏠"
   },
   "ferry_available": {
     "label": "フェリー",
-    "question": "定期フェリーがある?",
+    "question": "定期フェリーがある？",
     "icon": "⛴️"
   },
   "no_railway_station": {
     "label": "鉄道駅なし",
-    "question": "市内に鉄道駅がひとつもない?",
+    "question": "市内に鉄道駅がひとつもない？",
     "icon": "🚉"
   },
   "shikoku_pilgrimage": {
     "label": "四国札所",
-    "question": "四国八十八ヶ所の札所がある?",
+    "question": "四国八十八ヶ所の札所がある？",
     "icon": "🙏"
   },
   "olympic_venue": {
     "label": "五輪会場",
-    "question": "オリンピック競技が開催された?",
+    "question": "オリンピック競技が開催された？",
     "icon": "🏅"
   },
   "famous_battlefield": {
     "label": "古戦場",
-    "question": "有名な古戦場がある?",
+    "question": "有名な古戦場がある？",
     "icon": "⚔️"
   },
   "kitamaebune_port": {
     "label": "北前船寄港地",
-    "question": "北前船の寄港地として栄えた?",
+    "question": "北前船の寄港地として栄えた？",
     "icon": "⛵"
   },
   "famous_fish_catch": {
     "label": "有名な漁獲魚介",
-    "question": "漁獲される特定の魚介で全国的に有名?",
+    "question": "漁獲される特定の魚介で全国的に有名？",
     "icon": "🐟"
   }
 };

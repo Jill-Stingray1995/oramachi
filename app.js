@@ -55,841 +55,841 @@ const KEYS = ['hitachi_seaside_park','tsuchiura_hanabi','koga_kubo','toride_geid
   'kitasubaru','kita_no_kuni','kita_no_shonan','shizumine','shimotsuma_movie','hitachi_kokufu','toyoda_castle','moriya_junction','namegata_farm','hananuki','happogahara','kanuma_tsuchi','nasu_yoichi','jichi_medical','bihada_onsen','moomin_park','ageo_sodou','iroha_toi','okegawa_benibana','ishito_zakura','kinchakuda','heirinji','lucky_star','johnson_town','saika_matsuri','mizuko_kaizuka','smallest_city','yashio_hanamomo','yoshikawa_namazu','shiraoka_nashi','kurohama_kaizuka','hanyu_yurugp','inzai_datacenter','kamagaya_farm','iioka_cape','tomisato_suika','sanbu_sugi','keisei_rose','aqualine_gate','yotsukaido_name','onari_kaido','yachimata_peanuts','nashibou','soza_ueki','blueberry_origin','kishozeisei_center','summerland','hamura_zeki','baseside_street','zama_himawari','zushi_marina','ayase_no_station','nono_odoriji','linear_center','shakou_elevator','saruhashi','enbaragawa','sanshu_kawara','nonbori_arai','akame_taki','oiwayama_dotaku','tokaido_nakasendo','koka_ninja','take_no_michi','aioi_matsu','banshu_soroban_ono','katsuragi_tsutsuji','matabei_zakura','kishu_herazao','negoroji','kokusan_denim','konrei_kagu','nora_dokei','onga_pump','koinoki','hiyoko','kubote_san','taku_seibyo','minamata_museum','kikuchi_keikoku','mikoshiki_coast','amakusa_bridges','ikoma_kogen','senbon_icho','sogi_no_taki','orion_beer'];
 
 const QUESTIONS = {
-  hitachi_seaside_park: {text:'ネモフィラで有名な国営ひたち海浜公園がある?', icon:'💐'},
-  tsuchiura_hanabi: {text:'日本三大花火大会の一つに数えられる全国花火競技大会が開かれる?', icon:'🎆'},
-  koga_kubo: {text:'室町時代に鎌倉公方の流れをくむ公方が拠点を置いた?', icon:'🏯'},
-  toride_geidai: {text:'利根川沿いにあり、競輪場と東京藝術大学のキャンパスがある?', icon:'🎨'},
-  shimodate_gion: {text:'日本最大級の大神輿が出る下館祇園まつりがある?', icon:'🏮'},
-  kamisu_gallery: {text:'海岸沿いの長い防波堤に壁画が並ぶ「1000人画廊」がある?', icon:'🎨'},
-  tsukumai: {text:'高さ約14メートルの柱上で曲芸を行う伝統行事「撞舞」がある?', icon:'🎪'},
-  ushiku_daibutsu: {text:'世界最大の大仏がある?', icon:'🗿'},
-  kashima_jingu: {text:'東国三社の一つ、鹿島神宮がある?', icon:'⛩️'},
-  kokuo_jinja: {text:'平将門を祭る國王神社がある?', icon:'⛩️'},
-  warp_station_edo: {text:'時代劇の野外撮影施設「ワープステーション江戸」がある?', icon:'🎬'},
-  ryujin_ohashi: {text:'歩行者専用として国内最大級の竜神大吊橋がある?', icon:'🌉'},
-  ayumizaki_park: {text:'霞ヶ浦を一望できる歩崎公園がある?', icon:'🏞️'},
-  melon_hokota: {text:'メロンの産地として全国的に知られる?', icon:'🍈', subjective:true},
-  ibaraki_airport: {text:'茨城空港がある?', icon:'✈️'},
-  makabe_district: {text:'真壁地区に重要伝統的建造物群保存地区がある?', icon:'🏘️'},
-  edosaki_kabocha: {text:'地理的表示保護制度に登録された江戸崎かぼちゃの産地?', icon:'🎃'},
-  nishishioko_butai: {text:'組み立て式の農村歌舞伎舞台「西塩子の回り舞台」がある?', icon:'🎭'},
-  itako_ayame: {text:'あやめまつりで「嫁入り舟」が運航される?', icon:'💐'},
-  oyama_hyojo: {text:'関ヶ原の戦いの直前に徳川家康が軍議を開いた地?', icon:'🏯'},
-  uzumagawa_kura: {text:'蔵造りの町並みが残り、巴波川で遊覧船が運航する?', icon:'🛶'},
-  ashikaga_gakko: {text:'日本最古の学校とされる史跡がある?', icon:'🎓'},
-  shiobara_onsen: {text:'塩原温泉郷がある?', icon:'♨️'},
-  nikko_toshogu: {text:'世界遺産の東照宮がある?', icon:'⛩️'},
-  kyuroku_kan: {text:'蒸気機関車を展示する「SLキューロク館」がある?', icon:'🚂'},
-  yamaage_matsuri: {text:'ユネスコ無形文化遺産の山あげ祭が行われる?', icon:'🎭'},
-  kanto_shinetsu_tsunagu: {text:'「関東と信越つなぐ○○市?」', icon:'🛣️'},
-  tajima_yahei: {text:'世界遺産の田島弥平旧宅がある?', icon:'🏠'},
-  kiryu_nokogiri: {text:'織物工場のノコギリ屋根が多く残り、「球都」と呼ばれる?', icon:'🏭', subjective:true},
-  tsutsujigaoka_bunbuku: {text:'つつじが岡公園と分福茶釜の伝説で知られる?', icon:'🌺', subjective:true},
-  ikaho_onsen: {text:'石段街で有名な伊香保温泉がある?', icon:'♨️'},
-  usui_meganebashi: {text:'碓氷峠の「めがね橋」がある?', icon:'🌉'},
-  tomihiro_museum: {text:'星野富弘の作品を展示する富弘美術館がある?', icon:'🖼️'},
-  fukiware_no_taki: {text:'「東洋のナイアガラ」とも呼ばれる吹割の滝がある?', icon:'💦'},
-  railway_museum: {text:'国内最大級の鉄道博物館がある?', icon:'🚄'},
-  toki_no_kane: {text:'蔵造りの町並みと「時の鐘」がある?', icon:'🔔'},
-  koku_kinen_park: {text:'日本初の飛行場跡を整備した航空記念公園がある?', icon:'✈️'},
-  misato_junction: {text:'東京外環道・常磐道・首都高速が接続するジャンクションがある?', icon:'🛣️'},
-  toda_boat: {text:'1964年東京五輪のボート競技会場がある?', icon:'🚣'},
-  shibusawa_eiichi: {text:'渋沢栄一の生誕地?', icon:'💴'},
-  konosu_hina: {text:'日本一高いピラミッドひな壇で知られる?', icon:'🎎', subjective:true},
-  first_outlet: {text:'日本初のアウトレットモールが開業した地?', icon:'🛍️'},
-  jumbo_koinobori: {text:'全長100メートルのジャンボこいのぼりを揚げる?', icon:'🎏'},
-  higashimatsuyama_yakitori: {text:'豚のカシラ肉をみそだれで食べる「やきとり」で有名?', icon:'🍢', subjective:true},
-  seitenkyu: {text:'日本最大級の道教寺院「聖天宮」がある?', icon:'⛩️'},
-  riken_hq: {text:'理化学研究所の本部がある?', icon:'🔬'},
-  hanawa_hokiichi: {text:'盲目の国学者・塙保己一の生誕地?', icon:'📚'},
-  sunaori_amagoi: {text:'巨大な龍蛇を作る伝統行事「脚折雨乞」がある?', icon:'🐉'},
-  sakitama_zerifry: {text:'さきたま古墳群とゼリーフライで有名?', icon:'🏺', subjective:true},
-  gongendo_sakura: {text:'桜と菜の花で有名な権現堂桜堤がある?', icon:'🌸'},
-  hitachidai_stadium: {text:'日立台のサッカー専用スタジアムがある?', icon:'⚽'},
-  suguyaru_ka: {text:'全国初の「すぐやる課」が設置された?', icon:'🏢'},
-  nakayama_hokekyoji: {text:'日蓮宗の大本山・中山法華経寺がある?', icon:'⛩️'},
-  kominato_railway: {text:'小湊鐵道の本社と起点駅がある?', icon:'🚃'},
-  yatsu_higata: {text:'ラムサール条約登録湿地の谷津干潟がある?', icon:'🦆'},
-  tokyo_disney: {text:'東京ディズニーリゾートがある?', icon:'🎡'},
-  rekihaku: {text:'国立歴史民俗博物館がある?', icon:'🏛️'},
-  kikkoman_hq: {text:'キッコーマンの本社がある?', icon:'🏭'},
-  abiko_ekisoba: {text:'大きな唐揚げが乗った駅そばで有名?', icon:'🍜', subjective:true},
-  nomizo_no_taki: {text:'「濃溝の滝」と呼ばれる亀岩の洞窟がある?', icon:'💦'},
-  tokyo_german_village: {text:'名前に「東京」が付くドイツ風テーマパークがある?', icon:'🎡'},
-  inubosaki: {text:'関東最東端の犬吠埼がある?', icon:'🗺️'},
-  sawara_district: {text:'佐原地区に江戸情緒を残す重伝建がある?', icon:'🏘️'},
-  shirasato_kaigan: {text:'九十九里浜の白里海岸がある?', icon:'🏖️'},
-  sunosaki_lighthouse: {text:'洲埼灯台がある?', icon:'💡'},
-  mother_farm_nokogiri: {text:'マザー牧場と鋸山がある?', icon:'🐄'},
-  boshu_biwa: {text:'房州ビワの名産地?', icon:'🍑'},
-  ohara_hadaka: {text:'大原はだか祭りが行われる?', icon:'🏮'},
-  kamogawa_seaworld: {text:'シャチのショーで有名なシーワールドがある?', icon:'🐋'},
-  katsuura_tantanmen: {text:'夏でも比較的冷涼で、ご当地タンタンメンで知られる?', icon:'🍜', subjective:true},
-  oi_keibajo: {text:'大井競馬場がある?', icon:'🐎'},
-  tokyo_daibutsu: {text:'高さ13メートルの「東京大仏」がある?', icon:'🗿'},
-  showa_kinen_park: {text:'国営昭和記念公園がある?', icon:'🌳'},
-  kichijoji_harmonica: {text:'吉祥寺駅とハモニカ横丁がある?', icon:'🏘️'},
-  takahata_hijikata: {text:'高幡不動尊と土方歳三の生誕地がある?', icon:'⛩️'},
-  shimura_ken: {text:'志村けんのふるさと?', icon:'😄'},
-  tama_rokuto: {text:'多摩六都科学館がある?', icon:'🔭'},
-  ghibli_museum: {text:'三鷹の森ジブリ美術館がある?', icon:'🎬'},
-  sanrio_puroland: {text:'サンリオピューロランドがある?', icon:'🎀'},
-  mitakesan: {text:'御岳山と御岳渓谷がある?', icon:'🏔️'},
-  edo_tokyo_tatemono: {text:'江戸東京たてもの園がある?', icon:'🏛️'},
-  kurume_twin: {text:'福岡県にもそっくりな名前の市がある?', icon:'🔤'},
-  akishima_kujira: {text:'約200万年前のクジラ化石が発見された?', icon:'🐋'},
-  tamako_yamato: {text:'多摩湖の大部分があり、市名に旧国名が含まれる?', icon:'🏞️'},
-  yomiuri_land: {text:'よみうりランドがある?', icon:'🎢'},
-  second_smallest_city: {text:'全国の市で面積が2番目に小さい?', icon:'📏'},
-  hitotsubashi_univ: {text:'一橋大学ある文教都市?', icon:'🎓'},
-  jaxa_isas: {text:'JAXA宇宙科学研究所がある?', icon:'🚀'},
-  shirokoro_horumon: {text:'豚ホルモンを使う「シロコロホルモン」で有名?', icon:'🍢', subjective:true},
-  izumi_no_mori_awaodori: {text:'泉の森があり、夏に阿波おどりが開かれる?', icon:'💃'},
-  enoshima: {text:'江の島がある?', icon:'🏝️'},
-  omote_tanzawa: {text:'表丹沢登山の玄関口で、名水百選の湧水群がある?', icon:'🏔️'},
-  ebina_sa: {text:'東名高速の巨大サービスエリアがある?', icon:'🛣️'},
-  oyama_afuri: {text:'大山阿夫利神社がある?', icon:'⛩️'},
-  jogashima_maguro: {text:'城ヶ島と三崎まぐろで知られる?', icon:'🐟', subjective:true},
-  daiyuzan_kintaro: {text:'大雄山と金太郎伝説で知られる?', icon:'🏔️', subjective:true},
-  okutadami_dam: {text:'奥只見ダムがある?', icon:'🏞️'},
-  hokuetsu_kyoto: {text:'「北越の小京都」と呼ばれる?', icon:'🏘️', subjective:true},
-  knit_gosen: {text:'ニットの生産高が日本一?', icon:'🧶'},
-  kurokawa_yuden: {text:'日本最古の油田とされる黒川油田がある?', icon:'🛢️'},
-  niigata_smallest: {text:'新潟県で面積が最も小さい市?', icon:'📏'},
-  kitsune_yomeiri: {text:'「狐の嫁入り行列」が行われる?', icon:'🦊'},
-  ryokan_birthplace: {text:'良寛の生誕地?', icon:'📚'},
-  sakyu_momo: {text:'「幻の桃」と呼ばれる砂丘桃の産地?', icon:'🍑', subjective:true},
-  taishitamonja: {text:'大したもん蛇まつりが行われる?', icon:'🐉'},
-  gomadoyama_ajisai: {text:'護摩堂山の山頂に約3万株のあじさい園がある?', icon:'💐'},
-  ryugakubo: {text:'名水百選の龍ヶ窪がある?', icon:'💧'},
-  yahiko_jinja: {text:'越後一宮の彌彦神社がある?', icon:'⛩️'},
-  fuji_rock: {text:'フジロックフェスティバルが開催される?', icon:'🎸'},
-  tama_monorail_extension: {text:'多摩モノレールの延伸で、市内に初めて鉄道駅ができる予定?', icon:'🚝'},
-  banei_keiba: {text:'世界で唯一のばんえい競馬が開催されている?', icon:'🐴'},
-  ebetsu_renga: {text:'北海道遺産に選ばれた、れんがの産地?', icon:'🧱'},
-  kitami_hakka: {text:'戦前、世界のハッカ流通量の約7割を占めていた?', icon:'🌿'},
-  shikotsuko_futoko: {text:'日本最北の不凍湖がある?', icon:'🏞️'},
-  hamanasu_no_oka: {text:'約180種の植物が自生する「はまなすの丘公園」がある?', icon:'🌸'},
-  northernmost_city: {text:'日本最北端の市?', icon:'🗺️'},
-  shio_kazunoko: {text:'塩数の子の加工生産量が日本一?', icon:'🐟'},
-  canadian_world: {text:'「赤毛のアン」をテーマにしたカナディアンワールドがある?', icon:'🎡'},
-  garinko_go: {text:'世界初の流氷観光砕氷船「ガリンコ号」が運航する?', icon:'🚢'},
-  nosappu_misaki: {text:'日本本土最東端の納沙布岬がある?', icon:'🗺️'},
-  hirosaki_tenshu: {text:'東北地方で唯一、江戸時代から残る天守がある?', icon:'🏯'},
-  hasshoku_center: {text:'巨大な食品市場「八食センター」がある?', icon:'🐟'},
-  misawa_flight: {text:'世界初の太平洋無着陸横断飛行の出発地?', icon:'✈️'},
-  ishiwari_zakura: {text:'大きな花崗岩を割って育つ「石割桜」がある?', icon:'🌸'},
-  mutsu_kokufu: {text:'奈良・平安時代に陸奥国府と鎮守府が置かれた?', icon:'🏯'},
-  kanto_matsuri: {text:'竿燈まつりが開催される?', icon:'🏮'},
-  kamo_kurage: {text:'クラゲの展示で有名な加茂水族館がある?', icon:'🎐'},
-  uesugi_jinja: {text:'上杉謙信を祭る上杉神社がある?', icon:'⛩️'},
-  jionji: {text:'東北を代表する古刹・慈恩寺がある?', icon:'⛩️'},
-  shinjo_matsuri: {text:'毎年8月24～26日に、20台の豪華な山車が巡る祭りがある?', icon:'🎏'},
-  saito_mokichi: {text:'歌人・斎藤茂吉が生まれたマチ?', icon:'📚'},
-  hanamiyama: {text:'花見山公園がある?', icon:'🌸'},
-  nanko_park: {text:'松平定信が「士民共楽」の理念で築いた南湖公園がある?', icon:'🌳'},
-  nakoku_no_oka: {text:'須玖岡本遺跡を中心とする「奴国の丘歴史公園」がある?', icon:'🏺'},
-  miike_tanko: {text:'世界遺産の三池炭鉱・宮原坑と三池港がある?', icon:'⛏️'},
-  sakurai_futamigaura: {text:'海中の夫婦岩と白い鳥居で知られる桜井二見ヶ浦がある?', icon:'⛩️', subjective:true},
-  ushikubi_sueki: {text:'九州最大の須恵器窯跡群「牛頸須恵器窯跡」がある?', icon:'🏺'},
-  munakata_hetsugu: {text:'沖ノ島を御神体とする三宮のうち、辺津宮がある?', icon:'⛩️'},
-  goshogatani_kogoishi: {text:'古代山城の御所ヶ谷神籠石がある?', icon:'🏯'},
-  funabaru_kofun: {text:'豪華な馬具が古墳とは別の埋納坑から見つかった船原古墳がある?', icon:'🏺'},
-  hikari_no_michi: {text:'宮地嶽神社の参道に夕日が重なる「光の道」で知られる?', icon:'🌇', subjective:true},
-  tanabata_jinja: {text:'織姫を祭る「七夕神社（媛社神社）」がある?', icon:'🎋'},
-  nogata_meteorite: {text:'須賀神社に、世界最古級の落下記録を持つ隕石が伝わる?', icon:'☄️'},
-  yanagawa_kudari: {text:'掘割の川下りと北原白秋の生家で知られる?', icon:'🛶', subjective:true},
-  yame_gyokuro: {text:'福島地区に白壁の町並みが残り、玉露の産地として知られる?', icon:'🍵', subjective:true},
-  sakuta_no_unade: {text:'日本書紀にも記された古代の用水路「裂田の溝」がある?', icon:'💧'},
-  tagawa_sekitan: {text:'石炭記念公園に二本煙突と竪坑櫓が残る?', icon:'⛏️'},
-  hishino_suisha: {text:'菱野の三連水車と秋月の城下町がある?', icon:'💧'},
-  oda_hiroki_museum: {text:'洋画家・織田廣喜の作品を集めた美術館がある?', icon:'🖼️'},
-  kiyomizudera_teien: {text:'雪舟作と伝わる清水寺本坊庭園がある?', icon:'🌳'},
-  toyota_kyushu: {text:'トヨタ自動車九州の本社と宮田工場がある?', icon:'🚗'},
-  chikugo_yoshii: {text:'筑後吉井の白壁の町並みと果樹園で知られる?', icon:'🏘️', subjective:true},
-  karatsu_kunchi: {text:'ユネスコ無形文化遺産の祭りで、多くの曳山が巡行する?', icon:'🎏'},
-  tosu_junction: {text:'九州道・長崎道・大分道が集まるジャンクションがある?', icon:'🛣️'},
-  okawachiyama: {text:'鍋島藩窯が置かれた「秘窯の里・大川内山」がある?', icon:'🏺'},
-  takeo_onsen_romon: {text:'辰野金吾が設計した朱塗りの楼門がある温泉地?', icon:'♨️'},
-  ogi_yokan: {text:'表面に砂糖の結晶ができる切り羊羹と清水の滝で知られる?', icon:'🍡', subjective:true},
-  kunenan: {text:'紅葉の名所として知られる国の名勝「九年庵」がある?', icon:'🍁'},
-  yutoku_inari: {text:'日本三大稲荷の一つに数えられる祐徳稲荷神社がある?', icon:'⛩️'},
-  ureshino_bihada: {text:'日本三大美肌の湯の一つと温泉湯どうふで知られる?', icon:'♨️', subjective:true},
-  isahaya_meganebashi: {text:'洪水後に公園へ移設された石造二連アーチの眼鏡橋がある?', icon:'🌉'},
-  nagasaki_airport_omura: {text:'箕島を造成して造られた長崎空港がある?', icon:'✈️'},
-  koi_no_oyogu_machi: {text:'武家屋敷の水路と「鯉の泳ぐまち」で知られる?', icon:'🐟', subjective:true},
-  hara_castle: {text:'キリシタン勢力が籠城した世界遺産・原城跡がある?', icon:'🏯'},
-  unzen_jigoku: {text:'普賢岳の麓に地獄景観が広がる温泉地がある?', icon:'♨️'},
-  fukuejima_onidake: {text:'福江島の鬼岳と堂崎天主堂がある?', icon:'⛪'},
-  ajifry_seichi: {text:'「アジフライの聖地」を掲げる港町?', icon:'🐟'},
-  tsushima_border: {text:'日本と韓国の国境の島?', icon:'🗺️'},
-  mugi_shochu_iki: {text:'麦焼酎発祥の地とされ、原の辻遺跡がある?', icon:'🍶'},
-  nanatsugama_shonyudo: {text:'国の天然記念物に指定された七ツ釜鍾乳洞がある?', icon:'🕳️'},
-  hirado_oranda: {text:'江戸時代のオランダ商館が復元されている?', icon:'🏛️'},
-  igusa_yatsushiro: {text:'い草の産地で、地元の人は市名を「やっちろ」と言う?', icon:'🌾'},
-  sakitsu_shuraku: {text:'世界遺産の﨑津集落がある?', icon:'⛪'},
-  takaba_countrypark: {text:'竹迫城跡公園と県農業公園カントリーパークがある?', icon:'🌳'},
-  hiryu_no_kane: {text:'蓮華院誕生寺奥之院に大梵鐘「飛龍の鐘」がある?', icon:'🔔'},
-  misumi_nishiko: {text:'明治期の港湾施設が残る世界遺産・三角西港がある?', icon:'⚓'},
-  mandako_greenland: {text:'世界遺産の万田坑と大型遊園地グリーンランドがある?', icon:'⛏️'},
-  aoi_aso_jinja: {text:'茅葺き楼門を持つ国宝・青井阿蘇神社がある?', icon:'⛩️'},
-  kusasenrigahama: {text:'草千里ヶ浜と中岳火口がある?', icon:'🌋'},
-  takasakiyama_saru: {text:'高崎山のサルが有名?', icon:'🐒', subjective:true},
-  fukuzawa_karaage: {text:'福澤諭吉が生まれ、からあげの聖地として知られる?', icon:'🍗', subjective:true},
-  bungo_futamigaura: {text:'豊後二見ヶ浦に巨大なしめ縄が張られている?', icon:'⛩️'},
-  usa_jingu: {text:'全国の八幡社の総本宮とされる神宮がある?', icon:'⛩️'},
-  usuki_magaibutsu: {text:'国内を代表する国宝の磨崖仏群がある?', icon:'🗿'},
-  harajiri_no_taki: {text:'「東洋のナイアガラ」とも呼ばれる原尻の滝がある?', icon:'💦'},
-  kinrinko_yufuin: {text:'金鱗湖と湯の坪街道がある温泉地?', icon:'♨️'},
-  oka_castle: {text:'「荒城の月」のモデルとされる岡城跡がある?', icon:'🏯'},
-  showa_no_machi: {text:'昭和30年代の商店街を再生した「昭和の町」がある?', icon:'🏘️'},
-  sandwich_jokamachi: {text:'二つの武家屋敷地区に商人の町が挟まれた「サンドイッチ型城下町」?', icon:'🏯'},
-  futagoji: {text:'六郷満山文化を代表する両子寺がある?', icon:'⛩️'},
-  tsukumi_sakura_maguro: {text:'四浦半島の河津桜と保戸島のマグロ漁業で知られる?', icon:'🌸', subjective:true},
-  sekinoo_taki: {text:'関之尾滝と世界最大級の甌穴群がある?', icon:'💦'},
-  nobeoka_ishigaki: {text:'城跡に「千人殺し」と呼ばれる高石垣が残る?', icon:'🏯', subjective:true},
-  umagase_cross: {text:'柱状節理の断崖・馬ヶ背と「クルスの海」がある?', icon:'🪨'},
-  saitobaru_kofun: {text:'300基以上の古墳が集まる日本最大級の古墳群がある?', icon:'🏺'},
-  toimisaki_uma: {text:'都井岬に野生の御崎馬が生息する?', icon:'🐎'},
-  ebino_kogen: {text:'霧島連山の韓国岳や不動池を望む高原がある?', icon:'🏔️'},
-  shirokuma_tenmonkan: {text:'天文館の「しろくま」で有名?', icon:'🍧', subjective:true},
-  shiobitashi_onsen: {text:'坂本龍馬夫妻が新婚旅行で訪れた塩浸温泉がある?', icon:'♨️'},
-  kokuritsu_taiiku_univ: {text:'日本唯一の国立体育大学がある?', icon:'🎓'},
-  kamou_no_okusu: {text:'日本一の巨樹とされる蒲生の大クスがある?', icon:'🌳'},
-  tsuru_ettochi: {text:'国内最大級のツルの越冬地がある?', icon:'🦢'},
-  kinsakubaru_keihan: {text:'金作原原生林があり、郷土料理の鶏飯で知られる?', icon:'🌴', subjective:true},
-  satsumayaki_miyama: {text:'薩摩焼の里・美山と妙円寺詣りで知られる?', icon:'🏺', subjective:true},
-  bonotsu_ganjin: {text:'坊津の港町と、鑑真が上陸したと伝わる秋目浦がある?', icon:'⚓'},
-  mizonokuchi_doketsu: {text:'巨大な岩壁を貫く天然洞穴「溝ノ口洞穴」がある?', icon:'🕳️'},
-  chiran_bukeyashiki: {text:'知覧の武家屋敷庭園群と特攻平和会館がある?', icon:'🏘️'},
-  daguri_misaki: {text:'海を望むダグリ岬遊園地がある?', icon:'🎡'},
-  makurazaki_station: {text:'JR日本最南端の始発・終着駅があり、かつお節で知られる?', icon:'🚉', subjective:true},
-  bontan_shika: {text:'ボンタンの産地で、沖合の無人島に野生のシカがいる?', icon:'🍊'},
-  teppokan: {text:'種子島の歴史と火縄銃を紹介する「鉄砲館」がある?', icon:'🏛️'},
-  satsuma_ryugakusei: {text:'薩摩藩英国留学生記念館がある?', icon:'🏛️'},
-  koza_eisa: {text:'全島エイサーまつりと「コザ」の音楽文化で知られる?', icon:'🥁', subjective:true},
-  kaichu_doro_katsuren: {text:'海中道路と世界遺産の勝連城跡がある?', icon:'🌉'},
-  okinawa_convention: {text:'沖縄コンベンションセンターとトロピカルビーチがある?', icon:'🏖️'},
-  heiwa_kinen_himeyuri: {text:'平和祈念公園とひめゆりの塔がある?', icon:'🕊️'},
-  senagajima_umikaji: {text:'瀬長島ウミカジテラスと旧海軍司令部壕がある?', icon:'🏖️'},
-  kabira_bay: {text:'エメラルドグリーンの海で有名な川平湾がある?', icon:'🏝️'},
-  irabu_ohashi: {text:'海の上を渡る長大な伊良部大橋がある?', icon:'🌉'},
-  sefa_utaki: {text:'世界遺産の斎場御嶽とニライカナイ橋がある?', icon:'⛩️'},
-  kaike_onsen: {text:'山陰を代表する皆生温泉がある?', icon:'♨️'},
-  kurayoshi_shirakabe: {text:'白壁土蔵群と赤瓦の町並みがある?', icon:'🏘️'},
-  sesshu_teien: {text:'雪舟が築いたと伝わる庭園が複数ある?', icon:'🌳'},
-  iwami_ginzan: {text:'石見銀山遺跡がある?', icon:'⛏️'},
-  gonokawa_kako: {text:'中国地方最大の河川・江の川の河口がある?', icon:'🌊'},
-  nihon_sanmeien: {text:'日本三名園の一つがある?', icon:'🌳'},
-  horumon_udon: {text:'ホルモンうどんで知られる?', icon:'🍜', subjective:true},
-  kinojo: {text:'古代山城の鬼ノ城がある?', icon:'🏯'},
-  bitchu_matsuyama: {text:'現存天守の備中松山城がある?', icon:'🏯'},
-  saijo_sake: {text:'日本有数の酒どころ「西条」がある?', icon:'🍶'},
-  mihara_tako: {text:'タコ料理と海に浮かぶ城跡で知られる?', icon:'🐙', subjective:true},
-  kiri_no_umi: {text:'秋から冬の「霧の海」で知られる?', icon:'🌫️', subjective:true},
-  hiroshima_westmost: {text:'広島県で最も西に位置する市?', icon:'🗺️'},
-  anno_hideaki: {text:'『エヴァンゲリオン』の庵野秀明が生まれたマチ?', icon:'🤖'},
-  tokuyama_combinat: {text:'徳山の工場夜景やコンビナートで知られる?', icon:'🏭', subjective:true},
-  kintaikyo: {text:'五連の木造アーチ橋「錦帯橋」がある?', icon:'🌉'},
-  cement_glass: {text:'セメント産業とガラス文化で知られる?', icon:'🏭', subjective:true},
-  led_valley: {text:'LED関連企業の集積で知られる「光のまち」?', icon:'💡', subjective:true},
-  naruto_uzushio: {text:'世界最大級の渦潮を間近で見られる?', icon:'🌀'},
-  kincho_tanuki: {text:'金長たぬきの伝説で知られる?', icon:'🦝', subjective:true},
-  awa_dochu: {text:'国の天然記念物「阿波の土柱」がある?', icon:'🪨'},
-  mima_udatsu: {text:'「うだつの町並み」が残っている?', icon:'🏘️'},
-  iya_kazurabashi: {text:'祖谷のかずら橋や大歩危・小歩危がある?', icon:'🌉'},
-  marugame_uchiwa: {text:'現存天守の城とうちわで有名?', icon:'🏯', subjective:true},
-  chichibugahama: {text:'水面に空が映る父母ヶ浜がある?', icon:'🏖️'},
-  zenigata_sunae: {text:'巨大な寛永通宝の砂絵がある?', icon:'🪙'},
-  setoohashi_shikoku: {text:'瀬戸大橋の四国側の玄関口?', icon:'🌉'},
-  kukai_birthplace: {text:'弘法大師・空海の生誕地とされる?', icon:'⛩️'},
-  tebukuro_industry: {text:'手袋の生産量が日本一として知られる?', icon:'🧤', subjective:true},
-  uchinuki: {text:'名水「うちぬき」が市内各地から湧き出る?', icon:'💧'},
-  garyu_sanso: {text:'臥龍山荘や肱川の鵜飼で知られる?', icon:'🏯', subjective:true},
-  kezuribushi: {text:'削り節の生産が盛んな港町?', icon:'🐟', subjective:true},
-  yawatahama_champon: {text:'ご当地麺「○○○（市名）ちゃんぽん」で知られる?', icon:'🍜', subjective:true},
-  seiyo_geopark: {text:'四国○○（市名）ジオパークの中心となる市?', icon:'🗺️'},
-  botchan_theater: {text:'常設劇場「坊っちゃん劇場」がある?', icon:'🎭'},
-  kochi_ryoma_airport: {text:'高知県の空の玄関、高知龍馬空港がある?', icon:'✈️'},
-  chinkabashi: {text:'四万十川に架かる多くの沈下橋で知られる?', icon:'🌉', subjective:true},
-  noichi_zoo: {text:'高知県立のいち動物公園がある?', icon:'🦁'},
-  muroto_geopark: {text:'世界ジオパークに認定された岬がある?', icon:'🗺️'},
-  nabeyaki_ramen: {text:'鍋焼きラーメンをご当地グルメとする?', icon:'🍜'},
-  daruma_yuhi: {text:'冬の海に沈む「だるま夕日」で知られる?', icon:'🌇', subjective:true},
-  ashizuri_misaki: {text:'四国最南端の足摺岬がある?', icon:'🗺️'},
-  tosabushi: {text:'一本釣りの鰹節「土佐節」で知られる?', icon:'🐟', subjective:true},
-  yanase_museum: {text:'やなせたかし記念館がある?', icon:'🏛️'},
-  nagashima_nabana: {text:'国内最大級の遊園地となばなの里がある?', icon:'🎢'},
-  suzuka_circuit: {text:'F1日本グランプリが開かれる国際サーキットがある?', icon:'🏎️'},
-  magose_hinoki: {text:'熊野古道の馬越峠と、ヒノキの産地で知られる?', icon:'🌲', subjective:true},
-  sekijuku: {text:'東海道五十三次の宿場町・関宿が残る?', icon:'🏘️'},
-  toba_aquarium: {text:'国内有数の飼育種類数を誇る水族館と真珠島がある?', icon:'🐠'},
-  onigajo_hananoiwaya: {text:'鬼ヶ城・花の窟・七里御浜がある?', icon:'🪨'},
-  fujiwaradake_bairin: {text:'藤原岳と、梅林で知られる農業公園がある?', icon:'🌸'},
-  parque_ago: {text:'パルケエスパーニャと英虞湾がある?', icon:'🎡'},
-  iga_ninja_basho: {text:'忍者博物館と松尾芭蕉の生家がある?', icon:'🥷'},
-  kurokabe_chikubu: {text:'黒壁スクエアと竹生島がある?', icon:'🏘️'},
-  hachimanbori: {text:'八幡堀と水郷、近江商人の町並みがある?', icon:'🛶'},
-  biwako_ohashi_sagawa: {text:'琵琶湖大橋の東詰と佐川美術館がある?', icon:'🌉'},
-  jra_training: {text:'JRAの競走馬トレーニングセンターがある?', icon:'🐎'},
-  konan_sanzan: {text:'国宝建築を持つ「湖南三山」がある?', icon:'⛩️'},
-  metasequoia_shirahige: {text:'メタセコイア並木と湖中の大鳥居がある神社で知られる?', icon:'🌳', subjective:true},
-  gokasho_eigenji: {text:'五個荘の近江商人屋敷と永源寺がある?', icon:'🏘️'},
-  maizuru_akarenga: {text:'海上自衛隊の基地と赤れんが倉庫群がある?', icon:'⚓'},
-  byodoin_uji: {text:'平等院鳳凰堂と高級茶の産地で知られる?', icon:'⛩️', subjective:true},
-  iwashimizu_nagarebashi: {text:'石清水八幡宮と、増水時に流れるよう造られた木橋がある?', icon:'⛩️'},
-  toyonaka_kyujo: {text:'甲子園の前身大会が最初に開かれた球場跡がある?', icon:'⚾'},
-  cupnoodle_museum: {text:'カップヌードルミュージアムがある?', icon:'🍜'},
-  taiyo_no_to: {text:'太陽の塔と万博記念公園がある?', icon:'🗿'},
-  mofu_izumiotsu: {text:'国産毛布の一大産地?', icon:'🧣'},
-  imashirozuka_haniwa: {text:'大王の古墳と大規模な埴輪工場跡がある?', icon:'🏺'},
-  mizuma_nishikinohama: {text:'水間観音と二色の浜がある?', icon:'⛩️'},
-  moriguchi_daikon: {text:'世界最長級の細長い大根の名の由来となった京街道の宿場町?', icon:'🥬'},
-  hikari_no_kyokai: {text:'安藤忠雄設計の「光の教会」と隠れキリシタンの里がある?', icon:'⛪'},
-  kansai_airport_city: {text:'関西国際空港と大型アウトレットがある?', icon:'✈️'},
-  pl_tower: {text:'PL教団が作った巨大な白い塔がある?', icon:'🗼'},
-  naritasan_osaka: {text:'成田山の大阪別院がある?', icon:'⛩️'},
-  kanshinji_kongoji: {text:'高野街道と国宝を持つ観心寺・金剛寺がある?', icon:'⛩️'},
-  nunose_takenouchi: {text:'布忍神社の恋みくじと、日本遺産の竹内街道がある?', icon:'⛩️'},
-  nozaki_mairi: {text:'野崎まいりと飯盛城跡がある?', icon:'⛩️'},
-  ikegami_sone: {text:'大規模な弥生時代の環濠集落跡がある?', icon:'🏺'},
-  minoh_katsuoji: {text:'大滝と「勝運の寺」として知られる寺院がある?', icon:'🍁'},
-  kashiwara_budo: {text:'ブドウ栽培と亀の瀬地すべり地帯で知られる?', icon:'🍇', subjective:true},
-  ojin_ryo_wine: {text:'世界遺産の古墳群にある巨大な応神天皇陵とワインで知られる?', icon:'🍷', subjective:true},
-  panasonic_hq: {text:'パナソニックの本社がある?', icon:'🏭'},
-  torikai_depot: {text:'東海道新幹線の鳥飼車両基地がある?', icon:'🚄'},
-  takashinohama: {text:'南海高師浜線の終点と臨海工業地帯の工場夜景がある?', icon:'🏭'},
-  fujiidera_kannon: {text:'西国三十三所第5番札所と、国宝の千手観音像がある?', icon:'⛩️'},
-  sennan_rosegarden: {text:'海辺の大型公園と英国式ローズガーデンがある?', icon:'🌹'},
-  shijonawate_masatsura: {text:'楠木正行の終焉の地とされ、室池園地がある?', icon:'🏯'},
-  hoshi_no_buranko: {text:'七夕伝説と、巨大なつり橋「星のブランコ」がある?', icon:'🌉'},
-  sayamaike: {text:'日本最古級のため池と、安藤忠雄設計の博物館がある?', icon:'💧'},
-  pichipichi_beach: {text:'「ぴちぴちビーチ」と和泉砂岩の石工文化で知られる?', icon:'🏖️'},
-  sumoto_castle_onsen: {text:'淡路島中央部に城跡と温泉街がある?', icon:'🏯'},
-  ashiya_yodoko: {text:'高級住宅地として知られ、ヨドコウ迎賓館がある?', icon:'🏡', subjective:true},
-  itami_sake_airport: {text:'清酒発祥地の一つとされ、大阪国際空港の一部がある?', icon:'🍶'},
-  katsumeshi_kakurinji: {text:'郷土料理「かつめし」と国宝建築を持つ寺院がある?', icon:'🍚'},
-  tada_jinja: {text:'清和源氏ゆかりの多田神社と妙見山がある?', icon:'⛩️'},
-  sanda_hitohaku: {text:'県立の「人と自然の博物館」とブランド牛で知られる?', icon:'🐄', subjective:true},
-  kasai_globe_clock: {text:'旧軍飛行場跡と世界最大級の地球儀時計がある?', icon:'🌐'},
-  izanagi_yumebutai: {text:'国生み神話の神社と淡路夢舞台がある?', icon:'⛩️'},
-  tojoko_omocha: {text:'東条湖のおもちゃ王国と県立播磨中央公園がある?', icon:'🎠'},
-  tatsuno_shoyu_somen: {text:'しょうゆ醸造と手延べそうめんの産地で知られる?', icon:'🍜', subjective:true},
-  takada_sakura_jinaimachi: {text:'川沿いに約千本の桜が続き、古い寺内町が残る?', icon:'🌸'},
-  kingyo_yamatokoriyama: {text:'金魚養殖で知られる?', icon:'🐠', subjective:true},
-  tenri_shukyo_toshi: {text:'宗教都市として発展し、巨大な本部神殿がある?', icon:'⛩️'},
-  kashihara_jingu: {text:'神武天皇を祭る神宮と藤原宮跡がある?', icon:'⛩️'},
-  miwa_somen: {text:'三輪そうめんで知られる?', icon:'🍜', subjective:true},
-  gojo_kaki_shinmachi: {text:'柿の産地で、江戸時代の町並みが残る新町通りがある?', icon:'🍊'},
-  katsuragi_kodo: {text:'葛城古道と高鴨神社、古い町家が残る?', icon:'⛩️'},
-  ikoma_cablecar: {text:'日本最古の営業用ケーブルカーと山上遊園地がある?', icon:'🚡'},
-  dontsurubo: {text:'奇岩「屯鶴峯」と二上山の北麓に位置する?', icon:'🪨'},
-  taimadera_sumo: {text:'當麻寺と、相撲の始祖を紹介する資料館がある?', icon:'⛩️'},
-  uda_seiyaku: {text:'多くの製薬会社の創業者を輩出した?', icon:'💊'},
-  kuroe_shikki: {text:'黒江の町並みと紀州漆器で知られる?', icon:'🥢', subjective:true},
-  koyasan_gateway_pile: {text:'高野山への鉄道・道路の玄関口で、パイル織物の産地?', icon:'🧶'},
-  arida_mikan: {text:'全国有数のミカン産地で、山腹にかんきつ畑が広がる?', icon:'🍊'},
-  shortest_private_line: {text:'全長3キロ未満の短い私鉄路線が走る?', icon:'🚃'},
-  kumano_hongu_benkei: {text:'熊野本宮大社と弁慶ゆかりの地がある?', icon:'⛩️'},
-  kumano_hayatama_gotobiki: {text:'熊野速玉大社と、巨岩を御神体とする神社がある?', icon:'⛩️'},
-  kokawadera_momo: {text:'西国三十三所第3番札所と桃の産地で知られる?', icon:'🍑', subjective:true},
-  fujiko_f_birthplace: {text:'藤子・F・不二雄先生の出身地?', icon:'📚'},
-  shinkiro_maibotsurin: {text:'蜃気楼と埋没林の博物館がある?', icon:'🏛️'},
-  fujiko_a_buri: {text:'藤子不二雄A先生の出身地で寒ブリが名物?', icon:'🐟'},
-  hotaruika_museum: {text:'ホタルイカ専門の体験型博物館がある?', icon:'🦑'},
-  tulip_fair: {text:'国内最大級のチューリップフェアが開かれる?', icon:'🌷'},
-  merhen_kenchiku: {text:'西洋風の「メルヘン建築」が多い?', icon:'🏰', subjective:true},
-  gokayama_gassho: {text:'五箇山の合掌造り集落がある?', icon:'🏠'},
-  kaiwomaru_bridge: {text:'帆船海王丸と巨大な斜張橋がある?', icon:'⛵'},
-  wakura_notojima: {text:'和倉温泉と能登島がある?', icon:'♨️'},
-  komatsu_origin: {text:'世界的建設機械メーカーの発祥地?', icon:'🏭'},
-  senmaida_shikki: {text:'白米千枚田と漆器産業で知られる?', icon:'🌾', subjective:true},
-  rokugozaki: {text:'能登半島の先端に禄剛崎がある?', icon:'🗺️'},
-  kaga_onsenkyo: {text:'山代・山中・片山津の三温泉がある?', icon:'♨️'},
-  ufo_museum: {text:'UFOをテーマにした宇宙科学博物館がある?', icon:'🛸'},
-  shirayama_tedori: {text:'加賀国一宮と手取峡谷がある?', icon:'⛩️'},
-  matsui_museum: {text:'松井秀喜の野球博物館がある?', icon:'⚾'},
-  kehi_jindo: {text:'気比神宮と「人道の港」の資料館がある?', icon:'⛩️'},
-  miketsukuni_saba: {text:'御食国と鯖街道の起点として知られる?', icon:'🐟', subjective:true},
-  echizen_ono_castle: {text:'雲海に浮かぶ山城と湧水で知られる?', icon:'🏯', subjective:true},
-  awara_onsen: {text:'北陸有数の芦原温泉がある?', icon:'♨️'},
-  fujiq_highland: {text:'富士急ハイランドがある?', icon:'🎢'},
-  fuefuki_fruit_park: {text:'笛吹川フルーツ公園と西沢渓谷がある?', icon:'🍇'},
-  shinpu_shichirigan: {text:'新府城跡と七里岩の台地がある?', icon:'🏯'},
-  katakana_city_name: {text:'全国で唯一市名にカタカナが入る?', icon:'🔤'},
-  kiyosato_hakushu: {text:'清里高原と白州の蒸溜所がある?', icon:'🥃'},
-  shingen_zutsumi: {text:'信玄堤と赤坂台総合公園がある?', icon:'🏞️'},
-  isawa_onsen: {text:'石和温泉と桃源郷がある?', icon:'♨️'},
-  katsunuma_budo: {text:'勝沼のぶどう畑と大菩薩嶺がある?', icon:'🍇'},
-  name_same_as_route: {text:'市名と同じ名前の高速道路や鉄道の路線がある?', icon:'🛣️'},
-  kamikochi: {text:'上高地がある?', icon:'🏔️'},
-  sanada_bessho: {text:'真田氏の城下町で別所温泉がある?', icon:'🏯'},
-  okaya_silk: {text:'諏訪湖西岸の製糸業の町で蚕糸博物館がある?', icon:'🧵'},
-  ningyogeki_tenryukyo: {text:'人形劇フェスタと天龍峡で知られる?', icon:'🎭', subjective:true},
-  suzaka_garyu: {text:'蔵の町並みと臥竜公園がある?', icon:'🏞️'},
-  kaikoen_toson: {text:'懐古園と島崎藤村ゆかりの町?', icon:'🏯'},
-  takato_sakura: {text:'高遠城址公園の桜で知られる?', icon:'🌸', subjective:true},
-  sauce_katsudon: {text:'ソースカツ丼で有名?', icon:'🍚', subjective:true},
-  shinpei_ipponki: {text:'中山晋平記念館と一本木公園がある?', icon:'🎵'},
-  alpen_route_nagano: {text:'立山黒部アルペンルートの長野側玄関口?', icon:'🚡'},
-  kamakura_nanohana: {text:'かまくらの里と菜の花公園がある?', icon:'❄️'},
-  naraijuku_wine: {text:'奈良井宿と国産ワインで知られる?', icon:'🍷', subjective:true},
-  farthest_from_sea: {text:'日本で海から最も遠い地点がある?', icon:'🗺️'},
-  obasute_togura: {text:'姨捨の棚田と戸倉上山田温泉がある?', icon:'🌾'},
-  unnojuku_yunomaru: {text:'海野宿と湯の丸高原がある?', icon:'🏘️'},
-  wasabi_farm: {text:'国内最大級のわさび農場がある?', icon:'🌿'},
-  nagaragawa_ukai: {text:'長良川の鵜飼で有名?', icon:'🐦', subjective:true},
-  okuno_hosomichi_musubi: {text:'奥の細道むすびの地で「水の都」と呼ばれる?', icon:'💧', subjective:true},
-  hida_furuimachi: {text:'飛騨の古い町並みと日本三大美祭がある?', icon:'🏘️'},
-  mosaic_tile_museum: {text:'モザイクタイルミュージアムと永保寺がある?', icon:'🏛️'},
-  magome_kurikinton: {text:'馬籠宿と栗きんとんで知られる?', icon:'🌰', subjective:true},
-  udatsu_mino: {text:'うだつの上がる町並みと手すき和紙で知られる?', icon:'🏘️', subjective:true},
-  kaseki_museum: {text:'化石博物館と陶磁器産業で知られる?', icon:'🦴', subjective:true},
-  iwamura_akechi: {text:'岩村城下町と明知鉄道がある?', icon:'🏯'},
-  otajuku_satoyama: {text:'中山道太田宿と里山体験型公園がある?', icon:'🏘️'},
-  toki_outlet: {text:'陶磁器生産と大型アウトレットで知られる?', icon:'🏺', subjective:true},
-  aerospace_museum: {text:'国内最大級の航空宇宙博物館がある?', icon:'✈️'},
-  rose_garden_akechi: {text:'世界最大級のバラ園と明智城跡がある?', icon:'🌹'},
-  fuyu_kaki_origin: {text:'富有柿発祥の地とされる?', icon:'🍊'},
-  setogawa_shirakabe: {text:'瀬戸川と白壁土蔵街がある?', icon:'🏘️'},
-  usuzumi_zakura: {text:'樹齢1500年以上とされる淡墨桜がある?', icon:'🌸'},
-  gujo_odori: {text:'徹夜で踊るおどりで有名?', icon:'💃', subjective:true},
-  nihon_sanmeisen: {text:'日本三名泉の一つがある?', icon:'♨️'},
-  kisosansen_wajyu: {text:'木曽三川が集まる輪中地帯と国営公園がある?', icon:'🏞️'},
-  atami_moa: {text:'海上花火大会とMOA美術館で知られる?', icon:'🎆', subjective:true},
-  genbegawa_rakujuen: {text:'源兵衛川と楽寿園がある?', icon:'💧'},
-  sengen_taisha: {text:'浅間大社の総本宮と白糸の滝がある?', icon:'⛩️'},
-  omuroyama_jogasaki: {text:'大室山と城ヶ崎海岸がある?', icon:'🌋'},
-  horaibashi_sl: {text:'世界最長級の木造歩道橋とSL列車で知られる?', icon:'🌉', subjective:true},
-  gakunan_tagonoura: {text:'岳南電車と田子の浦港がある?', icon:'🚃'},
-  yaizu_katsuo: {text:'遠洋漁業の港とカツオ・マグロで知られる?', icon:'🐟', subjective:true},
-  kakegawa_castle: {text:'木造復元天守と花鳥園がある?', icon:'🏯'},
-  soccer_town_fujieda: {text:'サッカーの町で東海道の宿場が二つある?', icon:'⚽'},
-  gotemba_outlet: {text:'国内最大級のアウトレットと富士山麓の演習場がある?', icon:'🛍️'},
-  ecopa_hattasan: {text:'エコパスタジアムと法多山がある?', icon:'🏟️'},
-  shimoda_port: {text:'ペリー来航によって開港した港がある?', icon:'⚓'},
-  fuji_safari: {text:'富士サファリパークがある?', icon:'🦁'},
-  arai_sekisho: {text:'新居関所と豊田佐吉記念館がある?', icon:'🏯'},
-  shuzenji_toi: {text:'修善寺温泉と土肥金山がある?', icon:'♨️'},
-  hamaoka_lighthouse: {text:'浜岡原子力発電所と白亜の灯台がある?', icon:'💡'},
-  senkagawa_fukamushi: {text:'千框棚田と深蒸し茶で知られる?', icon:'🍵', subjective:true},
-  nirayama_hansharo: {text:'世界遺産の韮山反射炉がある?', icon:'🏛️'},
-  sagara_oil_airport: {text:'相良油田と県の空の玄関がある?', icon:'🛢️'},
-  masumida_keori: {text:'真清田神社と国内有数の毛織物産地?', icon:'⛩️'},
-  toyokawa_inari: {text:'寺院なのに稲荷と呼ばれる名刹がある?', icon:'⛩️'},
-  tsushima_tenno: {text:'天王信仰の総本社と車楽舟の祭りがある?', icon:'⛩️'},
-  kokonoe_mirin: {text:'九重味淋の本社と明石公園がある?', icon:'🏭'},
-  toyota_origin_kariya: {text:'トヨタグループ発祥の地で大型PAがある?', icon:'🏭'},
-  toyota_hq: {text:'世界最大級の自動車会社の本社がある?', icon:'🚗'},
-  nihon_denmark: {text:'「日本デンマーク」と呼ばれ七夕祭りが有名?', icon:'🌾', subjective:true},
-  matcha_sakushima: {text:'抹茶の産地で佐久島を市域に含む?', icon:'🍵'},
-  takeshima_resort: {text:'竹島と大型海洋リゾートがある?', icon:'🏝️'},
-  centrair_manekineko: {text:'中部国際空港と巨大な招き猫がある?', icon:'✈️'},
-  mandaraji_fuji: {text:'曼陀羅寺の藤まつりで知られる?', icon:'🌸', subjective:true},
-  komaki_castle: {text:'織田信長が初めて築いた城山がある?', icon:'🏯'},
-  konomiya_hadaka: {text:'国府宮のはだか祭と植木・苗木で知られる?', icon:'⛩️', subjective:true},
-  nagashino_horaiji: {text:'長篠城跡と鳳来寺山がある?', icon:'🏯'},
-  juraku_daibutsu: {text:'大規模製鉄所と聚楽園大仏がある?', icon:'🗿'},
-  aichi_kenko_mori: {text:'あいち健康の森と大倉公園がある?', icon:'🌳'},
-  shinmaiko_okada: {text:'新舞子マリンパークと岡田の古い町並みがある?', icon:'🏖️'},
-  kakitsubata_chiryu: {text:'無量寿寺のかきつばたと東海道の宿場で知られる?', icon:'🌸', subjective:true},
-  owariasahi_tower: {text:'県森林公園と展望タワーがある?', icon:'🌳'},
-  okehazama: {text:'桶狭間古戦場伝説地と中京競馬場がある?', icon:'🏯'},
-  aichi_bokujo: {text:'愛知牧場と岩崎城跡がある?', icon:'🐄'},
-  irago_longbeach: {text:'伊良湖岬と太平洋ロングビーチがある?', icon:'🏄'},
-  sendohira_renkon: {text:'船頭平閘門とレンコン産地で知られる?', icon:'🌿', subjective:true},
-  kiyosu_castle: {text:'清洲城と大規模なビール工場がある?', icon:'🏯'},
-  showa_nichijo: {text:'昭和日常博物館がある?', icon:'🏛️'},
-  kingyo_yatomi: {text:'金魚養殖と金魚水族館で知られる?', icon:'🐠', subjective:true},
-  miyoshi_canoe: {text:'三好池でカヌー競技が盛ん?', icon:'🛶', subjective:true},
-  shippoyaki: {text:'七宝焼を展示・体験できる施設がある?', icon:'🏺'},
-  ghibli_linimo: {text:'ジブリパークと磁気浮上式鉄道がある?', icon:'🎡'},
-  shinkansen:    {text:'新幹線の駅がある?', icon:'🚄'},
-  coastal:       {text:'海に面している?', icon:'🌊'},
-  designated:    {text:'政令指定都市?', icon:'🏙️'},
-  festival:      {text:'全国的に有名なお祭りがある?', icon:'🎆', subjective:true},
-  castle:        {text:'有名なお城がある?', icon:'🏯', subjective:true},
-  worldheritage: {text:'市内に世界遺産の構成資産がある?', icon:'⛩️'},
-  snow:          {text:'豪雪地帯・特別豪雪地帯に指定されている?', icon:'❄️'},
-  hot_40c:       {text:'観測史上40℃以上の気温を記録したことがある?', icon:'🌡️'},
-  active_volcano:{text:'市内に気象庁指定の活火山がある?', icon:'🌋'},
-  uchibo:        {text:'房総半島の内房側にある?', icon:'🌊'},
-  sotobo:        {text:'房総半島の外房側にある?', icon:'🌊'},
-  silk_heritage: {text:'製糸・養蚕施設が世界遺産の構成資産になっている?', icon:'🧶'},
-  silk_textile:  {text:'無形文化遺産の伝統的な絹織物を主に生産している?', icon:'🧵'},
-  moka_sl_line:  {text:'茨城県西部と栃木県東部を結ぶSL運行路線が通る?', icon:'🚂'},
-  kururi_line:   {text:'JR久留里線が市内を通る?', icon:'🚃'},
-  watarase_line: {text:'渡良瀬川上流の渓谷沿いを走る第三セクター線が通る?', icon:'🚃'},
-  oito_line:     {text:'大糸線が通る?', icon:'🚃'},
-  shinano_railway:{text:'しなの鉄道の駅がある?', icon:'🚃'},
-  echizen_railway:{text:'えちぜん鉄道の駅がある?', icon:'🚃'},
-  sunzu_line:    {text:'駿豆線が通る?', icon:'🚃'},
-  aikan_railway: {text:'愛知環状鉄道の駅がある?', icon:'🚃'},
-  kurobe_torokko:{text:'峡谷を走る観光トロッコ列車がある?', icon:'🚞'},
-  noto_area:     {text:'能登地域にある?', icon:'🗺️'},
-  dinosaur_museum:{text:'大規模な恐竜博物館がある?', icon:'🦕'},
-  echizen_washi_hamono:{text:'手すき和紙と打刃物の産地?', icon:'🧻'},
-  tojinbo:       {text:'東尋坊がある?', icon:'🌊'},
-  jomon_venus:   {text:'縄文のビーナスを所蔵する?', icon:'🏺'},
-  rokkoyo:       {text:'日本六古窯の産地?', icon:'🏺'},
-  mino_ware:     {text:'美濃焼の主要産地?', icon:'🏺'},
-  hamono_famous: {text:'日本有数の刃物産地?', icon:'🔪', subjective:true},
-  snow_festival: {text:'雪まつり・雪を使ったイベントで知られる?', icon:'❄️', subjective:true},
-  basin: {text:'盆地にある?', icon:'🏔️'},
-  airport:       {text:'市内に定期旅客便のある空港がある?', icon:'✈️'},
-  capital:       {text:'日本の首都?', icon:'🗼'},
-  noodle:        {text:'名物グルメは麺料理?', icon:'🍜'},
-  mascot_famous: {text:'全国区で有名なご当地キャラがいる?', icon:'🧸', subjective:true},
-  nihonkai:      {text:'日本海側の海に面している?', icon:'🌅'},
-  taiheiyo:      {text:'太平洋側の海に面している?', icon:'🌊'},
-  setonaikai:    {text:'瀬戸内海に面している?', icon:'⛵'},
-  famous_mountain:{text:'有名な山がある?', icon:'⛰️', subjective:true},
-  big_river:     {text:'大きな川が流れている?', icon:'🏞️', subjective:true},
-  big_bay:       {text:'大きな湾に面している?', icon:'⚓', subjective:true},
-  subway:        {text:'地下鉄が走っている?', icon:'🚇'},
-  onsen:         {text:'温泉地として知られている?', icon:'♨️', subjective:true},
-  sake:          {text:'酒蔵・日本酒で知られている?', icon:'🍶', subjective:true},
-  fireworks:     {text:'花火大会で有名である?', icon:'🎇', subjective:true},
-  castle_town:   {text:'城下町だった?', icon:'🏯'},
-  port_town:     {text:'港町として栄えた?', icon:'⚓', subjective:true},
-  rice_region:   {text:'米どころとして知られている?', icon:'🌾', subjective:true},
-  kana_name:     {text:'自治体名にひらがな・カタカナを含む?', icon:'🔤'},
-  kansai_dialect:{text:'関西弁圏に含まれる?', icon:'🗣️'},
-  ryukyu_dialect:{text:'琉球諸語・沖縄方言の地域?', icon:'🗣️'},
-  is_town_village:{text:'市ではなく町または村である?', icon:'🏘️'},
-  is_tokyo_ward: {text:'東京23区のどれかである?', icon:'🗼'},
-  ruins:          {text:'遺跡・古墳で有名?', icon:'🏛️', subjective:true},
-  lakeside:       {text:'湖畔のマチですか?', icon:'🚣'},
-  shrine_temple:  {text:'寺社仏閣が有名?', icon:'🛕', subjective:true},
-  bakumatsu_port: {text:'幕末の開港五港のひとつ?', icon:'🚢'},
-  fruit_famous:   {text:'くだものが有名?', icon:'🍎', subjective:true},
-  sumo_basho:     {text:'大相撲の本場所が開催される?', icon:'🤼'},
-  jleague:        {text:'Jリーグチームの本拠地がある?', icon:'⚽'},
-  npb:            {text:'プロ野球チーム(NPB)の本拠地がある?', icon:'⚾'},
-  former_capital:   {text:'過去に「都」が置かれたことがある?', icon:'👑'},
-  grid_streets:     {text:'街の中心部は碁盤の目のよう?', icon:'🔲'},
-  kokuho_building:  {text:'国宝がある、建っている?', icon:'📜'},
-  twelve_castles:   {text:'現存十二天守の城はありますか?', icon:'🏰'},
-  sengoku_warlord:  {text:'有名な戦国武将ゆかりの地ですか?', icon:'⚔️', subjective:true},
-  tram:             {text:'路面電車が走っていますか?', icon:'🚋'},
-  famous_garden:    {text:'有名な庭園がありますか?', icon:'🌳', subjective:true},
-  car_town:         {text:'自動車メーカーの本社または主要工場がある?', icon:'🚗'},
-  private_railway: {text:'私鉄・第三セクターが走っている?', icon:'🚈'},
-  monorail:         {text:'モノレールが走っている?', icon:'🚝'},
-  remote_island:    {text:'もしかして離島に存在する?', icon:'🌴'},
-  mining_heritage:  {text:'有名な鉱山・炭鉱跡がありますか?', icon:'⛏️', subjective:true},
-  night_view:       {text:'日本三大夜景を誇るマチ?', icon:'🌃'},
-  war_damage:       {text:'戦時中に非常に多くの被害を受けましたか?', icon:'🕯️'},
-  ferris_wheel:     {text:'観覧車はありますか?', icon:'🎡'},
-  theme_park:       {text:'テーマパークはありますか?', icon:'🎢'},
-  zoo:              {text:'動物園はありますか?', icon:'🦁'},
-  aquarium:         {text:'水族館はありますか?', icon:'🐠'},
-  brand_beef:       {text:'有名なブランド牛肉はありますか?', icon:'🥩', subjective:true},
-  kintetsu:         {text:'近鉄が通っていますか?', icon:'🚃'},
-  kanji_one_char:   {text:'マチの名前が漢字一文字ですか?', icon:'📛'},
-  chinatown:            {text:'有名な中華街がありますか?', icon:'🏮', subjective:true},
-  sand_dunes:           {text:'有名な砂丘がありますか?', icon:'🏜️', subjective:true},
-  imperial_university:  {text:'旧帝国大学がありますか?', icon:'🎓'},
-  famous_tower:         {text:'有名なタワーがありますか?', icon:'🗼', subjective:true},
-  famous_market:        {text:'有名な市場・朝市がありますか?', icon:'🐟', subjective:true},
-  exotic_port:          {text:'異国情緒の港町ですか?', icon:'🛳️'},
-  dome_stadium:         {text:'ドーム球場がありますか?', icon:'🏟️'},
-  tea_region:           {text:'茶どころとして有名ですか?', icon:'🍵', subjective:true},
-  gokaido_shukuba:      {text:'江戸の五街道の宿場町として知られている?', icon:'🚶', subjective:true},
-  pottery_famous:       {text:'焼き物・陶磁器で知られている?', icon:'🏺', subjective:true},
-  traditional_craft:    {text:'有名な伝統工芸で知られている?', icon:'🎨', subjective:true},
-  horse_racing:         {text:'競馬場がある?', icon:'🐎'},
-  literary_figure:      {text:'有名な作家・文学者ゆかりの街?', icon:'✒️', subjective:true},
-  joetsu_region:              {text:'上越地方?', icon:'🗾'},
-  chuetsu_region:              {text:'中越地方?', icon:'🗾'},
-  kaetsu_region:               {text:'下越地方?', icon:'🗾'},
-  joetsu_shinkansen_station:  {text:'上越新幹線の駅がある?', icon:'🚄'},
-  hokuriku_shinkansen_station:{text:'北陸新幹線の駅がある?', icon:'🚄'},
-  hokkaido_shinkansen_station:{text:'北海道新幹線の駅がある?', icon:'🚄'},
-  tohoku_shinkansen_station:{text:'東北新幹線の駅がある?', icon:'🚄'},
-  tokaido_shinkansen_station:{text:'東海道新幹線の駅がある?', icon:'🚄'},
-  sanyo_shinkansen_station:{text:'山陽新幹線の駅がある?', icon:'🚄'},
-  kyushu_shinkansen_station:{text:'九州新幹線の駅がある?', icon:'🚄'},
-  nishikyushu_shinkansen_station:{text:'西九州新幹線の駅がある?', icon:'🚄'},
-  yamagata_shinkansen_station:{text:'山形新幹線の駅がある?', icon:'🚄'},
-  akita_shinkansen_station:{text:'秋田新幹線の駅がある?', icon:'🚄'},
-  is_village:                  {text:'村?', icon:'🏘️'},
-  shinano_river:               {text:'信濃川が流れる?', icon:'🏞️'},
-  agano_river:                 {text:'阿賀野川が流れる?', icon:'🏞️'},
-  uono_river:                  {text:'魚野川が流れる?', icon:'🏞️'},
-  borders_yamagata:            {text:'山形県と接している?', icon:'🗺️'},
-  borders_fukushima:           {text:'福島県と接している?', icon:'🗺️'},
-  borders_gunma:               {text:'群馬県と接している?', icon:'🗺️'},
-  borders_nagano:              {text:'長野県と接している?', icon:'🗺️'},
-  borders_toyama:              {text:'富山県と接している?', icon:'🗺️'},
-  todai_campus: {text:'東京大学の有名キャンパスがある?', icon:'🎓', subjective:true},
-  waseda_campus: {text:'早稲田大学の主要キャンパスがある?', icon:'🎓'},
-  keio_campus: {text:'慶應義塾大学の主要キャンパスがある?', icon:'🎓'},
-  meiji_campus: {text:'明治大学のキャンパスがある?', icon:'🎓'},
-  rikkyo_campus: {text:'立教大学の主要キャンパスがある?', icon:'🎓'},
-  chuo_campus: {text:'中央大学の主要キャンパスがある?', icon:'🎓'},
-  tus_campus: {text:'東京理科大学の主要キャンパスがある?', icon:'🎓'},
-  imperial_palace: {text:'皇居がある?', icon:'🏯'},
-  ginza: {text:'銀座がある?', icon:'💎'},
-  tokyo_tower_ward: {text:'東京タワーがある?', icon:'🗼'},
-  tokyo_dome_ward: {text:'東京ドームがある?', icon:'⚾'},
-  sensoji: {text:'浅草寺がある?', icon:'⛩️'},
-  skytree_ward: {text:'東京スカイツリーがある?', icon:'🗼'},
-  toyosu_market: {text:'豊洲市場がある?', icon:'🐟'},
-  haneda_ward: {text:'羽田空港がある?', icon:'✈️'},
-  shibamata_taishakuten: {text:'柴又帝釈天がある?', icon:'⛩️'},
-  kasai_park: {text:'葛西臨海公園がある?', icon:'🎡'},
-  broadway_nakano: {text:'ブロードウェイがある?', icon:'🏬'},
-  koenji_area: {text:'高円寺・阿佐ヶ谷・荻窪のどれかがある?', icon:'🎸'},
-  jiyugaoka: {text:'自由が丘がある?', icon:'🍰'},
-  shakujii_park: {text:'石神井公園がある?', icon:'🌳'},
-  odakyu_line: {text:'小田急線の駅がある?', icon:'🚃'},
-  keio_inokashira_line: {text:'京王線または井の頭線の駅がある?', icon:'🚃'},
-  tokyu_line: {text:'東急線の駅がある?', icon:'🚃'},
-  keikyu_line: {text:'京急線の駅がある?', icon:'🚃'},
-  seibu_line: {text:'西武鉄道の駅がある?', icon:'🚃'},
-  tobu_main_station: {text:'東武鉄道(東上線・越生線以外)の駅がある?', icon:'🚃'},
-  tobu_tojo_station: {text:'東武東上線の駅がある?', icon:'🚃'},
-  utsunomiya_station: {text:'宇都宮線(黒磯以南)の駅がある?', icon:'🚃'},
-  takasaki_line_station: {text:'高崎線の駅がある?', icon:'🚃'},
-  keisei_line: {text:'京成線の駅がある?', icon:'🚃'},
-  tsukuba_express: {text:'つくばエクスプレスの駅がある?', icon:'🚄'},
-  rinkai_line: {text:'りんかい線の駅がある?', icon:'🚃'},
-  yurikamome: {text:'ゆりかもめの駅がある?', icon:'🚝'},
-  toden_arakawa: {text:'都電荒川線の駅・停留場がある?', icon:'🚋'},
-  nippori_toneri: {text:'日暮里・舎人ライナーの駅がある?', icon:'🚝'},
-  tokyo_bay: {text:'東京湾に面している?', icon:'🌊'},
-  tama_river: {text:'多摩川に接している?', icon:'🏞️'},
-  sumida_river: {text:'隅田川に接している?', icon:'🏞️'},
-  arakawa_river: {text:'荒川に接している?', icon:'🏞️'},
-  edogawa_river: {text:'江戸川に接している?', icon:'🏞️'},
-  meguro_river: {text:'目黒川が流れている?', icon:'🏞️'},
-  shakujii_river: {text:'石神井川が流れている?', icon:'🏞️'},
-  borders_kanagawa: {text:'神奈川県と接している?', icon:'🗺️'},
-  borders_saitama: {text:'埼玉県と接している?', icon:'🗺️'},
-  borders_chiba: {text:'千葉県と接している?', icon:'🗺️'},
-  yamanote_line: {text:'山手線の駅がある?', icon:'🚃'},
-  keihintohoku_line: {text:'京浜東北線の駅がある?', icon:'🚃'},
-  chuo_rapid: {text:'中央線快速の駅がある?', icon:'🚃'},
-  chuo_sobu: {text:'中央・総武線各駅停車の駅がある?', icon:'🚃'},
-  joban_line: {text:'常磐線系統の駅がある?', icon:'🚃'},
-  saikyo_line: {text:'埼京線の駅がある?', icon:'🚃'},
-  ueno_station: {text:'上野駅がある?', icon:'🚉'},
-  akabane_station: {text:'赤羽駅がある?', icon:'🚉'},
-  nippori_station: {text:'日暮里駅がある?', icon:'🚉'},
-  tsunagari_mayu_police: {text:'眉毛が繋がったおまわりさんがいる?', icon:'👮'},
-  tv_station_area: {text:'テレビ局が立地する?', icon:'📺'},
-  sazae_family: {text:'国民的4コマ漫画の一家が住んでいる?', icon:'🏠'},
-  hachiko_area: {text:'駅前で主人を待ち続けた犬が有名?', icon:'🐕', subjective:true},
-  yose_hall: {text:'落語の定席寄席がある?', icon:'🎤'},
-  sailor_moon_stage: {text:'月にかわっておしおきする戦士の舞台?', icon:'🌙'},
-  godzilla_head: {text:'巨大な怪獣の頭がビルから出ている?', icon:'🦖'},
-  rakugo_stage:  {text:'有名な古典落語の舞台として知られる?', icon:'🎙️', subjective:true},
-  sanma_famous:  {text:'さんまで有名?', icon:'🐟', subjective:true},
-  monzen:           {text:'有名な門前町ですか?', icon:'🙏', subjective:true},
-  bedtown:          {text:'東京23区または政令指定都市のベッドタウン?', icon:'🏠', subjective:true},
-  skijyou:          {text:'有名なスキー場がある?', icon:'⛷️', subjective:true},
-  geopark:          {text:'ジオパークに指定されている?', icon:'🌋'},
-  nuclearpowerplant:{text:'原子力発電所がある?', icon:'☢️'},
-  monozukuri:       {text:'ものづくり(製造業)で知られている?', icon:'🏭', subjective:true},
-  chukakushi:       {text:'中核市ですか?', icon:'🏛️'},
-  tokureishi:       {text:'施行時特例市(かつての特例市)ですか?', icon:'📜'},
-  kaikyo_machi:        {text:'海峡のマチ?', icon:'🌊'},
-  gakuto:              {text:'「楽都」と呼ばれる音楽のまち?', icon:'🎵', subjective:true},
-  hula_girl:           {text:'『フラガール』のふるさと?', icon:'🌺'},
-  kannon_zo:           {text:'観音像が有名?', icon:'🗿', subjective:true},
-  koedo:               {text:'舟運と蔵造りの町並みで知られる小江戸三市の一つ?', icon:'🏮', subjective:true},
-  imono_kupola:        {text:'鋳物産業・キューポラの街として知られる?', icon:'🏭', subjective:true},
-  aeon_laketown:       {text:'イオンレイクタウンがある?', icon:'🛍️'},
-  funasshi_famous:     {text:'ふなっしーで全国的に知られた?', icon:'🍐', subjective:true},
-  takao_mountain:      {text:'高尾山がある?', icon:'⛰️'},
-  curry_famous:        {text:'カレーで有名なマチ?', icon:'🍛', subjective:true},
-  anime_seichi:        {text:'アニメの聖地?', icon:'📺'},
-  number_in_name:      {text:'市名に数字(一、二、三…)が入っている?', icon:'🔢'},
-  kigyo_joukamachi:    {text:'企業城下町として知られる?', icon:'🏢', subjective:true},
-  hankyu_line:         {text:'阪急電車が通っている?', icon:'🚃'},
-  yayoiken_seichi:     {text:'聖地となったやよい軒がある?', icon:'🍚'},
-  hirakata_park:       {text:'ひらかたパークがある?', icon:'🎡'},
-  keihan_line:         {text:'京阪電車が通っている?', icon:'🚃'},
-  kawachi_ondo:        {text:'河内音頭で知られる?', icon:'🎶', subjective:true},
-  rugby_machi:         {text:'ラグビーのまち?', icon:'🏉'},
-  kougyou_toshi:       {text:'工業都市のイメージが強い?', icon:'🏭', subjective:true},
-  hyoujun_jigosen:     {text:'日本標準時子午線が通る?', icon:'🕐'},
-  koushien:            {text:'阪神甲子園球場がある?', icon:'⚾'},
-  bikan_chiku:         {text:'美観地区で有名?', icon:'🏯', subjective:true},
-  gunkou_machi:        {text:'軍港のまち?', icon:'⚓'},
-  seitetsu_kouro:      {text:'製鉄所の高炉がある?', icon:'🏭'},
-  fugu_famous:         {text:'ふぐで有名?', icon:'🐡', subjective:true},
-  tire_famous:         {text:'タイヤで有名?', icon:'🛞', subjective:true},
-  hamburger_famous:    {text:'ハンバーガーで有名?', icon:'🍔', subjective:true},
-  kenkyu_gakuen_toshi: {text:'研究学園都市として知られる?', icon:'🔬', subjective:true},
-  atsui_machi:         {text:'「暑い街」として全国ニュースになりやすい?', icon:'🌡️'},
-  action_kamen:        {text:'アクション仮面が好きな5歳児が住んでいる?', icon:'🦸'},
-  senbei_famous:       {text:'せんべいで有名?', icon:'🍘', subjective:true},
-  tanabata_famous:     {text:'七夕まつりで有名?', icon:'🎋', subjective:true},
-  uirou_famous:        {text:'ういろうで有名?', icon:'🍡', subjective:true},
-  southern_seichi:     {text:'サザンオールスターズの聖地?', icon:'🎤'},
-  b_kyu_gourmet:       {text:'有名なB級グルメがある?', icon:'🍜', subjective:true},
-  beigun_kichi:        {text:'米軍基地がある?', icon:'🎖️'},
-  shinkai_gyo:         {text:'深海水族館がある?', icon:'🐟'},
-  saboten_machi:       {text:'サボテンのまちとして知られる?', icon:'🌵', subjective:true},
-  combinat_yakei:      {text:'コンビナート夜景で有名?', icon:'🌃', subjective:true},
-  danjiri_famous:      {text:'だんじり祭で全国的に有名?', icon:'🎊', subjective:true},
-  onaji_ookawa:        {text:'市名と同じ大きな川が流れている?', icon:'🏞️', subjective:true},
-  kageki_dan:          {text:'有名な歌劇団の本拠地?', icon:'🎭', subjective:true},
-  kitanotakeshi:       {text:'北野武が幼少期を過ごしたマチ?', icon:'🎞️'},
-  musashino_line:      {text:'JR武蔵野線が通っている?', icon:'🚃'},
-  ekimei_chigau:       {text:'市の中心駅の名前が市名と異なる?', icon:'🚉'},
-  prefectural_capital: {text:'都道府県庁の所在地?', icon:'🏛️'},
-  borders_other_pref:  {text:'他の都道府県と境を接している?', icon:'🗺️'},
-  formed_after_2000:   {text:'2000年以降の新設合併で誕生した?', icon:'🤝'},
-  national_university: {text:'国立大学の本部がある?', icon:'🎓'},
-  expressway_junction: {text:'高速道路のジャンクション(JCT)がある?', icon:'🛣️'},
-  hiragana_name:       {text:'名前がすべてひらがな?', icon:'🔤'},
-  direction_in_name:   {text:'名前に「東・西・南・北」が入っている?', icon:'🧭'},
-  old_province_name:   {text:'名前が旧国名に由来する?', icon:'📜'},
-  public_racing_venue: {text:'公営競技場(競馬・競輪・ボート・オートレース)がある?', icon:'🚤'},
-  national_government_park: {text:'国営公園がある?', icon:'🌳'},
-  film_city:           {text:'映画・映像のまちとして知られる?', icon:'🎬', subjective:true},
-  shinsengumi:         {text:'新選組ゆかりのまち?', icon:'⚔️'},
-  shonan_area:         {text:'「湘南」と呼ばれる地域にある?', icon:'🏄', subjective:true},
-  white_mirin_origin:  {text:'白みりん発祥の地?', icon:'🍶'},
-  douou_area:               {text:'道央地方にありますか?', icon:'🧭'},
-  doutou_area:              {text:'道東地方にありますか?', icon:'🧭'},
-  dohoku_area:              {text:'道北地方にありますか?', icon:'🧭'},
-  sapporo_metro:            {text:'札幌都市圏に含まれますか?', icon:'🏙️'},
-  ishikari_plain:           {text:'石狩平野にありますか?', icon:'🌾'},
-  historical_port_hokkaido: {text:'北海道を代表する歴史的な港町ですか?', icon:'⚓'},
-  industrial_port_hokkaido: {text:'工業港のあるマチですか?', icon:'🏭'},
-  hakodate_honsen:          {text:'函館本線が通っていますか?', icon:'🚃'},
-  ishikari_river:           {text:'石狩川が流れていますか?', icon:'🏞️'},
-  tsugaru_area:       {text:'津軽地方にありますか?', icon:'🧭'},
-  sendai_metro:       {text:'仙台都市圏に含まれますか?', icon:'🏙️'},
-  kitakami_basin:     {text:'北上川流域のマチですか?', icon:'🏞️'},
-  shonai_area:        {text:'庄内地方にありますか?', icon:'🧭'},
-  hamadori_area:      {text:'福島県の浜通りにありますか?', icon:'🧭'},
-  nakadori_area:      {text:'福島県の中通りにありますか?', icon:'🧭'},
-  aizu_area:          {text:'会津地方にありますか?', icon:'🧭'},
-  sanriku_area:       {text:'三陸沿岸のマチですか?', icon:'🌊'},
-  north_kanto:        {text:'北関東3県のマチですか?', icon:'🧭'},
-  tama_area:          {text:'東京の多摩地域にありますか?', icon:'🧭'},
-  tokatsu_area:       {text:'千葉県の東葛地域にありますか?', icon:'🧭'},
-  ryomo_area:         {text:'群馬県と栃木県にまたがる両毛地域ですか?', icon:'🧭'},
-  tone_river_area:    {text:'利根川に接していますか?', icon:'🏞️'},
-  sotetsu_line:       {text:'相鉄線の駅がありますか?', icon:'🚃'},
-  hokuriku_three_pref:{text:'北陸3県のマチですか?', icon:'🧭'},
-  koshin_area:        {text:'甲信地方にありますか?', icon:'🧭'},
-  tokai_area:         {text:'東海地方にありますか?', icon:'🧭'},
-  owari_area:         {text:'愛知県の尾張地方ですか?', icon:'🧭'},
-  mikawa_area:        {text:'愛知県の三河地方ですか?', icon:'🧭'},
-  izu_area:           {text:'伊豆地方にありますか?', icon:'🧭'},
-  suruga_area:        {text:'駿河地方にありますか?', icon:'🧭'},
-  totomi_area:        {text:'遠江地方にありますか?', icon:'🧭'},
-  hida_area:          {text:'岐阜県の飛騨地方ですか?', icon:'🧭'},
-  mino_area:          {text:'岐阜県の美濃地方ですか?', icon:'🧭'},
-  hokushin_area:      {text:'長野県の北信地方ですか?', icon:'🧭'},
-  toshin_area:        {text:'長野県の東信地方ですか?', icon:'🧭'},
-  chushin_area:       {text:'長野県の中信地方ですか?', icon:'🧭'},
-  nanshin_area:       {text:'長野県の南信地方ですか?', icon:'🧭'},
-  meitetsu_line:      {text:'名鉄電車が通っていますか?', icon:'🚃'},
-  keihanshin_area:    {text:'京阪神地域にありますか?', icon:'🏙️'},
-  hokusetsu_area:     {text:'北摂地域にありますか?', icon:'🧭'},
-  kawachi_area:       {text:'河内地域にありますか?', icon:'🧭'},
-  senshu_area:        {text:'泉州地域にありますか?', icon:'🧭'},
-  hanshin_area:       {text:'阪神間のマチですか?', icon:'🧭'},
-  harima_area:        {text:'播磨地方にありますか?', icon:'🧭'},
-  tajima_area:        {text:'但馬地方にありますか?', icon:'🧭'},
-  tamba_area:         {text:'丹波地方にありますか?', icon:'🧭'},
-  kyoto_north:        {text:'京都府北部にありますか?', icon:'🧭'},
-  nara_basin:         {text:'奈良盆地にありますか?', icon:'🧭'},
-  kii_peninsula:      {text:'紀伊半島にありますか?', icon:'🧭'},
-  nankai_line:        {text:'南海電車が通っていますか?', icon:'🚃'},
-  glasses_industry:            {text:'メガネ産業で有名?', icon:'🤓', subjective:true},
-  towel_industry:              {text:'タオルで有名?', icon:'🧺', subjective:true},
-  musical_instruments:         {text:'楽器製造で有名?', icon:'🎹', subjective:true},
-  gold_leaf:                   {text:'金箔で有名?', icon:'✨', subjective:true},
-  denim_industry:              {text:'デニム・ジーンズで有名?', icon:'👖', subjective:true},
-  pearl_farming:               {text:'真珠の養殖で有名?', icon:'🦪', subjective:true},
-  shipbuilding:                {text:'造船業で有名?', icon:'🚢', subjective:true},
-  furniture_industry:          {text:'家具の産地として有名?', icon:'🪑', subjective:true},
-  washi_famous:                {text:'和紙の産地として有名?', icon:'📜', subjective:true},
-  pharmaceutical_industry:     {text:'製薬産業で知られる?', icon:'💊', subjective:true},
-  fireworks_industry:          {text:'花火の製造で有名?', icon:'🎆', subjective:true},
-  stone_industry:              {text:'石材・石切りで有名?', icon:'🪨', subjective:true},
-  vinegar_famous:              {text:'酢の生産で有名?', icon:'🍶', subjective:true},
-  soy_sauce_famous:            {text:'醤油の生産で有名?', icon:'🍶', subjective:true},
-  miso_famous:                 {text:'八丁味噌で有名?', icon:'🍲', subjective:true},
-  gyoza_famous:                {text:'餃子で有名?', icon:'🥟', subjective:true},
-  yakisoba_famous:             {text:'焼きそばで有名?', icon:'🍜', subjective:true},
-  udon_famous:                 {text:'うどんで有名?', icon:'🍜', subjective:true},
-  soba_famous:                 {text:'そばで有名?', icon:'🍜', subjective:true},
-  ramen_famous:                {text:'ラーメンで有名?', icon:'🍜', subjective:true},
-  castella_famous:             {text:'カステラで有名?', icon:'🍰', subjective:true},
-  kamaboko_famous:             {text:'かまぼこで有名?', icon:'🍥', subjective:true},
-  lacquerware_famous:          {text:'漆器で有名?', icon:'🥢', subjective:true},
-  ancient_provincial_capital:  {text:'古代の国府が置かれていた?', icon:'🏛️'},
-  kokubunji_site:              {text:'国分寺・国分尼寺跡がある?', icon:'🏯'},
-  traditional_buildings_district: {text:'重要伝統的建造物群保存地区がある?', icon:'🏘️'},
-  little_kyoto:                {text:'「小京都」と呼ばれている?', icon:'⛩️', subjective:true},
-  giant_buddha:                {text:'巨大な大仏・観音像がある?', icon:'🗿'},
-  sea_torii:                   {text:'海上や海辺の大鳥居で有名?', icon:'⛩️', subjective:true},
-  deer_in_city:                {text:'鹿が市街地を歩くことで有名?', icon:'🦌', subjective:true},
-  gassho_zukuri:               {text:'合掌造り集落がある?', icon:'🏠'},
-  ferry_available:             {text:'定期フェリーがある?', icon:'⛴️'},
-  no_railway_station:          {text:'市内に鉄道駅がひとつもない?', icon:'🚉'},
-  shikoku_pilgrimage:          {text:'四国八十八ヶ所の札所がある?', icon:'🙏'},
-  olympic_venue:               {text:'オリンピック競技が開催された?', icon:'🏅'},
-  famous_battlefield:          {text:'有名な古戦場がある?', icon:'⚔️', subjective:true},
-  kitamaebune_port:            {text:'北前船の寄港地として栄えた?', icon:'⛵', subjective:true},
-  famous_fish_catch:           {text:'漁獲される特定の魚介で全国的に有名?', icon:'🐟', subjective:true},
+  hitachi_seaside_park: {text:'ネモフィラで有名な国営ひたち海浜公園がある？', icon:'💐'},
+  tsuchiura_hanabi: {text:'日本三大花火大会の一つに数えられる全国花火競技大会が開かれる？', icon:'🎆'},
+  koga_kubo: {text:'室町時代に鎌倉公方の流れをくむ公方が拠点を置いた？', icon:'🏯'},
+  toride_geidai: {text:'利根川沿いにあり、競輪場と東京藝術大学のキャンパスがある？', icon:'🎨'},
+  shimodate_gion: {text:'日本最大級の大神輿が出る下館祇園まつりがある？', icon:'🏮'},
+  kamisu_gallery: {text:'海岸沿いの長い防波堤に壁画が並ぶ「1000人画廊」がある？', icon:'🎨'},
+  tsukumai: {text:'高さ約14メートルの柱上で曲芸を行う伝統行事「撞舞」がある？', icon:'🎪'},
+  ushiku_daibutsu: {text:'世界最大の大仏がある？', icon:'🗿'},
+  kashima_jingu: {text:'東国三社の一つ、鹿島神宮がある？', icon:'⛩️'},
+  kokuo_jinja: {text:'平将門を祭る國王神社がある？', icon:'⛩️'},
+  warp_station_edo: {text:'時代劇の野外撮影施設「ワープステーション江戸」がある？', icon:'🎬'},
+  ryujin_ohashi: {text:'歩行者専用として国内最大級の竜神大吊橋がある？', icon:'🌉'},
+  ayumizaki_park: {text:'霞ヶ浦を一望できる歩崎公園がある？', icon:'🏞️'},
+  melon_hokota: {text:'メロンの産地として全国的に知られる？', icon:'🍈', subjective:true},
+  ibaraki_airport: {text:'茨城空港がある？', icon:'✈️'},
+  makabe_district: {text:'真壁地区に重要伝統的建造物群保存地区がある？', icon:'🏘️'},
+  edosaki_kabocha: {text:'地理的表示保護制度に登録された江戸崎かぼちゃの産地？', icon:'🎃'},
+  nishishioko_butai: {text:'組み立て式の農村歌舞伎舞台「西塩子の回り舞台」がある？', icon:'🎭'},
+  itako_ayame: {text:'あやめまつりで「嫁入り舟」が運航される？', icon:'💐'},
+  oyama_hyojo: {text:'関ヶ原の戦いの直前に徳川家康が軍議を開いた地？', icon:'🏯'},
+  uzumagawa_kura: {text:'蔵造りの町並みが残り、巴波川で遊覧船が運航する？', icon:'🛶'},
+  ashikaga_gakko: {text:'日本最古の学校とされる史跡がある？', icon:'🎓'},
+  shiobara_onsen: {text:'塩原温泉郷がある？', icon:'♨️'},
+  nikko_toshogu: {text:'世界遺産の東照宮がある？', icon:'⛩️'},
+  kyuroku_kan: {text:'蒸気機関車を展示する「SLキューロク館」がある？', icon:'🚂'},
+  yamaage_matsuri: {text:'ユネスコ無形文化遺産の山あげ祭が行われる？', icon:'🎭'},
+  kanto_shinetsu_tsunagu: {text:'「関東と信越つなぐ○○市？」', icon:'🛣️'},
+  tajima_yahei: {text:'世界遺産の田島弥平旧宅がある？', icon:'🏠'},
+  kiryu_nokogiri: {text:'織物工場のノコギリ屋根が多く残り、「球都」と呼ばれる？', icon:'🏭', subjective:true},
+  tsutsujigaoka_bunbuku: {text:'つつじが岡公園と分福茶釜の伝説で知られる？', icon:'🌺', subjective:true},
+  ikaho_onsen: {text:'石段街で有名な伊香保温泉がある？', icon:'♨️'},
+  usui_meganebashi: {text:'碓氷峠の「めがね橋」がある？', icon:'🌉'},
+  tomihiro_museum: {text:'星野富弘の作品を展示する富弘美術館がある？', icon:'🖼️'},
+  fukiware_no_taki: {text:'「東洋のナイアガラ」とも呼ばれる吹割の滝がある？', icon:'💦'},
+  railway_museum: {text:'国内最大級の鉄道博物館がある？', icon:'🚄'},
+  toki_no_kane: {text:'蔵造りの町並みと「時の鐘」がある？', icon:'🔔'},
+  koku_kinen_park: {text:'日本初の飛行場跡を整備した航空記念公園がある？', icon:'✈️'},
+  misato_junction: {text:'東京外環道・常磐道・首都高速が接続するジャンクションがある？', icon:'🛣️'},
+  toda_boat: {text:'1964年東京五輪のボート競技会場がある？', icon:'🚣'},
+  shibusawa_eiichi: {text:'渋沢栄一の生誕地？', icon:'💴'},
+  konosu_hina: {text:'日本一高いピラミッドひな壇で知られる？', icon:'🎎', subjective:true},
+  first_outlet: {text:'日本初のアウトレットモールが開業した地？', icon:'🛍️'},
+  jumbo_koinobori: {text:'全長100メートルのジャンボこいのぼりを揚げる？', icon:'🎏'},
+  higashimatsuyama_yakitori: {text:'豚のカシラ肉をみそだれで食べる「やきとり」で有名？', icon:'🍢', subjective:true},
+  seitenkyu: {text:'日本最大級の道教寺院「聖天宮」がある？', icon:'⛩️'},
+  riken_hq: {text:'理化学研究所の本部がある？', icon:'🔬'},
+  hanawa_hokiichi: {text:'盲目の国学者・塙保己一の生誕地？', icon:'📚'},
+  sunaori_amagoi: {text:'巨大な龍蛇を作る伝統行事「脚折雨乞」がある？', icon:'🐉'},
+  sakitama_zerifry: {text:'さきたま古墳群とゼリーフライで有名？', icon:'🏺', subjective:true},
+  gongendo_sakura: {text:'桜と菜の花で有名な権現堂桜堤がある？', icon:'🌸'},
+  hitachidai_stadium: {text:'日立台のサッカー専用スタジアムがある？', icon:'⚽'},
+  suguyaru_ka: {text:'全国初の「すぐやる課」が設置された？', icon:'🏢'},
+  nakayama_hokekyoji: {text:'日蓮宗の大本山・中山法華経寺がある？', icon:'⛩️'},
+  kominato_railway: {text:'小湊鐵道の本社と起点駅がある？', icon:'🚃'},
+  yatsu_higata: {text:'ラムサール条約登録湿地の谷津干潟がある？', icon:'🦆'},
+  tokyo_disney: {text:'東京ディズニーリゾートがある？', icon:'🎡'},
+  rekihaku: {text:'国立歴史民俗博物館がある？', icon:'🏛️'},
+  kikkoman_hq: {text:'キッコーマンの本社がある？', icon:'🏭'},
+  abiko_ekisoba: {text:'大きな唐揚げが乗った駅そばで有名？', icon:'🍜', subjective:true},
+  nomizo_no_taki: {text:'「濃溝の滝」と呼ばれる亀岩の洞窟がある？', icon:'💦'},
+  tokyo_german_village: {text:'名前に「東京」が付くドイツ風テーマパークがある？', icon:'🎡'},
+  inubosaki: {text:'関東最東端の犬吠埼がある？', icon:'🗺️'},
+  sawara_district: {text:'佐原地区に江戸情緒を残す重伝建がある？', icon:'🏘️'},
+  shirasato_kaigan: {text:'九十九里浜の白里海岸がある？', icon:'🏖️'},
+  sunosaki_lighthouse: {text:'洲埼灯台がある？', icon:'💡'},
+  mother_farm_nokogiri: {text:'マザー牧場と鋸山がある？', icon:'🐄'},
+  boshu_biwa: {text:'房州ビワの名産地？', icon:'🍑'},
+  ohara_hadaka: {text:'大原はだか祭りが行われる？', icon:'🏮'},
+  kamogawa_seaworld: {text:'シャチのショーで有名なシーワールドがある？', icon:'🐋'},
+  katsuura_tantanmen: {text:'夏でも比較的冷涼で、ご当地タンタンメンで知られる？', icon:'🍜', subjective:true},
+  oi_keibajo: {text:'大井競馬場がある？', icon:'🐎'},
+  tokyo_daibutsu: {text:'高さ13メートルの「東京大仏」がある？', icon:'🗿'},
+  showa_kinen_park: {text:'国営昭和記念公園がある？', icon:'🌳'},
+  kichijoji_harmonica: {text:'吉祥寺駅とハモニカ横丁がある？', icon:'🏘️'},
+  takahata_hijikata: {text:'高幡不動尊と土方歳三の生誕地がある？', icon:'⛩️'},
+  shimura_ken: {text:'志村けんのふるさと？', icon:'😄'},
+  tama_rokuto: {text:'多摩六都科学館がある？', icon:'🔭'},
+  ghibli_museum: {text:'三鷹の森ジブリ美術館がある？', icon:'🎬'},
+  sanrio_puroland: {text:'サンリオピューロランドがある？', icon:'🎀'},
+  mitakesan: {text:'御岳山と御岳渓谷がある？', icon:'🏔️'},
+  edo_tokyo_tatemono: {text:'江戸東京たてもの園がある？', icon:'🏛️'},
+  kurume_twin: {text:'福岡県にもそっくりな名前の市がある？', icon:'🔤'},
+  akishima_kujira: {text:'約200万年前のクジラ化石が発見された？', icon:'🐋'},
+  tamako_yamato: {text:'多摩湖の大部分があり、市名に旧国名が含まれる？', icon:'🏞️'},
+  yomiuri_land: {text:'よみうりランドがある？', icon:'🎢'},
+  second_smallest_city: {text:'全国の市で面積が2番目に小さい？', icon:'📏'},
+  hitotsubashi_univ: {text:'一橋大学ある文教都市？', icon:'🎓'},
+  jaxa_isas: {text:'JAXA宇宙科学研究所がある？', icon:'🚀'},
+  shirokoro_horumon: {text:'豚ホルモンを使う「シロコロホルモン」で有名？', icon:'🍢', subjective:true},
+  izumi_no_mori_awaodori: {text:'泉の森があり、夏に阿波おどりが開かれる？', icon:'💃'},
+  enoshima: {text:'江の島がある？', icon:'🏝️'},
+  omote_tanzawa: {text:'表丹沢登山の玄関口で、名水百選の湧水群がある？', icon:'🏔️'},
+  ebina_sa: {text:'東名高速の巨大サービスエリアがある？', icon:'🛣️'},
+  oyama_afuri: {text:'大山阿夫利神社がある？', icon:'⛩️'},
+  jogashima_maguro: {text:'城ヶ島と三崎まぐろで知られる？', icon:'🐟', subjective:true},
+  daiyuzan_kintaro: {text:'大雄山と金太郎伝説で知られる？', icon:'🏔️', subjective:true},
+  okutadami_dam: {text:'奥只見ダムがある？', icon:'🏞️'},
+  hokuetsu_kyoto: {text:'「北越の小京都」と呼ばれる？', icon:'🏘️', subjective:true},
+  knit_gosen: {text:'ニットの生産高が日本一？', icon:'🧶'},
+  kurokawa_yuden: {text:'日本最古の油田とされる黒川油田がある？', icon:'🛢️'},
+  niigata_smallest: {text:'新潟県で面積が最も小さい市？', icon:'📏'},
+  kitsune_yomeiri: {text:'「狐の嫁入り行列」が行われる？', icon:'🦊'},
+  ryokan_birthplace: {text:'良寛の生誕地？', icon:'📚'},
+  sakyu_momo: {text:'「幻の桃」と呼ばれる砂丘桃の産地？', icon:'🍑', subjective:true},
+  taishitamonja: {text:'大したもん蛇まつりが行われる？', icon:'🐉'},
+  gomadoyama_ajisai: {text:'護摩堂山の山頂に約3万株のあじさい園がある？', icon:'💐'},
+  ryugakubo: {text:'名水百選の龍ヶ窪がある？', icon:'💧'},
+  yahiko_jinja: {text:'越後一宮の彌彦神社がある？', icon:'⛩️'},
+  fuji_rock: {text:'フジロックフェスティバルが開催される？', icon:'🎸'},
+  tama_monorail_extension: {text:'多摩モノレールの延伸で、市内に初めて鉄道駅ができる予定？', icon:'🚝'},
+  banei_keiba: {text:'世界で唯一のばんえい競馬が開催されている？', icon:'🐴'},
+  ebetsu_renga: {text:'北海道遺産に選ばれた、れんがの産地？', icon:'🧱'},
+  kitami_hakka: {text:'戦前、世界のハッカ流通量の約7割を占めていた？', icon:'🌿'},
+  shikotsuko_futoko: {text:'日本最北の不凍湖がある？', icon:'🏞️'},
+  hamanasu_no_oka: {text:'約180種の植物が自生する「はまなすの丘公園」がある？', icon:'🌸'},
+  northernmost_city: {text:'日本最北端の市？', icon:'🗺️'},
+  shio_kazunoko: {text:'塩数の子の加工生産量が日本一？', icon:'🐟'},
+  canadian_world: {text:'「赤毛のアン」をテーマにしたカナディアンワールドがある？', icon:'🎡'},
+  garinko_go: {text:'世界初の流氷観光砕氷船「ガリンコ号」が運航する？', icon:'🚢'},
+  nosappu_misaki: {text:'日本本土最東端の納沙布岬がある？', icon:'🗺️'},
+  hirosaki_tenshu: {text:'東北地方で唯一、江戸時代から残る天守がある？', icon:'🏯'},
+  hasshoku_center: {text:'巨大な食品市場「八食センター」がある？', icon:'🐟'},
+  misawa_flight: {text:'世界初の太平洋無着陸横断飛行の出発地？', icon:'✈️'},
+  ishiwari_zakura: {text:'大きな花崗岩を割って育つ「石割桜」がある？', icon:'🌸'},
+  mutsu_kokufu: {text:'奈良・平安時代に陸奥国府と鎮守府が置かれた？', icon:'🏯'},
+  kanto_matsuri: {text:'竿燈まつりが開催される？', icon:'🏮'},
+  kamo_kurage: {text:'クラゲの展示で有名な加茂水族館がある？', icon:'🎐'},
+  uesugi_jinja: {text:'上杉謙信を祭る上杉神社がある？', icon:'⛩️'},
+  jionji: {text:'東北を代表する古刹・慈恩寺がある？', icon:'⛩️'},
+  shinjo_matsuri: {text:'毎年8月24～26日に、20台の豪華な山車が巡る祭りがある？', icon:'🎏'},
+  saito_mokichi: {text:'歌人・斎藤茂吉が生まれたマチ？', icon:'📚'},
+  hanamiyama: {text:'花見山公園がある？', icon:'🌸'},
+  nanko_park: {text:'松平定信が「士民共楽」の理念で築いた南湖公園がある？', icon:'🌳'},
+  nakoku_no_oka: {text:'須玖岡本遺跡を中心とする「奴国の丘歴史公園」がある？', icon:'🏺'},
+  miike_tanko: {text:'世界遺産の三池炭鉱・宮原坑と三池港がある？', icon:'⛏️'},
+  sakurai_futamigaura: {text:'海中の夫婦岩と白い鳥居で知られる桜井二見ヶ浦がある？', icon:'⛩️', subjective:true},
+  ushikubi_sueki: {text:'九州最大の須恵器窯跡群「牛頸須恵器窯跡」がある？', icon:'🏺'},
+  munakata_hetsugu: {text:'沖ノ島を御神体とする三宮のうち、辺津宮がある？', icon:'⛩️'},
+  goshogatani_kogoishi: {text:'古代山城の御所ヶ谷神籠石がある？', icon:'🏯'},
+  funabaru_kofun: {text:'豪華な馬具が古墳とは別の埋納坑から見つかった船原古墳がある？', icon:'🏺'},
+  hikari_no_michi: {text:'宮地嶽神社の参道に夕日が重なる「光の道」で知られる？', icon:'🌇', subjective:true},
+  tanabata_jinja: {text:'織姫を祭る「七夕神社（媛社神社）」がある？', icon:'🎋'},
+  nogata_meteorite: {text:'須賀神社に、世界最古級の落下記録を持つ隕石が伝わる？', icon:'☄️'},
+  yanagawa_kudari: {text:'掘割の川下りと北原白秋の生家で知られる？', icon:'🛶', subjective:true},
+  yame_gyokuro: {text:'福島地区に白壁の町並みが残り、玉露の産地として知られる？', icon:'🍵', subjective:true},
+  sakuta_no_unade: {text:'日本書紀にも記された古代の用水路「裂田の溝」がある？', icon:'💧'},
+  tagawa_sekitan: {text:'石炭記念公園に二本煙突と竪坑櫓が残る？', icon:'⛏️'},
+  hishino_suisha: {text:'菱野の三連水車と秋月の城下町がある？', icon:'💧'},
+  oda_hiroki_museum: {text:'洋画家・織田廣喜の作品を集めた美術館がある？', icon:'🖼️'},
+  kiyomizudera_teien: {text:'雪舟作と伝わる清水寺本坊庭園がある？', icon:'🌳'},
+  toyota_kyushu: {text:'トヨタ自動車九州の本社と宮田工場がある？', icon:'🚗'},
+  chikugo_yoshii: {text:'筑後吉井の白壁の町並みと果樹園で知られる？', icon:'🏘️', subjective:true},
+  karatsu_kunchi: {text:'ユネスコ無形文化遺産の祭りで、多くの曳山が巡行する？', icon:'🎏'},
+  tosu_junction: {text:'九州道・長崎道・大分道が集まるジャンクションがある？', icon:'🛣️'},
+  okawachiyama: {text:'鍋島藩窯が置かれた「秘窯の里・大川内山」がある？', icon:'🏺'},
+  takeo_onsen_romon: {text:'辰野金吾が設計した朱塗りの楼門がある温泉地？', icon:'♨️'},
+  ogi_yokan: {text:'表面に砂糖の結晶ができる切り羊羹と清水の滝で知られる？', icon:'🍡', subjective:true},
+  kunenan: {text:'紅葉の名所として知られる国の名勝「九年庵」がある？', icon:'🍁'},
+  yutoku_inari: {text:'日本三大稲荷の一つに数えられる祐徳稲荷神社がある？', icon:'⛩️'},
+  ureshino_bihada: {text:'日本三大美肌の湯の一つと温泉湯どうふで知られる？', icon:'♨️', subjective:true},
+  isahaya_meganebashi: {text:'洪水後に公園へ移設された石造二連アーチの眼鏡橋がある？', icon:'🌉'},
+  nagasaki_airport_omura: {text:'箕島を造成して造られた長崎空港がある？', icon:'✈️'},
+  koi_no_oyogu_machi: {text:'武家屋敷の水路と「鯉の泳ぐまち」で知られる？', icon:'🐟', subjective:true},
+  hara_castle: {text:'キリシタン勢力が籠城した世界遺産・原城跡がある？', icon:'🏯'},
+  unzen_jigoku: {text:'普賢岳の麓に地獄景観が広がる温泉地がある？', icon:'♨️'},
+  fukuejima_onidake: {text:'福江島の鬼岳と堂崎天主堂がある？', icon:'⛪'},
+  ajifry_seichi: {text:'「アジフライの聖地」を掲げる港町？', icon:'🐟'},
+  tsushima_border: {text:'日本と韓国の国境の島？', icon:'🗺️'},
+  mugi_shochu_iki: {text:'麦焼酎発祥の地とされ、原の辻遺跡がある？', icon:'🍶'},
+  nanatsugama_shonyudo: {text:'国の天然記念物に指定された七ツ釜鍾乳洞がある？', icon:'🕳️'},
+  hirado_oranda: {text:'江戸時代のオランダ商館が復元されている？', icon:'🏛️'},
+  igusa_yatsushiro: {text:'い草の産地で、地元の人は市名を「やっちろ」と言う？', icon:'🌾'},
+  sakitsu_shuraku: {text:'世界遺産の﨑津集落がある？', icon:'⛪'},
+  takaba_countrypark: {text:'竹迫城跡公園と県農業公園カントリーパークがある？', icon:'🌳'},
+  hiryu_no_kane: {text:'蓮華院誕生寺奥之院に大梵鐘「飛龍の鐘」がある？', icon:'🔔'},
+  misumi_nishiko: {text:'明治期の港湾施設が残る世界遺産・三角西港がある？', icon:'⚓'},
+  mandako_greenland: {text:'世界遺産の万田坑と大型遊園地グリーンランドがある？', icon:'⛏️'},
+  aoi_aso_jinja: {text:'茅葺き楼門を持つ国宝・青井阿蘇神社がある？', icon:'⛩️'},
+  kusasenrigahama: {text:'草千里ヶ浜と中岳火口がある？', icon:'🌋'},
+  takasakiyama_saru: {text:'高崎山のサルが有名？', icon:'🐒', subjective:true},
+  fukuzawa_karaage: {text:'福澤諭吉が生まれ、からあげの聖地として知られる？', icon:'🍗', subjective:true},
+  bungo_futamigaura: {text:'豊後二見ヶ浦に巨大なしめ縄が張られている？', icon:'⛩️'},
+  usa_jingu: {text:'全国の八幡社の総本宮とされる神宮がある？', icon:'⛩️'},
+  usuki_magaibutsu: {text:'国内を代表する国宝の磨崖仏群がある？', icon:'🗿'},
+  harajiri_no_taki: {text:'「東洋のナイアガラ」とも呼ばれる原尻の滝がある？', icon:'💦'},
+  kinrinko_yufuin: {text:'金鱗湖と湯の坪街道がある温泉地？', icon:'♨️'},
+  oka_castle: {text:'「荒城の月」のモデルとされる岡城跡がある？', icon:'🏯'},
+  showa_no_machi: {text:'昭和30年代の商店街を再生した「昭和の町」がある？', icon:'🏘️'},
+  sandwich_jokamachi: {text:'二つの武家屋敷地区に商人の町が挟まれた「サンドイッチ型城下町」？', icon:'🏯'},
+  futagoji: {text:'六郷満山文化を代表する両子寺がある？', icon:'⛩️'},
+  tsukumi_sakura_maguro: {text:'四浦半島の河津桜と保戸島のマグロ漁業で知られる？', icon:'🌸', subjective:true},
+  sekinoo_taki: {text:'関之尾滝と世界最大級の甌穴群がある？', icon:'💦'},
+  nobeoka_ishigaki: {text:'城跡に「千人殺し」と呼ばれる高石垣が残る？', icon:'🏯', subjective:true},
+  umagase_cross: {text:'柱状節理の断崖・馬ヶ背と「クルスの海」がある？', icon:'🪨'},
+  saitobaru_kofun: {text:'300基以上の古墳が集まる日本最大級の古墳群がある？', icon:'🏺'},
+  toimisaki_uma: {text:'都井岬に野生の御崎馬が生息する？', icon:'🐎'},
+  ebino_kogen: {text:'霧島連山の韓国岳や不動池を望む高原がある？', icon:'🏔️'},
+  shirokuma_tenmonkan: {text:'天文館の「しろくま」で有名？', icon:'🍧', subjective:true},
+  shiobitashi_onsen: {text:'坂本龍馬夫妻が新婚旅行で訪れた塩浸温泉がある？', icon:'♨️'},
+  kokuritsu_taiiku_univ: {text:'日本唯一の国立体育大学がある？', icon:'🎓'},
+  kamou_no_okusu: {text:'日本一の巨樹とされる蒲生の大クスがある？', icon:'🌳'},
+  tsuru_ettochi: {text:'国内最大級のツルの越冬地がある？', icon:'🦢'},
+  kinsakubaru_keihan: {text:'金作原原生林があり、郷土料理の鶏飯で知られる？', icon:'🌴', subjective:true},
+  satsumayaki_miyama: {text:'薩摩焼の里・美山と妙円寺詣りで知られる？', icon:'🏺', subjective:true},
+  bonotsu_ganjin: {text:'坊津の港町と、鑑真が上陸したと伝わる秋目浦がある？', icon:'⚓'},
+  mizonokuchi_doketsu: {text:'巨大な岩壁を貫く天然洞穴「溝ノ口洞穴」がある？', icon:'🕳️'},
+  chiran_bukeyashiki: {text:'知覧の武家屋敷庭園群と特攻平和会館がある？', icon:'🏘️'},
+  daguri_misaki: {text:'海を望むダグリ岬遊園地がある？', icon:'🎡'},
+  makurazaki_station: {text:'JR日本最南端の始発・終着駅があり、かつお節で知られる？', icon:'🚉', subjective:true},
+  bontan_shika: {text:'ボンタンの産地で、沖合の無人島に野生のシカがいる？', icon:'🍊'},
+  teppokan: {text:'種子島の歴史と火縄銃を紹介する「鉄砲館」がある？', icon:'🏛️'},
+  satsuma_ryugakusei: {text:'薩摩藩英国留学生記念館がある？', icon:'🏛️'},
+  koza_eisa: {text:'全島エイサーまつりと「コザ」の音楽文化で知られる？', icon:'🥁', subjective:true},
+  kaichu_doro_katsuren: {text:'海中道路と世界遺産の勝連城跡がある？', icon:'🌉'},
+  okinawa_convention: {text:'沖縄コンベンションセンターとトロピカルビーチがある？', icon:'🏖️'},
+  heiwa_kinen_himeyuri: {text:'平和祈念公園とひめゆりの塔がある？', icon:'🕊️'},
+  senagajima_umikaji: {text:'瀬長島ウミカジテラスと旧海軍司令部壕がある？', icon:'🏖️'},
+  kabira_bay: {text:'エメラルドグリーンの海で有名な川平湾がある？', icon:'🏝️'},
+  irabu_ohashi: {text:'海の上を渡る長大な伊良部大橋がある？', icon:'🌉'},
+  sefa_utaki: {text:'世界遺産の斎場御嶽とニライカナイ橋がある？', icon:'⛩️'},
+  kaike_onsen: {text:'山陰を代表する皆生温泉がある？', icon:'♨️'},
+  kurayoshi_shirakabe: {text:'白壁土蔵群と赤瓦の町並みがある？', icon:'🏘️'},
+  sesshu_teien: {text:'雪舟が築いたと伝わる庭園が複数ある？', icon:'🌳'},
+  iwami_ginzan: {text:'石見銀山遺跡がある？', icon:'⛏️'},
+  gonokawa_kako: {text:'中国地方最大の河川・江の川の河口がある？', icon:'🌊'},
+  nihon_sanmeien: {text:'日本三名園の一つがある？', icon:'🌳'},
+  horumon_udon: {text:'ホルモンうどんで知られる？', icon:'🍜', subjective:true},
+  kinojo: {text:'古代山城の鬼ノ城がある？', icon:'🏯'},
+  bitchu_matsuyama: {text:'現存天守の備中松山城がある？', icon:'🏯'},
+  saijo_sake: {text:'日本有数の酒どころ「西条」がある？', icon:'🍶'},
+  mihara_tako: {text:'タコ料理と海に浮かぶ城跡で知られる？', icon:'🐙', subjective:true},
+  kiri_no_umi: {text:'秋から冬の「霧の海」で知られる？', icon:'🌫️', subjective:true},
+  hiroshima_westmost: {text:'広島県で最も西に位置する市？', icon:'🗺️'},
+  anno_hideaki: {text:'『エヴァンゲリオン』の庵野秀明が生まれたマチ？', icon:'🤖'},
+  tokuyama_combinat: {text:'徳山の工場夜景やコンビナートで知られる？', icon:'🏭', subjective:true},
+  kintaikyo: {text:'五連の木造アーチ橋「錦帯橋」がある？', icon:'🌉'},
+  cement_glass: {text:'セメント産業とガラス文化で知られる？', icon:'🏭', subjective:true},
+  led_valley: {text:'LED関連企業の集積で知られる「光のまち」？', icon:'💡', subjective:true},
+  naruto_uzushio: {text:'世界最大級の渦潮を間近で見られる？', icon:'🌀'},
+  kincho_tanuki: {text:'金長たぬきの伝説で知られる？', icon:'🦝', subjective:true},
+  awa_dochu: {text:'国の天然記念物「阿波の土柱」がある？', icon:'🪨'},
+  mima_udatsu: {text:'「うだつの町並み」が残っている？', icon:'🏘️'},
+  iya_kazurabashi: {text:'祖谷のかずら橋や大歩危・小歩危がある？', icon:'🌉'},
+  marugame_uchiwa: {text:'現存天守の城とうちわで有名？', icon:'🏯', subjective:true},
+  chichibugahama: {text:'水面に空が映る父母ヶ浜がある？', icon:'🏖️'},
+  zenigata_sunae: {text:'巨大な寛永通宝の砂絵がある？', icon:'🪙'},
+  setoohashi_shikoku: {text:'瀬戸大橋の四国側の玄関口？', icon:'🌉'},
+  kukai_birthplace: {text:'弘法大師・空海の生誕地とされる？', icon:'⛩️'},
+  tebukuro_industry: {text:'手袋の生産量が日本一として知られる？', icon:'🧤', subjective:true},
+  uchinuki: {text:'名水「うちぬき」が市内各地から湧き出る？', icon:'💧'},
+  garyu_sanso: {text:'臥龍山荘や肱川の鵜飼で知られる？', icon:'🏯', subjective:true},
+  kezuribushi: {text:'削り節の生産が盛んな港町？', icon:'🐟', subjective:true},
+  yawatahama_champon: {text:'ご当地麺「○○○（市名）ちゃんぽん」で知られる？', icon:'🍜', subjective:true},
+  seiyo_geopark: {text:'四国○○（市名）ジオパークの中心となる市？', icon:'🗺️'},
+  botchan_theater: {text:'常設劇場「坊っちゃん劇場」がある？', icon:'🎭'},
+  kochi_ryoma_airport: {text:'高知県の空の玄関、高知龍馬空港がある？', icon:'✈️'},
+  chinkabashi: {text:'四万十川に架かる多くの沈下橋で知られる？', icon:'🌉', subjective:true},
+  noichi_zoo: {text:'高知県立のいち動物公園がある？', icon:'🦁'},
+  muroto_geopark: {text:'世界ジオパークに認定された岬がある？', icon:'🗺️'},
+  nabeyaki_ramen: {text:'鍋焼きラーメンをご当地グルメとする？', icon:'🍜'},
+  daruma_yuhi: {text:'冬の海に沈む「だるま夕日」で知られる？', icon:'🌇', subjective:true},
+  ashizuri_misaki: {text:'四国最南端の足摺岬がある？', icon:'🗺️'},
+  tosabushi: {text:'一本釣りの鰹節「土佐節」で知られる？', icon:'🐟', subjective:true},
+  yanase_museum: {text:'やなせたかし記念館がある？', icon:'🏛️'},
+  nagashima_nabana: {text:'国内最大級の遊園地となばなの里がある？', icon:'🎢'},
+  suzuka_circuit: {text:'F1日本グランプリが開かれる国際サーキットがある？', icon:'🏎️'},
+  magose_hinoki: {text:'熊野古道の馬越峠と、ヒノキの産地で知られる？', icon:'🌲', subjective:true},
+  sekijuku: {text:'東海道五十三次の宿場町・関宿が残る？', icon:'🏘️'},
+  toba_aquarium: {text:'国内有数の飼育種類数を誇る水族館と真珠島がある？', icon:'🐠'},
+  onigajo_hananoiwaya: {text:'鬼ヶ城・花の窟・七里御浜がある？', icon:'🪨'},
+  fujiwaradake_bairin: {text:'藤原岳と、梅林で知られる農業公園がある？', icon:'🌸'},
+  parque_ago: {text:'パルケエスパーニャと英虞湾がある？', icon:'🎡'},
+  iga_ninja_basho: {text:'忍者博物館と松尾芭蕉の生家がある？', icon:'🥷'},
+  kurokabe_chikubu: {text:'黒壁スクエアと竹生島がある？', icon:'🏘️'},
+  hachimanbori: {text:'八幡堀と水郷、近江商人の町並みがある？', icon:'🛶'},
+  biwako_ohashi_sagawa: {text:'琵琶湖大橋の東詰と佐川美術館がある？', icon:'🌉'},
+  jra_training: {text:'JRAの競走馬トレーニングセンターがある？', icon:'🐎'},
+  konan_sanzan: {text:'国宝建築を持つ「湖南三山」がある？', icon:'⛩️'},
+  metasequoia_shirahige: {text:'メタセコイア並木と湖中の大鳥居がある神社で知られる？', icon:'🌳', subjective:true},
+  gokasho_eigenji: {text:'五個荘の近江商人屋敷と永源寺がある？', icon:'🏘️'},
+  maizuru_akarenga: {text:'海上自衛隊の基地と赤れんが倉庫群がある？', icon:'⚓'},
+  byodoin_uji: {text:'平等院鳳凰堂と高級茶の産地で知られる？', icon:'⛩️', subjective:true},
+  iwashimizu_nagarebashi: {text:'石清水八幡宮と、増水時に流れるよう造られた木橋がある？', icon:'⛩️'},
+  toyonaka_kyujo: {text:'甲子園の前身大会が最初に開かれた球場跡がある？', icon:'⚾'},
+  cupnoodle_museum: {text:'カップヌードルミュージアムがある？', icon:'🍜'},
+  taiyo_no_to: {text:'太陽の塔と万博記念公園がある？', icon:'🗿'},
+  mofu_izumiotsu: {text:'国産毛布の一大産地？', icon:'🧣'},
+  imashirozuka_haniwa: {text:'大王の古墳と大規模な埴輪工場跡がある？', icon:'🏺'},
+  mizuma_nishikinohama: {text:'水間観音と二色の浜がある？', icon:'⛩️'},
+  moriguchi_daikon: {text:'世界最長級の細長い大根の名の由来となった京街道の宿場町？', icon:'🥬'},
+  hikari_no_kyokai: {text:'安藤忠雄設計の「光の教会」と隠れキリシタンの里がある？', icon:'⛪'},
+  kansai_airport_city: {text:'関西国際空港と大型アウトレットがある？', icon:'✈️'},
+  pl_tower: {text:'PL教団が作った巨大な白い塔がある？', icon:'🗼'},
+  naritasan_osaka: {text:'成田山の大阪別院がある？', icon:'⛩️'},
+  kanshinji_kongoji: {text:'高野街道と国宝を持つ観心寺・金剛寺がある？', icon:'⛩️'},
+  nunose_takenouchi: {text:'布忍神社の恋みくじと、日本遺産の竹内街道がある？', icon:'⛩️'},
+  nozaki_mairi: {text:'野崎まいりと飯盛城跡がある？', icon:'⛩️'},
+  ikegami_sone: {text:'大規模な弥生時代の環濠集落跡がある？', icon:'🏺'},
+  minoh_katsuoji: {text:'大滝と「勝運の寺」として知られる寺院がある？', icon:'🍁'},
+  kashiwara_budo: {text:'ブドウ栽培と亀の瀬地すべり地帯で知られる？', icon:'🍇', subjective:true},
+  ojin_ryo_wine: {text:'世界遺産の古墳群にある巨大な応神天皇陵とワインで知られる？', icon:'🍷', subjective:true},
+  panasonic_hq: {text:'パナソニックの本社がある？', icon:'🏭'},
+  torikai_depot: {text:'東海道新幹線の鳥飼車両基地がある？', icon:'🚄'},
+  takashinohama: {text:'南海高師浜線の終点と臨海工業地帯の工場夜景がある？', icon:'🏭'},
+  fujiidera_kannon: {text:'西国三十三所第5番札所と、国宝の千手観音像がある？', icon:'⛩️'},
+  sennan_rosegarden: {text:'海辺の大型公園と英国式ローズガーデンがある？', icon:'🌹'},
+  shijonawate_masatsura: {text:'楠木正行の終焉の地とされ、室池園地がある？', icon:'🏯'},
+  hoshi_no_buranko: {text:'七夕伝説と、巨大なつり橋「星のブランコ」がある？', icon:'🌉'},
+  sayamaike: {text:'日本最古級のため池と、安藤忠雄設計の博物館がある？', icon:'💧'},
+  pichipichi_beach: {text:'「ぴちぴちビーチ」と和泉砂岩の石工文化で知られる？', icon:'🏖️'},
+  sumoto_castle_onsen: {text:'淡路島中央部に城跡と温泉街がある？', icon:'🏯'},
+  ashiya_yodoko: {text:'高級住宅地として知られ、ヨドコウ迎賓館がある？', icon:'🏡', subjective:true},
+  itami_sake_airport: {text:'清酒発祥地の一つとされ、大阪国際空港の一部がある？', icon:'🍶'},
+  katsumeshi_kakurinji: {text:'郷土料理「かつめし」と国宝建築を持つ寺院がある？', icon:'🍚'},
+  tada_jinja: {text:'清和源氏ゆかりの多田神社と妙見山がある？', icon:'⛩️'},
+  sanda_hitohaku: {text:'県立の「人と自然の博物館」とブランド牛で知られる？', icon:'🐄', subjective:true},
+  kasai_globe_clock: {text:'旧軍飛行場跡と世界最大級の地球儀時計がある？', icon:'🌐'},
+  izanagi_yumebutai: {text:'国生み神話の神社と淡路夢舞台がある？', icon:'⛩️'},
+  tojoko_omocha: {text:'東条湖のおもちゃ王国と県立播磨中央公園がある？', icon:'🎠'},
+  tatsuno_shoyu_somen: {text:'しょうゆ醸造と手延べそうめんの産地で知られる？', icon:'🍜', subjective:true},
+  takada_sakura_jinaimachi: {text:'川沿いに約千本の桜が続き、古い寺内町が残る？', icon:'🌸'},
+  kingyo_yamatokoriyama: {text:'金魚養殖で知られる？', icon:'🐠', subjective:true},
+  tenri_shukyo_toshi: {text:'宗教都市として発展し、巨大な本部神殿がある？', icon:'⛩️'},
+  kashihara_jingu: {text:'神武天皇を祭る神宮と藤原宮跡がある？', icon:'⛩️'},
+  miwa_somen: {text:'三輪そうめんで知られる？', icon:'🍜', subjective:true},
+  gojo_kaki_shinmachi: {text:'柿の産地で、江戸時代の町並みが残る新町通りがある？', icon:'🍊'},
+  katsuragi_kodo: {text:'葛城古道と高鴨神社、古い町家が残る？', icon:'⛩️'},
+  ikoma_cablecar: {text:'日本最古の営業用ケーブルカーと山上遊園地がある？', icon:'🚡'},
+  dontsurubo: {text:'奇岩「屯鶴峯」と二上山の北麓に位置する？', icon:'🪨'},
+  taimadera_sumo: {text:'當麻寺と、相撲の始祖を紹介する資料館がある？', icon:'⛩️'},
+  uda_seiyaku: {text:'多くの製薬会社の創業者を輩出した？', icon:'💊'},
+  kuroe_shikki: {text:'黒江の町並みと紀州漆器で知られる？', icon:'🥢', subjective:true},
+  koyasan_gateway_pile: {text:'高野山への鉄道・道路の玄関口で、パイル織物の産地？', icon:'🧶'},
+  arida_mikan: {text:'全国有数のミカン産地で、山腹にかんきつ畑が広がる？', icon:'🍊'},
+  shortest_private_line: {text:'全長3キロ未満の短い私鉄路線が走る？', icon:'🚃'},
+  kumano_hongu_benkei: {text:'熊野本宮大社と弁慶ゆかりの地がある？', icon:'⛩️'},
+  kumano_hayatama_gotobiki: {text:'熊野速玉大社と、巨岩を御神体とする神社がある？', icon:'⛩️'},
+  kokawadera_momo: {text:'西国三十三所第3番札所と桃の産地で知られる？', icon:'🍑', subjective:true},
+  fujiko_f_birthplace: {text:'藤子・F・不二雄先生の出身地？', icon:'📚'},
+  shinkiro_maibotsurin: {text:'蜃気楼と埋没林の博物館がある？', icon:'🏛️'},
+  fujiko_a_buri: {text:'藤子不二雄A先生の出身地で寒ブリが名物？', icon:'🐟'},
+  hotaruika_museum: {text:'ホタルイカ専門の体験型博物館がある？', icon:'🦑'},
+  tulip_fair: {text:'国内最大級のチューリップフェアが開かれる？', icon:'🌷'},
+  merhen_kenchiku: {text:'西洋風の「メルヘン建築」が多い？', icon:'🏰', subjective:true},
+  gokayama_gassho: {text:'五箇山の合掌造り集落がある？', icon:'🏠'},
+  kaiwomaru_bridge: {text:'帆船海王丸と巨大な斜張橋がある？', icon:'⛵'},
+  wakura_notojima: {text:'和倉温泉と能登島がある？', icon:'♨️'},
+  komatsu_origin: {text:'世界的建設機械メーカーの発祥地？', icon:'🏭'},
+  senmaida_shikki: {text:'白米千枚田と漆器産業で知られる？', icon:'🌾', subjective:true},
+  rokugozaki: {text:'能登半島の先端に禄剛崎がある？', icon:'🗺️'},
+  kaga_onsenkyo: {text:'山代・山中・片山津の三温泉がある？', icon:'♨️'},
+  ufo_museum: {text:'UFOをテーマにした宇宙科学博物館がある？', icon:'🛸'},
+  shirayama_tedori: {text:'加賀国一宮と手取峡谷がある？', icon:'⛩️'},
+  matsui_museum: {text:'松井秀喜の野球博物館がある？', icon:'⚾'},
+  kehi_jindo: {text:'気比神宮と「人道の港」の資料館がある？', icon:'⛩️'},
+  miketsukuni_saba: {text:'御食国と鯖街道の起点として知られる？', icon:'🐟', subjective:true},
+  echizen_ono_castle: {text:'雲海に浮かぶ山城と湧水で知られる？', icon:'🏯', subjective:true},
+  awara_onsen: {text:'北陸有数の芦原温泉がある？', icon:'♨️'},
+  fujiq_highland: {text:'富士急ハイランドがある？', icon:'🎢'},
+  fuefuki_fruit_park: {text:'笛吹川フルーツ公園と西沢渓谷がある？', icon:'🍇'},
+  shinpu_shichirigan: {text:'新府城跡と七里岩の台地がある？', icon:'🏯'},
+  katakana_city_name: {text:'全国で唯一市名にカタカナが入る？', icon:'🔤'},
+  kiyosato_hakushu: {text:'清里高原と白州の蒸溜所がある？', icon:'🥃'},
+  shingen_zutsumi: {text:'信玄堤と赤坂台総合公園がある？', icon:'🏞️'},
+  isawa_onsen: {text:'石和温泉と桃源郷がある？', icon:'♨️'},
+  katsunuma_budo: {text:'勝沼のぶどう畑と大菩薩嶺がある？', icon:'🍇'},
+  name_same_as_route: {text:'市名と同じ名前の高速道路や鉄道の路線がある？', icon:'🛣️'},
+  kamikochi: {text:'上高地がある？', icon:'🏔️'},
+  sanada_bessho: {text:'真田氏の城下町で別所温泉がある？', icon:'🏯'},
+  okaya_silk: {text:'諏訪湖西岸の製糸業の町で蚕糸博物館がある？', icon:'🧵'},
+  ningyogeki_tenryukyo: {text:'人形劇フェスタと天龍峡で知られる？', icon:'🎭', subjective:true},
+  suzaka_garyu: {text:'蔵の町並みと臥竜公園がある？', icon:'🏞️'},
+  kaikoen_toson: {text:'懐古園と島崎藤村ゆかりの町？', icon:'🏯'},
+  takato_sakura: {text:'高遠城址公園の桜で知られる？', icon:'🌸', subjective:true},
+  sauce_katsudon: {text:'ソースカツ丼で有名？', icon:'🍚', subjective:true},
+  shinpei_ipponki: {text:'中山晋平記念館と一本木公園がある？', icon:'🎵'},
+  alpen_route_nagano: {text:'立山黒部アルペンルートの長野側玄関口？', icon:'🚡'},
+  kamakura_nanohana: {text:'かまくらの里と菜の花公園がある？', icon:'❄️'},
+  naraijuku_wine: {text:'奈良井宿と国産ワインで知られる？', icon:'🍷', subjective:true},
+  farthest_from_sea: {text:'日本で海から最も遠い地点がある？', icon:'🗺️'},
+  obasute_togura: {text:'姨捨の棚田と戸倉上山田温泉がある？', icon:'🌾'},
+  unnojuku_yunomaru: {text:'海野宿と湯の丸高原がある？', icon:'🏘️'},
+  wasabi_farm: {text:'国内最大級のわさび農場がある？', icon:'🌿'},
+  nagaragawa_ukai: {text:'長良川の鵜飼で有名？', icon:'🐦', subjective:true},
+  okuno_hosomichi_musubi: {text:'奥の細道むすびの地で「水の都」と呼ばれる？', icon:'💧', subjective:true},
+  hida_furuimachi: {text:'飛騨の古い町並みと日本三大美祭がある？', icon:'🏘️'},
+  mosaic_tile_museum: {text:'モザイクタイルミュージアムと永保寺がある？', icon:'🏛️'},
+  magome_kurikinton: {text:'馬籠宿と栗きんとんで知られる？', icon:'🌰', subjective:true},
+  udatsu_mino: {text:'うだつの上がる町並みと手すき和紙で知られる？', icon:'🏘️', subjective:true},
+  kaseki_museum: {text:'化石博物館と陶磁器産業で知られる？', icon:'🦴', subjective:true},
+  iwamura_akechi: {text:'岩村城下町と明知鉄道がある？', icon:'🏯'},
+  otajuku_satoyama: {text:'中山道太田宿と里山体験型公園がある？', icon:'🏘️'},
+  toki_outlet: {text:'陶磁器生産と大型アウトレットで知られる？', icon:'🏺', subjective:true},
+  aerospace_museum: {text:'国内最大級の航空宇宙博物館がある？', icon:'✈️'},
+  rose_garden_akechi: {text:'世界最大級のバラ園と明智城跡がある？', icon:'🌹'},
+  fuyu_kaki_origin: {text:'富有柿発祥の地とされる？', icon:'🍊'},
+  setogawa_shirakabe: {text:'瀬戸川と白壁土蔵街がある？', icon:'🏘️'},
+  usuzumi_zakura: {text:'樹齢1500年以上とされる淡墨桜がある？', icon:'🌸'},
+  gujo_odori: {text:'徹夜で踊るおどりで有名？', icon:'💃', subjective:true},
+  nihon_sanmeisen: {text:'日本三名泉の一つがある？', icon:'♨️'},
+  kisosansen_wajyu: {text:'木曽三川が集まる輪中地帯と国営公園がある？', icon:'🏞️'},
+  atami_moa: {text:'海上花火大会とMOA美術館で知られる？', icon:'🎆', subjective:true},
+  genbegawa_rakujuen: {text:'源兵衛川と楽寿園がある？', icon:'💧'},
+  sengen_taisha: {text:'浅間大社の総本宮と白糸の滝がある？', icon:'⛩️'},
+  omuroyama_jogasaki: {text:'大室山と城ヶ崎海岸がある？', icon:'🌋'},
+  horaibashi_sl: {text:'世界最長級の木造歩道橋とSL列車で知られる？', icon:'🌉', subjective:true},
+  gakunan_tagonoura: {text:'岳南電車と田子の浦港がある？', icon:'🚃'},
+  yaizu_katsuo: {text:'遠洋漁業の港とカツオ・マグロで知られる？', icon:'🐟', subjective:true},
+  kakegawa_castle: {text:'木造復元天守と花鳥園がある？', icon:'🏯'},
+  soccer_town_fujieda: {text:'サッカーの町で東海道の宿場が二つある？', icon:'⚽'},
+  gotemba_outlet: {text:'国内最大級のアウトレットと富士山麓の演習場がある？', icon:'🛍️'},
+  ecopa_hattasan: {text:'エコパスタジアムと法多山がある？', icon:'🏟️'},
+  shimoda_port: {text:'ペリー来航によって開港した港がある？', icon:'⚓'},
+  fuji_safari: {text:'富士サファリパークがある？', icon:'🦁'},
+  arai_sekisho: {text:'新居関所と豊田佐吉記念館がある？', icon:'🏯'},
+  shuzenji_toi: {text:'修善寺温泉と土肥金山がある？', icon:'♨️'},
+  hamaoka_lighthouse: {text:'浜岡原子力発電所と白亜の灯台がある？', icon:'💡'},
+  senkagawa_fukamushi: {text:'千框棚田と深蒸し茶で知られる？', icon:'🍵', subjective:true},
+  nirayama_hansharo: {text:'世界遺産の韮山反射炉がある？', icon:'🏛️'},
+  sagara_oil_airport: {text:'相良油田と県の空の玄関がある？', icon:'🛢️'},
+  masumida_keori: {text:'真清田神社と国内有数の毛織物産地？', icon:'⛩️'},
+  toyokawa_inari: {text:'寺院なのに稲荷と呼ばれる名刹がある？', icon:'⛩️'},
+  tsushima_tenno: {text:'天王信仰の総本社と車楽舟の祭りがある？', icon:'⛩️'},
+  kokonoe_mirin: {text:'九重味淋の本社と明石公園がある？', icon:'🏭'},
+  toyota_origin_kariya: {text:'トヨタグループ発祥の地で大型PAがある？', icon:'🏭'},
+  toyota_hq: {text:'世界最大級の自動車会社の本社がある？', icon:'🚗'},
+  nihon_denmark: {text:'「日本デンマーク」と呼ばれ七夕祭りが有名？', icon:'🌾', subjective:true},
+  matcha_sakushima: {text:'抹茶の産地で佐久島を市域に含む？', icon:'🍵'},
+  takeshima_resort: {text:'竹島と大型海洋リゾートがある？', icon:'🏝️'},
+  centrair_manekineko: {text:'中部国際空港と巨大な招き猫がある？', icon:'✈️'},
+  mandaraji_fuji: {text:'曼陀羅寺の藤まつりで知られる？', icon:'🌸', subjective:true},
+  komaki_castle: {text:'織田信長が初めて築いた城山がある？', icon:'🏯'},
+  konomiya_hadaka: {text:'国府宮のはだか祭と植木・苗木で知られる？', icon:'⛩️', subjective:true},
+  nagashino_horaiji: {text:'長篠城跡と鳳来寺山がある？', icon:'🏯'},
+  juraku_daibutsu: {text:'大規模製鉄所と聚楽園大仏がある？', icon:'🗿'},
+  aichi_kenko_mori: {text:'あいち健康の森と大倉公園がある？', icon:'🌳'},
+  shinmaiko_okada: {text:'新舞子マリンパークと岡田の古い町並みがある？', icon:'🏖️'},
+  kakitsubata_chiryu: {text:'無量寿寺のかきつばたと東海道の宿場で知られる？', icon:'🌸', subjective:true},
+  owariasahi_tower: {text:'県森林公園と展望タワーがある？', icon:'🌳'},
+  okehazama: {text:'桶狭間古戦場伝説地と中京競馬場がある？', icon:'🏯'},
+  aichi_bokujo: {text:'愛知牧場と岩崎城跡がある？', icon:'🐄'},
+  irago_longbeach: {text:'伊良湖岬と太平洋ロングビーチがある？', icon:'🏄'},
+  sendohira_renkon: {text:'船頭平閘門とレンコン産地で知られる？', icon:'🌿', subjective:true},
+  kiyosu_castle: {text:'清洲城と大規模なビール工場がある？', icon:'🏯'},
+  showa_nichijo: {text:'昭和日常博物館がある？', icon:'🏛️'},
+  kingyo_yatomi: {text:'金魚養殖と金魚水族館で知られる？', icon:'🐠', subjective:true},
+  miyoshi_canoe: {text:'三好池でカヌー競技が盛ん？', icon:'🛶', subjective:true},
+  shippoyaki: {text:'七宝焼を展示・体験できる施設がある？', icon:'🏺'},
+  ghibli_linimo: {text:'ジブリパークと磁気浮上式鉄道がある？', icon:'🎡'},
+  shinkansen:    {text:'新幹線の駅がある？', icon:'🚄'},
+  coastal:       {text:'海に面している？', icon:'🌊'},
+  designated:    {text:'政令指定都市？', icon:'🏙️'},
+  festival:      {text:'全国的に有名なお祭りがある？', icon:'🎆', subjective:true},
+  castle:        {text:'有名なお城がある？', icon:'🏯', subjective:true},
+  worldheritage: {text:'市内に世界遺産の構成資産がある？', icon:'⛩️'},
+  snow:          {text:'豪雪地帯・特別豪雪地帯に指定されている？', icon:'❄️'},
+  hot_40c:       {text:'観測史上40℃以上の気温を記録したことがある？', icon:'🌡️'},
+  active_volcano:{text:'市内に気象庁指定の活火山がある？', icon:'🌋'},
+  uchibo:        {text:'房総半島の内房側にある？', icon:'🌊'},
+  sotobo:        {text:'房総半島の外房側にある？', icon:'🌊'},
+  silk_heritage: {text:'製糸・養蚕施設が世界遺産の構成資産になっている？', icon:'🧶'},
+  silk_textile:  {text:'無形文化遺産の伝統的な絹織物を主に生産している？', icon:'🧵'},
+  moka_sl_line:  {text:'茨城県西部と栃木県東部を結ぶSL運行路線が通る？', icon:'🚂'},
+  kururi_line:   {text:'JR久留里線が市内を通る？', icon:'🚃'},
+  watarase_line: {text:'渡良瀬川上流の渓谷沿いを走る第三セクター線が通る？', icon:'🚃'},
+  oito_line:     {text:'大糸線が通る？', icon:'🚃'},
+  shinano_railway:{text:'しなの鉄道の駅がある？', icon:'🚃'},
+  echizen_railway:{text:'えちぜん鉄道の駅がある？', icon:'🚃'},
+  sunzu_line:    {text:'駿豆線が通る？', icon:'🚃'},
+  aikan_railway: {text:'愛知環状鉄道の駅がある？', icon:'🚃'},
+  kurobe_torokko:{text:'峡谷を走る観光トロッコ列車がある？', icon:'🚞'},
+  noto_area:     {text:'能登地域にある？', icon:'🗺️'},
+  dinosaur_museum:{text:'大規模な恐竜博物館がある？', icon:'🦕'},
+  echizen_washi_hamono:{text:'手すき和紙と打刃物の産地？', icon:'🧻'},
+  tojinbo:       {text:'東尋坊がある？', icon:'🌊'},
+  jomon_venus:   {text:'縄文のビーナスを所蔵する？', icon:'🏺'},
+  rokkoyo:       {text:'日本六古窯の産地？', icon:'🏺'},
+  mino_ware:     {text:'美濃焼の主要産地？', icon:'🏺'},
+  hamono_famous: {text:'日本有数の刃物産地？', icon:'🔪', subjective:true},
+  snow_festival: {text:'雪まつり・雪を使ったイベントで知られる？', icon:'❄️', subjective:true},
+  basin: {text:'盆地にある？', icon:'🏔️'},
+  airport:       {text:'市内に定期旅客便のある空港がある？', icon:'✈️'},
+  capital:       {text:'日本の首都？', icon:'🗼'},
+  noodle:        {text:'名物グルメは麺料理？', icon:'🍜'},
+  mascot_famous: {text:'全国区で有名なご当地キャラがいる？', icon:'🧸', subjective:true},
+  nihonkai:      {text:'日本海側の海に面している？', icon:'🌅'},
+  taiheiyo:      {text:'太平洋側の海に面している？', icon:'🌊'},
+  setonaikai:    {text:'瀬戸内海に面している？', icon:'⛵'},
+  famous_mountain:{text:'有名な山がある？', icon:'⛰️', subjective:true},
+  big_river:     {text:'大きな川が流れている？', icon:'🏞️', subjective:true},
+  big_bay:       {text:'大きな湾に面している？', icon:'⚓', subjective:true},
+  subway:        {text:'地下鉄が走っている？', icon:'🚇'},
+  onsen:         {text:'温泉地として知られている？', icon:'♨️', subjective:true},
+  sake:          {text:'酒蔵・日本酒で知られている？', icon:'🍶', subjective:true},
+  fireworks:     {text:'花火大会で有名である？', icon:'🎇', subjective:true},
+  castle_town:   {text:'城下町だった？', icon:'🏯'},
+  port_town:     {text:'港町として栄えた？', icon:'⚓', subjective:true},
+  rice_region:   {text:'米どころとして知られている？', icon:'🌾', subjective:true},
+  kana_name:     {text:'自治体名にひらがな・カタカナを含む？', icon:'🔤'},
+  kansai_dialect:{text:'関西弁圏に含まれる？', icon:'🗣️'},
+  ryukyu_dialect:{text:'琉球諸語・沖縄方言の地域？', icon:'🗣️'},
+  is_town_village:{text:'市ではなく町または村である？', icon:'🏘️'},
+  is_tokyo_ward: {text:'東京23区のどれかである？', icon:'🗼'},
+  ruins:          {text:'遺跡・古墳で有名？', icon:'🏛️', subjective:true},
+  lakeside:       {text:'湖畔のマチですか？', icon:'🚣'},
+  shrine_temple:  {text:'寺社仏閣が有名？', icon:'🛕', subjective:true},
+  bakumatsu_port: {text:'幕末の開港五港のひとつ？', icon:'🚢'},
+  fruit_famous:   {text:'くだものが有名？', icon:'🍎', subjective:true},
+  sumo_basho:     {text:'大相撲の本場所が開催される？', icon:'🤼'},
+  jleague:        {text:'Jリーグチームの本拠地がある？', icon:'⚽'},
+  npb:            {text:'プロ野球チーム(NPB)の本拠地がある？', icon:'⚾'},
+  former_capital:   {text:'過去に「都」が置かれたことがある？', icon:'👑'},
+  grid_streets:     {text:'街の中心部は碁盤の目のよう？', icon:'🔲'},
+  kokuho_building:  {text:'国宝がある、建っている？', icon:'📜'},
+  twelve_castles:   {text:'現存十二天守の城はありますか？', icon:'🏰'},
+  sengoku_warlord:  {text:'有名な戦国武将ゆかりの地ですか？', icon:'⚔️', subjective:true},
+  tram:             {text:'路面電車が走っていますか？', icon:'🚋'},
+  famous_garden:    {text:'有名な庭園がありますか？', icon:'🌳', subjective:true},
+  car_town:         {text:'自動車メーカーの本社または主要工場がある？', icon:'🚗'},
+  private_railway: {text:'私鉄・第三セクターが走っている？', icon:'🚈'},
+  monorail:         {text:'モノレールが走っている？', icon:'🚝'},
+  remote_island:    {text:'もしかして離島に存在する？', icon:'🌴'},
+  mining_heritage:  {text:'有名な鉱山・炭鉱跡がありますか？', icon:'⛏️', subjective:true},
+  night_view:       {text:'日本三大夜景を誇るマチ？', icon:'🌃'},
+  war_damage:       {text:'戦時中に非常に多くの被害を受けましたか？', icon:'🕯️'},
+  ferris_wheel:     {text:'観覧車はありますか？', icon:'🎡'},
+  theme_park:       {text:'テーマパークはありますか？', icon:'🎢'},
+  zoo:              {text:'動物園はありますか？', icon:'🦁'},
+  aquarium:         {text:'水族館はありますか？', icon:'🐠'},
+  brand_beef:       {text:'有名なブランド牛肉はありますか？', icon:'🥩', subjective:true},
+  kintetsu:         {text:'近鉄が通っていますか？', icon:'🚃'},
+  kanji_one_char:   {text:'マチの名前が漢字一文字ですか？', icon:'📛'},
+  chinatown:            {text:'有名な中華街がありますか？', icon:'🏮', subjective:true},
+  sand_dunes:           {text:'有名な砂丘がありますか？', icon:'🏜️', subjective:true},
+  imperial_university:  {text:'旧帝国大学がありますか？', icon:'🎓'},
+  famous_tower:         {text:'有名なタワーがありますか？', icon:'🗼', subjective:true},
+  famous_market:        {text:'有名な市場・朝市がありますか？', icon:'🐟', subjective:true},
+  exotic_port:          {text:'異国情緒の港町ですか？', icon:'🛳️'},
+  dome_stadium:         {text:'ドーム球場がありますか？', icon:'🏟️'},
+  tea_region:           {text:'茶どころとして有名ですか？', icon:'🍵', subjective:true},
+  gokaido_shukuba:      {text:'江戸の五街道の宿場町として知られている？', icon:'🚶', subjective:true},
+  pottery_famous:       {text:'焼き物・陶磁器で知られている？', icon:'🏺', subjective:true},
+  traditional_craft:    {text:'有名な伝統工芸で知られている？', icon:'🎨', subjective:true},
+  horse_racing:         {text:'競馬場がある？', icon:'🐎'},
+  literary_figure:      {text:'有名な作家・文学者ゆかりの街？', icon:'✒️', subjective:true},
+  joetsu_region:              {text:'上越地方？', icon:'🗾'},
+  chuetsu_region:              {text:'中越地方？', icon:'🗾'},
+  kaetsu_region:               {text:'下越地方？', icon:'🗾'},
+  joetsu_shinkansen_station:  {text:'上越新幹線の駅がある？', icon:'🚄'},
+  hokuriku_shinkansen_station:{text:'北陸新幹線の駅がある？', icon:'🚄'},
+  hokkaido_shinkansen_station:{text:'北海道新幹線の駅がある？', icon:'🚄'},
+  tohoku_shinkansen_station:{text:'東北新幹線の駅がある？', icon:'🚄'},
+  tokaido_shinkansen_station:{text:'東海道新幹線の駅がある？', icon:'🚄'},
+  sanyo_shinkansen_station:{text:'山陽新幹線の駅がある？', icon:'🚄'},
+  kyushu_shinkansen_station:{text:'九州新幹線の駅がある？', icon:'🚄'},
+  nishikyushu_shinkansen_station:{text:'西九州新幹線の駅がある？', icon:'🚄'},
+  yamagata_shinkansen_station:{text:'山形新幹線の駅がある？', icon:'🚄'},
+  akita_shinkansen_station:{text:'秋田新幹線の駅がある？', icon:'🚄'},
+  is_village:                  {text:'村？', icon:'🏘️'},
+  shinano_river:               {text:'信濃川が流れる？', icon:'🏞️'},
+  agano_river:                 {text:'阿賀野川が流れる？', icon:'🏞️'},
+  uono_river:                  {text:'魚野川が流れる？', icon:'🏞️'},
+  borders_yamagata:            {text:'山形県と接している？', icon:'🗺️'},
+  borders_fukushima:           {text:'福島県と接している？', icon:'🗺️'},
+  borders_gunma:               {text:'群馬県と接している？', icon:'🗺️'},
+  borders_nagano:              {text:'長野県と接している？', icon:'🗺️'},
+  borders_toyama:              {text:'富山県と接している？', icon:'🗺️'},
+  todai_campus: {text:'東京大学の有名キャンパスがある？', icon:'🎓', subjective:true},
+  waseda_campus: {text:'早稲田大学の主要キャンパスがある？', icon:'🎓'},
+  keio_campus: {text:'慶應義塾大学の主要キャンパスがある？', icon:'🎓'},
+  meiji_campus: {text:'明治大学のキャンパスがある？', icon:'🎓'},
+  rikkyo_campus: {text:'立教大学の主要キャンパスがある？', icon:'🎓'},
+  chuo_campus: {text:'中央大学の主要キャンパスがある？', icon:'🎓'},
+  tus_campus: {text:'東京理科大学の主要キャンパスがある？', icon:'🎓'},
+  imperial_palace: {text:'皇居がある？', icon:'🏯'},
+  ginza: {text:'銀座がある？', icon:'💎'},
+  tokyo_tower_ward: {text:'東京タワーがある？', icon:'🗼'},
+  tokyo_dome_ward: {text:'東京ドームがある？', icon:'⚾'},
+  sensoji: {text:'浅草寺がある？', icon:'⛩️'},
+  skytree_ward: {text:'東京スカイツリーがある？', icon:'🗼'},
+  toyosu_market: {text:'豊洲市場がある？', icon:'🐟'},
+  haneda_ward: {text:'羽田空港がある？', icon:'✈️'},
+  shibamata_taishakuten: {text:'柴又帝釈天がある？', icon:'⛩️'},
+  kasai_park: {text:'葛西臨海公園がある？', icon:'🎡'},
+  broadway_nakano: {text:'ブロードウェイがある？', icon:'🏬'},
+  koenji_area: {text:'高円寺・阿佐ヶ谷・荻窪のどれかがある？', icon:'🎸'},
+  jiyugaoka: {text:'自由が丘がある？', icon:'🍰'},
+  shakujii_park: {text:'石神井公園がある？', icon:'🌳'},
+  odakyu_line: {text:'小田急線の駅がある？', icon:'🚃'},
+  keio_inokashira_line: {text:'京王線または井の頭線の駅がある？', icon:'🚃'},
+  tokyu_line: {text:'東急線の駅がある？', icon:'🚃'},
+  keikyu_line: {text:'京急線の駅がある？', icon:'🚃'},
+  seibu_line: {text:'西武鉄道の駅がある？', icon:'🚃'},
+  tobu_main_station: {text:'東武鉄道(東上線・越生線以外)の駅がある？', icon:'🚃'},
+  tobu_tojo_station: {text:'東武東上線の駅がある？', icon:'🚃'},
+  utsunomiya_station: {text:'宇都宮線(黒磯以南)の駅がある？', icon:'🚃'},
+  takasaki_line_station: {text:'高崎線の駅がある？', icon:'🚃'},
+  keisei_line: {text:'京成線の駅がある？', icon:'🚃'},
+  tsukuba_express: {text:'つくばエクスプレスの駅がある？', icon:'🚄'},
+  rinkai_line: {text:'りんかい線の駅がある？', icon:'🚃'},
+  yurikamome: {text:'ゆりかもめの駅がある？', icon:'🚝'},
+  toden_arakawa: {text:'都電荒川線の駅・停留場がある？', icon:'🚋'},
+  nippori_toneri: {text:'日暮里・舎人ライナーの駅がある？', icon:'🚝'},
+  tokyo_bay: {text:'東京湾に面している？', icon:'🌊'},
+  tama_river: {text:'多摩川に接している？', icon:'🏞️'},
+  sumida_river: {text:'隅田川に接している？', icon:'🏞️'},
+  arakawa_river: {text:'荒川に接している？', icon:'🏞️'},
+  edogawa_river: {text:'江戸川に接している？', icon:'🏞️'},
+  meguro_river: {text:'目黒川が流れている？', icon:'🏞️'},
+  shakujii_river: {text:'石神井川が流れている？', icon:'🏞️'},
+  borders_kanagawa: {text:'神奈川県と接している？', icon:'🗺️'},
+  borders_saitama: {text:'埼玉県と接している？', icon:'🗺️'},
+  borders_chiba: {text:'千葉県と接している？', icon:'🗺️'},
+  yamanote_line: {text:'山手線の駅がある？', icon:'🚃'},
+  keihintohoku_line: {text:'京浜東北線の駅がある？', icon:'🚃'},
+  chuo_rapid: {text:'中央線快速の駅がある？', icon:'🚃'},
+  chuo_sobu: {text:'中央・総武線各駅停車の駅がある？', icon:'🚃'},
+  joban_line: {text:'常磐線系統の駅がある？', icon:'🚃'},
+  saikyo_line: {text:'埼京線の駅がある？', icon:'🚃'},
+  ueno_station: {text:'上野駅がある？', icon:'🚉'},
+  akabane_station: {text:'赤羽駅がある？', icon:'🚉'},
+  nippori_station: {text:'日暮里駅がある？', icon:'🚉'},
+  tsunagari_mayu_police: {text:'眉毛が繋がったおまわりさんがいる？', icon:'👮'},
+  tv_station_area: {text:'テレビ局が立地する？', icon:'📺'},
+  sazae_family: {text:'国民的4コマ漫画の一家が住んでいる？', icon:'🏠'},
+  hachiko_area: {text:'駅前で主人を待ち続けた犬が有名？', icon:'🐕', subjective:true},
+  yose_hall: {text:'落語の定席寄席がある？', icon:'🎤'},
+  sailor_moon_stage: {text:'月にかわっておしおきする戦士の舞台？', icon:'🌙'},
+  godzilla_head: {text:'巨大な怪獣の頭がビルから出ている？', icon:'🦖'},
+  rakugo_stage:  {text:'有名な古典落語の舞台として知られる？', icon:'🎙️', subjective:true},
+  sanma_famous:  {text:'さんまで有名？', icon:'🐟', subjective:true},
+  monzen:           {text:'有名な門前町ですか？', icon:'🙏', subjective:true},
+  bedtown:          {text:'東京23区または政令指定都市のベッドタウン？', icon:'🏠', subjective:true},
+  skijyou:          {text:'有名なスキー場がある？', icon:'⛷️', subjective:true},
+  geopark:          {text:'ジオパークに指定されている？', icon:'🌋'},
+  nuclearpowerplant:{text:'原子力発電所がある？', icon:'☢️'},
+  monozukuri:       {text:'ものづくり(製造業)で知られている？', icon:'🏭', subjective:true},
+  chukakushi:       {text:'中核市ですか？', icon:'🏛️'},
+  tokureishi:       {text:'施行時特例市(かつての特例市)ですか？', icon:'📜'},
+  kaikyo_machi:        {text:'海峡のマチ？', icon:'🌊'},
+  gakuto:              {text:'「楽都」と呼ばれる音楽のまち？', icon:'🎵', subjective:true},
+  hula_girl:           {text:'『フラガール』のふるさと？', icon:'🌺'},
+  kannon_zo:           {text:'観音像が有名？', icon:'🗿', subjective:true},
+  koedo:               {text:'舟運と蔵造りの町並みで知られる小江戸三市の一つ？', icon:'🏮', subjective:true},
+  imono_kupola:        {text:'鋳物産業・キューポラの街として知られる？', icon:'🏭', subjective:true},
+  aeon_laketown:       {text:'イオンレイクタウンがある？', icon:'🛍️'},
+  funasshi_famous:     {text:'ふなっしーで全国的に知られた？', icon:'🍐', subjective:true},
+  takao_mountain:      {text:'高尾山がある？', icon:'⛰️'},
+  curry_famous:        {text:'カレーで有名なマチ？', icon:'🍛', subjective:true},
+  anime_seichi:        {text:'アニメの聖地？', icon:'📺'},
+  number_in_name:      {text:'市名に数字(一、二、三…)が入っている？', icon:'🔢'},
+  kigyo_joukamachi:    {text:'企業城下町として知られる？', icon:'🏢', subjective:true},
+  hankyu_line:         {text:'阪急電車が通っている？', icon:'🚃'},
+  yayoiken_seichi:     {text:'聖地となったやよい軒がある？', icon:'🍚'},
+  hirakata_park:       {text:'ひらかたパークがある？', icon:'🎡'},
+  keihan_line:         {text:'京阪電車が通っている？', icon:'🚃'},
+  kawachi_ondo:        {text:'河内音頭で知られる？', icon:'🎶', subjective:true},
+  rugby_machi:         {text:'ラグビーのまち？', icon:'🏉'},
+  kougyou_toshi:       {text:'工業都市のイメージが強い？', icon:'🏭', subjective:true},
+  hyoujun_jigosen:     {text:'日本標準時子午線が通る？', icon:'🕐'},
+  koushien:            {text:'阪神甲子園球場がある？', icon:'⚾'},
+  bikan_chiku:         {text:'美観地区で有名？', icon:'🏯', subjective:true},
+  gunkou_machi:        {text:'軍港のまち？', icon:'⚓'},
+  seitetsu_kouro:      {text:'製鉄所の高炉がある？', icon:'🏭'},
+  fugu_famous:         {text:'ふぐで有名？', icon:'🐡', subjective:true},
+  tire_famous:         {text:'タイヤで有名？', icon:'🛞', subjective:true},
+  hamburger_famous:    {text:'ハンバーガーで有名？', icon:'🍔', subjective:true},
+  kenkyu_gakuen_toshi: {text:'研究学園都市として知られる？', icon:'🔬', subjective:true},
+  atsui_machi:         {text:'「暑い街」として全国ニュースになりやすい？', icon:'🌡️'},
+  action_kamen:        {text:'アクション仮面が好きな5歳児が住んでいる？', icon:'🦸'},
+  senbei_famous:       {text:'せんべいで有名？', icon:'🍘', subjective:true},
+  tanabata_famous:     {text:'七夕まつりで有名？', icon:'🎋', subjective:true},
+  uirou_famous:        {text:'ういろうで有名？', icon:'🍡', subjective:true},
+  southern_seichi:     {text:'サザンオールスターズの聖地？', icon:'🎤'},
+  b_kyu_gourmet:       {text:'有名なB級グルメがある？', icon:'🍜', subjective:true},
+  beigun_kichi:        {text:'米軍基地がある？', icon:'🎖️'},
+  shinkai_gyo:         {text:'深海水族館がある？', icon:'🐟'},
+  saboten_machi:       {text:'サボテンのまちとして知られる？', icon:'🌵', subjective:true},
+  combinat_yakei:      {text:'コンビナート夜景で有名？', icon:'🌃', subjective:true},
+  danjiri_famous:      {text:'だんじり祭で全国的に有名？', icon:'🎊', subjective:true},
+  onaji_ookawa:        {text:'市名と同じ大きな川が流れている？', icon:'🏞️', subjective:true},
+  kageki_dan:          {text:'有名な歌劇団の本拠地？', icon:'🎭', subjective:true},
+  kitanotakeshi:       {text:'北野武が幼少期を過ごしたマチ？', icon:'🎞️'},
+  musashino_line:      {text:'JR武蔵野線が通っている？', icon:'🚃'},
+  ekimei_chigau:       {text:'市の中心駅の名前が市名と異なる？', icon:'🚉'},
+  prefectural_capital: {text:'都道府県庁の所在地？', icon:'🏛️'},
+  borders_other_pref:  {text:'他の都道府県と境を接している？', icon:'🗺️'},
+  formed_after_2000:   {text:'2000年以降の新設合併で誕生した？', icon:'🤝'},
+  national_university: {text:'国立大学の本部がある？', icon:'🎓'},
+  expressway_junction: {text:'高速道路のジャンクション(JCT)がある？', icon:'🛣️'},
+  hiragana_name:       {text:'名前がすべてひらがな？', icon:'🔤'},
+  direction_in_name:   {text:'名前に「東・西・南・北」が入っている？', icon:'🧭'},
+  old_province_name:   {text:'名前が旧国名に由来する？', icon:'📜'},
+  public_racing_venue: {text:'公営競技場(競馬・競輪・ボート・オートレース)がある？', icon:'🚤'},
+  national_government_park: {text:'国営公園がある？', icon:'🌳'},
+  film_city:           {text:'映画・映像のまちとして知られる？', icon:'🎬', subjective:true},
+  shinsengumi:         {text:'新選組ゆかりのまち？', icon:'⚔️'},
+  shonan_area:         {text:'「湘南」と呼ばれる地域にある？', icon:'🏄', subjective:true},
+  white_mirin_origin:  {text:'白みりん発祥の地？', icon:'🍶'},
+  douou_area:               {text:'道央地方にありますか？', icon:'🧭'},
+  doutou_area:              {text:'道東地方にありますか？', icon:'🧭'},
+  dohoku_area:              {text:'道北地方にありますか？', icon:'🧭'},
+  sapporo_metro:            {text:'札幌都市圏に含まれますか？', icon:'🏙️'},
+  ishikari_plain:           {text:'石狩平野にありますか？', icon:'🌾'},
+  historical_port_hokkaido: {text:'北海道を代表する歴史的な港町ですか？', icon:'⚓'},
+  industrial_port_hokkaido: {text:'工業港のあるマチですか？', icon:'🏭'},
+  hakodate_honsen:          {text:'函館本線が通っていますか？', icon:'🚃'},
+  ishikari_river:           {text:'石狩川が流れていますか？', icon:'🏞️'},
+  tsugaru_area:       {text:'津軽地方にありますか？', icon:'🧭'},
+  sendai_metro:       {text:'仙台都市圏に含まれますか？', icon:'🏙️'},
+  kitakami_basin:     {text:'北上川流域のマチですか？', icon:'🏞️'},
+  shonai_area:        {text:'庄内地方にありますか？', icon:'🧭'},
+  hamadori_area:      {text:'福島県の浜通りにありますか？', icon:'🧭'},
+  nakadori_area:      {text:'福島県の中通りにありますか？', icon:'🧭'},
+  aizu_area:          {text:'会津地方にありますか？', icon:'🧭'},
+  sanriku_area:       {text:'三陸沿岸のマチですか？', icon:'🌊'},
+  north_kanto:        {text:'北関東3県のマチですか？', icon:'🧭'},
+  tama_area:          {text:'東京の多摩地域にありますか？', icon:'🧭'},
+  tokatsu_area:       {text:'千葉県の東葛地域にありますか？', icon:'🧭'},
+  ryomo_area:         {text:'群馬県と栃木県にまたがる両毛地域ですか？', icon:'🧭'},
+  tone_river_area:    {text:'利根川に接していますか？', icon:'🏞️'},
+  sotetsu_line:       {text:'相鉄線の駅がありますか？', icon:'🚃'},
+  hokuriku_three_pref:{text:'北陸3県のマチですか？', icon:'🧭'},
+  koshin_area:        {text:'甲信地方にありますか？', icon:'🧭'},
+  tokai_area:         {text:'東海地方にありますか？', icon:'🧭'},
+  owari_area:         {text:'愛知県の尾張地方ですか？', icon:'🧭'},
+  mikawa_area:        {text:'愛知県の三河地方ですか？', icon:'🧭'},
+  izu_area:           {text:'伊豆地方にありますか？', icon:'🧭'},
+  suruga_area:        {text:'駿河地方にありますか？', icon:'🧭'},
+  totomi_area:        {text:'遠江地方にありますか？', icon:'🧭'},
+  hida_area:          {text:'岐阜県の飛騨地方ですか？', icon:'🧭'},
+  mino_area:          {text:'岐阜県の美濃地方ですか？', icon:'🧭'},
+  hokushin_area:      {text:'長野県の北信地方ですか？', icon:'🧭'},
+  toshin_area:        {text:'長野県の東信地方ですか？', icon:'🧭'},
+  chushin_area:       {text:'長野県の中信地方ですか？', icon:'🧭'},
+  nanshin_area:       {text:'長野県の南信地方ですか？', icon:'🧭'},
+  meitetsu_line:      {text:'名鉄電車が通っていますか？', icon:'🚃'},
+  keihanshin_area:    {text:'京阪神地域にありますか？', icon:'🏙️'},
+  hokusetsu_area:     {text:'北摂地域にありますか？', icon:'🧭'},
+  kawachi_area:       {text:'河内地域にありますか？', icon:'🧭'},
+  senshu_area:        {text:'泉州地域にありますか？', icon:'🧭'},
+  hanshin_area:       {text:'阪神間のマチですか？', icon:'🧭'},
+  harima_area:        {text:'播磨地方にありますか？', icon:'🧭'},
+  tajima_area:        {text:'但馬地方にありますか？', icon:'🧭'},
+  tamba_area:         {text:'丹波地方にありますか？', icon:'🧭'},
+  kyoto_north:        {text:'京都府北部にありますか？', icon:'🧭'},
+  nara_basin:         {text:'奈良盆地にありますか？', icon:'🧭'},
+  kii_peninsula:      {text:'紀伊半島にありますか？', icon:'🧭'},
+  nankai_line:        {text:'南海電車が通っていますか？', icon:'🚃'},
+  glasses_industry:            {text:'メガネ産業で有名？', icon:'🤓', subjective:true},
+  towel_industry:              {text:'タオルで有名？', icon:'🧺', subjective:true},
+  musical_instruments:         {text:'楽器製造で有名？', icon:'🎹', subjective:true},
+  gold_leaf:                   {text:'金箔で有名？', icon:'✨', subjective:true},
+  denim_industry:              {text:'デニム・ジーンズで有名？', icon:'👖', subjective:true},
+  pearl_farming:               {text:'真珠の養殖で有名？', icon:'🦪', subjective:true},
+  shipbuilding:                {text:'造船業で有名？', icon:'🚢', subjective:true},
+  furniture_industry:          {text:'家具の産地として有名？', icon:'🪑', subjective:true},
+  washi_famous:                {text:'和紙の産地として有名？', icon:'📜', subjective:true},
+  pharmaceutical_industry:     {text:'製薬産業で知られる？', icon:'💊', subjective:true},
+  fireworks_industry:          {text:'花火の製造で有名？', icon:'🎆', subjective:true},
+  stone_industry:              {text:'石材・石切りで有名？', icon:'🪨', subjective:true},
+  vinegar_famous:              {text:'酢の生産で有名？', icon:'🍶', subjective:true},
+  soy_sauce_famous:            {text:'醤油の生産で有名？', icon:'🍶', subjective:true},
+  miso_famous:                 {text:'八丁味噌で有名？', icon:'🍲', subjective:true},
+  gyoza_famous:                {text:'餃子で有名？', icon:'🥟', subjective:true},
+  yakisoba_famous:             {text:'焼きそばで有名？', icon:'🍜', subjective:true},
+  udon_famous:                 {text:'うどんで有名？', icon:'🍜', subjective:true},
+  soba_famous:                 {text:'そばで有名？', icon:'🍜', subjective:true},
+  ramen_famous:                {text:'ラーメンで有名？', icon:'🍜', subjective:true},
+  castella_famous:             {text:'カステラで有名？', icon:'🍰', subjective:true},
+  kamaboko_famous:             {text:'かまぼこで有名？', icon:'🍥', subjective:true},
+  lacquerware_famous:          {text:'漆器で有名？', icon:'🥢', subjective:true},
+  ancient_provincial_capital:  {text:'古代の国府が置かれていた？', icon:'🏛️'},
+  kokubunji_site:              {text:'国分寺・国分尼寺跡がある？', icon:'🏯'},
+  traditional_buildings_district: {text:'重要伝統的建造物群保存地区がある？', icon:'🏘️'},
+  little_kyoto:                {text:'「小京都」と呼ばれている？', icon:'⛩️', subjective:true},
+  giant_buddha:                {text:'巨大な大仏・観音像がある？', icon:'🗿'},
+  sea_torii:                   {text:'海上や海辺の大鳥居で有名？', icon:'⛩️', subjective:true},
+  deer_in_city:                {text:'鹿が市街地を歩くことで有名？', icon:'🦌', subjective:true},
+  gassho_zukuri:               {text:'合掌造り集落がある？', icon:'🏠'},
+  ferry_available:             {text:'定期フェリーがある？', icon:'⛴️'},
+  no_railway_station:          {text:'市内に鉄道駅がひとつもない？', icon:'🚉'},
+  shikoku_pilgrimage:          {text:'四国八十八ヶ所の札所がある？', icon:'🙏'},
+  olympic_venue:               {text:'オリンピック競技が開催された？', icon:'🏅'},
+  famous_battlefield:          {text:'有名な古戦場がある？', icon:'⚔️', subjective:true},
+  kitamaebune_port:            {text:'北前船の寄港地として栄えた？', icon:'⛵', subjective:true},
+  famous_fish_catch:           {text:'漁獲される特定の魚介で全国的に有名？', icon:'🐟', subjective:true},
   animal_in_name: {text:'自治体名に動物を表す漢字が入っている？', icon:'🐾'},
-  ariake_coast: {text:'有明海に面していますか?', icon:'🧭'},
+  ariake_coast: {text:'有明海に面していますか？', icon:'🧭'},
   big_small_in_name: {text:'自治体名に「大」または「小」が入っている？', icon:'🔠'},
-  bingo_area: {text:'備後地方にありますか?', icon:'🧭'},
+  bingo_area: {text:'備後地方にありますか？', icon:'🧭'},
   body_part_in_name: {text:'自治体名に体の一部を表す漢字が入っている？', icon:'👁️'},
-  chikugo_area: {text:'筑後地方にありますか?', icon:'🧭'},
-  chikuho_area: {text:'筑豊地方にありますか?', icon:'🧭'},
-  chikuzen_area: {text:'筑前地方にありますか?', icon:'🧭'},
-  chugoku_mountain_basin: {text:'中国山地の盆地にありますか?', icon:'🧭'},
-  chuyo_area: {text:'愛媛県の中予地方ですか?', icon:'🧭'},
+  chikugo_area: {text:'筑後地方にありますか？', icon:'🧭'},
+  chikuho_area: {text:'筑豊地方にありますか？', icon:'🧭'},
+  chikuzen_area: {text:'筑前地方にありますか？', icon:'🧭'},
+  chugoku_mountain_basin: {text:'中国山地の盆地にありますか？', icon:'🧭'},
+  chuyo_area: {text:'愛媛県の中予地方ですか？', icon:'🧭'},
   color_in_name: {text:'自治体名に色を表す漢字が入っている？', icon:'🎨'},
-  dosan_line: {text:'土讃線が通っていますか?', icon:'🚃'},
+  dosan_line: {text:'土讃線が通っていますか？', icon:'🚃'},
   four_plus_name: {text:'市の名前が4文字以上？（「市」を除く）', icon:'📏'},
-  fukuoka_metro: {text:'福岡都市圏に含まれますか?', icon:'🧭'},
-  hakubi_line: {text:'伯備線が通っていますか?', icon:'🚃'},
+  fukuoka_metro: {text:'福岡都市圏に含まれますか？', icon:'🧭'},
+  hakubi_line: {text:'伯備線が通っていますか？', icon:'🚃'},
   hard_to_read_name: {text:'難読地名として知られている？', icon:'❓', subjective:true},
-  hiroshima_metro: {text:'広島都市圏に含まれますか?', icon:'🧭'},
-  honshu_bridge: {text:'本州方面と橋で結ばれていますか?', icon:'🧭'},
-  izumo_area: {text:'出雲地方にありますか?', icon:'🧭'},
-  kagoshima_main_line: {text:'鹿児島本線が通っていますか?', icon:'🚃'},
+  hiroshima_metro: {text:'広島都市圏に含まれますか？', icon:'🧭'},
+  honshu_bridge: {text:'本州方面と橋で結ばれていますか？', icon:'🧭'},
+  izumo_area: {text:'出雲地方にありますか？', icon:'🧭'},
+  kagoshima_main_line: {text:'鹿児島本線が通っていますか？', icon:'🚃'},
   kawa_in_name: {text:'自治体名に「川」が入っている？', icon:'🏞️'},
-  kitakyushu_area: {text:'北九州地域にありますか?', icon:'🧭'},
-  nanyo_area: {text:'愛媛県の南予地方ですか?', icon:'🧭'},
+  kitakyushu_area: {text:'北九州地域にありますか？', icon:'🧭'},
+  nanyo_area: {text:'愛媛県の南予地方ですか？', icon:'🧭'},
   new_old_in_name: {text:'自治体名に「新」または「古」が入っている？', icon:'🆕'},
-  nippo_main_line: {text:'日豊本線が通っていますか?', icon:'🚃'},
-  nishitetsu_line: {text:'西鉄電車が走っていますか?', icon:'🚃'},
-  northern_kyushu: {text:'北部九州にありますか?', icon:'🧭'},
-  okinawa_main_island: {text:'沖縄本島にありますか?', icon:'🧭'},
-  okinawa_south_central: {text:'沖縄本島の中南部にありますか?', icon:'🧭'},
-  osumi_area: {text:'大隅地方にありますか?', icon:'🧭'},
-  paper_industry_shikoku: {text:'製紙業で知られるマチですか?', icon:'🏭', subjective:true},
+  nippo_main_line: {text:'日豊本線が通っていますか？', icon:'🚃'},
+  nishitetsu_line: {text:'西鉄電車が走っていますか？', icon:'🚃'},
+  northern_kyushu: {text:'北部九州にありますか？', icon:'🧭'},
+  okinawa_main_island: {text:'沖縄本島にありますか？', icon:'🧭'},
+  okinawa_south_central: {text:'沖縄本島の中南部にありますか？', icon:'🧭'},
+  osumi_area: {text:'大隅地方にありますか？', icon:'🧭'},
+  paper_industry_shikoku: {text:'製紙業で知られるマチですか？', icon:'🏭', subjective:true},
   plant_in_name: {text:'自治体名に植物を表す漢字が入っている？', icon:'🌿'},
   pref_name_in_city_name: {text:'自治体名に都道府県名が含まれている？', icon:'🗾'},
-  sakishima_islands: {text:'宮古・八重山地域にありますか?', icon:'🧭'},
+  sakishima_islands: {text:'宮古・八重山地域にありますか？', icon:'🧭'},
   same_name_other_pref: {text:'同名の市が別の都道府県にもある？', icon:'👯'},
-  sanin_area: {text:'山陰地方にありますか?', icon:'🧭'},
-  sanin_main_line: {text:'山陰本線が通っていますか?', icon:'🚃'},
-  sanyo_area: {text:'山陽地方にありますか?', icon:'🧭'},
-  sanyo_main_line: {text:'山陽本線が通っていますか?', icon:'🚃'},
-  satsuma_area: {text:'薩摩地方にありますか?', icon:'🧭'},
+  sanin_area: {text:'山陰地方にありますか？', icon:'🧭'},
+  sanin_main_line: {text:'山陰本線が通っていますか？', icon:'🚃'},
+  sanyo_area: {text:'山陽地方にありますか？', icon:'🧭'},
+  sanyo_main_line: {text:'山陽本線が通っていますか？', icon:'🚃'},
+  satsuma_area: {text:'薩摩地方にありますか？', icon:'🧭'},
   sea_word_in_name: {text:'自治体名に「海・浜・浦」が入っている？', icon:'🌊'},
-  setouchi_industrial: {text:'瀬戸内工業地域のマチですか?', icon:'🧭'},
+  setouchi_industrial: {text:'瀬戸内工業地域のマチですか？', icon:'🧭'},
   shima_in_name: {text:'自治体名に「島」が入っている？', icon:'🏝️'},
-  southern_kyushu: {text:'南九州にありますか?', icon:'🧭'},
+  southern_kyushu: {text:'南九州にありますか？', icon:'🧭'},
   ta_in_name: {text:'自治体名に「田」が入っている？', icon:'🌾'},
-  toyo_area: {text:'愛媛県の東予地方ですか?', icon:'🧭'},
+  toyo_area: {text:'愛媛県の東予地方ですか？', icon:'🧭'},
   yama_in_name: {text:'自治体名に「山」が入っている？', icon:'⛰️'},
-  yosan_line: {text:'予讃線が通っていますか?', icon:'🚃'},
+  yosan_line: {text:'予讃線が通っていますか？', icon:'🚃'},
   ic_doo:        {text:'道央道のインターチェンジがある？', icon:'🛣️'},
   ic_sasson:     {text:'札樽道のインターチェンジがある？', icon:'🛣️'},
   ic_shiribeshi: {text:'後志道のインターチェンジがある？', icon:'🛣️'},
@@ -1014,7 +1014,7 @@ const QUESTIONS = {
   bear_park: {text:'CMが有名なクマ牧場がある？', icon:'🐻'},
   fighters_farm: {text:'プロ野球球団のファーム施設の移転予定地？', icon:'⚾'},
   bijin_town: {text:'日本一美人が多いと言われているマチ？', icon:'💃', subjective:true},
-  yoshi_ikuzo: {text:'「テレビも無え!ラジオも無え!」と歌われるマチ?', icon:'🎤'},
+  yoshi_ikuzo: {text:'「テレビも無え!ラジオも無え!」と歌われるマチ？', icon:'🎤'},
   oirase: {text:'奥入瀬渓流がある？', icon:'🍃'},
   osorezan: {text:'恐山がある？', icon:'⛰️'},
   shakoki_dogu: {text:'遮光器土偶が出土した？', icon:'🗿'},
@@ -1069,62 +1069,62 @@ const QUESTIONS = {
   anpogaki: {text:'あんぽ柿の発祥地として知られる？', icon:'🌰', subjective:true},
   william_park: {text:'プリンス・ウィリアムズ・パークの英国庭園がある？', icon:'🌷'},
   natural_gas_town: {text:'天然ガスの産出量が日本有数？', icon:'🔥'},
-  region_hokkaido: {text:'北海道地方にありますか?', icon:'🗾'},
-  region_tohoku: {text:'東北地方にありますか?', icon:'🗾'},
-  region_kanto: {text:'関東地方(山梨県除外)ですか?', icon:'🗾'},
-  region_chubu: {text:'中部地方(三重県除外、山梨県含む)ですか?', icon:'🗾'},
-  region_kinki: {text:'近畿地方(三重県含む)ですか?', icon:'🗾'},
-  region_chugoku: {text:'中国地方にありますか?', icon:'🗾'},
-  region_shikoku: {text:'四国地方にありますか?', icon:'🗾'},
-  region_kyushu: {text:'九州・沖縄地方にありますか?', icon:'🗾'},
+  region_hokkaido: {text:'北海道にある？', icon:'🗾'},
+  region_tohoku: {text:'東北地方にある？', icon:'🗾'},
+  region_kanto: {text:'茨城・栃木・群馬・埼玉・千葉・東京・神奈川にある？', icon:'🗾'},
+  region_chubu: {text:'新潟・北陸・甲信・東海地方にある？', icon:'🗾'},
+  region_kinki: {text:'三重・滋賀・京都・大阪・兵庫・奈良・和歌山にある？', icon:'🗾'},
+  region_chugoku: {text:'中国地方にある？', icon:'🗾'},
+  region_shikoku: {text:'四国にある？', icon:'🗾'},
+  region_kyushu: {text:'九州・沖縄にある？', icon:'🗾'},
   // 47都道府県を直接たずねる質問。序盤の総当たりを防ぐため、出題時期と回数を厳しく制御する(canAskPrefQuestion)。
-  pref_hokkaido: {text:'北海道にありますか?', icon:'📍'},
-  pref_aomori: {text:'青森県にありますか?', icon:'📍'},
-  pref_iwate: {text:'岩手県にありますか?', icon:'📍'},
-  pref_miyagi: {text:'宮城県にありますか?', icon:'📍'},
-  pref_akita: {text:'秋田県にありますか?', icon:'📍'},
-  pref_yamagata: {text:'山形県にありますか?', icon:'📍'},
-  pref_fukushima: {text:'福島県にありますか?', icon:'📍'},
-  pref_ibaraki: {text:'茨城県にありますか?', icon:'📍'},
-  pref_tochigi: {text:'栃木県にありますか?', icon:'📍'},
-  pref_gunma: {text:'群馬県にありますか?', icon:'📍'},
-  pref_saitama: {text:'埼玉県にありますか?', icon:'📍'},
-  pref_chiba: {text:'千葉県にありますか?', icon:'📍'},
-  pref_tokyo: {text:'東京都にありますか?', icon:'📍'},
-  pref_kanagawa: {text:'神奈川県にありますか?', icon:'📍'},
-  pref_niigata: {text:'新潟県にありますか?', icon:'📍'},
-  pref_toyama: {text:'富山県にありますか?', icon:'📍'},
-  pref_ishikawa: {text:'石川県にありますか?', icon:'📍'},
-  pref_fukui: {text:'福井県にありますか?', icon:'📍'},
-  pref_yamanashi: {text:'山梨県にありますか?', icon:'📍'},
-  pref_nagano: {text:'長野県にありますか?', icon:'📍'},
-  pref_gifu: {text:'岐阜県にありますか?', icon:'📍'},
-  pref_shizuoka: {text:'静岡県にありますか?', icon:'📍'},
-  pref_aichi: {text:'愛知県にありますか?', icon:'📍'},
-  pref_mie: {text:'三重県にありますか?', icon:'📍'},
-  pref_shiga: {text:'滋賀県にありますか?', icon:'📍'},
-  pref_kyoto: {text:'京都府にありますか?', icon:'📍'},
-  pref_osaka: {text:'大阪府にありますか?', icon:'📍'},
-  pref_hyogo: {text:'兵庫県にありますか?', icon:'📍'},
-  pref_nara: {text:'奈良県にありますか?', icon:'📍'},
-  pref_wakayama: {text:'和歌山県にありますか?', icon:'📍'},
-  pref_tottori: {text:'鳥取県にありますか?', icon:'📍'},
-  pref_shimane: {text:'島根県にありますか?', icon:'📍'},
-  pref_okayama: {text:'岡山県にありますか?', icon:'📍'},
-  pref_hiroshima: {text:'広島県にありますか?', icon:'📍'},
-  pref_yamaguchi: {text:'山口県にありますか?', icon:'📍'},
-  pref_tokushima: {text:'徳島県にありますか?', icon:'📍'},
-  pref_kagawa: {text:'香川県にありますか?', icon:'📍'},
-  pref_ehime: {text:'愛媛県にありますか?', icon:'📍'},
-  pref_kochi: {text:'高知県にありますか?', icon:'📍'},
-  pref_fukuoka: {text:'福岡県にありますか?', icon:'📍'},
-  pref_saga: {text:'佐賀県にありますか?', icon:'📍'},
-  pref_nagasaki: {text:'長崎県にありますか?', icon:'📍'},
-  pref_kumamoto: {text:'熊本県にありますか?', icon:'📍'},
-  pref_oita: {text:'大分県にありますか?', icon:'📍'},
-  pref_miyazaki: {text:'宮崎県にありますか?', icon:'📍'},
-  pref_kagoshima: {text:'鹿児島県にありますか?', icon:'📍'},
-  pref_okinawa: {text:'沖縄県にありますか?', icon:'📍'},
+  pref_hokkaido: {text:'北海道にありますか？', icon:'📍'},
+  pref_aomori: {text:'青森県にありますか？', icon:'📍'},
+  pref_iwate: {text:'岩手県にありますか？', icon:'📍'},
+  pref_miyagi: {text:'宮城県にありますか？', icon:'📍'},
+  pref_akita: {text:'秋田県にありますか？', icon:'📍'},
+  pref_yamagata: {text:'山形県にありますか？', icon:'📍'},
+  pref_fukushima: {text:'福島県にありますか？', icon:'📍'},
+  pref_ibaraki: {text:'茨城県にありますか？', icon:'📍'},
+  pref_tochigi: {text:'栃木県にありますか？', icon:'📍'},
+  pref_gunma: {text:'群馬県にありますか？', icon:'📍'},
+  pref_saitama: {text:'埼玉県にありますか？', icon:'📍'},
+  pref_chiba: {text:'千葉県にありますか？', icon:'📍'},
+  pref_tokyo: {text:'東京都にありますか？', icon:'📍'},
+  pref_kanagawa: {text:'神奈川県にありますか？', icon:'📍'},
+  pref_niigata: {text:'新潟県にありますか？', icon:'📍'},
+  pref_toyama: {text:'富山県にありますか？', icon:'📍'},
+  pref_ishikawa: {text:'石川県にありますか？', icon:'📍'},
+  pref_fukui: {text:'福井県にありますか？', icon:'📍'},
+  pref_yamanashi: {text:'山梨県にありますか？', icon:'📍'},
+  pref_nagano: {text:'長野県にありますか？', icon:'📍'},
+  pref_gifu: {text:'岐阜県にありますか？', icon:'📍'},
+  pref_shizuoka: {text:'静岡県にありますか？', icon:'📍'},
+  pref_aichi: {text:'愛知県にありますか？', icon:'📍'},
+  pref_mie: {text:'三重県にありますか？', icon:'📍'},
+  pref_shiga: {text:'滋賀県にありますか？', icon:'📍'},
+  pref_kyoto: {text:'京都府にありますか？', icon:'📍'},
+  pref_osaka: {text:'大阪府にありますか？', icon:'📍'},
+  pref_hyogo: {text:'兵庫県にありますか？', icon:'📍'},
+  pref_nara: {text:'奈良県にありますか？', icon:'📍'},
+  pref_wakayama: {text:'和歌山県にありますか？', icon:'📍'},
+  pref_tottori: {text:'鳥取県にありますか？', icon:'📍'},
+  pref_shimane: {text:'島根県にありますか？', icon:'📍'},
+  pref_okayama: {text:'岡山県にありますか？', icon:'📍'},
+  pref_hiroshima: {text:'広島県にありますか？', icon:'📍'},
+  pref_yamaguchi: {text:'山口県にありますか？', icon:'📍'},
+  pref_tokushima: {text:'徳島県にありますか？', icon:'📍'},
+  pref_kagawa: {text:'香川県にありますか？', icon:'📍'},
+  pref_ehime: {text:'愛媛県にありますか？', icon:'📍'},
+  pref_kochi: {text:'高知県にありますか？', icon:'📍'},
+  pref_fukuoka: {text:'福岡県にありますか？', icon:'📍'},
+  pref_saga: {text:'佐賀県にありますか？', icon:'📍'},
+  pref_nagasaki: {text:'長崎県にありますか？', icon:'📍'},
+  pref_kumamoto: {text:'熊本県にありますか？', icon:'📍'},
+  pref_oita: {text:'大分県にありますか？', icon:'📍'},
+  pref_miyazaki: {text:'宮崎県にありますか？', icon:'📍'},
+  pref_kagoshima: {text:'鹿児島県にありますか？', icon:'📍'},
+  pref_okinawa: {text:'沖縄県にありますか？', icon:'📍'},
   kitasubaru: {text:'市立天文台「きたすばる」がある？', icon:'🔭'},
   kita_no_kuni: {text:'ドラマ『北の国から』の主な舞台？', icon:'📺'},
   kita_no_shonan: {text:'「北の湘南」と呼ばれている？', icon:'🏖️', subjective:true},
@@ -1178,12 +1178,12 @@ const QUESTIONS = {
   zushi_marina: {text:'湘南の海沿いに大型ヨットハーバーとリゾート施設群がある？', icon:'⛵'},
   ayase_no_station: {text:'市内に鉄道駅がなく、厚木基地の一部がある？', icon:'✈️'},
   nono_odoriji: {text:'市名に踊り字の「々」が入る唯一の市？', icon:'🔤'},
-  linear_center: {text:'リニア実験線の見学センターがある?', icon:'🚄'},
+  linear_center: {text:'リニア実験線の見学センターがある？', icon:'🚄'},
   shakou_elevator: {text:'住宅地と駅を結ぶ大型斜行エレベーターがある？', icon:'🛗'},
-  saruhashi: {text:'日本三奇橋の猿橋がある?', icon:'🌉'},
-  enbaragawa: {text:'伊自良湖と円原川の伏流水がある?', icon:'🌿', subjective:true},
-  sanshu_kawara: {text:'三州瓦の産地で瓦をテーマにした美術館がある?', icon:'🧱'},
-  nonbori_arai: {text:'五条川の桜並木と「のんぼり洗い」で知られる?', icon:'🎏', subjective:true},
+  saruhashi: {text:'日本三奇橋の猿橋がある？', icon:'🌉'},
+  enbaragawa: {text:'伊自良湖と円原川の伏流水がある？', icon:'🌿', subjective:true},
+  sanshu_kawara: {text:'三州瓦の産地で瓦をテーマにした美術館がある？', icon:'🧱'},
+  nonbori_arai: {text:'五条川の桜並木と「のんぼり洗い」で知られる？', icon:'🎏', subjective:true},
   akame_taki: {text:'赤目四十八滝がある？', icon:'💦'},
   oiwayama_dotaku: {text:'大岩山遺跡から日本最大級の銅鐸が出土した？', icon:'🔔'},
   tokaido_nakasendo: {text:'東海道と中山道が分岐・合流した宿場町？', icon:'🛤️'},
@@ -1369,14 +1369,14 @@ const STATS_THRESHOLDS = {
   areaCompact:  c => c.name === '東京' ? false : (c.stats?.area_km2 != null ? c.stats.area_km2 <= AREA_COMPACT_THRESHOLD : undefined),
 };
 const STATS_QUESTIONS = {
-  pop500k:     {text:'人口は50万人以上?', icon:'👥'},
-  pop300k:     {text:'人口は30万人以上?', icon:'👥'},
-  pop100k:     {text:'人口は10万人以上?', icon:'👥'},
-  popUnder50k: {text:'人口は5万人未満?', icon:'👤'},
-  densityHigh: {text:'人や住宅が密集しているほう?', icon:'🏢'},
-  densityLow:  {text:'人口がまばらな地域が多い?', icon:'🏞️', subjective:true},
-  areaLarge:   {text:'自治体の区域が広いほう?', icon:'🗺️'},
-  areaCompact: {text:'自治体の区域がコンパクトなほう?', icon:'🗺️'},
+  pop500k:     {text:'人口は50万人以上？', icon:'👥'},
+  pop300k:     {text:'人口は30万人以上？', icon:'👥'},
+  pop100k:     {text:'人口は10万人以上？', icon:'👥'},
+  popUnder50k: {text:'人口は5万人未満？', icon:'👤'},
+  densityHigh: {text:'人や住宅が密集しているほう？', icon:'🏢'},
+  densityLow:  {text:'人口がまばらな地域が多い？', icon:'🏞️', subjective:true},
+  areaLarge:   {text:'自治体の区域が広いほう？', icon:'🗺️'},
+  areaCompact: {text:'自治体の区域がコンパクトなほう？', icon:'🗺️'},
 };
 // 人口のしきい値は「上限・下限が分かれば答えが確定する」階段状の質問なので、
 // 序列(小さい順)を持たせておき、回答済みの範囲から不要な質問を除外するのに使う。
@@ -1406,6 +1406,7 @@ function activateStatsQuestions(){
 }
 
 let CITIES = [];
+let lastPickWasOneCity = false; // 直前に出した質問が「1市限定質問」だったか(連続を避けるため)
 let scorePool = []; // [{city, score}] 形式。はい/いいえで完全に消すのではなく、加点/減点で判断する
 // 即時除外などで候補から外した分の置き場。捨てずにここへ避けておき、スコアの加減点は
 // scorePool と同じように続ける。1回目の推測が外れたら、ここから候補へ戻して復活させる
@@ -1626,7 +1627,7 @@ const EXTRA_PHASE_POOL_MAX = 15;
 //    答えが割れる質問が客観扱いのままだと、「いいえ」と答えただけで正解候補が強く沈む。
 // どちらの誤りも語の有無では見分けられないため、質問を作る人が明示する方式にする。
 // 使い方: QUESTIONSの定義に subjective: true を足すだけ。
-//   festival: {text:'全国的に有名なお祭りがある?', icon:'🎆', subjective:true},
+//   festival: {text:'全国的に有名なお祭りがある？', icon:'🎆', subjective:true},
 function isSubjectiveQuestion(key){
   const q = QUESTIONS[key] || STATS_QUESTIONS[key];
   return !!(q && q.subjective === true);
@@ -2247,41 +2248,53 @@ function checkAchievements(gameInfo){
   return newlyUnlocked;
 }
 
-// 称号獲得演出を1件ずつ表示するためのカードHTMLを作る。
-// list を明示的に渡さない場合は、直近の結果(currentResult)から取得する(「次へ」ボタン用)。
+// 称号獲得演出。複数まとめて獲得したときも1画面に収める。
+// 以前は1件ずつ「次の称号へ」を押させていたため、初回プレイで9個獲得すると
+// 9回ボタンを押さないと結果画面を操作できなかった。
+// いまは「最もレアな1件を大きく + 残りを一覧」で、押す回数はゼロ。
+// 称号一覧ページと獲得記録(stats)の仕組みはそのまま。
 function renderAchievementToastCard(list){
   const achievements = list || (currentResult && currentResult.newAchievements) || [];
   if(achievements.length === 0) return '';
-  if(achievementToastIndex >= achievements.length) return '';
-  const a = achievements[achievementToastIndex];
+
+  // レア度が高い順に並べ替える(同じレア度なら獲得順のまま)
+  const sorted = achievements.slice().sort((a, b) => (b.rarity || 0) - (a.rarity || 0));
+  const top = sorted[0];
+  const rest = sorted.slice(1);
   const total = achievements.length;
-  const idx = achievementToastIndex + 1;
-  const isTopRarity = a.rarity >= 5; // 最高レアは少し特別感を出す
-  const isLast = idx >= total;
+  const isTopRarity = (top.rarity || 0) >= 5; // 最高レアは少し特別感を出す
+  const stars = a => '★'.repeat(a.rarity) + '☆'.repeat(5 - a.rarity);
+
+  // 残りが多いと結果画面が長くなるので、4件以上は最初たたんでおく
+  const COLLAPSE_FROM = 4;
+  const collapsed = rest.length >= COLLAPSE_FROM;
+  const restHtml = rest.length === 0 ? '' : `
+      <details class="achievement-toast-more"${collapsed ? '' : ' open'}>
+        <summary>ほかに獲得した称号 ${rest.length}件${collapsed ? '(タップで開く)' : ''}</summary>
+        <ul class="achievement-toast-list">
+          ${rest.map(a => `
+            <li>
+              <span class="achievement-toast-list-stars">${stars(a)}</span>
+              <span class="achievement-toast-list-name">${a.name}</span>
+              <span class="achievement-toast-list-desc">${a.description}</span>
+            </li>`).join('')}
+        </ul>
+      </details>`;
+
   return `
     <div class="achievement-toast${isTopRarity ? ' achievement-toast-top' : ''}" id="achievementToast">
-      <div class="achievement-toast-title">称号を獲得しました！${total > 1 ? `(${idx}／${total})` : ''}</div>
+      <div class="achievement-toast-title">${total > 1 ? `${total}個の称号を獲得！` : '称号を獲得しました！'}</div>
       <div class="achievement-toast-card">
-        <div class="achievement-toast-stars">${'★'.repeat(a.rarity)}${'☆'.repeat(5-a.rarity)}</div>
-        <div class="achievement-toast-name">${a.name}</div>
-        <div class="achievement-toast-desc">${a.description}</div>
+        <div class="achievement-toast-stars">${stars(top)}</div>
+        <div class="achievement-toast-name">${top.name}</div>
+        <div class="achievement-toast-desc">${top.description}</div>
       </div>
+      ${restHtml}
       <div class="achievement-toast-actions">
-        ${!isLast ? `<button class="link-btn" onclick="advanceAchievementToast()">次の称号へ(${idx}／${total})</button>` : `<button class="link-btn" onclick="renderAchievementsPage()">称号一覧を見る</button>`}
+        <button class="link-btn" onclick="renderAchievementsPage()">称号一覧を見る</button>
         <button class="link-btn-subtle" onclick="closeAchievementToast()">閉じる</button>
       </div>
     </div>`;
-}
-function advanceAchievementToast(){
-  const container = document.getElementById('achievementToastContainer');
-  if(!container) return; // 二重タップ等で既に閉じられている場合は何もしない
-  const achievements = (currentResult && currentResult.newAchievements) || [];
-  if(achievementToastIndex >= achievements.length - 1){
-    container.innerHTML = '';
-    return;
-  }
-  achievementToastIndex++;
-  container.innerHTML = renderAchievementToastCard();
 }
 function closeAchievementToast(){
   const container = document.getElementById('achievementToastContainer');
@@ -2702,24 +2715,43 @@ function shuffle(arr){
 }
 
 function renderStamps(){
+  // 【進行バー】以前は上限34問ぶんの鳥居スタンプを並べていたが、スマホでは小さく詰まって
+  // 圧迫感が出ていた。34個並べる代わりに、5問ごとの目盛りが付いた1本のバーで表す。
+  // 質問数の上限やロジックは変えていない(見せ方だけの変更)。
+  // 「質問 ○／34」の文字表示は別要素(count-line)にそのまま残している。
   stampsEl.innerHTML = '';
-  if(questionPhase === 'extra'){
-    // 追加質問中は通常の鳥居スタンプとは別の、小さな追加質問バーを表示する
-    // (通常質問のスタンプは18個で埋まった状態のまま残し、進捗が止まって見えないようにする)
-    for(let i=0;i<MAX_EXTRA_Q;i++){
-      const s = document.createElement('div');
-      s.className = 'stamp stamp-extra' + (i < extraQuestionCount ? ' filled' : '');
-      s.textContent = '🔎';
-      stampsEl.appendChild(s);
+
+  const isExtra = questionPhase === 'extra';
+  const max   = isExtra ? MAX_EXTRA_Q : MAX_Q;
+  const count = isExtra ? extraQuestionCount : questionCount;
+  const ratio = max > 0 ? Math.min(1, count / max) : 0;
+
+  const bar = document.createElement('div');
+  bar.className = 'qbar' + (isExtra ? ' qbar-extra' : '');
+
+  // 5問ごとの目盛り(追加質問は問数が少ないので目盛りは出さない)
+  if(!isExtra){
+    for(let t = 5; t < max; t += 5){
+      const tick = document.createElement('span');
+      tick.className = 'qbar-tick';
+      tick.style.left = (t / max * 100) + '%';
+      bar.appendChild(tick);
     }
-    return;
   }
-  for(let i=0;i<MAX_Q;i++){
-    const s = document.createElement('div');
-    s.className = 'stamp' + (i < questionCount ? ' filled' : '');
-    s.textContent = '⛩';
-    stampsEl.appendChild(s);
-  }
+
+  const fill = document.createElement('span');
+  fill.className = 'qbar-fill';
+  fill.style.width = (ratio * 100) + '%';
+  bar.appendChild(fill);
+
+  // 現在地の目印。通常質問は鳥居、追加質問は虫めがねで区別する
+  const head = document.createElement('span');
+  head.className = 'qbar-head';
+  head.style.left = (ratio * 100) + '%';
+  head.textContent = isExtra ? '🔎' : '⛩';
+  bar.appendChild(head);
+
+  stampsEl.appendChild(bar);
 }
 
 // モード限定タグ:ここに書いたキーは、指定したモードのときだけ出題される。
@@ -4225,7 +4257,11 @@ let askedCategoryCounts = {}; // ゲーム開始時にリセットする(startMo
 let askedStatsCount = 0; // 同一ゲーム内で出題した統計質問(人口・面積・密度)の数。startModeでリセット
 
 const DECISIVE_BOOST = 15;      // 「今答えれば一発で決着する」質問への優遇度
-const DECISIVE_POOL_SIZE = 12;  // 候補がこの件数以下のときだけ、決め手質問を優遇する(遊び心の発動タイミングに近づける)
+// 候補がこの件数以下のときだけ、決め手質問(1市限定質問)を優遇する。
+// 12件だと、残り10〜11件の場面で「〇〇に△△がある?」のような1市限定質問が
+// 「新潟県ですか?」(5/10で割れる)のような効率の良い質問に競り勝ってしまい、
+// 都道府県質問が50ゲーム中1回も出なかった。8件まで絞ってから優遇する。
+const DECISIVE_POOL_SIZE = 8;
 
 function priorityAdjust(k, diff, poolSize, isDecisive, groupShares){
   if(HIGH_PRIORITY_KEYS.has(k)){
@@ -4292,6 +4328,26 @@ const PREF_MAX_PER_GAME        = 1;   // 1ゲームの原則上限
 const PREF_MAX_RESCUE          = 2;   // 質問数が上限に近い救済時の上限
 const PREF_RESCUE_REMAINING_Q  = 5;   // 残り質問数がこれ以下なら救済措置とみなす
 const PREF_MIN_YES_RATIO       = 0.2; // はい側が残り候補のこの割合未満なら情報量が小さいので出さない
+const PREF_MIN_YES_COUNT       = 2;   // 該当が1市だけの都道府県質問は出さない(それは1市限定質問と同じ)
+
+// 【地方が判明した後の早期解禁】
+// 「中部地方?」が判明して残り38市になった後も、愛知県内の特定施設を1市ずつ聞いてしまう。
+// 本来はそこで「新潟県?」「北陸3県?」のように大きく分けたい。
+// そこで、地方が絞れていて候補もそこそこ減っている場面では、質問数や候補15件を待たずに
+// 都道府県質問を解禁する。回数の上限もこの場面では2回まで許す
+// (1回だけだと、地方の次に県を1つ聞いた時点で打ち止めになり、県内地域まで進めないため)。
+const PREF_REGION_DONE_POOL    = 60;  // 地方判明後、残り候補がこれ以下なら早期解禁
+const PREF_REGION_DONE_MAX     = 2;   // 早期解禁の場面での出題上限
+const PREF_AREA_RECENT_GAP     = 2;   // 直近この問数以内に地方・都道府県質問を出していたら解禁しない
+// 早期解禁のときだけ、質問数の下限も緩める。
+// 実測では、即時除外が効くため8問目には候補が8〜11件まで落ちており、その頃には残り候補が
+// 同じ県に集中して都道府県質問の情報量がゼロになっていた(=PREF_MIN_QUESTIONS=8 が、
+// 都道府県質問のいちばん有効な時期をちょうど塞いでいた)。
+const PREF_REGION_DONE_MIN_Q   = 4;   // 早期解禁の場面での質問数の下限
+// 早期解禁の場面で都道府県質問に与える加点(スコアは小さいほど良いので引く)。
+// 加点しないと、候補9件で「秋田県ですか?」(2/7に割れる)は「名前がひらがな?」(4/5に割れる)に
+// 効率で負けて、実測では50ゲーム中1回も出なかった。地名で大きく分ける流れを作るための下駄。
+const PREF_BOOST_AMOUNT        = 22;
 
 function isPrefQuestion(key){ return PREF_QUESTION_KEYS.has(key); }
 
@@ -4304,24 +4360,46 @@ function questionsSinceLastPref(){
   return Infinity; // まだ一度も出していない
 }
 
-// 都道府県質問を今この場面で出してよいか(キー単位ではなく場面の判定)
-function prefQuestionAllowedNow(poolSize){
-  const qCount = questionCount + extraQuestionCount;
-  if(qCount < PREF_MIN_QUESTIONS) return false;              // 1. 序盤では出さない
+// 直近に地方・都道府県質問を出していないか(地名の総当たりに戻さないための歯止め)
+function areaOrPrefAskedRecently(n){
+  return lastDisplayedKeys(n).some(k =>
+    REGION_QUESTION_KEYS.has(k) || isPrefQuestion(k) || WIDE_AREA_BOOST_KEYS.has(k));
+}
 
-  // 3. 1ゲーム原則1回。ただし質問数が上限に近い場面だけ、救済として2回まで許す
+// 地方が判明していて候補も減っている「都道府県質問を使いたい場面」かどうか。
+// 直前2問以内に地方・都道府県質問を出していたら、地名が続いて総当たりに見えるので見送る。
+function prefRegionUnlockNow(poolSize, regionDone){
+  return !!regionDone
+    && poolSize <= PREF_REGION_DONE_POOL
+    && !areaOrPrefAskedRecently(PREF_AREA_RECENT_GAP);
+}
+
+// 都道府県質問を今この場面で出してよいか(キー単位ではなく場面の判定)
+function prefQuestionAllowedNow(poolSize, regionDone){
+  const qCount = questionCount + extraQuestionCount;
+
+  // 【地方判明後の早期解禁】地方が絞れていて候補も減っているなら、質問数を待たずに解禁する。
+  // ただし地名質問が続くと総当たりに見えるので、直前2問以内に地方・都道府県質問があれば見送る。
+  const regionUnlock = prefRegionUnlockNow(poolSize, regionDone);
+
+  // 1. 序盤では出さない(早期解禁の場面だけ下限を緩める)
+  const minQ = regionUnlock ? PREF_REGION_DONE_MIN_Q : PREF_MIN_QUESTIONS;
+  if(qCount < minQ) return false;
+
+  // 3. 1ゲーム原則1回。質問数が上限に近い場面と、上の早期解禁の場面は2回まで許す
   const phaseMax = effectiveMaxQ(questionPhase);
   const phaseCount = questionPhase === 'extra' ? extraQuestionCount : questionCount;
   const nearLimit = (phaseMax - phaseCount) <= PREF_RESCUE_REMAINING_Q;
-  const cap = nearLimit ? PREF_MAX_RESCUE : PREF_MAX_PER_GAME;
+  const cap = nearLimit ? PREF_MAX_RESCUE : (regionUnlock ? PREF_REGION_DONE_MAX : PREF_MAX_PER_GAME);
   if(prefAskedCount() >= cap) return false;
 
   // 4. 総当たり禁止: 一度出したら通常質問を3問以上挟む
   if(questionsSinceLastPref() < PREF_GAP_AFTER) return false;
 
-  // 2. 解禁条件: 候補が少ない / 質問数が多い / 同一県が候補の大半を占める のいずれか
+  // 2. 解禁条件: 候補が少ない / 質問数が多い / 地方判明後で候補も減った のいずれか
   if(poolSize <= PREF_UNLOCK_POOL) return true;
   if(qCount >= PREF_UNLOCK_QCOUNT) return true;
+  if(regionUnlock) return true;
   return false;
 }
 
@@ -4410,6 +4488,13 @@ function earlyRegionBoostFor(key, cities){
   return AREA_BOOST_AMOUNT;
 }
 
+// 早期解禁の場面でだけ、都道府県質問を優先させるための加点
+function prefBoostFor(key, poolSize, regionDone){
+  if(!isPrefQuestion(key)) return 0;
+  if(!prefRegionUnlockNow(poolSize, regionDone)) return 0;
+  return PREF_BOOST_AMOUNT;
+}
+
 function entropyPick(){
   const poolInfo = questionPhase === 'extra' ? extraPhaseCities() : topPoolCities();
   const topCities = poolInfo.cities;
@@ -4420,11 +4505,30 @@ function entropyPick(){
   unused = unused.filter(k => !isPopQuestionRedundant(k) && !isOppositeStatsAlreadyAsked(k) && !isAreaDensityBackToBack(k));
 
   // 【都道府県質問の制限】場面の条件を満たさないときは、候補からまとめて外す。
-  const prefOkNow = prefQuestionAllowedNow(truePoolSize) && regionNarrowedDown(topCities);
+  // 地方が絞れているか(都道府県質問の解禁判定と、早期解禁の両方で使う)
+  const regionDoneNow = regionNarrowedDown(topCities);
+  const prefOkNow = prefQuestionAllowedNow(truePoolSize, regionDoneNow) && regionDoneNow;
   if(!prefOkNow) unused = unused.filter(k => !isPrefQuestion(k));
 
   const candidateQuestions = [];
   const decisiveSet = new Set();
+
+  // 【1市限定質問(決め手質問)を優遇してよい場面かどうか】
+  // 「はい側が1市だけ」の質問は、当たれば一発で決まるが、外れると1市減るだけでほぼ無駄打ちになる。
+  // 候補がまだ多い場面で出すと「〇〇市ですか?」を1件ずつ潰す総当たりに近くなり、
+  // 実測では全質問の31.6%が1市限定質問、うち190回が2問連続、278回が残り20市以上の場面だった。
+  // そこで、優遇するのは候補が DECISIVE_POOL_SIZE 件以下に絞れてからに限る。
+  const decisiveActive = truePoolSize <= DECISIVE_POOL_SIZE;
+  // 候補がまだ多いのに1市限定質問を選ぼうとしたときの減点。
+  // (禁止ではなく減点。他に良い質問が無ければ選ばれる)
+  const ONE_CITY_PENALTY = 25;
+  // 直前も1市限定質問だったら、さらに減点して連続を避ける。
+  const ONE_CITY_STREAK_PENALTY = 25;
+  function oneCityPenalty(k){
+    if(!decisiveSet.has(k)) return 0;
+    if(decisiveActive) return 0;               // 十分絞れているので優遇してよい場面
+    return ONE_CITY_PENALTY + (lastPickWasOneCity ? ONE_CITY_STREAK_PENALTY : 0);
+  }
 
   for(const k of unused){
     const yes = topCities.filter(c=>c.tags[k]).length;
@@ -4432,6 +4536,8 @@ function entropyPick(){
     if(yes===0 || no===0) continue; // 情報量ゼロの質問は除外
     // 5. 情報量が大きい場合だけ出題する: はい側が極端に少ない県質問は総当たりの入口になるので外す
     // (例: 残り10市のうち新潟県が1市だけ → 「新潟県にありますか?」は出さない)
+    // 該当が1市だけの都道府県質問は、実質「その1市ですか?」と同じで総当たりになるので出さない。
+    if(isPrefQuestion(k) && yes < PREF_MIN_YES_COUNT) continue;
     if(isPrefQuestion(k) && (yes / topCities.length) < PREF_MIN_YES_RATIO) continue;
     if(yes === 1 || no === 1) decisiveSet.add(k);
     candidateQuestions.push(k);
@@ -4473,13 +4579,15 @@ function entropyPick(){
   const phasePenaltyWeight = questionCount <= PHASE_QCOUNT_EARLY_MIDDLE_MAX ? 1
                            : (questionCount < PHASE_QCOUNT_LATE_MIN ? 0.6 : 0.15);
   function phasePenalty(k){
-    if(decisiveSet.has(k)) return 0; // 決め手質問は段階を問わず優先する
+    // 決め手質問は段階を問わず優先する。ただし候補が十分絞れている場面に限る
+    // (候補が多いうちから優先すると、1市ずつ潰す総当たりになってしまう)。
+    if(decisiveSet.has(k) && decisiveActive) return 0;
     return phaseOf(k) === nowPhase ? 0 : PHASE_MISMATCH_PENALTY * phasePenaltyWeight;
   }
 
   // 【カテゴリ3連続防止】同じジャンルが3問以上連続しないよう、可能な限り避ける。
   // ただし、それがこの局面での決め手質問だったり、他に選べる質問が無い場合は例外として許可する。
-  const nonStreak = candidateQuestions.filter(k => !wouldExceedCategoryStreak(k) || decisiveSet.has(k));
+  const nonStreak = candidateQuestions.filter(k => !wouldExceedCategoryStreak(k) || (decisiveSet.has(k) && decisiveActive));
   const finalCandidates = nonStreak.length > 0 ? nonStreak : candidateQuestions;
 
   // 【地方ブースト】全国版で候補が特定の地方・県に偏ってきたら、その地方限定質問を優先する。
@@ -4507,7 +4615,8 @@ function entropyPick(){
     const isDecisive = (yes === 1 || no === 1);
     const diff = priorityAdjust(k, Math.abs(yes - no), truePoolSize, isDecisive, groupShares) - regionBoostFor(k, groupShares)
       - earlyRegionBoostFor(k, topCities)
-      + (isDecisive ? 0 : recentStreakPenalty(k)) + phasePenalty(k);
+      + ((isDecisive && decisiveActive) ? 0 : recentStreakPenalty(k)) + phasePenalty(k) + oneCityPenalty(k)
+      - prefBoostFor(k, truePoolSize, regionDoneNow);
     return { k, diff };
   }).sort((a,b)=> a.diff - b.diff);
   const shortlistSize = truePoolSize > 150 ? 20 : 12;
@@ -4523,7 +4632,8 @@ function entropyPick(){
     const worstNo = bestSplitDiff(noGroup, usedAfter);
     const minimax = priorityAdjust(k, Math.max(worstYes, worstNo), truePoolSize, isDecisive, groupShares) - regionBoostFor(k, groupShares)
       - earlyRegionBoostFor(k, topCities)
-      + (isDecisive ? 0 : recentStreakPenalty(k)) + phasePenalty(k);
+      + ((isDecisive && decisiveActive) ? 0 : recentStreakPenalty(k)) + phasePenalty(k) + oneCityPenalty(k)
+      - prefBoostFor(k, truePoolSize, regionDoneNow);
     return { k, minimax };
   });
 
@@ -4553,6 +4663,7 @@ function entropyPick(){
     if(pool.length === 0) pool = scored.slice(0, 1).map(s => s.k); // 安全装置
   }
   const picked = shuffle(pool)[0];
+  lastPickWasOneCity = decisiveSet.has(picked); // 次回の「連続させない」判定に使う
 
   // デバッグパネル用: 質問選択時の評価上位候補を記録しておく(ゲームロジックには影響しない)
   lastPickDiagnostics = {
@@ -4859,7 +4970,6 @@ const ACHIEVEMENT_CATEGORY_LABELS = {
   collection: 'コレクション', hidden: '隠し称号',
 };
 let achievementFilter = 'all'; // 現在選択中のフィルタ(カテゴリ名 または 'all'/'unlocked'/'locked')
-let achievementToastIndex = 0; // 結果画面の称号獲得演出で、今何件目を表示しているか(1件ずつ確認できるようにする)
 
 function formatAchievementDate(iso){
   if(!iso) return '';
@@ -5152,6 +5262,7 @@ function startMode(mode){
   const modeCities = getModeCities(mode);
   scorePool = modeCities.map(city => ({ city, score: 0, objMismatch: 0 }));
   prunedOutPool = [];
+  lastPickWasOneCity = false;
   excludedNames = new Set();
   guessAttempts = 0;
   asked = [];
@@ -5664,16 +5775,26 @@ function renderGuess(){
 // ==================== 地元バレポイント ====================
 // 「決め手」らしさが薄い、一般的すぎる/地方区分だけの質問は表示優先度を下げる
 // (表示しないわけではないが、より特徴的な回答があれば後回しにする)。
+// 【結果画面「地元がバレた理由」で優先度を下げる質問】
+// 誰にでも当てはまりやすく、決め手として面白みのないもの。
 const DEPRIORITIZED_LANDMARK_KEYS = new Set([
   'pop100k','pop500k','pop300k','pop200k','popUnder50k','popUnder30k','popUnder10k',
   'areaLarge','areaCompact','densityHigh','densityLow',
   'is_town_village','is_tokyo_ward','designated','chukakushi','tokureishi',
+  // 海・県境なども「日本の市の半分が該当する」ような一般的な質問なので下げる
+  'coastal','borders_other_pref','taiheiyo','nihonkai','private_railway','formed_after_2000',
 ]);
 function isLandmarkDeprioritized(key){
   if(DEPRIORITIZED_LANDMARK_KEYS.has(key)) return true;
-  // 「地方区分だけを聞く質問」= MODE_ONLY_KEYSの地方限定グループに入っている、
-  // 語尾が_area/_regionの純粋な地理区分タグ
-  if(/_area$|_region$/.test(key)) return true;
+  // 8地方(関東・中部…)は範囲が広すぎて決め手としては弱いので下げる。
+  // 【注意】以前は /_area$|_region$/ という正規表現で判定していたが、これは
+  //   ・chuetsu_region(中越地方)のような「県内の地域」まで巻き込んで下げてしまい
+  //   ・region_chubu(中部地方)のような8地方はマッチせず素通りさせていた
+  // という、意図とちょうど逆の動きになっていた。
+  // 県内地域(中越地方・津軽地方など)は該当数が少なく識別力が高いので、むしろ優先したい。
+  if(REGION_QUESTION_KEYS.has(key)) return true;
+  // 複数県にまたがる広域(北関東3県・京阪神など)も、県内地域よりは広いので少しだけ下げる対象
+  if(WIDE_AREA_BOOST_KEYS.has(key)) return true;
   return false;
 }
 
@@ -5890,9 +6011,20 @@ function computeBarePoints(finalCity){
     const matchCount = poolBefore.filter(e => !!e.city.tags[rec.key] === !!rec.val).length;
     const rarity = poolSizeBefore > 0 ? 1 - (matchCount / poolSizeBefore) : 0;
 
-    let importance = probGain * 60 + narrowedRatio * 30 + rarity * 10;
-    if(!rec.subjective) importance *= 1.15; // 客観的な回答のほうをやや優先する
-    if(isLandmarkDeprioritized(rec.key)) importance *= 0.25; // 一般的すぎる質問は優先度を下げる
+    // 【重み付け】「実際に候補を大きく減らした質問」を第一の基準にする。
+    //   narrowedRatio … その回答で候補が何割減ったか(=いちばん効いた質問)
+    //   probGain      … 正解自治体の確率がどれだけ上がったか(有力候補の絞り込み)
+    //   rarity        … その答えに該当する市が少ないほど識別力が高い
+    // 以前は probGain を最重視していたため、「中部地方です」「海に面していない」のような
+    // 一般的な回答が、信濃川・豪雪といった本当の決め手より上に出ることがあった。
+    let importance = narrowedRatio * 55 + probGain * 45 + rarity * 20;
+    if(!rec.subjective) importance *= 1.15;  // 客観的な回答のほうをやや優先する
+    if(rec.val === true) importance *= 1.12; // 「〜である」という特徴のほうが読んで面白い
+    // 終盤の質問ほど「最後の決め手」らしいので、わずかに優先する
+    importance *= 1 + Math.min(0.15, (i / Math.max(1, history.length)) * 0.15);
+    // 一般的すぎる質問は大きく下げる。8地方の質問は即時除外で候補を一気に減らすため
+    // narrowedRatio が非常に大きくなり、0.25倍程度では上位に残ってしまう(実測で確認)。
+    if(isLandmarkDeprioritized(rec.key)) importance *= 0.08;
 
     // ほとんど絞れていない質問は「決め手」とは呼べないので対象外にする
     if(narrowedRatio < 0.03 && probGain < 0.02) continue;
@@ -5901,8 +6033,35 @@ function computeBarePoints(finalCity){
   }
 
   candidates.sort((a, b) => b.importance - a.importance);
+
+  // 【ジャンルの分散】同じような内容が3件並ぶと単調になるので、可能な範囲でジャンルを散らす。
+  // 「地方・交通・名物」のように違う切り口が並んだほうが読んでいて面白い。
+  // ただし無理に分散させて弱い理由を混ぜると本末転倒なので、
+  // 同ジャンルは2件までとし、それで3件そろわなければ重要度順でそのまま埋める。
+  const BARE_SAME_CATEGORY_MAX = 2;
+  // 「中部地方です」「海に面している」のような一般的な理由は、並べても面白くないので1件まで。
+  const BARE_GENERAL_MAX = 1;
+  const picked = [];
+  const usedCategory = {};
+  let generalCount = 0;
+  for(const c of candidates){
+    if(picked.length >= 3) break;
+    const cat = TAG_GAME_CATEGORY[c.key] || 'その他';
+    if((usedCategory[cat] || 0) >= BARE_SAME_CATEGORY_MAX) continue;
+    const general = isLandmarkDeprioritized(c.key);
+    if(general && generalCount >= BARE_GENERAL_MAX) continue;
+    if(general) generalCount++;
+    usedCategory[cat] = (usedCategory[cat] || 0) + 1;
+    picked.push(c);
+  }
+  // 分散の制限で3件に届かなかった場合は、重要度順に残りから埋める
+  for(const c of candidates){
+    if(picked.length >= 3) break;
+    if(picked.includes(c)) continue;
+    picked.push(c);
+  }
   // 無理に3件そろえない。有効な候補が1~2件しか無ければそのまま返す。
-  return candidates.slice(0, 3).map(c => c.text);
+  return picked.map(c => c.text);
 }
 
 // 診断カード用: 既存のtagsだけから「雪国度」「都市規模」「ご当地色」を1〜5段階で算出
@@ -6435,7 +6594,6 @@ function correct(isRight, overrideCity){
     const bestHtml = `<div class="best-line">${bestLine}</div>`;
 
     // 称号獲得演出(新しく解除された称号があるときだけ表示。1件ずつ確認できる形にする)
-    achievementToastIndex = 0;
     const achievementHtml = `<div id="achievementToastContainer">${renderAchievementToastCard(newAchievements)}</div>`;
 
     stage.innerHTML = `
