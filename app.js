@@ -5432,31 +5432,16 @@ function setAchievementFilter(f){
 
 // ==================== 都道府県カード画面 ====================
 // 達成率に応じた色分けクラスを返す(色だけに頼らず、文字・アイコンでも状態を示す)。
-// ==================== 全国制覇帳: 日本地図(タイルグリッド) ====================
-// 47都道府県を、実際の地理的な隣接関係を保った単純化グリッド(タイルマップ)で配置する。
-// 外部の地図画像・APIは一切使わず、この座標だけで自前のSVGを組み立てる。
-// col: 0が基準(西ほどマイナス、東ほどプラス) / row: 0が北、南ほど大きい値。
-const PREF_GRID_POSITIONS = {
-  '北海道': [6, 0],
-  '青森県': [6, 2],
-  '秋田県': [5, 3], '岩手県': [7, 3],
-  '山形県': [5, 4], '宮城県': [7, 4],
-  '新潟県': [4, 5], '福島県': [6, 5],
-  '石川県': [2, 6], '富山県': [3, 6], '長野県': [4, 6], '群馬県': [5, 6], '栃木県': [6, 6], '茨城県': [7, 6],
-  '福井県': [2, 7], '岐阜県': [3, 7], '山梨県': [5, 7], '埼玉県': [6, 7], '千葉県': [7, 7],
-  '滋賀県': [2, 8], '愛知県': [3, 8], '静岡県': [4, 8], '東京都': [6, 8],
-  '京都府': [1, 8], '島根県': [-2, 8], '鳥取県': [-1, 8],
-  '三重県': [3, 9], '神奈川県': [6, 9],
-  '長崎県': [-6, 9], '佐賀県': [-5, 9], '福岡県': [-4, 9], '山口県': [-3, 9], '広島県': [-2, 9], '岡山県': [-1, 9],
-  '兵庫県': [0, 9], '大阪府': [1, 9], '奈良県': [2, 9],
-  '熊本県': [-5, 10], '大分県': [-4, 10],
-  '愛媛県': [-2, 10], '香川県': [-1, 10], '徳島県': [0, 10], '和歌山県': [2, 10],
-  '鹿児島県': [-5, 11], '宮崎県': [-4, 11], '高知県': [-1, 11],
-  '沖縄県': [-6, 13],
-};
-const MAP_TILE_SIZE = 30;
-const MAP_TILE_GAP = 3;
-const MAP_COL_OFFSET = 7; // 最小col(-6)でも0以上になるようにする
+// ==================== 全国制覇帳: 日本地図 ====================
+// 以前の四角いタイル表ではなく、japan-map-data.js に収録した47都道府県の
+// 実際の輪郭を使ってSVGを組み立てる。北海道・本州・四国・九州・沖縄の
+// 位置関係が一目で分かり、各都道府県の輪郭自体をタップできる。
+const JAPAN_MAP_VIEWBOX = [0, 0, 438, 516];
+
+function japanMapPaths(){
+  const data = window.ORAMACHI_JAPAN_MAP;
+  return data && data.paths ? data.paths : {};
+}
 
 // 達成率(0〜1)から地図タイルの塗り色を決める。prefTierInfo()の分類(未着手/挑戦中/達成中/
 // コンプリート)と統一しておく(地図とカード一覧で同じ基準になるように)。
@@ -5469,37 +5454,33 @@ function mapTileColorFor(done, total){
 }
 
 // 日本地図全体のSVGを組み立てる。prefGroupsは { 都道府県名: {total, done} } の形。
-// clickable=trueなら各タイルにonclickを付ける(全国制覇帳の地図タブ用)。
-// falseなら装飾のみ(シェア画像生成用のcanvas描画とは別に、DOM表示用としてこの関数を使う)。
+// clickable=trueなら輪郭をタップ・キーボード操作できる。小さな都府県も押しやすいよう、
+// 同じパスを透明な太線で重ねてヒット領域を少し広げている。
 function buildJapanMapSvg(prefGroups, options){
   options = options || {};
-  const cols = Object.values(PREF_GRID_POSITIONS).map(p => p[0]);
-  const rows = Object.values(PREF_GRID_POSITIONS).map(p => p[1]);
-  const maxCol = Math.max(...cols) + MAP_COL_OFFSET;
-  const maxRow = Math.max(...rows);
-  const width = (maxCol + 2) * (MAP_TILE_SIZE + MAP_TILE_GAP);
-  const height = (maxRow + 2) * (MAP_TILE_SIZE + MAP_TILE_GAP);
+  const paths = japanMapPaths();
+  const [vx, vy, vw, vh] = (window.ORAMACHI_JAPAN_MAP && window.ORAMACHI_JAPAN_MAP.viewBox) || JAPAN_MAP_VIEWBOX;
 
-  const tiles = Object.keys(PREF_GRID_POSITIONS).map(pref => {
-    const [col, row] = PREF_GRID_POSITIONS[pref];
-    const x = (col + MAP_COL_OFFSET) * (MAP_TILE_SIZE + MAP_TILE_GAP);
-    const y = row * (MAP_TILE_SIZE + MAP_TILE_GAP);
+  const shapes = Object.keys(paths).map(pref => {
     const g = prefGroups[pref] || { total: 0, done: 0 };
     const color = mapTileColorFor(g.done, g.total);
     const isComplete = g.total > 0 && g.done >= g.total;
-    const shortName = pref.replace(/[都道府県]$/, '');
-    const clickAttr = options.clickable ? ` class="map-tile" onclick="onMapTileClick('${pref}')"` : ' class="map-tile-static"';
-    // 100%制覇の県は星マーク、それ以外は短縮名だけ表示する(狭いタイル内でも読める文字数に絞る)。
-    const label = isComplete ? '★' : shortName;
-    return `<g${clickAttr} data-pref="${pref}">
-      <rect x="${x}" y="${y}" width="${MAP_TILE_SIZE}" height="${MAP_TILE_SIZE}" rx="5"
-        fill="${color}" stroke="${isComplete ? '#8a6d00' : '#263A5C'}" stroke-width="${isComplete ? 1.6 : 1}"/>
-      <text x="${x + MAP_TILE_SIZE/2}" y="${y + MAP_TILE_SIZE/2 + 4}" font-size="${isComplete ? 13 : 10}"
-        text-anchor="middle" fill="${isComplete ? '#5a4700' : (g.done>0 ? '#FBF6E8' : '#6b6555')}" font-family="'Zen Maru Gothic',sans-serif">${label}</text>
+    const pct = g.total > 0 ? Math.round(100 * g.done / g.total) : 0;
+    const cls = `map-pref${isComplete ? ' map-pref-complete' : ''}`;
+    const interaction = options.clickable
+      ? ` role="button" tabindex="0" onclick="onMapTileClick('${pref}')" onkeydown="onMapPrefKeydown(event,'${pref}')" onmouseenter="showMapPrefPreview('${pref}',${g.done},${g.total})" onfocus="showMapPrefPreview('${pref}',${g.done},${g.total})"`
+      : ' class="map-pref-static"';
+    const classAttr = options.clickable ? ` class="${cls}"` : '';
+    const aria = `${pref}、${g.done}／${g.total}マチ、達成率${pct}%`;
+    return `<g${classAttr}${interaction} data-pref="${pref}" aria-label="${aria}">
+      <title>${aria}</title>
+      ${options.clickable ? `<path class="map-pref-hit" d="${paths[pref]}"/>` : ''}
+      <path class="map-pref-shape" d="${paths[pref]}" fill="${color}"
+        stroke="${isComplete ? '#8a6d00' : '#fffdf5'}" stroke-width="${isComplete ? 1.35 : 0.72}"/>
     </g>`;
   }).join('');
 
-  return `<svg viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg" class="japan-map-svg">${tiles}</svg>`;
+  return `<svg viewBox="${vx} ${vy} ${vw} ${vh}" xmlns="http://www.w3.org/2000/svg" class="japan-map-svg" aria-label="都道府県別の全国制覇地図" role="img" preserveAspectRatio="xMidYMid meet">${shapes}</svg>`;
 }
 
 function prefTierInfo(done, total){
@@ -5602,11 +5583,38 @@ function onMapTileClick(pref){
   renderPrefectureDetail(pref);
 }
 
-// 全国制覇帳の「地図で見る」タブ。日本地図(SVG・タイルグリッド)で都道府県ごとの
+function onMapPrefKeydown(event, pref){
+  if(event.key === 'Enter' || event.key === ' '){
+    event.preventDefault();
+    onMapTileClick(pref);
+  }
+}
+
+// マウスやキーボードで都道府県を選んだとき、地図のすぐ下に名前と進捗を表示する。
+// スマートフォンではタップすると詳細画面へ移動するため、title/aria-labelが補助となる。
+function showMapPrefPreview(pref, done, total){
+  const el = document.getElementById('mapPrefPreview');
+  if(!el) return;
+  const pct = total > 0 ? Math.round(100 * done / total) : 0;
+  el.textContent = `${pref}　${done}／${total}マチ制覇（${pct}%）`;
+}
+
+// 全国制覇帳の「地図で見る」タブ。実際の都道府県輪郭を持つ日本地図で
 // 達成状況を色分け表示する。一覧表示(renderConquestLog)とはボタンで切り替えられる。
 // ==================== 全国制覇帳: 日本地図の画像共有 ====================
 // generateShareImageCanvas()(結果画面用)と同じ考え方で、外部ライブラリなしの
-// Canvas 2D APIだけで、地図タイルと達成状況をまとめた画像を作る。
+// Canvas 2D APIだけで、地図と達成状況をまとめた画像を作る。
+function roundRectPath(ctx, x, y, w, h, r){
+  const radius = Math.min(r, w / 2, h / 2);
+  ctx.beginPath();
+  ctx.moveTo(x + radius, y);
+  ctx.arcTo(x + w, y, x + w, y + h, radius);
+  ctx.arcTo(x + w, y + h, x, y + h, radius);
+  ctx.arcTo(x, y + h, x, y, radius);
+  ctx.arcTo(x, y, x + w, y, radius);
+  ctx.closePath();
+}
+
 async function generateConquestMapImageCanvas(){
   const ctx2 = buildAchievementContext(null);
   const prefGroups = ctx2.prefGroups;
@@ -5649,45 +5657,56 @@ async function generateConquestMapImageCanvas(){
   ctx.fillStyle = '#3a3a34';
   ctx.fillText(`${conqueredCount} / ${total} 自治体を制覇`, SHARE_IMAGE_W/2, 290);
 
-  // 地図タイル(PREF_GRID_POSITIONSをそのまま使い、Canvas座標に変換して描画)
-  const cols = Object.values(PREF_GRID_POSITIONS).map(p => p[0]);
-  const rows = Object.values(PREF_GRID_POSITIONS).map(p => p[1]);
-  const maxCol = Math.max(...cols) + MAP_COL_OFFSET;
-  const maxRow = Math.max(...rows);
-  const mapAreaW = SHARE_IMAGE_W - 160;
-  const mapAreaH = 780;
-  const tile = Math.min(mapAreaW / (maxCol + 2), mapAreaH / (maxRow + 2));
-  const gap = tile * 0.1;
-  const mapW = (maxCol + 2) * (tile + gap);
-  const mapH = (maxRow + 2) * (tile + gap);
-  const mapX0 = (SHARE_IMAGE_W - mapW) / 2;
-  const mapY0 = 340;
+  // 実際の都道府県輪郭をCanvasへ描画する。DOM表示と同じパス・色分けを使うため、
+  // 画面では地図なのに共有画像だけタイル表になる、という食い違いを起こさない。
+  const paths = japanMapPaths();
+  const [, , sourceW, sourceH] = (window.ORAMACHI_JAPAN_MAP && window.ORAMACHI_JAPAN_MAP.viewBox) || JAPAN_MAP_VIEWBOX;
+  const mapAreaW = 720;
+  const mapAreaH = 820;
+  const scale = Math.min(mapAreaW / sourceW, mapAreaH / sourceH);
+  const drawnW = sourceW * scale;
+  const drawnH = sourceH * scale;
+  const mapX0 = (SHARE_IMAGE_W - drawnW) / 2;
+  const mapY0 = 330;
 
-  Object.keys(PREF_GRID_POSITIONS).forEach(pref => {
-    const [col, row] = PREF_GRID_POSITIONS[pref];
-    const x = mapX0 + (col + MAP_COL_OFFSET) * (tile + gap);
-    const y = mapY0 + row * (tile + gap);
+  // 海を思わせる薄い背景で、日本列島の輪郭を読み取りやすくする。
+  ctx.fillStyle = '#EDF4F2';
+  roundRectPath(ctx, mapX0 - 36, mapY0 - 20, drawnW + 72, drawnH + 40, 28);
+  ctx.fill();
+
+  ctx.save();
+  ctx.translate(mapX0, mapY0);
+  ctx.scale(scale, scale);
+  Object.keys(paths).forEach(pref => {
     const g = prefGroups[pref] || { total: 0, done: 0 };
     const isComplete = g.total > 0 && g.done >= g.total;
+    const path = new Path2D(paths[pref]);
     ctx.fillStyle = mapTileColorFor(g.done, g.total);
-    ctx.beginPath();
-    const r = tile * 0.18;
-    ctx.moveTo(x + r, y);
-    ctx.arcTo(x + tile, y, x + tile, y + tile, r);
-    ctx.arcTo(x + tile, y + tile, x, y + tile, r);
-    ctx.arcTo(x, y + tile, x, y, r);
-    ctx.arcTo(x, y, x + tile, y, r);
-    ctx.closePath();
+    ctx.fill(path);
+    ctx.strokeStyle = isComplete ? '#8a6d00' : '#fffdf5';
+    ctx.lineWidth = isComplete ? 1.35 : 0.72;
+    ctx.lineJoin = 'round';
+    ctx.stroke(path);
+  });
+  ctx.restore();
+
+  // 共有画像内にも色の意味を明記する。
+  const legendY = 1205;
+  const legend = [
+    ['#e4e0d0', '未着手'], ['#E8A798', '50%未満'],
+    ['#C1432E', '50%以上'], ['#D4A017', 'コンプリート']
+  ];
+  ctx.font = `22px ${FONT}`;
+  ctx.textBaseline = 'middle';
+  let legendX = 142;
+  legend.forEach(([color, label]) => {
+    ctx.fillStyle = color;
+    roundRectPath(ctx, legendX, legendY - 12, 24, 24, 5);
     ctx.fill();
-    ctx.strokeStyle = isComplete ? '#8a6d00' : '#263A5C';
-    ctx.lineWidth = isComplete ? 1.6 : 1;
-    ctx.stroke();
-    if(isComplete){
-      ctx.fillStyle = '#5a4700';
-      ctx.font = `${tile*0.55}px ${FONT}`;
-      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      ctx.fillText('★', x + tile/2, y + tile/2 + 1);
-    }
+    ctx.strokeStyle = 'rgba(38,58,92,.22)'; ctx.lineWidth = 1; ctx.stroke();
+    ctx.fillStyle = '#5f5a50'; ctx.textAlign = 'left';
+    ctx.fillText(label, legendX + 34, legendY + 1);
+    legendX += label === 'コンプリート' ? 0 : 210;
   });
 
   // フッター(サイト名)
@@ -5794,6 +5813,7 @@ function renderConquestMapView(){
     ${celebrationHtml}
 
     <div class="japan-map-wrap" id="japanMapWrap">${mapSvg}</div>
+    <div class="map-pref-preview" id="mapPrefPreview" aria-live="polite">都道府県に触れると進捗を表示します</div>
 
     <div class="map-legend">
       <span class="map-legend-item"><span class="map-legend-swatch" style="background:#e4e0d0"></span>未着手</span>
@@ -5802,7 +5822,7 @@ function renderConquestMapView(){
       <span class="map-legend-item"><span class="map-legend-swatch" style="background:#D4A017"></span>★コンプリート</span>
     </div>
     ${completedPrefsHtml}
-    <div class="conquest-hint">都道府県のマスをタップすると詳細を見られます。</div>
+    <div class="conquest-hint">都道府県の形をタップすると詳細を見られます。小さな都府県はカード表示からも選べます。</div>
 
     <div class="map-share-row">
       <button class="share-btn-text" id="mapShareBtn" onclick="shareConquestMapImage()">📸 地図を画像でシェア</button>

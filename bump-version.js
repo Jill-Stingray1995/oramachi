@@ -74,7 +74,7 @@ if(fs.existsSync(APP_PATH) && fs.existsSync(path.join(DIR, 'cities.json'))){
 // index.html から ?v= 付きで読み込んでいる自前のファイル。
 // cities.json は <link rel="preload"> の先読みURLがここに含まれる
 // (app.js 側の CITIES_VERSION と同じ値になるよう、上で先に書き換えている)。
-const TARGETS = ['app.js', 'style.css', 'cities.json'];
+const TARGETS = ['app.js', 'style.css', 'cities.json', 'japan-map-data.js'];
 
 for(const file of TARGETS){
   const v = hashOf(file);

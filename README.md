@@ -68,6 +68,10 @@ https://oramachi-jp.com/
 
 ## データ出典
 
+### 全国制覇帳の日本地図
+
+都道府県の輪郭データには [@svg-maps/japan](https://github.com/VictorCazanave/svg-maps/tree/master/packages/japan)（Victor Cazanave、MapSVGを基に作成）を使用し、日本語名への対応付けとおらマチ用データ形式への変換を行っています。ライセンスは [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) です。
+
 ### 人口・面積(統計質問で利用)
 
 各自治体の `stats.population`(人口)・`stats.area_km2`(面積)は、以下を基準にしています。
