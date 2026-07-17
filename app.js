@@ -62,7 +62,7 @@ const QUESTIONS = {
   shimodate_gion: {text:'日本最大級の大神輿が出る下館祇園まつりがある？', icon:'🏮'},
   kamisu_gallery: {text:'海岸沿いの長い防波堤に壁画が並ぶ「1000人画廊」がある？', icon:'🎨'},
   tsukumai: {text:'高さ約14メートルの柱上で曲芸を行う伝統行事「撞舞」がある？', icon:'🎪'},
-  ushiku_daibutsu: {text:'世界最大の大仏がある？', icon:'🗿'},
+  ushiku_daibutsu: {text:'世界最大の青銅製大仏がある？', icon:'🗿'},
   kashima_jingu: {text:'東国三社の一つ、鹿島神宮がある？', icon:'⛩️'},
   kokuo_jinja: {text:'平将門を祭る國王神社がある？', icon:'⛩️'},
   warp_station_edo: {text:'時代劇の野外撮影施設「ワープステーション江戸」がある？', icon:'🎬'},
@@ -538,7 +538,7 @@ const QUESTIONS = {
   basin: {text:'盆地にある？', icon:'🏔️'},
   airport:       {text:'市内に定期旅客便のある空港がある？', icon:'✈️'},
   capital:       {text:'日本の首都？', icon:'🗼'},
-  noodle:        {text:'名物グルメは麺料理？', icon:'🍜'},
+  noodle:        {text:'名物グルメは麺料理？', icon:'🍜', subjective:true},
   mascot_famous: {text:'全国区で有名なご当地キャラがいる？', icon:'🧸', subjective:true},
   nihonkai:      {text:'日本海側の海に面している？', icon:'🌅'},
   taiheiyo:      {text:'太平洋側の海に面している？', icon:'🌊'},
@@ -567,7 +567,7 @@ const QUESTIONS = {
   jleague:        {text:'Jリーグチームの本拠地がある？', icon:'⚽'},
   npb:            {text:'プロ野球チーム(NPB)の本拠地がある？', icon:'⚾'},
   former_capital:   {text:'過去に「都」が置かれたことがある？', icon:'👑'},
-  grid_streets:     {text:'街の中心部は碁盤の目のよう？', icon:'🔲'},
+  grid_streets:     {text:'街の中心部は碁盤の目のよう？', icon:'🔲', subjective:true},
   kokuho_building:  {text:'国宝がある、建っている？', icon:'📜'},
   twelve_castles:   {text:'現存十二天守の城はありますか？', icon:'🏰'},
   sengoku_warlord:  {text:'有名な戦国武将ゆかりの地ですか？', icon:'⚔️', subjective:true},
@@ -592,7 +592,7 @@ const QUESTIONS = {
   imperial_university:  {text:'旧帝国大学がありますか？', icon:'🎓'},
   famous_tower:         {text:'有名なタワーがありますか？', icon:'🗼', subjective:true},
   famous_market:        {text:'有名な市場・朝市がありますか？', icon:'🐟', subjective:true},
-  exotic_port:          {text:'異国情緒の港町ですか？', icon:'🛳️'},
+  exotic_port:          {text:'異国情緒の港町ですか？', icon:'🛳️', subjective:true},
   dome_stadium:         {text:'ドーム球場がありますか？', icon:'🏟️'},
   tea_region:           {text:'茶どころとして有名ですか？', icon:'🍵', subjective:true},
   gokaido_shukuba:      {text:'江戸の五街道の宿場町として知られている？', icon:'🚶', subjective:true},
@@ -712,7 +712,7 @@ const QUESTIONS = {
   hirakata_park:       {text:'ひらかたパークがある？', icon:'🎡'},
   keihan_line:         {text:'京阪電車が通っている？', icon:'🚃'},
   kawachi_ondo:        {text:'河内音頭で知られる？', icon:'🎶', subjective:true},
-  rugby_machi:         {text:'ラグビーのまち？', icon:'🏉'},
+  rugby_machi:         {text:'ラグビーワールドカップ2019の開催地？', icon:'🏉'},
   kougyou_toshi:       {text:'工業都市のイメージが強い？', icon:'🏭', subjective:true},
   hyoujun_jigosen:     {text:'日本標準時子午線が通る？', icon:'🕐'},
   koushien:            {text:'阪神甲子園球場がある？', icon:'⚾'},
@@ -728,7 +728,7 @@ const QUESTIONS = {
   senbei_famous:       {text:'せんべいで有名？', icon:'🍘', subjective:true},
   tanabata_famous:     {text:'七夕まつりで有名？', icon:'🎋', subjective:true},
   uirou_famous:        {text:'ういろうで有名？', icon:'🍡', subjective:true},
-  southern_seichi:     {text:'サザンオールスターズの聖地？', icon:'🎤'},
+  southern_seichi:     {text:'サザンオールスターズの桑田佳祐の出身地？', icon:'🎤'},
   b_kyu_gourmet:       {text:'有名なB級グルメがある？', icon:'🍜', subjective:true},
   beigun_kichi:        {text:'米軍基地がある？', icon:'🎖️'},
   shinkai_gyo:         {text:'深海水族館がある？', icon:'🐟'},
@@ -751,7 +751,7 @@ const QUESTIONS = {
   public_racing_venue: {text:'公営競技場(競馬・競輪・ボート・オートレース)がある？', icon:'🚤'},
   national_government_park: {text:'国営公園がある？', icon:'🌳'},
   film_city:           {text:'映画・映像のまちとして知られる？', icon:'🎬', subjective:true},
-  shinsengumi:         {text:'新選組ゆかりのまち？', icon:'⚔️'},
+  shinsengumi:         {text:'新選組ゆかりのまち？', icon:'⚔️', subjective:true},
   shonan_area:         {text:'「湘南」と呼ばれる地域にある？', icon:'🏄', subjective:true},
   white_mirin_origin:  {text:'白みりん発祥の地？', icon:'🍶'},
   douou_area:               {text:'道央地方にありますか？', icon:'🧭'},
@@ -759,7 +759,7 @@ const QUESTIONS = {
   dohoku_area:              {text:'道北地方にありますか？', icon:'🧭'},
   sapporo_metro:            {text:'札幌都市圏に含まれますか？', icon:'🏙️'},
   ishikari_plain:           {text:'石狩平野にありますか？', icon:'🌾'},
-  historical_port_hokkaido: {text:'北海道を代表する歴史的な港町ですか？', icon:'⚓'},
+  historical_port_hokkaido: {text:'北海道を代表する歴史的な港町ですか？', icon:'⚓', subjective:true},
   industrial_port_hokkaido: {text:'工業港のあるマチですか？', icon:'🏭'},
   hakodate_honsen:          {text:'函館本線が通っていますか？', icon:'🚃'},
   ishikari_river:           {text:'石狩川が流れていますか？', icon:'🏞️'},
@@ -831,7 +831,7 @@ const QUESTIONS = {
   kokubunji_site:              {text:'国分寺・国分尼寺跡がある？', icon:'🏯'},
   traditional_buildings_district: {text:'重要伝統的建造物群保存地区がある？', icon:'🏘️'},
   little_kyoto:                {text:'「小京都」と呼ばれている？', icon:'⛩️', subjective:true},
-  giant_buddha:                {text:'巨大な大仏・観音像がある？', icon:'🗿'},
+  giant_buddha:                {text:'巨大な大仏・観音像がある？', icon:'🗿', subjective:true},
   sea_torii:                   {text:'海上や海辺の大鳥居で有名？', icon:'⛩️', subjective:true},
   deer_in_city:                {text:'鹿が市街地を歩くことで有名？', icon:'🦌', subjective:true},
   gassho_zukuri:               {text:'合掌造り集落がある？', icon:'🏠'},
@@ -1567,6 +1567,21 @@ function computeExclusiveMap(){
   // 日本海/太平洋/瀬戸内海のように、複数のグループに同じキーが登場することがある
   //(地方別グループにこの3つを毎回加えているため)。同じ組を二重登録しないよう記録する。
   const seenPairs = new Set();
+  // 【高速化】以前は、ペアが出てくるたびに CITIES.reduce/filter (825件ループ) を
+  // 3回ずつ実行しており、地方限定タグ同士の組み合わせが数万ペアに及ぶ関係で
+  // 起動のたびに3秒前後かかっていた。同じキーの「trueになる市の集合」は
+  // ペアが変わっても結果は同じなので、キーごとに1回だけ計算してキャッシュし、
+  // ペアの判定はSet同士の軽い集合演算(小さい方の要素数に比例)だけで済ませる。
+  const idSetCache = new Map(); // key -> Set<cityId>
+  function idSetFor(key){
+    let s = idSetCache.get(key);
+    if(!s){
+      s = new Set();
+      CITIES.forEach(c => { if(c.tags[key]) s.add(cityId(c)); });
+      idSetCache.set(key, s);
+    }
+    return s;
+  }
   EXCLUSIVE_CHECK_GROUPS.forEach(group => {
     for(let i = 0; i < group.length; i++){
       for(let j = i + 1; j < group.length; j++){
@@ -1575,16 +1590,20 @@ function computeExclusiveMap(){
         const pairId = k1 < k2 ? `${k1}|${k2}` : `${k2}|${k1}`;
         if(seenPairs.has(pairId)) continue;
         seenPairs.add(pairId);
-        const n1 = CITIES.reduce((a, c) => a + (c.tags[k1] ? 1 : 0), 0);
-        const n2 = CITIES.reduce((a, c) => a + (c.tags[k2] ? 1 : 0), 0);
+        const set1 = idSetFor(k1);
+        const set2 = idSetFor(k2);
+        const n1 = set1.size, n2 = set2.size;
         if(n1 === 0 || n2 === 0) continue; // 片方が0件なら排他かどうか判断できない
-        const bothCities = CITIES.filter(c => c.tags[k1] && c.tags[k2]);
-        if(bothCities.length > EXCLUSIVE_MAX_EXCEPTIONS) continue;                       // 例外が多すぎる
-        if(bothCities.length > Math.min(n1, n2) * EXCLUSIVE_MAX_EXCEPTION_RATIO) continue; // 排他ではなく包含関係
+        // 小さい方の集合を回して積集合を取ると、無駄なチェック回数が最小になる。
+        const [smaller, larger] = n1 <= n2 ? [set1, set2] : [set2, set1];
+        const bothIds = [];
+        smaller.forEach(id => { if(larger.has(id)) bothIds.push(id); });
+        if(bothIds.length > EXCLUSIVE_MAX_EXCEPTIONS) continue;                       // 例外が多すぎる
+        if(bothIds.length > Math.min(n1, n2) * EXCLUSIVE_MAX_EXCEPTION_RATIO) continue; // 排他ではなく包含関係
         (EXCLUSIVE_MAP[k1] = EXCLUSIVE_MAP[k1] || []).push(k2);
         (EXCLUSIVE_MAP[k2] = EXCLUSIVE_MAP[k2] || []).push(k1);
-        if(bothCities.length > 0){
-          const ids = new Set(bothCities.map(c => cityId(c)));
+        if(bothIds.length > 0){
+          const ids = new Set(bothIds);
           EXCLUSIVE_EXCEPTIONS[`${k1}|${k2}`] = ids;
           EXCLUSIVE_EXCEPTIONS[`${k2}|${k1}`] = ids;
         }
@@ -4115,6 +4134,12 @@ const REGION_KEY_BOOST = {
   // 中部: 合掌造り集落(南砺市・高山市)は該当2市のみだが、非常に特徴的な決め手。
   // 実測: 対象2市average 13.8→13.3問にわずかに改善(5シード、サンプルは少なめ)。
   chubu: ['gassho_zukuri'],
+  // 関東: 桑田佳祐の出身地(茅ヶ崎市)は1市限定の決め手だが、全国的には情報利得だけでは埋もれがち。
+  // 関東に絞れた後の決め手として優先する。
+  kanto: ['southern_seichi'],
+  // 北海道: 歴史的な港町(函館市・小樽市・室蘭市・釧路市)は北海道内では絞り込みの決め手になるが、
+  // 全国的には少数派で埋もれがち。北海道に絞れた後の決め手として優先する。
+  hokkaido: ['historical_port_hokkaido'],
   // 【検証の結果、追加を見送ったもの】
   // - shikoku: udon_famous(うどんが有名)は対象8市average 14.8→15.1問とほぼ横ばいで見送り。
   // - hokkaido: drift_ice(流氷)は対象3市average 26.3→29.0問と悪化したため見送り。
@@ -5450,6 +5475,20 @@ const DECISIVE_BOOST = 15;      // 「今答えれば一発で決着する」質
 const DECISIVE_POOL_SIZE = 8;
 
 function priorityAdjust(k, diff, poolSize, isDecisive, groupShares){
+  // 【地方ブースト(HIGH_PRIORITY_KEYSより優先)】southern_seichi(桑田佳祐の出身地)のように
+  // 遊び心系(HIGH_PRIORITY_KEYS)にも登録されている決め手質問は、そのままだと
+  // 「候補が絞れるまで抑制する」ロジックが先に効いてしまい、REGION_KEY_BOOSTの
+  // 「地方が濃厚になったら早めに出す」という意図が発動しなくなる。地方が濃厚な場面では
+  // こちらを優先させる。
+  const boostGroup = REGION_KEY_BOOST_LOOKUP[k];
+  if(boostGroup && poolSize <= REGION_KEY_BOOST_POOL_SIZE){
+    const share = groupShares ? groupShares[boostGroup] : null;
+    const regionFocused = (currentMode === boostGroup) ||
+      (currentMode === 'all' && share != null && share >= REGION_KEY_BOOST_SHARE_THRESHOLD);
+    if(regionFocused){
+      return Math.max(0, diff - REGION_KEY_BOOST_AMOUNT);
+    }
+  }
   if(HIGH_PRIORITY_KEYS.has(k)){
     return poolSize <= FUN_ACTIVATION_POOL_SIZE
       ? Math.max(0, diff - HIGH_PRIORITY_BONUS)
@@ -5474,17 +5513,6 @@ function priorityAdjust(k, diff, poolSize, isDecisive, groupShares){
       (currentMode === 'all' && tokyoShare != null && tokyoShare >= TOKYO_RAIL_SHARE_THRESHOLD);
     if(tokyoFocused){
       return Math.max(0, diff - TOKYO_RAIL_BOOST);
-    }
-  }
-  // 【地方ブースト(東京以外)】REGION_KEY_BOOSTに登録されたキーは、対応する地方に
-  // 候補が絞れてきた場面で優先する。TOKYO_RAIL_KEYSの判定とまったく同じ考え方。
-  const boostGroup = REGION_KEY_BOOST_LOOKUP[k];
-  if(boostGroup && poolSize <= REGION_KEY_BOOST_POOL_SIZE){
-    const share = groupShares ? groupShares[boostGroup] : null;
-    const regionFocused = (currentMode === boostGroup) ||
-      (currentMode === 'all' && share != null && share >= REGION_KEY_BOOST_SHARE_THRESHOLD);
-    if(regionFocused){
-      return Math.max(0, diff - REGION_KEY_BOOST_AMOUNT);
     }
   }
   const cat = categoryOf(k);
@@ -5785,6 +5813,17 @@ function entropyPick(){
     // このモードにおける本来の効率的な絞り込みそのものなので、減点の対象から外す。
     if(currentMode === 'capitals' && isPrefQuestion(k)) return 0;
     if(decisiveActive) return 0;               // 十分絞れているので優遇してよい場面
+    // 【地方ブースト対象】southern_seichi(桑田佳祐の出身地)のように、地方に絞れたら
+    // 積極的に出したい1市限定の決め手質問は、地方が濃厚な場面ではこのペナルティも免除する
+    // (免除しないと、REGION_KEY_BOOST_AMOUNTの加点よりこのペナルティの方が大きく、
+    //  地方ブーストの効果が相殺されてしまうため)。
+    const boostGroup = REGION_KEY_BOOST_LOOKUP[k];
+    if(boostGroup){
+      const share = groupShares ? groupShares[boostGroup] : null;
+      const regionFocused = (currentMode === boostGroup) ||
+        (currentMode === 'all' && share != null && share >= REGION_KEY_BOOST_SHARE_THRESHOLD);
+      if(regionFocused) return 0;
+    }
     return ONE_CITY_PENALTY + (lastPickWasOneCity ? ONE_CITY_STREAK_PENALTY : 0);
   }
 
@@ -9249,7 +9288,7 @@ function restart(){
 // 訪問のたびに落とし直しており、起動が遅くなる最大の原因になっていた。
 // URLに中身のハッシュを付ければ、更新したときだけ新しいURLになるので、
 // 「常に最新」を保ったままブラウザのキャッシュを使える(2回目以降の起動が速くなる)。
-const CITIES_VERSION = 'c98aac0a7f';
+const CITIES_VERSION = 'cde91e544c';
 
 async function boot(){
   try{
@@ -9259,7 +9298,7 @@ async function boot(){
     const timeoutId = controller ? setTimeout(() => controller.abort(), 20000) : null;
     let res;
     try{
-      res = await fetch('./cities.json?v=' + CITIES_VERSION, { signal: controller ? controller.signal : undefined });
+      res = await fetch('cities.json?v=' + CITIES_VERSION, { signal: controller ? controller.signal : undefined });
     } finally {
       if(timeoutId) clearTimeout(timeoutId);
     }

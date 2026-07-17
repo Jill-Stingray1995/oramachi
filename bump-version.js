@@ -91,6 +91,26 @@ for(const file of TARGETS){
   if(hit === 0) console.warn(`  ! index.html に ${file} の読み込みが見つかりませんでした`);
 }
 
+// ── ③ OGP画像(ogp.png)の ?v= を書き換える ─────────────────────
+// og:image / og:image:secure_url / twitter:image のように、同じURLが
+// content="https://oramachi-jp.com/ogp.png?v=..." という形で複数箇所に
+// 埋め込まれている。src=/href= ではなく content= の中の絶対URLなので、
+// 上の TARGETS の仕組み(src=/href=だけを見る)では拾えず、専用の処理にする。
+const OGP_FILE = 'ogp.png';
+if(fs.existsSync(path.join(DIR, OGP_FILE))){
+  const ogpV = hashOf(OGP_FILE);
+  const ogpRe = new RegExp(`(content="https://oramachi-jp\\.com/${OGP_FILE.replace('.', '\\.')})(\\?v=[^"]*)?(")`, 'g');
+  let hit = 0;
+  html = html.replace(ogpRe, (m, pre, oldQuery, post) => {
+    hit++;
+    const oldV = oldQuery ? oldQuery.slice(3) : '(なし)';
+    if(oldV !== ogpV){ changed++; console.log(`  ${OGP_FILE}: ${oldV} -> ${ogpV}`); }
+    else { console.log(`  ${OGP_FILE}: ${ogpV} (変更なし)`); }
+    return `${pre}?v=${ogpV}${post}`;
+  });
+  if(hit === 0) console.warn(`  ! index.html に ${OGP_FILE} の読み込みが見つかりませんでした`);
+}
+
 fs.writeFileSync(INDEX, html);
 console.log(changed > 0
   ? `\n完了: ${changed}件を更新しました。index.html も一緒にGitHubへアップしてください。`

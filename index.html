@@ -27,18 +27,25 @@
 <meta property="og:description" content="全国の市・東京23区・新潟県の町村に対応。「はい」「いいえ」で答えるだけの無料まちあてゲームです。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://oramachi-jp.com/">
-<meta property="og:image" content="https://oramachi-jp.com/icon-512.png">
+<meta property="og:image" content="https://oramachi-jp.com/ogp.png?v=c588169762">
+<meta property="og:image:secure_url" content="https://oramachi-jp.com/ogp.png?v=c588169762">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="628">
+<meta property="og:image:alt" content="おらマチ。Yes-Noでマチあて。あなたの地元、おらっちが当てます。">
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="おらマチ｜あなたの地元、おらっちが当てます">
 <meta name="twitter:description" content="全国の市・東京23区・新潟県の町村に対応。「はい」「いいえ」で答えるだけの無料まちあてゲームです。">
-<meta name="twitter:image" content="https://oramachi-jp.com/icon-512.png">
+<meta name="twitter:image" content="https://oramachi-jp.com/ogp.png?v=c588169762">
+<meta name="twitter:image:alt" content="おらマチ。Yes-Noでマチあて。あなたの地元、おらっちが当てます。">
 <!-- Google AdSense審査時：AdSense管理画面で発行されたコードを、この直前または直後の<head>内に貼り付けます。架空のca-pub IDは入れないでください。 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <!-- フォントの本体は fonts.gstatic.com から配信される。接続の準備だけ先に済ませておくと、
      フォントが表示されるまでの待ち時間が短くなる。 -->
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet"></noscript>
 <!-- 【キャッシュ対策】
      GitHubに新しいファイルを上げても、ブラウザが古いキャッシュを使い続けて
      更新が反映されない…という問題を防ぐための指定。
@@ -52,7 +59,7 @@
      これを書かないと、app.js(425KB)のダウンロードと解析が終わってから
      ようやくデータの取得が始まるため、起動までが直列につながって遅くなる。
      ?v= の値は bump-version.js が cities.json の中身から自動で書き換える。 -->
-<link rel="preload" href="cities.json?v=c98aac0a7f" as="fetch" crossorigin>
+<link rel="preload" href="cities.json?v=cde91e544c" as="fetch" crossorigin>
 <link rel="manifest" href="./manifest.json?v=20260713">
 <meta name="theme-color" content="#263A5C">
 <!-- Safariのお気に入り・ブラウザタブ用 -->
@@ -117,6 +124,6 @@
 </div>
 
 <script defer src="japan-map-data.js?v=8f16c4162f"></script>
-<script defer src="app.js?v=ef291ece79"></script>
+<script defer src="app.js?v=9097172d4e"></script>
 </body>
 </html>
