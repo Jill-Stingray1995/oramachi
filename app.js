@@ -33,7 +33,7 @@ const KEYS = ['hitachi_seaside_park','tsuchiura_hanabi','koga_kubo','toride_geid
   'soy_sauce_famous','vinegar_famous','miso_famous','gyoza_famous','yakisoba_famous','udon_famous','soba_famous','ramen_famous','castella_famous','kamaboko_famous','lacquerware_famous',
   'ancient_provincial_capital','kokubunji_site','traditional_buildings_district','little_kyoto','giant_buddha','sea_torii','deer_in_city','gassho_zukuri',
   'ferry_available','no_railway_station','shikoku_pilgrimage','olympic_venue','famous_battlefield','kitamaebune_port','famous_fish_catch',
-  'kaikyo_machi','gakuto','hula_girl','kannon_zo','koedo','imono_kupola','aeon_laketown','funasshi_famous','takao_mountain','curry_famous','anime_seichi','number_in_name','kigyo_joukamachi','hankyu_line','yayoiken_seichi','hirakata_park','keihan_line','kawachi_ondo','rugby_machi','kougyou_toshi','hyoujun_jigosen','koushien','bikan_chiku','gunkou_machi','seitetsu_kouro','fugu_famous','tire_famous','hamburger_famous','kenkyu_gakuen_toshi','atsui_machi','action_kamen','senbei_famous','tanabata_famous','uirou_famous','southern_seichi','b_kyu_gourmet','beigun_kichi','shinkai_gyo','saboten_machi','combinat_yakei','danjiri_famous','onaji_ookawa','kageki_dan',
+  'kaikyo_machi','gakuto','hula_girl','kannon_zo','koedo','imono_kupola','aeon_laketown','funasshi_famous','takao_mountain','curry_famous','anime_seichi','number_in_name','kigyo_joukamachi','hankyu_line','yayoiken_seichi','hirakata_park','keihan_line','kawachi_ondo','rugby_machi','kougyou_toshi','hyoujun_jigosen','koushien','bikan_chiku','gunkou_machi','seitetsu_kouro','fugu_famous','tire_famous','hamburger_famous','kenkyu_gakuen_toshi','action_kamen','senbei_famous','tanabata_famous','uirou_famous','southern_seichi','b_kyu_gourmet','beigun_kichi','shinkai_gyo','saboten_machi','combinat_yakei','danjiri_famous','onaji_ookawa','kageki_dan',
   'animal_in_name','ariake_coast','big_small_in_name','bingo_area','body_part_in_name','chikugo_area','chikuho_area','chikuzen_area','chugoku_mountain_basin','chuyo_area','color_in_name','dosan_line','four_plus_name','fukuoka_metro','hakubi_line','hard_to_read_name','hiroshima_metro','honshu_bridge','izumo_area','kagoshima_main_line','kawa_in_name','kitakyushu_area','nanyo_area','new_old_in_name','nippo_main_line','nishitetsu_line','northern_kyushu','okinawa_main_island','okinawa_south_central','osumi_area','paper_industry_shikoku','plant_in_name','pref_name_in_city_name','sakishima_islands','same_name_other_pref','sanin_area','sanin_main_line','sanyo_area','sanyo_main_line','satsuma_area','sea_word_in_name','setouchi_industrial','shima_in_name','southern_kyushu','ta_in_name','toyo_area','yama_in_name','yosan_line',
   'ic_doo','ic_sasson','ic_shiribeshi','ic_doto',
   'ic_tohoku','ic_hachinohe','ic_aomori','ic_kamaishi','ic_akita','ic_yamagata','ic_tohoku_chuo','ic_nihonkai_tohoku','ic_banetsu','ic_joban',
@@ -579,7 +579,7 @@ const QUESTIONS = {
   remote_island:    {text:'もしかして離島に存在する？', icon:'🌴'},
   mining_heritage:  {text:'有名な鉱山・炭鉱跡がありますか？', icon:'⛏️', subjective:true},
   night_view:       {text:'日本三大夜景を誇るマチ？', icon:'🌃'},
-  war_damage:       {text:'戦時中に非常に多くの被害を受けましたか？', icon:'🕯️'},
+  war_damage:       {text:'現在の市域で、第二次世界大戦中に大規模な空襲・原爆投下・地上戦があった？', icon:'🕯️'},
   ferris_wheel:     {text:'観覧車はありますか？', icon:'🎡'},
   theme_park:       {text:'テーマパークはありますか？', icon:'🎢'},
   zoo:              {text:'動物園はありますか？', icon:'🦁'},
@@ -704,7 +704,7 @@ const QUESTIONS = {
   funasshi_famous:     {text:'ふなっしーで全国的に知られた？', icon:'🍐', subjective:true},
   takao_mountain:      {text:'高尾山がある？', icon:'⛰️'},
   curry_famous:        {text:'カレーで有名なマチ？', icon:'🍛', subjective:true},
-  anime_seichi:        {text:'アニメの聖地？', icon:'📺'},
+  anime_seichi:        {text:'アニメの聖地として知られている？', icon:'📺', subjective:true},
   number_in_name:      {text:'市名に数字(一、二、三…)が入っている？', icon:'🔢'},
   kigyo_joukamachi:    {text:'企業城下町として知られる？', icon:'🏢', subjective:true},
   hankyu_line:         {text:'阪急電車が通っている？', icon:'🚃'},
@@ -717,13 +717,12 @@ const QUESTIONS = {
   hyoujun_jigosen:     {text:'日本標準時子午線が通る？', icon:'🕐'},
   koushien:            {text:'阪神甲子園球場がある？', icon:'⚾'},
   bikan_chiku:         {text:'美観地区で有名？', icon:'🏯', subjective:true},
-  gunkou_machi:        {text:'軍港のまち？', icon:'⚓'},
+  gunkou_machi:        {text:'旧海軍の鎮守府が置かれた軍港のまち？', icon:'⚓'},
   seitetsu_kouro:      {text:'製鉄所の高炉がある？', icon:'🏭'},
   fugu_famous:         {text:'ふぐで有名？', icon:'🐡', subjective:true},
   tire_famous:         {text:'タイヤで有名？', icon:'🛞', subjective:true},
   hamburger_famous:    {text:'ハンバーガーで有名？', icon:'🍔', subjective:true},
   kenkyu_gakuen_toshi: {text:'研究学園都市として知られる？', icon:'🔬', subjective:true},
-  atsui_machi:         {text:'「暑い街」として全国ニュースになりやすい？', icon:'🌡️'},
   action_kamen:        {text:'アクション仮面が好きな5歳児が住んでいる？', icon:'🦸'},
   senbei_famous:       {text:'せんべいで有名？', icon:'🍘', subjective:true},
   tanabata_famous:     {text:'七夕まつりで有名？', icon:'🎋', subjective:true},
@@ -5294,7 +5293,6 @@ const TAG_GAME_CATEGORY = {
   "tire_famous": "人口・行政",
   "hamburger_famous": "食",
   "kenkyu_gakuen_toshi": "人口・行政",
-  "atsui_machi": "地理",
   "action_kamen": "遊び心",
   "senbei_famous": "食",
   "tanabata_famous": "観光・娯楽",
@@ -9288,7 +9286,7 @@ function restart(){
 // 訪問のたびに落とし直しており、起動が遅くなる最大の原因になっていた。
 // URLに中身のハッシュを付ければ、更新したときだけ新しいURLになるので、
 // 「常に最新」を保ったままブラウザのキャッシュを使える(2回目以降の起動が速くなる)。
-const CITIES_VERSION = 'cde91e544c';
+const CITIES_VERSION = '79a3f6d002';
 
 async function boot(){
   try{
