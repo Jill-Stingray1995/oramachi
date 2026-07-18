@@ -1215,17 +1215,19 @@ color: inherit;}
   display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 4px;
   margin-bottom: 4px;
 }
-.daily-challenge-card-label{ font-size: 12px; font-weight: 800; color: var(--indigo-deep); }
+.daily-challenge-card-label{
+  font-size: 12px; font-weight: 800; color: var(--indigo-deep);
+  display: inline-flex; align-items: center; gap: 5px;
+}
 /* 【今日のチャレンジ】カレンダーアイコン: 絵文字だけでは任意の日付数字を表示できないため、
    実際のカレンダーアプリのような見た目(上部の色帯+下部の日付数字)をCSSで自作している。
    中の数字(.cal-date)はJSから日本時間の「今日の日」を差し込んでおり、日付が変わると
    ページを開き直すたびに自動的に切り替わる。 */
 .daily-challenge-calendar-icon{
   display: inline-flex; flex-direction: column; align-items: center; justify-content: flex-end;
-  width: 15px; height: 15px;
+  width: 15px; height: 15px; flex-shrink: 0;
   border-radius: 3px; overflow: hidden;
   background: #FFFDF6; border: 1px solid var(--vermillion-deep);
-  vertical-align: -3px;
   box-sizing: border-box;
 }
 .daily-challenge-calendar-icon::before{
