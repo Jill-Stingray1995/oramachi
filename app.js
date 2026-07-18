@@ -2255,6 +2255,9 @@ function renderDailyChallengeCardHtml(){
   const theme = getTodaysChallenge();
   const completed = isTodaysChallengeCompleted();
   const data = loadDailyChallengeData();
+  // 日本時間の「今日の日」(1〜31)。日付が変わるたびに、カレンダーアイコン内の数字も
+  // 自動的に切り替わる(絵文字だけでは任意の数字を表示できないため、CSSで自作している)。
+  const todayDay = parseInt(todayJstDateString().slice(8, 10), 10);
   const streakLine = data.currentStreak >= 2
     ? `<span class="daily-challenge-card-streak">🔥 ${data.currentStreak}日連続達成中</span>`
     : '';
@@ -2265,7 +2268,7 @@ function renderDailyChallengeCardHtml(){
   return `
     <div class="daily-challenge-card">
       <div class="daily-challenge-card-head">
-        <span class="daily-challenge-card-label">📅 今日のチャレンジ</span>
+        <span class="daily-challenge-card-label"><span class="daily-challenge-calendar-icon" aria-hidden="true"><span class="cal-date">${todayDay}</span></span> 今日のチャレンジ</span>
         ${streakLine}
       </div>
       <div class="daily-challenge-card-theme">今日は「${theme.text}」で挑戦</div>

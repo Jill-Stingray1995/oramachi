@@ -1216,6 +1216,30 @@ color: inherit;}
   margin-bottom: 4px;
 }
 .daily-challenge-card-label{ font-size: 12px; font-weight: 800; color: var(--indigo-deep); }
+/* 【今日のチャレンジ】カレンダーアイコン: 絵文字だけでは任意の日付数字を表示できないため、
+   実際のカレンダーアプリのような見た目(上部の色帯+下部の日付数字)をCSSで自作している。
+   中の数字(.cal-date)はJSから日本時間の「今日の日」を差し込んでおり、日付が変わると
+   ページを開き直すたびに自動的に切り替わる。 */
+.daily-challenge-calendar-icon{
+  display: inline-flex; flex-direction: column; align-items: center; justify-content: flex-end;
+  width: 15px; height: 15px;
+  border-radius: 3px; overflow: hidden;
+  background: #FFFDF6; border: 1px solid var(--vermillion-deep);
+  vertical-align: -3px;
+  box-sizing: border-box;
+}
+.daily-challenge-calendar-icon::before{
+  content: ''; display: block; width: 100%; height: 4px; flex-shrink: 0;
+  background: var(--vermillion-deep);
+}
+.daily-challenge-calendar-icon .cal-date{
+  width: 100%; text-align: center;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 8.5px; font-weight: 800; line-height: 1;
+  color: var(--ink);
+  padding-bottom: 1px;
+  box-sizing: border-box;
+}
 .daily-challenge-card-streak{ font-size: 10.5px; font-weight: 700; color: var(--vermillion-deep); }
 .daily-challenge-card-theme{ font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 10px; line-height: 1.4; }
 .daily-challenge-card-actions{ display: flex; gap: 8px; align-items: center; }
