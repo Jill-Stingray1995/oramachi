@@ -14,7 +14,7 @@ const KEYS = ['hitachi_seaside_park','tsuchiura_hanabi','koga_kubo','toride_geid
   'chinatown','sand_dunes','imperial_university','famous_tower','famous_market','exotic_port','dome_stadium','tea_region',
   'gokaido_shukuba','pottery_famous','traditional_craft','horse_racing','literary_figure','kitanotakeshi','musashino_line','ekimei_chigau',
   'prefectural_capital','borders_other_pref','formed_after_2000',
-  'national_university','expressway_junction','hiragana_name','direction_in_name','old_province_name',
+  'national_university','expressway_junction','hiragana_name','hiragana_long','hiragana_short','direction_in_name','old_province_name',
   'public_racing_venue','national_government_park','film_city','shinsengumi','shonan_area','white_mirin_origin',
   'joetsu_region','chuetsu_region','kaetsu_region','joetsu_shinkansen_station','hokuriku_shinkansen_station',
   'hokkaido_shinkansen_station','tohoku_shinkansen_station','tokaido_shinkansen_station','sanyo_shinkansen_station','kyushu_shinkansen_station','nishikyushu_shinkansen_station',
@@ -745,6 +745,8 @@ const QUESTIONS = {
   national_university: {text:'国立大学の本部がある？', icon:'🎓'},
   expressway_junction: {text:'高速道路のジャンクション(JCT)がある？', icon:'🛣️'},
   hiragana_name:       {text:'名前がすべてひらがな？', icon:'🔤'},
+  hiragana_long:       {text:'市・区・町・村を除いた自治体名がひらがなで6文字以上？', icon:'🔠'},
+  hiragana_short:      {text:'市・区・町・村を除いた自治体名は、ひらがなで2文字以下？', icon:'🔡'},
   direction_in_name:   {text:'名前に「東・西・南・北」が入っている？', icon:'🧭'},
   old_province_name:   {text:'名前が旧国名に由来する？', icon:'📜'},
   public_racing_venue: {text:'公営競技場(競馬・競輪・ボート・オートレース)がある？', icon:'🚤'},
@@ -1703,7 +1705,7 @@ function challengeHintSubOrderFor(key){
 // ヒントになってしまい、「地元がバレる理由」としては強すぎる。当てっこの醍醐味である
 // 「地理・産業・観光地から絞り込む」楽しさを損なうため、この種の質問は除外する。
 const CHALLENGE_EXCLUDED_NAME_HINT_KEYS = new Set([
-  'katakana_city_name', 'kana_name', 'number_in_name', 'hiragana_name', 'direction_in_name',
+  'katakana_city_name', 'kana_name', 'number_in_name', 'hiragana_name', 'hiragana_long', 'hiragana_short', 'direction_in_name',
   'animal_in_name', 'big_small_in_name', 'body_part_in_name', 'color_in_name', 'four_plus_name',
   'hard_to_read_name', 'kawa_in_name', 'new_old_in_name', 'plant_in_name', 'pref_name_in_city_name',
   'same_name_other_pref', 'sea_word_in_name', 'shima_in_name', 'ta_in_name', 'yama_in_name',
@@ -5339,6 +5341,8 @@ const TAG_GAME_CATEGORY = {
   "ic_takamatsu": "交通", "ic_tokushima": "交通", "ic_matsuyama": "交通", "ic_kochi": "交通",
   "ic_kyushu": "交通", "ic_higashi_kyushu": "交通", "ic_nagasaki": "交通", "ic_oita": "交通", "ic_miyazaki": "交通", "ic_okinawa": "交通",
   "hiragana_name": "その他",
+  "hiragana_long": "その他",
+  "hiragana_short": "その他",
   "direction_in_name": "その他",
   "old_province_name": "歴史・文化",
   "public_racing_venue": "観光・娯楽",
@@ -9286,7 +9290,7 @@ function restart(){
 // 訪問のたびに落とし直しており、起動が遅くなる最大の原因になっていた。
 // URLに中身のハッシュを付ければ、更新したときだけ新しいURLになるので、
 // 「常に最新」を保ったままブラウザのキャッシュを使える(2回目以降の起動が速くなる)。
-const CITIES_VERSION = '79a3f6d002';
+const CITIES_VERSION = '3e61a2f766';
 
 async function boot(){
   try{
