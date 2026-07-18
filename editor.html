@@ -281,6 +281,7 @@
         <div class="row">
           <div>
             <label class="field">タグを選ぶ</label>
+            <input type="text" id="tagKeySearchInput" placeholder="🔍 タグ名・質問文で絞り込み..." style="margin-bottom:6px;">
             <select id="tagKeySelect"></select>
           </div>
           <div id="newTagKeyWrap" style="display:none;">
@@ -4336,29 +4337,46 @@ function labelFor(key){
   return (TAG_LABELS[key] && TAG_LABELS[key].label) || key;
 }
 
+// タグキー・表示名・質問文のいずれかに検索文字列が含まれていれば一致とみなす。
+function tagMatchesSearch(key, searchText){
+  if(key.toLowerCase().includes(searchText)) return true;
+  if(labelFor(key).toLowerCase().includes(searchText)) return true;
+  const info = TAG_LABELS[key];
+  if(info && info.question && info.question.toLowerCase().includes(searchText)) return true;
+  return false;
+}
+
 function populateTagKeySelect(){
+  const searchText = ($('#tagKeySearchInput').value || '').trim().toLowerCase();
   const sel = $('#tagKeySelect');
   const prevValue = sel.value;
 
   const byCategory = {};
   ALL_TAG_KEYS.forEach(k=>{
+    if(searchText && !tagMatchesSearch(k, searchText)) return;
     const cat = categoryFor(k);
     (byCategory[cat] = byCategory[cat] || []).push(k);
   });
   Object.values(byCategory).forEach(arr => arr.sort((a,b)=> labelFor(a).localeCompare(labelFor(b), 'ja')));
 
   let html = '<option value="__new__">➕ 新しいタグを追加する</option>';
+  let hasAnyMatch = false;
   TAG_CATEGORY_ORDER.forEach(cat=>{
     const keys = byCategory[cat];
     if(!keys || keys.length === 0) return;
+    hasAnyMatch = true;
     html += `<optgroup label="${cat}">`;
     html += keys.map(k => `<option value="${k}">${labelFor(k)}(${k})</option>`).join('');
     html += '</optgroup>';
   });
+  if(searchText && !hasAnyMatch){
+    html += '<option value="" disabled>(該当するタグが見つかりません)</option>';
+  }
   sel.innerHTML = html;
 
-  // 直前に選んでいたタグがまだ存在するなら選択を維持、無ければ「新規追加」に戻す
-  if(prevValue && (prevValue === '__new__' || ALL_TAG_KEYS.includes(prevValue))){
+  // 直前に選んでいたタグが、絞り込み後もまだ選択肢にあるなら選択を維持、無ければ「新規追加」に戻す
+  const stillVisible = prevValue === '__new__' || (byCategory[categoryFor(prevValue)] || []).includes(prevValue);
+  if(prevValue && stillVisible){
     sel.value = prevValue;
   } else {
     sel.value = '__new__';
@@ -4395,6 +4413,7 @@ function onTagKeySelectChange(){
 $('#tagGenreSelect').innerHTML = TAG_CATEGORY_ORDER.map(c => `<option value="${c}">${c}</option>`).join('');
 
 $('#tagKeySelect').addEventListener('change', onTagKeySelectChange);
+$('#tagKeySearchInput').addEventListener('input', populateTagKeySelect);
 populateTagKeySelect(); // 初期表示(まだデータが無くても「新規追加」だけは選べる状態にする)
 
 function renderAll(){
