@@ -543,7 +543,7 @@ const QUESTIONS = {
   nihonkai:      {text:'日本海側の海に面している？', icon:'🌅'},
   taiheiyo:      {text:'太平洋側の海に面している？', icon:'🌊'},
   setonaikai:    {text:'瀬戸内海に面している？', icon:'⛵'},
-  famous_mountain:{text:'有名な山がある？', icon:'⛰️', subjective:true},
+  famous_mountain:{text:'日本百名山の山頂がある？', icon:'⛰️'},
   big_river:     {text:'大きな川が流れている？', icon:'🏞️', subjective:true},
   big_bay:       {text:'大きな湾に面している？', icon:'⚓', subjective:true},
   subway:        {text:'地下鉄が走っている？', icon:'🚇'},
@@ -678,7 +678,7 @@ const QUESTIONS = {
   akabane_station: {text:'赤羽駅がある？', icon:'🚉'},
   nippori_station: {text:'日暮里駅がある？', icon:'🚉'},
   tsunagari_mayu_police: {text:'眉毛が繋がったおまわりさんがいる？', icon:'👮'},
-  tv_station_area: {text:'テレビ局が立地する？', icon:'📺'},
+  tv_station_area: {text:'NHKまたは在京民放キー局5社の本社・放送拠点がある？', icon:'📺'},
   sazae_family: {text:'国民的4コマ漫画の一家が住んでいる？', icon:'🏠'},
   hachiko_area: {text:'駅前で主人を待ち続けた犬が有名？', icon:'🐕', subjective:true},
   yose_hall: {text:'落語の定席寄席がある？', icon:'🎤'},
@@ -9303,7 +9303,7 @@ function restart(){
 // 訪問のたびに落とし直しており、起動が遅くなる最大の原因になっていた。
 // URLに中身のハッシュを付ければ、更新したときだけ新しいURLになるので、
 // 「常に最新」を保ったままブラウザのキャッシュを使える(2回目以降の起動が速くなる)。
-const CITIES_VERSION = 'd70849f9c5';
+const CITIES_VERSION = 'afa3d657ad';
 
 async function boot(){
   try{
