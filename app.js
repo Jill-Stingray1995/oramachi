@@ -33,7 +33,7 @@ const KEYS = ['hitachi_seaside_park','tsuchiura_hanabi','koga_kubo','toride_geid
   'soy_sauce_famous','vinegar_famous','miso_famous','gyoza_famous','yakisoba_famous','udon_famous','soba_famous','ramen_famous','castella_famous','kamaboko_famous','lacquerware_famous',
   'ancient_provincial_capital','kokubunji_site','traditional_buildings_district','little_kyoto','giant_buddha','sea_torii','deer_in_city','gassho_zukuri',
   'ferry_available','no_railway_station','shikoku_pilgrimage','olympic_venue','famous_battlefield','kitamaebune_port','famous_fish_catch',
-  'kaikyo_machi','gakuto','hula_girl','kannon_zo','koedo','imono_kupola','aeon_laketown','funasshi_famous','takao_mountain','curry_famous','anime_seichi','number_in_name','kigyo_joukamachi','hankyu_line','yayoiken_seichi','hirakata_park','keihan_line','kawachi_ondo','rugby_machi','kougyou_toshi','hyoujun_jigosen','koushien','bikan_chiku','gunkou_machi','seitetsu_kouro','fugu_famous','tire_famous','hamburger_famous','kenkyu_gakuen_toshi','action_kamen','senbei_famous','tanabata_famous','uirou_famous','southern_seichi','b_kyu_gourmet','beigun_kichi','shinkai_gyo','saboten_machi','combinat_yakei','danjiri_famous','onaji_ookawa','kageki_dan',
+  'kaikyo_machi','gakuto','hula_girl','kannon_zo','koedo','imono_kupola','aeon_laketown','sogo_dept','isetan_dept','mitsukoshi_dept','daimaru_dept','matsuzakaya_dept','funasshi_famous','takao_mountain','curry_famous','anime_seichi','number_in_name','kigyo_joukamachi','hankyu_line','yayoiken_seichi','hirakata_park','keihan_line','kawachi_ondo','rugby_machi','kougyou_toshi','hyoujun_jigosen','koushien','bikan_chiku','gunkou_machi','seitetsu_kouro','fugu_famous','tire_famous','hamburger_famous','kenkyu_gakuen_toshi','action_kamen','senbei_famous','tanabata_famous','uirou_famous','southern_seichi','b_kyu_gourmet','beigun_kichi','shinkai_gyo','saboten_machi','combinat_yakei','danjiri_famous','onaji_ookawa','kageki_dan',
   'animal_in_name','ariake_coast','big_small_in_name','bingo_area','body_part_in_name','chikugo_area','chikuho_area','chikuzen_area','chugoku_mountain_basin','chuyo_area','color_in_name','dosan_line','four_plus_name','fukuoka_metro','hakubi_line','hard_to_read_name','hiroshima_metro','honshu_bridge','izumo_area','kagoshima_main_line','kawa_in_name','kitakyushu_area','nanyo_area','new_old_in_name','nippo_main_line','nishitetsu_line','northern_kyushu','okinawa_main_island','okinawa_south_central','osumi_area','paper_industry_shikoku','plant_in_name','pref_name_in_city_name','sakishima_islands','same_name_other_pref','sanin_area','sanin_main_line','sanyo_area','sanyo_main_line','satsuma_area','sea_word_in_name','setouchi_industrial','shima_in_name','southern_kyushu','ta_in_name','toyo_area','yama_in_name','yosan_line',
   'ic_doo','ic_sasson','ic_shiribeshi','ic_doto',
   'ic_tohoku','ic_hachinohe','ic_aomori','ic_kamaishi','ic_akita','ic_yamagata','ic_tohoku_chuo','ic_nihonkai_tohoku','ic_banetsu','ic_joban',
@@ -701,6 +701,11 @@ const QUESTIONS = {
   koedo:               {text:'舟運と蔵造りの町並みで知られる小江戸三市の一つ？', icon:'🏮', subjective:true},
   imono_kupola:        {text:'鋳物産業・キューポラの街として知られる？', icon:'🏭', subjective:true},
   aeon_laketown:       {text:'イオンレイクタウンがある？', icon:'🛍️'},
+  sogo_dept:           {text:'そごう（百貨店）がある？', icon:'🏬'},
+  isetan_dept:         {text:'伊勢丹（百貨店）がある？', icon:'🏬'},
+  mitsukoshi_dept:     {text:'三越（百貨店）がある？', icon:'🏬'},
+  daimaru_dept:        {text:'大丸（百貨店）がある？', icon:'🏬'},
+  matsuzakaya_dept:    {text:'松坂屋（百貨店）がある？', icon:'🏬'},
   funasshi_famous:     {text:'ふなっしーで全国的に知られた？', icon:'🍐', subjective:true},
   takao_mountain:      {text:'高尾山がある？', icon:'⛰️'},
   curry_famous:        {text:'カレーで有名なマチ？', icon:'🍛', subjective:true},
@@ -5014,6 +5019,11 @@ const TAG_GAME_CATEGORY = {
   "koedo": "歴史・文化",
   "imono_kupola": "人口・行政",
   "aeon_laketown": "観光・娯楽",
+  "sogo_dept": "観光・娯楽",
+  "isetan_dept": "観光・娯楽",
+  "mitsukoshi_dept": "観光・娯楽",
+  "daimaru_dept": "観光・娯楽",
+  "matsuzakaya_dept": "観光・娯楽",
   "funasshi_famous": "遊び心",
   "takao_mountain": "地理",
   "curry_famous": "食",
@@ -9293,7 +9303,7 @@ function restart(){
 // 訪問のたびに落とし直しており、起動が遅くなる最大の原因になっていた。
 // URLに中身のハッシュを付ければ、更新したときだけ新しいURLになるので、
 // 「常に最新」を保ったままブラウザのキャッシュを使える(2回目以降の起動が速くなる)。
-const CITIES_VERSION = '3e61a2f766';
+const CITIES_VERSION = 'd70849f9c5';
 
 async function boot(){
   try{
