@@ -5,7 +5,7 @@ const KEYS = ['hitachi_seaside_park','tsuchiura_hanabi','koga_kubo','toride_geid
   'nagashima_nabana','suzuka_circuit','magose_hinoki','sekijuku','toba_aquarium','onigajo_hananoiwaya','fujiwaradake_bairin','parque_ago','iga_ninja_basho','kurokabe_chikubu','hachimanbori','biwako_ohashi_sagawa','jra_training','konan_sanzan','metasequoia_shirahige','gokasho_eigenji','maizuru_akarenga','byodoin_uji','iwashimizu_nagarebashi','toyonaka_kyujo','cupnoodle_museum','taiyo_no_to','mofu_izumiotsu','imashirozuka_haniwa','mizuma_nishikinohama','moriguchi_daikon','hikari_no_kyokai','kansai_airport_city','pl_tower','naritasan_osaka','kanshinji_kongoji','nunose_takenouchi','nozaki_mairi','ikegami_sone','minoh_katsuoji','kashiwara_budo','ojin_ryo_wine','panasonic_hq','torikai_depot','takashinohama','fujiidera_kannon','sennan_rosegarden','shijonawate_masatsura','hoshi_no_buranko','sayamaike','pichipichi_beach','sumoto_castle_onsen','ashiya_yodoko','itami_sake_airport','katsumeshi_kakurinji','tada_jinja','sanda_hitohaku','kasai_globe_clock','izanagi_yumebutai','tojoko_omocha','tatsuno_shoyu_somen','takada_sakura_jinaimachi','kingyo_yamatokoriyama','tenri_shukyo_toshi','kashihara_jingu','miwa_somen','gojo_kaki_shinmachi','katsuragi_kodo','ikoma_cablecar','dontsurubo','taimadera_sumo','uda_seiyaku','kuroe_shikki','koyasan_gateway_pile','arida_mikan','shortest_private_line','kumano_hongu_benkei','kumano_hayatama_gotobiki','kokawadera_momo',
   'fujiko_f_birthplace','shinkiro_maibotsurin','fujiko_a_buri','hotaruika_museum','tulip_fair','merhen_kenchiku','gokayama_gassho','kaiwomaru_bridge','wakura_notojima','komatsu_origin','senmaida_shikki','rokugozaki','kaga_onsenkyo','ufo_museum','shirayama_tedori','matsui_museum','kehi_jindo','miketsukuni_saba','echizen_ono_castle','awara_onsen','fujiq_highland','fuefuki_fruit_park','shinpu_shichirigan','katakana_city_name','kiyosato_hakushu','shingen_zutsumi','isawa_onsen','katsunuma_budo','name_same_as_route','kamikochi','sanada_bessho','okaya_silk','ningyogeki_tenryukyo','suzaka_garyu','kaikoen_toson','takato_sakura','sauce_katsudon','shinpei_ipponki','alpen_route_nagano','kamakura_nanohana','naraijuku_wine','farthest_from_sea','obasute_togura','unnojuku_yunomaru','wasabi_farm','nagaragawa_ukai','okuno_hosomichi_musubi','hida_furuimachi','mosaic_tile_museum','magome_kurikinton','udatsu_mino','kaseki_museum','iwamura_akechi','otajuku_satoyama','toki_outlet','aerospace_museum','rose_garden_akechi','fuyu_kaki_origin','setogawa_shirakabe','usuzumi_zakura','gujo_odori','nihon_sanmeisen','kisosansen_wajyu','atami_moa','genbegawa_rakujuen','sengen_taisha','omuroyama_jogasaki','horaibashi_sl','gakunan_tagonoura','yaizu_katsuo','kakegawa_castle','soccer_town_fujieda','gotemba_outlet','ecopa_hattasan','shimoda_port','fuji_safari','arai_sekisho','shuzenji_toi','hamaoka_lighthouse','senkagawa_fukamushi','nirayama_hansharo','sagara_oil_airport','masumida_keori','toyokawa_inari','tsushima_tenno','kokonoe_mirin','toyota_origin_kariya','toyota_hq','nihon_denmark','matcha_sakushima','takeshima_resort','centrair_manekineko','mandaraji_fuji','komaki_castle','konomiya_hadaka','nagashino_horaiji','juraku_daibutsu','aichi_kenko_mori','shinmaiko_okada','kakitsubata_chiryu','owariasahi_tower','okehazama','aichi_bokujo','irago_longbeach','sendohira_renkon','kiyosu_castle','showa_nichijo','kingyo_yatomi','miyoshi_canoe','shippoyaki','ghibli_linimo',
   'shinkansen','coastal','designated','festival','castle','snow_festival','worldheritage','snow','basin','airport','capital','noodle','mascot_famous',
-  'nihonkai','taiheiyo','setonaikai','famous_mountain','big_river','big_bay','hot_40c','active_volcano','uchibo','sotobo','noto_area','subway','onsen','sake','fireworks','castle_town','port_town','rice_region',
+  'nihonkai','taiheiyo','setonaikai','famous_mountain','big_river','big_bay','hot_40c','active_volcano','uchibo','sotobo','noto_area','subway','onsen','sake','famous_hanabi','castle_town','port_town','rice_region',
   'kana_name','kansai_dialect','ryukyu_dialect','is_town_village','is_tokyo_ward',
   'ruins','lakeside','shrine_temple','bakumatsu_port','fruit_famous','sumo_basho','jleague','npb',
   'former_capital','grid_streets','kokuho_building','twelve_castles','sengoku_warlord','tram','famous_garden',
@@ -549,7 +549,7 @@ const QUESTIONS = {
   subway:        {text:'地下鉄が走っている？', icon:'🚇'},
   onsen:         {text:'温泉地として知られている？', icon:'♨️', subjective:true},
   sake:          {text:'日本酒を造る酒蔵がある？', icon:'🍶'},
-  fireworks:     {text:'花火大会で有名である？', icon:'🎇', subjective:true},
+  famous_hanabi: {text:'全国的または地域を代表する花火大会で知られる？', icon:'🎇', subjective:true},
   castle_town:   {text:'城下町だった？', icon:'🏯'},
   port_town:     {text:'港町として栄えた？', icon:'⚓', subjective:true},
   rice_region:   {text:'米どころとして知られている？', icon:'🌾', subjective:true},
@@ -4953,7 +4953,7 @@ const TAG_GAME_CATEGORY = {
   "festival": "観光・娯楽",
   "snow_festival": "観光・娯楽",
   "onsen": "観光・娯楽",
-  "fireworks": "観光・娯楽",
+  "famous_hanabi": "観光・娯楽",
   "castle_town": "観光・娯楽",
   "port_town": "観光・娯楽",
   "famous_garden": "観光・娯楽",
@@ -9303,7 +9303,7 @@ function restart(){
 // 訪問のたびに落とし直しており、起動が遅くなる最大の原因になっていた。
 // URLに中身のハッシュを付ければ、更新したときだけ新しいURLになるので、
 // 「常に最新」を保ったままブラウザのキャッシュを使える(2回目以降の起動が速くなる)。
-const CITIES_VERSION = 'afa3d657ad';
+const CITIES_VERSION = '07e71fa494';
 
 async function boot(){
   try{
