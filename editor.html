@@ -533,7 +533,7 @@
       <div class="card">
         <h2>タグのジャンルを管理</h2>
         <p class="hint">
-          各タグには「地理・交通・人口行政・食・歴史文化・観光娯楽・学問・自治体名・遊び心・その他」の10ジャンルが割り当てられていて、
+          各タグには「地理・交通・人口行政・食・歴史文化・観光娯楽・学問・産業・自治体名・遊び心・その他」の11ジャンルが割り当てられていて、
           ゲーム中は同じジャンルが連続しにくいよう自動でバランス調整されます。ここでジャンルを変更できます。
         </p>
         <input type="text" id="genreFilterInput" placeholder="タグ名・ジャンル名で絞り込み...">
@@ -3004,7 +3004,7 @@ const TAG_LABELS = {
   }
 };
 
-const TAG_CATEGORY_ORDER = ["地理","交通","人口・行政","食","歴史・文化","観光・娯楽","学問","自治体名","遊び心","その他"];
+const TAG_CATEGORY_ORDER = ["地理","交通","人口・行政","食","歴史・文化","観光・娯楽","学問","産業","自治体名","遊び心","その他"];
 const TAG_CATEGORIES = {
   "hitachi_seaside_park": "観光・娯楽",
   "tsuchiura_hanabi": "観光・娯楽",
@@ -3565,14 +3565,14 @@ const TAG_CATEGORIES = {
   "naval_academy": "歴史・文化",
   "goldfish_lantern": "観光・娯楽",
   "ito_hirobumi_birthplace": "歴史・文化",
-  "train_factory": "その他",
+  "train_factory": "産業",
   "stork": "観光・娯楽",
   "hyonosen": "地理",
   "takeda_castle": "観光・娯楽",
   "tamba_dinosaur": "遊び心",
   "black_soybeans": "食",
   "japan_navel": "地理",
-  "miki_hardware": "その他",
+  "miki_hardware": "産業",
   "balloon_city": "遊び心",
   "saga_balloon_festa": "遊び心",
   "sake_birthplace": "食",
@@ -3581,7 +3581,7 @@ const TAG_CATEGORIES = {
   "awaji_puppet_theater": "歴史・文化",
   "nijigen_no_mori": "観光・娯楽",
   "akechi_mitsuhide_castle": "歴史・文化",
-  "gunze_birthplace": "その他",
+  "gunze_birthplace": "産業",
   "nihon_sankei": "観光・娯楽",
   "singing_sand": "観光・娯楽",
   "miyama_thatched_village": "観光・娯楽",
@@ -3616,7 +3616,7 @@ const TAG_CATEGORIES = {
   "goishi_coast": "地理",
   "miyazawa_kenji": "歴史・文化",
   "tensho_chi": "観光・娯楽",
-  "amber_kuji": "その他",
+  "amber_kuji": "産業",
   "tono_monogatari": "歴史・文化",
   "geibikei": "地理",
   "ipponmatsu": "観光・娯楽",
@@ -3629,7 +3629,7 @@ const TAG_CATEGORIES = {
   "fukahire": "食",
   "shiroishi_umen": "食",
   "sendai_airport": "交通",
-  "jaxa_kakuda": "その他",
+  "jaxa_kakuda": "学問",
   "takekoma_shrine": "歴史・文化",
   "meiji_mura": "観光・娯楽",
   "kano_eiko": "遊び心",
@@ -3645,7 +3645,7 @@ const TAG_CATEGORIES = {
   "yuri_kogen_railway": "交通",
   "blumen_akita": "観光・娯楽",
   "odate_noshiro_airport": "交通",
-  "tdk_town": "その他",
+  "tdk_town": "産業",
   "kakunodate_tazawako": "観光・娯楽",
   "sankyo_soko": "歴史・文化",
   "higashizawa_rose": "観光・娯楽",
@@ -3661,7 +3661,7 @@ const TAG_CATEGORIES = {
   "kacchu_keiba": "歴史・文化",
   "anpogaki": "食",
   "william_park": "観光・娯楽",
-  "natural_gas_town": "その他",
+  "natural_gas_town": "産業",
   "kitasubaru": "学問",
   "kita_no_kuni": "観光・娯楽",
   "kita_no_shonan": "遊び心",
@@ -3673,7 +3673,7 @@ const TAG_CATEGORIES = {
   "namegata_farm": "観光・娯楽",
   "hananuki": "地理",
   "happogahara": "地理",
-  "kanuma_tsuchi": "その他",
+  "kanuma_tsuchi": "産業",
   "nasu_yoichi": "歴史・文化",
   "jichi_medical": "学問",
   "bihada_onsen": "観光・娯楽",
@@ -3694,18 +3694,18 @@ const TAG_CATEGORIES = {
   "shiraoka_nashi": "食",
   "kurohama_kaizuka": "歴史・文化",
   "hanyu_yurugp": "遊び心",
-  "inzai_datacenter": "その他",
+  "inzai_datacenter": "産業",
   "kamagaya_farm": "観光・娯楽",
   "iioka_cape": "地理",
   "tomisato_suika": "食",
-  "sanbu_sugi": "その他",
+  "sanbu_sugi": "産業",
   "keisei_rose": "観光・娯楽",
   "aqualine_gate": "交通",
   "yotsukaido_name": "遊び心",
   "onari_kaido": "歴史・文化",
   "yachimata_peanuts": "食",
   "nashibou": "遊び心",
-  "soza_ueki": "その他",
+  "soza_ueki": "産業",
   "blueberry_origin": "食",
   "kishozeisei_center": "学問",
   "summerland": "観光・娯楽",
@@ -3719,7 +3719,7 @@ const TAG_CATEGORIES = {
   "shakou_elevator": "交通",
   "saruhashi": "地理",
   "enbaragawa": "地理",
-  "sanshu_kawara": "その他",
+  "sanshu_kawara": "産業",
   "nonbori_arai": "歴史・文化",
   "akame_taki": "地理",
   "oiwayama_dotaku": "歴史・文化",
@@ -3727,13 +3727,13 @@ const TAG_CATEGORIES = {
   "koka_ninja": "観光・娯楽",
   "take_no_michi": "観光・娯楽",
   "aioi_matsu": "歴史・文化",
-  "banshu_soroban_ono": "その他",
+  "banshu_soroban_ono": "産業",
   "katsuragi_tsutsuji": "地理",
   "matabei_zakura": "観光・娯楽",
-  "kishu_herazao": "その他",
+  "kishu_herazao": "産業",
   "negoroji": "歴史・文化",
-  "kokusan_denim": "その他",
-  "konrei_kagu": "その他",
+  "kokusan_denim": "産業",
+  "konrei_kagu": "産業",
   "nora_dokei": "観光・娯楽",
   "onga_pump": "歴史・文化",
   "koinoki": "観光・娯楽",
@@ -3754,9 +3754,9 @@ const TAG_CATEGORIES = {
   "formed_after_2000": "人口・行政",
   "national_university": "学問",
   "expressway_junction": "交通",
-  "hiragana_name": "その他",
-  "hiragana_long": "その他",
-  "hiragana_short": "その他",
+  "hiragana_name": "自治体名",
+  "hiragana_long": "自治体名",
+  "hiragana_short": "自治体名",
   "direction_in_name": "自治体名",
   "old_province_name": "歴史・文化",
   "public_racing_venue": "観光・娯楽",
@@ -3971,7 +3971,7 @@ const TAG_CATEGORIES = {
   "godzilla_head": "遊び心",
   "rakugo_stage": "遊び心",
   "sanma_famous": "遊び心",
-  "kanji_one_char": "その他",
+  "kanji_one_char": "自治体名",
   "exotic_port": "歴史・文化",
   "chukakushi": "人口・行政",
   "tokureishi": "人口・行政",
@@ -5239,6 +5239,18 @@ function renderTagCityGrid(){
     cb.addEventListener('change', ()=>{
       cb.closest('.city-chip').classList.toggle('checked', cb.checked);
       updateTagCountBar();
+      // 【即時反映】以前はチェック操作が見た目だけの変更で、「このタグを全自治体に
+      // 適用する」ボタンを押すまでCITIES配列に反映されなかった。ボタンを押し忘れたまま
+      // 書き出す(ダウンロードする)と、チェックした内容がまるごと失われてしまうため、
+      // ③自治体別編集タブと同様に、チェックした瞬間にCITIES配列へ直接反映する。
+      if(key){
+        const city = CITIES.find(c => c.name === cb.dataset.name);
+        if(city){
+          if(!city.tags) city.tags = {};
+          city.tags[key] = cb.checked;
+        }
+      }
+      autoSaveNow();
     });
   });
   updateTagCountBar();
