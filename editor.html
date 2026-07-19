@@ -490,9 +490,24 @@
       <div class="card">
         <h2>cities.json を書き出す</h2>
         <p class="hint">これまでの編集内容を反映した cities.json をダウンロードします。ダウンロード後、既存のファイルと置き換えてください。</p>
+        <p class="hint" style="color:#9C3423;"><b>注意:</b> 質問文・アイコン・ジャンル・出題対象モードの変更は cities.json には含まれません。下の「app.js用の変更コードを書き出す」で別途反映してください。</p>
         <div class="status-bar" id="exportStatus"></div>
+        <div class="status-bar" id="appJsChangeWarning" style="display:none; margin-top:8px; background:#FBEAE6; border:1px solid #C1432E; color:#9C3423;"></div>
         <div class="row" style="margin-top:12px;">
           <button class="primary" id="exportBtn" type="button">cities.json をダウンロード</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>app.js用の変更コードを書き出す</h2>
+        <p class="hint">
+          質問文・アイコン・ジャンル・出題対象モードを変更した場合、この内容は cities.json には含まれません。
+          ここでまとめてコードを生成するので、app.js の該当箇所に手動で反映してください。
+        </p>
+        <button class="secondary" id="exportAppJsChangesBtn" type="button">app.js用の変更コードを書き出す</button>
+        <div id="appJsChangesWrap" style="display:none; margin-top:10px;">
+          <textarea id="appJsChangesOutput" rows="12" readonly style="font-size:11px;"></textarea>
+          <button class="secondary" id="copyAppJsChangesBtn" type="button" style="margin-top:8px;">コピー</button>
         </div>
       </div>
     </section>
@@ -536,6 +551,11 @@
           各タグには「地理・交通・人口行政・食・歴史文化・観光娯楽・学問・産業・自治体名・遊び心・その他」の11ジャンルが割り当てられていて、
           ゲーム中は同じジャンルが連続しにくいよう自動でバランス調整されます。ここでジャンルを変更できます。
         </p>
+        <p class="hint" style="color: var(--vermillion-deep); font-weight:700;">
+          ⚠️ ジャンルはcities.jsonではなくapp.js側のデータです。ここで変更しても「⑥ 書き出し」のcities.jsonには一切含まれません。
+          下の「現在のジャンル分けをコードとして書き出す」ボタンでコードを生成し、app.js内の該当箇所に貼り付けて初めて反映されます。
+        </p>
+        <div id="genreUnsavedBanner" class="status-bar status-warn" style="display:none; margin-bottom:10px;"></div>
         <input type="text" id="genreFilterInput" placeholder="タグ名・ジャンル名で絞り込み...">
         <button class="primary" id="exportGenresBtn" type="button" style="margin-top:10px;">現在のジャンル分けをコードとして書き出す</button>
         <div id="genreListWrap" style="margin-top:14px;"></div>
@@ -557,6 +577,9 @@
 <script>
 let CITIES = [];
 let ALL_TAG_KEYS = [];
+// app.js側データ(TAG_LABELS/TAG_CATEGORIES/TAG_MODE_ONLY)の、読み込み直後のスナップショット。
+// nullのままなら「まだ何も読み込んでいない」状態。
+let APPJS_SNAPSHOT = null;
 
 // 既存のタグに日本語ラベル・質問文・アイコンを対応させるマップ(新規タグを追加すると自動でここにも追加登録される)
 const TAG_LABELS = {
@@ -3574,7 +3597,7 @@ const TAG_CATEGORIES = {
   "japan_navel": "地理",
   "miki_hardware": "産業",
   "balloon_city": "遊び心",
-  "saga_balloon_festa": "遊び心",
+  "saga_balloon_festa": "観光・娯楽",
   "sake_birthplace": "食",
   "peron_festival": "観光・娯楽",
   "ako_ronin": "歴史・文化",
@@ -5010,7 +5033,7 @@ $$('.tab-btn').forEach(btn=>{
     if(btn.dataset.tab === 'bytag') renderTagCityGrid();
     if(btn.dataset.tab === 'corrections') renderCorrections();
     if(btn.dataset.tab === 'dashboard') renderDashboard();
-    if(btn.dataset.tab === 'genres') renderGenreList();
+    if(btn.dataset.tab === 'genres'){ renderGenreList(); updateGenreUnsavedBanner(); }
   });
 });
 
@@ -5037,6 +5060,15 @@ function loadFile(file){
       CITIES = data;
       expandCompactTagsForEditor(); // 軽量化されたtags(配列形式)があれば、編集用にオブジェクト形式へ復元する
       collectTagKeys();
+      // 【app.js側データの変更検知】TAG_LABELS/TAG_CATEGORIES/TAG_MODE_ONLYは、
+      // cities.jsonの書き出しには一切含まれず、app.js側に手動でコードを貼り付ける
+      // 必要があるデータ。読み込んだ直後の状態をスナップショットとして保存しておき、
+      // 「⑥ 書き出し」タブで、cities.json化されない変更を見落とさないよう警告する。
+      APPJS_SNAPSHOT = {
+        labels: JSON.parse(JSON.stringify(TAG_LABELS)),
+        categories: JSON.parse(JSON.stringify(TAG_CATEGORIES)),
+        modeOnly: JSON.parse(JSON.stringify(TAG_MODE_ONLY)),
+      };
       showLoadStatus(true, `${file.name} を読み込みました。${CITIES.length}件の自治体、${ALL_TAG_KEYS.length}種類のタグがあります。`);
       toast('読み込み完了');
       renderAll();
@@ -5908,10 +5940,45 @@ function runCheck(){
 }
 
 /* ---------- ⑥ 書き出し ---------- */
+// TAG_LABELS/TAG_CATEGORIES/TAG_MODE_ONLYのうち、スナップショットから変更されたキーを集める。
+// これらはcities.jsonの書き出しには含まれず、app.js側に手動でコードを反映する必要がある。
+function detectAppJsChanges(){
+  if(!APPJS_SNAPSHOT) return { labelKeys: [], categoryKeys: [], modeOnlyKeys: [] };
+  const labelKeys = ALL_TAG_KEYS.filter(k => {
+    const before = APPJS_SNAPSHOT.labels[k];
+    const after = TAG_LABELS[k];
+    if(!before && !after) return false;
+    if(!before || !after) return true;
+    return before.question !== after.question || before.icon !== after.icon;
+  });
+  const categoryKeys = ALL_TAG_KEYS.filter(k => (APPJS_SNAPSHOT.categories[k] || 'その他') !== (TAG_CATEGORIES[k] || 'その他'));
+  const modeOnlyKeys = ALL_TAG_KEYS.filter(k => (APPJS_SNAPSHOT.modeOnly[k] || '') !== (TAG_MODE_ONLY[k] || ''));
+  return { labelKeys, categoryKeys, modeOnlyKeys };
+}
+
 function updateExportStatus(){
-  $('#exportStatus').innerHTML = CITIES.length
-    ? `書き出し準備OK: <b>${CITIES.length}</b>件の自治体、<b>${ALL_TAG_KEYS.length}</b>種類のタグ`
-    : '<span class="status-warn">まだデータが読み込まれていません</span>';
+  if(!CITIES.length){
+    $('#exportStatus').innerHTML = '<span class="status-warn">まだデータが読み込まれていません</span>';
+    $('#appJsChangeWarning').style.display = 'none';
+    return;
+  }
+  $('#exportStatus').innerHTML = `書き出し準備OK: <b>${CITIES.length}</b>件の自治体、<b>${ALL_TAG_KEYS.length}</b>種類のタグ`;
+
+  // 【重要】質問文・アイコン・ジャンル・出題対象モードの変更は、下の「cities.jsonをダウンロード」
+  // ボタンには一切含まれない(cities.jsonは自治体ごとのtrue/falseだけを持つファイルのため)。
+  // 気づかずcities.jsonだけ差し替えると、これらの変更が失われたように見えてしまうので、
+  // 変更が残っている間は必ず警告を表示する。
+  const changes = detectAppJsChanges();
+  const totalChanged = changes.labelKeys.length + changes.categoryKeys.length + changes.modeOnlyKeys.length;
+  const warnEl = $('#appJsChangeWarning');
+  if(totalChanged > 0){
+    warnEl.style.display = 'block';
+    warnEl.innerHTML = `⚠ <b>質問文・アイコン・ジャンル・出題対象モードに ${totalChanged}件 の未反映の変更があります。</b>
+      これらは cities.json には含まれません。下の「app.js用の変更コードを書き出す」ボタンから
+      コードを取得し、app.js に手動で反映してください。`;
+  } else {
+    warnEl.style.display = 'none';
+  }
 }
 
 $('#exportBtn').addEventListener('click', ()=>{
@@ -5934,6 +6001,63 @@ $('#exportBtn').addEventListener('click', ()=>{
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
   toast('cities.json をダウンロードしました(軽量形式)');
+});
+
+$('#exportAppJsChangesBtn').addEventListener('click', ()=>{
+  if(!APPJS_SNAPSHOT){ toast('先にcities.jsonを読み込んでください'); return; }
+  const changes = detectAppJsChanges();
+  const totalChanged = changes.labelKeys.length + changes.categoryKeys.length + changes.modeOnlyKeys.length;
+  if(totalChanged === 0){
+    toast('質問文・アイコン・ジャンル・出題対象モードの変更はありません');
+    $('#appJsChangesWrap').style.display = 'none';
+    return;
+  }
+
+  let out = '// ==== app.js に手動で反映してください ====\n\n';
+
+  if(changes.labelKeys.length){
+    out += `// --- 質問文・アイコンの変更(${changes.labelKeys.length}件) ---\n`;
+    out += '// QUESTIONS オブジェクト内の該当行を、以下の内容で置き換えてください\n';
+    changes.labelKeys.forEach(k=>{
+      const info = TAG_LABELS[k];
+      if(info){
+        out += `  ${k}: {text:'${(info.question||'').replace(/'/g,"\\'")}', icon:'${info.icon||''}'},\n`;
+      }else{
+        out += `  // ${k}: 削除されました(QUESTIONSから該当行を削除してください)\n`;
+      }
+    });
+    out += '\n';
+  }
+
+  if(changes.categoryKeys.length){
+    out += `// --- ジャンルの変更(${changes.categoryKeys.length}件) ---\n`;
+    out += '// TAG_GAME_CATEGORY オブジェクト内の該当行を、以下の内容で置き換えてください\n';
+    changes.categoryKeys.forEach(k=>{
+      out += `  "${k}": "${categoryFor(k)}",\n`;
+    });
+    out += '\n';
+  }
+
+  if(changes.modeOnlyKeys.length){
+    out += `// --- 出題対象モードの変更(${changes.modeOnlyKeys.length}件) ---\n`;
+    out += '// MODE_ONLY_KEYS の該当グループ配列に追加/削除してください\n';
+    changes.modeOnlyKeys.forEach(k=>{
+      const mode = modeOnlyFor(k);
+      out += mode
+        ? `  // ${k} を MODE_ONLY_KEYS.${mode} に追加してください\n`
+        : `  // ${k} を MODE_ONLY_KEYS から削除してください(全国共通に戻す)\n`;
+    });
+    out += '\n';
+  }
+
+  $('#appJsChangesOutput').value = out;
+  $('#appJsChangesWrap').style.display = 'block';
+  toast(`app.js用の変更コードを生成しました(${totalChanged}件)`);
+});
+
+$('#copyAppJsChangesBtn').addEventListener('click', ()=>{
+  const text = $('#appJsChangesOutput').value;
+  navigator.clipboard.writeText(text).then(()=> toast('コピーしました')).catch(()=> toast('コピーに失敗しました'));
 });
 
 /* ---------- ⑦ 教えてもらった訂正 ---------- */
@@ -6147,10 +6271,28 @@ function renderGenreList(){
     sel.value = categoryFor(sel.dataset.key);
     sel.addEventListener('change', () => {
       TAG_CATEGORIES[sel.dataset.key] = sel.value;
+      genreChangedKeys.add(sel.dataset.key);
       autoSaveNow();
-      toast(`${labelFor(sel.dataset.key)} を「${sel.value}」に変更しました`);
+      updateExportStatus();
+      updateGenreUnsavedBanner();
+      toast(`${labelFor(sel.dataset.key)} を「${sel.value}」に変更しました(cities.jsonには含まれません。下のボタンでコードを書き出してください)`);
     });
   });
+}
+
+// 【未反映のジャンル変更を追跡】ジャンルはcities.jsonに含まれないため、変更しても
+// 「⑥書き出し」だけでは反映されない。「コードとして書き出す」を押すまで変更が
+// 埋もれてしまわないよう、変更したキーを記録して常時バナーで知らせる。
+const genreChangedKeys = new Set();
+function updateGenreUnsavedBanner(){
+  const banner = $('#genreUnsavedBanner');
+  if(genreChangedKeys.size === 0){
+    banner.style.display = 'none';
+    return;
+  }
+  banner.style.display = 'block';
+  banner.innerHTML = `⚠️ <b>${genreChangedKeys.size}件</b>のジャンル変更が、まだapp.jsに反映されていません。`
+    + `「現在のジャンル分けをコードとして書き出す」ボタンでコードを生成し、app.jsに貼り付けてください。`;
 }
 
 $('#genreFilterInput').addEventListener('input', renderGenreList);
@@ -6162,7 +6304,9 @@ $('#exportGenresBtn').addEventListener('click', ()=>{
   const code = 'const TAG_GAME_CATEGORY = ' + JSON.stringify(obj, null, 2) + ';';
   $('#genreExportOutput').value = code;
   $('#genreExportWrap').style.display = 'block';
-  toast('コードを生成しました');
+  genreChangedKeys.clear();
+  updateGenreUnsavedBanner();
+  toast('コードを生成しました。この内容をapp.jsに貼り付けるまでは反映されません');
 });
 
 $('#copyGenreExportBtn').addEventListener('click', ()=>{

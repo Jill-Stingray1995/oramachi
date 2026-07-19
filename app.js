@@ -5068,7 +5068,7 @@ const TAG_GAME_CATEGORY = {
   "japan_navel": "地理",
   "miki_hardware": "産業",
   "balloon_city": "遊び心",
-  "saga_balloon_festa": "遊び心",
+  "saga_balloon_festa": "観光・娯楽",
   "sake_birthplace": "食",
   "peron_festival": "観光・娯楽",
   "ako_ronin": "歴史・文化",
