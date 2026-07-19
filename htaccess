@@ -1,6 +1,30 @@
 SetEnvIf Request_URI ".*" Ngx_Cache_NoCacheMode=off
 SetEnvIf Request_URI ".*" Ngx_Cache_StaticMode
 
+# 【更新が反映されない問題への対応】上の2行はXserverの「Xアクセラレータ」機能が
+# 自動生成した設定で、静的ファイルをサーバー側(Nginx)でキャッシュして高速表示する。
+# app.js/style.css/cities.json等は bump-version.js で内容が変わるたびに
+# index.html内の ?v=ハッシュ が書き換わる仕組みなので、この種のファイルは
+# サーバーキャッシュを効かせても問題ない(URLが変われば別物として扱われるため)。
+# しかし index.html 自身がサーバーにキャッシュされたままだと、その中の
+# ?v=ハッシュ の書き換えが訪問者に届かず、「更新した内容が反映されない」という
+# 報告につながる。そのため、HTMLファイルだけはキャッシュから除外する。
+# (SetEnvIfは複数マッチした場合、後に書かれた設定が有効になるため、
+#  上の全体ルールの後にこの2行を書くことで、HTMLだけを例外にできる)
+SetEnvIf Request_URI "\.html$" Ngx_Cache_NoCacheMode=on
+SetEnvIf Request_URI "^/$" Ngx_Cache_NoCacheMode=on
+
+# 実際のHTTPヘッダーとしてもキャッシュ無効を明示する(ブラウザ・中間キャッシュ対策)。
+# HTML内の<meta http-equiv="Cache-Control">は、そのHTML自体が既にキャッシュされて
+# しまっている場合には効果がないため、サーバーからの応答ヘッダーとして送る必要がある。
+<IfModule mod_headers.c>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+  </FilesMatch>
+</IfModule>
+
 # cities.json(約10MB)などのテキスト系ファイルをgzip圧縮して転送する。
 # JSONは圧縮効率が非常に高く(概ね1/5〜1/8程度になる)、モバイル回線での
 # 読み込み時間を大きく短縮できる。
