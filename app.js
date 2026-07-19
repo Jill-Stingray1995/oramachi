@@ -1694,7 +1694,7 @@ const CHALLENGE_HINT_GROUP_BY_CATEGORY = {
   '統計': 2, '人口・行政': 2, '交通': 2,
   '歴史・文化': 3, '学問': 3,
   '観光・娯楽': 4, '食': 4,
-  '遊び心': 5, 'その他': 5,
+  '遊び心': 5, 'その他': 5, '自治体名': 5,
 };
 function challengeHintGroupFor(key){
   if(isPrefQuestion(key) || REGION_QUESTION_KEYS.has(key)) return 1;
@@ -4357,7 +4357,7 @@ function bestSplitDiff(pool, excludeKeys){
 // 「はい/いいえの件数差が最小」という1手先の指標だけでは、実は数学的にシャノンエントロピー
 // による並び順と同じになってしまうため、本当に精度を上げるには先読みが必要になる。
 // 質問ジャンルの自動バランス調整。
-// 各タグに9ジャンル(地理/交通/人口・行政/食/歴史・文化/観光・娯楽/学問/遊び心/その他)を割り当て、
+// 各タグに10ジャンル(地理/交通/人口・行政/食/歴史・文化/観光・娯楽/学問/自治体名/遊び心/その他)を割り当て、
 // 「そのゲーム内で既に出たジャンル」ほど次に選ばれにくくする。これにより手動で個別調整しなくても
 // 特定ジャンル(鉄道・大学など)ばかり連続しにくくなり、自然にジャンルがバラける。
 const TAG_GAME_CATEGORY = {
@@ -5028,7 +5028,7 @@ const TAG_GAME_CATEGORY = {
   "takao_mountain": "地理",
   "curry_famous": "食",
   "anime_seichi": "観光・娯楽",
-  "number_in_name": "その他",
+  "number_in_name": "自治体名",
   "kigyo_joukamachi": "人口・行政",
   "hankyu_line": "交通",
   "yayoiken_seichi": "遊び心",
@@ -5356,7 +5356,7 @@ const TAG_GAME_CATEGORY = {
   "hiragana_name": "その他",
   "hiragana_long": "その他",
   "hiragana_short": "その他",
-  "direction_in_name": "その他",
+  "direction_in_name": "自治体名",
   "old_province_name": "歴史・文化",
   "public_racing_venue": "観光・娯楽",
   "national_government_park": "観光・娯楽",
@@ -5395,17 +5395,17 @@ const TAG_GAME_CATEGORY = {
   "little_kyoto": "歴史・文化","giant_buddha": "歴史・文化","sea_torii": "歴史・文化","deer_in_city": "歴史・文化","gassho_zukuri": "歴史・文化",
   "shikoku_pilgrimage": "歴史・文化","olympic_venue": "歴史・文化","famous_battlefield": "歴史・文化","kitamaebune_port": "歴史・文化",
   "ferry_available": "交通","no_railway_station": "交通",
-  "animal_in_name": "遊び心",
+  "animal_in_name": "自治体名",
   "ariake_coast": "地理",
-  "big_small_in_name": "遊び心",
+  "big_small_in_name": "自治体名",
   "bingo_area": "地理",
-  "body_part_in_name": "遊び心",
+  "body_part_in_name": "自治体名",
   "chikugo_area": "地理",
   "chikuho_area": "地理",
   "chikuzen_area": "地理",
   "chugoku_mountain_basin": "地理",
   "chuyo_area": "地理",
-  "color_in_name": "遊び心",
+  "color_in_name": "自治体名",
   "dosan_line": "交通",
   "four_plus_name": "遊び心",
   "fukuoka_metro": "地理",
@@ -5415,10 +5415,10 @@ const TAG_GAME_CATEGORY = {
   "honshu_bridge": "地理",
   "izumo_area": "地理",
   "kagoshima_main_line": "交通",
-  "kawa_in_name": "遊び心",
+  "kawa_in_name": "自治体名",
   "kitakyushu_area": "地理",
   "nanyo_area": "地理",
-  "new_old_in_name": "遊び心",
+  "new_old_in_name": "自治体名",
   "nippo_main_line": "交通",
   "nishitetsu_line": "交通",
   "northern_kyushu": "地理",
@@ -5426,7 +5426,7 @@ const TAG_GAME_CATEGORY = {
   "okinawa_south_central": "地理",
   "osumi_area": "地理",
   "paper_industry_shikoku": "歴史・文化",
-  "plant_in_name": "遊び心",
+  "plant_in_name": "自治体名",
   "pref_name_in_city_name": "遊び心",
   "sakishima_islands": "地理",
   "same_name_other_pref": "遊び心",
@@ -5435,13 +5435,13 @@ const TAG_GAME_CATEGORY = {
   "sanyo_area": "地理",
   "sanyo_main_line": "交通",
   "satsuma_area": "地理",
-  "sea_word_in_name": "遊び心",
+  "sea_word_in_name": "自治体名",
   "setouchi_industrial": "地理",
-  "shima_in_name": "遊び心",
+  "shima_in_name": "自治体名",
   "southern_kyushu": "地理",
-  "ta_in_name": "遊び心",
+  "ta_in_name": "自治体名",
   "toyo_area": "地理",
-  "yama_in_name": "遊び心",
+  "yama_in_name": "自治体名",
   "yosan_line": "交通"
 };
 function categoryOf(k){ return TAG_GAME_CATEGORY[k] || "その他"; }
@@ -9303,7 +9303,7 @@ function restart(){
 // 訪問のたびに落とし直しており、起動が遅くなる最大の原因になっていた。
 // URLに中身のハッシュを付ければ、更新したときだけ新しいURLになるので、
 // 「常に最新」を保ったままブラウザのキャッシュを使える(2回目以降の起動が速くなる)。
-const CITIES_VERSION = '07e71fa494';
+const CITIES_VERSION = '75f9857b5d';
 
 async function boot(){
   try{

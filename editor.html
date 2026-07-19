@@ -531,7 +531,7 @@
       <div class="card">
         <h2>タグのジャンルを管理</h2>
         <p class="hint">
-          各タグには「地理・交通・人口行政・食・歴史文化・観光娯楽・学問・遊び心・その他」の9ジャンルが割り当てられていて、
+          各タグには「地理・交通・人口行政・食・歴史文化・観光娯楽・学問・自治体名・遊び心・その他」の10ジャンルが割り当てられていて、
           ゲーム中は同じジャンルが連続しにくいよう自動でバランス調整されます。ここでジャンルを変更できます。
         </p>
         <input type="text" id="genreFilterInput" placeholder="タグ名・ジャンル名で絞り込み...">
@@ -3012,7 +3012,7 @@ const TAG_LABELS = {
   }
 };
 
-const TAG_CATEGORY_ORDER = ["地理","交通","人口・行政","食","歴史・文化","観光・娯楽","学問","遊び心","その他"];
+const TAG_CATEGORY_ORDER = ["地理","交通","人口・行政","食","歴史・文化","観光・娯楽","学問","自治体名","遊び心","その他"];
 const TAG_CATEGORIES = {
   "hitachi_seaside_park": "観光・娯楽",
   "tsuchiura_hanabi": "観光・娯楽",
@@ -3765,7 +3765,7 @@ const TAG_CATEGORIES = {
   "hiragana_name": "その他",
   "hiragana_long": "その他",
   "hiragana_short": "その他",
-  "direction_in_name": "その他",
+  "direction_in_name": "自治体名",
   "old_province_name": "歴史・文化",
   "public_racing_venue": "観光・娯楽",
   "national_government_park": "観光・娯楽",
@@ -3781,17 +3781,17 @@ const TAG_CATEGORIES = {
   "nishikyushu_shinkansen_station": "交通",
   "yamagata_shinkansen_station": "交通",
   "akita_shinkansen_station": "交通",
-  "color_in_name": "遊び心",
-  "animal_in_name": "遊び心",
-  "plant_in_name": "遊び心",
-  "body_part_in_name": "遊び心",
-  "kawa_in_name": "遊び心",
-  "yama_in_name": "遊び心",
-  "shima_in_name": "遊び心",
-  "sea_word_in_name": "遊び心",
-  "ta_in_name": "遊び心",
-  "big_small_in_name": "遊び心",
-  "new_old_in_name": "遊び心",
+  "color_in_name": "自治体名",
+  "animal_in_name": "自治体名",
+  "plant_in_name": "自治体名",
+  "body_part_in_name": "自治体名",
+  "kawa_in_name": "自治体名",
+  "yama_in_name": "自治体名",
+  "shima_in_name": "自治体名",
+  "sea_word_in_name": "自治体名",
+  "ta_in_name": "自治体名",
+  "big_small_in_name": "自治体名",
+  "new_old_in_name": "自治体名",
   "pref_name_in_city_name": "遊び心",
   "same_name_other_pref": "遊び心",
   "four_plus_name": "遊び心",
@@ -4001,7 +4001,7 @@ const TAG_CATEGORIES = {
   "takao_mountain": "地理",
   "curry_famous": "食",
   "anime_seichi": "観光・娯楽",
-  "number_in_name": "その他",
+  "number_in_name": "自治体名",
   "kigyo_joukamachi": "人口・行政",
   "hankyu_line": "交通",
   "yayoiken_seichi": "遊び心",
