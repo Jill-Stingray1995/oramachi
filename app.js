@@ -562,7 +562,7 @@ const QUESTIONS = {
   shrine_temple:  {text:'寺社仏閣が有名？', icon:'🛕', subjective:true},
   bakumatsu_port: {text:'幕末の開港五港のひとつ？', icon:'🚢'},
   sumo_basho:     {text:'大相撲の本場所が開催される？', icon:'🤼'},
-  jleague:        {text:'Jリーグチームの本拠地がある？', icon:'⚽'},
+  jleague:        {text:'Jリーグ（J1・J2・J3）のホームスタジアムがある？', icon:'⚽'},
   npb:            {text:'プロ野球チーム(NPB)の本拠地がある？', icon:'⚾'},
   former_capital:   {text:'過去に「都」が置かれたことがある？', icon:'👑'},
   grid_streets:     {text:'街の中心部は碁盤の目のよう？', icon:'🔲', subjective:true},
@@ -9299,7 +9299,7 @@ function restart(){
 // 訪問のたびに落とし直しており、起動が遅くなる最大の原因になっていた。
 // URLに中身のハッシュを付ければ、更新したときだけ新しいURLになるので、
 // 「常に最新」を保ったままブラウザのキャッシュを使える(2回目以降の起動が速くなる)。
-const CITIES_VERSION = 'f36e194265';
+const CITIES_VERSION = '4b9e762def';
 
 async function boot(){
   try{
