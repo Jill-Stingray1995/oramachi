@@ -54,7 +54,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<link rel="stylesheet" href="style.css?v=ec88a65104">
+<link rel="stylesheet" href="style.css?v=4df3d6f1d0">
 <!-- 【先読み】cities.json(全マチのデータ)を、app.js の読み込みと並行して取りに行く。
      これを書かないと、app.js(425KB)のダウンロードと解析が終わってから
      ようやくデータの取得が始まるため、起動までが直列につながって遅くなる。
@@ -105,25 +105,65 @@
 
   <div class="foot" id="foot">データ読み込み中…</div>
 
+  <!-- 【静的な説明コンテンツ】JavaScriptが動かない環境や検索エンジンのクローラーでも、
+       このサイトが何をするサービスかHTMLとして読み取れるようにするためのエリア。
+       display:noneや画面外配置はせず、実際の利用者にも普通に読めるようにしている。 -->
+  <section class="site-intro" aria-label="おらマチの説明">
+    <h1>おらマチとは</h1>
+    <p>「おらマチ」は、「はい」「いいえ」の質問に答えていくだけで、あなたが思い浮かべた市区町村を、キャラクターの「おらっち」が当てていく無料の地理ゲームです。都道府県名や地図の知識に自信がなくても、自分の地元や訪れたことのある街を思い浮かべながら、気軽に遊べます。地名や漢字を自分で入力する必要はなく、画面の質問に答えるだけで進みます。</p>
+
+    <h2>遊び方</h2>
+    <ol>
+      <li>全国版、または都道府県・地方などエリアを絞った地域版を選びます。</li>
+      <li>表示される質問に、思い浮かべた市区町村にあてはまるかどうかで答えます。</li>
+      <li>回答をもとに、候補となる自治体が少しずつ絞り込まれていきます。</li>
+      <li>十分に絞り込めたところで、おらっちが自治体を予想します。</li>
+    </ol>
+    <p>質問には「はい」「いいえ」のほかに、「たぶんそう」「たぶん違う」「わからない・スキップ」も用意しており、迷ったときも答えやすくなっています。くわしい遊び方は<a href="./play-guide.html">遊び方のページ</a>でご案内しています。</p>
+
+    <h2>おらマチの特徴</h2>
+    <ul>
+      <li>全国の市や東京23区、新潟県の町村などに対応しています。</li>
+      <li>都道府県や地方を限定して遊べる地域版があります。</li>
+      <li>自治体の地理・交通・人口や行政・産業・歴史や文化・観光や娯楽などに関する質問が出題されます。</li>
+      <li>回答するほど候補自治体が絞り込まれていく仕組みです。</li>
+      <li>正解した自治体を記録できる「全国制覇帳」があります。</li>
+      <li>結果を画像にしてSNSで共有できます。</li>
+      <li>質問やデータの間違いを報告できます。</li>
+    </ul>
+    <p>くわしい特徴は<a href="./features.html">おらマチの特徴のページ</a>でご紹介しています。</p>
+
+    <h2>データについて</h2>
+    <p>出題される質問と、それに対応する自治体ごとのデータは、自治体の公式サイトや、国・都道府県などの公的機関が公開している情報を参考に、ゲームで扱いやすい形へ独自に整理しています。市区町村の合併や名称変更、施設の閉鎖や新設、路線の変更などにより、時間の経過とともに実際の状況とデータが異なってくる場合があります。くわしい方針は<a href="./data-policy.html">質問・自治体データについてのページ</a>をご覧ください。</p>
+
+    <h2>注意事項</h2>
+    <p>おらマチの判定は、あなたの回答と登録されているデータをもとにした推測であり、必ず正解するとは限りません。あらかじめご了承のうえ、お楽しみください。よくある質問は<a href="./faq.html">こちら</a>でもご確認いただけます。</p>
+  </section>
+
   <div class="install-tip" id="installTip" style="display:none;">
     <p>Safariの共有ボタン<span class="tip-icon">⬆️</span>から「ホーム画面に追加」を選ぶとアプリのように使えます。</p>
     <button type="button" id="installTipClose">閉じる</button>
   </div>
 
   <footer class="site-footer">
-    <a href="./about.html">このサイトについて</a>
-    <span class="dot">・</span>
-    <a href="./privacy.html">プライバシーポリシー</a>
-    <span class="dot">・</span>
-    <a href="./privacy.html#advertising">広告・PRについて</a>
-    <span class="dot">・</span>
-    <span>© 2026 おらマチ</span>
+    <nav class="footer-nav" aria-label="サイト内ナビゲーション">
+      <a href="./">トップ</a>
+      <a href="./play-guide.html">遊び方</a>
+      <a href="./features.html">おらマチの特徴</a>
+      <a href="./data-policy.html">質問・データについて</a>
+      <a href="./faq.html">よくある質問</a>
+      <a href="./updates.html">更新履歴</a>
+      <a href="./about.html">このサイトについて</a>
+      <a href="./privacy.html">プライバシーポリシー</a>
+      <a href="./faq.html#report">お問い合わせ・訂正報告</a>
+    </nav>
+    <p class="footer-copyright">© 2026 おらマチ</p>
   </footer>
 
   <div id="modalRoot"></div>
 </div>
 
 <script defer src="japan-map-data.js?v=8f16c4162f"></script>
-<script defer src="app.js?v=3164ad3b35"></script>
+<script defer src="app.js?v=1ffc6c2f72"></script>
 </body>
 </html>

@@ -9325,16 +9325,11 @@ async function boot(){
   }catch(e){
     // 原因調査用に、実際のエラー内容をブラウザのコンソールへ必ず残す。
     console.error('おらマチ: 起動時のデータ読み込みに失敗しました', e);
-    const isTimeout = e && (e.name === 'AbortError');
     stage.innerHTML = `
       <div class="mascot-wrap">${mascotSVG('sad')}</div>
       <div class="error-text">
-        ${isTimeout ? 'データの読み込みに時間がかかりすぎたため、中断しました。' : 'cities.json を読み込めませんでした。'}<br>
-        通信環境をご確認のうえ、下のボタンで再読み込みしてください。<br><br>
-        index.html と cities.json を同じフォルダに置き、簡易サーバー経由で開いてください。<br><br>
-        例: このフォルダで <code>python3 -m http.server</code> を実行し、<br>
-        ブラウザで <code>http://localhost:8000</code> を開く<br><br>
-        (file:// で直接開くとブラウザの制限でJSONを読み込めません)
+        ゲームデータを読み込めませんでした。<br>
+        通信状況を確認して、ページを再読み込みしてください。
       </div>
       <button class="again" onclick="location.reload()">再読み込みする</button>`;
     footEl.textContent = 'データ読み込みエラー';
