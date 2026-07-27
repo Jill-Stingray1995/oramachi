@@ -9533,7 +9533,7 @@ function restart(){
 // 訪問のたびに落とし直しており、起動が遅くなる最大の原因になっていた。
 // URLに中身のハッシュを付ければ、更新したときだけ新しいURLになるので、
 // 「常に最新」を保ったままブラウザのキャッシュを使える(2回目以降の起動が速くなる)。
-const CITIES_VERSION = 'b4b7cdbf85';
+const CITIES_VERSION = '5ac9977cd1';
 
 async function boot(){
   try{
