@@ -1,0 +1,356 @@
+{
+ "note": "山梨県14町村・作業用ファイル。fact/food/dialect/mascotはChatGPT提供データ(最新版)を原文のまま採用。原本は staging/chatgpt-yamanashi-source.json。",
+ "basic_source": {
+  "population": "山梨県推計人口 2025年10月1日現在",
+  "area": "国土地理院 全国都道府県市区町村別面積調 2025年7月1日現在",
+  "list_url": "https://uub.jp/cty/yamanashi.html"
+ },
+ "municipalities": [
+  {
+   "name": "市川三郷町",
+   "pref": "山梨県",
+   "municipalityType": "町",
+   "tags": [
+    "big_river",
+    "famous_hanabi",
+    "formed_after_2000",
+    "four_plus_name",
+    "hiragana_long",
+    "is_town_village",
+    "kawa_in_name",
+    "koshin_area",
+    "number_in_name",
+    "traditional_craft"
+   ],
+   "stats": {
+    "population": 13434,
+    "area_km2": 75.18
+   },
+   "starOverrides": {
+    "urban": 1
+   },
+   "fact": "和紙・花火・印章の三つの伝統産業が息づく町です。",
+   "food": "大塚にんじん料理",
+   "dialect": "てっ=驚いたときの「おっ」",
+   "mascot": "市川三郷レンジャー"
+  },
+  {
+   "name": "早川町",
+   "pref": "山梨県",
+   "municipalityType": "町",
+   "tags": [
+    "borders_other_pref",
+    "famous_mountain",
+    "is_town_village",
+    "kawa_in_name",
+    "koshin_area",
+    "no_railway_station",
+    "onsen"
+   ],
+   "stats": {
+    "population": 895,
+    "area_km2": 369.96
+   },
+   "starOverrides": {
+    "urban": 1
+   },
+   "fact": "町土の96%を森林が占め、新倉では糸魚川―静岡構造線の露頭を見学できます。",
+   "food": "鹿肉料理(ジビエ)",
+   "dialect": "〜ノー=〜ない(奈良田方言)",
+   "mascot": "なんチャくん"
+  },
+  {
+   "name": "身延町",
+   "pref": "山梨県",
+   "municipalityType": "町",
+   "tags": [
+    "big_river",
+    "borders_other_pref",
+    "formed_after_2000",
+    "is_town_village",
+    "koshin_area",
+    "onsen",
+    "shrine_temple"
+   ],
+   "stats": {
+    "population": 8905,
+    "area_km2": 301.98
+   },
+   "starOverrides": {
+    "urban": 1
+   },
+   "fact": "身延山久遠寺を中心に、約750年の歴史を持つ信仰の町です。",
+   "food": "身延ゆば",
+   "dialect": "ぼこ=子ども",
+   "mascot": "みのワン"
+  },
+  {
+   "name": "南部町",
+   "pref": "山梨県",
+   "municipalityType": "町",
+   "tags": [
+    "big_river",
+    "borders_other_pref",
+    "direction_in_name",
+    "formed_after_2000",
+    "is_town_village",
+    "koshin_area"
+   ],
+   "stats": {
+    "population": 6287,
+    "area_km2": 200.87
+   },
+   "starOverrides": {
+    "urban": 1
+   },
+   "fact": "甲斐源氏・南部氏発祥の地で、道の駅とみざわは山梨県第1号の道の駅です。",
+   "food": "たけのこ料理",
+   "dialect": "のし入れ=ほうとう",
+   "mascot": "タケノコマン"
+  },
+  {
+   "name": "富士川町",
+   "pref": "山梨県",
+   "municipalityType": "町",
+   "tags": [
+    "big_river",
+    "formed_after_2000",
+    "is_town_village",
+    "kawa_in_name",
+    "koshin_area"
+   ],
+   "stats": {
+    "population": 13267,
+    "area_km2": 112.0
+   },
+   "starOverrides": {
+    "urban": 1
+   },
+   "fact": "大法師公園は山梨県で唯一「日本さくら名所100選」に選ばれています。",
+   "food": "みみ",
+   "dialect": "いいさよぉ=いいよ、大丈夫",
+   "mascot": "ゆずにゃん"
+  },
+  {
+   "name": "昭和町",
+   "pref": "山梨県",
+   "municipalityType": "町",
+   "tags": [
+    "ic_chuo",
+    "is_town_village",
+    "koshin_area"
+   ],
+   "stats": {
+    "population": 21766,
+    "area_km2": 9.08
+   },
+   "starOverrides": {
+    "urban": 2
+   },
+   "fact": "面積9.08平方キロメートルで、山梨県内で最も面積が小さい町です。",
+   "food": "昭和町産いちご",
+   "dialect": "こぴっと=しっかり、きちんと",
+   "mascot": "特になし"
+  },
+  {
+   "name": "道志村",
+   "pref": "山梨県",
+   "municipalityType": "村",
+   "tags": [
+    "borders_other_pref",
+    "is_town_village",
+    "is_village",
+    "koshin_area",
+    "no_railway_station"
+   ],
+   "stats": {
+    "population": 1448,
+    "area_km2": 79.68
+   },
+   "starOverrides": {
+    "urban": 1
+   },
+   "fact": "1897年から道志川の水が横浜市の上水道に利用されています。",
+   "food": "クレソン料理",
+   "dialect": "イクベー=行こう",
+   "mascot": "ななりん"
+  },
+  {
+   "name": "西桂町",
+   "pref": "山梨県",
+   "municipalityType": "町",
+   "tags": [
+    "direction_in_name",
+    "is_town_village",
+    "koshin_area",
+    "plant_in_name",
+    "private_railway",
+    "traditional_craft"
+   ],
+   "stats": {
+    "population": 3625,
+    "area_km2": 15.22
+   },
+   "starOverrides": {
+    "urban": 1
+   },
+   "fact": "富士山の伏流水と、1000年以上受け継がれてきた郡内織の技術で知られます。",
+   "food": "太くてコシのあるうどん",
+   "dialect": "あんべえ=具合",
+   "mascot": "特になし"
+  },
+  {
+   "name": "忍野村",
+   "pref": "山梨県",
+   "municipalityType": "村",
+   "tags": [
+    "is_town_village",
+    "is_village",
+    "koshin_area",
+    "no_railway_station",
+    "worldheritage"
+   ],
+   "stats": {
+    "population": 9227,
+    "area_km2": 25.05
+   },
+   "starOverrides": {
+    "urban": 1
+   },
+   "fact": "忍野八海は富士山の伏流水が湧く八つの池で、世界文化遺産・富士山の構成資産です。",
+   "food": "忍野そば",
+   "dialect": "いまちっと=もう少し",
+   "mascot": "ヒイチファミリー"
+  },
+  {
+   "name": "山中湖村",
+   "pref": "山梨県",
+   "municipalityType": "村",
+   "tags": [
+    "borders_other_pref",
+    "is_town_village",
+    "is_village",
+    "koshin_area",
+    "lakeside",
+    "no_railway_station",
+    "worldheritage",
+    "yama_in_name"
+   ],
+   "stats": {
+    "population": 5184,
+    "area_km2": 53.05
+   },
+   "starOverrides": {
+    "urban": 1
+   },
+   "fact": "山中湖は富士五湖で面積が最大で、湖面標高も最も高い湖です。",
+   "food": "ワカサギ料理",
+   "dialect": "うっちゃる=捨てる",
+   "mascot": "姫まりもちゃん"
+  },
+  {
+   "name": "鳴沢村",
+   "pref": "山梨県",
+   "municipalityType": "村",
+   "tags": [
+    "active_volcano",
+    "borders_other_pref",
+    "is_town_village",
+    "is_village",
+    "koshin_area",
+    "no_railway_station"
+   ],
+   "stats": {
+    "population": 2775,
+    "area_km2": 89.58
+   },
+   "starOverrides": {
+    "urban": 1
+   },
+   "fact": "864年の貞観噴火で流れた溶岩の上に広がり、鳴沢氷穴や溶岩樹型が残ります。",
+   "food": "フジザクラソフトクリーム",
+   "dialect": "おっぺす=押す",
+   "mascot": "なるシカくん"
+  },
+  {
+   "name": "富士河口湖町",
+   "pref": "山梨県",
+   "municipalityType": "町",
+   "tags": [
+    "active_volcano",
+    "borders_other_pref",
+    "formed_after_2000",
+    "four_plus_name",
+    "hiragana_long",
+    "ic_chuo",
+    "is_town_village",
+    "koshin_area",
+    "lakeside",
+    "onsen",
+    "private_railway",
+    "worldheritage"
+   ],
+   "stats": {
+    "population": 26605,
+    "area_km2": 158.4
+   },
+   "starOverrides": {
+    "urban": 2
+   },
+   "fact": "富士五湖のうち、河口湖・西湖・精進湖・本栖湖の四つの湖がある町です。",
+   "food": "かっぱめし",
+   "dialect": "おみゃぁ=あなた",
+   "mascot": "ふじぴょん"
+  },
+  {
+   "name": "小菅村",
+   "pref": "山梨県",
+   "municipalityType": "村",
+   "tags": [
+    "big_small_in_name",
+    "borders_other_pref",
+    "is_town_village",
+    "is_village",
+    "koshin_area",
+    "no_railway_station",
+    "plant_in_name"
+   ],
+   "stats": {
+    "population": 589,
+    "area_km2": 52.78
+   },
+   "starOverrides": {
+    "urban": 1
+   },
+   "fact": "多摩川源流の村で、全国で初めてヤマメの人工ふ化に成功したとされています。",
+   "food": "ヤマメ料理",
+   "dialect": "えからかん=いい加減",
+   "mascot": "まーくん"
+  },
+  {
+   "name": "丹波山村",
+   "pref": "山梨県",
+   "municipalityType": "村",
+   "tags": [
+    "borders_other_pref",
+    "famous_mountain",
+    "is_town_village",
+    "is_village",
+    "koshin_area",
+    "no_railway_station",
+    "yama_in_name"
+   ],
+   "stats": {
+    "population": 474,
+    "area_km2": 101.3
+   },
+   "starOverrides": {
+    "urban": 1
+   },
+   "fact": "多摩川源流の丹波川が流れ、雲取山・飛龍山・大菩薩嶺などに囲まれています。",
+   "food": "鹿ばぁーがー",
+   "dialect": "のめっこい=つるつる、すべすべ",
+   "mascot": "タバスキー"
+  }
+ ]
+}
