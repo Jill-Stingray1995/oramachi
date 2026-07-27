@@ -565,7 +565,7 @@ const QUESTIONS = {
   rice_region:   {text:'米どころとして知られている？', icon:'🌾', subjective:true},
   kana_name:     {text:'自治体名にひらがな・カタカナを含む？', icon:'🔤'},
   kansai_dialect:{text:'関西弁圏に含まれる？', icon:'🗣️'},
-  ryukyu_dialect:{text:'琉球諸語・沖縄方言の地域？', icon:'🗣️'},
+  ryukyu_dialect:{text:'沖縄県で、うちなーぐち（沖縄方言）が話される地域？', icon:'🗣️'},
   is_town_village:{text:'市ではなく町または村である？', icon:'🏘️'},
   is_tokyo_ward: {text:'東京23区のどれかである？', icon:'🗼'},
   ruins:          {text:'遺跡・古墳で有名？', icon:'🏛️', subjective:true},
@@ -1580,6 +1580,31 @@ const EXCLUSIVE_CHECK_GROUPS = [
    'shibamata_taishakuten','kasai_park','broadway_nakano','koenji_area','jiyugaoka','shakujii_park',
    
    'ueno_station'],
+  // 【47都道府県は完全に排他】各自治体はただ1つの都道府県にのみ属するため、
+  // どれか1つの県で「はい」と答えたら、残り46県は聞くまでもなく「いいえ」。
+  // これを入れないと「沖縄県?→はい」の後に「鹿児島県?」を無駄に聞いてしまう。
+  //
+  // さらに、地方細分・広域質問(南九州?・薩摩地方?・紀伊半島?など)も同じグループに含める。
+  // これらは特定の県だけで trueになるので、含まれない県の pref質問とは「両方trueが0件」となり、
+  // データ駆動で自動的に排他と判定される(例: southern_kyushu と pref_okinawa は0件なので排他)。
+  // 一方、正当に両立するペア(satsuma_area × pref_kagoshima など)は両方trueの市があるため
+  // 排他にはならない。これを入れないと「沖縄県?→はい」の後に「南九州?」を無駄に聞いてしまう。
+  ['pref_hokkaido','pref_aomori','pref_iwate','pref_miyagi','pref_akita','pref_yamagata','pref_fukushima','pref_ibaraki','pref_tochigi','pref_gunma','pref_saitama','pref_chiba','pref_tokyo','pref_kanagawa','pref_niigata','pref_toyama','pref_ishikawa','pref_fukui','pref_yamanashi','pref_nagano','pref_gifu','pref_shizuoka','pref_aichi','pref_mie','pref_shiga','pref_kyoto','pref_osaka','pref_hyogo','pref_nara','pref_wakayama','pref_tottori','pref_shimane','pref_okayama','pref_hiroshima','pref_yamaguchi','pref_tokushima','pref_kagawa','pref_ehime','pref_kochi','pref_fukuoka','pref_saga','pref_nagasaki','pref_kumamoto','pref_oita','pref_miyazaki','pref_kagoshima','pref_okinawa',
+   // ↓ 地方細分・広域質問(その県以外のpref質問と自動的に排他になる)
+   'northern_kyushu','southern_kyushu','satsuma_area','osumi_area',
+   'chikuzen_area','chikugo_area','chikuho_area','kitakyushu_area','fukuoka_metro',
+   'okinawa_main_island','okinawa_south_central','sakishima_islands','ryukyu_dialect',
+   'tsugaru_area','shonai_area','hamadori_area','nakadori_area','aizu_area','sendai_metro',
+   'douou_area','doutou_area','dohoku_area','sapporo_metro','ishikari_plain',
+   'tama_area','is_tokyo_ward','tokatsu_area','shonan_area','sotobo','uchibo',
+   'joetsu_region','chuetsu_region','kaetsu_region','noto_area',
+   'koshin_area','izu_area','suruga_area','totomi_area','tokai_area',
+   'hokusetsu_area','kawachi_area','senshu_area','keihanshin_area','kii_peninsula','kansai_dialect',
+   'harima_area','tajima_area','tamba_area','kyoto_north','nara_basin',
+   'bingo_area','izumo_area','sanin_area','sanyo_area','hiroshima_metro','chugoku_mountain_basin',
+   'kitakami_basin','sanriku_area','ryomo_area','tone_river_area','hachiko_area',
+   'hokushin_area','toshin_area','chushin_area','nanshin_area','hida_area','mino_area','owari_area','mikawa_area',
+   'toyo_area','chuyo_area','nanyo_area'],
 ];
 let EXCLUSIVE_MAP = {};
 // 【例外つき排他ルール】現実には「ほとんど両立しないが、ごく少数だけ両方に当てはまる」
@@ -2427,10 +2452,10 @@ const PARTIAL_WEIGHT = 0.5;       // 「たぶんそう/たぶんいいえ」の
 
 // ---- 推測タイミングのしきい値(すべてここにまとめる) ----
 const MIN_Q_BEFORE_EARLY_GUESS = 3;        // 最低これだけ質問してから「早押し」判定を始める(通常質問側のみ)
-const CONFIDENCE_MARGIN = 6;               // 1位と2位のスコア差がこれ以上なら、途中でも答えを出す
-const GUESS_CONFIDENCE_THRESHOLD = 0.75;   // 1位候補の確率(推定)がこれ以上なら、途中でも答えを出す
+const CONFIDENCE_MARGIN = 8;               // 1位と2位のスコア差がこれ以上なら、途中でも答えを出す
+const GUESS_CONFIDENCE_THRESHOLD = 0.82;   // 1位候補の確率(推定)がこれ以上なら、途中でも答えを出す
 const MIN_QUESTIONS_FOR_STABLE_GUESS = 15; // 「安定判定」を始める最低質問数(通常質問側のみ)
-const STABLE_STREAK_REQUIRED = 3;          // 1位候補が何問連続で変わらなければ「安定」とみなすか
+const STABLE_STREAK_REQUIRED = 4;          // 1位候補が何問連続で変わらなければ「安定」とみなすか
 
 // ---- 候補の完全除外条件(ここに挙げた場合だけ、スコアを下げるのではなく候補から完全に外す) ----
 // 「わからない」やあいまいな回答1回だけでは絶対に消えないよう、しきい値は厳しめに設定する。
@@ -7447,6 +7472,23 @@ function startMode(mode){
 
   footEl.textContent = `${MODES[mode].label} ・ 対応 ${modeCities.length}自治体`;
   renderQuestion();
+  scrollToGameTop();
+}
+
+// ゲーム画面(カード)の一番上が見えるように、ページの先頭へスクロールする。
+// モード選択ボタンはページの下の方にあるため、押したままだとプレイ画面が
+// 途中(「おらマチとは」の辺り)から表示されてしまう。これを防ぐ。
+function scrollToGameTop(){
+  try{
+    const card = document.querySelector('.card');
+    const target = card || document.body;
+    // ヘッダー(ロゴ)の少し上まで戻したいので、カードの上端より少し余白をとる。
+    const top = target.getBoundingClientRect().top + window.pageYOffset - 12;
+    window.scrollTo({ top: Math.max(0, top), behavior: 'auto' });
+  }catch(e){
+    // 万一スクロールに失敗しても、ゲーム進行には影響させない。
+    try{ window.scrollTo(0, 0); }catch(_){}
+  }
 }
 let forcedNextKey = null; // 「戻る」で復元したときに、同じ質問を出すための指定
 
@@ -7845,7 +7887,34 @@ function shouldGuessNow(){
   if(margin >= CONFIDENCE_MARGIN) return true; // 1位と2位の差が十分大きい
   if(topConfidence() >= GUESS_CONFIDENCE_THRESHOLD) return true; // 1位候補の確率が高い
   if(questionPhase === 'normal' && questionCount >= MIN_QUESTIONS_FOR_STABLE_GUESS && stableTopStreak >= STABLE_STREAK_REQUIRED){
+    // 安定はしているが、まだ1位と2位を確実に分けられる客観質問が残っているなら、
+    // それを聞いてから答える(「最西端?」を聞かずに離島同士で外すのを防ぐ)。
+    if(decisiveQuestionRemains()) return false;
     return true; // 15問以上・数問連続で1位候補が変わっていない
+  }
+  return false;
+}
+
+// 【まだ粘れるか】1位と2位の候補を「客観的な質問1つで確実に区別できる」場合、
+// その質問をまだ聞いていないなら推測を我慢して聞きに行く価値がある。
+// 例: 与那国町(最西端)と竹富町は、「日本最西端?」を聞けば一発で分かるのに、
+// スコアが僅差のまま推測してしまうと、この決め手を使わずに外すことがある。
+// ただし無限に粘らないよう、通常質問の上限が近い場面(残りわずか)では適用しない。
+function decisiveQuestionRemains(){
+  const sorted = sortedPool();
+  if(sorted.length < 2) return false;
+  const top1 = sorted[0], top2 = sorted[1];
+  if(!top1 || !top2) return false;
+  // 通常質問の残りが2問未満なら、粘らずに答える(時間切れ間際)
+  const phaseMax = effectiveMaxQ(questionPhase);
+  if(questionCount >= phaseMax - 2) return false;
+  // 1位と2位で真偽が分かれる客観的質問(主観でない・未出題・モードで有効)を探す
+  const unused = activeKeysForMode(currentMode).filter(k => !asked.includes(k));
+  for(const k of unused){
+    if(isSubjectiveQuestion(k)) continue;          // 主観質問は決め手にしない(住民でも割れる)
+    const v1 = top1.city.tags[k] === true;
+    const v2 = top2.city.tags[k] === true;
+    if(v1 !== v2) return true;                       // 1問で1位と2位を確実に分けられる
   }
   return false;
 }
