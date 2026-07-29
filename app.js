@@ -12,7 +12,7 @@ const KEYS = ['hitachi_seaside_park','tsuchiura_hanabi','koga_kubo','toride_geid
   'car_town','private_railway','monorail','remote_island','mining_heritage','night_view','war_damage',
   'ferris_wheel','theme_park','zoo','aquarium','brand_beef','kintetsu','kanji_one_char',
   'chinatown','sand_dunes','imperial_university','famous_tower','famous_market','exotic_port','dome_stadium','tea_region',
-  'gokaido_shukuba','pottery_famous','traditional_craft','horse_racing','literary_figure','kitanotakeshi','musashino_line','ekimei_chigau',
+  'gokaido_shukuba','pottery_famous','traditional_craft','horse_racing','famous_horse_breeding','literary_figure','kitanotakeshi','musashino_line','ekimei_chigau',
   'prefectural_capital','borders_other_pref','formed_after_2000',
   'national_university','expressway_junction','hiragana_name','hiragana_long','direction_in_name','old_province_name',
   'public_racing_venue','national_government_park','film_city','shinsengumi','shonan_area','white_mirin_origin',
@@ -577,7 +577,7 @@ const QUESTIONS = {
   npb:            {text:'プロ野球チーム(NPB)の本拠地がある？', icon:'⚾'},
   former_capital:   {text:'過去に「都」が置かれたことがある？', icon:'👑'},
   grid_streets:     {text:'街の中心部は碁盤の目のよう？', icon:'🔲', subjective:true},
-  kokuho_building:  {text:'国宝がある、建っている？', icon:'📜'},
+  kokuho_building:  {text:'国宝に指定されたものがある？', icon:'📜'},
   twelve_castles:   {text:'現存十二天守の城はありますか？', icon:'🏰'},
   sengoku_warlord:  {text:'有名な戦国武将ゆかりの地ですか？', icon:'⚔️', subjective:true},
   tram:             {text:'路面電車が走っていますか？', icon:'🚋'},
@@ -608,6 +608,7 @@ const QUESTIONS = {
   pottery_famous:       {text:'焼き物・陶磁器で知られている？', icon:'🏺', subjective:true},
   traditional_craft:    {text:'有名な伝統工芸で知られている？', icon:'🎨', subjective:true},
   horse_racing:         {text:'競馬場がある？', icon:'🐎'},
+  famous_horse_breeding: {text:'有名な馬産地？', icon:'🐴', subjective:true},
   literary_figure:      {text:'有名な作家・文学者ゆかりの街？', icon:'✒️', subjective:true},
   joetsu_region:              {text:'上越地方？', icon:'🗾'},
   chuetsu_region:              {text:'中越地方？', icon:'🗾'},
@@ -1306,7 +1307,7 @@ const QUESTION_HELP = {
   honshu_bridge: '鉄道橋または道路橋で、本州と直接行き来できる場合です。',
   bakumatsu_port: '函館・横浜・新潟・神戸・長崎の五港です。',
   former_capital: '天皇の宮殿と政治の中心が置かれたことがあるかで判定します。',
-  kokuho_building: '美術品だけではなく、国宝に指定された建造物が対象です。',
+  kokuho_building: '建造物に限らず、美術工芸品・書跡・考古資料などジャンルを問わず、国宝に指定された「もの」が所在すれば対象です。',
   twelve_castles: '江戸時代以前の天守が現在まで残る12城です。',
   gokaido_shukuba: '東海道・中山道・日光・奥州・甲州街道の宿場です。',
   imperial_university: '戦前の帝国大学を前身とする国立大学です。',
@@ -5237,6 +5238,7 @@ const TAG_GAME_CATEGORY = {
   "pottery_famous": "歴史・文化",
   "traditional_craft": "歴史・文化",
   "horse_racing": "歴史・文化",
+  "famous_horse_breeding": "歴史・文化",
   "literary_figure": "歴史・文化",
   "imperial_palace": "歴史・文化",
   "sensoji": "歴史・文化",
@@ -9708,7 +9710,7 @@ function restart(){
 // 訪問のたびに落とし直しており、起動が遅くなる最大の原因になっていた。
 // URLに中身のハッシュを付ければ、更新したときだけ新しいURLになるので、
 // 「常に最新」を保ったままブラウザのキャッシュを使える(2回目以降の起動が速くなる)。
-const CITIES_VERSION = '9911238d2e';
+const CITIES_VERSION = '3b03ef5463';
 
 async function boot(){
   try{
