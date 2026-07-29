@@ -14,7 +14,7 @@ const KEYS = ['hitachi_seaside_park','tsuchiura_hanabi','koga_kubo','toride_geid
   'chinatown','sand_dunes','imperial_university','famous_tower','famous_market','exotic_port','dome_stadium','tea_region',
   'gokaido_shukuba','pottery_famous','traditional_craft','horse_racing','literary_figure','kitanotakeshi','musashino_line','ekimei_chigau',
   'prefectural_capital','borders_other_pref','formed_after_2000',
-  'national_university','expressway_junction','hiragana_name','hiragana_long','hiragana_short','direction_in_name','old_province_name',
+  'national_university','expressway_junction','hiragana_name','hiragana_long','direction_in_name','old_province_name',
   'public_racing_venue','national_government_park','film_city','shinsengumi','shonan_area','white_mirin_origin',
   'joetsu_region','chuetsu_region','kaetsu_region','joetsu_shinkansen_station','hokuriku_shinkansen_station',
   'hokkaido_shinkansen_station','tohoku_shinkansen_station','tokaido_shinkansen_station','sanyo_shinkansen_station','kyushu_shinkansen_station','nishikyushu_shinkansen_station',
@@ -52,7 +52,7 @@ const KEYS = ['hitachi_seaside_park','tsuchiura_hanabi','koga_kubo','toride_geid
   'basketball_town','kamakura_yokote','akita_inu_hachiko','namahage','inaniwa_udon','oyu_stone_circle','yuri_kogen_railway','blumen_akita','odate_noshiro_airport','tdk_town','kakunodate_tazawako','sankyo_soko','higashizawa_rose','ayame_park','hanagasa_tendo','ginzan_onsen','kumano_taisha','tsuburaya_eiji','matsukawaura','kiku_ningyo_nihonmatsu','abukumado','kacchu_keiba','anpogaki','william_park','natural_gas_town',
   'region_hokkaido','region_tohoku','region_kanto','region_chubu','region_kinki','region_chugoku','region_shikoku','region_kyushu',
   'pref_hokkaido','pref_aomori','pref_iwate','pref_miyagi','pref_akita','pref_yamagata','pref_fukushima','pref_ibaraki','pref_tochigi','pref_gunma','pref_saitama','pref_chiba','pref_tokyo','pref_kanagawa','pref_niigata','pref_toyama','pref_ishikawa','pref_fukui','pref_yamanashi','pref_nagano','pref_gifu','pref_shizuoka','pref_aichi','pref_mie','pref_shiga','pref_kyoto','pref_osaka','pref_hyogo','pref_nara','pref_wakayama','pref_tottori','pref_shimane','pref_okayama','pref_hiroshima','pref_yamaguchi','pref_tokushima','pref_kagawa','pref_ehime','pref_kochi','pref_fukuoka','pref_saga','pref_nagasaki','pref_kumamoto','pref_oita','pref_miyazaki','pref_kagoshima','pref_okinawa',
-  'kitasubaru','kita_no_kuni','kita_no_shonan','shizumine','shimotsuma_movie','hitachi_kokufu','toyoda_castle','moriya_junction','namegata_farm','hananuki','happogahara','kanuma_tsuchi','nasu_yoichi','jichi_medical','bihada_onsen','moomin_park','ageo_sodou','iroha_toi','okegawa_benibana','ishito_zakura','kinchakuda','heirinji','lucky_star','johnson_town','saika_matsuri','mizuko_kaizuka','smallest_city','yashio_hanamomo','yoshikawa_namazu','shiraoka_nashi','kurohama_kaizuka','hanyu_yurugp','inzai_datacenter','kamagaya_farm','iioka_cape','tomisato_suika','sanbu_sugi','keisei_rose','aqualine_gate','yotsukaido_name','onari_kaido','yachimata_peanuts','nashibou','soza_ueki','blueberry_origin','kishozeisei_center','summerland','hamura_zeki','baseside_street','zama_himawari','zushi_marina','ayase_no_station','nono_odoriji','linear_center','shakou_elevator','saruhashi','enbaragawa','sanshu_kawara','nonbori_arai','akame_taki','oiwayama_dotaku','tokaido_nakasendo','koka_ninja','take_no_michi','aioi_matsu','banshu_soroban_ono','katsuragi_tsutsuji','matabei_zakura','kishu_herazao','negoroji','kokusan_denim','konrei_kagu','nora_dokei','onga_pump','koinoki','hiyoko','kubote_san','taku_seibyo','minamata_museum','kikuchi_keikoku','mikoshiki_coast','amakusa_bridges','ikoma_kogen','senbon_icho','sogi_no_taki','orion_beer','inami_kaeru_bridge','tsuruta_steuben','jupialand_shibazakura','licca_castle','iitate_madeikan','ogata_reclamation','ora_mirai_tower','kamisato_sa','mikurajima_dolphin','aogashima_double_caldera','oi_biotopia','nanko_ume','ebikani_aquarium','misato_blueberry','circuit','dam_lake','meisui_hyakusen','least_populous_village','tanada_hyakusen','karst','ramsar','national_park','waterfall_hyakusen','castle_hyakumeijo','winery','pottery_ware','funaoka_sakura','omocha_no_machi','tanagura_kamegajo'];
+  'kitasubaru','kita_no_kuni','kita_no_shonan','shizumine','shimotsuma_movie','hitachi_kokufu','toyoda_castle','moriya_junction','namegata_farm','hananuki','happogahara','kanuma_tsuchi','nasu_yoichi','jichi_medical','bihada_onsen','moomin_park','ageo_sodou','iroha_toi','okegawa_benibana','ishito_zakura','kinchakuda','heirinji','lucky_star','johnson_town','saika_matsuri','mizuko_kaizuka','smallest_city','yashio_hanamomo','yoshikawa_namazu','shiraoka_nashi','kurohama_kaizuka','hanyu_yurugp','inzai_datacenter','kamagaya_farm','iioka_cape','tomisato_suika','sanbu_sugi','keisei_rose','aqualine_gate','yotsukaido_name','onari_kaido','yachimata_peanuts','nashibou','soza_ueki','blueberry_origin','kishozeisei_center','summerland','hamura_zeki','baseside_street','zama_himawari','zushi_marina','ayase_no_station','nono_odoriji','linear_center','shakou_elevator','saruhashi','enbaragawa','sanshu_kawara','nonbori_arai','akame_taki','oiwayama_dotaku','tokaido_nakasendo','koka_ninja','take_no_michi','aioi_matsu','banshu_soroban_ono','katsuragi_tsutsuji','matabei_zakura','kishu_herazao','negoroji','kokusan_denim','konrei_kagu','nora_dokei','onga_pump','koinoki','hiyoko','kubote_san','taku_seibyo','minamata_museum','kikuchi_keikoku','mikoshiki_coast','amakusa_bridges','ikoma_kogen','senbon_icho','sogi_no_taki','orion_beer','inami_kaeru_bridge','tsuruta_steuben','jupialand_shibazakura','licca_castle','iitate_madeikan','ogata_reclamation','ora_mirai_tower','kamisato_sa','mikurajima_dolphin','aogashima_double_caldera','oi_biotopia','nanko_ume','ebikani_aquarium','misato_blueberry','circuit','dam_lake','meisui_hyakusen','least_populous_village','tanada_hyakusen','karst','ramsar','national_park','waterfall_hyakusen','castle_hyakumeijo','winery','pottery_ware','funaoka_sakura','omocha_no_machi','tanagura_kamegajo','neba_sugi'];
 
 const QUESTIONS = {
   hitachi_seaside_park: {text:'ネモフィラで有名な国営ひたち海浜公園がある？', icon:'💐'},
@@ -719,7 +719,7 @@ const QUESTIONS = {
   takao_mountain:      {text:'高尾山がある？', icon:'⛰️'},
   curry_famous:        {text:'カレーで有名なマチ？', icon:'🍛', subjective:true},
   anime_seichi:        {text:'アニメの聖地として知られている？', icon:'📺', subjective:true},
-  number_in_name:      {text:'市名に数字(一、二、三…)が入っている？', icon:'🔢'},
+  number_in_name:      {text:'自治体名に数字(一、二、三…)が入っている？', icon:'🔢'},
   kigyo_joukamachi:    {text:'企業城下町として知られる？', icon:'🏢', subjective:true},
   hankyu_line:         {text:'阪急電車が通っている？', icon:'🚃'},
   yayoiken_seichi:     {text:'聖地となったやよい軒がある？', icon:'🍚'},
@@ -759,8 +759,7 @@ const QUESTIONS = {
   national_university: {text:'国立大学の本部がある？', icon:'🎓'},
   expressway_junction: {text:'高速道路のジャンクション(JCT)がある？', icon:'🛣️'},
   hiragana_name:       {text:'名前がすべてひらがな？', icon:'🔤'},
-  hiragana_long:       {text:'市・区・町・村を除いた自治体名がひらがなで6文字以上？', icon:'🔠'},
-  hiragana_short:      {text:'市・区・町・村を除いた自治体名は、ひらがなで2文字以下？', icon:'🔡'},
+  hiragana_long:       {text:'自治体名から「市区町村」を除いた部分が4文字以上？', icon:'🔠'},
   direction_in_name:   {text:'名前に「東・西・南・北」が入っている？', icon:'🧭'},
   old_province_name:   {text:'名前が旧国名に由来する？', icon:'📜'},
   public_racing_venue: {text:'公営競技場(競馬・競輪・ボート・オートレース)がある？', icon:'🚤'},
@@ -869,7 +868,7 @@ const QUESTIONS = {
   chuyo_area: {text:'愛媛県の中予地方ですか？', icon:'🧭'},
   color_in_name: {text:'自治体名に色を表す漢字が入っている？', icon:'🎨'},
   dosan_line: {text:'土讃線が通っていますか？', icon:'🚃'},
-  four_plus_name: {text:'市の名前が4文字以上？（「市」を除く）', icon:'📏'},
+  four_plus_name: {text:'自治体名が4文字以上？（「市区町村」を除く）', icon:'📏'},
   fukuoka_metro: {text:'福岡都市圏に含まれますか？', icon:'🧭'},
   hakubi_line: {text:'伯備線が通っていますか？', icon:'🚃'},
   hard_to_read_name: {text:'難読地名として知られている？', icon:'❓', subjective:true},
@@ -891,7 +890,7 @@ const QUESTIONS = {
   plant_in_name: {text:'自治体名に植物を表す漢字が入っている？', icon:'🌿'},
   pref_name_in_city_name: {text:'自治体名に都道府県名が含まれている？', icon:'🗾'},
   sakishima_islands: {text:'宮古・八重山地域にありますか？', icon:'🧭'},
-  same_name_other_pref: {text:'同名の市が別の都道府県にもある？', icon:'👯'},
+  same_name_other_pref: {text:'同名の自治体が別の都道府県にもある？', icon:'👯'},
   sanin_area: {text:'山陰地方にありますか？', icon:'🧭'},
   sanin_main_line: {text:'山陰本線が通っていますか？', icon:'🚃'},
   sanyo_area: {text:'山陽地方にありますか？', icon:'🧭'},
@@ -1015,7 +1014,7 @@ const QUESTIONS = {
   jrosyu_ume: {text:'青谷梅林と「城州白」という梅で知られる？', icon:'🍽️', subjective:true},
   ritsumeikan: {text:'立命館大学のキャンパスがある？', icon:'🎓'},
   pm_birthplace: {text:'歴代の内閣総理大臣が生まれたマチ？', icon:'🏛️'},
-  name_has_betsu: {text:'市名に「別」が入る？', icon:'🔤'},
+  name_has_betsu: {text:'自治体名に「別」が入る？', icon:'🔤'},
   hokkaido_greenland: {text:'北海道グリーンランドがある？', icon:'🎢'},
   famous_prison: {text:'明治期の旧監獄の建物が保存されている？', icon:'🔒'},
   yakitori_famous_bibai: {text:'焼き鳥で有名？', icon:'🍢', subjective:true},
@@ -1254,7 +1253,8 @@ const QUESTIONS = {
   pottery_ware: {text:'伝統的な焼き物・陶磁器の産地として知られる？', icon:'🏺'},
   funaoka_sakura: {text:'船岡城址公園と白石川堤の桜(日本さくら名所100選)で知られる？', icon:'🌸'},
   omocha_no_machi: {text:'「おもちゃのまち」と呼ばれる玩具産業の集積地がある？', icon:'🧸'},
-  tanagura_kamegajo: {text:'棚倉城跡(亀ヶ城公園)がある？', icon:'🏯'}
+  tanagura_kamegajo: {text:'棚倉城跡(亀ヶ城公園)がある？', icon:'🏯'},
+  neba_sugi: {text:'矢作川の源流にあり、村の約9割が森林で「根羽杉」の産地？', icon:'🌲'}
 };
 
 // ==================== 質問の補足(ヘルプ) ====================
@@ -1772,7 +1772,7 @@ function challengeHintSubOrderFor(key){
 // ヒントになってしまい、「地元がバレる理由」としては強すぎる。当てっこの醍醐味である
 // 「地理・産業・観光地から絞り込む」楽しさを損なうため、この種の質問は除外する。
 const CHALLENGE_EXCLUDED_NAME_HINT_KEYS = new Set([
-  'katakana_city_name', 'kana_name', 'number_in_name', 'hiragana_name', 'hiragana_long', 'hiragana_short', 'direction_in_name',
+  'katakana_city_name', 'kana_name', 'number_in_name', 'hiragana_name', 'hiragana_long', 'direction_in_name',
   'animal_in_name', 'big_small_in_name', 'body_part_in_name', 'color_in_name', 'four_plus_name',
   'hard_to_read_name', 'kawa_in_name', 'new_old_in_name', 'plant_in_name', 'pref_name_in_city_name',
   'same_name_other_pref', 'sea_word_in_name', 'shima_in_name', 'ta_in_name', 'yama_in_name',
@@ -2262,19 +2262,79 @@ function shareChallengeResult(){
 function emptyDailyChallengeData(){
   return { version: DAILY_CHALLENGE_VERSION, completedDates: [], currentStreak: 0, maxStreak: 0, history: [] };
 }
+
+function isValidDailyChallengeDate(value){
+  if(typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const [year, month, day] = value.split('-').map(Number);
+  const utc = new Date(Date.UTC(year, month - 1, day));
+  return Number.isFinite(utc.getTime()) && utc.toISOString().slice(0, 10) === value;
+}
+
+// localStorageは利用者や拡張機能から書き換えられるため、履歴の文字列をそのままHTMLへ戻さない。
+// お題文は保存値を信用せず、既知のthemeIdから静的定義を引き直す。
+function normalizeDailyChallengeData(parsed){
+  if(!parsed || typeof parsed !== 'object' || Array.isArray(parsed)
+     || parsed.version !== DAILY_CHALLENGE_VERSION
+     || !Array.isArray(parsed.completedDates) || !Array.isArray(parsed.history)){
+    return null;
+  }
+
+  const completedDates = [...new Set(
+    parsed.completedDates.filter(isValidDailyChallengeDate)
+  )].slice(-5000);
+  const themeById = new Map(DAILY_CHALLENGE_THEMES.map(theme => [theme.id, theme]));
+  const history = parsed.history.slice(-120).map(raw => {
+    if(!raw || typeof raw !== 'object' || Array.isArray(raw)) return null;
+    const date = isValidDailyChallengeDate(raw.date) ? raw.date : '';
+    const theme = typeof raw.themeId === 'string' ? themeById.get(raw.themeId) : null;
+    if(!date || !theme) return null;
+    const questionCount = Number.isInteger(raw.questionCount)
+      && raw.questionCount >= 1 && raw.questionCount <= 1000
+      ? raw.questionCount
+      : null;
+    const atMs = typeof raw.at === 'string' ? Date.parse(raw.at) : NaN;
+    const at = Number.isFinite(atMs)
+      ? new Date(atMs).toISOString()
+      : new Date(`${date}T00:00:00+09:00`).toISOString();
+    return {
+      date,
+      themeId: theme.id,
+      themeText: theme.text,
+      questionCount,
+      at,
+    };
+  }).filter(Boolean);
+
+  const safeInteger = value => Number.isInteger(value) && value >= 0
+    ? Math.min(value, completedDates.length)
+    : 0;
+  const currentStreak = safeInteger(parsed.currentStreak);
+  const maxStreak = Math.max(currentStreak, safeInteger(parsed.maxStreak));
+  return {
+    version: DAILY_CHALLENGE_VERSION,
+    completedDates,
+    currentStreak,
+    maxStreak,
+    history,
+  };
+}
+
 function loadDailyChallengeData(){
   try{
     const raw = localStorage.getItem(DAILY_CHALLENGE_STORAGE_KEY);
     if(!raw) return emptyDailyChallengeData();
     const parsed = JSON.parse(raw);
-    if(!parsed || typeof parsed !== 'object' || parsed.version !== DAILY_CHALLENGE_VERSION
-       || !Array.isArray(parsed.completedDates) || !Array.isArray(parsed.history)){
+    const normalized = normalizeDailyChallengeData(parsed);
+    if(!normalized){
       console.warn('おらマチ: 今日のチャレンジデータの形式が不正なため、初期化します');
       const empty = emptyDailyChallengeData();
       saveDailyChallengeData(empty);
       return empty;
     }
-    return parsed;
+    if(JSON.stringify(parsed) !== JSON.stringify(normalized)){
+      saveDailyChallengeData(normalized);
+    }
+    return normalized;
   }catch(e){
     console.warn('おらマチ: 今日のチャレンジデータの読み込みに失敗したため初期化します', e);
     const empty = emptyDailyChallengeData();
@@ -2629,6 +2689,75 @@ function mergeConquestEntries(a, b){
   };
 }
 
+// localStorageや読み込みファイルは利用者が書き換えられるため、そのまま表示には使わない。
+// 自治体名・都道府県名は必ず現在のcities.jsonから引き直し、数値や日時も安全な型へ整える。
+// strict=trueはセーブデータ読み込み用で、1件でも不正なら全体を拒否する。
+function normalizeConquestData(rawConquest, strict){
+  const fail = reason => ({ ok: false, reason });
+  if(!rawConquest || typeof rawConquest !== 'object' || Array.isArray(rawConquest)
+     || !rawConquest.entries || typeof rawConquest.entries !== 'object' || Array.isArray(rawConquest.entries)){
+    return fail('制覇帳のデータが見つかりません。');
+  }
+
+  const rawIds = Object.keys(rawConquest.entries);
+  if(rawIds.length > 2000) return fail('自治体データの件数が多すぎます。');
+
+  // Object.prototypeを持たない入れ物へ移してから旧ID migrationを行う。
+  // "__proto__"等を含む細工されたJSONでもprototypeを変更させない。
+  const migratedEntries = Object.create(null);
+  rawIds.forEach(id => {
+    if(typeof id === 'string' && id.length <= 100){
+      migratedEntries[id] = rawConquest.entries[id];
+    }
+  });
+  migrateCityIdKeys(migratedEntries, mergeConquestEntries);
+
+  const cityById = new Map(CITIES.map(city => [cityId(city), city]));
+  const validModes = new Set(Object.keys(MODES));
+  const normalizedEntries = {};
+  for(const id of Object.keys(migratedEntries)){
+    const raw = migratedEntries[id];
+    const city = cityById.get(id);
+    const invalid = !city || !raw || typeof raw !== 'object' || Array.isArray(raw)
+      || !Number.isInteger(raw.count) || raw.count < 1 || raw.count > 1000000
+      || !Number.isInteger(raw.minQuestions) || raw.minQuestions < 1 || raw.minQuestions > 1000
+      || !Array.isArray(raw.modes) || raw.modes.length > 30;
+    if(invalid){
+      if(strict) return fail('制覇帳データの内容が壊れています。');
+      continue;
+    }
+
+    const modes = [...new Set(raw.modes.filter(mode => typeof mode === 'string' && validModes.has(mode)))];
+    if(strict && modes.length !== raw.modes.length){
+      return fail('認識できないゲームモードが含まれています。');
+    }
+
+    const firstAtMs = typeof raw.firstAt === 'string' ? Date.parse(raw.firstAt) : NaN;
+    const lastAtMs = typeof raw.lastAt === 'string' ? Date.parse(raw.lastAt) : NaN;
+    if(strict && (!Number.isFinite(firstAtMs) || !Number.isFinite(lastAtMs))){
+      return fail('制覇帳データの日時が壊れています。');
+    }
+    const firstAt = Number.isFinite(firstAtMs) ? new Date(firstAtMs).toISOString() : new Date(0).toISOString();
+    const lastAt = Number.isFinite(lastAtMs) ? new Date(lastAtMs).toISOString() : firstAt;
+
+    normalizedEntries[id] = {
+      id,
+      name: displayName(city),
+      pref: city.pref,
+      firstAt,
+      lastAt,
+      count: raw.count,
+      minQuestions: raw.minQuestions,
+      modes,
+    };
+  }
+
+  return {
+    ok: true,
+    conquest: { version: CONQUEST_VERSION, entries: normalizedEntries }
+  };
+}
+
 // ==================== localStorage: 設定(匿名送信) ====================
 const SETTINGS_STORAGE_KEY = 'oramachi_settings_v1';
 const SETTINGS_VERSION = 1;
@@ -2683,26 +2812,18 @@ function loadConquest(){
       saveConquest(empty); // localStorage側も安全な状態に書き戻しておく
       return empty;
     }
-    // 【旧データの掃除】以前は「東京23区部」を特別地域(specialEntries)として別枠で
-    // 記録していたが、23区を個別に出題する方式へ変更したため、この枠自体を廃止した。
-    // 古い記録が残っている場合はここで捨て、localStorageからも消しておく。
-    if('specialEntries' in parsed){
-      delete parsed.specialEntries;
-      try{ saveConquest(parsed); }catch(e){ /* 保存に失敗してもゲームは続行する */ }
+    const normalized = normalizeConquestData(parsed, false);
+    if(!normalized.ok){
+      const empty = emptyConquestData();
+      saveConquest(empty);
+      return empty;
     }
-    // 【同名自治体の表示名変更への追従】旧キーの記録があれば新キーへ移す(初回のみ動く)
-    if(migrateCityIdKeys(parsed.entries, mergeConquestEntries)){
-      for(const id in parsed.entries){
-        const e = parsed.entries[id];
-        if(e && typeof e === 'object'){
-          e.id = id;
-          const city = CITIES.find(c => cityId(c) === id);
-          if(city) e.name = displayName(city);
-        }
-      }
-      try{ saveConquest(parsed); }catch(e){ /* 保存に失敗してもゲームは続行する */ }
+    // 旧形式、壊れた項目、表示名の改ざん等があれば、安全な正規形へ一度だけ書き戻す。
+    const normalizedData = normalized.conquest;
+    if(JSON.stringify(parsed) !== JSON.stringify(normalizedData)){
+      try{ saveConquest(normalizedData); }catch(e){ /* 保存に失敗してもゲームは続行する */ }
     }
-    return parsed;
+    return normalizedData;
   }catch(e){
     console.warn('おらマチ: 制覇帳データの読み込みに失敗したため初期化します(破損データの可能性)', e);
     const empty = emptyConquestData();
@@ -2952,32 +3073,16 @@ function readImportSaveFile(file){
 // 読み込んだJSONの内容を検証する。問題があれば ok:false と理由を返すだけで、
 // 現在のデータには一切触れない(呼び出し側もこの時点ではまだ何も変更しない)。
 function validateImportedSaveData(parsed){
-  if(!parsed || typeof parsed !== 'object') return { ok: false, reason: 'データの形式が正しくありません。' };
+  if(!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return { ok: false, reason: 'データの形式が正しくありません。' };
   if(parsed.app !== SAVE_EXPORT_APP_ID) return { ok: false, reason: 'おらマチのセーブデータではないようです。' };
-  if(typeof parsed.version !== 'number' || parsed.version > SAVE_EXPORT_VERSION){
+  if(!Number.isInteger(parsed.version) || parsed.version < 1 || parsed.version > SAVE_EXPORT_VERSION){
     return { ok: false, reason: '対応していないバージョンのデータです。' };
   }
-  if(!parsed.data || typeof parsed.data !== 'object') return { ok: false, reason: '必要なデータが見つかりません。' };
-  const conquest = parsed.data.conquest;
-  if(!conquest || typeof conquest !== 'object' || Array.isArray(conquest)
-     || typeof conquest.entries !== 'object' || conquest.entries === null || Array.isArray(conquest.entries)){
-    return { ok: false, reason: '制覇帳のデータが見つかりません。' };
+  if(!parsed.data || typeof parsed.data !== 'object' || Array.isArray(parsed.data)){
+    return { ok: false, reason: '必要なデータが見つかりません。' };
   }
-
-  // 各エントリの型・自治体IDの妥当性を確認する。1件でも不正なら、ファイル全体を安全側で拒否する。
-  const validCityIds = new Set(CITIES.map(c => cityId(c)));
-  const entries = conquest.entries;
-  // 表示名を変える前に書き出したバックアップでも読み込めるよう、旧IDは新IDへ読み替える
-  migrateCityIdKeys(entries, mergeConquestEntries);
-  for(const id of Object.keys(entries)){
-    const e = entries[id];
-    if(!e || typeof e !== 'object' || Array.isArray(e)) return { ok: false, reason: '制覇帳データの内容が壊れています。' };
-    if(!validCityIds.has(id)) return { ok: false, reason: '認識できない自治体のデータが含まれています。' };
-    if(typeof e.name !== 'string' || typeof e.pref !== 'string') return { ok: false, reason: '制覇帳データの内容が壊れています。' };
-    if(!Number.isFinite(e.count) || !Number.isFinite(e.minQuestions)) return { ok: false, reason: '制覇帳データの内容が壊れています。' };
-    if(!Array.isArray(e.modes)) return { ok: false, reason: '制覇帳データの内容が壊れています。' };
-  }
-  return { ok: true, conquest: { version: typeof conquest.version === 'number' ? conquest.version : CONQUEST_VERSION, entries } };
+  // 表示用のname/prefはファイルの値を信用せず、認識済み自治体IDから再生成する。
+  return normalizeConquestData(parsed.data.conquest, true);
 }
 
 // 「統合する」か「上書きする」かを選ぶ確認画面。初期選択は安全な「統合する」にする。
@@ -5541,7 +5646,6 @@ const TAG_GAME_CATEGORY = {
   "ic_kyushu": "交通", "ic_higashi_kyushu": "交通", "ic_nagasaki": "交通", "ic_oita": "交通", "ic_miyazaki": "交通", "ic_okinawa": "交通",
   "hiragana_name": "自治体名",
   "hiragana_long": "自治体名",
-  "hiragana_short": "自治体名",
   "direction_in_name": "自治体名",
   "old_province_name": "歴史・文化",
   "public_racing_venue": "観光・娯楽",
@@ -6429,6 +6533,7 @@ function renderOpening(){
   // 「全国◯自治体」のような数字は、cities.jsonの実データから毎回算出する(手打ちの固定値にしない)。
   // 「東京」は23区の集計用データなので対象自治体数には含めない。
   const totalCount = CITIES.filter(c => c.name !== '東京').length;
+  const capitalsCount = getModeCities('capitals').length;
 
   stage.innerHTML = `
     <div class="mascot-wrap opening-mascot-wrap">${openingMascotHTML()}</div>
@@ -6436,25 +6541,26 @@ function renderOpening(){
     <!-- 【キャッチコピー】5秒で内容が伝わることを優先し、文章は増やしすぎない。
          優先順位: ①キャラクター ②メインコピー ③開始ボタン ④説明 ⑤今日の挑戦者数 -->
     <h1 class="catch-copy" id="catchCopy">あなたの地元、<br class="catch-copy-br">おらっちが当てます。</h1>
-    <button class="mode-btn mode-btn-primary" onclick="startMode('capitals')">
-      <span class="mode-title">さっそく遊んでみる！ <span class="beginner-badge">ビギナー版</span></span>
-      <span class="mode-desc">全国の道府県庁所在地と東京23区から当てます</span>
+    <button class="mode-btn mode-btn-primary" onclick="startMode('all')">
+      <span class="mode-title">全国版で遊ぶ</span>
+      <span class="mode-desc">日本全国${totalCount.toLocaleString('ja-JP')}市区町村から、あなたの地元を当てます</span>
     </button>
     <p class="catch-copy-sub">
-      日本全国1,741市区町村に対応！<br>
+      日本全国${totalCount.toLocaleString('ja-JP')}市区町村に対応！<br>
       「はい」「いいえ」で答えるだけ。おらっちがあなたの地元を推理します。
     </p>
 
     ${renderDailyChallengeCardHtml()}
 
     <div class="mode-select">
-      <div class="mode-sub-head">モードを選んであそぶ</div>
-      <button class="mode-btn" onclick="startMode('all')">
-        <span class="mode-title">全国版</span>
-        <span class="mode-desc">日本全国1,741市区町村から当てます</span>
-        <span class="mode-count">現在 ${totalCount} 自治体</span>
+      <div class="mode-sub-head">初めての方におすすめ</div>
+      <button class="mode-btn" onclick="startMode('capitals')">
+        <span class="mode-title">入門版（県庁所在地・東京23区）</span>
+        <span class="mode-desc">都道府県庁所在地（新宿区を含む）か東京23区の、どれか1つを思い浮かべてください</span>
+        <span class="mode-count">現在 ${capitalsCount} 自治体</span>
       </button>
 
+      <div class="mode-sub-head">地域をしぼってあそぶ</div>
       <button class="mode-btn mode-niigata" onclick="startMode('niigata')">
         <span class="mode-title">新潟県版</span>
         <span class="mode-desc">新潟県の全ての市町村から当てます</span>
@@ -6493,7 +6599,7 @@ function renderOpening(){
 
   // DOMへ追加した次のフレームで登場・浮遊・ウインクを開始する。
   requestAnimationFrame(startOpeningMascotAnimation);
-  footEl.textContent = `対応エリア 全国全ての市と東京23区 ・ 新潟県 全市町村`;
+  footEl.textContent = `対応エリア 日本全国 ${totalCount} 市区町村`;
   trackGaEvent('catchcopy_view'); // キャッチコピーの表示計測(GA4)
   reportTodayVisitorOnce(); // 「今日の挑戦者数」の集計用(今日まだ未送信の場合のみ)
 }
@@ -6523,9 +6629,8 @@ function formatAchievementDate(iso){
 // 集計結果(liveStats.statsDetail)を使う。GAS側がまだこの集計に対応していない場合は
 // statsDetailがundefinedのままなので、「集計中です」という案内を表示し、
 // 存在しないデータをでっち上げて表示することはしない。
-// 期間切り替え('all'|'month'|'30d')は、サーバー側が複数期間分のデータを返せる場合に有効になる。
-let statsPagePeriod = 'all'; // 'all' | 'month' | 'recent30'
-const STATS_PERIOD_LABELS = { all: '累計', month: '今月', recent30: '直近30日' };
+// 現在の公開APIが返すのは累計値だけ。期間別APIが実装・検証されるまでは、
+// ラベルだけが切り替わる誤解を招くタブを表示しない。
 
 function renderStatsPage(){
   stampsEl.innerHTML = '';
@@ -6549,9 +6654,6 @@ function renderStatsPage(){
   }
 
   const detail = liveStats && liveStats.statsDetail;
-  const periodTabs = ['all', 'month', 'recent30'].map(p => `
-    <button class="stats-period-tab${p === statsPagePeriod ? ' active' : ''}" onclick="switchStatsPeriod('${p}')">${STATS_PERIOD_LABELS[p]}</button>
-  `).join('');
 
   const body = detail ? renderStatsDetailBody(detail) : `
     <div class="stats-empty">
@@ -6562,18 +6664,11 @@ function renderStatsPage(){
   stage.innerHTML = `
     <div class="mascot-wrap"><div class="pop">${mascotSVG('think')}</div></div>
     <div class="bubble"><span class="icon">📊</span>みんなの統計だべ</div>
-    <div class="stats-period-tabs">${periodTabs}</div>
     <div id="statsPageBody">${body}</div>
     <div id="statsAchievementNotice"></div>
     <button class="link-btn" onclick="renderOpening()">トップへ戻る</button>
   `;
   updateDebugPanel();
-}
-
-function switchStatsPeriod(period){
-  statsPagePeriod = period;
-  trackGaEvent('stats_ranking_view', { period });
-  renderStatsPage();
 }
 
 // 自治体ランキング(苦戦した/当てやすい/質問数が多い・少ない)を1つのテーブルとして描画する共通処理
@@ -6582,7 +6677,7 @@ function renderCityRankingList(list, valueLabel, valueFormatter){
   return `<ol class="stats-ranking-list">
     ${list.slice(0, 10).map(row => `
       <li>
-        <span class="stats-ranking-name">${row.pref} ${row.name}</span>
+        <span class="stats-ranking-name">${escapeHtml(row.pref)} ${escapeHtml(row.name)}</span>
         <span class="stats-ranking-value">${valueFormatter(row)}</span>
       </li>`).join('')}
   </ol>`;
@@ -6625,7 +6720,7 @@ function renderStatsDetailBody(detail){
       </div>
     </details>
     ${sampleNote}
-    <p class="stats-period-note">集計期間: ${STATS_PERIOD_LABELS[statsPagePeriod]}</p>
+    <p class="stats-period-note">集計期間: 累計</p>
   `;
 }
 
@@ -6643,8 +6738,8 @@ function renderDailyChallengeHistory(){
 
   const stampsHtml = sortedHistory.length
     ? `<div class="daily-challenge-stamp-grid">${sortedHistory.map(h => `
-        <div class="daily-challenge-stamp-item" title="${h.themeText || ''}">
-          <div class="daily-challenge-stamp-item-date">${h.date.slice(5).replace('-', '/')}</div>
+        <div class="daily-challenge-stamp-item" title="${escapeHtml(h.themeText || '')}">
+          <div class="daily-challenge-stamp-item-date">${escapeHtml(h.date.slice(5).replace('-', '/'))}</div>
         </div>`).join('')}</div>`
     : `<div class="conquest-muted">まだ達成記録がありません。今日のチャレンジに挑戦してみましょう！</div>`;
 
@@ -7411,6 +7506,25 @@ function recordDailyChallengeCompletion(theme, totalQuestions){
   return { justAchieved: true, streak: data.currentStreak, isNewStreakMilestone };
 }
 
+// 正解画面を組み立てる前に、今日のチャレンジ達成可否を確定する。
+// 描画後に判定すると、達成していても一度「未達成」と表示されてしまう。
+function evaluateDailyChallengeResult(totalQuestions){
+  dailyChallengeResult = null;
+  if(!dailyChallengeActive) return;
+
+  const cond = dailyChallengeActive;
+  let achieved = false;
+  if(cond.type === 'theme' || cond.type === 'region'){
+    achieved = true;
+  } else if(cond.type === 'condition'){
+    if(cond.condition === 'within20') achieved = totalQuestions <= 20;
+    else if(cond.condition === 'no_unknown') achieved = !answerLog.some(a => a.val === null);
+    else if(cond.condition === 'no_maybe') achieved = !answerLog.some(a => a.weight != null && a.weight < 1);
+  }
+  const recordResult = achieved ? recordDailyChallengeCompletion(cond, totalQuestions) : null;
+  dailyChallengeResult = { theme: cond, achieved, ...(recordResult || {}) };
+}
+
 function startDailyChallenge(){
   const theme = getTodaysChallenge();
   trackGaEvent('daily_challenge_start', { theme_id: theme.id, mode: theme.resolvedMode });
@@ -7449,6 +7563,7 @@ function startMode(mode){
   isReplayedFromGiveup = false;
   answerHistoryPanelContext = 'ingame';
   dailyChallengeActive = null; // 「今日のチャレンジ」経由でなければ必ずnull(通常プレイとして扱う)
+  dailyChallengeResult = null; // 前回のデイリー結果を通常ゲームへ持ち越さない
   questionHelpOpen = false;
   reportedQuestionKeysInGame = new Set();
   pendingQuestionSkips = [];
@@ -8967,13 +9082,82 @@ function sendGameResult(result, city){
 // 未設定/取得失敗時はnullのままにして、表示側で「非表示」にする。
 let liveStats = null;
 
+function safeApiNumber(value, min, max, integerOnly){
+  if(typeof value !== 'number' || !Number.isFinite(value) || value < min || value > max) return null;
+  if(integerOnly && !Number.isInteger(value)) return null;
+  return value;
+}
+
+function normalizeStatsRankingList(rawList){
+  if(!Array.isArray(rawList)) return [];
+  return rawList.slice(0, 50).map(raw => {
+    if(!raw || typeof raw !== 'object' || Array.isArray(raw)) return null;
+    const pref = typeof raw.pref === 'string' ? raw.pref.trim() : '';
+    const name = typeof raw.name === 'string' ? raw.name.trim() : '';
+    // APIが返した表示名は信用せず、現在の自治体データに存在する組み合わせだけを採用する。
+    const city = CITIES.find(c => c.pref === pref && (displayName(c) === name || c.name === name));
+    if(!city) return null;
+    const accuracy = safeApiNumber(raw.accuracy, 0, 100, false);
+    const avgQuestions = safeApiNumber(raw.avgQuestions, 0, 1000, false);
+    const plays = safeApiNumber(raw.plays, 0, 1000000000, true);
+    if(accuracy == null || avgQuestions == null) return null;
+    return {
+      pref: city.pref,
+      name: displayName(city),
+      accuracy,
+      avgQuestions,
+      ...(plays == null ? {} : { plays }),
+    };
+  }).filter(Boolean);
+}
+
+function normalizeLiveStatsPayload(raw){
+  if(!raw || typeof raw !== 'object' || Array.isArray(raw)) return null;
+  if(raw.ok === false) return null;
+  const safe = {};
+  const totalPlays = safeApiNumber(raw.totalPlays, 0, 1000000000, true);
+  const todayPlays = safeApiNumber(raw.todayPlays, 0, 1000000000, true);
+  const todayVisitors = safeApiNumber(raw.todayVisitors, 0, 1000000000, true);
+  if(totalPlays != null) safe.totalPlays = totalPlays;
+  if(todayPlays != null) safe.todayPlays = todayPlays;
+  if(todayVisitors != null) safe.todayVisitors = todayVisitors;
+
+  safe.recentSuccesses = Array.isArray(raw.recentSuccesses)
+    ? raw.recentSuccesses.slice(0, 10)
+      .filter(v => typeof v === 'string')
+      .map(v => v.replace(/[\u0000-\u001F\u007F]/g, '').trim().slice(0, 80))
+      .filter(Boolean)
+    : [];
+
+  if(raw.statsDetail && typeof raw.statsDetail === 'object' && !Array.isArray(raw.statsDetail)){
+    const d = raw.statsDetail;
+    const overallAccuracy = safeApiNumber(d.overallAccuracy, 0, 100, false);
+    const overallAvgQuestions = safeApiNumber(d.overallAvgQuestions, 0, 1000, false);
+    const minSampleSize = safeApiNumber(d.minSampleSize, 1, 1000000000, true);
+    if(overallAccuracy != null && overallAvgQuestions != null){
+      safe.statsDetail = {
+        overallAccuracy,
+        overallAvgQuestions,
+        ...(minSampleSize == null ? {} : { minSampleSize }),
+        hardestCities: normalizeStatsRankingList(d.hardestCities),
+        easiestCities: normalizeStatsRankingList(d.easiestCities),
+        mostQuestionsCities: normalizeStatsRankingList(d.mostQuestionsCities),
+        fewestQuestionsCities: normalizeStatsRankingList(d.fewestQuestionsCities),
+      };
+    }
+  }
+  return safe;
+}
+
 async function fetchLiveStats(){
   if(!CORRECTIONS_ENDPOINT_URL) return;
   try{
     const res = await fetch(CORRECTIONS_ENDPOINT_URL, { method: 'GET' });
     if(!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
-    liveStats = data;
+    const normalized = normalizeLiveStatsPayload(data);
+    if(!normalized) throw new Error('invalid stats response');
+    liveStats = normalized;
     // 「トップページが今表示されているか」は、文言の一致(以前はここで固定文言を
     // 探していたが、キャッチコピー変更で文言が変わり判定できなくなっていた)ではなく、
     // トップページにしか存在しない liveStatsTop 要素の有無で判定する。
@@ -8991,7 +9175,7 @@ function renderStatsBlock(){
   if(!liveStats) return '';
   const recent = (liveStats.recentSuccesses || []).slice(0, 10);
   const recentHtml = recent.length
-    ? `<div class="recent-line">🎉 最近当てられたマチ: ${recent.join('、')}</div>`
+    ? `<div class="recent-line">🎉 最近当てられたマチ: ${recent.map(escapeHtml).join('、')}</div>`
     : '';
   const countHtml = (liveStats.totalPlays != null)
     ? `<div class="count-stats">これまで <b>${liveStats.totalPlays}</b> 回プレイ ・ 今日は <b>${liveStats.todayPlays || 0}</b> 回</div>`
@@ -9149,7 +9333,7 @@ function renderThanks(wasNearMiss, correctCityLabel, matchedCity, mismatches){
   // 【不正解時のシェア】訂正フォームで教えてもらった「本当の地元」を使って文章を作る。
   // このゲーム自体は正解を知らないため、シェアできるのは訂正フォーム送信後だけ。
   const shareBtn = correctCityLabel
-    ? `<button class="share-btn-text" onclick="shareGiveUpResult('${correctCityLabel.replace(/'/g, "\\'")}')">
+    ? `<button class="share-btn-text" id="giveUpShareBtn">
         <svg class="x-icon" viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
         結果をシェア
       </button>`
@@ -9171,6 +9355,11 @@ function renderThanks(wasNearMiss, correctCityLabel, matchedCity, mismatches){
     ${dailyChallengeActive ? '' : `<button class="again" onclick="restart()">もう一度あそぶ</button>`}
     ${shareBtn ? `<div class="result-actions-secondary">${shareBtn}</div>` : ''}
   `;
+  const giveUpShareBtn = document.getElementById('giveUpShareBtn');
+  if(giveUpShareBtn){
+    // 自由入力をHTML属性へ埋め込まず、クロージャ経由で共有関数へ渡す。
+    giveUpShareBtn.addEventListener('click', () => shareGiveUpResult(correctCityLabel));
+  }
 }
 
 // 「〇〇市のデータと違っていた回答が◯個ありました」ブロックのHTMLを組み立てる。
@@ -9179,12 +9368,13 @@ const MISMATCH_INITIAL_SHOW = 3;
 function buildMismatchSectionHtml(matchedCity, mismatches){
   if(!matchedCity || mismatches.length === 0) return '';
   const cityLabel = `${matchedCity.pref}${displayName(matchedCity)}`;
+  const cityLabelHtml = escapeHtml(cityLabel);
   const rows = mismatches.map((m, i) => `
     <li class="mismatch-item${i >= MISMATCH_INITIAL_SHOW ? ' mismatch-item-extra' : ''}">
-      <span class="mismatch-q">${m.question}</span>
+      <span class="mismatch-q">${escapeHtml(m.question)}</span>
       <span class="mismatch-compare">
-        <span class="mismatch-user">あなたの回答: <b>${m.userLabel}</b></span>
-        <span class="mismatch-actual">${cityLabel}の実際: <b>${m.actualLabel}</b></span>
+        <span class="mismatch-user">あなたの回答: <b>${escapeHtml(m.userLabel)}</b></span>
+        <span class="mismatch-actual">${cityLabelHtml}の実際: <b>${escapeHtml(m.actualLabel)}</b></span>
       </span>
     </li>`).join('');
   const moreBtn = mismatches.length > MISMATCH_INITIAL_SHOW
@@ -9193,7 +9383,7 @@ function buildMismatchSectionHtml(matchedCity, mismatches){
 
   return `
     <div class="mismatch-block">
-      <div class="mismatch-title">${cityLabel}のデータと違っていた回答が${mismatches.length}個ありました</div>
+      <div class="mismatch-title">${cityLabelHtml}のデータと違っていた回答が${mismatches.length}個ありました</div>
       <ul class="mismatch-list">${rows}</ul>
       ${moreBtn}
       <button class="btn-teach" onclick="startReplayFromMismatch()">回答を直して推理を再開する</button>
@@ -9348,6 +9538,8 @@ function correct(isRight, overrideCity){
     // 称号獲得演出(新しく解除された称号があるときだけ表示。1件ずつ確認できる形にする)
     const achievementHtml = `<div id="achievementToastContainer">${renderAchievementToastCard(newAchievements)}</div>`;
 
+    evaluateDailyChallengeResult(totalQuestions);
+
     // 【今日のチャレンジ】達成した場合だけ、日付入りスタンプと短い演出を表示する。
     // 同じ日に2回目以降で条件を満たしても、スタンプ自体は増やさない(すでに達成済みの旨を伝える)。
     const dailyChallengeHtml = (dailyChallengeResult && dailyChallengeResult.achieved)
@@ -9424,23 +9616,6 @@ function correct(isRight, overrideCity){
 
     sendGameResult('success', currentResult.city);
     sendQuestionSkipsBatch(); // このゲーム中に「わからない」でスキップされた質問をまとめて送信
-
-    // 【今日のチャレンジ】このゲームが「今日のチャレンジ」経由で始まっていた場合だけ判定する。
-    // 通常プレイ(dailyChallengeActiveがnull)には一切影響しない。
-    dailyChallengeResult = null;
-    if(dailyChallengeActive){
-      const cond = dailyChallengeActive;
-      let achieved = false;
-      if(cond.type === 'theme' || cond.type === 'region'){
-        achieved = true; // 正解できた時点で条件達成(テーマ/地方は「その範囲で正解する」ことが条件のため)
-      } else if(cond.type === 'condition'){
-        if(cond.condition === 'within20') achieved = totalQuestions <= 20;
-        else if(cond.condition === 'no_unknown') achieved = !answerLog.some(a => a.val === null);
-        else if(cond.condition === 'no_maybe') achieved = !answerLog.some(a => a.weight != null && a.weight < 1);
-      }
-      const recordResult = achieved ? recordDailyChallengeCompletion(cond, totalQuestions) : null;
-      dailyChallengeResult = { theme: cond, achieved, ...(recordResult || {}) };
-    }
 
     updateDebugPanel();
     return;
@@ -9533,7 +9708,7 @@ function restart(){
 // 訪問のたびに落とし直しており、起動が遅くなる最大の原因になっていた。
 // URLに中身のハッシュを付ければ、更新したときだけ新しいURLになるので、
 // 「常に最新」を保ったままブラウザのキャッシュを使える(2回目以降の起動が速くなる)。
-const CITIES_VERSION = '5ac9977cd1';
+const CITIES_VERSION = '82d06bb5a5';
 
 async function boot(){
   try{
