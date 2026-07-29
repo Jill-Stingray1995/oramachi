@@ -23,7 +23,11 @@
     min-height: 100vh;
     display:flex;
     justify-content:center;
-    padding: 18px 12px 40px;
+    padding:
+      calc(18px + env(safe-area-inset-top, 0px))
+      calc(12px + env(safe-area-inset-right, 0px))
+      calc(40px + env(safe-area-inset-bottom, 0px))
+      calc(12px + env(safe-area-inset-left, 0px));
   }
   .app{ width:100%; max-width: 440px; }
 
@@ -996,19 +1000,23 @@ color: inherit;}
     font-family:'Zen Maru Gothic', sans-serif; font-weight:700; font-size: 12.5px;
     cursor:pointer;
     margin-bottom: 10px;
+    min-height: 44px;
   }
   .install-btn:active{ transform: scale(0.97); background: rgba(38,58,92,0.06); }
   .install-btn .install-icon{ font-size: 14px; line-height:1; }
 
   .install-tip{
-    position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%);
+    position: fixed; left: 50%;
+    bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+    transform: translateX(-50%);
     max-width: 320px; width: calc(100% - 40px);
     background: var(--indigo-deep); color:#FBF6E8;
     border-radius: 14px; padding: 14px 16px;
     font-size: 12.5px; line-height:1.6;
     box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-    z-index: 20;
+    z-index: 40;
   }
+  .install-tip:focus{ outline: 3px solid rgba(201,162,39,0.65); outline-offset: 3px; }
   .install-tip .tip-icon{ margin: 0 2px; }
   .install-tip button{
     display:block; margin: 10px auto 0; background: transparent;
@@ -1016,6 +1024,96 @@ color: inherit;}
     border-radius: 10px; padding: 6px 14px; font-size: 12px;
     font-family:'Zen Maru Gothic', sans-serif; font-weight:700; cursor:pointer;
   }
+
+  /* PWAの通信状態・更新通知。ゲームの操作を塞がないよう、画面下に小さく固定する。 */
+  .pwa-status{
+    position: fixed;
+    left: 50%;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    transform: translateX(-50%);
+    width: min(440px, calc(100% - 24px));
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 10px 10px 10px 13px;
+    border: 1px solid rgba(251,246,232,0.32);
+    border-radius: 13px;
+    background: var(--indigo-deep);
+    color: #FBF6E8;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.28);
+    z-index: 30;
+  }
+  .pwa-status[hidden]{ display:none; }
+  .pwa-status-message{
+    flex: 1;
+    min-width: 0;
+    font-size: 11.5px;
+    line-height: 1.5;
+  }
+  .pwa-status-action,
+  .pwa-status-close{
+    flex-shrink: 0;
+    border: 1px solid rgba(251,246,232,0.55);
+    background: transparent;
+    color: #FBF6E8;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .pwa-status-action{
+    border-radius: 9px;
+    padding: 6px 9px;
+    font-size: 11.5px;
+    white-space: nowrap;
+    min-height: 44px;
+  }
+  .pwa-status-action:disabled{ opacity: 0.65; cursor: wait; }
+  .pwa-status-close{
+    width: 44px;
+    height: 44px;
+    border-color: transparent;
+    border-radius: 50%;
+    padding: 0;
+    font-size: 18px;
+    line-height: 1;
+  }
+  .pwa-status-action:focus-visible,
+  .pwa-status-close:focus-visible{
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+
+  .offline-page{ text-align:center; }
+  .offline-page h1{
+    margin: 4px 0 12px;
+    font-family:'Shippori Mincho', serif;
+    font-size: 19px;
+    line-height: 1.55;
+    color: var(--indigo-deep);
+  }
+  .offline-page p{ text-align:left; margin-bottom: 10px; }
+  .offline-mascot{
+    display:block;
+    width: 132px;
+    height: 132px;
+    object-fit: contain;
+    margin: 0 auto 8px;
+    filter: drop-shadow(0 6px 10px rgba(38,58,92,0.16));
+  }
+  .offline-home-link{
+    display:block;
+    margin-top: 18px;
+    padding: 13px;
+    border-radius: 13px;
+    background: var(--indigo);
+    color:#FBF6E8;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 4px 0 var(--indigo-deep);
+  }
+  .offline-home-link:active{ transform: translateY(2px); box-shadow: 0 2px 0 var(--indigo-deep); }
+  .offline-retry{ text-decoration:none; }
 
   .site-footer{
     text-align:center; margin-top: 22px; padding-top: 14px;
@@ -1118,7 +1216,7 @@ color: inherit;}
     .mode-btn-primary{ padding: 14px 12px; }
   }
   @media (min-width: 700px){
-    body{ padding-top: 48px; }
+    body{ padding-top: calc(48px + env(safe-area-inset-top, 0px)); }
     /* PCは横幅に余裕があるので、改行せず1行で表示する */
     .catch-copy-br{ display: none; }
     /* PCではカードが細く、結果の説明文やGoogleマップが小さく見えるので少し広げる。

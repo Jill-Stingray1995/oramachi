@@ -6293,7 +6293,7 @@ function labelFor(k){
 }
 
 // おらマチ オリジナルマスコット「おらっち」(角/触角なし・まんまる目・ω口)
-const MASCOT_ASSET_VERSION = '20260716a'; // 画像を軽量化(500px→320px・減色)したので更新
+const MASCOT_ASSET_VERSION = 'f52e4bfff8'; // 画像を軽量化(500px→320px・減色)したので更新
 const MASCOT_IMAGES = {
   normal: `mascot-normal.png?v=${MASCOT_ASSET_VERSION}`,
   wink:   `mascot-wink.png?v=${MASCOT_ASSET_VERSION}`,
@@ -8826,7 +8826,7 @@ async function generateShareImageCanvas(){
   ctx.fillText('おらマチ', 150, logoY);
 
   // マスコット
-  const mascotImg = await loadImageSafe('mascot-happy.png', 2500);
+  const mascotImg = await loadImageSafe(MASCOT_IMAGES.happy, 2500);
   if(mascotImg){
     const mw = 260, mh = 260 * (mascotImg.height / mascotImg.width || 1);
     ctx.drawImage(mascotImg, SHARE_IMAGE_W - mw - 60, 40, mw, mh);
@@ -9708,7 +9708,7 @@ function restart(){
 // 訪問のたびに落とし直しており、起動が遅くなる最大の原因になっていた。
 // URLに中身のハッシュを付ければ、更新したときだけ新しいURLになるので、
 // 「常に最新」を保ったままブラウザのキャッシュを使える(2回目以降の起動が速くなる)。
-const CITIES_VERSION = '82d06bb5a5';
+const CITIES_VERSION = '9911238d2e';
 
 async function boot(){
   try{
@@ -9748,51 +9748,3 @@ async function boot(){
 }
 
 boot();
-
-/* ---------- アプリ追加(PWAインストール)ボタン ---------- */
-(function setupInstallButton(){
-  const installBtn = document.getElementById('installBtn');
-  const installTip = document.getElementById('installTip');
-  const installTipClose = document.getElementById('installTipClose');
-  if(!installBtn) return;
-
-  // すでにホーム画面から起動している(スタンドアロン表示)場合はボタンを出さない
-  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
-  if(isStandalone) return;
-
-  const isIOS = /iphone|ipad|ipod/i.test(window.navigator.userAgent);
-  let deferredPrompt = null;
-
-  // Android/Chrome系: ブラウザ標準のインストール可否イベントを待つ
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    installBtn.style.display = 'flex';
-  });
-
-  // iOSはbeforeinstallpromptが無いため、常にボタンを表示して手順を案内する
-  if(isIOS){
-    installBtn.style.display = 'flex';
-  }
-
-  installBtn.addEventListener('click', async () => {
-    if(deferredPrompt){
-      deferredPrompt.prompt();
-      await deferredPrompt.userChoice;
-      deferredPrompt = null;
-      installBtn.style.display = 'none';
-    } else if(isIOS){
-      if(installTip) installTip.style.display = 'block';
-    }
-  });
-
-  if(installTipClose){
-    installTipClose.addEventListener('click', () => {
-      installTip.style.display = 'none';
-    });
-  }
-
-  window.addEventListener('appinstalled', () => {
-    installBtn.style.display = 'none';
-  });
-})();
