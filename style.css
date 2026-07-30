@@ -1264,6 +1264,54 @@ color: inherit;}
   margin: 10px 0 18px;
 }
 
+/* ---- 進行中ゲームの再開 ---- */
+.game-resume-card{
+  margin: 0 0 14px;
+  padding: 12px 14px;
+  border: 2px solid var(--mint);
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(78,158,142,.13), rgba(255,253,246,.96));
+  text-align: left;
+}
+.game-resume-title{
+  color: var(--indigo-deep);
+  font-size: 14px;
+  font-weight: 900;
+}
+.game-resume-meta{
+  margin-top: 2px;
+  color: var(--ink-soft);
+  font-size: 11.5px;
+}
+.game-resume-actions{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 10px;
+}
+.game-resume-primary,
+.game-resume-secondary{
+  min-height: 42px;
+  border-radius: 10px;
+  padding: 8px 10px;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 12.5px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.game-resume-primary{
+  border: 1.5px solid var(--mint);
+  background: var(--mint);
+  color: #fff;
+}
+.game-resume-secondary{
+  border: 1.5px solid var(--line);
+  background: #FFFDF6;
+  color: var(--ink-soft);
+}
+.game-resume-primary:active,
+.game-resume-secondary:active{ transform: scale(.97); }
+
 /* ---- 今日のチャレンジ ---- */
 /* ---- おらマチからの挑戦状 ---- */
 .challenge-entry-card{

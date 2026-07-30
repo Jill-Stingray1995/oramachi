@@ -2019,6 +2019,7 @@ function submitQuestionReport(){
   };
 
   reportedQuestionKeysInGame.add(key); // 送信を試みた時点で「報告済み」にする(再送はできるが同時多発は防ぐ)
+  saveGameSession('question', { pendingQuestionKey: key });
   trackGaEvent('question_report_submit', { question_key: key, reason: reason, mode: currentMode });
 
   const finish = (ok) => {
@@ -2028,6 +2029,7 @@ function submitQuestionReport(){
     } else {
       setStatus('送信できませんでした。もう一度お試しください。');
       reportedQuestionKeysInGame.delete(key); // 失敗時は再報告できるように戻す
+      saveGameSession('question', { pendingQuestionKey: key });
       if(submitBtn) submitBtn.disabled = false;
     }
   };
@@ -6536,6 +6538,7 @@ function renderOpening(){
   // 「東京」は23区の集計用データなので対象自治体数には含めない。
   const totalCount = CITIES.filter(c => c.name !== '東京').length;
   const capitalsCount = getModeCities('capitals').length;
+  const resumeCardHtml = renderGameResumeCardHtml();
 
   stage.innerHTML = `
     <div class="mascot-wrap opening-mascot-wrap">${openingMascotHTML()}</div>
@@ -6543,6 +6546,7 @@ function renderOpening(){
     <!-- 【キャッチコピー】5秒で内容が伝わることを優先し、文章は増やしすぎない。
          優先順位: ①キャラクター ②メインコピー ③開始ボタン ④説明 ⑤今日の挑戦者数 -->
     <h1 class="catch-copy" id="catchCopy">あなたの地元、<br class="catch-copy-br">おらっちが当てます。</h1>
+    ${resumeCardHtml}
     <button class="mode-btn mode-btn-primary" onclick="startMode('all')">
       <span class="mode-title">全国版で遊ぶ</span>
       <span class="mode-desc">日本全国${totalCount.toLocaleString('ja-JP')}市区町村から、あなたの地元を当てます</span>
@@ -7398,7 +7402,11 @@ function replayAnswersWithChange(changeIndex, newVal, newWeight){
   //    (実測で確認済み)。回答を修正した以上、今度は通常フローの判定にすべて委ねる。
   //    フェーズ自体は、各質問が「元々どちらのフェーズで聞かれたか」(originalPhase)にだけ
   //    従わせる(questionCount/extraQuestionCountのカウント整合性を保つため)。
-  const failurePoints = guessFailureLog.map(g => ({ atHistoryLength: g.atHistoryLength, excludedCityName: g.excludedCityName }));
+  const failurePoints = guessFailureLog.map(g => ({
+    atHistoryLength: g.atHistoryLength,
+    excludedCityName: g.excludedCityName,
+    excludedCityId: g.excludedCityId || '',
+  }));
 
   // 3. ゲーム状態を、startMode() と同じ内容でリセットする(currentMode・modeStartCount等、
   //    モード自体に関する値は変更しない=そのまま引き継ぐ)。
@@ -7434,6 +7442,7 @@ function replayAnswersWithChange(changeIndex, newVal, newWeight){
     if(failure){
       if(failure.excludedCityName) excludedNames.add(failure.excludedCityName);
       restorePrunedCandidates();
+      guessFailureLog.push({ ...failure });
     }
     // この質問が元々どちらのフェーズで聞かれていたかに合わせる(カウント整合性のため)。
     // 通常→追加質問への切り替わりが初めて必要になった時だけ、質問数のカウント基盤
@@ -7458,7 +7467,7 @@ function replayAnswersWithChange(changeIndex, newVal, newWeight){
   if(finalFailure){
     if(finalFailure.excludedCityName) excludedNames.add(finalFailure.excludedCityName);
     restorePrunedCandidates();
-
+    guessFailureLog.push({ ...finalFailure });
   }
 
   return true;
@@ -7527,14 +7536,415 @@ function evaluateDailyChallengeResult(totalQuestions){
   dailyChallengeResult = { theme: cond, achieved, ...(recordResult || {}) };
 }
 
-function startDailyChallenge(){
-  const theme = getTodaysChallenge();
-  trackGaEvent('daily_challenge_start', { theme_id: theme.id, mode: theme.resolvedMode });
-  startMode(theme.resolvedMode);
-  dailyChallengeActive = theme;
+// ==================== 進行中ゲームの保存・復元 ====================
+// historyやscorePoolには自治体オブジェクトが大量に含まれるため、そのままlocalStorageへ
+// 保存しない。直接回答した質問のタイムラインだけを保存し、復元時に既存のゲーム処理
+// (pushQuestionState + applyAnswerCore)を再生して同じ状態を組み立て直す。
+const GAME_SESSION_STORAGE_KEY = 'oramachi_game_session_v1';
+const GAME_SESSION_VERSION = 1;
+// 推理ロジックの互換性を壊す変更を行ったときだけ上げる。PWAキャッシュ番号とは分離する。
+const GAME_SESSION_RULES_VERSION = 1;
+const GAME_SESSION_TTL_MS = 24 * 60 * 60 * 1000;
+const GAME_SESSION_FUTURE_TOLERANCE_MS = 5 * 60 * 1000;
+const GAME_SESSION_MAX_ANSWERS = 80;
+const GAME_SESSION_SCREENS = new Set(['question', 'guess', 'extraIntro']);
+
+function gameSessionInvalid(reason){
+  return { ok: false, reason: reason || 'invalid' };
 }
 
-function startMode(mode){
+// localStorage由来の値を信用せず、既知のモード・質問・自治体だけで新しいオブジェクトを作る。
+// 表示用文字列や自治体オブジェクトそのものは保存値から一切受け取らない。
+function normalizeGameSessionData(raw, nowMs){
+  if(!raw || typeof raw !== 'object' || Array.isArray(raw)) return gameSessionInvalid('shape');
+  const now = Number.isFinite(nowMs) ? nowMs : Date.now();
+  if(raw.version !== GAME_SESSION_VERSION) return gameSessionInvalid('version');
+  if(raw.rulesVersion !== GAME_SESSION_RULES_VERSION) return gameSessionInvalid('rules');
+  if(raw.citiesVersion !== CITIES_VERSION) return gameSessionInvalid('cities');
+  if(!Number.isFinite(raw.savedAt)) return gameSessionInvalid('savedAt');
+  if(raw.savedAt > now + GAME_SESSION_FUTURE_TOLERANCE_MS) return gameSessionInvalid('future');
+  if(now - raw.savedAt > GAME_SESSION_TTL_MS) return gameSessionInvalid('expired');
+  if(typeof raw.mode !== 'string' || !Object.prototype.hasOwnProperty.call(MODES, raw.mode)){
+    return gameSessionInvalid('mode');
+  }
+  if(!GAME_SESSION_SCREENS.has(raw.screen)) return gameSessionInvalid('screen');
+  if(!Array.isArray(raw.answers) || raw.answers.length > GAME_SESSION_MAX_ANSWERS){
+    return gameSessionInvalid('answers');
+  }
+
+  const modeCities = getModeCities(raw.mode);
+  const modeCityIds = new Set(modeCities.map(cityId));
+  const directQuestionKeys = new Set();
+  let reachedExtraPhase = false;
+  const answers = [];
+  for(const item of raw.answers){
+    if(!item || typeof item !== 'object' || Array.isArray(item)) return gameSessionInvalid('answer-shape');
+    if(typeof item.key !== 'string' || !QUESTIONS[item.key]) return gameSessionInvalid('answer-key');
+    if(directQuestionKeys.has(item.key)) return gameSessionInvalid('answer-duplicate');
+    directQuestionKeys.add(item.key);
+    if(item.val !== true && item.val !== false && item.val !== null) return gameSessionInvalid('answer-value');
+    if(item.weight !== 1 && item.weight !== PARTIAL_WEIGHT) return gameSessionInvalid('answer-weight');
+    if(item.phase !== 'normal' && item.phase !== 'extra') return gameSessionInvalid('answer-phase');
+    if(reachedExtraPhase && item.phase !== 'extra') return gameSessionInvalid('answer-phase-order');
+    if(item.phase === 'extra') reachedExtraPhase = true;
+    const responseMs = item.responseMs == null ? null : item.responseMs;
+    if(responseMs != null && (!Number.isFinite(responseMs) || responseMs < 0 || responseMs > 30000)){
+      return gameSessionInvalid('answer-time');
+    }
+    const remainingBefore = item.remainingBefore == null ? null : item.remainingBefore;
+    if(remainingBefore != null && (!Number.isInteger(remainingBefore) || remainingBefore < 0 || remainingBefore > modeCities.length)){
+      return gameSessionInvalid('answer-remaining');
+    }
+    answers.push({
+      key: item.key,
+      val: item.val,
+      weight: item.weight,
+      responseMs,
+      phase: item.phase,
+      remainingBefore,
+    });
+  }
+
+  const pendingQuestionKey = raw.pendingQuestionKey == null ? null : raw.pendingQuestionKey;
+  if(raw.screen === 'question'){
+    if(typeof pendingQuestionKey !== 'string' || !QUESTIONS[pendingQuestionKey] || directQuestionKeys.has(pendingQuestionKey)){
+      return gameSessionInvalid('pending-question');
+    }
+  }else if(pendingQuestionKey !== null){
+    return gameSessionInvalid('unexpected-question');
+  }
+
+  const guessCityId = raw.guessCityId == null ? null : raw.guessCityId;
+  if(raw.screen === 'guess'){
+    if(typeof guessCityId !== 'string' || !modeCityIds.has(guessCityId)) return gameSessionInvalid('guess-city');
+  }else if(guessCityId !== null){
+    return gameSessionInvalid('unexpected-guess');
+  }
+
+  if(!Array.isArray(raw.guessFailureLog) || raw.guessFailureLog.length > 1){
+    return gameSessionInvalid('guess-failures');
+  }
+  const guessFailureLog = [];
+  for(const item of raw.guessFailureLog){
+    if(!item || typeof item !== 'object' || Array.isArray(item)) return gameSessionInvalid('guess-failure-shape');
+    if(!Number.isInteger(item.atHistoryLength) || item.atHistoryLength < 0 || item.atHistoryLength > answers.length){
+      return gameSessionInvalid('guess-failure-index');
+    }
+    if(typeof item.cityId !== 'string' || !modeCityIds.has(item.cityId)){
+      return gameSessionInvalid('guess-failure-city');
+    }
+    guessFailureLog.push({ atHistoryLength: item.atHistoryLength, cityId: item.cityId });
+  }
+  if(reachedExtraPhase && guessFailureLog.length !== 1) return gameSessionInvalid('extra-without-failure');
+  if(raw.screen === 'extraIntro'){
+    if(guessFailureLog.length !== 1 || guessFailureLog[0].atHistoryLength !== answers.length){
+      return gameSessionInvalid('extra-intro');
+    }
+  }
+
+  let dailyChallenge = null;
+  if(raw.dailyChallenge != null){
+    const d = raw.dailyChallenge;
+    if(!d || typeof d !== 'object' || Array.isArray(d)) return gameSessionInvalid('daily-shape');
+    const today = getTodaysChallenge();
+    if(d.id !== today.id || d.date !== today.dateStr || d.resolvedMode !== today.resolvedMode || raw.mode !== today.resolvedMode){
+      return gameSessionInvalid('daily-date');
+    }
+    dailyChallenge = { id: today.id, date: today.dateStr, resolvedMode: today.resolvedMode };
+  }
+
+  const reportedQuestionKeys = [];
+  const reportedInput = raw.reportedQuestionKeys == null ? [] : raw.reportedQuestionKeys;
+  if(!Array.isArray(reportedInput) || reportedInput.length > GAME_SESSION_MAX_ANSWERS){
+    return gameSessionInvalid('reported');
+  }
+  const reportedSet = new Set();
+  for(const key of reportedInput){
+    if(typeof key !== 'string' || !QUESTIONS[key]) return gameSessionInvalid('reported-key');
+    if(!reportedSet.has(key)){
+      reportedSet.add(key);
+      reportedQuestionKeys.push(key);
+    }
+  }
+
+  const lastDisplayedRemainingCount = raw.lastDisplayedRemainingCount == null
+    ? null
+    : raw.lastDisplayedRemainingCount;
+  if(lastDisplayedRemainingCount != null &&
+     (!Number.isInteger(lastDisplayedRemainingCount) || lastDisplayedRemainingCount < 0 || lastDisplayedRemainingCount > modeCities.length)){
+    return gameSessionInvalid('remaining');
+  }
+  const pendingRemainingBefore = raw.pendingRemainingBefore == null ? null : raw.pendingRemainingBefore;
+  if(pendingRemainingBefore != null &&
+     (!Number.isInteger(pendingRemainingBefore) || pendingRemainingBefore < 0 || pendingRemainingBefore > modeCities.length)){
+    return gameSessionInvalid('pending-remaining');
+  }
+  if(raw.lastPickWasOneCity !== true && raw.lastPickWasOneCity !== false){
+    return gameSessionInvalid('last-pick');
+  }
+  const notifiedMilestonesInput = raw.notifiedMilestones == null ? [] : raw.notifiedMilestones;
+  if(!Array.isArray(notifiedMilestonesInput) || notifiedMilestonesInput.length > CANDIDATE_MILESTONES.length){
+    return gameSessionInvalid('milestones');
+  }
+  const notifiedMilestones = [];
+  const notifiedSet = new Set();
+  for(const value of notifiedMilestonesInput){
+    if(!CANDIDATE_MILESTONES.includes(value)) return gameSessionInvalid('milestone-value');
+    if(!notifiedSet.has(value)){
+      notifiedSet.add(value);
+      notifiedMilestones.push(value);
+    }
+  }
+
+  return {
+    ok: true,
+    session: {
+      version: GAME_SESSION_VERSION,
+      rulesVersion: GAME_SESSION_RULES_VERSION,
+      citiesVersion: CITIES_VERSION,
+      savedAt: raw.savedAt,
+      mode: raw.mode,
+      screen: raw.screen,
+      answers,
+      pendingQuestionKey,
+      guessCityId,
+      guessFailureLog,
+      dailyChallenge,
+      reportedQuestionKeys,
+      isReplayedFromGiveup: raw.isReplayedFromGiveup === true,
+      lastDisplayedRemainingCount,
+      pendingRemainingBefore,
+      lastPickWasOneCity: raw.lastPickWasOneCity,
+      notifiedMilestones,
+    },
+  };
+}
+
+function clearGameSession(){
+  try{ localStorage.removeItem(GAME_SESSION_STORAGE_KEY); }
+  catch(e){ /* 保存領域が使えなくてもゲームは続行できる */ }
+}
+
+function loadGameSession(){
+  try{
+    const text = localStorage.getItem(GAME_SESSION_STORAGE_KEY);
+    if(!text) return null;
+    const checked = normalizeGameSessionData(JSON.parse(text), Date.now());
+    if(!checked.ok){
+      clearGameSession();
+      return null;
+    }
+    return checked.session;
+  }catch(e){
+    clearGameSession();
+    return null;
+  }
+}
+
+function saveGameSession(screen, details){
+  if(!GAME_SESSION_SCREENS.has(screen) || !scorePool.length) return;
+  const options = details || {};
+  const answers = answerLog.map((entry, index) => {
+    const snapshot = history[index];
+    return {
+      key: entry.key,
+      val: entry.val,
+      weight: entry.weight == null ? 1 : entry.weight,
+      responseMs: entry.responseMs == null ? null : entry.responseMs,
+      phase: snapshot && snapshot.questionPhase === 'extra' ? 'extra' : 'normal',
+      remainingBefore: snapshot && snapshot.remainingCount != null ? snapshot.remainingCount : null,
+    };
+  });
+  // answerLogとhistoryの対応が崩れている場合は、壊れた途中データを書き出さない。
+  if(answers.some((entry, index) => !history[index] || history[index].key !== entry.key)) return;
+
+  const currentModeCities = getModeCities(currentMode);
+  const failureItems = guessFailureLog.map(item => {
+    const city = (item.excludedCityId && currentModeCities.find(c => cityId(c) === item.excludedCityId)) ||
+      currentModeCities.find(c => c.name === item.excludedCityName);
+    return city ? { atHistoryLength: item.atHistoryLength, cityId: cityId(city) } : null;
+  }).filter(Boolean);
+  if(failureItems.length !== guessFailureLog.length) return;
+
+  const daily = dailyChallengeActive
+    ? { id: dailyChallengeActive.id, date: dailyChallengeActive.dateStr, resolvedMode: dailyChallengeActive.resolvedMode }
+    : null;
+  const data = {
+    version: GAME_SESSION_VERSION,
+    rulesVersion: GAME_SESSION_RULES_VERSION,
+    citiesVersion: CITIES_VERSION,
+    savedAt: Date.now(),
+    mode: currentMode,
+    screen,
+    answers,
+    pendingQuestionKey: screen === 'question' ? (options.pendingQuestionKey || null) : null,
+    guessCityId: screen === 'guess' && options.guessCity ? cityId(options.guessCity) : null,
+    guessFailureLog: failureItems,
+    dailyChallenge: daily,
+    reportedQuestionKeys: Array.from(reportedQuestionKeysInGame),
+    isReplayedFromGiveup: isReplayedFromGiveup === true,
+    lastDisplayedRemainingCount: lastDisplayedRemainingCount == null ? null : lastDisplayedRemainingCount,
+    pendingRemainingBefore: screen === 'question' && history.length
+      ? (history[history.length - 1].remainingCount == null ? null : history[history.length - 1].remainingCount)
+      : null,
+    lastPickWasOneCity: lastPickWasOneCity === true,
+    notifiedMilestones: Array.from(notifiedCandidateMilestones),
+  };
+  const checked = normalizeGameSessionData(data, data.savedAt);
+  if(!checked.ok) return;
+  try{ localStorage.setItem(GAME_SESSION_STORAGE_KEY, JSON.stringify(checked.session)); }
+  catch(e){ /* 容量制限・プライベートモード等では保存せず、ゲーム本体を優先する */ }
+}
+
+function renderGameResumeCardHtml(){
+  const session = loadGameSession();
+  if(!session) return '';
+  const answered = session.answers.length;
+  const nextNumber = answered + (session.screen === 'question' ? 1 : 0);
+  const progress = session.screen === 'extraIntro'
+    ? '追加質問へ進むところ'
+    : (session.screen === 'guess' ? '推理結果を確認するところ' : `${nextNumber}問目`);
+  return `
+    <section class="game-resume-card" aria-label="途中のゲーム">
+      <div class="game-resume-title">途中のゲームがあります</div>
+      <div class="game-resume-meta">${escapeHtml(MODES[session.mode].label)}・${progress}</div>
+      <div class="game-resume-actions">
+        <button class="game-resume-primary" onclick="resumeSavedGame()">続きから</button>
+        <button class="game-resume-secondary" onclick="discardSavedGame()">最初から選ぶ</button>
+      </div>
+    </section>`;
+}
+
+function discardSavedGame(){
+  clearGameSession();
+  renderOpening();
+}
+
+function cityByGameSessionId(id){
+  return CITIES.find(city => cityId(city) === id) || null;
+}
+
+function applyRestoredGuessFailure(item){
+  const city = cityByGameSessionId(item.cityId);
+  if(!city) return false;
+  excludedNames.add(city.name);
+  restorePrunedCandidates();
+  guessAttempts = 1;
+  questionPhase = 'extra';
+  extraQuestionCount = 0;
+  lastGuessCity = city;
+  guessFailureLog.push({
+    atHistoryLength: item.atHistoryLength,
+    excludedCityName: city.name,
+    excludedCityId: cityId(city),
+  });
+  return true;
+}
+
+function restoreGameSession(session){
+  const todayChallenge = session.dailyChallenge ? getTodaysChallenge() : null;
+  const ready = startMode(session.mode, {
+    restore: true,
+    deferRender: true,
+    dailyChallenge: todayChallenge,
+  });
+  if(!ready) return false;
+
+  const failureByIndex = new Map(session.guessFailureLog.map(item => [item.atHistoryLength, item]));
+  for(let index = 0; index < session.answers.length; index++){
+    const failure = failureByIndex.get(history.length);
+    if(failure && !applyRestoredGuessFailure(failure)) return false;
+
+    const item = session.answers[index];
+    if(item.phase === 'extra' && questionPhase !== 'extra'){
+      questionPhase = 'extra';
+      extraQuestionCount = 0;
+      guessAttempts = 1;
+    }
+    lastDisplayedRemainingCount = item.remainingBefore;
+    pushQuestionState(item.key);
+    questionShownAt = null;
+    applyAnswerCore(item.key, item.val, item.weight);
+    answerLog[answerLog.length - 1].responseMs = item.responseMs;
+    forcedGuessCity = null;
+  }
+  const finalFailure = failureByIndex.get(history.length);
+  if(finalFailure && !guessFailureLog.some(item => item.atHistoryLength === finalFailure.atHistoryLength)){
+    if(!applyRestoredGuessFailure(finalFailure)) return false;
+  }
+
+  reportedQuestionKeysInGame = new Set(session.reportedQuestionKeys);
+  isReplayedFromGiveup = session.isReplayedFromGiveup;
+  lastDisplayedRemainingCount = session.lastDisplayedRemainingCount;
+  lastPickWasOneCity = session.lastPickWasOneCity;
+  notifiedCandidateMilestones = new Set(session.notifiedMilestones);
+  pendingQuestionSkips = [];
+  let normalNumber = 0;
+  let extraNumber = 0;
+  session.answers.forEach(item => {
+    const questionNumber = item.phase === 'extra' ? ++extraNumber : ++normalNumber;
+    if(item.val === null){
+      pendingQuestionSkips.push({
+        questionKey: item.key,
+        gameMode: session.mode,
+        questionNumber,
+        helpOpened: false,
+      });
+    }
+  });
+
+  if(session.screen === 'question'){
+    lastDisplayedRemainingCount = session.pendingRemainingBefore;
+    forcedNextKey = session.pendingQuestionKey;
+    renderQuestion();
+  }else if(session.screen === 'guess'){
+    const guess = cityByGameSessionId(session.guessCityId);
+    if(!guess) return false;
+    forcedGuessCity = guess;
+    renderGuess();
+  }else{
+    renderExtraIntro();
+  }
+  scrollToGameTop();
+  trackGaEvent('oramachi_game_resume', {
+    ...analyticsModeParams(session.mode),
+    answered_questions: session.answers.length,
+    resume_screen: session.screen,
+  });
+  return true;
+}
+
+function resumeSavedGame(){
+  const session = loadGameSession();
+  if(!session) return renderOpening();
+  try{
+    if(!restoreGameSession(session)){
+      clearGameSession();
+      renderOpening();
+    }
+  }catch(e){
+    console.warn('おらマチ: 進行中ゲームの復元に失敗したため破棄します', e);
+    clearGameSession();
+    renderOpening();
+  }
+}
+
+function startDailyChallenge(){
+  const theme = getTodaysChallenge();
+  const started = startMode(theme.resolvedMode, { dailyChallenge: theme });
+  if(started) trackGaEvent('daily_challenge_start', { theme_id: theme.id, mode: theme.resolvedMode });
+}
+
+function startMode(mode, startOptions){
+  const options = startOptions || {};
+  if(!options.restore){
+    const existing = loadGameSession();
+    if(existing && !options.skipExistingSessionConfirm){
+      const replace = confirm('途中のゲームがあります。\nその記録を消して、新しいゲームを始めますか？');
+      if(!replace) return false;
+    }
+    clearGameSession();
+  }
   currentMode = mode;
   pushGameNavState(); // ここから戻ったらトップ画面、という目印を履歴に積む
   const modeCities = getModeCities(mode);
@@ -7564,9 +7974,10 @@ function startMode(mode){
   guessFailureLog = [];
   isReplayedFromGiveup = false;
   answerHistoryPanelContext = 'ingame';
-  dailyChallengeActive = null; // 「今日のチャレンジ」経由でなければ必ずnull(通常プレイとして扱う)
+  dailyChallengeActive = options.dailyChallenge || null; // 通常プレイはnull、今日のチャレンジは初回描画前に設定
   dailyChallengeResult = null; // 前回のデイリー結果を通常ゲームへ持ち越さない
   questionHelpOpen = false;
+  questionShownAt = null;
   reportedQuestionKeysInGame = new Set();
   pendingQuestionSkips = [];
   modeStartCount = modeCities.length;
@@ -7578,18 +7989,22 @@ function startMode(mode){
       <div class="bubble"><span class="icon">🙏</span>このモードのデータがまだありません</div>
       <button class="again" onclick="renderOpening()">モード選択へ戻る</button>
     `;
-    return;
+    return false;
   }
 
   // 「全国版／県版／地方版のどれで1ゲームを始めたか」を計測する。
-  trackGaEvent('oramachi_game_start', {
-    ...analyticsModeParams(mode),
-    candidate_count: modeCities.length
-  });
+  if(!options.restore){
+    trackGaEvent('oramachi_game_start', {
+      ...analyticsModeParams(mode),
+      candidate_count: modeCities.length
+    });
+  }
 
   footEl.textContent = `${MODES[mode].label} ・ 対応 ${modeCities.length}自治体`;
+  if(options.deferRender) return true;
   renderQuestion();
   scrollToGameTop();
+  return true;
 }
 
 // ゲーム画面(カード)の一番上が見えるように、ページの先頭へスクロールする。
@@ -7664,6 +8079,7 @@ function renderQuestion(){
 
   pushQuestionState(key);
   renderQuestionScreen(key);
+  saveGameSession('question', { pendingQuestionKey: key });
 }
 
 // 【画面描画のみ】質問画面のHTMLを構築して表示する。history/asked/questionCountの更新は
@@ -7865,7 +8281,9 @@ function goBack(){
   knownPopMin = prev.knownPopMin != null ? prev.knownPopMin : -Infinity;
   knownPopMax = prev.knownPopMax != null ? prev.knownPopMax : Infinity;
   lastDisplayedRemainingCount = prev.remainingCount != null ? prev.remainingCount : null;
-  answerLog.length = asked.length; // 戻った分の回答ログも一緒に切り詰める(asked と常に同じ長さで揃える)
+  // askedにはEXCLUSIVE_MAPによって自動推論された「実際には表示していない質問」も含まれる。
+  // 直接回答の件数は、残った質問スナップショット数(history.length)に合わせる。
+  answerLog.length = history.length;
   // 戻った先が「1回目の推測が外れる前」なら、その記録も取り消す(再生時の整合性のため)
   guessFailureLog = guessFailureLog.filter(g => g.atHistoryLength <= history.length);
   forcedNextKey = prev.key; // 同じ質問を再表示する
@@ -8314,6 +8732,7 @@ function renderGuess(){
       <button class="btn btn-no" onclick="correct(false)">ちがう</button>
     </div>
   `;
+  saveGameSession('guess', { guessCity: guess });
   updateDebugPanel();
 }
 
@@ -9434,6 +9853,8 @@ function correct(isRight, overrideCity){
   });
 
   if(isRight){
+    // 正解後に再読み込みされても、結果送信・統計加算を二重実行しないよう先に削除する。
+    clearGameSession();
     // 結果画面・シェア文・訂正フォーム・プレイ結果送信・制覇帳・画像共有のすべてで、
     // ここで確定した同じ自治体データ(currentResult.city)を使う。再計算は一切しない。
     const barePoints = computeBarePoints(guess);
@@ -9641,7 +10062,11 @@ function correct(isRight, overrideCity){
     extraQuestionCount = 0;
     // 「これまでの回答」機能で回答を再生する際に、このタイミング(通常フェーズ→追加質問
     // フェーズへの切り替え)を正確に再現するために記録しておく。
-    guessFailureLog.push({ atHistoryLength: history.length, excludedCityName: guess.name });
+    guessFailureLog.push({
+      atHistoryLength: history.length,
+      excludedCityName: guess.name,
+      excludedCityId: cityId(guess),
+    });
     return renderExtraIntro();
   }
 
@@ -9658,10 +10083,13 @@ function renderExtraIntro(){
     <div class="bubble"><span class="icon">💦</span>むむっ、違いましたか……<br>あと少しだけ教えてください！</div>
     <button class="again" onclick="renderQuestion()">つぎの質問へ</button>
   `;
+  saveGameSession('extraIntro');
   updateDebugPanel();
 }
 
 function renderGiveUp(){
+  // 降参画面では統計・GAS送信が走るため、再起動で同じ終了処理を繰り返さない。
+  clearGameSession();
   sendQuestionSkipsBatch(); // このゲーム中に「わからない」でスキップされた質問をまとめて送信
   // 【惜しかった候補】最後まで残っていた候補を、推理結果(スコア順=sortedPool)の
   // 上位から最大3件だけ見せる。単純な配列の先頭ではなく、実際に絞り込みで
@@ -9703,7 +10131,7 @@ function renderGiveUp(){
 }
 
 function restart(){
-  startMode(currentMode);
+  startMode(currentMode, { skipExistingSessionConfirm: true });
 }
 // 【cities.json のバージョン】bump-version.js が cities.json の中身から自動で書き換える。
 // 以前は cache:'no-store' で毎回必ず再ダウンロードしていたため、407KBのデータを
