@@ -6546,6 +6546,42 @@ function playHappyMascotAnimation(){
 //
 // 対象は、都道府県別進捗・称号コレクション・全国制覇帳などの「サブ画面」。
 // ゲーム本体の質問の戻る(goBack())とは別の仕組みで、ブラウザ履歴に軽く連動させる。
+//
+// Safariは履歴移動時に以前のスクロール位置を自動復元するため、SPAのDOMだけを
+// 差し替えると新しい画面まで途中位置から表示される。画面は正しく戻っていても
+// 見出しが画面外になり、戻れていないように見えるので、このアプリでは画面単位で
+// スクロールを管理する。
+try{
+  if('scrollRestoration' in window.history) window.history.scrollRestoration = 'manual';
+}catch(e){ /* 対応していない環境では各画面の明示的なscrollToだけを使う */ }
+
+function scrollToPageTop(){
+  const reset = () => {
+    try{
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    }catch(e){
+      try{ window.scrollTo(0, 0); }catch(_){}
+    }
+    // iOS Safariや古いWebView向けの補助。document.scrollingElementが無い場合も考慮する。
+    try{
+      if(document.scrollingElement) document.scrollingElement.scrollTop = 0;
+      if(document.documentElement) document.documentElement.scrollTop = 0;
+      if(document.body) document.body.scrollTop = 0;
+    }catch(e){ /* スクロール補正の失敗で画面描画を止めない */ }
+  };
+
+  // 1回目はDOM差し替え直後、後続2回はSafariの履歴復元・レイアウト確定後に行う。
+  reset();
+  if(typeof window.requestAnimationFrame === 'function'){
+    window.requestAnimationFrame(() => {
+      reset();
+      window.requestAnimationFrame(reset);
+    });
+  }else{
+    window.setTimeout(reset, 0);
+  }
+}
+
 let isHandlingPopState = false; // popstateの処理中に、さらにpushStateしてしまうのを防ぐフラグ
 let currentNavState = { oramachiScreen: 'opening', oramachiDepth: 0 };
 let currentGameFlowKind = null;  // null | 'deduction' | 'challenge'
@@ -6962,6 +6998,7 @@ function renderOpening(){
     <div id="liveStatsTop">${renderStatsBlock()}</div>
   `;
 
+  scrollToPageTop();
   // DOMへ追加した次のフレームで登場・浮遊・ウインクを開始する。
   requestAnimationFrame(startOpeningMascotAnimation);
   footEl.textContent = `対応エリア 日本全国 ${totalCount} 市区町村`;
@@ -7033,6 +7070,7 @@ function renderStatsPage(){
     <div id="statsAchievementNotice"></div>
     <button class="link-btn" onclick="navigateToOpening()">トップへ戻る</button>
   `;
+  scrollToPageTop();
   updateDebugPanel();
 }
 
@@ -7119,6 +7157,7 @@ function renderDailyChallengeHistory(){
     ${stampsHtml}
     <button class="again" onclick="navigateToOpening()">トップ画面へ戻る</button>
   `;
+  scrollToPageTop();
   updateDebugPanel();
 }
 
@@ -7175,6 +7214,7 @@ function renderAchievementsPage(){
     <button class="link-btn" onclick="navigateBackOr(renderConquestLog)">← 前の画面へ戻る</button>
     <button class="again" onclick="navigateToOpening()">トップ画面へ戻る</button>
   `;
+  scrollToPageTop();
 }
 function setAchievementFilter(f){
   achievementFilter = f;
@@ -7284,6 +7324,7 @@ function renderPrefectureCards(){
     <button class="link-btn" onclick="navigateBackOr(renderConquestLog)">← 前の画面へ戻る</button>
     <button class="again" onclick="navigateToOpening()">トップ画面へ戻る</button>
   `;
+  scrollToPageTop();
 }
 
 function renderPrefectureDetail(pref){
@@ -7324,6 +7365,7 @@ function renderPrefectureDetail(pref){
     <button class="link-btn" onclick="navigateBackOr(renderPrefectureCards)">← 前の画面へ戻る</button>
     <button class="again" onclick="navigateToOpening()">トップ画面へ戻る</button>
   `;
+  scrollToPageTop();
 }
 
 // 都道府県タイルをタップしたときの処理。既存の詳細画面をそのまま使う
@@ -7586,6 +7628,7 @@ function renderConquestMapView(){
     </div>
     <button class="again" onclick="navigateToOpening()">トップ画面へ戻る</button>
   `;
+  scrollToPageTop();
   trackGaEvent('conquest_map_view');
 }
 
@@ -7700,6 +7743,7 @@ function renderConquestLog(){
 
     <button class="again" onclick="navigateToOpening()">トップ画面へ戻る</button>
   `;
+  scrollToPageTop();
 }
 
 function toggleAnonymousReporting(checked){
