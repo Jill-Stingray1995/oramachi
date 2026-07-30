@@ -1708,6 +1708,7 @@ let lastCorrectionCityLabel = null;
 // 'ingame'  … 通常のゲーム中(質問画面)から開いた。閉じると元の質問へ戻る。
 // 'review'  … 不正解後の見直し(renderThanks)から開いた。閉じると降参完了画面へ戻る。
 let answerHistoryPanelContext = 'ingame';
+let answerHistoryQuestionShownAt = null; // 回答一覧を開く前の回答時間計測を、閉じた後も引き継ぐ
 // 降参(giveup)として既に統計記録された後、「回答を直して推理を再開する」経由で
 // ゲームを続けているかどうか。trueの間にcorrect(true)で正解すると、recordGameStats()の
 // 基礎カウンタ(totalPlays・回答内訳・プレイ日付)を二重に加算しないようにする
@@ -1965,6 +1966,7 @@ function openQuestionReportModal(key){
     if(e.key === 'Tab'){ trapFocusInModal(e, overlay.querySelector('.modal-box')); }
   };
   document.addEventListener('keydown', reportModalKeydownHandler);
+  registerActiveModalClose(closeQuestionReportModal);
   closeBtn.focus();
 }
 
@@ -1980,6 +1982,7 @@ function trapFocusInModal(e, box){
 }
 
 function closeQuestionReportModal(){
+  unregisterActiveModalClose(closeQuestionReportModal);
   const root = document.getElementById('modalRoot');
   if(root) root.innerHTML = '';
   if(reportModalKeydownHandler){
@@ -2025,7 +2028,13 @@ function submitQuestionReport(){
   const finish = (ok) => {
     if(ok){
       setStatus('報告を受け付けました。ありがとうございます。');
-      setTimeout(() => { closeQuestionReportModal(); }, 1200);
+      const completedKey = key;
+      setTimeout(() => {
+        // 待ち時間中に別モーダルへ切り替わっていたら、その新しいモーダルは閉じない。
+        if(reportModalTargetKey === completedKey && document.getElementById('reportModalOverlay')){
+          closeQuestionReportModal();
+        }
+      }, 1200);
     } else {
       setStatus('送信できませんでした。もう一度お試しください。');
       reportedQuestionKeysInGame.delete(key); // 失敗時は再報告できるように戻す
@@ -2088,25 +2097,27 @@ function searchChallengeCityCandidates(inputText){
 // 「おらマチからの挑戦状」を開始する。全国制覇帳・正答率など通常モードの統計には
 // 一切影響しない、完全に独立したゲーム状態(challengeGameState)で管理する。
 function startChallengeMode(){
+  activeGameTransientScreen = null;
   const eligible = getChallengeEligibleCities();
   if(eligible.length === 0){
     // 万一対象が0件でもエラーにせず、案内を出すだけに留める。
     stage.innerHTML = `
       <div class="mascot-wrap"><div class="shake">${mascotSVG('sad')}</div></div>
       <div class="bubble"><span class="icon">🙏</span>今は挑戦状を出せるマチがありません</div>
-      <button class="again" onclick="renderOpening()">トップ画面へ戻る</button>
+      <button class="again" onclick="navigateToOpening()">トップ画面へ戻る</button>
     `;
     return;
   }
   const city = eligible[Math.floor(Math.random() * eligible.length)];
   const hints = buildOrderedChallengeHints(city);
   challengeGameState = { city, hints, hintsShown: 1, guessAttempts: 0, finished: false };
-  pushGameNavState();
+  pushGameNavState('challenge');
   trackGaEvent('challenge_mode_start', {});
   renderChallengeMode();
 }
 
 function renderChallengeMode(){
+  activeGameTransientScreen = null;
   stampsEl.innerHTML = '';
   const st = challengeGameState;
   if(!st){ return renderOpening(); }
@@ -2179,6 +2190,7 @@ function submitChallengeGuess(){
   }
   st.hintsShown++;
   challengeSelectedCityId = null;
+  activeGameTransientScreen = 'challengeNextHint';
   stage.innerHTML = `
     <div class="mascot-wrap"><div class="shake">${mascotSVG('think')}</div></div>
     <div class="bubble challenge-bubble"><span class="icon">🤔</span>惜しい！次のヒントを見る？</div>
@@ -2201,6 +2213,7 @@ function finishChallengeMode(success, gaveUp){
   const score = success ? (CHALLENGE_SCORE_BY_HINTS[hintsUsed] || CHALLENGE_SCORE_BY_HINTS[CHALLENGE_MAX_HINTS]) : 0;
   st.success = success;
   st.score = score;
+  markGameNavResult('challenge');
 
   const stats = loadChallengeStats();
   stats.totalPlays += 1;
@@ -2215,6 +2228,8 @@ function finishChallengeMode(success, gaveUp){
 }
 
 function renderChallengeResult(success, score, hintsUsed){
+  activeGameTransientScreen = null;
+  markGameNavResult('challenge');
   const st = challengeGameState;
   const city = st.city;
   const resultLine = success
@@ -2242,7 +2257,7 @@ function renderChallengeResult(success, score, hintsUsed){
         <svg class="x-icon" viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
         結果をシェア
       </button>
-      <button class="link-btn" onclick="renderOpening()">トップへ戻る</button>
+      <button class="link-btn" onclick="navigateToOpening()">トップへ戻る</button>
     </div>
   `;
   updateDebugPanel();
@@ -3089,9 +3104,10 @@ function validateImportedSaveData(parsed){
 }
 
 // 「統合する」か「上書きする」かを選ぶ確認画面。初期選択は安全な「統合する」にする。
-function renderImportModeChoiceModal(importedConquest){
+function renderImportModeChoiceModal(importedConquest, focusReturnEl){
   const root = document.getElementById('modalRoot');
   if(!root) return;
+  const lastFocusedEl = focusReturnEl || document.activeElement;
   const importedCount = Object.keys(importedConquest.entries).length;
   root.innerHTML = `
     <div class="modal-overlay" id="importModalOverlay">
@@ -3125,27 +3141,42 @@ function renderImportModeChoiceModal(importedConquest){
   const cancelBtn = document.getElementById('importModalCancelBtn');
   const confirmBtn = document.getElementById('importModalConfirmBtn');
   const overlay = document.getElementById('importModalOverlay');
-  const close = () => { root.innerHTML = ''; document.removeEventListener('keydown', keyHandler); };
+  let keyHandler = null;
+  const close = () => {
+    unregisterActiveModalClose(close);
+    root.innerHTML = '';
+    if(keyHandler) document.removeEventListener('keydown', keyHandler);
+    const fallback = document.getElementById('importSaveDataBtn');
+    const focusTarget = lastFocusedEl && lastFocusedEl.isConnected && lastFocusedEl !== document.body
+      ? lastFocusedEl
+      : fallback;
+    if(focusTarget && typeof focusTarget.focus === 'function') focusTarget.focus();
+  };
   closeBtn.addEventListener('click', close);
   cancelBtn.addEventListener('click', close);
   overlay.addEventListener('click', (e) => { if(e.target === overlay) close(); });
-  const keyHandler = (e) => { if(e.key === 'Escape') close(); };
+  keyHandler = (e) => {
+    if(e.key === 'Escape'){ close(); return; }
+    if(e.key === 'Tab') trapFocusInModal(e, overlay.querySelector('.modal-box'));
+  };
   document.addEventListener('keydown', keyHandler);
   confirmBtn.addEventListener('click', () => {
     const selected = document.querySelector('input[name="importMode"]:checked');
     const mode = selected ? selected.value : 'merge';
     if(mode === 'overwrite'){
-      renderOverwriteConfirmModal(importedConquest, close);
-    } else {
-      applyImportedConquest(importedConquest, 'merge');
       close();
+      renderOverwriteConfirmModal(importedConquest, lastFocusedEl);
+    } else {
+      close();
+      applyImportedConquest(importedConquest, 'merge');
     }
   });
+  registerActiveModalClose(close);
   closeBtn.focus();
 }
 
 // 上書き前の最終確認(依頼要件: 上書きの場合は確認画面を出す)。
-function renderOverwriteConfirmModal(importedConquest, closeParentModal){
+function renderOverwriteConfirmModal(importedConquest, focusReturnEl){
   const root = document.getElementById('modalRoot');
   if(!root) return;
   root.innerHTML = `
@@ -3166,12 +3197,28 @@ function renderOverwriteConfirmModal(importedConquest, closeParentModal){
   const cancelBtn = document.getElementById('overwriteCancelBtn');
   const confirmBtn = document.getElementById('overwriteConfirmBtn');
   const overlay = document.getElementById('overwriteConfirmOverlay');
-  cancelBtn.addEventListener('click', () => { root.innerHTML = ''; });
-  overlay.addEventListener('click', (e) => { if(e.target === overlay) root.innerHTML = ''; });
-  confirmBtn.addEventListener('click', () => {
-    applyImportedConquest(importedConquest, 'overwrite');
+  let keyHandler = null;
+  const close = () => {
+    unregisterActiveModalClose(returnToChoice);
     root.innerHTML = '';
+    if(keyHandler) document.removeEventListener('keydown', keyHandler);
+  };
+  const returnToChoice = () => {
+    close();
+    renderImportModeChoiceModal(importedConquest, focusReturnEl);
+  };
+  cancelBtn.addEventListener('click', returnToChoice);
+  overlay.addEventListener('click', (e) => { if(e.target === overlay) returnToChoice(); });
+  confirmBtn.addEventListener('click', () => {
+    close();
+    applyImportedConquest(importedConquest, 'overwrite');
   });
+  keyHandler = (e) => {
+    if(e.key === 'Escape'){ returnToChoice(); return; }
+    if(e.key === 'Tab') trapFocusInModal(e, overlay.querySelector('.modal-box'));
+  };
+  document.addEventListener('keydown', keyHandler);
+  registerActiveModalClose(returnToChoice);
   cancelBtn.focus();
 }
 
@@ -3228,6 +3275,7 @@ function applyImportedConquest(importedConquest, mode){
 function renderImportResultModal(info){
   const root = document.getElementById('modalRoot');
   if(!root) return;
+  const lastFocusedEl = document.activeElement;
   const bodyText = info.error
     ? 'データの読み込みに失敗しました。現在のデータは変更していません。'
     : (info.mode === 'overwrite'
@@ -3249,8 +3297,25 @@ function renderImportResultModal(info){
     </div>`;
   const closeBtn = document.getElementById('importResultCloseBtn');
   const overlay = document.getElementById('importResultOverlay');
-  closeBtn.addEventListener('click', () => { root.innerHTML = ''; });
-  overlay.addEventListener('click', (e) => { if(e.target === overlay) root.innerHTML = ''; });
+  let keyHandler = null;
+  const close = () => {
+    unregisterActiveModalClose(close);
+    root.innerHTML = '';
+    if(keyHandler) document.removeEventListener('keydown', keyHandler);
+    const fallback = document.getElementById('importSaveDataBtn');
+    const focusTarget = lastFocusedEl && lastFocusedEl.isConnected && lastFocusedEl !== document.body
+      ? lastFocusedEl
+      : fallback;
+    if(focusTarget && typeof focusTarget.focus === 'function') focusTarget.focus();
+  };
+  closeBtn.addEventListener('click', close);
+  overlay.addEventListener('click', (e) => { if(e.target === overlay) close(); });
+  keyHandler = (e) => {
+    if(e.key === 'Escape'){ close(); return; }
+    if(e.key === 'Tab') trapFocusInModal(e, overlay.querySelector('.modal-box'));
+  };
+  document.addEventListener('keydown', keyHandler);
+  registerActiveModalClose(close);
   closeBtn.focus();
 }
 
@@ -6482,46 +6547,337 @@ function playHappyMascotAnimation(){
 // 対象は、都道府県別進捗・称号コレクション・全国制覇帳などの「サブ画面」。
 // ゲーム本体の質問の戻る(goBack())とは別の仕組みで、ブラウザ履歴に軽く連動させる。
 let isHandlingPopState = false; // popstateの処理中に、さらにpushStateしてしまうのを防ぐフラグ
+let currentNavState = { oramachiScreen: 'opening', oramachiDepth: 0 };
+let currentGameFlowKind = null;  // null | 'deduction' | 'challenge'
+let currentGameFlowPhase = null; // null | 'active' | 'result'
+let activeGameTransientScreen = null; // null | 'answerHistory' | 'answerEdit' | 'extraIntro' | 'challengeNextHint'
+let activeModalCloseStack = [];
+let modalHistoryGuardHandlers = new Set();
+let modalGuardRemovalPending = false;
+let suppressModalGuardHistoryRemoval = false;
+let explicitHistoryNavigationPending = false;
+
+function navDepth(state){
+  return state && Number.isInteger(state.oramachiDepth) && state.oramachiDepth >= 0
+    ? state.oramachiDepth
+    : 0;
+}
+function makeNavState(screen, extra, depth){
+  // extra側から画面名を上書きできないよう、共通キーは最後に確定する。
+  const next = Object.assign({}, extra || {});
+  next.oramachiScreen = screen;
+  next.oramachiDepth = Number.isInteger(depth) && depth >= 0 ? depth : 0;
+  return next;
+}
+function currentHistoryNavState(){
+  try{
+    const state = window.history.state;
+    if(state && state.oramachiScreen) return state;
+  }catch(e){ /* history.stateが読めない環境ではメモリ上の状態を使う */ }
+  return currentNavState;
+}
+function rememberExactNavState(state){
+  currentNavState = makeNavState(
+    state && state.oramachiScreen ? state.oramachiScreen : 'opening',
+    state || {},
+    navDepth(state)
+  );
+  return currentNavState;
+}
+function sameNavRoute(a, b){
+  if(!a || !b) return false;
+  const comparable = state => Object.keys(state)
+    .filter(key => key !== 'oramachiDepth')
+    .sort()
+    .map(key => `${key}:${JSON.stringify(state[key])}`)
+    .join('|');
+  return comparable(a) === comparable(b);
+}
 function pushNavState(screen, extra){
   if(isHandlingPopState) return;
+  const previous = currentHistoryNavState();
+  const sameDepthState = makeNavState(screen, extra, navDepth(previous));
   try{
-    window.history.pushState(Object.assign({ oramachiScreen: screen }, extra || {}), '');
-  }catch(e){ /* historyが使えない環境でもゲーム自体は続行する */ }
+    if(previous.oramachiModalGuard){
+      // 深さ0の案内モーダルを表示したまま別画面へ進んだ場合は、案内を閉じ、
+      // 番兵entryをそのまま次画面へ置換して余分な「トップ→トップ」を残さない。
+      closeGuardedModalsBeforeNavigation();
+      const next = makeNavState(screen, extra, navDepth(previous) + 1);
+      currentNavState = next;
+      window.history.replaceState({ ...next }, '');
+      return;
+    }
+    // 結果画面から制覇帳などへ進む場合、結果DOMは履歴から再構築できない。
+    // 現在entryを次画面へ置き換え、戻る時に「トップ→トップ」の空振りを残さない。
+    if(previous.oramachiScreen === 'game' && previous.gamePhase === 'result' && screen !== 'game'){
+      currentNavState = sameDepthState;
+      window.history.replaceState({ ...sameDepthState }, '');
+      return;
+    }
+    if(sameNavRoute(previous, sameDepthState)){
+      currentNavState = sameDepthState;
+      window.history.replaceState({ ...sameDepthState }, '');
+      return;
+    }
+    const next = makeNavState(screen, extra, navDepth(previous) + 1);
+    currentNavState = next;
+    window.history.pushState({ ...next }, '');
+  }catch(e){
+    // historyが使えない環境でも、画面内の戻る判定に使う状態だけは更新する。
+    currentNavState = sameDepthState;
+  }
 }
 function replaceNavState(screen, extra){
+  if(isHandlingPopState) return;
+  const next = makeNavState(screen, extra, navDepth(currentHistoryNavState()));
+  currentNavState = next;
   try{
-    window.history.replaceState(Object.assign({ oramachiScreen: screen }, extra || {}), '');
+    window.history.replaceState({ ...next }, '');
   }catch(e){ /* 同上 */ }
+}
+function replaceExactNavState(state){
+  const next = rememberExactNavState(state);
+  try{ window.history.replaceState({ ...next }, ''); }
+  catch(e){ /* 同上 */ }
+}
+// モーダルごとの後始末(キーイベント解除・フォーカス復元等)を保ったまま、
+// 端末の戻る操作から最前面のモーダルを閉じるための共通登録口。
+function registerActiveModalClose(handler, options){
+  if(typeof handler !== 'function') return;
+  // 同じモーダルの再登録は1件にまとめ、最後に開いたものを常に最前面とする。
+  activeModalCloseStack = activeModalCloseStack.filter(item => item !== handler);
+  activeModalCloseStack.push(handler);
+  if(options && options.ensureHistoryEntry){
+    modalHistoryGuardHandlers.add(handler);
+    try{
+      const state = currentHistoryNavState();
+      if(!state.oramachiModalGuard){
+        window.history.pushState({ ...state, oramachiModalGuard: true }, '');
+      }
+    }catch(e){ /* 番兵を作れない環境では将来のnative back APIだけで閉じる */ }
+  }
+}
+function unregisterActiveModalClose(handler){
+  if(!handler){
+    activeModalCloseStack = [];
+    modalHistoryGuardHandlers.clear();
+    return;
+  }
+  activeModalCloseStack = activeModalCloseStack.filter(item => item !== handler);
+  const wasGuarded = modalHistoryGuardHandlers.delete(handler);
+  if(wasGuarded && modalHistoryGuardHandlers.size === 0 && !suppressModalGuardHistoryRemoval){
+    try{
+      const state = window.history.state;
+      if(state && state.oramachiModalGuard){
+        modalGuardRemovalPending = true;
+        window.history.back();
+      }
+    }catch(e){ modalGuardRemovalPending = false; }
+  }
+}
+function closeActiveModalFromBack(){
+  if(activeModalCloseStack.length === 0) return { closed: false, wasGuarded: false, historyGuardConsumed: false };
+  const close = activeModalCloseStack.pop();
+  const wasGuarded = modalHistoryGuardHandlers.delete(close);
+  let historyGuardConsumed = false;
+  if(wasGuarded){
+    try{ historyGuardConsumed = !(window.history.state && window.history.state.oramachiModalGuard); }
+    catch(e){ historyGuardConsumed = false; }
+  }
+  try{ close(); }catch(e){ console.warn('おらマチ: モーダルを閉じられませんでした', e); }
+  return { closed: true, wasGuarded, historyGuardConsumed };
+}
+function closeGuardedModalsBeforeNavigation(){
+  if(modalHistoryGuardHandlers.size === 0) return;
+  const handlers = activeModalCloseStack.filter(handler => modalHistoryGuardHandlers.has(handler)).reverse();
+  suppressModalGuardHistoryRemoval = true;
+  try{
+    handlers.forEach(handler => {
+      activeModalCloseStack = activeModalCloseStack.filter(item => item !== handler);
+      modalHistoryGuardHandlers.delete(handler);
+      try{ handler(); }catch(e){ console.warn('おらマチ: 案内モーダルを閉じられませんでした', e); }
+    });
+  } finally {
+    suppressModalGuardHistoryRemoval = false;
+  }
+}
+// popstateは既に1つ前の履歴へ移動した後に届く。戻る操作を画面内で消費した場合は、
+// 直前の画面状態を1件だけ積み直す。これによりキャンセルを繰り返しても履歴が増殖しない。
+function restoreCurrentNavEntry(){
+  try{ window.history.pushState({ ...currentNavState }, ''); }
+  catch(e){ /* 履歴を戻せなくても、現在画面とゲーム状態は維持する */ }
+}
+function closeTransientGameLayerFromBack(){
+  if(questionHelpOpen && document.getElementById('questionHelpPanel')){
+    toggleQuestionHelp();
+    return true;
+  }
+  if(activeGameTransientScreen === 'answerEdit'){
+    renderAnswerHistoryPanel();
+    return true;
+  }
+  if(activeGameTransientScreen === 'answerHistory'){
+    closeAnswerHistoryPanel();
+    return true;
+  }
+  if(activeGameTransientScreen === 'extraIntro'){
+    renderQuestion();
+    return true;
+  }
+  if(activeGameTransientScreen === 'challengeNextHint'){
+    renderChallengeMode();
+    return true;
+  }
+  return false;
+}
+function activeGameFlowKind(){
+  if(currentNavState.oramachiScreen !== 'game') return null;
+  if(currentNavState.gamePhase !== 'active') return null;
+  return currentNavState.gameKind === 'deduction' || currentNavState.gameKind === 'challenge'
+    ? currentNavState.gameKind
+    : null;
+}
+function confirmLeaveActiveGame(kind){
+  if(kind === 'challenge'){
+    return window.confirm('挑戦状を終了してトップ画面へ戻りますか？');
+  }
+  return window.confirm('トップ画面へ戻りますか？\n途中のゲームは保存され、「続きから」で再開できます。');
+}
+function normalizeHistoryNavState(state){
+  const depth = navDepth(state);
+  const screen = state && state.oramachiScreen;
+  const known = new Set([
+    'opening', 'conquestLog', 'conquestMap', 'dailyChallengeHistory',
+    'prefectureCards', 'prefectureDetail', 'achievements', 'stats'
+  ]);
+  // ゲーム画面は質問ごとのDOMを履歴に保存していないため、forward等で古いgame entryへ
+  // 移動した場合は安全なトップへ正規化する。
+  if(screen === 'game' || !known.has(screen)) return makeNavState('opening', null, depth);
+  if(screen === 'prefectureDetail'){
+    const pref = typeof state.pref === 'string' ? state.pref : '';
+    const exists = Array.isArray(CITIES) && CITIES.some(city => city.pref === pref && city.name !== '東京');
+    if(!exists) return makeNavState('opening', null, depth);
+    return makeNavState('prefectureDetail', { pref }, depth);
+  }
+  return makeNavState(screen, null, depth);
+}
+function renderNavStateFromHistory(state){
+  const st = normalizeHistoryNavState(state);
+  replaceExactNavState(st);
+  if(st.oramachiScreen === 'opening'){ renderOpening(); }
+  else if(st.oramachiScreen === 'conquestLog'){ renderConquestLog(); }
+  else if(st.oramachiScreen === 'conquestMap'){ renderConquestMapView(); }
+  else if(st.oramachiScreen === 'dailyChallengeHistory'){ renderDailyChallengeHistory(); }
+  else if(st.oramachiScreen === 'prefectureCards'){ renderPrefectureCards(); }
+  else if(st.oramachiScreen === 'prefectureDetail'){ renderPrefectureDetail(st.pref); }
+  else if(st.oramachiScreen === 'achievements'){ renderAchievementsPage(); }
+  else if(st.oramachiScreen === 'stats'){ renderStatsPage(); }
+  else { renderOpening(); }
 }
 // ゲーム開始時に呼ぶ。「ここから戻ったらトップ画面」という目印だけを履歴に積む。
 // 質問が進むたびに呼ぶ必要はない(質問ごとに履歴を積むと、既存の「前の質問へ戻る」ボタンと
 // 二重管理になってしまうため)。もう一度あそぶ等で連続してゲームを開始した場合は、
 // 履歴を無駄に積み増さないよう、既に'game'状態ならpushではなくreplaceにする。
-function pushGameNavState(){
-  try{
-    const cur = window.history.state;
-    if(cur && cur.oramachiScreen === 'game'){
-      window.history.replaceState({ oramachiScreen: 'game' }, '');
-    } else {
-      pushNavState('game');
-    }
-  }catch(e){ /* historyが使えない環境でもゲーム自体は続行する */ }
+function pushGameNavState(kind){
+  currentGameFlowKind = kind === 'challenge' ? 'challenge' : 'deduction';
+  currentGameFlowPhase = 'active';
+  const extra = { gameKind: currentGameFlowKind, gamePhase: currentGameFlowPhase };
+  const cur = currentHistoryNavState();
+  if(cur && cur.oramachiScreen === 'game') replaceNavState('game', extra);
+  else pushNavState('game', extra);
 }
+function markGameNavResult(kind){
+  currentGameFlowKind = kind === 'challenge' ? 'challenge' : 'deduction';
+  currentGameFlowPhase = 'result';
+  replaceNavState('game', { gameKind: currentGameFlowKind, gamePhase: currentGameFlowPhase });
+}
+function finishActiveGameForBack(kind){
+  activeGameTransientScreen = null;
+  if(kind === 'challenge') challengeGameState = null;
+  currentGameFlowKind = null;
+  currentGameFlowPhase = null;
+  if(currentNavState.oramachiScreen === 'game'){
+    currentNavState = { ...currentNavState, gamePhase: 'ended' };
+  }
+}
+function navigateBackOr(fallback){
+  if(navDepth(currentNavState) > 0){
+    try{ window.history.back(); return; }
+    catch(e){ /* 下の安全な戻り先を使う */ }
+  }
+  if(typeof fallback === 'function') fallback();
+}
+function navigateToOpening(){
+  const depth = navDepth(currentNavState);
+  if(depth > 0){
+    explicitHistoryNavigationPending = true;
+    try{ window.history.go(-depth); return; }
+    catch(e){ explicitHistoryNavigationPending = false; }
+  }
+  renderOpening();
+}
+function handleBackRequest(options){
+  const opts = options || {};
+  const modalResult = closeActiveModalFromBack();
+  if(modalResult.closed){
+    if(opts.historyAlreadyMoved && !modalResult.historyGuardConsumed){
+      restoreCurrentNavEntry();
+    } else if(!opts.historyAlreadyMoved && modalResult.wasGuarded){
+      try{
+        if(window.history.state && window.history.state.oramachiModalGuard){
+          modalGuardRemovalPending = true;
+          window.history.back();
+        }
+      }catch(e){ modalGuardRemovalPending = false; }
+    }
+    return true;
+  }
+  if(closeTransientGameLayerFromBack()){
+    if(opts.historyAlreadyMoved) restoreCurrentNavEntry();
+    return true;
+  }
+  const activeKind = activeGameFlowKind();
+  if(activeKind){
+    if(!confirmLeaveActiveGame(activeKind)){
+      if(opts.historyAlreadyMoved) restoreCurrentNavEntry();
+      return true;
+    }
+    finishActiveGameForBack(activeKind);
+    if(opts.historyAlreadyMoved) renderNavStateFromHistory(opts.targetState);
+    else navigateToOpening();
+    return true;
+  }
+  if(opts.historyAlreadyMoved){
+    renderNavStateFromHistory(opts.targetState);
+    return true;
+  }
+  if(navDepth(currentNavState) > 0){
+    try{ window.history.back(); return true; }
+    catch(e){ /* 呼び出し元がアプリ終了等へフォールバックできるようfalseを返す */ }
+  }
+  return false;
+}
+window.oramachiBackNavigation = {
+  registerModalClose: registerActiveModalClose,
+  unregisterModalClose: unregisterActiveModalClose,
+  requestBack: () => handleBackRequest({ historyAlreadyMoved: false }),
+};
 try{
   window.addEventListener('popstate', function(ev){
     isHandlingPopState = true;
     try{
-      const st = ev.state;
-      if(!st || !st.oramachiScreen || st.oramachiScreen === 'opening'){ renderOpening(); }
-      else if(st.oramachiScreen === 'game'){ renderOpening(); } // ゲーム中・結果画面からは、常にトップ画面へ
-      else if(st.oramachiScreen === 'conquestLog'){ renderConquestLog(); }
-      else if(st.oramachiScreen === 'conquestMap'){ renderConquestMapView(); }
-      else if(st.oramachiScreen === 'dailyChallengeHistory'){ renderDailyChallengeHistory(); }
-      else if(st.oramachiScreen === 'prefectureCards'){ renderPrefectureCards(); }
-      else if(st.oramachiScreen === 'prefectureDetail'){ renderPrefectureDetail(st.pref); }
-      else if(st.oramachiScreen === 'achievements'){ renderAchievementsPage(); }
-      else if(st.oramachiScreen === 'stats'){ renderStatsPage(); }
-      else { renderOpening(); }
+      if(modalGuardRemovalPending){
+        modalGuardRemovalPending = false;
+        replaceExactNavState(normalizeHistoryNavState(ev.state));
+        return;
+      }
+      if(explicitHistoryNavigationPending){
+        explicitHistoryNavigationPending = false;
+        finishActiveGameForBack(activeGameFlowKind());
+        renderNavStateFromHistory(ev.state);
+        return;
+      }
+      handleBackRequest({ historyAlreadyMoved: true, targetState: ev.state });
     } finally {
       isHandlingPopState = false;
     }
@@ -6529,6 +6885,9 @@ try{
 }catch(e){ /* 古い環境などでaddEventListener自体が無い場合も、ゲーム本体は動き続ける */ }
 
 function renderOpening(){
+  activeGameTransientScreen = null;
+  currentGameFlowKind = null;
+  currentGameFlowPhase = null;
   stampsEl.innerHTML = '';
   replaceNavState('opening'); // トップ画面は履歴を積み増さず、常に「今の状態」を置き換える
 
@@ -6672,7 +7031,7 @@ function renderStatsPage(){
     <div class="bubble"><span class="icon">📊</span>みんなの統計だべ</div>
     <div id="statsPageBody">${body}</div>
     <div id="statsAchievementNotice"></div>
-    <button class="link-btn" onclick="renderOpening()">トップへ戻る</button>
+    <button class="link-btn" onclick="navigateToOpening()">トップへ戻る</button>
   `;
   updateDebugPanel();
 }
@@ -6758,7 +7117,7 @@ function renderDailyChallengeHistory(){
     ${streakHtml}
     <div class="conquest-section-title">達成スタンプ</div>
     ${stampsHtml}
-    <button class="again" onclick="renderOpening()">トップ画面へ戻る</button>
+    <button class="again" onclick="navigateToOpening()">トップ画面へ戻る</button>
   `;
   updateDebugPanel();
 }
@@ -6813,8 +7172,8 @@ function renderAchievementsPage(){
     </div>
     <div class="achievement-filter-row">${filterButtons}</div>
     <div class="achievement-grid">${cardsHtml || '<div class="conquest-muted">該当する称号がありません</div>'}</div>
-    <button class="link-btn" onclick="renderConquestLog()">📖 全国制覇帳へ</button>
-    <button class="again" onclick="renderOpening()">トップ画面へ戻る</button>
+    <button class="link-btn" onclick="navigateBackOr(renderConquestLog)">← 前の画面へ戻る</button>
+    <button class="again" onclick="navigateToOpening()">トップ画面へ戻る</button>
   `;
 }
 function setAchievementFilter(f){
@@ -6922,8 +7281,8 @@ function renderPrefectureCards(){
     <div class="bubble"><span class="icon">🗾</span>都道府県別進捗</div>
     <div class="conquest-hint" style="margin-bottom:10px;">現在収録されている自治体を基準にした達成率です。カードをタップすると詳細を見られます。</div>
     ${sectionsHtml}
-    <button class="link-btn" onclick="renderConquestLog()">📖 全国制覇帳へ戻る</button>
-    <button class="again" onclick="renderOpening()">トップ画面へ戻る</button>
+    <button class="link-btn" onclick="navigateBackOr(renderConquestLog)">← 前の画面へ戻る</button>
+    <button class="again" onclick="navigateToOpening()">トップ画面へ戻る</button>
   `;
 }
 
@@ -6962,8 +7321,8 @@ function renderPrefectureDetail(pref){
       <summary>未正解自治体(${notDone.length}件)</summary>
       <div class="conquest-city-list">${notDoneHtml}</div>
     </details>
-    <button class="link-btn" onclick="renderPrefectureCards()">🗾 都道府県一覧へ戻る</button>
-    <button class="again" onclick="renderOpening()">トップ画面へ戻る</button>
+    <button class="link-btn" onclick="navigateBackOr(renderPrefectureCards)">← 前の画面へ戻る</button>
+    <button class="again" onclick="navigateToOpening()">トップ画面へ戻る</button>
   `;
 }
 
@@ -7222,10 +7581,10 @@ function renderConquestMapView(){
     <div id="mapShareStatus" class="share-image-status"></div>
 
     <div class="conquest-nav-row">
-      <button class="link-btn" onclick="renderConquestLog()">📋 一覧表示に戻る</button>
+      <button class="link-btn" onclick="navigateBackOr(renderConquestLog)">← 前の画面へ戻る</button>
       <button class="link-btn" onclick="renderPrefectureCards()">🗂️ カード表示で見る</button>
     </div>
-    <button class="again" onclick="renderOpening()">トップ画面へ戻る</button>
+    <button class="again" onclick="navigateToOpening()">トップ画面へ戻る</button>
   `;
   trackGaEvent('conquest_map_view');
 }
@@ -7329,7 +7688,7 @@ function renderConquestLog(){
           <p class="settings-hint">機種変更などに備えて、制覇帳のデータをファイルに書き出したり、読み込んで復元したりできます。</p>
           <div class="save-io-actions">
             <button class="link-btn" onclick="exportSaveData()">📤 セーブデータを書き出す</button>
-            <button class="link-btn" onclick="openImportSaveFileDialog()">📥 セーブデータを読み込む</button>
+            <button class="link-btn" id="importSaveDataBtn" onclick="openImportSaveFileDialog()">📥 セーブデータを読み込む</button>
           </div>
           <div id="saveIoStatus" class="settings-hint" aria-live="polite"></div>
         </div>
@@ -7339,7 +7698,7 @@ function renderConquestLog(){
       </div>
     </details>
 
-    <button class="again" onclick="renderOpening()">トップ画面へ戻る</button>
+    <button class="again" onclick="navigateToOpening()">トップ画面へ戻る</button>
   `;
 }
 
@@ -7945,6 +8304,7 @@ function startMode(mode, startOptions){
     }
     clearGameSession();
   }
+  activeGameTransientScreen = null;
   currentMode = mode;
   pushGameNavState(); // ここから戻ったらトップ画面、という目印を履歴に積む
   const modeCities = getModeCities(mode);
@@ -7974,6 +8334,7 @@ function startMode(mode, startOptions){
   guessFailureLog = [];
   isReplayedFromGiveup = false;
   answerHistoryPanelContext = 'ingame';
+  answerHistoryQuestionShownAt = null;
   dailyChallengeActive = options.dailyChallenge || null; // 通常プレイはnull、今日のチャレンジは初回描画前に設定
   dailyChallengeResult = null; // 前回のデイリー結果を通常ゲームへ持ち越さない
   questionHelpOpen = false;
@@ -7984,10 +8345,11 @@ function startMode(mode, startOptions){
   lastDisplayedRemainingCount = null;
 
   if(modeCities.length === 0){
+    markGameNavResult('deduction');
     stage.innerHTML = `
       <div class="mascot-wrap"><div class="shake">${mascotSVG('sad')}</div></div>
       <div class="bubble"><span class="icon">🙏</span>このモードのデータがまだありません</div>
-      <button class="again" onclick="renderOpening()">モード選択へ戻る</button>
+      <button class="again" onclick="navigateToOpening()">モード選択へ戻る</button>
     `;
     return false;
   }
@@ -8087,6 +8449,7 @@ function renderQuestion(){
 // 元の質問へ戻るときにも、この関数だけを呼び直す(pushQuestionStateを再度呼ぶと
 // 質問が二重に記録されてしまうため)。
 function renderQuestionScreen(key){
+  activeGameTransientScreen = null;
   const q = QUESTIONS[key];
   questionHelpOpen = false; // 新しい質問に切り替わったら、前の質問で開いていた補足は必ず閉じた状態に戻す
 
@@ -8173,6 +8536,10 @@ function answerValueLabel(val, weight){
 // answerHistoryPanelContext が 'review' のときは、不正解の原因分析(lastCorrectionMismatches)
 // で見つかった、矛盾していた質問を目立たせて表示する。
 function renderAnswerHistoryPanel(){
+  if(activeGameTransientScreen === null && answerHistoryPanelContext === 'ingame'){
+    answerHistoryQuestionShownAt = questionShownAt;
+  }
+  activeGameTransientScreen = 'answerHistory';
   const isReview = answerHistoryPanelContext === 'review';
   const highlightKeys = isReview ? new Set(lastCorrectionMismatches.map(m => m.key)) : new Set();
 
@@ -8207,14 +8574,18 @@ function renderAnswerHistoryPanel(){
 // 通常のゲーム中(ingame)なら元の質問画面へ、不正解後の見直し(review)なら降参完了画面へ戻る。
 function closeAnswerHistoryPanel(){
   if(answerHistoryPanelContext === 'review'){
+    answerHistoryQuestionShownAt = null;
     return renderThanks(lastCorrectionWasNearMiss, lastCorrectionCityLabel, lastCorrectionMatchedCity, lastCorrectionMismatches);
   }
   const pendingKey = asked[asked.length - 1];
   renderQuestionScreen(pendingKey);
+  if(answerHistoryQuestionShownAt != null) questionShownAt = answerHistoryQuestionShownAt;
+  answerHistoryQuestionShownAt = null;
 }
 
 // i番目の回答を編集する画面。現在ゲームで使っているのと同じ5択をそのまま使う。
 function renderAnswerEditFor(index){
+  activeGameTransientScreen = 'answerEdit';
   const entry = answerLog[index];
   if(!entry) return renderAnswerHistoryPanel();
   const q = QUESTIONS[entry.key];
@@ -8243,6 +8614,7 @@ function renderAnswerEditFor(index){
 
 // 回答を変更し、全回答を再生して状態を再構築したうえで、ゲームを続行(または再開)する。
 function applyAnswerEdit(index, newVal, newWeight){
+  answerHistoryQuestionShownAt = null;
   const wasReview = answerHistoryPanelContext === 'review';
   const ok = replayAnswersWithChange(index, newVal, newWeight);
   if(!ok) return renderAnswerHistoryPanel(); // 万一失敗しても一覧に戻すだけでエラーにしない
@@ -8250,6 +8622,7 @@ function applyAnswerEdit(index, newVal, newWeight){
   if(wasReview){
     answerHistoryPanelContext = 'ingame';
     isReplayedFromGiveup = true; // 統計の二重カウント防止用(recordGameStatsで参照する)
+    pushGameNavState('deduction'); // 結果画面から推理へ戻ったので、端末の戻る対象も進行中へ戻す
     trackGaEvent('oramachi_replay_from_mismatch', { ...analyticsModeParams(currentMode) });
   }
   // 再生後、次に聞くべき質問(または「もしかして」画面・降参画面)を通常のフローで表示する。
@@ -8709,6 +9082,7 @@ function answer(key, val, weight){
 }
 
 function renderGuess(){
+  activeGameTransientScreen = null;
   const sorted = sortedPool();
   const guess = forcedGuessCity || (sorted[0] ? sorted[0].city : CITIES[0]);
   forcedGuessCity = null;
@@ -9747,6 +10121,8 @@ function submitCorrection(){
 }
 
 function renderThanks(wasNearMiss, correctCityLabel, matchedCity, mismatches){
+  activeGameTransientScreen = null;
+  markGameNavResult('deduction');
   mismatches = mismatches || [];
   const nearMissLine = wasNearMiss
     ? `<div class="fact">実はおらっちの候補に入っていました！次はきっと当てられます。</div>`
@@ -9892,6 +10268,7 @@ function correct(isRight, overrideCity){
       isNewRecord,
     });
     currentResult = { city: guess, success: true, questionCount: totalQuestions, mode: currentMode, barePoints, conquestResult, newAchievements, isNewRecord };
+    markGameNavResult('deduction');
     const stars = calcStars(guess);
 
     // 【正解時の褒め言葉】質問数の基本評価に、記録更新などがあれば特別メッセージを重ねる。
@@ -10019,7 +10396,7 @@ function correct(isRight, overrideCity){
           <svg class="x-icon" viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
           文章でシェア
         </button>
-        <button class="link-btn" onclick="renderOpening()">別の地域版であそぶ</button>
+        <button class="link-btn" onclick="navigateToOpening()">別の地域版であそぶ</button>
         <button class="link-btn" onclick="renderConquestLog()">📖 全国制覇帳を見る</button>
         <button class="link-btn-subtle" onclick="renderSuccessCorrectionForm()">この情報を訂正する</button>
       </div>
@@ -10078,6 +10455,7 @@ function correct(isRight, overrideCity){
 
 // 追加質問フェーズへ入る前のワンクッション画面
 function renderExtraIntro(){
+  activeGameTransientScreen = 'extraIntro';
   stage.innerHTML = `
     <div class="mascot-wrap"><div class="shake">${mascotSVG('think')}</div></div>
     <div class="bubble"><span class="icon">💦</span>むむっ、違いましたか……<br>あと少しだけ教えてください！</div>
@@ -10088,6 +10466,8 @@ function renderExtraIntro(){
 }
 
 function renderGiveUp(){
+  activeGameTransientScreen = null;
+  markGameNavResult('deduction');
   // 降参画面では統計・GAS送信が走るため、再起動で同じ終了処理を繰り返さない。
   clearGameSession();
   sendQuestionSkipsBatch(); // このゲーム中に「わからない」でスキップされた質問をまとめて送信
@@ -10112,7 +10492,7 @@ function renderGiveUp(){
     ${renderCorrectionForm()}
     ${dailyChallengeActive ? '' : `<button class="again" onclick="restart()">もう一度あそぶ</button>`}
     <div class="result-actions-secondary">
-      <button class="link-btn" onclick="renderOpening()">別の地域版であそぶ</button>
+      <button class="link-btn" onclick="navigateToOpening()">別の地域版であそぶ</button>
       <button class="link-btn" onclick="renderConquestLog()">📖 全国制覇帳を見る</button>
     </div>
   `;
@@ -10161,6 +10541,8 @@ async function boot(){
     activateStatsQuestions();
     computeExclusiveMap(); // 路線図などから「絶対に両立しない」組み合わせを学習する
     footEl.textContent = `対応エリア ${getModeCities('all').length}市 ・ データはcities.jsonから読み込み`;
+    // 再読み込み前の古いSPA履歴が残っていても、起動直後は必ずトップを深さ0の基点にする。
+    replaceExactNavState(makeNavState('opening', null, 0));
     renderOpening();
     fetchLiveStats(); // 「最近当てられたマチ」「プレイ回数」を非同期で取得(失敗しても無視)
   }catch(e){

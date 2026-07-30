@@ -240,7 +240,22 @@
     const isAppleMobile = isAppleMobileDevice();
     let previouslyFocused = null;
 
+    function registerInstallTipBack() {
+      const api = window.oramachiBackNavigation;
+      if (api && typeof api.registerModalClose === 'function') {
+        api.registerModalClose(hideInstallTip, { ensureHistoryEntry: true });
+      }
+    }
+
+    function unregisterInstallTipBack() {
+      const api = window.oramachiBackNavigation;
+      if (api && typeof api.unregisterModalClose === 'function') {
+        api.unregisterModalClose(hideInstallTip);
+      }
+    }
+
     function hideInstallTip() {
+      unregisterInstallTipBack();
       if (!installTip) return;
       installTip.style.display = 'none';
       installTip.setAttribute('aria-hidden', 'true');
@@ -257,6 +272,7 @@
       installTip.style.display = 'block';
       installTip.setAttribute('aria-hidden', 'false');
       installTipOpen = true;
+      registerInstallTipBack();
       ensureStatusBanner().hidden = true;
       installTip.focus();
     }
