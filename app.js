@@ -1924,10 +1924,23 @@ let reportModalTargetKey = null; // 現在報告しようとしている質問�
 function commitImeThenRun(inputEl, buttonEl, action){
   if(buttonEl && buttonEl.disabled) return false;
   if(buttonEl) buttonEl.disabled = true;
+  let scheduled = false;
+  const scheduleRun = () => {
+    if(scheduled) return;
+    scheduled = true;
+    const run = () => action();
+    if(typeof requestAnimationFrame === 'function') requestAnimationFrame(() => setTimeout(run, 0));
+    else setTimeout(run, 0);
+  };
+  const wasComposing = !!(inputEl && inputEl.dataset && inputEl.dataset.imeComposing === 'true');
+  if(wasComposing && inputEl && typeof inputEl.addEventListener === 'function'){
+    inputEl.addEventListener('compositionend', scheduleRun, { once: true });
+  }
   if(inputEl && typeof inputEl.blur === 'function') inputEl.blur();
-  const run = () => action();
-  if(typeof requestAnimationFrame === 'function') requestAnimationFrame(() => setTimeout(run, 0));
-  else setTimeout(run, 0);
+  // 通常入力はすぐ次の描画へ進む。IME変換中だった場合はcompositionendを待ち、
+  // WebViewがblur時にcompositionendを通知しない場合だけ250ms後に安全に継続する。
+  if(wasComposing) setTimeout(scheduleRun, 250);
+  else scheduleRun();
   return true;
 }
 
@@ -1957,7 +1970,7 @@ function openQuestionReportModal(key){
           <p class="modal-question-text">${escapeHtml(q.text)}</p>
           <div class="report-reason-list">${reasonsHtml}</div>
           <label class="report-comment-label" for="reportCommentInput">コメント(任意・100文字まで)</label>
-          <textarea id="reportCommentInput" maxlength="100" rows="3" placeholder="気になった点があれば教えてください"></textarea>
+          <textarea id="reportCommentInput" maxlength="100" rows="3" placeholder="気になった点があれば教えてください" oncompositionstart="this.dataset.imeComposing='true'" oncompositionend="this.dataset.imeComposing='false'"></textarea>
           <div class="report-status" id="reportStatus" aria-live="polite"></div>
         </div>
         <div class="modal-footer">
@@ -11122,15 +11135,29 @@ function renderCorrectionForm(){
   return `
     <div class="correction-form" id="correctionForm">
       <div class="correction-label">ほんとうのマチを教えてください</div>
-      <select id="correctionPref" class="correction-select">
+      <select id="correctionPref" class="correction-select" onchange="updateCorrectionCityOptions()">
         <option value="">都道府県を選ぶ</option>
         ${prefOptions}
       </select>
-      <input id="correctionCity" class="correction-input" type="text" placeholder="市区町村名(例: 札幌市)" maxlength="30">
+      <input id="correctionCity" class="correction-input" type="text" list="correctionCityOptions" placeholder="市区町村名(例: 札幌市)" maxlength="30" autocomplete="off" oncompositionstart="this.dataset.imeComposing='true'" oncompositionend="this.dataset.imeComposing='false'">
+      <datalist id="correctionCityOptions"></datalist>
       <div class="correction-error" id="correctionError"></div>
       <button class="btn-teach" id="correctionSubmitBtn" type="button" onclick="submitCorrectionAfterIme(event)">おらっちに教える</button>
     </div>
   `;
+}
+
+// 選択した都道府県の現行自治体だけを入力候補として表示する。IMEの途中入力に頼らず、
+// 「富士吉田市」「富士川町」「富士河口湖町」などの正式名をそのまま選べるようにする。
+function updateCorrectionCityOptions(){
+  const prefEl = document.getElementById('correctionPref');
+  const listEl = document.getElementById('correctionCityOptions');
+  if(!listEl) return;
+  const pref = prefEl ? prefEl.value : '';
+  const names = CITIES
+    .filter(city => city.name !== '東京' && city.pref === pref)
+    .map(city => displayName(city));
+  listEl.innerHTML = names.map(name => `<option value="${escapeHtml(name)}"></option>`).join('');
 }
 
 // 正解画面の「この情報を訂正する」から呼ばれる。結果自治体(currentResult.city)は
@@ -11226,7 +11253,14 @@ function submitCorrection(){
   // IMEの未確定値（例:「富士」）や途中入力を「ありがとう」と受理しない。
   const matched = findCityByPrefAndFreeText(pref, city);
   if(!matched){
-    if(errEl) errEl.textContent = '市区町村名を最後まで入力してください（例: 富士吉田市）';
+    const normalizedInput = city.replace(/\s/g, '');
+    const suggestions = CITIES
+      .filter(candidate => candidate.name !== '東京' && candidate.pref === pref && displayName(candidate).startsWith(normalizedInput))
+      .slice(0, 4)
+      .map(candidate => displayName(candidate));
+    if(errEl) errEl.textContent = suggestions.length
+      ? `市区町村名を最後まで入力してください（候補: ${suggestions.join('、')}）`
+      : '都道府県と市区町村名の組み合わせを確認してください';
     if(cityEl && typeof cityEl.focus === 'function') cityEl.focus();
     return false;
   }
