@@ -14,7 +14,7 @@ const KEYS = ['hitachi_seaside_park','tsuchiura_hanabi','koga_kubo','toride_geid
   'chinatown','sand_dunes','imperial_university','famous_tower','famous_market','exotic_port','dome_stadium','tea_region',
   'gokaido_shukuba','pottery_famous','traditional_craft','horse_racing','famous_horse_breeding','literary_figure','kitanotakeshi','musashino_line','ekimei_chigau',
   'prefectural_capital','borders_other_pref','formed_after_2000',
-  'national_university','expressway_junction','hiragana_name','hiragana_long','direction_in_name','old_province_name',
+  'national_university','expressway_junction','hiragana_name','direction_in_name','old_province_name',
   'public_racing_venue','national_government_park','film_city','shinsengumi','shonan_area','white_mirin_origin',
   'joetsu_region','chuetsu_region','kaetsu_region','joetsu_shinkansen_station','hokuriku_shinkansen_station',
   'hokkaido_shinkansen_station','tohoku_shinkansen_station','tokaido_shinkansen_station','sanyo_shinkansen_station','kyushu_shinkansen_station','nishikyushu_shinkansen_station',
@@ -50,9 +50,9 @@ const KEYS = ['hitachi_seaside_park','tsuchiura_hanabi','koga_kubo','toride_geid
   
   'bijin_town','yoshi_ikuzo','oirase','osorezan','shakoki_dogu','seibien','jodogahama','goishi_coast','miyazawa_kenji','tensho_chi','amber_kuji','tono_monogatari','geibikei','ipponmatsu','ohtani_shohei','zashiki_warashi','appi_kogen','ishinomori','chagu_chagu','shiogama_shrine','fukahire','shiroishi_umen','sendai_airport','jaxa_kakuda','takekoma_shrine','meiji_mura','kano_eiko','blue_impulse','naruko_onsen','town_to_city_2016',
   'basketball_town','kamakura_yokote','akita_inu_hachiko','namahage','inaniwa_udon','oyu_stone_circle','yuri_kogen_railway','blumen_akita','odate_noshiro_airport','tdk_town','kakunodate_tazawako','sankyo_soko','higashizawa_rose','ayame_park','hanagasa_tendo','ginzan_onsen','kumano_taisha','tsuburaya_eiji','matsukawaura','kiku_ningyo_nihonmatsu','abukumado','kacchu_keiba','anpogaki','william_park','natural_gas_town',
-  'region_hokkaido','region_tohoku','region_kanto','region_chubu','region_kinki','region_chugoku','region_shikoku','region_kyushu',
+  'region_tohoku','region_kanto','region_chubu','region_kinki','region_chugoku','region_shikoku','region_kyushu',
   'pref_hokkaido','pref_aomori','pref_iwate','pref_miyagi','pref_akita','pref_yamagata','pref_fukushima','pref_ibaraki','pref_tochigi','pref_gunma','pref_saitama','pref_chiba','pref_tokyo','pref_kanagawa','pref_niigata','pref_toyama','pref_ishikawa','pref_fukui','pref_yamanashi','pref_nagano','pref_gifu','pref_shizuoka','pref_aichi','pref_mie','pref_shiga','pref_kyoto','pref_osaka','pref_hyogo','pref_nara','pref_wakayama','pref_tottori','pref_shimane','pref_okayama','pref_hiroshima','pref_yamaguchi','pref_tokushima','pref_kagawa','pref_ehime','pref_kochi','pref_fukuoka','pref_saga','pref_nagasaki','pref_kumamoto','pref_oita','pref_miyazaki','pref_kagoshima','pref_okinawa',
-  'kitasubaru','kita_no_kuni','kita_no_shonan','shizumine','shimotsuma_movie','hitachi_kokufu','toyoda_castle','moriya_junction','namegata_farm','hananuki','happogahara','kanuma_tsuchi','nasu_yoichi','jichi_medical','bihada_onsen','moomin_park','ageo_sodou','iroha_toi','okegawa_benibana','ishito_zakura','kinchakuda','heirinji','lucky_star','johnson_town','saika_matsuri','mizuko_kaizuka','smallest_city','yashio_hanamomo','yoshikawa_namazu','shiraoka_nashi','kurohama_kaizuka','hanyu_yurugp','inzai_datacenter','kamagaya_farm','iioka_cape','tomisato_suika','sanbu_sugi','keisei_rose','aqualine_gate','yotsukaido_name','onari_kaido','yachimata_peanuts','nashibou','soza_ueki','blueberry_origin','kishozeisei_center','summerland','hamura_zeki','baseside_street','zama_himawari','zushi_marina','ayase_no_station','nono_odoriji','linear_center','shakou_elevator','saruhashi','enbaragawa','sanshu_kawara','nonbori_arai','akame_taki','oiwayama_dotaku','tokaido_nakasendo','koka_ninja','take_no_michi','aioi_matsu','banshu_soroban_ono','katsuragi_tsutsuji','matabei_zakura','kishu_herazao','negoroji','kokusan_denim','konrei_kagu','nora_dokei','onga_pump','koinoki','hiyoko','kubote_san','taku_seibyo','minamata_museum','kikuchi_keikoku','mikoshiki_coast','amakusa_bridges','ikoma_kogen','senbon_icho','sogi_no_taki','orion_beer','inami_kaeru_bridge','tsuruta_steuben','jupialand_shibazakura','licca_castle','iitate_madeikan','ogata_reclamation','ora_mirai_tower','kamisato_sa','mikurajima_dolphin','aogashima_double_caldera','oi_biotopia','nanko_ume','ebikani_aquarium','misato_blueberry','circuit','dam_lake','meisui_hyakusen','least_populous_village','tanada_hyakusen','karst','ramsar','national_park','waterfall_hyakusen','castle_hyakumeijo','winery','pottery_ware','funaoka_sakura','omocha_no_machi','tanagura_kamegajo','neba_sugi'];
+  'kitasubaru','kita_no_kuni','kita_no_shonan','shizumine','shimotsuma_movie','hitachi_kokufu','toyoda_castle','moriya_junction','namegata_farm','hananuki','happogahara','kanuma_tsuchi','nasu_yoichi','jichi_medical','bihada_onsen','moomin_park','ageo_sodou','iroha_toi','okegawa_benibana','ishito_zakura','kinchakuda','heirinji','lucky_star','johnson_town','saika_matsuri','mizuko_kaizuka','smallest_city','yashio_hanamomo','yoshikawa_namazu','shiraoka_nashi','kurohama_kaizuka','hanyu_yurugp','inzai_datacenter','kamagaya_farm','iioka_cape','tomisato_suika','sanbu_sugi','keisei_rose','aqualine_gate','yotsukaido_name','onari_kaido','yachimata_peanuts','nashibou','soza_ueki','blueberry_origin','kishozeisei_center','summerland','hamura_zeki','baseside_street','zama_himawari','zushi_marina','ayase_no_station','nono_odoriji','linear_center','shakou_elevator','saruhashi','enbaragawa','sanshu_kawara','nonbori_arai','akame_taki','oiwayama_dotaku','tokaido_nakasendo','koka_ninja','take_no_michi','aioi_matsu','banshu_soroban_ono','katsuragi_tsutsuji','matabei_zakura','kishu_herazao','negoroji','kokusan_denim','konrei_kagu','nora_dokei','onga_pump','koinoki','hiyoko','kubote_san','taku_seibyo','minamata_museum','kikuchi_keikoku','mikoshiki_coast','amakusa_bridges','ikoma_kogen','senbon_icho','sogi_no_taki','orion_beer','inami_kaeru_bridge','tsuruta_steuben','jupialand_shibazakura','licca_castle','iitate_madeikan','ogata_reclamation','ora_mirai_tower','kamisato_sa','mikurajima_dolphin','aogashima_double_caldera','oi_biotopia','nanko_ume','ebikani_aquarium','misato_blueberry','circuit','dam_lake','meisui_hyakusen','least_populous_village','tanada_hyakusen','karst','ramsar','national_park','waterfall_hyakusen','castle_hyakumeijo','winery','funaoka_sakura','omocha_no_machi','tanagura_kamegajo','neba_sugi','hiraya_himawari_no_yu','ikusaka_sanseiji'];
 
 const QUESTIONS = {
   hitachi_seaside_park: {text:'ネモフィラで有名な国営ひたち海浜公園がある？', icon:'💐'},
@@ -760,7 +760,6 @@ const QUESTIONS = {
   national_university: {text:'国立大学の本部がある？', icon:'🎓'},
   expressway_junction: {text:'高速道路のジャンクション(JCT)がある？', icon:'🛣️'},
   hiragana_name:       {text:'名前がすべてひらがな？', icon:'🔤'},
-  hiragana_long:       {text:'自治体名から「市区町村」を除いた部分が4文字以上？', icon:'🔠'},
   direction_in_name:   {text:'名前に「東・西・南・北」が入っている？', icon:'🧭'},
   old_province_name:   {text:'名前が旧国名に由来する？', icon:'📜'},
   public_racing_venue: {text:'公営競技場(競馬・競輪・ボート・オートレース)がある？', icon:'🚤'},
@@ -1084,7 +1083,6 @@ const QUESTIONS = {
   anpogaki: {text:'あんぽ柿の発祥地として知られる？', icon:'🌰', subjective:true},
   william_park: {text:'プリンス・ウィリアムズ・パークの英国庭園がある？', icon:'🌷'},
   natural_gas_town: {text:'天然ガスの産出量が日本有数？', icon:'🔥'},
-  region_hokkaido: {text:'北海道にある？', icon:'🗾'},
   region_tohoku: {text:'東北地方にある？', icon:'🗾'},
   region_kanto: {text:'茨城・栃木・群馬・埼玉・千葉・東京・神奈川にある？', icon:'🗾'},
   region_chubu: {text:'新潟・北陸・甲信・東海地方にある？', icon:'🗾'},
@@ -1251,11 +1249,12 @@ const QUESTIONS = {
   waterfall_hyakusen: {text:'「日本の滝百選」に選ばれた滝がある？', icon:'💧'},
   castle_hyakumeijo: {text:'「日本100名城」または「続日本100名城」の城がある？', icon:'🏯'},
   winery: {text:'ワイナリー・ワインの産地として知られる？', icon:'🍷'},
-  pottery_ware: {text:'伝統的な焼き物・陶磁器の産地として知られる？', icon:'🏺'},
   funaoka_sakura: {text:'船岡城址公園と白石川堤の桜(日本さくら名所100選)で知られる？', icon:'🌸'},
   omocha_no_machi: {text:'「おもちゃのまち」と呼ばれる玩具産業の集積地がある？', icon:'🧸'},
   tanagura_kamegajo: {text:'棚倉城跡(亀ヶ城公園)がある？', icon:'🏯'},
-  neba_sugi: {text:'矢作川の源流にあり、村の約9割が森林で「根羽杉」の産地？', icon:'🌲'}
+  neba_sugi: {text:'矢作川の源流にあり、村の約9割が森林で「根羽杉」の産地？', icon:'🌲'},
+  hiraya_himawari_no_yu: {text:'道の駅「信州平谷」に日帰り温泉「ひまわりの湯」がある？', icon:'♨️'},
+  ikusaka_sanseiji: {text:'県立公園の景勝地「山清路」がある？', icon:'🏞️'}
 };
 
 // ==================== 質問の補足(ヘルプ) ====================
@@ -1309,7 +1308,7 @@ const QUESTION_HELP = {
   honshu_bridge: '鉄道橋または道路橋で、本州と直接行き来できる場合です。',
   bakumatsu_port: '函館・横浜・新潟・神戸・長崎の五港です。',
   former_capital: '天皇の宮殿と政治の中心が置かれたことがあるかで判定します。',
-  national_treasure: '文化庁の国指定文化財等データベースを基準に、国宝建造物、または所在地が公開されている国宝の絵画・彫刻・工芸品・書跡・典籍・古文書・考古資料・歴史資料が所在する場合です。',
+  national_treasure: '文化庁の国指定文化財等データベースを基準に、国宝建造物、または文化庁・所在地自治体が公式に所在を公開している国宝の絵画・彫刻・工芸品・書跡・典籍・古文書・考古資料・歴史資料がある場合です。',
   twelve_castles: '江戸時代以前の天守が現在まで残る12城です。',
   gokaido_shukuba: '東海道・中山道・日光・奥州・甲州街道の宿場です。',
   imperial_university: '戦前の帝国大学を前身とする7国立大学の本部所在地です。キャンパスだけの場合は含みません。',
@@ -1367,7 +1366,7 @@ const QUESTION_HELP = {
 // 復元対象のキー一覧は、実行時計算タグ(kana_name等、enrichComputedTagsが後で設定する)
 // を除いたもの。旧形式(既にオブジェクトのcities.json)が来た場合はそのまま何もしない。
 const COMPUTED_ONLY_TAG_KEYS = new Set(['kana_name','kansai_dialect','ryukyu_dialect',
-  'region_hokkaido','region_tohoku','region_kanto','region_chubu','region_kinki','region_chugoku','region_shikoku','region_kyushu',
+  'region_tohoku','region_kanto','region_chubu','region_kinki','region_chugoku','region_shikoku','region_kyushu',
   'pref_hokkaido','pref_aomori','pref_iwate','pref_miyagi','pref_akita','pref_yamagata','pref_fukushima','pref_ibaraki','pref_tochigi','pref_gunma','pref_saitama','pref_chiba','pref_tokyo','pref_kanagawa','pref_niigata','pref_toyama','pref_ishikawa','pref_fukui','pref_yamanashi','pref_nagano','pref_gifu','pref_shizuoka','pref_aichi','pref_mie','pref_shiga','pref_kyoto','pref_osaka','pref_hyogo','pref_nara','pref_wakayama','pref_tottori','pref_shimane','pref_okayama','pref_hiroshima','pref_yamaguchi','pref_tokushima','pref_kagawa','pref_ehime','pref_kochi','pref_fukuoka','pref_saga','pref_nagasaki','pref_kumamoto','pref_oita','pref_miyazaki','pref_kagoshima','pref_okinawa']);
 function expandCompactTags(city){
   if(!Array.isArray(city.tags)) return city; // 既にオブジェクト形式ならそのまま(後方互換)
@@ -1776,7 +1775,7 @@ function challengeHintSubOrderFor(key){
 // ヒントになってしまい、「地元がバレる理由」としては強すぎる。当てっこの醍醐味である
 // 「地理・産業・観光地から絞り込む」楽しさを損なうため、この種の質問は除外する。
 const CHALLENGE_EXCLUDED_NAME_HINT_KEYS = new Set([
-  'katakana_city_name', 'kana_name', 'number_in_name', 'hiragana_name', 'hiragana_long', 'direction_in_name',
+  'katakana_city_name', 'kana_name', 'number_in_name', 'hiragana_name', 'direction_in_name',
   'animal_in_name', 'big_small_in_name', 'body_part_in_name', 'color_in_name', 'four_plus_name',
   'hard_to_read_name', 'kawa_in_name', 'new_old_in_name', 'plant_in_name', 'pref_name_in_city_name',
   'same_name_other_pref', 'sea_word_in_name', 'shima_in_name', 'ta_in_name', 'yama_in_name',
@@ -6160,7 +6159,6 @@ const TAG_GAME_CATEGORY = {
   "ic_takamatsu": "交通", "ic_tokushima": "交通", "ic_matsuyama": "交通", "ic_kochi": "交通",
   "ic_kyushu": "交通", "ic_higashi_kyushu": "交通", "ic_nagasaki": "交通", "ic_oita": "交通", "ic_miyazaki": "交通", "ic_okinawa": "交通",
   "hiragana_name": "自治体名",
-  "hiragana_long": "自治体名",
   "direction_in_name": "自治体名",
   "old_province_name": "歴史・文化",
   "public_racing_venue": "観光・娯楽",
@@ -6247,7 +6245,52 @@ const TAG_GAME_CATEGORY = {
   "ta_in_name": "自治体名",
   "toyo_area": "地理",
   "yama_in_name": "自治体名",
-  "yosan_line": "交通"
+  "yosan_line": "交通",
+  "aogashima_double_caldera": "地理",
+  "castle_hyakumeijo": "歴史・文化",
+  "circuit": "観光・娯楽",
+  "dam_lake": "地理",
+  "ebikani_aquarium": "観光・娯楽",
+  "enclave_municipality": "地理",
+  "famous_horse_breeding": "産業",
+  "funaoka_sakura": "観光・娯楽",
+  "honshu_easternmost": "地理",
+  "honshu_northernmost": "地理",
+  "honshu_southernmost": "地理",
+  "honshu_westernmost": "地理",
+  "iitate_madeikan": "観光・娯楽",
+  "inami_kaeru_bridge": "観光・娯楽",
+  "japan_easternmost": "地理",
+  "japan_northernmost": "地理",
+  "japan_southernmost": "地理",
+  "japan_westernmost": "地理",
+  "jupialand_shibazakura": "観光・娯楽",
+  "kamisato_sa": "交通",
+  "karst": "地理",
+  "kokuho_building": "歴史・文化",
+  "least_populous_village": "人口・行政",
+  "licca_castle": "観光・娯楽",
+  "meisui_hyakusen": "地理",
+  "mikurajima_dolphin": "観光・娯楽",
+  "misato_blueberry": "食",
+  "nagaragawa_railway": "交通",
+  "nanko_ume": "食",
+  "national_park": "地理",
+  "neba_sugi": "産業",
+  "ogata_reclamation": "歴史・文化",
+  "oi_biotopia": "観光・娯楽",
+  "omocha_no_machi": "産業",
+  "ora_mirai_tower": "観光・娯楽",
+  "ramsar": "地理",
+  "tanada_hyakusen": "地理",
+  "tanagura_kamegajo": "歴史・文化",
+  "tsuruta_steuben": "食",
+  "waterfall_hyakusen": "地理",
+  "whaling": "産業",
+  "winery": "食",
+  "yoro_railway": "交通",
+  "hiraya_himawari_no_yu": "観光・娯楽",
+  "ikusaka_sanseiji": "地理"
 };
 function categoryOf(k){ return TAG_GAME_CATEGORY[k] || "その他"; }
 
@@ -11751,7 +11794,7 @@ function restart(){
 // 訪問のたびに落とし直しており、起動が遅くなる最大の原因になっていた。
 // URLに中身のハッシュを付ければ、更新したときだけ新しいURLになるので、
 // 「常に最新」を保ったままブラウザのキャッシュを使える(2回目以降の起動が速くなる)。
-const CITIES_VERSION = 'a19d8ad653';
+const CITIES_VERSION = '77e59484dd';
 
 async function boot(){
   try{

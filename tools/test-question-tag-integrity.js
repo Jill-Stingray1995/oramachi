@@ -9,6 +9,7 @@ const vm = require('node:vm');
 
 const root = path.resolve(__dirname, '..');
 const source = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+const editorSource = fs.readFileSync(path.join(root, 'editor.html'), 'utf8');
 const cities = JSON.parse(fs.readFileSync(path.join(root, 'cities.json'), 'utf8'));
 const privateRailwayReference = JSON.parse(fs.readFileSync(
   path.join(root, 'research', 'private-railway-municipalities-2025.json'),
@@ -26,6 +27,25 @@ function id(city) { return `${city.pref}::${city.name}`; }
 function has(city, key) { return city.tags.includes(key); }
 function displayName(name) { return name.replace(/（[^）]+）$/, ''); }
 function nameCore(name) { return displayName(name).replace(/[市区町村]$/, ''); }
+function extractConstObject(text, name){
+  const declaration = text.indexOf(`const ${name} = {`);
+  assert(declaration >= 0, `${name}が見つかりません`);
+  const start = text.indexOf('{', declaration);
+  let depth = 0, quote = null, escaped = false;
+  for(let index = start; index < text.length; index += 1){
+    const char = text[index];
+    if(quote){
+      if(escaped) escaped = false;
+      else if(char === '\\') escaped = true;
+      else if(char === quote) quote = null;
+      continue;
+    }
+    if(char === "'" || char === '"' || char === '`') quote = char;
+    else if(char === '{') depth += 1;
+    else if(char === '}' && --depth === 0) return vm.runInNewContext(`(${text.slice(start, index + 1)})`);
+  }
+  assert.fail(`${name}の終端が見つかりません`);
+}
 
 // 国交省N03の行政区域台帳と標準自治体1,741件が完全一致すること。
 assert.equal(municipalityRegister.exactMatch, true, '行政区域台帳の照合結果が完全一致ではありません');
@@ -84,7 +104,7 @@ for(const [tag, reference] of Object.entries(officialRegisterTags.tags)){
 // 国宝は建造物だけでなく、所在地が公開されている美術工芸品も含む。
 assert.equal(nationalTreasureReference.officialDesignationCounts.total, 1149, '文化庁の国宝指定総数が変わっています');
 assert.equal(nationalTreasureReference.officialDesignationCounts.fineArtsAndCrafts, 916, '国宝美術工芸品の指定件数が変わっています');
-assert.equal(nationalTreasureReference.municipalityCount, 132, '国宝所在自治体数が変わっています');
+assert.equal(nationalTreasureReference.municipalityCount, 134, '国宝所在自治体数が変わっています');
 assert.deepEqual(
   realCities.filter(city => has(city, 'national_treasure')).map(id).sort(),
   nationalTreasureReference.municipalities.map(item => item.id).sort(),
@@ -145,7 +165,7 @@ for (const city of cities) {
 }
 const singletonTagCount = [...tagUseCounts.values()].filter((count) => count === 1).length;
 assert.equal(tagUseCounts.size, 1144, '使用中の質問タグ総数が変わっています');
-assert.equal(singletonTagCount, 726, '固有質問タグの総数が変わっています');
+assert.equal(singletonTagCount, 728, '固有質問タグの総数が変わっています');
 
 // 出題キーだけ定義され、対象自治体が0件のまま放置される欠落を検出する。
 // 都道府県・8地方質問と実行時に計算する方言2種だけはcities.jsonへ永続化しない。
@@ -153,13 +173,34 @@ const keysStart = source.indexOf('const KEYS = [');
 const keysArrayStart = source.indexOf('[', keysStart);
 const keysArrayEnd = source.indexOf('];', keysArrayStart) + 1;
 const allQuestionKeys = vm.runInNewContext(source.slice(keysArrayStart, keysArrayEnd));
+assert.equal(new Set(allQuestionKeys).size, allQuestionKeys.length, 'KEYSに重複した質問タグがあります');
+const appQuestions = extractConstObject(source, 'QUESTIONS');
+assert.deepEqual(Object.keys(appQuestions).sort(), [...allQuestionKeys].sort(), 'KEYSとQUESTIONSのタグ集合が不一致です');
 const unusedQuestionKeys = allQuestionKeys.filter((key) => !tagUseCounts.has(key)).sort();
 const expectedRuntimeOnlyKeys = allQuestionKeys.filter((key) =>
   (key.startsWith('pref_') && key !== 'pref_name_in_city_name') || key.startsWith('region_') ||
   key === 'kansai_dialect' || key === 'ryukyu_dialect'
 ).sort();
-assert.equal(expectedRuntimeOnlyKeys.length, 57, '実行時計算タグの定義数が変わっています');
+assert.equal(expectedRuntimeOnlyKeys.length, 56, '実行時計算タグの定義数が変わっています');
 assert.deepEqual(unusedQuestionKeys, expectedRuntimeOnlyKeys, '対象自治体0件の質問タグがあります');
+
+// タグ編集画面を本番質問定義と完全同期させ、古い判定文や未分類タグを残さない。
+const appCategories = extractConstObject(source, 'TAG_GAME_CATEGORY');
+const editorLabels = extractConstObject(editorSource, 'TAG_LABELS');
+const editorCategories = extractConstObject(editorSource, 'TAG_CATEGORIES');
+for(const key of allQuestionKeys){
+  assert(editorLabels[key], `editor.htmlに${key}のラベル定義がありません`);
+  assert.equal(editorLabels[key].question, appQuestions[key].text, `editor.htmlの${key}質問文がapp.jsと不一致です`);
+  assert.equal(editorCategories[key] || 'その他', appCategories[key] || 'その他', `editor.htmlの${key}カテゴリがapp.jsと不一致です`);
+}
+for(const key of tagUseCounts.keys()){
+  assert(editorLabels[key], `使用中タグ${key}がeditor.htmlで編集できません`);
+  assert(editorCategories[key], `使用中タグ${key}がeditor.htmlで未分類です`);
+  assert(appCategories[key], `使用中タグ${key}がapp.jsで未分類です`);
+}
+const knownEditorKeys = new Set([...allQuestionKeys, ...tagUseCounts.keys()]);
+assert.deepEqual(Object.keys(editorLabels).filter(key => !knownEditorKeys.has(key)), [], 'editor.htmlに廃止済みラベルが残っています');
+assert.deepEqual(Object.keys(editorCategories).filter(key => !knownEditorKeys.has(key)), [], 'editor.htmlに廃止済みカテゴリが残っています');
 
 const stationSpecificKeys = [
   'aikan_railway', 'akita_shinkansen_station', 'chuo_rapid', 'chuo_sobu',
@@ -193,7 +234,6 @@ for (const city of realCities) {
 const nameRules = {
   big_small_in_name: (name) => /[大小]/.test(name),
   four_plus_name: (name) => [...name].length >= 4,
-  hiragana_long: (name) => [...name].length >= 4,
   kawa_in_name: (name) => /川/.test(name),
   name_has_betsu: (name) => /別/.test(name),
   new_old_in_name: (name) => /[新古]/.test(name),
@@ -202,9 +242,15 @@ const nameRules = {
   ta_in_name: (name) => /田/.test(name),
   yama_in_name: (name) => /山/.test(name),
   hiragana_name: (name) => /^[ぁ-ゖー]+$/.test(name),
+  kana_name: (name) => /[ぁ-ゖァ-ヺー]/.test(name),
+  katakana_city_name: (name) => name === '南アルプス',
   kanji_one_char: (name) => /^[一-龯]$/.test(name),
   number_in_name: (name) => /[一二三四五六七八九十百千万]/.test(name),
   direction_in_name: (name) => /[東西南北]/.test(name),
+  animal_in_name: (name) => /[犬猫牛馬羊猿熊鹿猪豚兎鼠狐狸虎豹獅象狼鯨鯱魚鮎鮭鯖鰺鯵鰐鮫鯉鯛鰤鰹鱒蟹蛸烏燕鶴鷹鷲鳩鴨雁鴻亀龍竜蛇鳥狛]/.test(name),
+  body_part_in_name: (name) => /[頭首顔目耳鼻口歯舌喉肩胸腹腰尻腕手指足脚膝毛髪骨肌心背]/.test(name),
+  color_in_name: (name) => /[赤青黄白黒緑紫藍碧紺朱金銀灰]/.test(name),
+  plant_in_name: (name) => /[松竹梅桜櫻杉檜桧柏栃栗柳藤桃梨柿菊萩蘭蓮芦葦稲麦麻桑楢桂椎榛槻榎樫楠蒲菅笹篠蕨芝穂茅葛蓬桐茨茶]/.test(name),
 };
 for (const city of realCities) {
   const core = nameCore(city.name);
@@ -299,7 +345,7 @@ const authorityFingerprints = {
   meisui_hyakusen: [187, 'f16a618fd539d60b5429bd09b0a9ae27e2acadf73c39eb24c4bb8676667d8931'],
   jleague: [57, 'a7625b88fb3657ffce00ea1fa26ede9b3299a2d354d3a18329d6d1f23aa77c71'],
   worldheritage: [119, 'd9f0aab2eb23783222a3b8b96828580d16dca71e8fb12c366bf4ccb679defac7'],
-  kokuho_building: [76, '64b03a37e35e3553073b0b586f25987a132b4b82deb58841f93072eec9ee2c83'],
+  kokuho_building: [77, '3acdc1989f6085dd901ee49d874ade66731a26653a17405ab59812270a60d465'],
 };
 for (const [key, [expectedCount, expectedHash]] of Object.entries(authorityFingerprints)) {
   const ids = cities.filter((city) => has(city, key)).map(id).sort();
@@ -345,8 +391,43 @@ assert(has(byId.get('奈良県::斑鳩町'), 'kokuho_building'), '斑鳩町に�
 assert(!has(byId.get('青森県::青森市'), 'kokuho_building'), '青森市に国宝建造物はありません');
 assert(has(byId.get('北海道::遠軽町'), 'national_treasure'), '遠軽町には国宝の北海道白滝遺跡群出土品があります');
 assert(has(byId.get('東京都::港区'), 'national_treasure'), '港区には国宝美術工芸品の公開所在地があります');
+assert(has(byId.get('熊本県::人吉市'), 'kokuho_building'), '人吉市には国宝建造物の青井阿蘇神社があります');
+assert(has(byId.get('熊本県::人吉市'), 'national_treasure'), '人吉市には国宝の青井阿蘇神社があります');
+assert(has(byId.get('大阪府::藤井寺市'), 'national_treasure'), '藤井寺市には葛井寺・道明寺天満宮の国宝があります');
 assert(source.includes("national_treasure: {text:'国宝に指定された建造物や美術工芸品がある？'"), '国宝質問が建造物限定へ戻っています');
 assert(source.includes("imperial_university:  {text:'旧帝国大学を前身とする国立大学の本部がある？'"), '旧帝大タグの本部所在地基準を曖昧にしてはいけません');
+
+// 固有質問が明示する施設・特徴と、同じ意味の横断質問の回答を食い違わせない。
+const specificTagImplications = {
+  zashiki_warashi: ['onsen'],
+  aoi_aso_jinja: ['kokuho_building', 'national_treasure'],
+  fujiidera_kannon: ['national_treasure'],
+  kingyo_yatomi: ['aquarium'],
+  ebikani_aquarium: ['aquarium'],
+  fuji_safari: ['zoo'],
+  daguri_misaki: ['theme_park'],
+  namegata_farm: ['theme_park'],
+  kishu_herazao: ['traditional_craft'],
+  funabaru_kofun: ['ruins'],
+  iwami_ginzan: ['ruins'],
+};
+for(const city of realCities){
+  for(const [specific, broaderTags] of Object.entries(specificTagImplications)){
+    if(!has(city, specific)) continue;
+    for(const broader of broaderTags){
+      assert(has(city, broader), `${id(city)}: ${specific}がtrueなのに${broader}がfalseです`);
+    }
+  }
+}
+
+// 同じ意味の焼き物質問を二重定義せず、pottery_famousへ統一する。
+assert(!allQuestionKeys.includes('pottery_ware'), 'pottery_wareはpottery_famousとの重複質問です');
+assert(!tagUseCounts.has('pottery_ware'), 'cities.jsonに重複タグpottery_wareが残っています');
+assert(!allQuestionKeys.includes('hiragana_long'), 'hiragana_longはfour_plus_nameとの重複質問です');
+assert(!tagUseCounts.has('hiragana_long'), 'cities.jsonに重複タグhiragana_longが残っています');
+assert(!allQuestionKeys.includes('region_hokkaido'), '北海道地方質問は北海道の都道府県質問と同義です');
+assert(has(byId.get('長野県::平谷村'), 'hiraya_himawari_no_yu'), '平谷村のひまわりの湯タグがありません');
+assert(has(byId.get('長野県::生坂村'), 'ikusaka_sanseiji'), '生坂村の山清路タグがありません');
 
 // 8地方質問の選定関数を単体テストし、最大1回・3問後・最大勢力25%以上を固定する。
 const functionStart = source.indexOf('function broadRegionQuestionEligible(');
@@ -384,4 +465,4 @@ assert.equal(eligible('region_tohoku', sample, [], 3), false, '最大勢力で�
 assert.equal(eligible('region_kanto', sample, ['region_tohoku'], 5), false, '地方質問は1ゲーム最大1回です');
 assert.equal(eligible('region_kanto', sample, ['x', 'north_kanto'], 5), false, '地名質問を4問以内に連続させてはいけません');
 
-console.log(`質問タグ整合性: ${cities.length}レコード / 全${tagUseCounts.size}タグ（固有${singletonTagCount}種） / 名称14種 / 地方${Object.keys(areaPrefScopes).length}種 / 鉄道包含を確認しました。`);
+console.log(`質問タグ整合性: ${cities.length}レコード / 全${tagUseCounts.size}タグ（固有${singletonTagCount}種） / 名称${Object.keys(nameRules).length}種 / 地方${Object.keys(areaPrefScopes).length}種 / 鉄道包含を確認しました。`);

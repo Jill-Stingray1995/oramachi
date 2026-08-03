@@ -136,6 +136,23 @@ const supplemental2026 = [
 ];
 for(const item of supplemental2026) addEvidence(item.id, { category: '美術工芸品（2026年新指定）', name: item.name });
 
+// 文化庁DBで所在地欄が空でも、所有者所在地を自治体が公式公開している国宝を補完する。
+// CSVの空欄を「所在しない」と解釈しないための、一次情報に基づく明示的な所在地証拠。
+const supplementalPublishedLocations = [
+  {
+    id: '大阪府::藤井寺市',
+    name: '乾漆千手観音坐像（葛井寺）ほか',
+    officialUrl: 'https://www.city.fujiidera.lg.jp/soshiki/kyoikuiinkai/bunkazaihogo/fuziiderasinositeibunnkazai/1387691167298.html',
+  },
+];
+for(const item of supplementalPublishedLocations){
+  addEvidence(item.id, {
+    category: '美術工芸品（自治体公式所在地）',
+    name: item.name,
+    officialUrl: item.officialUrl,
+  });
+}
+
 const municipalities = [...evidence].sort(([a], [b]) => a.localeCompare(b, 'ja')).map(([id, items]) => ({
   id,
   categories: [...new Set(items.map(item => item.category))],
@@ -161,12 +178,13 @@ const result = {
   officialUrl: 'https://kunishitei.bunka.go.jp/bsys/index',
   officialCountUrl: 'https://www.bunka.go.jp/seisaku/bunkazai/shokai/shitei.html',
   referenceDate: '2026-08-03',
-  criterion: '国宝建造物、または文化庁DBで市区町村所在地・座標が公開された国宝美術工芸品が所在する。所在地非公開の美術工芸品は新規自治体判定に使用しない。',
+  criterion: '国宝建造物、または文化庁DBで市区町村所在地・座標が公開された国宝美術工芸品が所在する。文化庁DBの所在地欄が空でも、所在地自治体が公式一覧で所在を公開している場合は補完する。公式所在地を確認できない美術工芸品は新規自治体判定に使用しない。',
   officialDesignationCounts: { buildings: 233, fineArtsAndCrafts: 916, total: 1149 },
   csvRecordCount: records.length,
   csvRecordsWithPublishedLocation: records.filter(record => record['所在地'].trim()).length,
   csvRecordsWithoutPublishedLocation: records.filter(record => !record['所在地'].trim()).length,
   supplemental2026,
+  supplementalPublishedLocations,
   municipalityCount: municipalities.length,
   changes: { added, removed },
   municipalities,

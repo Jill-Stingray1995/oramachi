@@ -74,6 +74,11 @@ for(const partial of ['富', '富士', '富士吉']){
   assert.equal(findCity('山梨県', partial), null, `富士吉田市の途中入力「${partial}」を自治体として受理しています`);
 }
 assert.equal(findCity('山梨県', '富士吉田').name, '富士吉田市', '市を省略した一意な正式地名を照合できません');
+assert.equal(findCity('山梨県', '富士河口湖町').name, '富士河口湖町', '富士河口湖町の正式名を最後まで照合できません');
+assert.equal(findCity('山梨県', '富士河口湖').name, '富士河口湖町', '町を省略した富士河口湖を照合できません');
+for(const partial of ['富士河', '富士河口']){
+  assert.equal(findCity('山梨県', partial), null, `富士河口湖町の途中入力「${partial}」を自治体として受理しています`);
+}
 
 // 日本語IMEの未確定文字列や途中入力を訂正報告として受理しない。
 assert(source.includes('onclick="submitCorrectionAfterIme(event)"'), '訂正送信がIME確定待ちを経由していません');
@@ -82,6 +87,8 @@ assert(imeSubmitSource.includes('commitImeThenRun(cityEl, submitBtn'), '訂正�
 const imeCommitSource = between('function commitImeThenRun(inputEl, buttonEl, action){', 'function openQuestionReportModal(key){');
 assert(imeCommitSource.includes('inputEl.blur()'), '送信前に日本語IMEを確定していません');
 assert(imeCommitSource.includes('requestAnimationFrame'), 'IME確定後の入力値を次の描画で読んでいません');
+assert(imeCommitSource.includes("inputEl.addEventListener('compositionend'"), 'IMEの変換確定イベントを待っていません');
+assert(imeCommitSource.includes('setTimeout(scheduleRun, 250)'), 'compositionendが来ないWebView向けの安全な待機がありません');
 const questionReportModalSource = between('function openQuestionReportModal(key){', '// モーダル内でTabキーによる');
 assert(questionReportModalSource.includes("commitImeThenRun(document.getElementById('reportCommentInput'), submitBtn, submitQuestionReport)"), '質問報告コメントがIME確定待ちを経由していません');
 const correctionSubmitSource = between('function submitCorrection(){', 'function renderThanks(');
@@ -89,6 +96,8 @@ assert(correctionSubmitSource.includes('if(!matched){'), '途中入力・未登�
 assert(correctionSubmitSource.indexOf('if(!matched){') < correctionSubmitSource.indexOf('sendCorrectionToSheet(entry)'), '自治体検証より先に訂正報告を送信しています');
 assert(correctionSubmitSource.includes('correctCityId: cityId(matched)'), '訂正報告に確定済み自治体IDを含めていません');
 assert(correctionSubmitSource.includes('correctCity: canonicalCity'), '訂正報告の自治体名を正式表示名へ統一していません');
+assert(source.includes('list="correctionCityOptions"'), '訂正フォームに都道府県別の正式自治体候補がありません');
+assert(source.includes('function updateCorrectionCityOptions(){'), '訂正フォームの自治体候補更新処理がありません');
 
 // 挑戦状の自由入力は、候補リストから自治体IDを確定するまで送信できないこと。
 const challengeRenderSource = between('function renderChallengeMode(){', '// 入力欄の内容が変わるたびに');
