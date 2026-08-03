@@ -1,0 +1,94 @@
+{
+  "version": 1,
+  "effectiveDate": "2026-08-03",
+  "principles": [
+    "国・自治体の機械可読データがある場合は最優先の正解データとする",
+    "公式データと報道・観光サイト・知識ベースが矛盾する場合は公式データを採用する",
+    "公式データから自動生成できるタグは手入力で上書きしない",
+    "基準日・出典URL・生成プログラム・照合結果を保存する",
+    "公式データ更新時に完全一致テストを更新する"
+  ],
+  "sourceGroups": [
+    {
+      "id": "mlit_railway",
+      "authority": "国土交通省",
+      "officialUrl": "https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N02-2025.html",
+      "tags": ["private_railway", "no_railway_station"],
+      "status": "enforced",
+      "referenceDate": "2025-12-31",
+      "generator": "tools/audit-private-railway-from-mlit.js",
+      "auditArtifact": "research/private-railway-municipalities-2025.json",
+      "regressionTest": "tools/test-question-tag-integrity.js"
+    },
+    {
+      "id": "mlit_admin_boundaries",
+      "authority": "国土交通省",
+      "officialUrl": "https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N03-2026.html",
+      "tags": ["coastal", "borders_other_pref", "pref_*", "region_*"],
+      "status": "partially_enforced",
+      "enforcedTags": ["pref_*", "region_*"],
+      "referenceDate": "2025-01-01",
+      "generators": ["tools/audit-municipality-register-from-mlit.js"],
+      "auditArtifacts": ["research/municipality-register-2025.json"],
+      "regressionTest": "tools/test-question-tag-integrity.js"
+    },
+    {
+      "id": "estat_population_area",
+      "authority": "総務省統計局・国土地理院",
+      "officialUrl": "https://www.stat.go.jp/data/kokusei/2025/kekka.html",
+      "tags": ["popUnder50k", "pop100k", "pop300k", "pop500k", "densityHigh", "densityLow", "areaLarge", "areaCompact"],
+      "status": "enforced",
+      "referenceDate": "2025-10-01（人口速報・面積）",
+      "generator": "tools/import-official-statistics-2025.py",
+      "auditArtifact": "research/official-statistics-2025.json",
+      "regressionTest": "tools/test-question-tag-integrity.js"
+    },
+    {
+      "id": "cultural_properties",
+      "authority": "文化庁",
+      "officialUrl": "https://kunishitei.bunka.go.jp/",
+      "tags": ["worldheritage", "traditional_buildings_district", "kokuho_building", "national_treasure", "ruins"],
+      "status": "partially_enforced",
+      "enforcedTags": ["worldheritage", "traditional_buildings_district", "kokuho_building", "national_treasure"],
+      "referenceDate": "2026-08-03",
+      "generators": ["tools/snapshot-official-register-tags.js", "tools/import-national-treasures-from-culture-agency.js"],
+      "auditArtifacts": ["research/official-register-tags-2026-08-03.json", "research/national-treasure-municipalities-2026.json"],
+      "regressionTest": "tools/test-question-tag-integrity.js"
+    },
+    {
+      "id": "environment_nature",
+      "authority": "環境省",
+      "officialUrl": "https://www.env.go.jp/park/",
+      "tags": ["national_park", "ramsar"],
+      "status": "partially_enforced",
+      "enforcedTags": ["national_park"],
+      "referenceDate": "2026-08-03（国立公園35か所）",
+      "generators": ["tools/snapshot-official-register-tags.js"],
+      "auditArtifacts": ["research/official-register-tags-2026-08-03.json"],
+      "regressionTest": "tools/test-question-tag-integrity.js"
+    },
+    {
+      "id": "mlit_roads_rivers",
+      "authority": "国土交通省",
+      "officialUrl": "https://nlftp.mlit.go.jp/ksj/",
+      "tags": ["expressway_junction", "ic_*", "big_river"],
+      "status": "partially_enforced",
+      "enforcedTags": ["expressway_junction", "big_river"],
+      "referenceDate": "N06: 2022; W05: 2006-2009; N03: 2025-01-01",
+      "generators": ["tools/audit-highway-junctions-from-mlit.js", "tools/audit-rivers-from-mlit.js"],
+      "auditArtifacts": ["research/highway-junction-municipalities-2022.json", "research/river-municipalities-mlit.json"],
+      "regressionTest": "tools/test-question-tag-integrity.js"
+    },
+    {
+      "id": "mext_universities",
+      "authority": "文部科学省",
+      "officialUrl": "https://www.mext.go.jp/",
+      "tags": ["national_university", "imperial_university"],
+      "status": "enforced",
+      "referenceDate": "2026-08-03",
+      "generator": "tools/snapshot-official-register-tags.js",
+      "auditArtifact": "research/official-register-tags-2026-08-03.json",
+      "regressionTest": "tools/test-question-tag-integrity.js"
+    }
+  ]
+}

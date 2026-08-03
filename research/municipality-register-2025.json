@@ -1,0 +1,12 @@
+{
+  "source": "国土交通省 国土数値情報 行政区域データ N03-2025",
+  "referenceDate": "2025-01-01",
+  "scope": "標準自治体1,741件（北方領土6村を除外。檮原町は自治体正式表記「梼原町」へ正規化）",
+  "prefecturesAudited": 47,
+  "polygonFeaturesAudited": 123954,
+  "officialMunicipalityCount": 1741,
+  "appMunicipalityCount": 1741,
+  "missingInApp": [],
+  "extraInApp": [],
+  "exactMatch": true
+}

@@ -1,0 +1,2666 @@
+{
+  "source": "文化庁 国指定文化財等データベース 国宝（美術工芸品）CSV／文化財指定等の件数（2026-07-02）",
+  "officialUrl": "https://kunishitei.bunka.go.jp/bsys/index",
+  "officialCountUrl": "https://www.bunka.go.jp/seisaku/bunkazai/shokai/shitei.html",
+  "referenceDate": "2026-08-03",
+  "criterion": "国宝建造物、または文化庁DBで市区町村所在地・座標が公開された国宝美術工芸品が所在する。所在地非公開の美術工芸品は新規自治体判定に使用しない。",
+  "officialDesignationCounts": {
+    "buildings": 233,
+    "fineArtsAndCrafts": 916,
+    "total": 1149
+  },
+  "csvRecordCount": 968,
+  "csvRecordsWithPublishedLocation": 392,
+  "csvRecordsWithoutPublishedLocation": 576,
+  "supplemental2026": [
+    {
+      "id": "東京都::港区",
+      "name": "論語疏巻第六"
+    },
+    {
+      "id": "奈良県::奈良市",
+      "name": "奈良県飛鳥池遺跡出土品（奈良文化財研究所保管）"
+    },
+    {
+      "id": "京都府::京都市",
+      "name": "五百羅漢図（東福寺）"
+    }
+  ],
+  "municipalityCount": 132,
+  "changes": {
+    "added": [
+      "愛知県::犬山市",
+      "愛知県::西尾市",
+      "愛知県::名古屋市",
+      "愛媛県::今治市",
+      "愛媛県::松山市",
+      "茨城県::水戸市",
+      "茨城県::土浦市",
+      "岡山県::岡山市",
+      "岡山県::瀬戸内市",
+      "岡山県::備前市",
+      "沖縄県::那覇市",
+      "岩手県::平泉町",
+      "岐阜県::高山市",
+      "岐阜県::多治見市",
+      "宮城県::松島町",
+      "宮城県::仙台市",
+      "宮城県::多賀城市",
+      "京都府::綾部市",
+      "京都府::宇治市",
+      "京都府::京都市",
+      "京都府::大山崎町",
+      "京都府::木津川市",
+      "熊本県::山都町",
+      "群馬県::高崎市",
+      "群馬県::渋川市",
+      "広島県::広島市",
+      "広島県::尾道市",
+      "広島県::福山市",
+      "香川県::高松市",
+      "香川県::坂出市",
+      "香川県::三豊市",
+      "高知県::高知市",
+      "高知県::大豊町",
+      "佐賀県::佐賀市",
+      "埼玉県::さいたま市",
+      "埼玉県::熊谷市",
+      "埼玉県::行田市",
+      "三重県::松阪市",
+      "三重県::津市",
+      "山形県::山形市",
+      "山形県::鶴岡市",
+      "山形県::米沢市",
+      "山口県::下関市",
+      "山口県::岩国市",
+      "山口県::山口市",
+      "山口県::防府市",
+      "山梨県::甲州市",
+      "山梨県::山梨市",
+      "滋賀県::愛荘町",
+      "滋賀県::湖南市",
+      "滋賀県::甲良町",
+      "滋賀県::守山市",
+      "滋賀県::大津市",
+      "滋賀県::長浜市",
+      "滋賀県::彦根市",
+      "滋賀県::野洲市",
+      "滋賀県::竜王町",
+      "鹿児島県::鹿児島市",
+      "鹿児島県::霧島市",
+      "新潟県::十日町市",
+      "神奈川県::横浜市",
+      "神奈川県::鎌倉市",
+      "青森県::八戸市",
+      "静岡県::三島市",
+      "静岡県::静岡市",
+      "静岡県::熱海市",
+      "石川県::金沢市",
+      "千葉県::香取市",
+      "千葉県::佐倉市",
+      "大阪府::河内長野市",
+      "大阪府::貝塚市",
+      "大阪府::堺市",
+      "大阪府::泉佐野市",
+      "大阪府::大阪市",
+      "大阪府::忠岡町",
+      "大阪府::和泉市",
+      "大分県::臼杵市",
+      "大分県::豊後高田市",
+      "長崎県::長崎市",
+      "長野県::茅野市",
+      "長野県::松本市",
+      "長野県::上田市",
+      "長野県::諏訪市",
+      "長野県::青木村",
+      "長野県::長野市",
+      "鳥取県::三朝町",
+      "島根県::出雲市",
+      "島根県::松江市",
+      "東京都::港区",
+      "東京都::新宿区",
+      "東京都::世田谷区",
+      "東京都::千代田区",
+      "東京都::台東区",
+      "東京都::中央区",
+      "東京都::町田市",
+      "東京都::東村山市",
+      "東京都::文京区",
+      "東京都::墨田区",
+      "東京都::目黒区",
+      "栃木県::足利市",
+      "栃木県::日光市",
+      "奈良県::宇陀市",
+      "奈良県::橿原市",
+      "奈良県::葛城市",
+      "奈良県::吉野町",
+      "奈良県::五條市",
+      "奈良県::桜井市",
+      "奈良県::生駒市",
+      "奈良県::天理市",
+      "奈良県::奈良市",
+      "奈良県::斑鳩町",
+      "福井県::越前町",
+      "福井県::小浜市",
+      "福岡県::糸島市",
+      "福岡県::小郡市",
+      "福岡県::太宰府市",
+      "福岡県::福岡市",
+      "福島県::いわき市",
+      "兵庫県::加古川市",
+      "兵庫県::加西市",
+      "兵庫県::加東市",
+      "兵庫県::小野市",
+      "兵庫県::神戸市",
+      "兵庫県::西宮市",
+      "兵庫県::川西市",
+      "兵庫県::姫路市",
+      "北海道::遠軽町",
+      "北海道::当麻町",
+      "北海道::函館市",
+      "和歌山県::海南市",
+      "和歌山県::岩出市",
+      "和歌山県::高野町"
+    ],
+    "removed": []
+  },
+  "municipalities": [
+    {
+      "id": "愛知県::犬山市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "愛知県::西尾市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "愛知県::名古屋市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "婚礼調度類〈（徳川光友夫人千代姫所用）／〉",
+          "registerId": "538"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "太刀〈銘国宗／〉",
+          "registerId": "437"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "太刀〈銘長光（名物遠江長光）／〉",
+          "registerId": "441"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "太刀〈銘正恒／〉",
+          "registerId": "439"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "太刀〈銘光忠／〉",
+          "registerId": "440"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "太刀〈銘来孫太郎作／（花押）正応五□辰八月十三日以下不明〉",
+          "registerId": "436"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "短刀〈無銘正宗（名物庖丁正宗）／〉",
+          "registerId": "438"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "短刀〈銘吉光（名物後藤藤四郎）／〉",
+          "registerId": "435"
+        }
+      ],
+      "evidenceCount": 9
+    },
+    {
+      "id": "愛媛県::今治市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "伊予国奈良原山経塚出土品",
+          "registerId": "854"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "愛媛県::松山市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "茨城県::水戸市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "｛直刀／黒漆平文大刀拵｝",
+          "registerId": "467"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "茨城県::土浦市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "短刀〈銘筑州住行弘／観応元年八月日〉",
+          "registerId": "503"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "岡山県::岡山市",
+      "categories": [
+        "建造物",
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "太刀〈銘備前国長船住左近将監長光造／〉",
+          "registerId": "510"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "太刀〈銘吉房／〉",
+          "registerId": "470"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "赤韋威鎧〈兜、大袖付／〉",
+          "registerId": "6968"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "短刀〈無銘正宗（名物九鬼正宗）／〉",
+          "registerId": "502"
+        }
+      ],
+      "evidenceCount": 5
+    },
+    {
+      "id": "岡山県::瀬戸内市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "太刀〈無銘一文字（山鳥毛）／〉",
+          "registerId": "331"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "岡山県::備前市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "沖縄県::那覇市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "琉球国王尚家関係資料",
+          "registerId": "00010718"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "岩手県::平泉町",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "岐阜県::高山市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "岐阜県::多治見市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "宮城県::松島町",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "宮城県::仙台市",
+      "categories": [
+        "建造物",
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "慶長遣欧使節関係資料",
+          "registerId": "10147"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "史記〈孝文本紀第十／〉",
+          "registerId": "647"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "類聚国史巻第廿五",
+          "registerId": "646"
+        }
+      ],
+      "evidenceCount": 4
+    },
+    {
+      "id": "宮城県::多賀城市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "多賀城碑〈天平宝字六年十二月一日／〉",
+          "registerId": "10264"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "京都府::綾部市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "京都府::宇治市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "京都府::京都市",
+      "categories": [
+        "建造物",
+        "美術工芸品",
+        "美術工芸品（2026年新指定）"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "芦手絵和漢朗詠抄〈藤原伊行筆／〉",
+          "registerId": "10331"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "一品経懐紙（西行、寂蓮等十四枚）",
+          "registerId": "631"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "漢書楊雄伝第五十七",
+          "registerId": "591"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "絹本著色釈迦金棺出現図",
+          "registerId": "23"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "絹本著色十二天像",
+          "registerId": "10381"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "絹本著色山水屏風〈／六曲屏風〉",
+          "registerId": "20"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "絹本著色山越阿弥陀図",
+          "registerId": "10380"
+        }
+      ],
+      "evidenceCount": 53
+    },
+    {
+      "id": "京都府::大山崎町",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "京都府::木津川市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "熊本県::山都町",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "群馬県::高崎市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "群馬県綿貫観音山古墳出土品",
+          "registerId": "10004"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "群馬県::渋川市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "青磁下蕪花生",
+          "registerId": "299"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "広島県::広島市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "広島県::尾道市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "広島県::福山市",
+      "categories": [
+        "建造物",
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "太刀〈銘国宗／〉",
+          "registerId": "411"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "太刀〈銘筑州住左（江雪左文字）／〉",
+          "registerId": "305"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "太刀〈銘則房／〉",
+          "registerId": "383"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "太刀〈銘正恒／〉",
+          "registerId": "329"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "太刀〈銘吉房／〉",
+          "registerId": "455"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "短刀〈銘国光（名物会津新藤五）／〉",
+          "registerId": "292"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "短刀〈銘左／筑州住〉",
+          "registerId": "364"
+        }
+      ],
+      "evidenceCount": 8
+    },
+    {
+      "id": "香川県::高松市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "藤原佐理筆詩懐紙",
+          "registerId": "661"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "香川県::坂出市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "香川県::三豊市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "高知県::高知市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "古今和歌集巻第廿（高野切本）",
+          "registerId": "569"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "高知県::大豊町",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "佐賀県::佐賀市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "催馬楽譜",
+          "registerId": "659"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "埼玉県::さいたま市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "太刀〈銘備前国長船住左兵衛尉景光、作者進士三郎景政、嘉暦二二年已巳七月日／〉",
+          "registerId": "5263"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "短刀〈銘備州長船住景光／元亨三年三月日〉",
+          "registerId": "476"
+        }
+      ],
+      "evidenceCount": 2
+    },
+    {
+      "id": "埼玉県::熊谷市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "埼玉県::行田市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "武蔵埼玉稲荷山古墳出土品",
+          "registerId": "872"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "三重県::松阪市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "三重県宝塚１号墳出土埴輪",
+          "registerId": "00011238"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "三重県::津市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "山形県::山形市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "土偶／山形県西ノ前遺跡出土",
+          "registerId": "00011534"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "山形県::鶴岡市",
+      "categories": [
+        "建造物",
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "太刀〈銘真光／〉",
+          "registerId": "378"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "太刀〈銘信房作／〉",
+          "registerId": "327"
+        }
+      ],
+      "evidenceCount": 3
+    },
+    {
+      "id": "山形県::米沢市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "上杉家文書",
+          "registerId": "9035"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "紙本金地著色洛中洛外図〈狩野永徳筆／六曲屏風〉",
+          "registerId": "10332"
+        }
+      ],
+      "evidenceCount": 2
+    },
+    {
+      "id": "山口県::下関市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "山口県::岩国市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "刀〈金象嵌銘天正十三十二月日江本阿彌磨上之（花押）／所持稲葉勘右衛門尉（名物稲葉江）〉",
+          "registerId": "302"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "太刀〈銘為次（狐ヶ崎）〉",
+          "registerId": "326"
+        }
+      ],
+      "evidenceCount": 2
+    },
+    {
+      "id": "山口県::山口市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "山口県::防府市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "菊造腰刀〈刀身無銘伝当麻／〉",
+          "registerId": "348"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "古今和歌集巻第八（高野切本）",
+          "registerId": "596"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "史記〈呂后本紀第九／〉",
+          "registerId": "679"
+        }
+      ],
+      "evidenceCount": 3
+    },
+    {
+      "id": "山梨県::甲州市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "山梨県::山梨市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "滋賀県::愛荘町",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "滋賀県::湖南市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "滋賀県::甲良町",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "滋賀県::守山市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "梵鐘",
+          "registerId": "421"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "滋賀県::大津市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "滋賀県::長浜市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "滋賀県::彦根市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "紙本金地著色風俗図〈／（彦根屏風）〉",
+          "registerId": "117"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "滋賀県::野洲市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "滋賀県::竜王町",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "鹿児島県::鹿児島市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "太刀〈銘国宗／〉",
+          "registerId": "541"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "鹿児島県::霧島市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "新潟県::十日町市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "新潟県笹山遺跡出土深鉢形土器",
+          "registerId": "10315"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "神奈川県::横浜市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "称名寺聖教／金沢文庫文書",
+          "registerId": "00011722"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "文選集注",
+          "registerId": "725"
+        }
+      ],
+      "evidenceCount": 2
+    },
+    {
+      "id": "神奈川県::鎌倉市",
+      "categories": [
+        "建造物",
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "銅造阿弥陀如来坐像",
+          "registerId": "270"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "梵鐘",
+          "registerId": "417"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "梵鐘",
+          "registerId": "416"
+        }
+      ],
+      "evidenceCount": 4
+    },
+    {
+      "id": "青森県::八戸市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "土偶／青森県八戸市風張１遺跡出土",
+          "registerId": "00011333"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "静岡県::三島市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "太刀〈銘一／〉",
+          "registerId": "368"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "薙刀〈銘備前国長船住人長光造／〉",
+          "registerId": "505"
+        }
+      ],
+      "evidenceCount": 2
+    },
+    {
+      "id": "静岡県::静岡市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "静岡県::熱海市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "色絵藤花文茶壺〈仁清作／〉",
+          "registerId": "306"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "手鑑「翰墨城」（三百十一葉）",
+          "registerId": "755"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "紙本金地著色紅白梅図〈尾形光琳筆／二曲屏風〉",
+          "registerId": "134"
+        }
+      ],
+      "evidenceCount": 3
+    },
+    {
+      "id": "石川県::金沢市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "色絵雉香炉〈仁清作／〉",
+          "registerId": "307"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "千葉県::香取市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "伊能忠敬関係資料",
+          "registerId": "10142"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "千葉県::佐倉市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "額田寺伽籃並条里図（麻布）",
+          "registerId": "778"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "後宇多院宸記〈（文保三年具注暦）／御自筆本〉",
+          "registerId": "664"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "宋版漢書（慶元刊本）",
+          "registerId": "10287"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "宋版後漢書（慶元刊本）",
+          "registerId": "10288"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "宋版史記（黄善夫刊本）",
+          "registerId": "10286"
+        }
+      ],
+      "evidenceCount": 5
+    },
+    {
+      "id": "大阪府::河内長野市",
+      "categories": [
+        "建造物",
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "紙本著色日月四季山水図",
+          "registerId": "00011841"
+        }
+      ],
+      "evidenceCount": 2
+    },
+    {
+      "id": "大阪府::貝塚市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "大阪府::堺市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "大阪府::泉佐野市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "大阪府::大阪市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "花蝶蒔絵挾軾",
+          "registerId": "507"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "絹本著色両部大経感得図",
+          "registerId": "156"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "深窓秘抄（百一首）",
+          "registerId": "702"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "大般若経〈（薬師寺経）／〉",
+          "registerId": "768"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "仏功徳蒔絵経箱",
+          "registerId": "422"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "物語下絵料紙金光明経巻第二",
+          "registerId": "1709"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "曜変天目茶碗",
+          "registerId": "423"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "紙本著色紫式部日記絵詞",
+          "registerId": "138"
+        }
+      ],
+      "evidenceCount": 16
+    },
+    {
+      "id": "大阪府::忠岡町",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "小野道風筆三体白氏詩巻",
+          "registerId": "733"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "大燈国師墨蹟〈渓林　南獄偈／〉",
+          "registerId": "735"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "藤原行成筆白氏詩巻",
+          "registerId": "734"
+        }
+      ],
+      "evidenceCount": 3
+    },
+    {
+      "id": "大阪府::和泉市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "青磁鳳凰耳花生〈銘万声／〉",
+          "registerId": "314"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "大分県::臼杵市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "臼杵磨崖仏",
+          "registerId": "285"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "大分県::豊後高田市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "長崎県::長崎市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "長野県::茅野市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "土偶",
+          "registerId": "10063"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "土偶／長野県中ッ原遺跡出土",
+          "registerId": "00011237"
+        }
+      ],
+      "evidenceCount": 2
+    },
+    {
+      "id": "長野県::松本市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "長野県::上田市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "長野県::諏訪市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "楽焼白片身変茶碗〈銘不二山／光悦作〉",
+          "registerId": "362"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "紙本墨画寒山図〈可翁筆／〉",
+          "registerId": "10297"
+        }
+      ],
+      "evidenceCount": 2
+    },
+    {
+      "id": "長野県::青木村",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "長野県::長野市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "鳥取県::三朝町",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "島根県::出雲市",
+      "categories": [
+        "建造物",
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "島根県荒神谷遺跡出土品",
+          "registerId": "10024"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "島根県加茂岩倉遺跡出土銅鐸",
+          "registerId": "10372"
+        }
+      ],
+      "evidenceCount": 3
+    },
+    {
+      "id": "島根県::松江市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "東京都::港区",
+      "categories": [
+        "美術工芸品",
+        "美術工芸品（2026年新指定）"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "観普賢経〈（裝飾経）／〉",
+          "registerId": "652"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "絹本著色鶉図",
+          "registerId": "88"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "絹本著色那智滝図",
+          "registerId": "7"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "根本百一羯磨〈巻第六／〉",
+          "registerId": "565"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "蝶螺鈿蒔絵手箱",
+          "registerId": "499"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "浮線綾螺鈿蒔絵手箱",
+          "registerId": "540"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "無量義経（裝飾経）",
+          "registerId": "651"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "紙本墨画漁村夕照図〈伝牧谿筆／〉",
+          "registerId": "101"
+        }
+      ],
+      "evidenceCount": 11
+    },
+    {
+      "id": "東京都::新宿区",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "玉篇巻第九残巻",
+          "registerId": "563"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "礼記子本疏義巻第五十九",
+          "registerId": "660"
+        }
+      ],
+      "evidenceCount": 2
+    },
+    {
+      "id": "東京都::世田谷区",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "古林清茂墨蹟〈別源円旨送別偈／泰定二年九月二日〉",
+          "registerId": "655"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "絹本墨画淡彩風雨山水図〈伝馬遠筆／〉",
+          "registerId": "130"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "史記〈孝景本紀第十一／〉",
+          "registerId": "732"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "太刀〈銘包永／〉",
+          "registerId": "360"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "趙子昂書〈与中峰明本尺贖／（六通）〉",
+          "registerId": "790"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "無準師範墨蹟〈山門疏／（絹本）〉",
+          "registerId": "762"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "倭漢朗詠抄巻下残巻(彩牋）",
+          "registerId": "656"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "紙本著色紫式部日記絵詞〈絵三面／詞三面〉",
+          "registerId": "132"
+        }
+      ],
+      "evidenceCount": 14
+    },
+    {
+      "id": "東京都::千代田区",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "絹本著色春日権現験記絵〈高階隆兼筆／〉",
+          "registerId": "00011971"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "絹本著色動植綵絵〈伊藤若冲筆／〉",
+          "registerId": "00011972"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "紙本金地著色唐獅子図〈狩野永徳筆／六曲屛風〉",
+          "registerId": "00011962"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "紙本著色蒙古襲来絵詞",
+          "registerId": "00011961"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "手鑑「見ぬ世の友」（二百二十九葉）",
+          "registerId": "650"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "曜変天目茶碗",
+          "registerId": "303"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "紙本著色伴大納言絵詞",
+          "registerId": "5"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "更級日記〈藤原定家筆／〉\n　附 波に月蒔絵冊子箱",
+          "registerId": "00012013"
+        }
+      ],
+      "evidenceCount": 12
+    },
+    {
+      "id": "東京都::台東区",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "秋草文壺",
+          "registerId": "384"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "秋萩帖",
+          "registerId": "745"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "医心方（半井家本）",
+          "registerId": "832"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "栄花物語",
+          "registerId": "719"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "准南鴻烈兵略間詁（紙背）",
+          "registerId": "00011174"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "延喜式（九條家本）",
+          "registerId": "773"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "圜悟克勤墨蹟〈印可状／〉",
+          "registerId": "555"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "円珍関係文書",
+          "registerId": "781"
+        }
+      ],
+      "evidenceCount": 111
+    },
+    {
+      "id": "東京都::中央区",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "熊野御幸記〈藤原定家筆／建仁元年十月〉",
+          "registerId": "786"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "志野茶碗〈銘卯花墻／〉",
+          "registerId": "521"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "短刀〈無銘貞宗（名物徳善院貞宗）／〉",
+          "registerId": "357"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "短刀〈無銘正宗（名物日向正宗）／〉",
+          "registerId": "356"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "紙本淡彩雪松図〈円山応挙筆／六曲屏風〉",
+          "registerId": "33"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "銅製船氏王後墓誌",
+          "registerId": "859"
+        }
+      ],
+      "evidenceCount": 6
+    },
+    {
+      "id": "東京都::町田市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "紙本墨画禅機図断簡〈因陀羅筆／（丹霞焼仏図）〉",
+          "registerId": "100"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "東京都::東村山市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "東京都::文京区",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "柏木兎螺鈿鞍",
+          "registerId": "434"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "刀〈金象嵌銘光忠　光徳花押／生駒讃岐守所持〉（生駒光忠）",
+          "registerId": "456"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "古文尚書〈巻第三、第五、第十二／〉",
+          "registerId": "559"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "史記〈夏本紀第二、秦本紀第五／（高山寺本）〉",
+          "registerId": "654"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "島津家文書（一万五千百三十三通）",
+          "registerId": "00010713"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "春秋経伝集解巻第十",
+          "registerId": "608"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "太刀〈銘豊後国行平作／〉",
+          "registerId": "293"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "短刀〈無銘正宗（名物庖丁正宗）／〉",
+          "registerId": "358"
+        }
+      ],
+      "evidenceCount": 14
+    },
+    {
+      "id": "東京都::墨田区",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "太刀〈銘国行／〉",
+          "registerId": "388"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "太刀〈銘国行／〉",
+          "registerId": "442"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "太刀〈銘延吉／〉",
+          "registerId": "380"
+        }
+      ],
+      "evidenceCount": 3
+    },
+    {
+      "id": "東京都::目黒区",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "刀〈無銘正宗（名物太郎作正宗）／〉",
+          "registerId": "500"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "刀〈無銘義弘（名物富田江）／〉",
+          "registerId": "475"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "太刀〈銘光世作（名物大典太）／〉",
+          "registerId": "501"
+        }
+      ],
+      "evidenceCount": 3
+    },
+    {
+      "id": "栃木県::足利市",
+      "categories": [
+        "建造物",
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "宋刊本文選（金沢文庫本）",
+          "registerId": "602"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "宋版周易注疏",
+          "registerId": "731"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "宋版尚書正義",
+          "registerId": "730"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "宋版礼記正義",
+          "registerId": "718"
+        }
+      ],
+      "evidenceCount": 5
+    },
+    {
+      "id": "栃木県::日光市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "奈良県::宇陀市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "奈良県::橿原市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "奈良県藤ノ木古墳出土品",
+          "registerId": "00010613"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "奈良県::葛城市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "奈良県::吉野町",
+      "categories": [
+        "建造物",
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "金峯山経塚出土紺紙金字経",
+          "registerId": "00012020"
+        }
+      ],
+      "evidenceCount": 2
+    },
+    {
+      "id": "奈良県::五條市",
+      "categories": [
+        "建造物",
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "梵鐘",
+          "registerId": "345"
+        }
+      ],
+      "evidenceCount": 2
+    },
+    {
+      "id": "奈良県::桜井市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "奈良県::生駒市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "奈良県::天理市",
+      "categories": [
+        "建造物",
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "宋刊本欧陽文忠公集（金沢文庫本）",
+          "registerId": "678"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "宋版劉夢得文集",
+          "registerId": "736"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "南海寄帰内法伝〈巻第一、第二／〉",
+          "registerId": "691"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "日本書紀神代巻〈上下／（吉田本）〉",
+          "registerId": "760"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "播磨国風土記",
+          "registerId": "765"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "類聚名義抄",
+          "registerId": "665"
+        }
+      ],
+      "evidenceCount": 7
+    },
+    {
+      "id": "奈良県::奈良市",
+      "categories": [
+        "建造物",
+        "美術工芸品",
+        "美術工芸品（2026年新指定）"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "越中国射水郡鳴戸村墾田図（麻布）",
+          "registerId": "00011340"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "絹本著色十一面観音像",
+          "registerId": "162"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "牛皮華鬘",
+          "registerId": "517"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "金剛般若経開題残巻〈弘法大師筆／（三十八行）〉",
+          "registerId": "729"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "紫紙金字金光明最勝王経",
+          "registerId": "643"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "刺繍釈迦如来説法図",
+          "registerId": "371"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "紙本墨画淡彩山水図〈伝周文筆／〉",
+          "registerId": "86"
+        }
+      ],
+      "evidenceCount": 29
+    },
+    {
+      "id": "奈良県::斑鳩町",
+      "categories": [
+        "建造物",
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "銅造釈迦如来及両脇侍像〈止利作／（金堂安置）〉",
+          "registerId": "181"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "銅造薬師如来坐像（金堂安置）",
+          "registerId": "202"
+        }
+      ],
+      "evidenceCount": 3
+    },
+    {
+      "id": "福井県::越前町",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "梵鐘",
+          "registerId": "479"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "福井県::小浜市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "福岡県::糸島市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "福岡県平原方形周溝墓出土品",
+          "registerId": "00011231"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "福岡県::小郡市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "短刀〈銘吉光／〉\n附　腰刀拵",
+          "registerId": "432"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "福岡県::太宰府市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "刀〈無銘則房／〉",
+          "registerId": "468"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "太刀〈銘来国光／〉",
+          "registerId": "453"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "紙本墨画淡彩周茂叔愛蓮図〈狩野正信筆／〉",
+          "registerId": "89"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "梵鐘",
+          "registerId": "431"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "宮地嶽古墳出土品",
+          "registerId": "841"
+        }
+      ],
+      "evidenceCount": 5
+    },
+    {
+      "id": "福岡県::福岡市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "刀〈金象嵌銘長谷部国重本阿花押（名物へし切長谷部）／黒田筑前守〉",
+          "registerId": "385"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "太刀〈無銘一文字（名物日光一文字）／〉",
+          "registerId": "330"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "金印〈印文「漢委奴國王」／〉",
+          "registerId": "850"
+        }
+      ],
+      "evidenceCount": 3
+    },
+    {
+      "id": "福島県::いわき市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "兵庫県::加古川市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "兵庫県::加西市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "兵庫県::加東市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "兵庫県::小野市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "兵庫県::神戸市",
+      "categories": [
+        "建造物",
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "賢愚経残巻（大聖武）",
+          "registerId": "763"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "大般涅槃経集解",
+          "registerId": "764"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "袈裟襷文銅鐸",
+          "registerId": "869"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "袈裟襷文銅鐸",
+          "registerId": "870"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "銅戈",
+          "registerId": "868"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "銅鐸",
+          "registerId": "866"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "流水文銅鐸",
+          "registerId": "867"
+        }
+      ],
+      "evidenceCount": 8
+    },
+    {
+      "id": "兵庫県::西宮市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "短刀〈朱銘貞宗（名物伏見貞宗）／本阿（花押）〉",
+          "registerId": "445"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "短刀〈銘来国俊／〉",
+          "registerId": "425"
+        }
+      ],
+      "evidenceCount": 2
+    },
+    {
+      "id": "兵庫県::川西市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "土左日記",
+          "registerId": "8898"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "兵庫県::姫路市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "北海道::遠軽町",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "北海道白滝遺跡群出土品",
+          "registerId": "00011465"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "北海道::当麻町",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "梵鐘",
+          "registerId": "487"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "北海道::函館市",
+      "categories": [
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "美術工芸品",
+          "name": "土偶／北海道函館市著保内野遺跡出土",
+          "registerId": "9985"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "和歌山県::海南市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "和歌山県::岩出市",
+      "categories": [
+        "建造物"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        }
+      ],
+      "evidenceCount": 1
+    },
+    {
+      "id": "和歌山県::高野町",
+      "categories": [
+        "建造物",
+        "美術工芸品"
+      ],
+      "examples": [
+        {
+          "category": "建造物",
+          "name": "国宝建造物（文化庁台帳監査済み）"
+        },
+        {
+          "category": "美術工芸品",
+          "name": "文館詞林残巻",
+          "registerId": "704"
+        }
+      ],
+      "evidenceCount": 2
+    }
+  ]
+}

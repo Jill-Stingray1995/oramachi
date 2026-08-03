@@ -8,7 +8,7 @@ const KEYS = ['hitachi_seaside_park','tsuchiura_hanabi','koga_kubo','toride_geid
   'nihonkai','taiheiyo','setonaikai','famous_mountain','big_river','big_bay','hot_40c','active_volcano','uchibo','sotobo','noto_area','subway','onsen','sake','famous_hanabi','castle_town','port_town','rice_region',
   'kana_name','kansai_dialect','ryukyu_dialect','is_town_village','is_tokyo_ward',
   'ruins','lakeside','shrine_temple','bakumatsu_port','sumo_basho','jleague','npb',
-  'former_capital','grid_streets','kokuho_building','twelve_castles','sengoku_warlord','tram','famous_garden',
+  'former_capital','grid_streets','national_treasure','twelve_castles','sengoku_warlord','tram','famous_garden',
   'car_town','private_railway','monorail','remote_island','mining_heritage','night_view','war_damage',
   'ferris_wheel','theme_park','zoo','aquarium','brand_beef','kintetsu','kanji_one_char',
   'chinatown','sand_dunes','imperial_university','famous_tower','famous_market','exotic_port','dome_stadium','tea_region',
@@ -177,7 +177,7 @@ const QUESTIONS = {
   honshu_easternmost: {text:'本州最東端の地がある？', icon:'➡️'},
   honshu_westernmost: {text:'本州最西端の地がある？', icon:'⬅️'},
   honshu_southernmost: {text:'本州最南端の地がある？', icon:'⬇️'},
-  japan_northernmost: {text:'日本最北端の地がある？', icon:'🔝'},
+  japan_northernmost: {text:'日本が現在実効支配する地域の最北端がある？', icon:'🔝'},
   japan_southernmost: {text:'日本最南端の地がある？', icon:'🔽'},
   japan_easternmost: {text:'日本最東端の地がある？', icon:'▶️'},
   japan_westernmost: {text:'日本最西端の地がある？', icon:'◀️'},
@@ -554,7 +554,7 @@ const QUESTIONS = {
   taiheiyo:      {text:'太平洋側の海に面している？', icon:'🌊'},
   setonaikai:    {text:'瀬戸内海に面している？', icon:'⛵'},
   famous_mountain:{text:'日本百名山の山頂がある？', icon:'⛰️'},
-  big_river:     {text:'大きな川が流れている？', icon:'🏞️', subjective:true},
+  big_river:     {text:'国管理の一級河川が流れている？', icon:'🏞️'},
   big_bay:       {text:'大きな湾に面している？', icon:'⚓', subjective:true},
   subway:        {text:'地下鉄が走っている？', icon:'🚇'},
   onsen:         {text:'温泉地として知られている？', icon:'♨️', subjective:true},
@@ -577,13 +577,13 @@ const QUESTIONS = {
   npb:            {text:'プロ野球チーム(NPB)の本拠地がある？', icon:'⚾'},
   former_capital:   {text:'過去に「都」が置かれたことがある？', icon:'👑'},
   grid_streets:     {text:'街の中心部は碁盤の目のよう？', icon:'🔲', subjective:true},
-  kokuho_building:  {text:'国宝に指定されたものがある？', icon:'📜'},
+  national_treasure: {text:'国宝に指定された建造物や美術工芸品がある？', icon:'📜'},
   twelve_castles:   {text:'現存十二天守の城はありますか？', icon:'🏰'},
   sengoku_warlord:  {text:'有名な戦国武将ゆかりの地ですか？', icon:'⚔️', subjective:true},
   tram:             {text:'路面電車が走っていますか？', icon:'🚋'},
   famous_garden:    {text:'有名な庭園がありますか？', icon:'🌳', subjective:true},
   car_town:         {text:'自動車メーカーの本社または主要工場がある？', icon:'🚗'},
-  private_railway: {text:'私鉄・第三セクターが走っている？', icon:'🚈'},
+  private_railway: {text:'私鉄・第三セクターの駅がある？', icon:'🚈'},
   monorail:         {text:'モノレールが走っている？', icon:'🚝'},
   remote_island:    {text:'もしかして離島に存在する？', icon:'🌴'},
   mining_heritage:  {text:'有名な鉱山・炭鉱跡がありますか？', icon:'⛏️', subjective:true},
@@ -598,9 +598,9 @@ const QUESTIONS = {
   kanji_one_char:   {text:'マチの名前が漢字一文字ですか？', icon:'📛'},
   chinatown:            {text:'有名な中華街がありますか？', icon:'🏮', subjective:true},
   sand_dunes:           {text:'有名な砂丘がありますか？', icon:'🏜️', subjective:true},
-  imperial_university:  {text:'旧帝国大学がありますか？', icon:'🎓'},
+  imperial_university:  {text:'旧帝国大学を前身とする国立大学の本部がある？', icon:'🎓'},
   famous_tower:         {text:'有名なタワーがありますか？', icon:'🗼', subjective:true},
-  famous_market:        {text:'有名な市場・朝市がありますか？', icon:'🐟', subjective:true},
+  famous_market:        {text:'全国的に知られる市場・朝市がある？', icon:'🐟'},
   exotic_port:          {text:'異国情緒の港町ですか？', icon:'🛳️', subjective:true},
   dome_stadium:         {text:'ドーム球場がありますか？', icon:'🏟️'},
   tea_region:           {text:'茶どころとして有名ですか？', icon:'🍵', subjective:true},
@@ -632,13 +632,13 @@ const QUESTIONS = {
   borders_gunma:               {text:'群馬県と接している？', icon:'🗺️'},
   borders_nagano:              {text:'長野県と接している？', icon:'🗺️'},
   borders_toyama:              {text:'富山県と接している？', icon:'🗺️'},
-  todai_campus: {text:'東京大学の有名キャンパスがある？', icon:'🎓', subjective:true},
+  todai_campus: {text:'東京大学の本郷・駒場・柏キャンパスがある？', icon:'🎓'},
   waseda_campus: {text:'早稲田大学の主要キャンパスがある？', icon:'🎓'},
   keio_campus: {text:'慶應義塾大学の主要キャンパスがある？', icon:'🎓'},
   meiji_campus: {text:'明治大学のキャンパスがある？', icon:'🎓'},
   rikkyo_campus: {text:'立教大学の主要キャンパスがある？', icon:'🎓'},
-  chuo_campus: {text:'中央大学の主要キャンパスがある？', icon:'🎓'},
-  tus_campus: {text:'東京理科大学の主要キャンパスがある？', icon:'🎓'},
+  chuo_campus: {text:'中央大学の公式キャンパスがある？', icon:'🎓'},
+  tus_campus: {text:'東京理科大学の公式キャンパスがある？', icon:'🎓'},
   imperial_palace: {text:'皇居がある？', icon:'🏯'},
   ginza: {text:'銀座がある？', icon:'💎'},
   tokyo_tower_ward: {text:'東京タワーがある？', icon:'🗼'},
@@ -1278,7 +1278,8 @@ const QUESTION_HELP = {
   bedtown: '大都市へ通勤する人が多く、昼夜間人口比率95未満を目安にしています。',
   formed_after_2000: '複数の自治体が合併し、新しい市として発足した場合です。',
   national_university: 'キャンパスだけでなく、大学本部が置かれている場合です。',
-  expressway_junction: '複数の高速道路を直接乗り換える施設です。通常のICとは別です。',
+  expressway_junction: '国土交通省「高速道路時系列データ」の接合部区分3（JCT）の所在地です。通常のICとは別です。',
+  big_river: '国土交通省「河川データ」で一級直轄区間（湖沼兼用を含む）が行政区域と交差する場合です。',
   public_racing_venue: '国や自治体の認可を受けた公営競技の本場が対象です。',
   national_government_park: '国が管理する都市公園です。国立公園とは別です。',
   traditional_buildings_district: '国が選定した、歴史的な町並みの保存地区です。',
@@ -1297,7 +1298,8 @@ const QUESTION_HELP = {
   basin: '周囲を山地に囲まれた平地に市街地がある場合です。',
   lakeside: '市域が湖岸に接していれば「はい」です。',
   big_bay: '東京湾・大阪湾・広島湾など主要な湾を基準にしています。',
-  private_railway: 'JR以外の旅客鉄道に駅があれば「はい」です。',
+  private_railway: '国土交通省の事業者種別で「民営鉄道」または「第三セクター」に分類される旅客駅が自治体内にあれば「はい」です。JR・公営地下鉄・市電だけの場合は「いいえ」です。',
+  famous_market: '豊洲市場・輪島朝市・日本三大朝市など、全国的な知名度がある市場・朝市だけが「はい」です。',
   subway: '地下を走るだけのJR・私鉄ではなく、地下鉄路線が対象です。',
   tram: '道路上または道路沿いを走る軌道路線が対象です。',
   remote_island: '自治体の中心部が本土と陸続きでない島にある場合です。',
@@ -1307,10 +1309,10 @@ const QUESTION_HELP = {
   honshu_bridge: '鉄道橋または道路橋で、本州と直接行き来できる場合です。',
   bakumatsu_port: '函館・横浜・新潟・神戸・長崎の五港です。',
   former_capital: '天皇の宮殿と政治の中心が置かれたことがあるかで判定します。',
-  kokuho_building: '建造物に限らず、美術工芸品・書跡・考古資料などジャンルを問わず、国宝に指定された「もの」が所在すれば対象です。',
+  national_treasure: '文化庁の国指定文化財等データベースを基準に、国宝建造物、または所在地が公開されている国宝の絵画・彫刻・工芸品・書跡・典籍・古文書・考古資料・歴史資料が所在する場合です。',
   twelve_castles: '江戸時代以前の天守が現在まで残る12城です。',
   gokaido_shukuba: '東海道・中山道・日光・奥州・甲州街道の宿場です。',
-  imperial_university: '戦前の帝国大学を前身とする国立大学です。',
+  imperial_university: '戦前の帝国大学を前身とする7国立大学の本部所在地です。キャンパスだけの場合は含みません。',
   old_province_name: '武蔵・相模・信濃・越前など、昔の国名が由来の場合です。',
   ancient_provincial_capital: '昔の国ごとに置かれた役所の所在地です。',
   kokubunji_site: '奈良時代に国ごとに建てられた寺院の跡です。',
@@ -1494,13 +1496,13 @@ const REGION_OF_PREF = {
 // 【人口】は audit指定の7段階の固定しきい値(絶対値)を使う。
 // 【面積・人口密度】は「上位/下位20%」の分位点を使う。ユーザーには相対的な
 // 表現(「広いほう?」等)だけを見せ、内部のkm2やパーセンタイルは表示しない。
-// 分位点は「東京」(23区全体の集計エントリ)を除いた825自治体の実データから
-// 事前に算出した固定値(area_large: 上位20%=443.46km2以上, area_compact: 下位20%=49.26km2以下,
-// density_high: 上位20%=2425.28人/km2以上, density_low: 下位20%=112.37人/km2以下)。
-const AREA_LARGE_THRESHOLD = 443.46;
-const AREA_COMPACT_THRESHOLD = 49.26;
-const DENSITY_HIGH_THRESHOLD = 2425.28;
-const DENSITY_LOW_THRESHOLD = 112.37;
+// 分位点は「東京」(23区全体の集計エントリ)を除いた全1,741自治体について、
+// 2025年国勢調査人口速報と同年10月1日時点の国土地理院面積調から再計算した固定値。
+// 算出処理・全1,741件・データ指紋は research/official-statistics-2025.json に保存する。
+const AREA_LARGE_THRESHOLD = 341.79;
+const AREA_COMPACT_THRESHOLD = 37.45;
+const DENSITY_HIGH_THRESHOLD = 1038.51087563;
+const DENSITY_LOW_THRESHOLD = 35.16336028;
 
 const STATS_THRESHOLDS = {
   pop500k:      c => c.stats?.population != null ? c.stats.population >= 500000 : undefined,
@@ -1520,7 +1522,7 @@ const STATS_QUESTIONS = {
   pop100k:     {text:'人口は10万人以上？', icon:'👥'},
   popUnder50k: {text:'人口は5万人未満？', icon:'👤'},
   densityHigh: {text:'人や住宅が密集しているほう？', icon:'🏢'},
-  densityLow:  {text:'人口がまばらな地域が多い？', icon:'🏞️', subjective:true},
+  densityLow:  {text:'人口がまばらな地域が多い？', icon:'🏞️'},
   areaLarge:   {text:'自治体の区域が広いほう？', icon:'🗺️'},
   areaCompact: {text:'自治体の区域がコンパクトなほう？', icon:'🗺️'},
 };
@@ -1636,7 +1638,7 @@ function computeExclusiveMap(){
   // 日本海/太平洋/瀬戸内海のように、複数のグループに同じキーが登場することがある
   //(地方別グループにこの3つを毎回加えているため)。同じ組を二重登録しないよう記録する。
   const seenPairs = new Set();
-  // 【高速化】以前は、ペアが出てくるたびに CITIES.reduce/filter (825件ループ) を
+  // 【高速化】以前は、ペアが出てくるたびに CITIES.reduce/filter (全自治体ループ) を
   // 3回ずつ実行しており、地方限定タグ同士の組み合わせが数万ペアに及ぶ関係で
   // 起動のたびに3秒前後かかっていた。同じキーの「trueになる市の集合」は
   // ペアが変わっても結果は同じなので、キーごとに1回だけ計算してキャッシュし、
@@ -1808,7 +1810,7 @@ function buildChallengeHintCandidates(city){
 }
 
 // 出題対象になり得る自治体の一覧(5個以上の自然なヒントが作れるもの)。
-// 825件のループを毎回行うのはやや重いため、初回に計算した結果をキャッシュしておく。
+// 全自治体のループを毎回行うのはやや重いため、初回に計算した結果をキャッシュしておく。
 let challengeEligibleCitiesCache = null;
 function getChallengeEligibleCities(){
   if(challengeEligibleCitiesCache) return challengeEligibleCitiesCache;
@@ -5711,7 +5713,7 @@ const TAG_GAME_CATEGORY = {
   "bakumatsu_port": "歴史・文化",
   "former_capital": "歴史・文化",
   "grid_streets": "歴史・文化",
-  "kokuho_building": "歴史・文化",
+  "national_treasure": "歴史・文化",
   "twelve_castles": "歴史・文化",
   "sengoku_warlord": "歴史・文化",
   "war_damage": "歴史・文化",
@@ -6329,7 +6331,7 @@ const PREF_MIN_QUESTIONS       = 8;   // これ以下の質問数では絶対に
 const PREF_UNLOCK_POOL         = 15;  // 残り候補がこれ以下なら解禁
 const PREF_UNLOCK_QCOUNT       = 12;  // 質問数がこれ以上なら解禁
 const PREF_UNLOCK_DOMINANT     = 0.6; // 同一県が残り候補のこの割合以上を占めるなら解禁
-const PREF_GAP_AFTER           = 3;   // 一度出したら、通常質問をこの数だけ挟むまで出さない
+const PREF_GAP_AFTER           = 4;   // 一度出したら、通常質問をこの数だけ挟むまで出さない
 const PREF_MAX_PER_GAME        = 1;   // 1ゲームの原則上限
 const PREF_MAX_RESCUE          = 2;   // 質問数が上限に近い救済時の上限
 const PREF_RESCUE_REMAINING_Q  = 5;   // 残り質問数がこれ以下なら救済措置とみなす
@@ -6344,7 +6346,7 @@ const PREF_MIN_YES_COUNT       = 2;   // 該当が1市だけの都道府県質�
 // (1回だけだと、地方の次に県を1つ聞いた時点で打ち止めになり、県内地域まで進めないため)。
 const PREF_REGION_DONE_POOL    = 60;  // 地方判明後、残り候補がこれ以下なら早期解禁
 const PREF_REGION_DONE_MAX     = 2;   // 早期解禁の場面での出題上限
-const PREF_AREA_RECENT_GAP     = 2;   // 直近この問数以内に地方・都道府県質問を出していたら解禁しない
+const PREF_AREA_RECENT_GAP     = 4;   // 直近この問数以内に地方・都道府県質問を出していたら解禁しない
 // 早期解禁のときだけ、質問数の下限も緩める。
 // 実測では、即時除外が効くため8問目には候補が8〜11件まで落ちており、その頃には残り候補が
 // 同じ県に集中して都道府県質問の情報量がゼロになっていた(=PREF_MIN_QUESTIONS=8 が、
@@ -6380,7 +6382,7 @@ function areaOrPrefAskedRecently(n){
 }
 
 // 地方が判明していて候補も減っている「都道府県質問を使いたい場面」かどうか。
-// 直前2問以内に地方・都道府県質問を出していたら、地名が続いて総当たりに見えるので見送る。
+// 直前4問以内に地方・都道府県質問を出していたら、地名が続いて総当たりに見えるので見送る。
 function prefRegionUnlockNow(poolSize, regionDone){
   // 【capitalsモード専用】県庁所在地・東京23区限定(69件)では、47都道府県を1つずつ
   // 聞くのは非効率(1問で1件しか減らせない)。かといって「地方が判明してから」という
@@ -6402,7 +6404,7 @@ function prefQuestionAllowedNow(poolSize, regionDone){
   const qCount = questionCount + extraQuestionCount;
 
   // 【地方判明後の早期解禁】地方が絞れていて候補も減っているなら、質問数を待たずに解禁する。
-  // ただし地名質問が続くと総当たりに見えるので、直前2問以内に地方・都道府県質問があれば見送る。
+  // ただし地名質問が続くと総当たりに見えるので、直前4問以内に地方・都道府県質問があれば見送る。
   const regionUnlock = prefRegionUnlockNow(poolSize, regionDone);
 
   // 1. 序盤では出さない(早期解禁の場面だけ下限を緩める)
@@ -6416,7 +6418,7 @@ function prefQuestionAllowedNow(poolSize, regionDone){
   const cap = nearLimit ? PREF_MAX_RESCUE : (regionUnlock ? PREF_REGION_DONE_MAX : PREF_MAX_PER_GAME);
   if(prefAskedCount() >= cap) return false;
 
-  // 4. 総当たり禁止: 一度出したら通常質問を3問以上挟む
+  // 4. 総当たり禁止: 一度出したら通常質問を4問以上挟む
   if(questionsSinceLastPref() < PREF_GAP_AFTER) return false;
 
   // 2. 解禁条件: 候補が少ない / 質問数が多い / 地方判明後で候補も減った のいずれか
@@ -6489,9 +6491,16 @@ function regionNarrowedDownForWideUnlock(cities){
 //     ※ブーストしないだけで、その質問自体の実力で選ばれることは妨げない。
 const AREA_BOOST_AMOUNT       = 60;   // 地名質問を選ばせるための加点
 const AREA_BOOST_MIN_YES      = 0.15; // はい側がこの割合未満の地名質問はブーストしない
-const AREA_BOOST_GAP          = 2;    // 直近この問数以内に地名質問を出していたらブーストしない
+const AREA_BOOST_GAP          = 4;    // 地名質問の間に最低4問の別ジャンルを挟む
 const REGION_BOOST_QCOUNT_MAX = 20;   // ①8地方: 地方が決まるまで粘る(決まれば下の regionDone で止まる)
 const WIDE_AREA_BOOST_QCOUNT_MAX = 12;// ②広域: この質問数までブースト
+// 8地方を「東北?→九州?→中国?」と順番に潰す総当たりにしないためのハード制限。
+// 地方質問は、通常の特徴質問を3問以上聞いた後、残り候補で最大勢力かつ25%以上を占める地方を
+// 1ゲームにつき最大1回だけ聞く。加点を止めるだけでは情報利得で再選出されるため、
+// entropyPick() の候補そのものから外す。
+const BROAD_REGION_MAX_PER_GAME = 1;
+const BROAD_REGION_MIN_QUESTIONS = 3;
+const BROAD_REGION_MIN_YES_RATIO = 0.25;
 
 // ②の広域質問のうち、ブースト対象にするもの(主観が混じる4件も出題時期は同じなので含める)
 const WIDE_AREA_BOOST_KEYS = new Set(PHASE_EARLY_MIDDLE_KEYS);
@@ -6500,6 +6509,25 @@ const WIDE_AREA_BOOST_KEYS = new Set(PHASE_EARLY_MIDDLE_KEYS);
 function areaQuestionAskedRecently(){
   return lastDisplayedKeys(AREA_BOOST_GAP)
     .some(k => REGION_QUESTION_KEYS.has(k) || WIDE_AREA_BOOST_KEYS.has(k));
+}
+
+function broadRegionQuestionEligible(key, cities, displayedKeys, totalQuestionCount){
+  if(!REGION_QUESTION_KEYS.has(key)) return true;
+  if(totalQuestionCount < BROAD_REGION_MIN_QUESTIONS) return false;
+  const alreadyAsked = displayedKeys.filter(k => REGION_QUESTION_KEYS.has(k)).length;
+  if(alreadyAsked >= BROAD_REGION_MAX_PER_GAME) return false;
+  if(displayedKeys.slice(-AREA_BOOST_GAP)
+    .some(k => REGION_QUESTION_KEYS.has(k) || WIDE_AREA_BOOST_KEYS.has(k))) return false;
+  if(!cities.length) return false;
+  const counts = [...REGION_QUESTION_KEYS].map(regionKey => ({
+    key: regionKey,
+    yes: cities.filter(city => city.tags[regionKey] === true).length,
+  }));
+  const maxYes = Math.max(0, ...counts.map(item => item.yes));
+  const current = counts.find(item => item.key === key);
+  if(!current || current.yes !== maxYes) return false;
+  const yesRatio = current.yes / cities.length;
+  return yesRatio >= BROAD_REGION_MIN_YES_RATIO && yesRatio <= (1 - BROAD_REGION_MIN_YES_RATIO);
 }
 
 function earlyRegionBoostFor(key, cities){
@@ -6582,6 +6610,19 @@ function entropyPick(){
   const prefOkNow = prefQuestionAllowedNow(truePoolSize, regionDoneNow) && (regionDoneNow || currentMode === 'capitals');
   if(!prefOkNow) unused = unused.filter(k => !isPrefQuestion(k));
 
+  // 【8地方の総当たりを禁止】ブースト有無に関係なく、地方質問は最大勢力を分割できる1問だけ。
+  // また、8地方・広域質問の直後4問は別の地名質問を候補から外して、質問の種類を散らす。
+  const displayedKeys = lastDisplayedKeys(history.length);
+  unused = unused.filter(k => broadRegionQuestionEligible(
+    k,
+    topCities,
+    displayedKeys,
+    questionCount + extraQuestionCount,
+  ));
+  if(areaQuestionAskedRecently()){
+    unused = unused.filter(k => !REGION_QUESTION_KEYS.has(k) && !WIDE_AREA_BOOST_KEYS.has(k));
+  }
+
   const candidateQuestions = [];
   const decisiveSet = new Set();
 
@@ -6635,7 +6676,10 @@ function entropyPick(){
     if(yes === 1 || no === 1) decisiveSet.add(k);
     candidateQuestions.push(k);
   }
-  if(candidateQuestions.length === 0) return unused[0] || null;
+  // 使えるキーが残っていても、現在の候補がすべて同じ答えになる質問は情報量0。
+  // unused[0]を返すと、候補を一件も絞れない質問を上限まで聞き続けるため、
+  // ここではnullを返して推測へ進む。
+  if(candidateQuestions.length === 0) return null;
 
   // 【初手のランダム化】モード開始直後の1問目は、常に同じ質問(海に面している?など)から
   // 始まると単調なので、候補全体をそれなりに分割できる良質な質問の中からランダムに選ぶ。
@@ -10066,6 +10110,10 @@ function applyAnswerCore(key, val, weight){
 }
 
 function answer(key, val, weight){
+  // 連打・古い画面からの遅延イベント・外部からの重複呼び出しを拒否する。
+  // 未回答の現在質問があるときだけ history = answerLog + 1 になる。
+  const pendingSnapshot = history[history.length - 1];
+  if(!pendingSnapshot || pendingSnapshot.key !== key || answerLog.length !== history.length - 1) return;
   if(val === null){
     // 「わからない・スキップ」が選ばれた質問を記録する。GA4へは都度送るが、
     // GAS(スプレッドシート)への送信は通信回数を減らすため、ゲーム終了時にまとめて送る。
@@ -10156,7 +10204,7 @@ const FALSE_LANDMARK_TEXT_OVERRIDES = {
   // 否定形の質問や、機械的な語尾変換では意味が不自然になりやすいもの
   is_town_village: '市である',
   no_railway_station: '市内に鉄道駅がある',
-  kokuho_building: '国宝がない',
+  national_treasure: '国宝がない',
   ekimei_chigau: '市の中心駅の名前が市名と同じである',
   four_plus_name: '市の名前が3文字以下（「市」を除く）',
 };
@@ -10462,6 +10510,69 @@ function specialPraiseFor(info){
   return null;
 }
 
+// ==================== ご当地度の全自治体共通評価 ====================
+// 旧方式は祭り・城など9個の共通タグだけを数えていたため、日本最西端の与那国町のように
+// 固有性が個別タグで表される自治体を星1にしてしまっていた。質問として登録済みのタグから、
+// 地理・歴史文化・観光・食・産業に属する「全国的に珍しい特徴」ほど重く評価する。
+// 交通網、都会としての人口規模、自治体名の表記はご当地度には使わない。ただし、すでに
+// 十分な特色が確認できる小規模自治体には「地域固有性が濃く残る」補正を限定的に加える。
+const LOCAL_IDENTITY_CATEGORIES = new Set(['地理', '歴史・文化', '観光・娯楽', '食', '産業']);
+
+function buildLocalIdentityTagFrequency(cities){
+  const frequency = Object.create(null);
+  for(const candidate of cities){
+    for(const [key, enabled] of Object.entries(candidate.tags || {})){
+      if(enabled) frequency[key] = (frequency[key] || 0) + 1;
+    }
+  }
+  return frequency;
+}
+
+function calculateLocalStar(city, tagFrequency){
+  let identityScore = 0;
+  for(const [key, enabled] of Object.entries(city.tags || {})){
+    if(!enabled || !LOCAL_IDENTITY_CATEGORIES.has(TAG_GAME_CATEGORY[key])) continue;
+    const frequency = tagFrequency[key] || Number.POSITIVE_INFINITY;
+    if(frequency === 1) identityScore += 2;
+    else if(frequency <= 3) identityScore += 1.5;
+    else if(frequency <= 10) identityScore += 1;
+    else if(frequency <= 30) identityScore += 0.5;
+  }
+
+  // 離島性や世界遺産などは、複数自治体に共通していても地域性の核になるため補正する。
+  const t = city.tags || {};
+  if(t.remote_island) identityScore += 2;
+  if(t.worldheritage) identityScore += 1;
+  if(t.traditional_buildings_district) identityScore += 0.5;
+  if(t.geopark) identityScore += 0.5;
+  if(t.active_volcano) identityScore += 0.5;
+
+  // 小さい町村というだけでは加点しない。特色点が2点以上ある自治体に限り、人口規模に
+  // 埋もれがちな地方の固有文化・景観を評価する。白川村のような自治体を正当に扱うため。
+  const population = Number(city.stats && city.stats.population);
+  if(identityScore >= 2 && Number.isFinite(population)){
+    if(population < 5000) identityScore += 1;
+    else if(population < 20000) identityScore += 0.5;
+  }
+
+  if(identityScore >= 5) return 5;
+  if(identityScore >= 3.5) return 4;
+  if(identityScore >= 2) return 3;
+  if(identityScore >= 1) return 2;
+  return 1;
+}
+
+let localIdentityTagFrequencyCache = null;
+let localIdentityTagFrequencyCityCount = -1;
+function currentLocalIdentityTagFrequency(){
+  if(!localIdentityTagFrequencyCache || localIdentityTagFrequencyCityCount !== CITIES.length){
+    localIdentityTagFrequencyCache = buildLocalIdentityTagFrequency(CITIES);
+    localIdentityTagFrequencyCityCount = CITIES.length;
+  }
+  return localIdentityTagFrequencyCache;
+}
+// ==================== /ご当地度の全自治体共通評価 ====================
+
 function calcStars(city){
   const t = city.tags;
   const cap = n => Math.max(1, Math.min(5, n));
@@ -10482,16 +10593,15 @@ function calcStars(city){
   if (t.jleague || t.npb) urban += 1;
   urban = cap(urban);
 
-  // ご当地色(旧:ローカル色): 祭り・城・世界遺産・温泉・酒・米・麺・花火・港町で判断
-  const localCount = [t.festival, t.castle, t.worldheritage, t.onsen, t.sake, t.rice_region, t.noodle, t.fireworks, t.port_town]
-    .filter(Boolean).length;
-  let local = cap(1 + Math.floor(localCount / 2));
+  // ご当地度: 全国での希少性を含む、全自治体共通の評価式で判断する。
+  let local = calculateLocalStar(city, currentLocalIdentityTagFrequency());
 
   // 個別の星評価上書き(cities.jsonのstarOverridesに数値があれば、自動計算より優先する)
   const ov = city.starOverrides || {};
   if (ov.snow != null) snow = ov.snow;
   if (ov.urban != null) urban = ov.urban;
-  if (ov.local != null) local = ov.local;
+  // 過去の手動値は「特色を保証する下限」としてのみ残す。自動再計算した星を下げない。
+  if (ov.local != null) local = Math.max(local, cap(Number(ov.local)));
 
   return { snow, urban, local };
 }
@@ -11015,8 +11125,9 @@ function renderSuccessCorrectionForm(){
 }
 
 // 訂正フォームで入力された(都道府県, 市区町村名の自由記述)から、CITIESデータの該当自治体を
-// 特定する。表記ゆれがあるため、都道府県が一致し、かつ市区町村名が前方一致(「府中」→
-// 「府中市」等)する場合のみ一致とみなす、控えめな判定にしている(誤って別の市と紐付けないため)。
+// 特定する。市区町村まで入力された場合は完全一致を最優先する。末尾を省略した入力
+// （「府中」→「府中市」等）は、同じ都道府県内で候補が一意の場合だけ採用する。
+// 「白川村」を「白川町」へ誤照合するような、語幹だけの前方一致は行わない。
 // 【不正解の原因分析】answerLog(このゲームで実際に回答した内容)と、本当のマチのデータ
 // (matched.tags)を比較し、矛盾していた回答を抽出する。
 //
@@ -11060,14 +11171,13 @@ function computeAnswerMismatches(matched){
 }
 
 function findCityByPrefAndFreeText(pref, cityText){
-  const normalize = s => (s || '').replace(/\s/g, '');
+  const normalize = s => (s || '').replace(/\s/g, '').replace(/（[^）]+）$/, '');
   const inputCityNorm = normalize(cityText);
-  return CITIES.find(c => {
-    if(c.name === '東京') return false;
-    if(c.pref !== pref) return false;
-    const n = normalize(displayName(c));
-    return n === inputCityNorm || n.startsWith(inputCityNorm) || inputCityNorm.startsWith(n.replace(/[市区町村]$/, ''));
-  }) || null;
+  const prefCities = CITIES.filter(c => c.name !== '東京' && c.pref === pref);
+  const exact = prefCities.find(c => normalize(displayName(c)) === inputCityNorm);
+  if(exact) return exact;
+  const coreMatches = prefCities.filter(c => normalize(displayName(c)).replace(/[市区町村]$/, '') === inputCityNorm);
+  return coreMatches.length === 1 ? coreMatches[0] : null;
 }
 
 function submitCorrection(){
@@ -11570,7 +11680,7 @@ function restart(){
 // 訪問のたびに落とし直しており、起動が遅くなる最大の原因になっていた。
 // URLに中身のハッシュを付ければ、更新したときだけ新しいURLになるので、
 // 「常に最新」を保ったままブラウザのキャッシュを使える(2回目以降の起動が速くなる)。
-const CITIES_VERSION = 'dd6b537be1';
+const CITIES_VERSION = 'a19d8ad653';
 
 async function boot(){
   try{

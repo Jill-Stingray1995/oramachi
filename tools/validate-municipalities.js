@@ -25,6 +25,8 @@ try { new Function(appSrc); } catch (e) { err('app.jsに構文エラー: ' + e.m
 const keysMatch = appSrc.match(/const KEYS = \[([\s\S]*?)\];/);
 const KEYS = new Set((keysMatch ? keysMatch[1] : '').match(/'([a-zA-Z0-9_]+)'/g)?.map(s => s.slice(1, -1)) || []);
 if (KEYS.size === 0) err('app.jsからKEYSを抽出できませんでした');
+// 出題はしないが、公式データの再生成根拠としてcities.jsonに保持する補助タグ。
+const AUXILIARY_TAGS = new Set(['kokuho_building']);
 
 // 3. 各レコード検査
 const seen = new Set();
@@ -105,7 +107,7 @@ const HOKURIKU_TARGETS = {
              '信濃町','小川村','飯綱町','栄村'],
 };
 // 統計から実行時に決まる質問(人口・面積・人口密度)。app.jsのSTATS_THRESHOLDSと同じ基準。
-const AREA_LARGE = 443.46, AREA_COMPACT = 49.26, DENSITY_HIGH = 2425.28, DENSITY_LOW = 112.37;
+const AREA_LARGE = 341.79, AREA_COMPACT = 37.45, DENSITY_HIGH = 1038.51087563, DENSITY_LOW = 35.16336028;
 function statsTags(c) {
   const p = c.stats && c.stats.population, a = c.stats && c.stats.area_km2;
   if (typeof p !== 'number' || typeof a !== 'number') return [];
@@ -133,7 +135,7 @@ for (const c of cities) {
   if (!c.stats || typeof c.stats.population !== 'number' || typeof c.stats.area_km2 !== 'number')
     err(`${id}: stats.population / stats.area_km2 が数値ではありません`);
   const tags = Array.isArray(c.tags) ? c.tags : Object.keys(c.tags).filter(k => c.tags[k]);
-  for (const t of tags) if (!KEYS.has(t)) err(`${id}: 存在しないタグ「${t}」`);
+  for (const t of tags) if (!KEYS.has(t) && !AUXILIARY_TAGS.has(t)) err(`${id}: 存在しないタグ「${t}」`);
   // 町村区分
   const isTV = tags.includes('is_town_village');
   const isV = tags.includes('is_village');

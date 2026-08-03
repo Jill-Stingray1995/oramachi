@@ -1,0 +1,30 @@
+{
+  "name": "oramachi-app",
+  "version": "0.1.0",
+  "private": true,
+  "description": "おらマチのWeb/PWA版とCapacitorネイティブ版を管理する開発用プロジェクト",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "build": "node tools/build-release.js all",
+    "build:web": "node tools/build-release.js web",
+    "build:native": "node tools/build-release.js native",
+    "test": "npm run build && cap sync android && npm run test:regression",
+    "test:regression": "node tools/validate-municipalities.js && node tools/test-question-tag-integrity.js && node tools/test-official-source-policy.js && node tools/test-question-engine.js && node tools/test-local-stars.js && node tools/test-game-session.js && node tools/test-back-navigation.js && node tools/test-security-release.js && node tools/test-pwa-release.js && node tools/test-build-profiles.js && node tools/test-native-runtime.js && node tools/test-native-navigation.js && node tools/test-native-ranking.js && node tools/test-native-prefecture-modes.js && node tools/test-capacitor-shell.js",
+    "android:sync": "npm run build:native && cap sync android",
+    "android:doctor": "cap doctor android",
+    "android:open": "cap open android",
+    "android:run": "npm run android:sync && cap run android",
+    "android:assemble:debug": "npm run android:sync && ./android/gradlew -p android assembleDebug"
+  },
+  "dependencies": {
+    "@capacitor/android": "8.4.2",
+    "@capacitor/app": "8.1.1",
+    "@capacitor/core": "8.4.2"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "8.4.2",
+    "shapefile": "^0.6.6"
+  }
+}

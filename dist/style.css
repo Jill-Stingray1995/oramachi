@@ -3463,10 +3463,12 @@ body.native-app .danger-btn{ font-size:13px; }
 }
 .mode-btn-primary .mode-title{
   display: block;
-  font-size: 18px;
+  /* 狭い画面でも「全国版で遊ぶ」の末尾だけが改行されないようにする。 */
+  font-size: clamp(15px, 5.2vw, 18px);
   font-weight: 900;
   color: var(--vermillion);
   text-align: center;
+  white-space: nowrap;
 }
 .beginner-badge{
   display: inline-block;
