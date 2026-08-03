@@ -1918,6 +1918,19 @@ let reportModalLastFocusedEl = null; // 閉じたときにフォーカスを戻�
 let reportModalKeydownHandler = null; // Escキー等のリスナー(閉じるときに確実に外す)
 let reportModalTargetKey = null; // 現在報告しようとしている質問のキー
 
+// 日本語IMEで変換中の入力欄からボタンを直接タップした場合に、確定前の途中文字列を
+// 読み取らないための共通処理。blurで変換を確定し、次の描画後に送信処理を実行する。
+// ボタンは待機開始時に無効化し、呼び出し側の失敗処理で必要に応じて再度有効化する。
+function commitImeThenRun(inputEl, buttonEl, action){
+  if(buttonEl && buttonEl.disabled) return false;
+  if(buttonEl) buttonEl.disabled = true;
+  if(inputEl && typeof inputEl.blur === 'function') inputEl.blur();
+  const run = () => action();
+  if(typeof requestAnimationFrame === 'function') requestAnimationFrame(() => setTimeout(run, 0));
+  else setTimeout(run, 0);
+  return true;
+}
+
 function openQuestionReportModal(key){
   if(reportedQuestionKeysInGame.has(key)) return; // 二重送信防止(念のためJS側でも止める)
   const q = QUESTIONS[key];
@@ -1960,7 +1973,10 @@ function openQuestionReportModal(key){
   const overlay = document.getElementById('reportModalOverlay');
   closeBtn.addEventListener('click', closeQuestionReportModal);
   cancelBtn.addEventListener('click', closeQuestionReportModal);
-  submitBtn.addEventListener('click', submitQuestionReport);
+  submitBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    commitImeThenRun(document.getElementById('reportCommentInput'), submitBtn, submitQuestionReport);
+  });
   overlay.addEventListener('click', (e) => { if(e.target === overlay) closeQuestionReportModal(); });
 
   reportModalKeydownHandler = (e) => {
@@ -11112,7 +11128,7 @@ function renderCorrectionForm(){
       </select>
       <input id="correctionCity" class="correction-input" type="text" placeholder="市区町村名(例: 札幌市)" maxlength="30">
       <div class="correction-error" id="correctionError"></div>
-      <button class="btn-teach" onclick="submitCorrection()">おらっちに教える</button>
+      <button class="btn-teach" id="correctionSubmitBtn" type="button" onclick="submitCorrectionAfterIme(event)">おらっちに教える</button>
     </div>
   `;
 }
@@ -11180,6 +11196,20 @@ function findCityByPrefAndFreeText(pref, cityText){
   return coreMatches.length === 1 ? coreMatches[0] : null;
 }
 
+// Android WebViewなどでは、日本語IMEの変換中にボタンをタップすると、clickの時点では
+// input.valueに確定済み部分しか入っていないことがある。実際に「富士吉田市」のうち
+// 「富士」だけを訂正報告として送れる状態になっていた。入力欄をblurしてIMEを確定し、
+// 次の描画後に値を読み取る。待機中はボタンを無効化して二重送信も防ぐ。
+function submitCorrectionAfterIme(event){
+  if(event && typeof event.preventDefault === 'function') event.preventDefault();
+  const cityEl = document.getElementById('correctionCity');
+  const submitBtn = document.getElementById('correctionSubmitBtn');
+  commitImeThenRun(cityEl, submitBtn, () => {
+    const submitted = submitCorrection();
+    if(!submitted && submitBtn && submitBtn.isConnected) submitBtn.disabled = false;
+  });
+}
+
 function submitCorrection(){
   const prefEl = document.getElementById('correctionPref');
   const cityEl = document.getElementById('correctionCity');
@@ -11189,8 +11219,18 @@ function submitCorrection(){
 
   if(!pref || !city){
     if(errEl) errEl.textContent = '都道府県と市区町村名の両方を入力してください';
-    return;
+    return false;
   }
+
+  // 保存・送信より前に、現行の1,741自治体のどれかへ必ず解決する。
+  // IMEの未確定値（例:「富士」）や途中入力を「ありがとう」と受理しない。
+  const matched = findCityByPrefAndFreeText(pref, city);
+  if(!matched){
+    if(errEl) errEl.textContent = '市区町村名を最後まで入力してください（例: 富士吉田市）';
+    if(cityEl && typeof cityEl.focus === 'function') cityEl.focus();
+    return false;
+  }
+  const canonicalCity = displayName(matched);
 
   // 「もしかして」の対象は、常にlastGuessCity(直近に画面へ出した候補)を使う。
   // 途中でsortedPool()の順位が変わっても、ユーザーが実際に見た候補名とズレないようにする。
@@ -11198,8 +11238,10 @@ function submitCorrection(){
   const entry = {
     guessedName: guess ? displayName(guess) : null,
     guessedPref: guess ? guess.pref : null,
+    guessedCityId: guess ? cityId(guess) : null,
     correctPref: pref,
-    correctCity: city,
+    correctCity: canonicalCity,
+    correctCityId: cityId(matched),
     questionCount: questionCount + extraQuestionCount,
     timestamp: new Date().toISOString()
   };
@@ -11215,12 +11257,6 @@ function submitCorrection(){
 
   sendCorrectionToSheet(entry);
 
-  // 入力された「本当のマチ」がCITIESデータのどれに該当するかを特定する(表記ゆれに強い
-  // 前方一致判定)。見つかれば、不正解時の原因分析(computeAnswerMismatches)と
-  // 「惜しい候補」判定の両方に使う。見つからなければ、どちらの機能も行わない
-  // (誤って別の市のデータと比較しないため)。
-  const matched = findCityByPrefAndFreeText(pref, city);
-
   // 【惜しい候補との突合】降参画面で表示していた候補の中に、入力された本当の地元が
   // 含まれていたかを判定する。一致しなければ何も言わない(誤って「候補に入っていました」と
   // 言わないようにするため)。
@@ -11233,7 +11269,8 @@ function submitCorrection(){
   // 矛盾していた(=不正解の原因になった可能性がある)回答を抽出しておく。
   const mismatches = matched ? computeAnswerMismatches(matched) : [];
 
-  renderThanks(wasNearMiss, `${pref}${city}`, matched, mismatches);
+  renderThanks(wasNearMiss, `${pref}${canonicalCity}`, matched, mismatches);
+  return true;
 }
 
 function renderThanks(wasNearMiss, correctCityLabel, matchedCity, mismatches){

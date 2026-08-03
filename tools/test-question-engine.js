@@ -48,7 +48,7 @@ assert(source.includes('const BROAD_REGION_MIN_YES_RATIO = 0.25;'), '8地方質�
 
 // 「おらっちに教える」は市・区だけでなく町村も全件照合できること。
 assert(source.includes('placeholder="市区町村名(例: 札幌市)"'), '訂正フォームが市区町村入力であることを明示できていません');
-const cityFinderSource = between('function findCityByPrefAndFreeText(pref, cityText){', 'function submitCorrection(){');
+const cityFinderSource = between('function findCityByPrefAndFreeText(pref, cityText){', '// Android WebViewなどでは');
 const findCity = vm.runInNewContext(`(${cityFinderSource.trim()})`, {
   CITIES: cities,
   displayName: city => city.name.replace(/（[^）]+）$/, ''),
@@ -69,5 +69,31 @@ for(const city of playableCities){
   else assert.equal(coreMatch, null, `${city.pref}${coreName(city)}は複数候補なのに自動決定されています`);
 }
 assert.equal(findCity('広島県', '府中'), null, '広島県の「府中」は府中市・府中町があるため自動決定してはいけません');
+assert.equal(findCity('山梨県', '富士吉田市').name, '富士吉田市', '富士吉田市の正式名を最後まで照合できません');
+for(const partial of ['富', '富士', '富士吉']){
+  assert.equal(findCity('山梨県', partial), null, `富士吉田市の途中入力「${partial}」を自治体として受理しています`);
+}
+assert.equal(findCity('山梨県', '富士吉田').name, '富士吉田市', '市を省略した一意な正式地名を照合できません');
+
+// 日本語IMEの未確定文字列や途中入力を訂正報告として受理しない。
+assert(source.includes('onclick="submitCorrectionAfterIme(event)"'), '訂正送信がIME確定待ちを経由していません');
+const imeSubmitSource = between('function submitCorrectionAfterIme(event){', 'function submitCorrection(){');
+assert(imeSubmitSource.includes('commitImeThenRun(cityEl, submitBtn'), '訂正送信が共通IME確定処理を経由していません');
+const imeCommitSource = between('function commitImeThenRun(inputEl, buttonEl, action){', 'function openQuestionReportModal(key){');
+assert(imeCommitSource.includes('inputEl.blur()'), '送信前に日本語IMEを確定していません');
+assert(imeCommitSource.includes('requestAnimationFrame'), 'IME確定後の入力値を次の描画で読んでいません');
+const questionReportModalSource = between('function openQuestionReportModal(key){', '// モーダル内でTabキーによる');
+assert(questionReportModalSource.includes("commitImeThenRun(document.getElementById('reportCommentInput'), submitBtn, submitQuestionReport)"), '質問報告コメントがIME確定待ちを経由していません');
+const correctionSubmitSource = between('function submitCorrection(){', 'function renderThanks(');
+assert(correctionSubmitSource.includes('if(!matched){'), '途中入力・未登録自治体を訂正報告から拒否していません');
+assert(correctionSubmitSource.indexOf('if(!matched){') < correctionSubmitSource.indexOf('sendCorrectionToSheet(entry)'), '自治体検証より先に訂正報告を送信しています');
+assert(correctionSubmitSource.includes('correctCityId: cityId(matched)'), '訂正報告に確定済み自治体IDを含めていません');
+assert(correctionSubmitSource.includes('correctCity: canonicalCity'), '訂正報告の自治体名を正式表示名へ統一していません');
+
+// 挑戦状の自由入力は、候補リストから自治体IDを確定するまで送信できないこと。
+const challengeRenderSource = between('function renderChallengeMode(){', '// 入力欄の内容が変わるたびに');
+assert(challengeRenderSource.includes('id="challengeSubmitBtn"') && challengeRenderSource.includes('disabled>これで回答する'), '挑戦状の未確定入力を送信できてしまいます');
+const challengeSubmitSource = between('function submitChallengeGuess(){', 'function giveUpChallenge(){');
+assert(challengeSubmitSource.includes('!challengeSelectedCityId'), '挑戦状の送信時に確定済み自治体IDを検証していません');
 
 console.log('Internal question engine regression tests passed.');

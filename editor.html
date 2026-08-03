@@ -5004,6 +5004,20 @@ function modeOnlyFor(key){ return TAG_MODE_ONLY[key] || ""; }
 const $ = sel => document.querySelector(sel);
 const $$ = sel => Array.from(document.querySelectorAll(sel));
 
+// Androidなどの日本語IMEで変換中に保存・適用ボタンをタップした場合、clickより後に
+// 変換結果がinputへ反映されることがある。すべての編集操作についてpointerdownの時点で
+// テキスト入力を確定し、click側が途中文字列を保存しないようにする。
+document.addEventListener('pointerdown', event => {
+  const target = event.target;
+  const button = target && typeof target.closest === 'function' ? target.closest('button') : null;
+  const active = document.activeElement;
+  if(!button || !active) return;
+  const tag = String(active.tagName || '').toUpperCase();
+  const type = String(active.type || 'text').toLowerCase();
+  const isTextControl = tag === 'TEXTAREA' || (tag === 'INPUT' && ['text', 'search', 'url', 'email', 'tel'].includes(type));
+  if(isTextControl && typeof active.blur === 'function') active.blur();
+}, true);
+
 function toast(msg){
   const t = $('#toast');
   t.textContent = msg;
