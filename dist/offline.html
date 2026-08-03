@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#263A5C">
+  <title>オフラインです | おらマチ</title>
+  <meta name="description" content="おらマチのオフライン案内です。">
+  <link rel="stylesheet" href="/style.css?v=570fe38c5f">
+  <link rel="manifest" href="/manifest.json?v=353a46aa49">
+  <link rel="icon" href="/favicon.ico?v=3aa48721b4" sizes="any">
+  <link rel="apple-touch-icon" href="/pwa-icons/apple-touch-icon.png?v=3a540b02a7">
+</head>
+<body>
+<div class="app">
+  <div class="brand">
+    <div class="eyebrow">JAPAN MUNICIPALITY QUIZ</div>
+    <a class="logo-wrap" href="/" aria-label="おらマチを開く">
+      <svg class="logo-mark" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="20" cy="20" r="19" fill="#263A5C"/>
+        <path d="M20 8 C13 8 8 13.5 8 20 C8 27 20 34 20 34 C20 34 32 27 32 20 C32 13.5 27 8 20 8 Z" fill="#F7F1E3"/>
+        <circle cx="20" cy="19" r="6.2" fill="#C1432E"/>
+      </svg>
+      <div class="logo-text"><span class="ora">おら</span><span class="machi">マチ</span></div>
+    </a>
+    <p class="tagline">通信状況をご確認ください</p>
+  </div>
+
+  <div class="card">
+    <main class="page-article offline-page">
+      <img class="offline-mascot" src="/mascot-sad.png?v=f52e4bfff8" alt="困っているおらっち">
+      <h1>このページはまだ端末に保存されていません</h1>
+      <p>現在オフラインです。以前に保存されたゲーム本体は、下のボタンから開けます。</p>
+      <p>統計の取得、訂正報告、アクセス解析、広告など、外部通信が必要な機能はオンライン復帰後に利用できます。</p>
+      <a class="offline-home-link" href="/">保存済みのゲームを開く</a>
+      <button class="again offline-retry" id="offlineRetry" type="button">通信を確認して再読み込み</button>
+    </main>
+  </div>
+</div>
+<script defer src="/pwa.js?v=227b41843b"></script>
+</body>
+</html>

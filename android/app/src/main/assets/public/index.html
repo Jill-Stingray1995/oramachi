@@ -1,20 +1,14 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PKZFVY8S4V"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob: https:; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://script.google.com https://script.googleusercontent.com; frame-src https://maps.google.co.jp https://maps.google.com https://www.google.com">
+  <meta name="oramachi-build-target" content="native">
+  
+  
+  
 
-    gtag('config', 'G-PKZFVY8S4V');
-  </script>
-
-  <!-- Google AdSense -->
-  <script async
-    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7175254170097324"
-    crossorigin="anonymous"></script>
+  
+  
 
   <meta charset="UTF-8">
 <meta name="google-site-verification" content="Vwf68Bsu56VoUtkyklohuOglzEfhyip19iKhn0nJU-U" />
@@ -39,7 +33,7 @@
 <meta name="twitter:description" content="北方領土の6村を除く、全国1,741市区町村(792市・東京23特別区・743町・183村)に対応。「はい」「いいえ」で答えるだけの無料まちあてゲームです。">
 <meta name="twitter:image" content="https://oramachi-jp.com/ogp.png?v=82d5ebe5bd">
 <meta name="twitter:image:alt" content="おらマチ。Yes-Noでマチあて。あなたの地元、おらっちが当てます。">
-<!-- Google AdSense審査時：AdSense管理画面で発行されたコードを、この直前または直後の<head>内に貼り付けます。架空のca-pub IDは入れないでください。 -->
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <!-- フォントの本体は fonts.gstatic.com から配信される。接続の準備だけ先に済ませておくと、
      フォントが表示されるまでの待ち時間が短くなる。 -->
@@ -60,31 +54,12 @@
      ようやくデータの取得が始まるため、起動までが直列につながって遅くなる。
      ?v= の値は bump-version.js が cities.json の中身から自動で書き換える。 -->
 <link rel="preload" href="cities.json?v=dd6b537be1" as="fetch" crossorigin>
-<link rel="manifest" href="./manifest.json?v=353a46aa49">
+
 <meta name="theme-color" content="#263A5C">
-<meta name="application-name" content="おらマチ">
-<meta name="mobile-web-app-capable" content="yes">
-<!-- Safariのお気に入り・ブラウザタブ用 -->
-<link rel="icon" href="/favicon.ico?v=3aa48721b4" sizes="any">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=7a6f573289">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=153a5af175">
-<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png?v=eb7d4632a4">
-
-<!-- iPhoneホーム画面用 -->
-<link rel="apple-touch-icon"
-      sizes="180x180"
-      href="/favicon-180.png?v=6b36845ab5">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="おらマチ">
 </head>
-<body>
+<body class="native-app">
 <div class="app">
-  <button class="install-btn" id="installBtn" type="button" style="display:none;">
-    <span class="install-icon">＋</span>アプリ追加
-  </button>
-
-  <div class="brand">
+<div class="brand">
     <div class="eyebrow">JAPAN MUNICIPALITY QUIZ</div>
 <a class="logo-wrap" href="./" aria-label="トップページに戻る">
   <svg class="logo-mark" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
@@ -141,13 +116,7 @@
     <h2>注意事項</h2>
     <p>おらマチの判定は、あなたの回答と登録されているデータをもとにした推測であり、必ず正解するとは限りません。あらかじめご了承のうえ、お楽しみください。よくある質問は<a href="./faq.html">こちら</a>でもご確認いただけます。</p>
   </section>
-
-  <div class="install-tip" id="installTip" role="dialog" aria-label="ホーム画面への追加方法" aria-hidden="true" tabindex="-1" style="display:none;">
-    <p>ブラウザの共有ボタン<span class="tip-icon">⬆️</span>から「ホーム画面に追加」を選ぶと、アプリとして使えます。</p>
-    <button type="button" id="installTipClose">閉じる</button>
-  </div>
-
-  <footer class="site-footer">
+<footer class="site-footer">
     <nav class="footer-nav" aria-label="サイト内ナビゲーション">
       <a href="./">トップ</a>
       <a href="./play-guide.html">遊び方</a>
@@ -166,7 +135,8 @@
 </div>
 
 <script defer src="japan-map-data.js?v=361d072efc"></script>
+<script defer src="native-bootstrap.js"></script>
 <script defer src="app.js?v=515c11c879"></script>
-<script defer src="pwa.js?v=227b41843b"></script>
+
 </body>
 </html>

@@ -1,0 +1,3616 @@
+  :root{
+    --paper: #F7F1E3;
+    --paper-deep: #EFE6CF;
+    --indigo: #263A5C;
+    --indigo-deep: #182642;
+    --vermillion: #C1432E;
+    --vermillion-deep: #9C3423;
+    --gold: #C9A227;
+    --mint: #4E9E8E;
+    --ink: #2A2620;
+    --ink-soft: #6B6455;
+    --line: #D8CBA8;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family: 'Zen Maru Gothic', sans-serif;
+    background:
+      radial-gradient(circle at 15% 8%, rgba(193,67,46,0.06), transparent 40%),
+      radial-gradient(circle at 85% 92%, rgba(38,58,92,0.07), transparent 45%),
+      var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+    display:flex;
+    justify-content:center;
+    padding:
+      calc(18px + env(safe-area-inset-top, 0px))
+      calc(12px + env(safe-area-inset-right, 0px))
+      calc(40px + env(safe-area-inset-bottom, 0px))
+      calc(12px + env(safe-area-inset-left, 0px));
+  }
+  .app{ width:100%; max-width: 440px; }
+
+  .brand{ text-align:center; margin-bottom: 14px; }
+  .logo-wrap{ display:flex; justify-content:center; align-items:center; gap:10px; margin-bottom:4px;cursor: pointer;
+text-decoration: none;
+color: inherit;}
+  .logo-mark{ width:34px; height:34px; flex-shrink:0; }
+  .logo-text{
+    font-family:'Shippori Mincho', serif;
+    font-size: 30px; font-weight:700; color: var(--indigo-deep);
+    letter-spacing: 0.03em; display:flex; align-items:baseline;
+  }
+  .logo-text .ora{ color: var(--indigo-deep); }
+  .logo-text .machi{ color: var(--vermillion); margin-left:2px; }
+  .brand p.tagline{ margin:0; font-size: 12.5px; color: var(--ink-soft); letter-spacing:0.02em; }
+  .x-follow{
+    display:inline-flex; align-items:center; gap:4px; margin-top:8px;
+    font-size: 11px; color: var(--ink-soft); text-decoration:none;
+    border: 1px solid var(--line); border-radius: 20px; padding: 4px 10px;
+  }
+  .x-follow:hover{ color: var(--indigo-deep); border-color: var(--indigo); }
+  .brand .eyebrow{ font-size: 10.5px; letter-spacing: 0.3em; color: var(--mint); font-weight: 700; margin-bottom:2px; }
+
+  .card{
+    position:relative; background: #FFFDF6; border: 1px solid var(--line);
+    border-radius: 22px; padding: 22px 20px 18px;
+    box-shadow: 0 10px 30px rgba(38,58,92,0.10), 0 2px 6px rgba(38,58,92,0.06);
+    overflow:hidden; min-height: 320px;
+  }
+  .card::before{
+    content:""; position:absolute; inset:0;
+    background-image: repeating-linear-gradient(135deg, rgba(38,58,92,0.02) 0 2px, transparent 2px 14px);
+    pointer-events:none;
+  }
+
+  .stamps{ display:flex; gap:5px; justify-content:center; margin-bottom:14px; flex-wrap:wrap; }
+
+  /* 【進行バー】質問の進み具合を1本のバーで表す。
+     以前は上限34問ぶんの丸を並べていたが、スマホで小さく詰まって圧迫感が出ていた。 */
+  .qbar{
+    position: relative;
+    width: 100%;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--paper-deep);
+    border: 1px solid var(--line);
+    margin: 4px 0 10px;
+  }
+  .qbar-fill{
+    position: absolute; left:0; top:0; bottom:0;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(193,67,46,0.55), var(--vermillion));
+    transition: width .35s ease;
+  }
+  /* 5問ごとの目盛り */
+  .qbar-tick{
+    position: absolute; top:-2px; bottom:-2px;
+    width: 1px;
+    background: var(--line);
+    opacity: .9;
+  }
+  /* 現在地の目印(通常質問=鳥居 / 追加質問=虫めがね)。
+     鳥居はSVG化してあり、ここでの color がそのまま塗り色になる(currentColor)。
+     以前の絵文字版より大きく・朱色をはっきり出す。 */
+  .qbar-head{
+    position: absolute; top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 22px; line-height: 1; /* 大きめに表示(以前の12pxより拡大) */
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.22));
+    transition: left .35s ease;
+  }
+  /* 追加質問中は色を変えて、通常質問との違いが分かるようにする */
+  .qbar-extra{ background: rgba(38,58,92,0.08); }
+  .qbar-extra .qbar-fill{
+    background: linear-gradient(90deg, rgba(38,58,92,0.5), var(--indigo-deep));
+  }
+
+  .stamp{
+    width:18px; height:18px; border-radius:50%; border: 1.6px solid var(--line);
+    display:flex; align-items:center; justify-content:center; font-size:9px; color: transparent;
+    transition: all .3s ease;
+  }
+  .stamp.filled{
+    border-color: var(--vermillion); color: var(--vermillion);
+    background: rgba(193,67,46,0.08); transform: scale(1.05) rotate(-8deg);
+  }
+
+  .stage{ text-align:center; }
+
+  .mascot-wrap{ display:flex; justify-content:center; margin: 4px 0 10px; }
+  .mascot{ width:132px; height:132px; object-fit: contain; filter: drop-shadow(0 6px 10px rgba(38,58,92,0.18)); }
+  .bob{ animation: bob 3.2s ease-in-out infinite; }
+  @keyframes bob{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+  .shake{ animation: shake .5s ease; }
+  @keyframes shake{ 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
+  .pop{ animation: pop .5s cubic-bezier(.34,1.56,.64,1); }
+  @keyframes pop{ 0%{transform:scale(.7); opacity:0} 100%{transform:scale(1); opacity:1} }
+
+  /* 【もうわかった！ジャンプ演出】推測画面に切り替わった瞬間、おらっちが1回だけ飛び跳ねる。
+     既存の pop(登場フェードイン)と同時に付くので、1本のアニメーションにまとめて
+     transform の奪い合いが起きないようにしている。
+     transform と opacity だけで作っているので描画コストが軽く、
+     画面外にはみ出さない範囲(上方向 26px 程度)に収めている。 */
+  .pop.mascot-guess-jump{ animation: popGuessJump 1s cubic-bezier(.34,1.56,.64,1) 1; }
+  @keyframes popGuessJump{
+    0%   { transform: scale(.7)            translateY(0);    opacity:0; }
+    16%  { transform: scale(1)             translateY(0);    opacity:1; }   /* 登場完了 */
+    28%  { transform: scale(1.06,0.9)      translateY(5px)   rotate(0deg); } /* 少し沈み込む */
+    48%  { transform: scale(0.94,1.1)      translateY(-26px) rotate(-6deg); } /* ぴょんと跳ぶ・空中で傾く */
+    66%  { transform: scale(1.07,0.88)     translateY(2px)   rotate(2deg); }  /* 着地して少し潰れる */
+    82%  { transform: scale(0.98,1.04)     translateY(-5px)  rotate(-1deg); } /* 小さく弾む */
+    100% { transform: scale(1)             translateY(0)     rotate(0deg); } /* 元の位置に戻る */
+  }
+  .blink{ animation: blink 4.5s ease-in-out infinite; transform-origin: center; }
+  @keyframes blink{ 0%,92%,100%{transform:scaleY(1)} 96%{transform:scaleY(0.1)} }
+
+
+  /* トップページ専用マスコット。煙の中から飛び出し、その後ゆっくり浮遊する。 */
+  .opening-mascot-wrap{
+    position:relative;
+    margin-top:-14px;
+    margin-bottom:28px;
+    min-height:132px;
+    overflow:visible;
+  }
+  .opening-mascot-shell{
+    position:relative;
+    width:132px;
+    height:132px;
+    transform-origin:center bottom;
+    isolation:isolate;
+    overflow:visible;
+  }
+  .opening-mascot-image{
+    position:relative;
+    z-index:2;
+    display:block;
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    transform-origin:center bottom;
+    will-change:transform, opacity;
+  }
+  .opening-smoke{
+    position:absolute;
+    z-index:3;
+    left:50%;
+    bottom:-7px;
+    width:150px;
+    height:70px;
+    transform:translateX(-50%);
+    pointer-events:none;
+    overflow:visible;
+  }
+  .opening-smoke-puff{
+    position:absolute;
+    left:50%;
+    bottom:5px;
+    width:44px;
+    height:34px;
+    margin-left:-22px;
+    border-radius:50%;
+    background:radial-gradient(circle at 42% 35%, #fffdf6 0 28%, #efe9dc 65%, #d8d0c1 100%);
+    box-shadow:0 3px 8px rgba(38,58,92,.14);
+    opacity:0;
+    transform:translate(0,0) scale(.25);
+    will-change:transform, opacity;
+  }
+  .opening-smoke-puff:nth-child(2){width:36px;height:30px}
+  .opening-smoke-puff:nth-child(3){width:50px;height:38px}
+  .opening-smoke-puff:nth-child(4){width:32px;height:28px}
+  .opening-smoke-puff:nth-child(5){width:42px;height:32px}
+  .opening-smoke-puff:nth-child(6){width:30px;height:26px}
+  .opening-smoke-puff:nth-child(7){width:38px;height:30px}
+  .opening-pon{
+    position:absolute;
+    z-index:4;
+    right:-35px;
+    top:29px;
+    color:var(--vermillion-deep);
+    font-size:20px;
+    font-weight:900;
+    letter-spacing:.04em;
+    text-shadow:0 2px 0 #fffdf6, 1px 0 0 #fffdf6, -1px 0 0 #fffdf6;
+    opacity:0;
+    transform:rotate(8deg) scale(.4);
+    pointer-events:none;
+    white-space:nowrap;
+    will-change:transform, opacity;
+  }
+  .opening-mascot-css-fallback{ animation:openingMascotAppearFallback 1.02s .08s cubic-bezier(.2,1.55,.35,1) both; }
+  .opening-mascot-float-fallback{ animation:openingMascotFloatFallback 3s 1.18s ease-in-out infinite; }
+  .opening-smoke-css-fallback .opening-smoke-puff{ animation:openingSmokeFallback .9s ease-out both; }
+  .opening-smoke-css-fallback .opening-smoke-puff:nth-child(2){animation-delay:.04s}
+  .opening-smoke-css-fallback .opening-smoke-puff:nth-child(3){animation-delay:.08s}
+  .opening-smoke-css-fallback .opening-smoke-puff:nth-child(4){animation-delay:.12s}
+  .opening-smoke-css-fallback .opening-smoke-puff:nth-child(5){animation-delay:.16s}
+  .opening-smoke-css-fallback .opening-smoke-puff:nth-child(6){animation-delay:.20s}
+  .opening-smoke-css-fallback .opening-smoke-puff:nth-child(7){animation-delay:.24s}
+  .opening-pon-css-fallback{ animation:openingPonFallback .9s .3s ease-out both; }
+  @keyframes openingMascotAppearFallback{
+    0%{opacity:0;transform:translateY(58px) scale(.16) rotate(-12deg)}
+    38%{opacity:1;transform:translateY(-18px) scale(1.22) rotate(7deg)}
+    62%{transform:translateY(5px) scale(.92) rotate(-4deg)}
+    82%{transform:translateY(-6px) scale(1.07) rotate(2deg)}
+    100%{opacity:1;transform:translateY(0) scale(1) rotate(0)}
+  }
+  @keyframes openingMascotFloatFallback{
+    0%,100%{transform:translateY(0) rotate(-1.4deg)}
+    50%{transform:translateY(-10px) rotate(1.4deg)}
+  }
+  @keyframes openingSmokeFallback{
+    0%{opacity:0;transform:translate(0,4px) scale(.2)}
+    24%{opacity:.95;transform:translate(0,0) scale(1.15)}
+    100%{opacity:0;transform:translate(var(--smoke-x,0),var(--smoke-y,-22px)) scale(.72)}
+  }
+  @keyframes openingPonFallback{
+    0%{opacity:0;transform:translate(-8px,10px) rotate(-8deg) scale(.35)}
+    34%{opacity:1;transform:translate(4px,-3px) rotate(9deg) scale(1.28)}
+    72%{opacity:1;transform:translate(0,0) rotate(6deg) scale(1)}
+    100%{opacity:0;transform:translate(8px,-12px) rotate(10deg) scale(.9)}
+  }
+
+  /* 正解時専用。画像の周囲を隠さず喜びの動きを見せる。 */
+  .happy-celebration{ position:relative; overflow:visible; isolation:isolate; }
+  .happy-mascot-motion{ transform-origin:center bottom; will-change:transform, opacity; }
+  .happy-mascot-image{ display:block; }
+  .happy-sparkle{
+    position:absolute; z-index:2; color:var(--gold); line-height:1; opacity:0;
+    pointer-events:none; text-shadow:0 1px 0 #FFFDF6; font-weight:900;
+  }
+  .happy-sparkle-1{left:-13px;top:-13px;font-size:18px}
+  .happy-sparkle-2{right:-15px;top:-7px;font-size:15px}
+  .happy-sparkle-3{right:-8px;bottom:-12px;font-size:17px}
+  .happy-sparkle-4{left:-10px;bottom:-10px;font-size:14px}
+  .happy-mascot-css-fallback{ animation:happyMascotFallback 1s cubic-bezier(.22,1.45,.36,1) both; }
+  .happy-sparkles-css-fallback .happy-sparkle{ animation:happySparkleFallback 1.3s ease-out both; }
+  @keyframes happyMascotFallback{
+    0%{opacity:0;transform:translateY(48px) scale(.25) rotate(-16deg)}
+    35%{opacity:1;transform:translateY(-18px) scale(1.28) rotate(9deg)}
+    60%{transform:translateY(5px) scale(.90) rotate(-6deg)}
+    80%{transform:translateY(-8px) scale(1.12) rotate(4deg)}
+    100%{opacity:1;transform:translateY(0) scale(1) rotate(0)}
+  }
+  @keyframes happySparkleFallback{
+    0%{opacity:0;transform:translateY(8px) scale(.15) rotate(0)}
+    35%{opacity:1;transform:translateY(-8px) scale(1.4) rotate(35deg)}
+    100%{opacity:0;transform:translateY(-24px) scale(.65) rotate(100deg)}
+  }
+
+  /* 既存の一般演出だけを短くする。指定されたマスコット演出は停止しない。 */
+  @media (prefers-reduced-motion: reduce){
+    .bob, .shake, .pop, .mascot-guess-jump{
+      animation-duration: 0.2s !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.2s !important;
+    }
+  }
+
+  .bubble{
+    position:relative; background: var(--indigo-deep); color: #FBF6E8;
+    border-radius: 18px; padding: 14px 18px; font-size: 15.5px; line-height:1.55;
+    min-height: 52px; display:flex; align-items:center; justify-content:center; margin-bottom: 18px;
+  }
+  .bubble::after{
+    content:""; position:absolute; left:50%; bottom:-9px; transform:translateX(-50%);
+    border-width: 10px 9px 0 9px; border-style: solid;
+    border-color: var(--indigo-deep) transparent transparent transparent;
+  }
+  .bubble .icon{ font-size:18px; margin-right:8px; }
+  .count-line{ font-size:12px; color: var(--ink-soft); margin-bottom: 4px; }
+  .count-line b{ color:var(--vermillion-deep); font-weight:700; }
+  .progress-line{
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    font-size: 11px; color: var(--ink-soft); margin-bottom: 14px; flex-wrap: wrap;
+  }
+  .progress-count{ opacity: 0.85; }
+  /* 【候補数の演出】数字部分だけ大きく・色付きにして目立たせる */
+  .progress-count-num{
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--vermillion);
+    display: inline-block;
+    transform-origin: center;
+  }
+  .progress-count-num.count-pop{ animation: countPop .4s ease; }
+  .progress-count-num.count-pop-strong{ animation: countPopStrong .55s ease; }
+  @keyframes countPop{
+    0%{ transform: scale(1); }
+    40%{ transform: scale(1.28); }
+    100%{ transform: scale(1); }
+  }
+  @keyframes countPopStrong{
+    0%{ transform: scale(1); color: var(--vermillion); }
+    35%{ transform: scale(1.5); color: var(--vermillion-deep); }
+    100%{ transform: scale(1); color: var(--vermillion); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .progress-count-num.count-pop, .progress-count-num.count-pop-strong{
+      animation-duration: 0.15s !important;
+    }
+  }
+  .progress-morale{
+    color: var(--indigo-deep); font-weight:700; font-size: 11.5px;
+    background: var(--paper-deep); border-radius: 8px; padding: 2px 8px;
+  }
+
+  .choices{ display:grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+  .btn{
+    font-family:'Zen Maru Gothic', sans-serif; font-weight:700; font-size:16px;
+    padding: 14px 10px; border-radius: 14px; border: none; cursor:pointer;
+    transition: transform .12s ease, box-shadow .12s ease; letter-spacing: 0.02em;
+    min-height: 44px; /* スマートフォンでも誤タップしにくいよう、タップ領域を確保する */
+  }
+  .btn:active{ transform: scale(0.96); }
+  .btn-yes{ background: var(--indigo); color:#FBF6E8; box-shadow: 0 4px 0 var(--indigo-deep); font-size: 17.5px; padding: 16px 10px; }
+  .btn-yes:active{ box-shadow: 0 1px 0 var(--indigo-deep); }
+  .btn-no{ background: var(--vermillion); color:#FFF7EE; box-shadow: 0 4px 0 var(--vermillion-deep); font-size: 17.5px; padding: 16px 10px; }
+  .btn-no:active{ box-shadow: 0 1px 0 var(--vermillion-deep); }
+  .btn-maybe-yes{
+    background: #D9E6F2; color: var(--indigo-deep); font-size: 13.5px; padding: 12px 8px;
+    box-shadow: 0 3px 0 #B7CBE0;
+  }
+  .btn-maybe-yes:active{ box-shadow: 0 1px 0 #B7CBE0; }
+  .btn-maybe-no{
+    background: #F5DEDA; color: var(--vermillion-deep); font-size: 13.5px; padding: 12px 8px;
+    box-shadow: 0 3px 0 #E3BEB6;
+  }
+  .btn-maybe-no:active{ box-shadow: 0 1px 0 #E3BEB6; }
+  .btn-unknown{
+    grid-column: span 2; background: transparent; color: var(--ink-soft);
+    border: 1.5px dashed var(--line); font-weight:500; font-size:13.5px; padding:11px;
+  }
+
+  .btn-back{
+    display:block; width:100%; margin-top: 10px; padding: 10px;
+    background: transparent; color: var(--ink-soft);
+    border: none; font-family:'Zen Maru Gothic', sans-serif;
+    font-weight:700; font-size: 12.5px; cursor:pointer;
+    text-decoration: underline; text-underline-offset: 3px;
+  }
+  .btn-back:active{ opacity: 0.6; }
+
+  /* 【これまでの回答】質問画面の下、戻るボタンと横並びにする小さめのボタン。
+     画面を圧迫しないよう、控えめなサイズ・色にしている。 */
+  /* ---- 質問の補足(ⓘ どういう意味？) ---- */
+  .question-help-btn{
+    display: flex; align-items: center; justify-content: center;
+    margin: 6px auto 0; padding: 6px 16px;
+    min-height: 44px; min-width: 44px; /* タップ領域を最低44px確保する */
+    background: #FFFDF6; color: var(--indigo-deep);
+    border: 1.2px solid var(--indigo-deep); border-radius: 999px;
+    font-family: 'Zen Maru Gothic', sans-serif; font-weight: 700; font-size: 11.5px;
+    cursor: pointer;
+  }
+  .question-help-btn:active{ transform: scale(0.97); }
+  .question-help-panel{
+    max-height: 0; overflow: hidden;
+    background: rgba(38,58,92,0.06);
+    border-radius: 10px;
+    margin: 0 auto; max-width: 320px; padding: 0 12px;
+    transition: max-height .22s ease, margin .22s ease, padding .22s ease;
+  }
+  .question-help-panel.open{
+    max-height: 160px; padding: 8px 12px; margin: 6px auto 0;
+  }
+  .question-help-icon{
+    color: var(--indigo-deep); font-weight: 800; margin-right: 5px;
+  }
+  .question-help-text{
+    font-size: 12.5px; color: var(--ink); line-height: 1.55;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .question-help-panel{ transition: none; }
+  }
+
+  /* ---- この質問を報告 ---- */
+  .question-meta-actions{
+    display: flex; justify-content: center; margin-top: 10px;
+  }
+  .question-report-btn{
+    min-height: 44px; padding: 6px 12px;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: none; border: none; color: var(--ink-soft);
+    font-family: 'Zen Maru Gothic', sans-serif; font-size: 10.5px;
+    cursor: pointer; text-decoration: underline; text-underline-offset: 2px;
+  }
+  .question-report-btn:disabled{ cursor: default; text-decoration: none; opacity: .6; }
+  .question-report-btn:active:not(:disabled){ opacity: .7; }
+
+  /* ---- モーダル共通(質問報告・データ読み込み確認などで使う) ---- */
+  .modal-overlay{
+    position: fixed; inset: 0; background: rgba(20,20,15,0.5);
+    display: flex; align-items: center; justify-content: center;
+    padding: 16px; z-index: 200;
+  }
+  .modal-box{
+    background: #FFFDF6; border-radius: 16px; width: 100%; max-width: 360px;
+    max-height: 86vh; overflow-y: auto;
+    box-shadow: 0 8px 28px rgba(20,20,15,0.28);
+  }
+  .modal-header{
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px 8px; border-bottom: 1px solid var(--line);
+  }
+  .modal-header h2{ font-size: 15px; margin: 0; color: var(--indigo-deep); }
+  .modal-close-btn{
+    background: none; border: none; font-size: 20px; line-height: 1;
+    color: var(--ink-soft); cursor: pointer; padding: 6px; min-width: 44px; min-height: 44px;
+  }
+  .modal-body{ padding: 12px 16px; }
+  .modal-question-text{
+    font-size: 12.5px; color: var(--ink-soft); background: var(--paper-deep);
+    border-radius: 8px; padding: 8px 10px; margin: 0 0 10px;
+  }
+  .report-reason-list{ display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; }
+  .report-reason-item{
+    display: flex; align-items: center; gap: 8px; min-height: 44px;
+    font-size: 13px; color: var(--ink); padding: 6px 4px; cursor: pointer;
+  }
+  .report-reason-item input{ width: 19px; height: 19px; accent-color: var(--vermillion); }
+  .report-comment-label{ display:block; font-size: 11px; color: var(--ink-soft); margin-bottom: 4px; }
+  #reportCommentInput{
+    width: 100%; box-sizing: border-box; border: 1.2px solid var(--line); border-radius: 8px;
+    padding: 8px 10px; font-family: 'Zen Maru Gothic', sans-serif; font-size: 12.5px; color: var(--ink);
+    resize: vertical;
+  }
+  #reportCommentInput:focus{ outline: none; border-color: var(--indigo-deep); }
+  .report-status{ min-height: 18px; font-size: 11.5px; color: var(--indigo-deep); margin-top: 8px; text-align: center; }
+  .modal-footer{
+    display: flex; gap: 8px; padding: 10px 16px 16px;
+  }
+  .modal-btn-secondary, .modal-btn-primary{
+    flex: 1; padding: 10px; border-radius: 10px; font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 700; font-size: 13px; cursor: pointer; min-height: 44px;
+  }
+  .modal-btn-secondary{ background: none; border: 1.2px solid var(--line); color: var(--ink-soft); }
+  .modal-btn-primary{ background: var(--vermillion); border: none; color: #FFFDF6; }
+  .modal-btn-primary:active, .modal-btn-secondary:active{ transform: scale(0.97); }
+
+  .question-sub-actions{
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+    margin-top: 4px;
+  }
+  .btn-answer-history{
+    display:block; margin-top: 4px; padding: 8px 14px;
+    background: var(--paper-deep); color: var(--indigo-deep);
+    border: 1.5px solid var(--line); border-radius: 999px;
+    font-family:'Zen Maru Gothic', sans-serif;
+    font-weight:700; font-size: 12px; cursor:pointer;
+  }
+  .btn-answer-history:active{ transform: scale(0.97); }
+
+  /* 【これまでの回答 一覧】長くなってもスマホで圧迫しないよう、
+     カード内に収まる高さでスクロールさせる。 */
+  .answer-history-hint{ font-size: 11.5px; color: var(--ink-soft); margin-bottom: 8px; }
+  .answer-history-list{
+    list-style: none; margin: 0 0 12px; padding: 0;
+    max-height: 340px; overflow-y: auto;
+    border-top: 1px solid var(--line);
+    text-align: left;
+    -webkit-overflow-scrolling: touch;
+  }
+  .answer-history-item{
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 4px;
+    border-bottom: 1px solid var(--line);
+    cursor: pointer;
+  }
+  .answer-history-item:active{ background: rgba(38,58,92,0.05); }
+  .answer-history-num{
+    flex: 0 0 auto;
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--indigo-deep); color: #FBF6E8;
+    font-size: 10.5px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .answer-history-q{ flex: 1; font-size: 12.5px; color: var(--ink); line-height: 1.4; }
+  .answer-history-val{
+    flex: 0 0 auto; font-size: 11px; font-weight: 800;
+    padding: 3px 9px; border-radius: 999px; white-space: nowrap;
+  }
+  .answer-history-val-yes{ background: rgba(46,125,80,0.14); color: #2e7d50; }
+  .answer-history-val-no{ background: rgba(193,67,46,0.14); color: var(--vermillion-deep); }
+  .answer-history-val-maybe-yes{ background: rgba(46,125,80,0.08); color: #2e7d50; }
+  .answer-history-val-maybe-no{ background: rgba(193,67,46,0.08); color: var(--vermillion-deep); }
+  .answer-history-val-unknown{ background: rgba(38,58,92,0.08); color: var(--ink-soft); }
+
+  /* 【回答の編集】5択ボタンは既存の.choicesスタイルをそのまま使う。今の回答だけ強調表示。 */
+  .answer-edit-current{
+    font-size: 12.5px; color: var(--ink-soft); margin-bottom: 12px;
+  }
+  .answer-edit-current b{ font-weight: 800; padding: 2px 8px; border-radius: 999px; }
+  .answer-edit-actual{
+    font-size: 12px; color: var(--vermillion-deep); margin: -6px 0 12px;
+    background: rgba(193,67,46,0.08); border-radius: 10px; padding: 6px 10px;
+  }
+  .answer-edit-actual b{ font-weight: 800; }
+
+  /* 「これまでの回答」一覧で、不正解の原因になった可能性がある質問を目立たせる。 */
+  .answer-history-item-flagged{ background: rgba(193,67,46,0.06); }
+  .answer-history-item-flagged .answer-history-q{ color: var(--vermillion-deep); font-weight: 700; }
+
+  /* 【不正解の原因】降参完了画面に表示するブロック。 */
+  .mismatch-block{
+    margin: 14px 0; padding: 12px 14px;
+    background: var(--paper-deep); border-radius: 14px;
+    text-align: left;
+  }
+  .mismatch-title{
+    font-size: 13px; font-weight: 800; color: var(--vermillion-deep);
+    margin-bottom: 8px; line-height: 1.5;
+  }
+  .mismatch-list{ list-style: none; margin: 0; padding: 0; }
+  .mismatch-item{
+    padding: 8px 4px; border-bottom: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .mismatch-item:last-child{ border-bottom: none; }
+  .mismatch-item-extra{ display: none; }
+  .mismatch-item-extra.mismatch-item-shown{ display: flex; }
+  .mismatch-q{ font-size: 12.5px; color: var(--ink); line-height: 1.4; }
+  .mismatch-compare{
+    display: flex; flex-wrap: wrap; gap: 6px 14px;
+    font-size: 11px; color: var(--ink-soft);
+  }
+  .mismatch-user b{ color: var(--vermillion-deep); font-weight: 800; }
+  .mismatch-actual b{ color: #2e7d50; font-weight: 800; }
+
+  .result-name{ font-family:'Shippori Mincho', serif; font-size: 30px; color: var(--indigo-deep); margin: 6px 0 0; }
+  .result-pref{ font-size:13px; color: var(--ink-soft); margin-bottom:10px; }
+  .hanko{
+    display:inline-block; border: 2.5px solid var(--vermillion); color: var(--vermillion);
+    border-radius: 8px; padding: 3px 10px; font-size: 12px; font-weight: 700;
+    letter-spacing: 0.15em; transform: rotate(-6deg); margin-bottom: 10px;
+  }
+  .fact{
+    background: var(--paper-deep); border-radius: 12px; padding: 12px 14px;
+    font-size: 13px; color: var(--ink); text-align:left; line-height:1.6; margin-bottom: 12px;
+  }
+  .info-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:8px; margin-bottom: 16px; }
+  .info-chip{ background: #FFFDF6; border:1px solid var(--line); border-radius: 12px; padding: 8px 6px; text-align:center; }
+  .info-chip .label{ font-size:9.5px; color: var(--mint); font-weight:700; letter-spacing:0.05em; }
+  .info-chip .value{ font-size:11.5px; color: var(--ink); margin-top:3px; line-height:1.35; word-break: break-word; }
+
+  .share-card{
+    position:relative; text-align:center;
+    border: 2px solid var(--indigo); border-radius: 18px;
+    padding: 16px 16px 14px; margin-bottom: 14px;
+    background: linear-gradient(180deg, rgba(38,58,92,0.04), transparent 45%), #FFFDF6;
+  }
+  .share-card-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom: 2px; }
+  .share-eyebrow{ font-size:10.5px; letter-spacing:0.25em; color: var(--mint); font-weight:700; }
+  .share-mascot{ width:56px; height:56px; }
+  .share-mascot .mascot{ width:56px; height:56px; }
+  .share-card .hanko{ margin-top: -4px; }
+  .result-line{ font-size: 13.5px; color: var(--ink); margin-bottom: 10px; }
+  .result-line b{ color: var(--vermillion-deep); font-weight:700; }
+
+  .stars-block{
+    background: var(--paper-deep); border-radius: 12px;
+    padding: 10px 14px; margin-bottom: 12px; text-align:left;
+  }
+  .star-row{ display:flex; align-items:center; justify-content:space-between; font-size:13px; padding: 3px 0; }
+  .star-label{ color: var(--ink-soft); font-weight:500; }
+  .star-value{ color: var(--gold); letter-spacing: 2px; font-size:14px; }
+
+  /* ---- 結果画面: 市役所周辺の地図(正方形) ---- */
+  .result-map-block{ margin-bottom: 12px; }
+  .result-map{
+    display:block; width:100%; aspect-ratio: 1 / 1; border:1.5px solid var(--line);
+    border-radius: 12px; background: var(--paper-deep);
+  }
+  .result-map-caption{ font-size: 10.5px; color: var(--ink-soft); text-align:center; margin-top: 4px; }
+
+  .share-btn{
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    width:100%; padding: 13px; border-radius: 14px; border:none;
+    background:#0F1419; color:#fff;
+    font-family:'Zen Maru Gothic', sans-serif; font-weight:700; font-size:14.5px;
+    cursor:pointer; margin-bottom: 10px;
+  }
+  .share-btn:active{ transform: scale(0.98); }
+  .x-icon{ flex-shrink:0; }
+
+  /* ---- 結果画面: 市役所周辺の航空写真(正方形) ---- */
+  .citymap-block{ margin: 8px 0 12px; }
+  .citymap-frame{
+    position: relative; width: 100%; aspect-ratio: 1 / 1;
+    border-radius: 12px; overflow: hidden; border: 1.5px solid var(--line);
+    background: #EAEAEA;
+  }
+  .citymap-iframe{
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; display: block;
+  }
+  .citymap-caption{
+    font-size: 10.5px; color: var(--mint); font-weight: 700;
+    text-align: center; margin-top: 5px; letter-spacing: 0.03em;
+  }
+
+  /* ---- 地元バレポイント ---- */
+  .barepoints-block{
+    text-align:left; background: rgba(193,67,46,0.07); border: 1.5px solid rgba(193,67,46,0.25);
+    border-radius: 12px; padding: 12px 14px; margin-top: 10px;
+  }
+  .barepoints-title{ font-size: 12.5px; font-weight:700; color: var(--vermillion-deep); margin-bottom: 6px; }
+  .barepoints-list{ margin:0; padding-left: 18px; font-size: 13px; color: var(--ink); line-height:1.7; }
+
+  /* ---- 結果画面: 制覇帳ライン・アクション整理 ---- */
+  .conquest-line{
+    text-align:center; font-size: 13px; font-weight:700; color: var(--indigo-deep);
+    background: var(--paper-deep); border-radius: 10px; padding: 8px 10px; margin: 10px 0;
+  }
+  .result-actions-primary{ margin-top: 6px; }
+  .share-btn-image{ background: var(--vermillion); }
+  .result-actions-secondary{
+    display:flex; flex-direction:column; gap:6px; margin-top: 12px;
+  }
+  .share-btn-text{
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    width:100%; padding: 10px; border-radius: 12px; border:1.5px solid var(--line);
+    background:#fff; color: var(--ink);
+    font-family:'Zen Maru Gothic', sans-serif; font-weight:700; font-size:13px; cursor:pointer;
+  }
+  .link-btn{
+    width:100%; padding: 9px; border-radius: 10px; border:none; background:transparent;
+    color: var(--indigo); font-family:'Zen Maru Gothic', sans-serif; font-weight:700; font-size:13px;
+    cursor:pointer; text-decoration: underline;
+  }
+  .link-btn-subtle{
+    width:100%; padding: 6px; border-radius: 10px; border:none; background:transparent;
+    color: var(--ink-soft); font-family:'Zen Maru Gothic', sans-serif; font-size:11.5px;
+    cursor:pointer; text-decoration: underline;
+  }
+  .share-image-status{ text-align:center; font-size: 11.5px; color: var(--ink-soft); min-height: 14px; margin-top: 6px; }
+
+  /* ---- トップ画面: 制覇帳・称号への入口 ---- */
+  .opening-sub-nav{ display:flex; flex-wrap: wrap; gap:8px; margin: 14px 0 4px; }
+  .opening-sub-nav .conquest-entry-btn{ flex: 1 1 calc(50% - 4px); min-width: 100px; }
+  .conquest-entry-btn{
+    display:block; width:100%; padding: 11px; border-radius: 12px;
+    border: 1.5px solid var(--line); background: #fff; color: var(--indigo-deep);
+    font-family:'Zen Maru Gothic', sans-serif; font-weight:700; font-size:13px; cursor:pointer;
+  }
+  .conquest-entry-btn:active{ transform: scale(0.98); }
+
+  /* ---- みんなの統計 画面 ---- */
+  .stats-period-tabs{ display:flex; gap:6px; justify-content:center; margin: 10px 0 14px; }
+  .stats-period-tab{
+    padding: 6px 14px; border-radius: 999px; border: 1.5px solid var(--line);
+    background: #fff; color: var(--ink-soft); font-family:'Zen Maru Gothic', sans-serif;
+    font-size: 12px; font-weight: 700; cursor: pointer;
+  }
+  .stats-period-tab.active{ background: var(--indigo-deep); border-color: var(--indigo-deep); color: #FBF6E8; }
+  .stats-empty{ padding: 20px 10px; text-align:center; color: var(--ink-soft); font-size: 13px; line-height: 1.8; }
+  .stats-empty-sub{ font-size: 11.5px; margin-top: 4px; }
+  .stats-section{ margin-bottom: 18px; text-align: left; }
+  .stats-section-title{ font-size: 14px; font-weight: 800; color: var(--indigo-deep); margin-bottom: 8px; }
+  .stats-overview-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .stats-overview-item{
+    background: var(--paper-deep); border-radius: 12px; padding: 10px; text-align: center;
+  }
+  .stats-overview-item .v{ font-size: 19px; font-weight: 900; color: var(--vermillion-deep); }
+  .stats-overview-item .l{ font-size: 10.5px; color: var(--ink-soft); margin-top: 2px; }
+  .stats-ranking-list{ list-style: none; margin:0; padding:0; counter-reset: stats-rank; }
+  .stats-ranking-list li{
+    counter-increment: stats-rank;
+    display: flex; justify-content: space-between; align-items: center; gap: 8px;
+    padding: 7px 4px; border-bottom: 1px solid var(--line); font-size: 12.5px;
+  }
+  .stats-ranking-list li::before{
+    content: counter(stats-rank); flex: 0 0 auto;
+    width: 18px; height: 18px; border-radius: 50%; background: var(--indigo-deep); color:#FBF6E8;
+    font-size: 10px; font-weight: 700; display:flex; align-items:center; justify-content:center;
+    margin-right: 4px;
+  }
+  .stats-ranking-name{ flex: 1; color: var(--ink); }
+  .stats-ranking-value{ color: var(--ink-soft); font-size: 11px; white-space: nowrap; }
+  .stats-ranking-empty{ font-size: 12px; color: var(--ink-soft); padding: 10px 4px; }
+  .stats-more summary{
+    cursor: pointer; font-size: 12.5px; font-weight: 700; color: var(--indigo);
+    padding: 8px 0; list-style: none;
+  }
+  .stats-more summary::-webkit-details-marker{ display:none; }
+  .stats-more summary::before{ content: '▸ '; }
+  .stats-more[open] summary::before{ content: '▾ '; }
+  .stats-sample-note{ font-size: 10.5px; color: var(--ink-soft); margin-top: 6px; }
+  .stats-period-note{ font-size: 10.5px; color: var(--ink-soft); text-align:center; margin-top: 10px; }
+
+  /* ---- 全国制覇帳 画面 ---- */
+  .conquest-summary{ background: var(--paper-deep); border-radius: 12px; padding: 12px 14px; margin: 10px 0 6px; text-align:center; }
+
+  /* ---- 全国制覇帳: 都道府県の実輪郭を使った日本地図 ---- */
+  .japan-map-wrap{
+    margin: 12px 0 6px; padding: 12px 10px;
+    background:
+      radial-gradient(circle at 50% 28%, rgba(255,255,255,.78), transparent 43%),
+      linear-gradient(180deg, #edf5f3 0%, #e3efed 100%);
+    border: 1px solid rgba(38,58,92,.12);
+    border-radius: 18px;
+    overflow: hidden;
+    display: flex; justify-content: center;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.85);
+  }
+  .japan-map-svg{
+    display:block; width: min(100%, 420px); height: auto;
+    max-height: 510px; overflow: visible;
+    filter: drop-shadow(0 3px 3px rgba(38,58,92,.12));
+  }
+  .map-pref{ cursor:pointer; outline:none; }
+  .map-pref-shape{
+    vector-effect: non-scaling-stroke;
+    transition: filter .16s ease, opacity .16s ease, stroke-width .16s ease;
+  }
+  .map-pref-hit{
+    fill: transparent; stroke: transparent; stroke-width: 11;
+    vector-effect: non-scaling-stroke; pointer-events: stroke;
+  }
+  .map-pref:hover .map-pref-shape,
+  .map-pref:focus .map-pref-shape{
+    filter: brightness(1.08) saturate(1.12);
+    stroke: #263A5C; stroke-width: 1.8;
+  }
+  .map-pref:active .map-pref-shape{ opacity:.72; }
+  .map-pref-complete .map-pref-shape{
+    filter: drop-shadow(0 0 2px rgba(212,160,23,.6));
+  }
+  .map-pref-static{ pointer-events:none; }
+  .map-pref-preview{
+    min-height: 24px; margin: 0 0 6px; padding: 4px 10px;
+    color: var(--indigo-deep); font-size: 11.5px; font-weight:700;
+    text-align:center;
+  }
+  .map-legend{
+    display: flex; flex-wrap: wrap; gap: 8px 14px;
+    justify-content: center; margin: 8px 0 4px;
+  }
+  .map-legend-item{ display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--ink-soft); }
+  .map-legend-swatch{
+    display: inline-block; width: 13px; height: 13px; border-radius: 4px;
+    border: 1px solid rgba(38,58,92,0.25);
+  }
+  .map-celebration{
+    background: linear-gradient(135deg, rgba(212,160,23,0.18), rgba(193,67,46,0.10));
+    border: 1.5px solid var(--gold);
+    border-radius: 12px; padding: 10px 14px; margin: 8px 0;
+    text-align: center; font-weight: 800; font-size: 13px; color: var(--vermillion-deep);
+    animation: mapCelebrationPop .6s cubic-bezier(.34,1.56,.64,1);
+  }
+  @keyframes mapCelebrationPop{ 0%{transform:scale(.85); opacity:0} 100%{transform:scale(1); opacity:1} }
+  .map-completed-line{ font-size: 11.5px; color: var(--ink-soft); text-align:center; margin: 4px 0; line-height: 1.6; }
+  .map-share-row{ margin: 10px 0 4px; display: flex; justify-content: center; }
+  @media (max-width: 420px){
+    .japan-map-wrap{ padding: 9px 5px; }
+    .japan-map-svg{ max-height: 455px; }
+    .map-pref-hit{ stroke-width: 14; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .map-celebration{ animation-duration: .15s; }
+    .map-pref-shape{ transition:none; }
+  }
+  .conquest-summary-main{ font-size: 16px; font-weight:700; color: var(--indigo-deep); }
+  .conquest-hint{ font-size: 10.5px; color: var(--ink-soft); margin-top: 4px; line-height:1.5; }
+  .conquest-section-title{ font-size: 12.5px; font-weight:700; color: var(--ink); margin: 14px 0 6px; text-align:left; }
+  .conquest-muted{ color: var(--ink-soft); font-weight:400; }
+  .conquest-region-list{ text-align:left; }
+  .conquest-region-row{ margin-bottom: 8px; }
+  .conquest-region-head{ display:flex; justify-content:space-between; font-size: 12.5px; color: var(--ink); margin-bottom:3px; }
+  .conquest-region-bar{ height: 8px; background: var(--paper-deep); border-radius: 6px; overflow:hidden; }
+  .conquest-region-bar-fill{ height:100%; background: var(--mint); border-radius: 6px; }
+  .conquest-details{ text-align:left; margin-top: 10px; border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; background:#fff; }
+  .conquest-details summary{ font-size: 12.5px; font-weight:700; color: var(--indigo); cursor:pointer; }
+  .conquest-pref-list, .conquest-city-list{ margin-top: 8px; max-height: 260px; overflow:auto; }
+  .conquest-pref-row{ display:flex; justify-content:space-between; font-size: 12px; padding: 4px 0; border-bottom: 1px dashed var(--line); }
+  .conquest-city-row{ font-size: 12px; padding: 4px 0; border-bottom: 1px dashed var(--line); }
+  .conquest-nav-row{ display:flex; flex-direction:column; gap:6px; margin: 10px 0; }
+
+  /* ---- 都道府県カード ---- */
+  .pref-region-section{ margin-bottom: 12px; }
+  .pref-card-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 6px; }
+  .pref-card{
+    display:flex; flex-direction:column; align-items:center; gap:2px;
+    border-radius: 12px; padding: 10px 6px; border: 1.5px solid var(--line);
+    font-family:'Zen Maru Gothic', sans-serif; cursor:pointer; background:#fff;
+  }
+  .pref-card:active{ transform: scale(0.97); }
+  .pref-card-icon{ font-size: 15px; }
+  .pref-card-name{ font-size: 12.5px; font-weight:700; color: var(--ink); word-break: keep-all; overflow-wrap: anywhere; text-align:center; }
+  .pref-card-count{ font-size: 10.5px; color: var(--ink-soft); }
+  .pref-card-pct{ font-size: 12px; font-weight:700; }
+  .pref-tier-0{ background:#F1F1EE; border-color:#DEDEDA; }
+  .pref-tier-0 .pref-card-pct{ color:#8B8B85; }
+  .pref-tier-low{ background: rgba(78,158,142,0.10); border-color: rgba(78,158,142,0.35); }
+  .pref-tier-low .pref-card-pct{ color: var(--mint); }
+  .pref-tier-high{ background: rgba(78,158,142,0.28); border-color: var(--mint); }
+  .pref-tier-high .pref-card-pct{ color: var(--mint); }
+  .pref-tier-complete{ background: linear-gradient(135deg, #F7E7B0, #E9C766); border-color: var(--gold); }
+  .pref-tier-complete .pref-card-name, .pref-tier-complete .pref-card-pct{ color:#5A4409; }
+  .pref-tier-complete .pref-card-count{ color:#6B5410; }
+
+  /* ---- 称号一覧ページ ---- */
+  .achievement-filter-row{ display:flex; gap:6px; overflow-x:auto; padding: 4px 2px 8px; margin-bottom: 6px; -webkit-overflow-scrolling: touch; }
+  .achievement-filter-btn{
+    flex-shrink:0; padding: 6px 12px; border-radius: 999px; border: 1.5px solid var(--line);
+    background:#fff; color: var(--ink-soft); font-family:'Zen Maru Gothic', sans-serif;
+    font-size: 12px; font-weight:700; cursor:pointer; white-space:nowrap;
+  }
+  .achievement-filter-btn.active{ background: var(--indigo); border-color: var(--indigo); color:#fff; }
+  .achievement-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+  .achievement-card{
+    border-radius: 12px; padding: 10px; border: 1.5px solid var(--line); background:#fff; text-align:left;
+  }
+  .achievement-card.locked{ opacity: 0.55; }
+  .achievement-card.unlocked{ border-color: var(--gold); background: rgba(201,162,39,0.08); }
+  .achievement-card-stars{ font-size: 11px; color: var(--gold); letter-spacing: 1px; }
+  .achievement-card-name{ font-size: 13px; font-weight:700; color: var(--ink); margin: 2px 0; }
+  .achievement-card-desc{ font-size: 10.5px; color: var(--ink-soft); line-height:1.5; }
+  .achievement-card-date{ font-size: 10px; color: var(--vermillion-deep); margin-top: 4px; font-weight:700; }
+
+  /* ---- 称号獲得演出(結果画面) ---- */
+  .achievement-toast{
+    background: linear-gradient(135deg, #FFF6DD, #F7E7B0); border: 2px solid var(--gold);
+    border-radius: 14px; padding: 12px 14px; margin: 10px 0; text-align:center;
+  }
+  .achievement-toast-title{ font-size: 13.5px; font-weight:700; color:#5A4409; margin-bottom: 6px; }
+  .achievement-toast-card{ margin-bottom: 8px; }
+  .achievement-toast-stars{ color: var(--gold); font-size: 13px; letter-spacing:1px; }
+  .achievement-toast-name{ font-size: 15px; font-weight:700; color:#5A4409; }
+  .achievement-toast-desc{ font-size: 11px; color:#6B5410; }
+  .achievement-toast-actions{ display:flex; flex-direction:column; gap:4px; margin-top: 6px; }
+
+  /* 【まとめ表示】最もレアな1件を大きく出し、残りはこの中に一覧で入れる。
+     4件以上あるときは、結果画面が長くなりすぎないよう最初たたんでおく。 */
+  .achievement-toast-more{
+    margin-top: 8px;
+    border-top: 1px dashed rgba(90,68,9,0.28);
+    padding-top: 6px;
+    text-align: left;
+  }
+  .achievement-toast-more summary{
+    cursor: pointer;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #6B5410;
+    list-style: none;
+    padding: 2px 0;
+  }
+  .achievement-toast-more summary::-webkit-details-marker{ display:none; }
+  .achievement-toast-more summary::before{ content: '▸ '; }
+  .achievement-toast-more[open] summary::before{ content: '▾ '; }
+  .achievement-toast-list{
+    list-style: none; margin: 4px 0 0; padding: 0;
+    display: flex; flex-direction: column; gap: 5px;
+    max-height: 210px; overflow-y: auto;
+  }
+  .achievement-toast-list li{
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas: 'stars name' 'stars desc';
+    gap: 0 6px;
+    align-items: center;
+  }
+  .achievement-toast-list-stars{ grid-area: stars; color: var(--gold); font-size: 10px; letter-spacing: 0.5px; }
+  .achievement-toast-list-name{ grid-area: name; font-size: 12.5px; font-weight: 700; color:#5A4409; }
+  .achievement-toast-list-desc{ grid-area: desc; font-size: 10.5px; color:#6B5410; line-height: 1.4; }
+  /* 最高レア(★5)は、控えめだが少し特別感の出る縁取りにする(激しい点滅は使わない) */
+  .achievement-toast-top{
+    border-width: 3px; border-color: var(--vermillion);
+    background: linear-gradient(135deg, #FFF6DD, #F9DDB0);
+    box-shadow: 0 0 0 3px rgba(193,67,46,0.12);
+  }
+  .achievement-toast-top .achievement-toast-name{ color: var(--vermillion-deep); }
+
+  /* ---- 自己ベスト表示(結果画面) ---- */
+  .best-line{ font-size: 11.5px; color: var(--ink-soft); margin-bottom: 10px; }
+
+  /* 【惜しかった候補】降参画面で、最後まで残っていた候補を見せるブロック */
+  .near-miss-block{
+    margin: 10px 0;
+    padding: 10px 14px;
+    background: var(--paper-deep);
+    border-radius: 12px;
+    text-align: left;
+  }
+  .near-miss-title{ font-size: 12.5px; font-weight: 700; color: var(--indigo-deep); margin-bottom: 6px; line-height: 1.5; }
+  .near-miss-list{ list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 3px; }
+  .near-miss-list li{ font-size: 12.5px; color: var(--ink); padding-left: 4px; }
+  .near-miss-list li::before{ content: '・'; color: var(--vermillion); }
+
+  /* 【正解時の褒め言葉】質問数評価の星と一言、該当時は特別メッセージを重ねて表示する。 */
+  .praise-block{ margin: 6px 0 12px; }
+  .praise-stars{ color: var(--gold); font-size: 18px; letter-spacing: 2px; }
+  .praise-line{ font-size: 14.5px; font-weight: 700; color: var(--indigo-deep); margin-top: 2px; }
+  .praise-special{
+    display: flex; align-items: flex-start; gap: 6px;
+    justify-content: center; text-align: left;
+    margin-top: 8px; padding: 8px 12px;
+    background: linear-gradient(135deg, rgba(193,67,46,0.09), rgba(193,67,46,0.03));
+    border: 1px solid rgba(193,67,46,0.25);
+    border-radius: 12px;
+  }
+  .praise-special-emoji{ font-size: 18px; line-height: 1.3; }
+  .praise-special-text{ display: flex; flex-direction: column; gap: 1px; }
+  .praise-special-title{ font-size: 13px; font-weight: 800; color: var(--vermillion-deep); }
+  .praise-special-body{ font-size: 11px; color: var(--ink-soft); }
+
+  /* ---- 設定欄 ---- */
+  .settings-block{ text-align:left; margin-top: 8px; }
+  .settings-toggle-row{ display:flex; align-items:center; gap:8px; font-size: 13px; color: var(--ink); }
+  .settings-hint{ font-size: 10.5px; color: var(--ink-soft); line-height:1.6; margin: 6px 0 10px; }
+  .settings-hint a{ color: var(--indigo); }
+
+  .save-io-block{
+    background: var(--paper-deep); border-radius: 10px;
+    padding: 10px 12px; margin: 10px 0 14px;
+  }
+  .save-io-title{ font-size: 12.5px; font-weight: 800; color: var(--indigo-deep); margin-bottom: 4px; }
+  .save-io-actions{ display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+  .save-io-actions .link-btn{
+    width: 100%; box-sizing: border-box; text-align: center;
+    min-height: 40px; display: flex; align-items: center; justify-content: center;
+  }
+
+  .danger-btn{
+    display:block; width:100%; padding: 9px; border-radius: 10px; border: 1.5px solid var(--vermillion);
+    background: transparent; color: var(--vermillion-deep);
+    font-family:'Zen Maru Gothic', sans-serif; font-weight:700; font-size:12.5px; cursor:pointer;
+  }
+
+  .correction-form{
+    text-align:left; background: var(--paper-deep); border-radius: 14px;
+    padding: 14px 14px 12px; margin-bottom: 12px;
+  }
+  .correction-label{ font-size: 13.5px; font-weight:700; color: var(--ink); margin-bottom: 10px; }
+  .correction-select, .correction-input{
+    display:block; width:100%; box-sizing:border-box;
+    font-family:'Zen Maru Gothic', sans-serif; font-size: 14px; color: var(--ink);
+    background:#FFFDF6; border: 1.5px solid var(--line); border-radius: 10px;
+    padding: 10px 12px; margin-bottom: 8px;
+  }
+  .correction-select:focus, .correction-input:focus{
+    outline:none; border-color: var(--indigo);
+  }
+  .correction-error{ font-size: 12px; color: var(--vermillion-deep); min-height: 16px; margin-bottom: 4px; }
+  .btn-teach{
+    display:block; width:100%; padding: 12px; border-radius: 12px; border:none;
+    background: var(--indigo); color:#FBF6E8;
+    font-family:'Zen Maru Gothic', sans-serif; font-weight:700; font-size:14.5px;
+    cursor:pointer; box-shadow: 0 4px 0 var(--indigo-deep);
+  }
+  .btn-teach:active{ transform: scale(0.98); box-shadow: 0 1px 0 var(--indigo-deep); }
+
+  .again{
+    display:block; width:100%; margin-top: 10px; padding: 13px; border-radius: 14px;
+    border: 1.5px solid var(--indigo); background: transparent; color: var(--indigo-deep);
+    font-family:'Zen Maru Gothic', sans-serif; font-weight:700; font-size: 14.5px; cursor:pointer;
+  }
+  .again:active{ transform: scale(0.98); }
+
+  .foot{ text-align:center; font-size: 10.5px; color: var(--ink-soft); margin-top: 16px; opacity: 0.8; }
+
+  .app{ position: relative; display:flex; flex-direction:column; }
+  .install-btn{
+    align-self: flex-end;
+    display:flex; align-items:center; gap:5px;
+    background: transparent; color: var(--indigo);
+    border: 1.5px solid var(--indigo); border-radius: 10px;
+    padding: 6px 11px;
+    font-family:'Zen Maru Gothic', sans-serif; font-weight:700; font-size: 12.5px;
+    cursor:pointer;
+    margin-bottom: 10px;
+    min-height: 44px;
+  }
+  .install-btn:active{ transform: scale(0.97); background: rgba(38,58,92,0.06); }
+  .install-btn .install-icon{ font-size: 14px; line-height:1; }
+
+  .install-tip{
+    position: fixed; left: 50%;
+    bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+    transform: translateX(-50%);
+    max-width: 320px; width: calc(100% - 40px);
+    background: var(--indigo-deep); color:#FBF6E8;
+    border-radius: 14px; padding: 14px 16px;
+    font-size: 12.5px; line-height:1.6;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    z-index: 40;
+  }
+  .install-tip:focus{ outline: 3px solid rgba(201,162,39,0.65); outline-offset: 3px; }
+  .install-tip .tip-icon{ margin: 0 2px; }
+  .install-tip button{
+    display:block; margin: 10px auto 0; background: transparent;
+    border: 1.5px solid rgba(251,246,232,0.5); color:#FBF6E8;
+    border-radius: 10px; padding: 6px 14px; font-size: 12px;
+    font-family:'Zen Maru Gothic', sans-serif; font-weight:700; cursor:pointer;
+  }
+
+  /* PWAの通信状態・更新通知。ゲームの操作を塞がないよう、画面下に小さく固定する。 */
+  .pwa-status{
+    position: fixed;
+    left: 50%;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    transform: translateX(-50%);
+    width: min(440px, calc(100% - 24px));
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 10px 10px 10px 13px;
+    border: 1px solid rgba(251,246,232,0.32);
+    border-radius: 13px;
+    background: var(--indigo-deep);
+    color: #FBF6E8;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.28);
+    z-index: 30;
+  }
+  .pwa-status[hidden]{ display:none; }
+  .pwa-status-message{
+    flex: 1;
+    min-width: 0;
+    font-size: 11.5px;
+    line-height: 1.5;
+  }
+  .pwa-status-action,
+  .pwa-status-close{
+    flex-shrink: 0;
+    border: 1px solid rgba(251,246,232,0.55);
+    background: transparent;
+    color: #FBF6E8;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .pwa-status-action{
+    border-radius: 9px;
+    padding: 6px 9px;
+    font-size: 11.5px;
+    white-space: nowrap;
+    min-height: 44px;
+  }
+  .pwa-status-action:disabled{ opacity: 0.65; cursor: wait; }
+  .pwa-status-close{
+    width: 44px;
+    height: 44px;
+    border-color: transparent;
+    border-radius: 50%;
+    padding: 0;
+    font-size: 18px;
+    line-height: 1;
+  }
+  .pwa-status-action:focus-visible,
+  .pwa-status-close:focus-visible{
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+
+  .offline-page{ text-align:center; }
+  .offline-page h1{
+    margin: 4px 0 12px;
+    font-family:'Shippori Mincho', serif;
+    font-size: 19px;
+    line-height: 1.55;
+    color: var(--indigo-deep);
+  }
+  .offline-page p{ text-align:left; margin-bottom: 10px; }
+  .offline-mascot{
+    display:block;
+    width: 132px;
+    height: 132px;
+    object-fit: contain;
+    margin: 0 auto 8px;
+    filter: drop-shadow(0 6px 10px rgba(38,58,92,0.16));
+  }
+  .offline-home-link{
+    display:block;
+    margin-top: 18px;
+    padding: 13px;
+    border-radius: 13px;
+    background: var(--indigo);
+    color:#FBF6E8;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 4px 0 var(--indigo-deep);
+  }
+  .offline-home-link:active{ transform: translateY(2px); box-shadow: 0 2px 0 var(--indigo-deep); }
+
+/* ==================== Androidネイティブ版専用UI ====================
+   body.native-app はNativeビルド時だけ付与される。Web/PWA版の表示は変えない。 */
+body.native-app{
+  display:block;
+  min-height:100dvh;
+  padding:
+    calc(8px + env(safe-area-inset-top, 0px))
+    0
+    calc(86px + env(safe-area-inset-bottom, 0px));
+  background:
+    radial-gradient(circle at 15% 0%, rgba(193,67,46,.08), transparent 34%),
+    radial-gradient(circle at 90% 72%, rgba(78,158,142,.09), transparent 38%),
+    var(--paper);
+}
+body.native-app .app{
+  width:100%;
+  max-width:none;
+}
+body.native-app .brand{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  min-height:60px;
+  margin:0;
+  padding:6px 10px 9px;
+}
+body.native-app .brand .eyebrow,
+body.native-app .brand .tagline,
+body.native-app .brand .x-follow{
+  display:none;
+}
+body.native-app .brand .logo-wrap{
+  display:none;
+}
+body.native-app .native-player-rank-header{
+  width:100%;
+  max-width:480px;
+  height:auto;
+  aspect-ratio:1536 / 225;
+  display:block;
+  margin:0;
+  padding:0;
+  border:0;
+  border-radius:14px;
+  overflow:hidden;
+  color:transparent;
+  background-color:#fffdf6;
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:100% 100%;
+  box-shadow:0 6px 16px rgba(38,58,92,.13);
+  font:inherit;
+  cursor:pointer;
+}
+body.native-app .native-player-rank-accessible{
+  position:absolute;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+  clip:rect(0 0 0 0);
+  clip-path:inset(50%);
+  white-space:nowrap;
+}
+body.native-app.native-immersive .native-player-rank-header{ display:none; }
+body.native-app .card{
+  width:min(calc(100% - 20px), 480px);
+  margin:0 auto;
+  padding:22px 17px 21px;
+  border-radius:24px;
+  min-height:calc(100dvh - 156px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+  box-shadow:0 12px 34px rgba(38,58,92,.11);
+}
+body.native-app.native-home-active .card{
+  border-color:transparent;
+  background:transparent;
+  box-shadow:none;
+}
+body.native-app .foot{
+  padding:10px 20px 0;
+  font-size:10px;
+}
+body.native-app .site-intro,
+body.native-app .site-footer{
+  display:none;
+}
+body.native-app .opening-mascot-wrap{
+  margin-top:-7px;
+  margin-bottom:18px;
+}
+body.native-app .native-home-hero .opening-mascot-shell{
+  width:174px;
+  height:174px;
+}
+body.native-app .native-home-status{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;
+  margin:-4px 0 19px;
+}
+body.native-app .native-home-status > div{
+  min-width:0;
+  min-height:74px;
+  padding:11px 6px 10px;
+  border:0;
+  border-radius:17px;
+  background:#fff;
+  box-shadow:0 7px 20px rgba(84,59,35,.09);
+  text-align:center;
+}
+body.native-app .native-home-status .native-stat-label{
+  display:block;
+  color:#3d2b24;
+  font-size:10px;
+  font-weight:800;
+}
+body.native-app .native-home-status .native-stat-value{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  margin-top:7px;
+  color:#201a18;
+}
+body.native-app .native-home-status .native-stat-icon{
+  width:20px;
+  height:20px;
+  flex:0 0 auto;
+  fill:currentColor;
+}
+body.native-app .native-home-status strong{
+  min-width:0;
+  overflow:hidden;
+  color:inherit;
+  font-size:clamp(16px,5vw,21px);
+  line-height:1;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+body.native-app .native-home-status small{
+  margin-left:-2px;
+  color:inherit;
+  font-size:11px;
+  font-weight:900;
+}
+body.native-app .native-home-status .native-stat-card-conquest .native-stat-value{
+  color:#ed3f20;
+}
+body.native-app .native-rank-s{ --native-rank-color:#9a6700; --native-rank-bg:#fff1b8; color:var(--native-rank-color); }
+body.native-app .native-rank-a{ --native-rank-color:#b52666; --native-rank-bg:#ffe1ef; color:var(--native-rank-color); }
+body.native-app .native-rank-b{ --native-rank-color:#b34b17; --native-rank-bg:#ffe1c8; color:var(--native-rank-color); }
+body.native-app .native-rank-c{ --native-rank-color:#26745e; --native-rank-bg:#dff4ea; color:var(--native-rank-color); }
+body.native-app .native-rank-d{ --native-rank-color:#315f9e; --native-rank-bg:#e1ebfb; color:var(--native-rank-color); }
+body.native-app .native-rank-e{ --native-rank-color:#6d6577; --native-rank-bg:#ece8f0; color:var(--native-rank-color); }
+body.native-app .native-rank-f{ --native-rank-color:#765032; --native-rank-bg:#eee0d3; color:var(--native-rank-color); }
+body.native-app .native-rank-g{ --native-rank-color:#555b64; --native-rank-bg:#e4e6e8; color:var(--native-rank-color); }
+body.native-app .native-rank-none{ color:var(--ink-soft); }
+body.native-app .native-player-rank-g{ --player-bg:#202124; --player-fg:#fff; --player-border:#050505; --player-accent:#202124; }
+body.native-app .native-player-rank-f{ --player-bg:#2f6fb5; --player-fg:#fff; --player-border:#1f4f86; --player-accent:#2f6fb5; }
+body.native-app .native-player-rank-e{ --player-bg:#2f8f57; --player-fg:#fff; --player-border:#206a3e; --player-accent:#2f8f57; }
+body.native-app .native-player-rank-d{ --player-bg:#f2cf3a; --player-fg:#4d3a00; --player-border:#c9a619; --player-accent:#d3a900; }
+body.native-app .native-player-rank-c{ --player-bg:#ef8a23; --player-fg:#402200; --player-border:#c76b10; --player-accent:#ef8a23; }
+body.native-app .native-player-rank-b{ --player-bg:#c43d3d; --player-fg:#fff; --player-border:#982828; --player-accent:#c43d3d; }
+body.native-app .native-player-rank-a{ --player-bg:#e35c91; --player-fg:#fff; --player-border:#b83c6c; --player-accent:#e35c91; }
+body.native-app .native-player-rank-s{ --player-bg:linear-gradient(135deg,#f6dc70,#d7a91e); --player-fg:#4d3700; --player-border:#b18512; --player-accent:#d7a91e; }
+body.native-app .native-home-rank-strip{
+  display:grid;
+  grid-template-columns:82px 92px 1fr;
+  gap:7px;
+  align-items:stretch;
+  margin:-7px 0 14px;
+  padding:8px;
+  border:1px solid rgba(216,203,168,.82);
+  border-radius:15px;
+  background:rgba(255,255,255,.92);
+  box-shadow:0 5px 14px rgba(38,58,92,.06);
+  text-align:left;
+}
+body.native-app .native-home-rank-strip > div{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:5px;
+  min-width:0;
+  padding:3px 7px;
+  border-right:1px solid var(--line);
+}
+body.native-app .native-home-rank-strip > div span{
+  color:var(--ink-soft);
+  font-size:9px;
+  font-weight:800;
+  line-height:1.25;
+}
+body.native-app .native-home-rank-strip .native-rank-text{
+  flex:0 0 auto;
+  font-size:23px;
+  line-height:1;
+}
+body.native-app .native-home-rank-strip button{
+  min-width:0;
+  min-height:48px;
+  padding:7px 4px;
+  border:0;
+  color:var(--vermillion);
+  background:transparent;
+  font:900 11px/1.25 inherit;
+}
+body.native-app .native-home-rank-strip button span{ font-size:17px; vertical-align:-1px; }
+body.native-app .native-kicker{
+  margin:0 0 7px;
+  color:var(--mint);
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.14em;
+}
+body.native-app .native-home-lead{
+  margin:10px auto 19px;
+  max-width:330px;
+  color:var(--ink-soft);
+  font-size:13.5px;
+  line-height:1.75;
+}
+body.native-app .native-primary-actions{
+  display:grid;
+  gap:10px;
+  margin-bottom:19px;
+}
+body.native-app.native-home-active .daily-challenge-card{
+  margin:6px 0 13px;
+  padding:15px 16px 16px;
+  border:0;
+  border-radius:22px;
+  background:linear-gradient(135deg,#fffaf2 0%,#fff3e6 100%);
+  box-shadow:0 8px 24px rgba(121,74,30,.09);
+  text-align:left;
+}
+body.native-app.native-home-active .daily-challenge-card-head{
+  align-items:center;
+  justify-content:flex-start;
+  margin-bottom:3px;
+}
+body.native-app.native-home-active .daily-challenge-card-label{
+  gap:11px;
+  color:#30231e;
+  font-size:17px;
+  font-weight:900;
+}
+body.native-app.native-home-active .daily-challenge-calendar-icon{
+  position:relative;
+  width:46px;
+  height:46px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  overflow:visible;
+  border:1px solid rgba(235,74,34,.18);
+  border-radius:50%;
+  background:#fff;
+  box-shadow:0 3px 10px rgba(130,76,30,.07);
+}
+body.native-app.native-home-active .daily-challenge-calendar-icon::before{
+  position:absolute;
+  top:13px;
+  left:12px;
+  width:21px;
+  height:19px;
+  border:1.5px solid #ef461f;
+  border-radius:4px;
+  background:linear-gradient(to bottom,#ef461f 0 5px,#fff 5px 100%);
+  box-sizing:border-box;
+}
+body.native-app.native-home-active .daily-challenge-calendar-icon .cal-date{
+  position:relative;
+  z-index:1;
+  width:auto;
+  padding:7px 0 0;
+  color:#34241e;
+  font-size:8px;
+  line-height:1;
+}
+body.native-app.native-home-active .daily-challenge-card-streak{
+  margin-left:auto;
+  font-size:10px;
+}
+body.native-app.native-home-active .daily-challenge-card-theme{
+  margin:-13px 0 11px 57px;
+  color:#49352c;
+  font-size:13.5px;
+  font-weight:700;
+}
+body.native-app.native-home-active .daily-challenge-card-actions{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:10px;
+}
+body.native-app.native-home-active .daily-challenge-card-btn{
+  min-height:46px;
+  padding:10px 14px;
+  border:0;
+  border-radius:999px;
+  color:#fff;
+  background:linear-gradient(135deg,#f05a27,#e63718);
+  box-shadow:0 6px 14px rgba(229,62,27,.18);
+  font-size:15px;
+}
+body.native-app.native-home-active .daily-challenge-card-done{
+  min-height:46px;
+  display:grid;
+  place-items:center;
+  border-radius:999px;
+  font-size:13px;
+}
+body.native-app.native-home-active .daily-challenge-card-history{
+  min-height:46px;
+  padding:10px 17px;
+  border:1.5px solid #ead9c6;
+  border-radius:999px;
+  color:#3e3029;
+  background:rgba(255,255,255,.42);
+  font-size:12px;
+  font-weight:900;
+}
+body.native-app.native-home-active .daily-challenge-card-history::before{
+  content:'▥';
+  margin-right:6px;
+  color:#9a765b;
+  font-size:16px;
+}
+body.native-app .native-home-action{
+  position:relative;
+  width:100%;
+  display:grid;
+  grid-template-columns:58px minmax(0,1fr) 20px;
+  gap:13px;
+  align-items:center;
+  min-height:91px;
+  padding:13px 17px 13px 14px;
+  overflow:hidden;
+  border:0;
+  border-radius:21px;
+  color:#2f211c;
+  background:#fff;
+  box-shadow:0 8px 24px rgba(84,59,35,.09);
+  text-align:left;
+  font:inherit;
+  cursor:pointer;
+}
+body.native-app .native-home-action::before{
+  content:'';
+  position:absolute;
+  inset:0 auto 0 0;
+  width:5px;
+  border-radius:21px 0 0 21px;
+  background:#f04a1e;
+}
+body.native-app .native-home-action-icon{
+  width:58px;
+  height:58px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  color:#f04a1e;
+  background:#fff1e8;
+}
+body.native-app .native-home-action-icon svg{
+  width:30px;
+  height:30px;
+  fill:currentColor;
+}
+body.native-app .native-home-action-copy strong,
+body.native-app .native-home-action-copy small{ display:block; }
+body.native-app .native-home-action-copy strong{
+  color:#291d19;
+  font-size:18px;
+  line-height:1.3;
+}
+body.native-app .native-home-action-copy small{
+  margin-top:4px;
+  color:#5f5149;
+  font-size:12px;
+  font-weight:700;
+  line-height:1.45;
+}
+body.native-app .native-home-action-arrow{
+  color:#f04a1e;
+  font-size:34px;
+  font-weight:400;
+  line-height:1;
+}
+body.native-app .native-home-action-choose::before{ display:none; }
+body.native-app .native-home-action-choose .native-home-action-icon{
+  color:#2e9c5a;
+  background:#eaf8ee;
+}
+body.native-app .native-home-action-choose .native-home-action-arrow{ color:#279860; }
+body.native-app .native-home-upcoming{
+  margin:21px 0 16px;
+  padding-top:0;
+  border-top:0;
+}
+body.native-app .native-home-upcoming-heading{
+  position:relative;
+  margin-bottom:11px;
+  padding-right:44px;
+}
+body.native-app .native-home-upcoming-heading::after{
+  content:'';
+  position:absolute;
+  right:22px;
+  bottom:8px;
+  left:116px;
+  border-top:2px dotted #dfd0bd;
+}
+body.native-app .native-home-upcoming-heading::before{
+  content:'✦';
+  position:absolute;
+  right:1px;
+  bottom:-1px;
+  color:#85c383;
+  font-size:24px;
+}
+body.native-app .native-upcoming-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+body.native-app .native-upcoming-card{
+  position:relative;
+  min-width:0;
+  min-height:183px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:8px;
+  padding:14px 13px 13px;
+  border:0;
+  border-radius:20px;
+  color:var(--ink);
+  background:#fff;
+  box-shadow:0 8px 23px rgba(84,59,35,.08);
+  text-align:left;
+  font:inherit;
+  opacity:1;
+}
+body.native-app .native-upcoming-card:disabled{ color:var(--ink); -webkit-text-fill-color:var(--ink); }
+body.native-app .native-upcoming-icon{
+  width:52px;
+  height:52px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  color:#338de0;
+  background:#eaf4ff;
+}
+body.native-app .native-upcoming-icon svg{
+  width:28px;
+  height:28px;
+  fill:currentColor;
+}
+body.native-app .native-upcoming-card strong,
+body.native-app .native-upcoming-card small{ display:block; }
+body.native-app .native-upcoming-card strong{ color:#281d19; font-size:15px; line-height:1.4; }
+body.native-app .native-upcoming-card small{ margin-top:5px; color:#51453f; font-size:11px; line-height:1.5; }
+body.native-app .native-upcoming-card em{
+  width:100%;
+  min-height:31px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-top:auto;
+  padding:6px 10px;
+  border-radius:999px;
+  color:#2677c6;
+  background:#eaf4ff;
+  font-size:10px;
+  font-style:normal;
+  font-weight:900;
+}
+body.native-app .native-upcoming-card em b{ font-size:20px; font-weight:500; line-height:1; }
+body.native-app .native-upcoming-card-login .native-upcoming-icon{
+  color:#8a4db8;
+  background:#f4ecfb;
+}
+body.native-app .native-upcoming-card-login em{
+  color:#7e43a8;
+  background:#f4ecfb;
+}
+body.native-app .native-home-progress{
+  margin-top:18px;
+  padding-top:15px;
+  border-top:1px solid var(--line);
+}
+body.native-app .native-section-heading{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:10px;
+  text-align:left;
+}
+body.native-app .native-section-heading h2{
+  margin:1px 0 0;
+  color:var(--indigo-deep);
+  font-size:17px;
+}
+body.native-app .native-section-eyebrow{
+  color:var(--mint);
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.15em;
+}
+body.native-app .native-section-heading button{
+  min-height:40px;
+  padding:8px 2px;
+  border:0;
+  color:var(--vermillion);
+  background:transparent;
+  font:800 12px/1.2 inherit;
+}
+body.native-app .native-metric-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+}
+body.native-app .native-metric{
+  padding:13px 5px;
+  border:1px solid rgba(216,203,168,.75);
+  border-radius:13px;
+  background:rgba(247,241,227,.65);
+  text-align:center;
+}
+body.native-app .native-metric strong{
+  display:block;
+  color:var(--vermillion-deep);
+  font-size:21px;
+  line-height:1.15;
+}
+body.native-app .native-metric span{
+  display:block;
+  margin-top:3px;
+  color:var(--ink-soft);
+  font-size:11px;
+}
+body.native-app .native-screen-heading{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin:-1px 0 22px;
+  text-align:left;
+}
+body.native-app .native-screen-icon{
+  flex:0 0 48px;
+  width:48px;
+  height:48px;
+  display:grid;
+  place-items:center;
+  border:1px solid var(--line);
+  border-radius:15px;
+  background:linear-gradient(145deg,#fff,var(--paper-deep));
+  box-shadow:0 5px 13px rgba(38,58,92,.09);
+  font-size:23px;
+}
+body.native-app .native-screen-heading > div > span{
+  color:var(--mint);
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.17em;
+}
+body.native-app .native-screen-heading h1{
+  margin:0;
+  color:var(--indigo-deep);
+  font-size:24px;
+  line-height:1.25;
+}
+body.native-app .native-screen-heading p{
+  margin:4px 0 0;
+  color:var(--ink-soft);
+  font-size:12px;
+  line-height:1.5;
+}
+body.native-app .native-hub-section{
+  margin:0 0 23px;
+  text-align:left;
+}
+body.native-app .native-hub-section > h2{
+  margin:0 0 10px 2px;
+  color:var(--indigo-deep);
+  font-size:15px;
+}
+body.native-app .native-hub-section > .mode-btn{ margin-bottom:8px; }
+body.native-app .native-mode-pair{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+body.native-app .native-mode-pair .mode-btn{
+  min-width:0;
+  margin:0;
+}
+body.native-app .native-region-grid{ gap:8px; }
+body.native-app .native-region-grid .mode-btn{ margin:0; }
+body.native-app .native-challenge-card{ margin-top:5px; }
+
+/* ---- Android版「遊び方を選ぶ」 ----
+   Web/PWA版の.mode-btnには触れず、Native画面だけを参考デザインへ寄せる。 */
+body.native-app .native-play-heading{
+  position:relative;
+  min-height:138px;
+  display:grid;
+  grid-template-columns:44px minmax(0,1fr) 94px;
+  align-items:center;
+  gap:8px;
+  margin:-5px -7px 20px;
+  padding:13px 10px 12px;
+  overflow:hidden;
+  border:1px solid rgba(216,203,168,.75);
+  border-radius:22px;
+  background:
+    radial-gradient(circle at 86% 24%,rgba(78,158,142,.15),transparent 30%),
+    linear-gradient(180deg,#fffef9,#f6f0df);
+  text-align:left;
+}
+body.native-app .native-play-heading::after{
+  content:'';
+  position:absolute;
+  right:0;
+  bottom:0;
+  left:0;
+  height:34px;
+  opacity:.55;
+  background:
+    radial-gradient(55px 24px at 8% 100%,#c8ddba 98%,transparent),
+    radial-gradient(78px 27px at 28% 100%,#d9e7c8 98%,transparent),
+    radial-gradient(62px 22px at 58% 100%,#bdd8b1 98%,transparent),
+    radial-gradient(90px 30px at 86% 100%,#d5e4c5 98%,transparent);
+}
+body.native-app .native-play-back{
+  position:relative;
+  z-index:2;
+  width:44px;
+  height:44px;
+  display:grid;
+  place-items:center;
+  padding:0 0 4px;
+  border:1px solid #e3d8c6;
+  border-radius:50%;
+  color:#4a2c21;
+  background:#fffdf8;
+  box-shadow:0 4px 11px rgba(75,48,30,.1);
+  font:500 32px/1 inherit;
+}
+body.native-app .native-play-heading-copy{
+  position:relative;
+  z-index:2;
+  min-width:0;
+  text-align:center;
+}
+body.native-app .native-play-heading-copy > span{
+  display:block;
+  color:var(--mint);
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.08em;
+}
+body.native-app .native-play-heading-copy h1{
+  margin:3px -8px 0;
+  color:#3a241d;
+  font-size:23px;
+  line-height:1.25;
+}
+body.native-app .native-play-heading-copy p{
+  margin:6px -12px 0;
+  color:#65544b;
+  font-size:10.5px;
+  font-weight:700;
+  line-height:1.45;
+}
+body.native-app .native-play-heading-mascot{
+  position:relative;
+  z-index:2;
+  align-self:end;
+  height:112px;
+}
+body.native-app .native-play-heading-mascot .mascot{
+  position:absolute;
+  right:-8px;
+  bottom:-7px;
+  width:108px;
+  height:108px;
+  object-fit:contain;
+  filter:drop-shadow(0 5px 7px rgba(52,35,20,.16));
+}
+body.native-app .native-play-section{
+  margin:0 0 24px;
+  text-align:left;
+  scroll-margin-top:12px;
+}
+body.native-app .native-play-section-title{
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin:0 2px 11px;
+  padding-right:10px;
+}
+body.native-app .native-play-section-title::after{
+  content:'';
+  min-width:22px;
+  flex:1;
+  border-top:2px dotted #dfd1bd;
+}
+body.native-app .native-play-section-title h2{
+  margin:0;
+  color:#45291e;
+  font-size:17px;
+  white-space:nowrap;
+}
+body.native-app .native-play-section-title p{
+  margin:2px 0 0;
+  color:var(--ink-soft);
+  font-size:10px;
+  font-weight:700;
+  line-height:1.4;
+}
+body.native-app .native-play-section-icon{
+  width:32px;
+  height:32px;
+  display:grid;
+  flex:0 0 32px;
+  place-items:center;
+  border-radius:50%;
+  background:#edf7e9;
+  font-size:16px;
+}
+body.native-app .native-play-mode-list{
+  display:grid;
+  gap:10px;
+}
+body.native-app .native-play-mode-card{
+  width:100%;
+  min-height:102px;
+  display:grid;
+  grid-template-columns:62px minmax(0,1fr) 24px;
+  align-items:center;
+  gap:12px;
+  padding:13px 14px;
+  border:1.5px solid #eb9c6f;
+  border-radius:20px;
+  color:#3d281f;
+  background:linear-gradient(135deg,#fff,#fff8f1);
+  box-shadow:0 5px 15px rgba(82,55,35,.08);
+  text-align:left;
+  font:inherit;
+  -webkit-appearance:none;
+  appearance:none;
+}
+/* Android WebViewで先頭の選択カードだけが透明になることを防ぐ。
+   選択中を表す不要な汎用クラスには依存せず、カードを明示的に描画する。 */
+body.native-app .native-play-mode-solo{
+  position:relative;
+  display:grid !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  border-color:#eb9c6f;
+  background:linear-gradient(135deg,#fff,#fff8f1);
+}
+body.native-app .native-play-mode-solo > *{
+  visibility:visible !important;
+  opacity:1 !important;
+}
+body.native-app .native-play-mode-card:active:not(:disabled){ transform:scale(.985); }
+body.native-app .native-play-mode-card:focus-visible,
+body.native-app .native-area-button:focus-visible,
+body.native-app .native-prefecture-grid button:focus-visible,
+body.native-app .native-play-back:focus-visible{
+  outline:3px solid rgba(193,67,46,.36);
+  outline-offset:2px;
+}
+body.native-app .native-play-mode-icon{
+  width:62px;
+  height:62px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  color:#ed5a22;
+  background:#fff0e3;
+  font-size:29px;
+  line-height:1;
+}
+body.native-app .native-play-mode-copy strong,
+body.native-app .native-play-mode-copy small{ display:block; }
+body.native-app .native-play-mode-copy strong{
+  color:#df4b20;
+  font-size:17px;
+  line-height:1.25;
+}
+body.native-app .native-play-mode-copy small{
+  margin-top:6px;
+  color:#574942;
+  font-size:11px;
+  font-weight:700;
+  line-height:1.5;
+}
+body.native-app .native-play-mode-arrow{
+  color:#e95524;
+  font-size:32px;
+  line-height:1;
+}
+body.native-app .native-play-mode-multi{
+  grid-template-columns:62px minmax(0,1fr) auto;
+  border-color:#86b8e4;
+  background:linear-gradient(135deg,#fff,#f2f8ff);
+  opacity:1;
+}
+body.native-app .native-play-mode-multi:disabled{
+  color:#3d281f;
+  -webkit-text-fill-color:currentColor;
+}
+body.native-app .native-play-mode-multi .native-play-mode-icon{ color:#2f78b8; background:#eaf4ff; }
+body.native-app .native-play-mode-multi .native-play-mode-copy strong{ color:#266aaa; }
+body.native-app .native-play-mode-badge{
+  align-self:start;
+  padding:5px 7px;
+  border-radius:999px;
+  color:#3378b6;
+  background:#e2f0fc;
+  font-size:9px;
+  font-weight:900;
+  white-space:nowrap;
+}
+body.native-app .native-play-mode-challenge{
+  border-color:#9cc586;
+  background:linear-gradient(135deg,#fff,#f5faef);
+}
+body.native-app .native-play-mode-challenge .native-play-mode-icon{ color:#279556; background:#eaf6e7; }
+body.native-app .native-play-mode-challenge .native-play-mode-copy strong,
+body.native-app .native-play-mode-challenge .native-play-mode-arrow{ color:#238d4c; }
+body.native-app .native-area-section{ margin-top:3px; }
+body.native-app .native-area-pin{ color:#239d5a; background:#ecf8ed; font-size:18px; }
+body.native-app .native-area-card{
+  display:grid;
+  grid-template-columns:minmax(108px,118px) minmax(0,1fr);
+  gap:10px;
+  min-height:492px;
+  padding:12px;
+  overflow:hidden;
+  border:1px solid #e2d6c2;
+  border-radius:21px;
+  background:linear-gradient(145deg,#fffdf8,#f4eddf);
+  box-shadow:0 7px 20px rgba(72,53,36,.08);
+}
+body.native-app .native-area-buttons{
+  position:relative;
+  z-index:2;
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+body.native-app .native-area-button{
+  min-height:48px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:5px;
+  padding:7px 8px;
+  border:1px solid transparent;
+  border-radius:10px;
+  color:#3f5262;
+  background:#fff;
+  box-shadow:0 2px 7px rgba(53,48,38,.06);
+  text-align:left;
+  font:inherit;
+}
+body.native-app .native-area-button strong{ font-size:11px; line-height:1.2; }
+body.native-app .native-area-button small{ color:inherit; font-size:8px; font-weight:900; opacity:.72; }
+body.native-app .native-area-all{ color:#d84b23; border-color:#f1ad87; background:#fff6ef; }
+body.native-app .native-area-hokkaido{ color:#377ab1; background:#eef7ff; }
+body.native-app .native-area-tohoku{ color:#238c80; background:#eef9f7; }
+body.native-app .native-area-kanto{ color:#2b8351; background:#f0f8ed; }
+body.native-app .native-area-chubu{ color:#9a6a18; background:#fff8df; }
+body.native-app .native-area-kinki{ color:#b56829; background:#fff2e7; }
+body.native-app .native-area-chugoku-shikoku{ color:#76518f; background:#f7eff9; }
+body.native-app .native-area-kyushu{ color:#a35177; background:#fbf0f6; }
+body.native-app .native-area-prefectures{
+  min-height:54px;
+  flex-direction:column;
+  align-items:flex-start;
+  justify-content:center;
+  gap:2px;
+  color:#fff;
+  border-color:#c3422e;
+  background:linear-gradient(135deg,#d45134,#ba3525);
+  box-shadow:0 4px 10px rgba(165,51,35,.2);
+}
+body.native-app .native-area-prefectures strong{ font-size:12px; }
+body.native-app .native-area-prefectures small{ font-size:8.5px; opacity:.92; }
+body.native-app .native-area-map-panel{
+  position:relative;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:5px 0 8px;
+}
+body.native-app .native-area-map{
+  width:100%;
+  max-width:238px;
+  height:auto;
+  max-height:382px;
+  overflow:visible;
+  filter:drop-shadow(0 5px 5px rgba(72,79,70,.14));
+}
+body.native-app .native-area-map-panel p{
+  position:absolute;
+  right:0;
+  bottom:3px;
+  min-width:105px;
+  margin:0;
+  padding:8px 9px;
+  border:1px solid #e3d8c7;
+  border-radius:50%;
+  color:#4d392d;
+  background:#fffdf8;
+  box-shadow:0 3px 10px rgba(79,56,36,.09);
+  text-align:center;
+  font-size:9px;
+  line-height:1.35;
+}
+body.native-app .native-area-map-panel p strong,
+body.native-app .native-area-map-panel p span{ display:block; }
+body.native-app .native-area-map-fallback{ font-size:115px; line-height:1; }
+body.native-app .native-area-note{
+  margin:10px 4px 0;
+  color:#388b62;
+  font-size:10px;
+  font-weight:800;
+}
+body.native-app .native-area-note span{ margin-right:3px; font-size:15px; }
+body.native-app .native-play-point-card{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin:-6px 0 12px;
+  padding:13px 14px;
+  border:1px solid #ead7ad;
+  border-radius:15px;
+  background:#fff8e6;
+  text-align:left;
+}
+body.native-app .native-play-point-card strong{ color:#9a5c1e; font-size:12px; }
+body.native-app .native-play-point-card span{ color:#725d48; font-size:10px; font-weight:700; text-align:right; }
+
+/* ---- 47都道府県の選択画面 ---- */
+body.native-app .native-prefecture-heading{
+  display:grid;
+  grid-template-columns:44px minmax(0,1fr);
+  align-items:center;
+  gap:12px;
+  margin:0 0 16px;
+  text-align:left;
+}
+body.native-app .native-prefecture-heading > div > span{
+  color:var(--mint);
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.14em;
+}
+body.native-app .native-prefecture-heading h1{ margin:1px 0 0; color:#3e291f; font-size:22px; }
+body.native-app .native-prefecture-heading p{ margin:3px 0 0; color:var(--ink-soft); font-size:10.5px; }
+body.native-app .native-prefecture-map-card{
+  min-height:158px;
+  display:grid;
+  grid-template-columns:118px minmax(0,1fr);
+  align-items:center;
+  gap:12px;
+  margin-bottom:20px;
+  padding:12px 15px;
+  border:1px solid #e2d5bf;
+  border-radius:18px;
+  background:linear-gradient(145deg,#fff,#f5eddf);
+  box-shadow:0 6px 16px rgba(72,52,33,.08);
+  text-align:left;
+}
+body.native-app .native-prefecture-map-card .native-area-map{ width:106px; max-height:145px; }
+body.native-app .native-prefecture-map-card > div strong,
+body.native-app .native-prefecture-map-card > div span{ display:block; }
+body.native-app .native-prefecture-map-card > div strong{ color:#3e2a20; font-size:14px; line-height:1.45; }
+body.native-app .native-prefecture-map-card > div span{ margin-top:6px; color:var(--ink-soft); font-size:10.5px; font-weight:700; line-height:1.6; }
+body.native-app .native-prefecture-list{ display:grid; gap:18px; }
+body.native-app .native-prefecture-region{ text-align:left; }
+body.native-app .native-prefecture-region h2{
+  margin:0 2px 8px;
+  padding-bottom:6px;
+  border-bottom:2px dotted #dfd0ba;
+  color:#3f2a20;
+  font-size:15px;
+}
+body.native-app .native-prefecture-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+}
+body.native-app .native-prefecture-grid button{
+  min-width:0;
+  min-height:58px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  grid-template-rows:auto auto;
+  align-items:center;
+  gap:1px 6px;
+  padding:9px 8px 8px 11px;
+  border:1px solid #e4d8c6;
+  border-radius:13px;
+  color:#3e2c24;
+  background:#fff;
+  box-shadow:0 3px 9px rgba(71,53,39,.06);
+  text-align:left;
+  font:inherit;
+}
+body.native-app .native-prefecture-grid button:active{ transform:scale(.98); background:#fff9ef; }
+body.native-app .native-prefecture-grid button span{
+  min-width:0;
+  overflow:hidden;
+  font-size:12.5px;
+  font-weight:900;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+body.native-app .native-prefecture-grid button small{ color:#817269; font-size:8.5px; font-weight:800; }
+body.native-app .native-prefecture-grid button b{
+  grid-column:2;
+  grid-row:1 / span 2;
+  color:#d85834;
+  font-size:20px;
+  font-weight:500;
+}
+body.native-app .native-prefecture-back-button{ margin-top:22px; }
+body.native-app .native-record-summary{
+  padding:17px;
+  border-radius:17px;
+  color:#fff;
+  background:linear-gradient(135deg,var(--indigo-deep),var(--indigo));
+  text-align:left;
+  box-shadow:0 8px 20px rgba(38,58,92,.2);
+}
+body.native-app .native-record-summary > div:first-child{
+  display:flex;
+  align-items:baseline;
+  gap:6px;
+}
+body.native-app .native-record-summary span{ font-size:12px; opacity:.9; }
+body.native-app .native-record-summary strong{ margin-left:auto; font-size:29px; }
+body.native-app .native-record-summary small{ font-size:11px; opacity:.8; }
+body.native-app .native-record-progress{
+  height:7px;
+  margin-top:11px;
+  overflow:hidden;
+  border-radius:999px;
+  background:rgba(255,255,255,.2);
+}
+body.native-app .native-record-progress span{
+  display:block;
+  height:100%;
+  border-radius:inherit;
+  background:linear-gradient(90deg,#f3c66f,#fff0b1);
+}
+body.native-app .native-record-summary p{ margin:8px 0 0; font-size:11px; opacity:.86; }
+body.native-app .native-record-metrics{ margin:10px 0 19px; }
+body.native-app .native-player-rank-summary{
+  width:100%;
+  display:grid;
+  grid-template-columns:58px 1fr 16px;
+  gap:11px;
+  align-items:center;
+  margin:0 0 12px;
+  padding:12px 13px;
+  border:1px solid var(--player-border);
+  border-radius:17px;
+  color:var(--player-fg);
+  background:var(--player-bg);
+  box-shadow:0 7px 18px rgba(38,58,92,.14);
+  text-align:left;
+  font:inherit;
+}
+body.native-app .native-player-rank-summary-grade{
+  display:grid;
+  place-items:center;
+  width:54px;
+  height:54px;
+  border:2px solid currentColor;
+  border-radius:16px;
+  font:900 38px/1 Georgia,serif;
+  opacity:.96;
+}
+body.native-app .native-player-rank-summary > span:nth-child(2){ min-width:0; }
+body.native-app .native-player-rank-summary small,
+body.native-app .native-player-rank-summary strong,
+body.native-app .native-player-rank-summary em{ display:block; }
+body.native-app .native-player-rank-summary small{ font-size:9px; font-weight:900; opacity:.82; }
+body.native-app .native-player-rank-summary strong{ margin:2px 0 3px; overflow:hidden; font-size:15px; text-overflow:ellipsis; white-space:nowrap; }
+body.native-app .native-player-rank-summary em{ font-size:9.5px; font-style:normal; opacity:.84; }
+body.native-app .native-player-rank-summary > span:last-child{ font-size:24px; }
+body.native-app .native-rank-result{
+  display:flex;
+  align-items:center;
+  gap:13px;
+  margin:12px 0 13px;
+  padding:12px;
+  border:1px solid rgba(216,203,168,.85);
+  border-radius:16px;
+  background:rgba(255,255,255,.86);
+  text-align:left;
+}
+body.native-app .native-rank-result-grade{
+  flex:0 0 64px;
+  width:64px;
+  height:64px;
+  display:grid;
+  place-items:center;
+  border:2px solid var(--native-rank-color);
+  border-radius:18px;
+  background:var(--native-rank-bg);
+  font:900 42px/1 Georgia,serif;
+  box-shadow:inset 0 0 0 4px rgba(255,255,255,.55);
+}
+body.native-app .native-rank-result-copy{ min-width:0; }
+body.native-app .native-rank-result-copy > *{ display:block; }
+body.native-app .native-rank-result-copy small{ color:var(--ink-soft); font-size:11px; font-weight:900; }
+body.native-app .native-rank-result-copy strong{ margin:1px 0 4px; color:var(--indigo-deep); font-size:20px; }
+body.native-app .native-rank-result-copy span{ color:var(--ink-soft); font-size:11px; line-height:1.5; }
+body.native-app .native-player-rank-result{
+  width:100%;
+  display:grid;
+  grid-template-columns:74px 1fr 16px;
+  gap:10px;
+  align-items:center;
+  margin:0 0 14px;
+  padding:10px 12px;
+  border:1px solid var(--player-border);
+  border-radius:15px;
+  color:var(--player-fg);
+  background:var(--player-bg);
+  text-align:left;
+  font:inherit;
+}
+body.native-app .native-player-rank-result > span:first-child{
+  display:grid;
+  grid-template-columns:auto auto;
+  gap:6px;
+  align-items:center;
+}
+body.native-app .native-player-rank-result > span:first-child small{ font-size:8px; font-weight:900; line-height:1.15; }
+body.native-app .native-player-rank-result > span:first-child strong{ font:900 34px/1 Georgia,serif; }
+body.native-app .native-player-rank-result > span:nth-child(2) strong,
+body.native-app .native-player-rank-result > span:nth-child(2) small{ display:block; }
+body.native-app .native-player-rank-result > span:nth-child(2) strong{ font-size:13px; }
+body.native-app .native-player-rank-result > span:nth-child(2) small{ margin-top:3px; font-size:9.5px; opacity:.84; }
+body.native-app .native-player-rank-result > span:last-child{ font-size:22px; }
+body.native-app .native-player-rank-card{
+  margin:0 0 12px;
+  padding:20px 16px 18px;
+  border:1px solid var(--player-border);
+  border-radius:21px;
+  color:var(--player-fg);
+  background:var(--player-bg);
+  box-shadow:0 10px 24px rgba(38,58,92,.16);
+  text-align:center;
+}
+body.native-app .native-player-rank-card small{ display:block; font-size:10px; font-weight:900; opacity:.84; }
+body.native-app .native-player-rank-card > strong{ display:block; margin:4px 0 1px; font:900 72px/1 Georgia,serif; }
+body.native-app .native-player-rank-card h2{ margin:0; color:inherit; font-size:18px; }
+body.native-app .native-player-rank-card p{ margin:6px 0 0; font-size:13px; font-weight:900; opacity:.9; }
+body.native-app .native-player-next-card{
+  margin:0 0 11px;
+  padding:13px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:#fff;
+  text-align:left;
+}
+body.native-app .native-player-next-card strong,
+body.native-app .native-player-next-card small{ display:block; }
+body.native-app .native-player-next-card strong{ color:var(--indigo-deep); font-size:13.5px; }
+body.native-app .native-player-next-card small{ margin-top:4px; color:var(--ink-soft); font-size:10.5px; line-height:1.5; }
+body.native-app .native-player-next-bar,
+body.native-app .native-player-component-bar{
+  display:block;
+  height:7px;
+  margin-top:9px;
+  overflow:hidden;
+  border-radius:999px;
+  background:#ece7da;
+}
+body.native-app .native-player-next-bar > span,
+body.native-app .native-player-component-bar > i{
+  display:block;
+  height:100%;
+  border-radius:inherit;
+  background:linear-gradient(90deg,var(--mint),var(--indigo));
+}
+body.native-app .native-player-metrics{ margin:0 0 18px; }
+body.native-app .native-player-components-section{ margin-bottom:14px; }
+body.native-app .native-player-components{
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:#fff;
+}
+body.native-app .native-player-component{
+  padding:11px 12px;
+  border-bottom:1px solid rgba(216,203,168,.62);
+}
+body.native-app .native-player-component:last-child{ border-bottom:0; }
+body.native-app .native-player-component > span:first-child{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:10px;
+}
+body.native-app .native-player-component strong{ color:var(--indigo-deep); font-size:12px; }
+body.native-app .native-player-component small{ color:var(--ink-soft); font-size:10.5px; font-weight:800; }
+body.native-app .native-player-component-bar{ margin-top:6px; height:6px; }
+body.native-app .native-player-rules-note{
+  margin:0 0 15px;
+  padding:13px;
+  border:1px dashed rgba(78,158,142,.55);
+  border-radius:15px;
+  background:rgba(225,244,238,.52);
+  text-align:left;
+}
+body.native-app .native-player-rules-note strong{ color:var(--indigo-deep); font-size:12.5px; }
+body.native-app .native-player-rules-note p{ margin:5px 0 0; color:var(--ink-soft); font-size:10.5px; line-height:1.65; }
+body.native-app .native-rank-best-card{
+  margin:0 0 19px;
+  padding:19px;
+  border:1px solid rgba(216,203,168,.85);
+  border-radius:18px;
+  background:linear-gradient(135deg,#fffdf6,#fff4d7);
+  text-align:center;
+  box-shadow:0 7px 18px rgba(38,58,92,.08);
+}
+body.native-app .native-rank-best-card > span{ display:block; color:var(--ink-soft); font-size:11px; font-weight:900; }
+body.native-app .native-rank-best-card > strong{ display:block; margin:3px 0; font:900 62px/1 Georgia,serif; }
+body.native-app .native-rank-best-card p{ margin:5px 0 0; color:var(--ink-soft); font-size:12px; }
+body.native-app .native-rank-empty-card{
+  margin:0 0 19px;
+  padding:20px 16px;
+  border:1px dashed var(--line);
+  border-radius:17px;
+  background:rgba(255,255,255,.72);
+  text-align:center;
+}
+body.native-app .native-rank-empty-card strong{ color:var(--indigo-deep); font-size:15px; }
+body.native-app .native-rank-empty-card p{ margin:7px 0 0; color:var(--ink-soft); font-size:11px; line-height:1.6; }
+body.native-app .native-rank-history-section{ margin-bottom:15px; }
+body.native-app .native-rank-history-list{
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:#fff;
+}
+body.native-app .native-rank-history-row{
+  display:grid;
+  grid-template-columns:42px 1fr auto;
+  gap:10px;
+  align-items:center;
+  padding:11px 12px;
+  border-bottom:1px solid rgba(216,203,168,.65);
+  text-align:left;
+}
+body.native-app .native-rank-history-row:last-child{ border-bottom:0; }
+body.native-app .native-rank-history-grade{
+  width:38px;
+  height:38px;
+  display:grid;
+  place-items:center;
+  border:1px solid var(--native-rank-color);
+  border-radius:11px;
+  background:var(--native-rank-bg);
+  font:900 24px/1 Georgia,serif;
+}
+body.native-app .native-rank-history-main,
+body.native-app .native-rank-history-score{ min-width:0; }
+body.native-app .native-rank-history-main strong,
+body.native-app .native-rank-history-main small,
+body.native-app .native-rank-history-score strong,
+body.native-app .native-rank-history-score small{ display:block; }
+body.native-app .native-rank-history-main strong{ overflow:hidden; color:var(--indigo-deep); font-size:13px; text-overflow:ellipsis; white-space:nowrap; }
+body.native-app .native-rank-history-main small{ margin-top:2px; color:var(--ink-soft); font-size:10.5px; }
+body.native-app .native-rank-history-score{ text-align:right; }
+body.native-app .native-rank-history-score strong{ color:var(--vermillion-deep); font-size:16px; }
+body.native-app .native-rank-history-score small{ margin-top:2px; color:var(--ink-soft); font-size:10.5px; white-space:nowrap; }
+body.native-app .native-rank-history-empty{ margin:0; padding:24px 14px; color:var(--ink-soft); font-size:11px; text-align:center; }
+body.native-app .native-menu-list{
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:#fff;
+}
+body.native-app .native-menu-list button{
+  width:100%;
+  display:grid;
+  grid-template-columns:40px 1fr 16px;
+  gap:11px;
+  align-items:center;
+  min-height:66px;
+  padding:13px 14px;
+  border:0;
+  border-bottom:1px solid rgba(216,203,168,.7);
+  color:var(--ink);
+  background:transparent;
+  text-align:left;
+  font:inherit;
+}
+body.native-app .native-menu-list button:last-child{ border-bottom:0; }
+body.native-app .native-menu-list button:active{ background:var(--paper); }
+body.native-app .native-menu-list .native-menu-icon{
+  width:38px;
+  height:38px;
+  display:grid;
+  place-items:center;
+  border-radius:10px;
+  background:var(--paper);
+  font-size:19px;
+}
+body.native-app .native-menu-list strong,
+body.native-app .native-menu-list small{ display:block; }
+body.native-app .native-menu-list strong{ color:var(--indigo-deep); font-size:14px; }
+body.native-app .native-menu-list small{ margin-top:3px; color:var(--ink-soft); font-size:11px; line-height:1.45; }
+body.native-app .native-menu-list button > span:last-child{ color:var(--mint); font-size:21px; }
+body.native-app .native-settings-card{
+  margin-bottom:14px;
+  padding:16px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:#fff;
+  text-align:left;
+}
+body.native-app .native-settings-card h2{
+  margin:0 0 12px;
+  color:var(--indigo-deep);
+  font-size:15px;
+}
+body.native-app .native-settings-card > p{
+  margin:0 0 10px;
+  color:var(--ink-soft);
+  font-size:12px;
+  line-height:1.7;
+}
+body.native-app .native-setting-toggle{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+body.native-app .native-setting-toggle strong,
+body.native-app .native-setting-toggle small{ display:block; }
+body.native-app .native-setting-toggle strong{ color:var(--ink); font-size:13.5px; }
+body.native-app .native-setting-toggle small{ margin-top:4px; color:var(--ink-soft); font-size:11px; line-height:1.55; }
+body.native-app .native-setting-toggle input{
+  flex:0 0 auto;
+  width:26px;
+  height:26px;
+  accent-color:var(--mint);
+}
+body.native-app .native-settings-link{
+  display:flex;
+  justify-content:space-between;
+  margin-top:11px;
+  min-height:44px;
+  align-items:center;
+  padding-top:11px;
+  border-top:1px solid rgba(216,203,168,.7);
+  color:var(--indigo);
+  font-size:12.5px;
+  font-weight:700;
+  text-decoration:none;
+}
+body.native-app .native-about-row{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:8px 0;
+  font-size:12.5px;
+}
+body.native-app .native-about-row span{ color:var(--ink-soft); }
+body.native-app .native-about-row strong{ color:var(--ink); text-align:right; }
+body.native-app .native-danger-zone{ border-color:rgba(193,67,46,.35); }
+body.native-app .native-tab-bar{
+  position:fixed;
+  z-index:900;
+  left:0;
+  right:0;
+  bottom:0;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  min-height:calc(80px + env(safe-area-inset-bottom, 0px));
+  padding:5px 8px env(safe-area-inset-bottom, 0px);
+  border-top:1px solid rgba(216,203,168,.92);
+  background:rgba(255,253,246,.96);
+  box-shadow:0 -8px 22px rgba(38,58,92,.08);
+  -webkit-backdrop-filter:blur(14px);
+  backdrop-filter:blur(14px);
+}
+body.native-app .native-tab-button{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:3px;
+  padding:4px 2px;
+  border:0;
+  border-radius:12px;
+  color:#817969;
+  background:transparent;
+  font:800 11px/1.2 inherit;
+}
+body.native-app .native-tab-icon{
+  width:42px;
+  height:42px;
+  display:grid;
+  place-items:center;
+  line-height:1;
+  filter:grayscale(.4);
+}
+body.native-app .native-tab-icon img{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:contain;
+}
+body.native-app .native-tab-button[aria-current="page"]{
+  color:var(--vermillion-deep);
+  background:rgba(193,67,46,.07);
+  box-shadow:inset 0 0 0 1px rgba(193,67,46,.08);
+}
+body.native-app .native-tab-button[aria-current="page"] .native-tab-icon{
+  filter:none;
+  transform:translateY(-1px);
+}
+body.native-app .native-tab-button:disabled{ opacity:.45; }
+body.native-app.native-starting{
+  overflow:hidden;
+}
+body.native-app.native-starting .native-tab-bar{
+  opacity:0;
+  pointer-events:none;
+}
+body.native-app .native-start-screen{
+  position:fixed;
+  z-index:2000;
+  inset:0;
+  display:block;
+  min-height:100dvh;
+  overflow:hidden;
+  padding:0;
+  color:var(--indigo-deep);
+  background:#1d3552;
+  text-align:center;
+  isolation:isolate;
+}
+body.native-app .native-start-screen::before,
+body.native-app .native-start-screen::after{
+  content:none;
+}
+body.native-app .native-start-reveal{
+  position:relative;
+  width:100%;
+  height:100dvh;
+  min-height:100dvh;
+  opacity:0;
+  transform:translate3d(0,8px,0);
+  will-change:opacity,transform;
+}
+body.native-app .native-start-brand{
+  position:absolute;
+  z-index:8;
+  top:calc(22px + env(safe-area-inset-top, 0px));
+  left:50%;
+  width:min(92vw,430px);
+  margin:0;
+  transform:translateX(-50%);
+  pointer-events:none;
+}
+body.native-app .native-start-logo{
+  width:100%;
+  height:auto;
+  display:block;
+  margin:0 auto;
+  object-fit:contain;
+  object-position:center;
+  background:transparent;
+  filter:
+    drop-shadow(3px 0 0 #fff)
+    drop-shadow(-3px 0 0 #fff)
+    drop-shadow(0 3px 0 #fff)
+    drop-shadow(0 -3px 0 #fff)
+    drop-shadow(0 5px 8px rgba(18,35,58,.38));
+}
+body.native-app .native-start-scene{
+  position:absolute;
+  z-index:1;
+  inset:0;
+  width:100%;
+  height:100%;
+  margin:0;
+}
+body.native-app .native-start-landscapes{
+  position:absolute;
+  z-index:0;
+  inset:0;
+  overflow:hidden;
+  border-radius:0;
+  background:#1d3552;
+  box-shadow:none;
+}
+body.native-app .native-start-landscapes::after{
+  content:"";
+  position:absolute;
+  z-index:1;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(
+    180deg,
+    rgba(255,255,255,.05),
+    rgba(255,255,255,.02) 52%,
+    rgba(20,35,58,.12)
+  );
+}
+body.native-app .native-start-landscape{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+  object-position:center;
+  opacity:0;
+  transform:translate3d(0,0,0) scale(1.012);
+  will-change:opacity,transform;
+  transition:opacity .68s cubic-bezier(.4,0,.2,1),transform 1.5s ease-out;
+}
+body.native-app .native-start-landscape.is-active{
+  opacity:1;
+  transform:translate3d(0,0,0) scale(1);
+}
+body.native-app .native-start-ground{
+  display:none;
+}
+body.native-app .native-start-mascot-entry{
+  position:absolute;
+  z-index:4;
+  left:0;
+  top:0;
+  bottom:auto;
+  width:clamp(130px,37vw,205px);
+  height:auto;
+  aspect-ratio:340 / 400;
+  transform-origin:50% 92%;
+  opacity:0;
+  will-change:transform,opacity;
+  transform:translate3d(
+    calc(var(--roam-x,50vw) - 50%),
+    calc(var(--roam-y,50vh) - 50% + 96px),
+    0
+  ) scale(.08);
+  filter:drop-shadow(0 8px 7px rgba(17,31,49,.3));
+}
+body.native-app .native-start-screen.is-roaming .native-start-mascot-entry{
+  opacity:1;
+  animation:none;
+  transform:translate3d(
+    calc(var(--roam-x,50vw) - 50%),
+    calc(var(--roam-y,50vh) - 50%),
+    0
+  );
+  transition:transform var(--roam-duration,4800ms) linear;
+}
+body.native-app .native-start-mascot-idle,
+body.native-app .native-start-mascot-stack{
+  position:relative;
+  width:100%;
+  height:100%;
+  transform-origin:50% 92%;
+}
+body.native-app .native-start-mascot-idle,
+body.native-app .native-start-mascot-stack{ will-change:transform; }
+body.native-app .native-start-mascot-stack{
+  transform-origin:44.6% 92%;
+}
+body.native-app .native-start-mascot-entry.is-facing-left .native-start-mascot-stack{
+  transform:scaleX(-1);
+}
+body.native-app .native-start-mascot-image{
+  position:absolute;
+  top:0;
+  right:auto;
+  bottom:0;
+  left:0;
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:contain;
+  object-position:center bottom;
+  opacity:0;
+  backface-visibility:hidden;
+  will-change:opacity;
+  transition:none;
+}
+body.native-app .native-start-mascot-walk-a{ opacity:1; }
+body.native-app .native-start-mascot-walk-b{
+  transform:translate3d(-3.7%,0,0);
+}
+body.native-app .native-start-mascot-walk-happy{
+  transform:translate3d(-12%,7%,0) scale(1.1);
+  transform-origin:50% 100%;
+}
+body.native-app .native-start-screen.is-settled .native-start-mascot-walk-a{
+  animation:native-start-step-a .68s linear infinite;
+}
+body.native-app .native-start-screen.is-settled .native-start-mascot-walk-b{
+  animation:native-start-step-b .68s linear infinite;
+}
+body.native-app .native-start-screen.expression-wink .native-start-mascot-walk-a,
+body.native-app .native-start-screen.expression-wink .native-start-mascot-walk-b,
+body.native-app .native-start-screen.expression-happy .native-start-mascot-walk-a,
+body.native-app .native-start-screen.expression-happy .native-start-mascot-walk-b{
+  visibility:hidden;
+}
+body.native-app .native-start-screen.expression-wink .native-start-mascot-walk-wink,
+body.native-app .native-start-screen.expression-happy .native-start-mascot-walk-happy{ opacity:1; }
+body.native-app .native-start-screen.is-settled .native-start-mascot-idle{
+  animation:native-start-walk .68s linear infinite;
+}
+body.native-app .native-start-wave-line{
+  display:none;
+}
+body.native-app .native-start-smoke i{
+  position:absolute;
+  z-index:4;
+  top:52%;
+  bottom:auto;
+  left:50%;
+  width:62px;
+  height:62px;
+  border:2px solid rgba(216,203,168,.8);
+  border-radius:50%;
+  background:rgba(255,253,247,.98);
+  box-shadow:0 5px 14px rgba(38,58,92,.1);
+  opacity:0;
+  transform:translate3d(-50%,0,0) scale(.18);
+  will-change:transform,opacity;
+}
+body.native-app .native-start-smoke i:nth-child(1){ --smoke-x:-136px; --smoke-y:-32px; --smoke-delay:0ms; }
+body.native-app .native-start-smoke i:nth-child(2){ --smoke-x:-98px; --smoke-y:-82px; --smoke-delay:35ms; width:48px; height:48px; }
+body.native-app .native-start-smoke i:nth-child(3){ --smoke-x:-55px; --smoke-y:-50px; --smoke-delay:70ms; width:72px; height:72px; }
+body.native-app .native-start-smoke i:nth-child(4){ --smoke-x:-14px; --smoke-y:-98px; --smoke-delay:20ms; width:44px; height:44px; }
+body.native-app .native-start-smoke i:nth-child(5){ --smoke-x:42px; --smoke-y:-61px; --smoke-delay:55ms; width:75px; height:75px; }
+body.native-app .native-start-smoke i:nth-child(6){ --smoke-x:92px; --smoke-y:-84px; --smoke-delay:90ms; width:46px; height:46px; }
+body.native-app .native-start-smoke i:nth-child(7){ --smoke-x:135px; --smoke-y:-34px; --smoke-delay:30ms; width:61px; height:61px; }
+body.native-app .native-start-smoke i:nth-child(8){ --smoke-x:10px; --smoke-y:-28px; --smoke-delay:80ms; width:82px; height:82px; }
+body.native-app .native-start-copy{
+  position:absolute;
+  z-index:8;
+  right:16px;
+  bottom:calc(34px + env(safe-area-inset-bottom, 0px));
+  left:16px;
+  width:auto;
+  max-width:430px;
+  margin:0 auto;
+}
+body.native-app .native-start-copy p{
+  margin:0 0 9px;
+  color:var(--mint);
+  font-size:clamp(12px,3.4vw,14px);
+  font-weight:800;
+  line-height:1.6;
+  -webkit-text-stroke:3px #fff;
+  paint-order:stroke fill;
+  text-shadow:
+    1px 1px 0 #fff,
+    -1px 1px 0 #fff,
+    1px -1px 0 #fff,
+    -1px -1px 0 #fff,
+    0 3px 7px rgba(16,31,51,.35);
+}
+body.native-app .native-start-copy h1{
+  margin:0;
+  color:var(--indigo-deep);
+  font-size:clamp(24px,6.8vw,33px);
+  line-height:1.35;
+  -webkit-text-stroke:4px #fff;
+  paint-order:stroke fill;
+  text-shadow:
+    2px 2px 0 #fff,
+    -2px 2px 0 #fff,
+    2px -2px 0 #fff,
+    -2px -2px 0 #fff,
+    0 4px 9px rgba(16,31,51,.38);
+}
+body.native-app .native-start-button{
+  -webkit-appearance:none;
+  appearance:none;
+  width:100%;
+  min-height:58px;
+  margin-top:clamp(14px,2.4vh,24px);
+  padding:13px 20px;
+  border:0!important;
+  border-radius:0;
+  outline:0!important;
+  color:var(--vermillion-deep);
+  background:linear-gradient(90deg,rgba(193,67,46,.22),rgba(193,67,46,.75) 24%,rgba(193,67,46,.75) 76%,rgba(193,67,46,.22));
+  box-shadow:none!important;
+  -webkit-tap-highlight-color:transparent;
+  font:900 18px/1.2 inherit;
+  letter-spacing:.08em;
+  opacity:.68;
+  -webkit-text-stroke:3px #fff;
+  paint-order:stroke fill;
+  text-shadow:
+    1px 1px 0 #fff,
+    -1px 1px 0 #fff,
+    1px -1px 0 #fff,
+    -1px -1px 0 #fff;
+}
+body.native-app .native-start-button::before,
+body.native-app .native-start-button::after{ content:none!important; }
+body.native-app .native-start-button:active{
+  transform:scale(.985);
+  background:rgba(193,67,46,.88);
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+}
+body.native-app .native-start-button:focus,
+body.native-app .native-start-button:focus-visible{
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+}
+body.native-app .native-start-screen.is-leaving{
+  pointer-events:none;
+  animation:native-start-leave .34s ease-in both;
+}
+body.native-app .native-start-screen.is-ready .native-start-reveal{
+  animation:native-start-reveal .46s cubic-bezier(.22,.8,.24,1) both;
+}
+body.native-app .native-start-screen.is-ready .native-start-ground{
+  animation:native-start-ground 1.1s cubic-bezier(.2,.75,.25,1) both;
+}
+body.native-app .native-start-screen.is-ready .native-start-mascot-entry{
+  animation:native-start-pop 1.55s cubic-bezier(.16,.82,.24,1) both;
+}
+body.native-app .native-start-screen.is-ready.is-roaming .native-start-mascot-entry{
+  animation:none;
+}
+body.native-app .native-start-screen.is-ready .native-start-smoke i{
+  animation:native-start-smoke 1.22s var(--smoke-delay) cubic-bezier(.18,.72,.25,1) both;
+}
+body.native-app .native-start-screen.is-ready .native-start-button{
+  animation:native-start-button-pulse 1.7s .46s ease-in-out infinite;
+}
+@keyframes native-start-pop{
+  0%{ opacity:0; transform:translate3d(calc(50vw - 50%),calc(50vh - 50% + 96px),0) scale(.08) rotate(-7deg); }
+  20%{ opacity:1; }
+  43%{ opacity:1; transform:translate3d(calc(50vw - 50%),calc(50vh - 50% - 34px),0) scale(1.075) rotate(2.5deg); }
+  59%{ transform:translate3d(calc(50vw - 50%),calc(50vh - 50% + 14px),0) scale(.965) rotate(-1.5deg); }
+  73%{ transform:translate3d(calc(50vw - 50%),calc(50vh - 50% - 11px),0) scale(1.03) rotate(.8deg); }
+  86%{ transform:translate3d(calc(50vw - 50%),calc(50vh - 50% + 5px),0) scale(.99) rotate(-.35deg); }
+  94%{ transform:translate3d(calc(50vw - 50%),calc(50vh - 50% - 3px),0) scale(1.009) rotate(.15deg); }
+  100%{ opacity:1; transform:translate3d(calc(50vw - 50%),calc(50vh - 50%),0) scale(1) rotate(0); }
+}
+@keyframes native-start-smoke{
+  0%{ opacity:0; transform:translate3d(-50%,12px,0) scale(.18); }
+  16%{ opacity:1; }
+  55%{ opacity:.94; }
+  100%{ opacity:0; transform:translate3d(calc(-50% + var(--smoke-x)),var(--smoke-y),0) scale(1.3); }
+}
+@keyframes native-start-reveal{
+  from{ opacity:0; transform:translate3d(0,8px,0); }
+  to{ opacity:1; transform:translate3d(0,0,0); }
+}
+@keyframes native-start-ground{
+  0%{ opacity:0; transform:scale(.35); }
+  55%{ opacity:.65; transform:scale(1.16); }
+  100%{ opacity:1; transform:scale(1); }
+}
+@keyframes native-start-walk{
+  0%,50%,100%{ transform:translate3d(0,0,0); }
+  25%,75%{ transform:translate3d(0,-2px,0); }
+}
+@keyframes native-start-step-a{
+  0%,49.99%{ opacity:1; }
+  50%,100%{ opacity:0; }
+}
+@keyframes native-start-step-b{
+  0%,49.99%{ opacity:0; }
+  50%,100%{ opacity:1; }
+}
+@keyframes native-start-wave{
+  0%,100%{ transform:translate3d(0,0,0) rotate(0); }
+  20%{ transform:translate3d(-1px,-1px,0) rotate(-1.5deg); }
+  42%{ transform:translate3d(2px,-2px,0) rotate(2deg); }
+  64%{ transform:translate3d(-1px,-1px,0) rotate(-1.2deg); }
+  82%{ transform:translate3d(1px,-1px,0) rotate(.8deg); }
+}
+@keyframes native-start-wave-line{
+  from{ opacity:.15; transform:translate3d(-4px,4px,0) rotate(-18deg) scaleX(.55); }
+  to{ opacity:.82; transform:translate3d(3px,-3px,0) rotate(8deg) scaleX(1); }
+}
+@keyframes native-start-button-pulse{
+  0%,100%{ opacity:.52; }
+  50%{ opacity:1; }
+}
+@keyframes native-start-leave{
+  to{ opacity:0; transform:scale(1.03); }
+}
+@media (prefers-reduced-motion: reduce){
+  body.native-app .native-start-mascot-entry,
+  body.native-app .native-start-mascot-idle,
+  body.native-app .native-start-mascot-stack,
+  body.native-app .native-start-copy,
+  body.native-app .native-start-brand,
+  body.native-app .native-start-ground,
+  body.native-app .native-start-button{
+    opacity:1;
+    transform:none;
+    animation:none;
+  }
+  body.native-app .native-start-screen.is-ready .native-start-reveal{
+    opacity:1;
+    transform:none;
+    animation:none;
+  }
+  body.native-app .native-start-mascot-entry{
+    left:50%;
+    top:50%;
+    transform:translate3d(-50%,-50%,0);
+  }
+  body.native-app .native-start-landscape{
+    opacity:0;
+    transform:none;
+    animation:none!important;
+    transition:none;
+  }
+  body.native-app .native-start-landscape.is-active{ opacity:1; }
+  body.native-app .native-start-mascot-image{ opacity:0!important; }
+  body.native-app .native-start-mascot-walk-a{ opacity:1!important; }
+  body.native-app .native-start-smoke{ display:none; }
+  body.native-app .native-start-wave-line{ display:none; }
+  body.native-app .native-start-screen.is-leaving{ animation-duration:.01ms; }
+}
+body.native-app.native-immersive{
+  padding-top:calc(6px + env(safe-area-inset-top, 0px));
+  padding-bottom:calc(10px + env(safe-area-inset-bottom, 0px));
+}
+body.native-app.native-immersive .brand,
+body.native-app.native-immersive .native-tab-bar,
+body.native-app.native-immersive .foot{
+  display:none;
+}
+body.native-app.native-immersive .card{
+  min-height:calc(100dvh - 16px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+  padding-top:16px;
+}
+
+/* Androidでは、主要な操作を最低48pxのタップ領域にそろえる。 */
+body.native-app .mode-btn,
+body.native-app .game-resume-primary,
+body.native-app .game-resume-secondary,
+body.native-app .challenge-entry-btn,
+body.native-app .save-io-actions .link-btn,
+body.native-app .danger-btn{
+  min-height:48px;
+}
+body.native-app .mode-btn-small{
+  min-height:70px;
+  padding:13px;
+}
+body.native-app .mode-btn-small .mode-title{ font-size:15px; }
+body.native-app .mode-btn-small .mode-count{ font-size:11px; }
+body.native-app .challenge-entry-title{ font-size:15px; }
+body.native-app .challenge-entry-desc{ font-size:12.5px; }
+body.native-app .challenge-entry-btn{ font-size:14px; }
+body.native-app .save-io-actions{ gap:9px; }
+body.native-app .save-io-actions .link-btn,
+body.native-app .danger-btn{ font-size:13px; }
+
+@media (max-width:360px){
+  body.native-app .brand{ padding-left:12px; padding-right:12px; }
+  body.native-app .native-player-rank-header{ height:44px; }
+  body.native-app .card{ padding-left:15px; padding-right:15px; }
+  body.native-app .native-screen-icon{
+    flex-basis:44px;
+    width:44px;
+    height:44px;
+  }
+  body.native-app .native-screen-heading h1{ font-size:22px; }
+  body.native-app .native-screen-heading p{ font-size:11.5px; }
+  body.native-app .native-play-heading{
+    grid-template-columns:42px minmax(0,1fr) 78px;
+    min-height:128px;
+    margin-left:-5px;
+    margin-right:-5px;
+    padding-left:8px;
+    padding-right:8px;
+  }
+  body.native-app .native-play-back{ width:42px; height:42px; }
+  body.native-app .native-play-heading-copy h1{ font-size:21px; }
+  body.native-app .native-play-heading-copy p{ font-size:9.5px; }
+  body.native-app .native-play-heading-mascot{ height:100px; }
+  body.native-app .native-play-heading-mascot .mascot{ width:94px; height:94px; }
+  body.native-app .native-play-mode-card{
+    grid-template-columns:54px minmax(0,1fr) 20px;
+    gap:9px;
+    min-height:96px;
+    padding:11px;
+  }
+  body.native-app .native-play-mode-multi{ grid-template-columns:54px minmax(0,1fr) auto; }
+  body.native-app .native-play-mode-icon{ width:54px; height:54px; font-size:25px; }
+  body.native-app .native-play-mode-copy strong{ font-size:15.5px; }
+  body.native-app .native-play-mode-copy small{ font-size:10px; }
+  body.native-app .native-area-card{
+    grid-template-columns:101px minmax(0,1fr);
+    gap:7px;
+    padding:9px;
+  }
+  body.native-app .native-area-button{ padding-left:7px; padding-right:6px; }
+  body.native-app .native-area-button strong{ font-size:10.5px; }
+  body.native-app .native-area-button small{ font-size:7.5px; }
+  body.native-app .native-area-map-panel p{ min-width:96px; font-size:8.5px; }
+  body.native-app .native-prefecture-map-card{ grid-template-columns:102px minmax(0,1fr); padding:11px; }
+  body.native-app .native-prefecture-map-card .native-area-map{ width:94px; }
+  body.native-app .native-prefecture-grid button{ padding-left:9px; }
+  body.native-app .native-prefecture-grid button span{ font-size:11.5px; }
+}
+  .offline-retry{ text-decoration:none; }
+
+  .site-footer{
+    text-align:center; margin-top: 22px; padding-top: 14px;
+    border-top: 1px solid var(--line);
+    font-size: 11px; color: var(--ink-soft);
+  }
+  .site-footer a{ color: var(--ink-soft); text-decoration: underline; text-underline-offset: 2px; }
+  .site-footer a:hover{ color: var(--indigo-deep); }
+  .site-footer .dot{ margin: 0 6px; opacity: 0.6; }
+
+  /* 【全ページ共通ナビゲーション】情報ページ間の回遊用。折り返し(flex-wrap)にすることで、
+     スマートフォンの狭い画面でもリンク同士が詰まりすぎない。各リンクにも上下の余白を
+     持たせ、指で押しやすい間隔を確保している。 */
+  /* 【トップページ静的説明】ゲームカードの下に置く、JavaScriptなしでも読めるテキストエリア。
+     ゲームカードと視覚的には区別しつつ、配色・フォントは既存のpage-articleと揃えている。
+     display:noneや画面外配置は使わず、誰でも普通にスクロールして読める形にしている。 */
+  .site-intro{
+    margin-top: 26px; padding-top: 20px; border-top: 1px solid var(--line);
+    text-align:left;
+  }
+  .site-intro h1{
+    font-family:'Shippori Mincho', serif; font-size: 17px; color: var(--indigo-deep);
+    margin: 0 0 12px;
+  }
+  .site-intro h2{
+    font-family:'Shippori Mincho', serif; font-size: 14.5px; color: var(--indigo-deep);
+    margin: 18px 0 7px;
+  }
+  .site-intro h2:first-of-type{ margin-top: 6px; }
+  .site-intro p{ font-size: 12.5px; line-height: 1.8; color: var(--ink); margin: 0 0 4px; }
+  .site-intro ol, .site-intro ul{
+    margin: 0 0 8px; padding-left: 19px; font-size: 12.5px; line-height: 1.8; color: var(--ink);
+  }
+  .site-intro li{ margin-bottom: 2px; }
+
+  .footer-nav{
+    display:flex; flex-wrap:wrap; justify-content:center;
+    gap: 4px 14px; margin-bottom: 12px;
+  }
+  .footer-nav a{
+    color: var(--ink-soft); text-decoration: underline; text-underline-offset: 2px;
+    padding: 3px 1px; font-size: 11.5px;
+  }
+  .footer-nav a:hover{ color: var(--indigo-deep); }
+  .footer-copyright{ margin: 0; }
+
+  .page-article{ text-align:left; }
+  .page-article h2{
+    font-family:'Shippori Mincho', serif;
+    font-size: 15.5px; color: var(--indigo-deep);
+    margin: 20px 0 8px;
+  }
+  .page-article h2:first-child{ margin-top: 4px; }
+  .page-article p{
+    font-size: 13px; line-height: 1.8; color: var(--ink); margin: 0 0 4px;
+  }
+  .page-article ul{
+    margin: 0 0 8px; padding-left: 20px; font-size: 13px; line-height: 1.8; color: var(--ink);
+  }
+  .page-article ol{
+    margin: 0 0 8px; padding-left: 20px; font-size: 13px; line-height: 1.8; color: var(--ink);
+  }
+  .page-article li{ margin-bottom: 2px; }
+  .page-article h3{
+    font-family:'Zen Maru Gothic', sans-serif; font-weight:700;
+    font-size: 13.5px; color: var(--indigo-deep); margin: 14px 0 6px;
+  }
+  .page-article code{
+    background: var(--paper-deep); border-radius: 4px; padding: 1px 5px; font-size: 12px;
+  }
+  .page-article .back-link{
+    display: inline-block; margin-top: 22px;
+    font-size: 13px; font-weight: 700; color: var(--indigo-deep);
+    text-decoration: none; border-bottom: 1.5px solid var(--indigo-deep);
+  }
+  .page-article .x-link{
+    color: var(--vermillion-deep); font-weight: 700;
+    text-decoration: underline; text-underline-offset: 2px;
+  }
+  .loading-text{ font-size: 13px; color: var(--ink-soft); margin-top: 14px; }
+  .error-text{ font-size: 13px; color: var(--vermillion-deep); padding: 20px 6px; line-height:1.7; }
+
+  @media (max-width: 360px){
+    .logo-text{ font-size: 26px; }
+    .mascot{ width:108px; height:108px; }
+    .opening-mascot-wrap{ margin-top:-10px; margin-bottom:25px; min-height:116px; }
+    .opening-mascot-shell{ width:116px; height:116px; }
+    .opening-smoke{ width:136px; bottom:-6px; }
+    .opening-pon{ right:-31px; top:24px; font-size:18px; }
+    .bubble{ font-size: 14px; padding: 12px 14px; }
+    .btn{ font-size: 14.5px; padding: 12px 8px; }
+    .result-name{ font-size: 26px; }
+    .card{ padding: 18px 14px 16px; }
+    .info-chip .value{ font-size:10.5px; }
+    .share-mascot, .share-mascot .mascot{ width:44px; height:44px; }
+    .star-row{ font-size:12px; }
+    /* 小さい画面ほど、一画面目に開始ボタンが収まるよう余白と文字を詰める */
+    .catch-copy{ font-size: 19px; margin: 2px 0 10px; }
+    .catch-copy-sub{ font-size: 11.5px; margin: 8px 0 14px; }
+    .mode-btn-primary{ padding: 14px 12px; }
+  }
+  @media (min-width: 700px){
+    body{ padding-top: calc(48px + env(safe-area-inset-top, 0px)); }
+    /* PCは横幅に余裕があるので、改行せず1行で表示する */
+    .catch-copy-br{ display: none; }
+    /* PCではカードが細く、結果の説明文やGoogleマップが小さく見えるので少し広げる。
+       スマホ(700px未満)は従来どおり440pxのまま。横に伸ばしすぎると世界観が崩れるため、
+       広げるのは520pxまでに留める。 */
+    .app{ max-width: 520px; }
+    .card{ padding: 30px 30px 24px; border-radius: 26px; }
+    .mascot{ width:154px; height:154px; }
+    .opening-mascot-wrap{ margin-top:-18px; margin-bottom:32px; min-height:148px; }
+    .opening-mascot-shell{ width:148px; height:148px; }
+    .opening-smoke{ width:170px; bottom:-8px; }
+    .opening-pon{ right:-39px; top:31px; font-size:22px; }
+    .bubble{ font-size: 17px; padding: 16px 20px; }
+    .btn{ font-size: 17px; padding: 16px 12px; }
+  }
+  @media (hover:hover){
+    .btn:hover{ filter: brightness(1.06); }
+    .again:hover{ background: rgba(38,58,92,0.06); }
+    .share-btn:hover{ background:#000; filter: brightness(1.3); }
+    .btn-teach:hover{ filter: brightness(1.08); }
+  }
+/* 【トップページのキャッチコピー】5秒で内容が伝わることを狙い、文字数を絞っている。
+   スマホの一画面目でも開始ボタンまで見えるよう、余白を詰めめにしている。 */
+.catch-copy{
+  font-family: 'Zen Maru Gothic', sans-serif;
+  /* 画面幅に応じて15px〜19pxの範囲で自動調整する。 */
+  font-size: clamp(15px, 4.8vw, 19px);
+  font-weight: 900;
+  line-height: 1.45;
+  color: var(--indigo-deep);
+  text-align: center;
+  margin: 4px 0 14px;
+  /* 【重要】white-space:nowrapだと、想定より文字幅が広い端末でテキストが右へ
+     はみ出し、「中央揃えのはずなのに右にずれて見える」問題があったため削除した。
+     代わりに、スマホでは<br class="catch-copy-br">で確実に2行に分ける(下記)ことで
+     幅超過そのものを防ぎ、PC(横幅に余裕がある画面)だけ1行にする。 */
+}
+/* デフォルト(スマホ)では「あなたの地元、」で改行し2行構成にする。中央揃えのまま安定する。 */
+.catch-copy-br{ display: block; }
+.catch-copy-sub{
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  text-align: center;
+  margin: 10px 0 18px;
+}
+
+/* ---- 進行中ゲームの再開 ---- */
+.game-resume-card{
+  margin: 0 0 14px;
+  padding: 12px 14px;
+  border: 2px solid var(--mint);
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(78,158,142,.13), rgba(255,253,246,.96));
+  text-align: left;
+}
+.game-resume-title{
+  color: var(--indigo-deep);
+  font-size: 14px;
+  font-weight: 900;
+}
+.game-resume-meta{
+  margin-top: 2px;
+  color: var(--ink-soft);
+  font-size: 11.5px;
+}
+.game-resume-actions{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 10px;
+}
+.game-resume-primary,
+.game-resume-secondary{
+  min-height: 42px;
+  border-radius: 10px;
+  padding: 8px 10px;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 12.5px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.game-resume-primary{
+  border: 1.5px solid var(--mint);
+  background: var(--mint);
+  color: #fff;
+}
+.game-resume-secondary{
+  border: 1.5px solid var(--line);
+  background: #FFFDF6;
+  color: var(--ink-soft);
+}
+.game-resume-primary:active,
+.game-resume-secondary:active{ transform: scale(.97); }
+
+/* ---- 今日のチャレンジ ---- */
+/* ---- おらマチからの挑戦状 ---- */
+.challenge-entry-card{
+  position: relative;
+  background: linear-gradient(135deg, #fdf8ec, #f5ecd6);
+  border: 1.5px solid var(--indigo-deep);
+  border-radius: 4px; /* 巻物・証書らしく角を立たせる */
+  padding: 14px 16px;
+  margin: 16px 0;
+  box-shadow: 0 3px 0 rgba(38,58,92,0.15);
+}
+.challenge-entry-card::before{
+  content: "";
+  position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+  background: repeating-linear-gradient(180deg, var(--vermillion) 0 8px, transparent 8px 16px);
+}
+.challenge-entry-title{ font-size: 14px; font-weight: 800; color: var(--indigo-deep); margin-bottom: 4px; }
+.challenge-entry-desc{ font-size: 12px; color: var(--ink-soft); margin-bottom: 10px; line-height: 1.5; }
+.challenge-entry-btn{
+  width: 100%;
+  background: var(--indigo-deep); color: #FBF6E8;
+  border: none; border-radius: 4px; padding: 10px;
+  font-family: 'Zen Maru Gothic', sans-serif; font-weight: 800; font-size: 13px;
+  cursor: pointer;
+}
+.challenge-entry-btn:active{ transform: scale(0.97); }
+
+/* 挑戦状モード内の画面全体に、少し証書らしい雰囲気を出す */
+.challenge-bubble{ background: var(--vermillion-deep); }
+.challenge-hint-list{
+  list-style: none; margin: 12px 0; padding: 0;
+  background: #fdf8ec; border: 1px solid var(--line); border-radius: 4px;
+  padding: 4px 12px;
+}
+.challenge-hint-item{
+  display: flex; align-items: baseline; gap: 8px;
+  padding: 8px 0; font-size: 13px; color: var(--ink); line-height: 1.5;
+  border-bottom: 1px dashed var(--line);
+}
+.challenge-hint-item:last-child{ border-bottom: none; }
+.challenge-hint-num{
+  flex-shrink: 0; font-size: 10.5px; font-weight: 800; color: var(--vermillion-deep);
+  background: rgba(193,67,46,0.1); border-radius: 999px; padding: 2px 8px; white-space: nowrap;
+}
+.challenge-hint-btn{
+  width: 100%; background: none; border: 1.5px solid var(--vermillion); border-radius: 10px;
+  padding: 9px; font-family: 'Zen Maru Gothic', sans-serif; font-weight: 700; font-size: 12.5px;
+  color: var(--vermillion-deep); cursor: pointer; margin-bottom: 10px;
+}
+.challenge-hint-btn:active{ transform: scale(0.97); }
+.challenge-hint-max{ font-size: 11.5px; color: var(--ink-soft); text-align: center; margin-bottom: 10px; }
+
+.challenge-answer-block{ margin: 10px 0; }
+.challenge-input{
+  width: 100%; box-sizing: border-box;
+  border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px;
+  font-family: 'Zen Maru Gothic', sans-serif; font-size: 14px; color: var(--ink);
+  margin-bottom: 6px;
+}
+.challenge-input:focus{ outline: none; border-color: var(--indigo-deep); }
+.challenge-candidates{ display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px; }
+.challenge-candidate-item{
+  text-align: left; background: var(--paper-deep); border: 1px solid var(--line);
+  border-radius: 8px; padding: 8px 10px; font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 12.5px; color: var(--ink); cursor: pointer;
+}
+.challenge-candidate-item:active{ background: rgba(38,58,92,0.08); }
+.challenge-submit-btn{
+  width: 100%; background: var(--vermillion); color: #FFFDF6;
+  border: none; border-radius: 10px; padding: 11px;
+  font-family: 'Zen Maru Gothic', sans-serif; font-weight: 800; font-size: 14px;
+  cursor: pointer;
+}
+.challenge-submit-btn:disabled{ background: var(--line); color: var(--ink-soft); cursor: not-allowed; }
+.challenge-submit-btn:not(:disabled):active{ transform: scale(0.97); }
+
+.challenge-miss-line{ font-size: 15px; font-weight: 700; color: var(--ink); margin: 10px 0; }
+.challenge-score{ font-size: 30px; font-weight: 900; color: var(--vermillion-deep); margin: 6px 0; }
+.challenge-score-sub{ display: block; font-size: 12px; font-weight: 500; color: var(--ink-soft); margin-top: 2px; }
+.challenge-result-card{ border: 1.5px solid var(--indigo-deep); }
+
+.daily-challenge-card{
+  background: linear-gradient(135deg, rgba(38,58,92,0.06), rgba(193,67,46,0.05));
+  border: 1.5px solid var(--line);
+  border-radius: 16px;
+  padding: 12px 14px;
+  margin: 14px 0;
+}
+.daily-challenge-card-head{
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 4px;
+  margin-bottom: 4px;
+}
+.daily-challenge-card-label{
+  font-size: 12px; font-weight: 800; color: var(--indigo-deep);
+  display: inline-flex; align-items: center; gap: 5px;
+}
+/* 【今日のチャレンジ】カレンダーアイコン: 絵文字だけでは任意の日付数字を表示できないため、
+   実際のカレンダーアプリのような見た目(上部の色帯+下部の日付数字)をCSSで自作している。
+   中の数字(.cal-date)はJSから日本時間の「今日の日」を差し込んでおり、日付が変わると
+   ページを開き直すたびに自動的に切り替わる。 */
+.daily-challenge-calendar-icon{
+  display: inline-flex; flex-direction: column; align-items: center; justify-content: flex-end;
+  width: 15px; height: 15px; flex-shrink: 0;
+  border-radius: 3px; overflow: hidden;
+  background: #FFFDF6; border: 1px solid var(--vermillion-deep);
+  box-sizing: border-box;
+}
+.daily-challenge-calendar-icon::before{
+  content: ''; display: block; width: 100%; height: 4px; flex-shrink: 0;
+  background: var(--vermillion-deep);
+}
+.daily-challenge-calendar-icon .cal-date{
+  width: 100%; text-align: center;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 8.5px; font-weight: 800; line-height: 1;
+  color: var(--ink);
+  padding-bottom: 1px;
+  box-sizing: border-box;
+}
+.daily-challenge-card-streak{ font-size: 10.5px; font-weight: 700; color: var(--vermillion-deep); }
+.daily-challenge-card-theme{ font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 10px; line-height: 1.4; }
+.daily-challenge-card-actions{ display: flex; gap: 8px; align-items: center; }
+.daily-challenge-card-btn{
+  flex: 1;
+  background: var(--vermillion); color: #FFFDF6;
+  border: none; border-radius: 10px; padding: 9px 10px;
+  font-family: 'Zen Maru Gothic', sans-serif; font-weight: 800; font-size: 13px;
+  cursor: pointer;
+}
+.daily-challenge-card-btn:active{ transform: scale(0.97); }
+.daily-challenge-card-done{
+  flex: 1; text-align: center; font-size: 12.5px; font-weight: 700;
+  color: #2e7d50; background: rgba(46,125,80,0.1);
+  border-radius: 10px; padding: 9px 10px;
+}
+.daily-challenge-card-history{
+  background: none; border: 1px solid var(--line); border-radius: 10px;
+  padding: 9px 10px; font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 11.5px; color: var(--ink-soft); cursor: pointer; white-space: nowrap;
+}
+
+/* ---- 結果画面: 今日のチャレンジ達成演出 ---- */
+.daily-challenge-result{
+  margin: 8px 0 4px; padding: 10px 12px;
+  background: rgba(212,160,23,0.1); border: 1.5px solid var(--gold);
+  border-radius: 12px; text-align: center;
+  animation: dailyChallengePop .5s cubic-bezier(.34,1.56,.64,1);
+}
+.daily-challenge-result-miss{ background: rgba(38,58,92,0.05); border-color: var(--line); }
+@keyframes dailyChallengePop{ 0%{transform:scale(.9); opacity:0} 100%{transform:scale(1); opacity:1} }
+.daily-challenge-stamp{ display: flex; align-items: center; justify-content: center; gap: 8px; }
+.daily-challenge-stamp-label{ font-size: 13px; font-weight: 800; color: var(--vermillion-deep); }
+.daily-challenge-stamp-date{
+  font-size: 11px; font-weight: 700; color: #FFFDF6; background: var(--indigo-deep);
+  border-radius: 999px; padding: 2px 8px;
+}
+.daily-challenge-result-theme{ font-size: 11.5px; color: var(--ink-soft); margin-top: 4px; }
+.daily-challenge-streak-line{ font-size: 12px; font-weight: 700; color: var(--vermillion-deep); margin-top: 4px; }
+.daily-challenge-milestone{ font-size: 12px; font-weight: 800; color: var(--gold); margin-top: 4px; }
+@media (prefers-reduced-motion: reduce){
+  .daily-challenge-result{ animation-duration: .15s; }
+}
+
+/* ---- チャレンジ記録画面 ---- */
+.daily-challenge-history-streak{ font-size: 12.5px; color: var(--vermillion-deep); font-weight: 700; text-align: center; margin: 8px 0; }
+.daily-challenge-stamp-grid{
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(54px, 1fr));
+  gap: 8px; margin: 10px 0;
+}
+.daily-challenge-stamp-item{
+  aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, rgba(212,160,23,0.18), rgba(193,67,46,0.10));
+  border: 1.5px solid var(--gold); border-radius: 50%;
+}
+.daily-challenge-stamp-item-date{ font-size: 10px; font-weight: 800; color: var(--vermillion-deep); }
+
+.mode-select{
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.mode-btn{
+  width: 100%;
+  border: 1.5px solid var(--line);
+  border-radius: 16px;
+  padding: 15px 14px;
+  background: #FFFDF6;
+  color: var(--ink);
+  font-family: 'Zen Maru Gothic', sans-serif;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 4px 0 rgba(38,58,92,0.12);
+}
+
+/* メインCTA(いちばん最初に押してほしいボタン)。他のモードボタンより一段目立たせる。
+   .mode-btn(基本クラス、text-align:leftなど)より後ろに書くことで、上書きされずに
+   確実に効くようにしている(以前は先に書いていたため、text-align:centerなどが
+   基本クラスに上書きされてしまっていた)。
+   以前は朱色のグラデーション背景+白文字だったが、コントラストが低く説明文が
+   見えにくかったため、白背景+太い朱色の枠・文字というはっきりした配色に変更した。 */
+.mode-btn-primary{
+  background: #FFFDF6;
+  border: 3px solid var(--vermillion);
+  color: var(--vermillion-deep);
+  text-align: center;
+  padding: 17px 14px;
+  box-shadow: 0 5px 0 var(--vermillion);
+}
+.mode-btn-primary .mode-title{
+  display: block;
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--vermillion);
+  text-align: center;
+}
+.beginner-badge{
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #FFFDF6;
+  background: var(--indigo-deep);
+  border-radius: 999px;
+  padding: 2px 8px;
+  vertical-align: middle;
+  margin-left: 2px;
+}
+.mode-btn-primary .mode-desc{
+  display: block;
+  color: var(--indigo-deep); /* 白背景になったので、はっきり読める色にする */
+  text-align: center;
+  margin-top: 2px;
+}
+.mode-btn-primary:active{ box-shadow: 0 2px 0 var(--vermillion); }
+
+.mode-btn:active{
+  transform: scale(0.98);
+  box-shadow: 0 1px 0 rgba(38,58,92,0.12);
+}
+
+.mode-niigata{
+  border-color: var(--vermillion);
+  background:
+    radial-gradient(circle at top right, rgba(193,67,46,0.10), transparent 45%),
+    #FFFDF6;
+}
+
+.mode-tokyo{
+  border-color: var(--mint);
+  background:
+    radial-gradient(circle at top right, rgba(78,158,142,0.12), transparent 45%),
+    #FFFDF6;
+}
+
+.mode-title{
+  display: block;
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--indigo-deep);
+  margin-bottom: 4px;
+}
+
+.mode-niigata .mode-title{
+  color: var(--vermillion);
+}
+
+.mode-tokyo .mode-title{
+  color: var(--mint);
+}
+
+.mode-desc{
+  display: block;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+.mode-note{
+  display: block;
+  font-size: 10px;
+  color: var(--ink-soft);
+  opacity: 0.75;
+  line-height: 1.5;
+  margin-top: 4px;
+}
+
+.mode-count{
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--mint);
+}
+
+/* ---- 地方版 ---- */
+.mode-sub-head{
+  margin-top: 8px;
+  font-size: 12.5px;
+  font-weight: 900;
+  color: var(--indigo-deep);
+  letter-spacing: 0.06em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.mode-sub-head::before,
+.mode-sub-head::after{
+  content: "";
+  flex: 1;
+  height: 1.5px;
+  background: var(--line);
+  border-radius: 2px;
+}
+
+.mode-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.mode-btn-small{
+  padding: 11px 12px;
+  border-radius: 13px;
+}
+
+.mode-btn-small .mode-title{
+  font-size: 14.5px;
+  margin-bottom: 2px;
+}
+
+.mode-btn-small .mode-count{
+  margin-top: 2px;
+  font-size: 10px;
+  color: var(--ink-soft);
+}
+
+.stats-block-top{
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--line);
+  text-align: center;
+}
+/* 【今日の挑戦者数】数字を大きく見せて、遊んでいる人の実在感を伝える。
+   誇張のない実データのみを表示し、水増しやアニメーションでの誇大演出はしない。 */
+.visitor-count-line{
+  display: flex; align-items: baseline; justify-content: center; gap: 4px;
+  margin-bottom: 8px;
+}
+.visitor-count-label{ font-size: 11.5px; color: var(--ink-soft); }
+.visitor-count-num{ font-size: 22px; font-weight: 900; color: var(--vermillion-deep); }
+.visitor-count-unit{ font-size: 12px; color: var(--ink-soft); }
+.count-stats{
+  font-size: 12px;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+}
+.count-stats b{ color: var(--vermillion-deep); font-weight: 700; }
+.recent-line{
+  font-size: 11.5px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
