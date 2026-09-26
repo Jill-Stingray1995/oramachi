@@ -4605,7 +4605,7 @@ async function initializeSupabaseAuth(){
 }
 
 function renderNativeAuthPage(){
-  if(!isNativeAppRuntime()) return renderOpening();
+  // V319: Webでもアプリと同じアカウント・8種アイコン・任意画像UIを使用する。
   stopOpeningMascotAnimation();
   stampsEl.innerHTML = '';
   pushNavState('nativeAuth');
@@ -11912,6 +11912,37 @@ function renderHomeTriviaCardHtml(){
   </section>`;
 }
 
+function renderWebProfileBarHtml(){
+  const profile=currentSupabaseProfile||defaultNativeProfile();
+  const registered=isNativeRegisteredUser();
+  const rating=Number(profile.current_rating||1500);
+  return `<section class="web-v319-profilebar" aria-label="プレイヤー情報">
+    <button class="web-v319-profile-main" type="button" onclick="renderNativeAuthPage()">
+      ${nativeAvatarHtml(profile,'web-v319-avatar')}
+      <span><small>${registered?'ログイン中':'プレイヤー'}</small><strong>${escapeHtml(registered?currentNativeDisplayName():'ゲスト')}</strong></span>
+      <b aria-hidden="true">›</b>
+    </button>
+    <div class="web-v319-rating"><span class="web-v319-mini-icon" aria-hidden="true">◆</span><small>レート</small><strong>${rating.toLocaleString('ja-JP')}</strong></div>
+    <div class="web-v319-rank"><small>ランク</small>${nativeRankBadge(rating)}</div>
+    <button class="web-v319-login" type="button" onclick="renderNativeAuthPage()">${registered?'プロフィール':'ログイン・登録'}<span aria-hidden="true">›</span></button>
+  </section>`;
+}
+
+function renderWebRecordSummaryHtml(){
+  const stats=loadStats();
+  const conquest=loadConquest();
+  const ids=new Set(Object.keys(conquest.entries||{}));
+  const all=playableMunicipalities();
+  const cleared=all.filter(c=>ids.has(cityId(c))).length;
+  const percent=all.length?cleared/all.length*100:0;
+  const rating=Number((currentSupabaseProfile||defaultNativeProfile()).current_rating||1500);
+  return `<div class="web-v319-record-grid">
+    <button onclick="renderStatsPage()"><i aria-hidden="true">▥</i><span><small>プレイ</small><strong>${Number(stats.totalPlays||0).toLocaleString('ja-JP')}<em>回</em></strong></span><b>›</b></button>
+    <button onclick="renderConquestLog()"><i aria-hidden="true">⚑</i><span><small>全国制覇</small><strong>${cleared.toLocaleString('ja-JP')}<em> / ${all.length.toLocaleString('ja-JP')}</em></strong><u><mark style="width:${Math.min(100,percent).toFixed(2)}%"></mark></u></span><b>›</b></button>
+    <button onclick="renderNativeAuthPage()"><i aria-hidden="true">◆</i><span><small>レート</small><strong>${rating.toLocaleString('ja-JP')}</strong>${nativeRankBadge(rating)}</span><b>›</b></button>
+  </div>`;
+}
+
 function renderOpening(){
   activeGameTransientScreen = null;
   currentGameFlowKind = null;
@@ -11940,43 +11971,45 @@ function renderOpening(){
   if(!officialDailyStatus){ officialDailyStatus={available:true,challenge_date:todayJstDateString(),participant_count:0,completed:false,requires_auth:true}; }
   officialDailyArtwork = webDailyArtwork;
   stage.innerHTML = `
-    <main class="web-v318-home">
-      <section class="web-v318-hero">
-        <div class="web-v318-hero-copy">
-          <span class="web-v318-eyebrow">日本全国 ${totalCount.toLocaleString('ja-JP')} 市区町村</span>
+    <main class="web-v319-home">
+      ${renderWebProfileBarHtml()}
+      <section class="web-v319-hero">
+        <div class="web-v319-hero-copy">
+          <span class="web-v319-eyebrow">日本全国 ${totalCount.toLocaleString('ja-JP')} 市区町村</span>
           <h1>あなたのマチ、<br>おらっちが当てます。</h1>
-          <p>「はい」「いいえ」で答えるだけ。地理ゲームなのに、知識がなくても遊べます。</p>
+          <p>「はい」「いいえ」で答えるだけ。知識がなくても楽しめる、まちあて地理ゲーム。</p>
           ${resumeCardHtml}
-          <button class="web-v318-main-cta" onclick="startMode('all')"><span><strong>全国版で遊ぶ</strong><small>${totalCount.toLocaleString('ja-JP')}市区町村から推理</small></span><b>›</b></button>
+          <button class="web-v319-main-cta" onclick="startMode('all')"><span class="web-v319-cta-icon" aria-hidden="true">▶</span><span><strong>全国版で遊ぶ</strong><small>${totalCount.toLocaleString('ja-JP')}市区町村から推理</small></span><b>›</b></button>
         </div>
-        <div class="web-v318-hero-mascot">${openingMascotHTML()}<span>どこのマチか<br>当てるっち！</span></div>
+        <div class="web-v319-hero-mascot"><img src="mascot-normal.png" alt="おらっち"><span>どこのマチか<br>当てるっち！</span></div>
       </section>
 
-      <section class="web-v318-daily-wrap">${renderOfficialDailyCardHtml()}</section>
+      <section class="web-v319-daily-wrap">${renderOfficialDailyCardHtml()}</section>
       ${renderHomeTriviaCardHtml()}
 
-      <section class="web-v318-section">
-        <div class="web-v318-section-head"><h2>ほかの遊び方</h2></div>
-        <div class="web-v318-play-grid">
-          <button class="web-v318-play-card intro" onclick="startMode('capitals')"><span>はじめてなら</span><strong>入門版</strong><small>県庁所在地・東京23区　${capitalsCount}自治体</small><b>›</b></button>
-          <button class="web-v318-play-card challenge" onclick="startChallengeMode()"><span>ヒントから推理</span><strong>おらマチからの挑戦状</strong><small>おらっちが選んだマチを当てよう</small><b>›</b></button>
+      <section class="web-v319-section web-v319-ways">
+        <div class="web-v319-section-head"><span class="web-v319-title-icon" aria-hidden="true">⌁</span><h2>ほかの遊び方</h2></div>
+        <div class="web-v319-way-row">
+          <button onclick="startMode('capitals')"><i aria-hidden="true">◎</i><strong>入門版</strong><small>県庁所在地・東京23区</small><b>›</b></button>
+          <button onclick="startChallengeMode()"><i aria-hidden="true">?</i><strong>おらマチからの挑戦状</strong><small>ヒントから推理</small><b>›</b></button>
+          <button onclick="document.getElementById('webRegionSection')?.scrollIntoView({behavior:'smooth',block:'start'})"><i aria-hidden="true">⌖</i><strong>地方から遊ぶ</strong><small>8地方から選択</small><b>›</b></button>
         </div>
       </section>
 
-      <section class="web-v318-section">
-        <div class="web-v318-section-head"><h2>地方から遊ぶ</h2><p>8地方から選んで、気になるエリアだけでも遊べます。</p></div>
-        <div class="web-v318-region-grid">
+      <section class="web-v319-section" id="webRegionSection">
+        <div class="web-v319-section-head"><span class="web-v319-title-icon" aria-hidden="true">⌖</span><h2>地方から遊ぶ</h2><p>気になる地方を選んで遊べます。</p></div>
+        <div class="web-v319-region-grid">
           ${['hokkaido','tohoku','kanto','chubu','kinki','chugoku','shikoku','kyushu'].map(m => `<button onclick="startMode('${m}')"><strong>${MODES[m].label}</strong><small>${getModeCities(m).length}自治体</small><b>›</b></button>`).join('')}
         </div>
       </section>
 
-      <section class="web-v318-section web-v318-progress-section">
-        <div class="web-v318-section-head"><h2>あなたの記録</h2></div>
-        ${renderHomeEnhancementHtml()}
-        <div class="web-v318-subnav">
-          <button onclick="renderConquestLog()">📖 全国制覇帳</button>
-          <button onclick="renderAchievementsPage()">🏅 称号一覧</button>
-          <button onclick="renderStatsPage()">📊 みんなの統計</button>
+      <section class="web-v319-section web-v319-record-section">
+        <div class="web-v319-section-head"><span class="web-v319-title-icon" aria-hidden="true">▥</span><h2>あなたの記録</h2></div>
+        ${renderWebRecordSummaryHtml()}
+        <div class="web-v319-subnav">
+          <button onclick="renderConquestLog()">全国制覇帳</button>
+          <button onclick="renderAchievementsPage()">称号一覧</button>
+          <button onclick="renderStatsPage()">みんなの統計</button>
         </div>
       </section>
     </main>
@@ -14143,21 +14176,9 @@ function applyAnswerCore(key, val, weight){
 }
 
 function answerFromWebButton(key, val, weight){
-  // V318: Web操作の入口を一本化。二重タップを防ぎつつ、描画中の質問だけを受け付ける。
-  const buttons=[...document.querySelectorAll('.web-v318-answer-grid button,.web-v318-skip')];
-  buttons.forEach(b=>{ b.disabled=true; b.setAttribute('aria-busy','true'); });
-  try{
-    const pending=history[history.length-1];
-    if(!pending || pending.key!==key || answerLog.length!==history.length-1){
-      // UIだけが古い状態になった場合は、現在の正規状態を再描画して操作不能から復帰する。
-      if(pending && pending.key && QUESTIONS[pending.key] && answerLog.length===history.length-1){ renderQuestionScreen(pending.key); }
-      return;
-    }
-    answer(key,val,weight);
-  }catch(err){
-    console.error('V318 web answer recovery',err);
-    buttons.forEach(b=>{ b.disabled=false; b.removeAttribute('aria-busy'); });
-  }
+  // V319: answer() itselfが現在質問・重複イベントを検証するため、Web側でボタンを恒久disableしない。
+  // これにより再描画の境界で「1回答後に止まる」状態を防ぐ。
+  return answer(key,val,weight);
 }
 
 function answer(key, val, weight){
