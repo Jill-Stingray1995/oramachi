@@ -54,12 +54,12 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<link rel="stylesheet" href="style.css?v=aa6e793924">
+<link rel="stylesheet" href="style.css?v=f15b32feaa">
 <!-- 【先読み】cities.json(全マチのデータ)を、app.js の読み込みと並行して取りに行く。
      これを書かないと、app.js(425KB)のダウンロードと解析が終わってから
      ようやくデータの取得が始まるため、起動までが直列につながって遅くなる。
      ?v= の値は bump-version.js が cities.json の中身から自動で書き換える。 -->
-<link rel="preload" href="cities.json?v=77e59484dd" as="fetch" crossorigin>
+<link rel="preload" href="cities.json?v=2bacb6efaa" as="fetch" crossorigin>
 <link rel="manifest" href="./manifest.json?v=353a46aa49">
 <meta name="theme-color" content="#263A5C">
 <meta name="application-name" content="おらマチ">
@@ -85,7 +85,7 @@
   </button>
 
   <div class="brand">
-    <div class="eyebrow">JAPAN MUNICIPALITY QUIZ</div>
+    <div class="eyebrow">まちをあてる地理ゲーム</div>
 <a class="logo-wrap" href="./" aria-label="トップページに戻る">
   <svg class="logo-mark" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
     <circle cx="20" cy="20" r="19" fill="#263A5C"/>
@@ -121,7 +121,7 @@
       <li>回答をもとに、候補となる自治体が少しずつ絞り込まれていきます。</li>
       <li>十分に絞り込めたところで、おらっちが自治体を予想します。</li>
     </ol>
-    <p>質問には「はい」「いいえ」のほかに、「たぶんそう」「たぶん違う」「わからない・スキップ」も用意しており、迷ったときも答えやすくなっています。くわしい遊び方は<a href="./play-guide.html">遊び方のページ</a>でご案内しています。</p>
+    <p>質問には「はい」「いいえ」のほかに、「たぶんはい」「たぶんいいえ」「わからない・スキップ」も用意しており、迷ったときも答えやすくなっています。くわしい遊び方は<a href="./play-guide.html">遊び方のページ</a>でご案内しています。</p>
 
     <h2>おらマチの特徴</h2>
     <ul>
@@ -166,7 +166,8 @@
 </div>
 
 <script defer src="japan-map-data.js?v=361d072efc"></script>
-<script defer src="app.js?v=eac7e0214f"></script>
+<script defer src="app-version.js"></script>
+<script defer src="app.js?v=cbcd5de448"></script>
 <script defer src="pwa.js?v=227b41843b"></script>
 </body>
 </html>

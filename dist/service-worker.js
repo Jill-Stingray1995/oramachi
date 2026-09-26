@@ -8,7 +8,7 @@
  * - CACHE_VERSION と ?v= は bump-version.js が公開前に同期します。
  */
 const CACHE_PREFIX = 'oramachi-app-';
-const CACHE_VERSION = '71888eb7cbca';
+const CACHE_VERSION = '033652edc38b';
 const CACHE_NAME = CACHE_PREFIX + CACHE_VERSION;
 
 // build-release.js がこの配列を読み、公開許可リストとの整合を検査します。
@@ -24,10 +24,10 @@ const PRECACHE_URLS = Object.freeze([
   "/privacy.html",
   "/updates.html",
   "/offline.html",
-  "/app.js?v=eac7e0214f",
-  "/style.css?v=aa6e793924",
+  "/app.js?v=cbcd5de448",
+  "/style.css?v=f15b32feaa",
   "/japan-map-data.js?v=361d072efc",
-  "/cities.json?v=77e59484dd",
+  "/cities.json?v=2bacb6efaa",
   "/pwa.js?v=227b41843b",
   "/manifest.json?v=353a46aa49",
   "/favicon.ico?v=3aa48721b4",
@@ -41,6 +41,7 @@ const PRECACHE_URLS = Object.freeze([
   "/mascot-happy.png?v=f52e4bfff8",
   "/mascot-sad.png?v=f52e4bfff8",
   "/mascot-wink.png?v=f52e4bfff8",
+  "/oramachi-official-logo.png",
   "/pwa-icons/apple-touch-icon.png?v=3a540b02a7",
   "/pwa-icons/icon-192.png?v=a74c0e4875",
   "/pwa-icons/icon-512.png?v=1211f192de",

@@ -52,6 +52,42 @@ color: inherit;}
   .x-follow:hover{ color: var(--indigo-deep); border-color: var(--indigo); }
   .brand .eyebrow{ font-size: 10.5px; letter-spacing: 0.3em; color: var(--mint); font-weight: 700; margin-bottom:2px; }
 
+  /* V57: app information pages, aligned with the approved blue UI */
+  body.info-page{
+    background:linear-gradient(180deg,#ffffff 0,#f6fbff 52%,#eaf7ff 100%);
+    color:#123b75;
+    padding-top:calc(10px + env(safe-area-inset-top,0px));
+  }
+  .info-page .app{max-width:440px}
+  .info-header{
+    position:relative;display:grid;grid-template-columns:44px 1fr 44px;
+    align-items:center;text-align:center;margin:0 0 10px;padding:0 4px 12px;
+    border-bottom:1px solid #cfe6f7;
+  }
+  .info-logo{display:flex;justify-content:center;min-width:0}
+  .info-logo img{display:block;width:min(168px,48vw);height:auto;object-fit:contain}
+  .info-back{font:400 42px/1 sans-serif;color:#0752bd;text-decoration:none;text-align:left;padding-left:4px}
+  .info-header-spacer{width:44px}
+  .info-header p{grid-column:1/-1;margin:5px 0 0;color:#0752bd;font-size:14px;font-weight:800;letter-spacing:.05em}
+  .info-page .card{
+    background:rgba(255,255,255,.97);border:1.5px solid #9fd6f6;border-radius:18px;
+    padding:22px 20px 20px;box-shadow:0 8px 24px rgba(5,82,189,.10);overflow:hidden;
+  }
+  .info-page .card::before{display:none}
+  .info-page .page-article{position:relative;color:#274b72;font-size:14px;line-height:1.9}
+  .info-page .page-article h1{margin:0 0 18px;color:#073f92;font-size:27px;line-height:1.35;text-align:center;font-weight:900;letter-spacing:.02em}
+  .info-page .page-article h2{margin:26px 0 8px;padding:0 0 7px;color:#0752bd;font-size:17px;line-height:1.5;font-weight:900;border-bottom:2px solid #79c7f2}
+  .info-page .page-article p{margin:0 0 12px}
+  .info-page .page-article ul,.info-page .page-article ol{margin:4px 0 14px;padding-left:1.55em}
+  .info-page .page-article li{margin:5px 0}
+  .info-page .page-article strong,.info-page .page-article b{color:#0648a5}
+  .info-page .page-article code{background:#eaf6ff;color:#0752bd;border-radius:5px;padding:1px 4px}
+  .info-page .x-link{color:#006fca;font-weight:700;text-decoration-color:#7ccbf3;text-underline-offset:3px}
+  .info-page .back-link{display:flex;align-items:center;justify-content:center;margin:26px 0 2px;min-height:48px;border:1.5px solid #55b9ee;border-radius:12px;color:#0752bd;background:#f1faff;font-weight:900;text-decoration:none}
+  .info-page .site-footer{color:#52769b}
+  .info-page .footer-nav a{color:#0752bd}
+  @media(max-width:380px){.info-page .card{padding:19px 15px}.info-page .page-article h1{font-size:24px}.info-page .page-article{font-size:13px}}
+
   .card{
     position:relative; background: #FFFDF6; border: 1px solid var(--line);
     border-radius: 22px; padding: 22px 20px 18px;
@@ -142,6 +178,15 @@ color: inherit;}
     82%  { transform: scale(0.98,1.04)     translateY(-5px)  rotate(-1deg); } /* 小さく弾む */
     100% { transform: scale(1)             translateY(0)     rotate(0deg); } /* 元の位置に戻る */
   }
+  /* V158: 初回推測だけ、候補名→回答ボタンの順にほんの少し間を置いて現れる。
+     追加クリックやJSタイマーは使わず、推理テンポを落とさずに「わかったかも」の間を作る。 */
+  .v158-guess-reveal{ animation: v158GuessReveal .42s ease-out .18s both; }
+  .v158-guess-actions{ animation: v158GuessReveal .38s ease-out .34s both; }
+  @keyframes v158GuessReveal{
+    from{ opacity:0; transform:translateY(7px) scale(.985); }
+    to{ opacity:1; transform:translateY(0) scale(1); }
+  }
+
   .blink{ animation: blink 4.5s ease-in-out infinite; transform-origin: center; }
   @keyframes blink{ 0%,92%,100%{transform:scaleY(1)} 96%{transform:scaleY(0.1)} }
 
@@ -281,7 +326,7 @@ color: inherit;}
 
   /* 既存の一般演出だけを短くする。指定されたマスコット演出は停止しない。 */
   @media (prefers-reduced-motion: reduce){
-    .bob, .shake, .pop, .mascot-guess-jump{
+    .bob, .shake, .pop, .mascot-guess-jump, .v158-guess-reveal, .v158-guess-actions{
       animation-duration: 0.2s !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.2s !important;
@@ -1128,15 +1173,24 @@ body.native-app{
     radial-gradient(circle at 90% 72%, rgba(78,158,142,.09), transparent 38%),
     var(--paper);
 }
+
+/* V72: ヒント開放式デイリーチャレンジ（通常プレイのスタイルには影響させない） */
+.v72-hint-dots{display:flex;justify-content:center;gap:12px;padding:12px}.v72-hint-dots i{width:18px;height:18px;border:2px solid #91b9d2;border-radius:50%;background:#fff}.v72-hint-dots i.is-open{background:#12a9d6;border-color:#0879ba;box-shadow:inset 0 -2px 3px #0879ba}
+.v72-daily-play,.v72-guess{padding:10px 14px 94px}.v72-hint{border:1.5px solid #9bd7ee;border-radius:12px;background:linear-gradient(135deg,#fff,#edfaff);padding:10px 12px;margin:8px 0;color:#064579}.v72-hint b{display:inline-block;background:#0788ce;color:#fff;border-radius:8px;padding:2px 10px}.v72-hint p{margin:7px 0 0;font-weight:700;line-height:1.5}.v72-hint.is-locked{background:#eef5f8;color:#78909c;border-color:#d5e3e9}.v72-hint.is-locked b{background:transparent;color:#41708c;padding-left:0}.v72-search-open{width:100%;margin:12px 0 8px;padding:13px;border:1.5px solid #58b9e6;border-radius:10px;background:#fff;text-align:left;color:#667;font-size:16px}.v72-live-stats{text-align:center;color:#35637e;font-weight:700}.v72-daily-message{background:#fff0f3;border:1px solid #ff9eb2;border-radius:12px;padding:12px;color:#b51e3d;font-weight:700;text-align:center}
+.v72-guess label{display:block;color:#064579;font-weight:800}.v72-guess input{box-sizing:border-box;width:100%;margin:8px 0;padding:13px;border:2px solid #289fda;border-radius:10px;font-size:17px}.v72-candidates{border:1px solid #bdddec;border-radius:10px;overflow:hidden;margin-bottom:12px}.v72-candidates button{display:flex;width:100%;justify-content:space-between;padding:11px 14px;border:0;border-bottom:1px solid #dcecf4;background:#fff;color:#064579}.v72-candidates button:last-child{border-bottom:0}.v72-candidates p{padding:14px;text-align:center;color:#718995}.v72-selected{padding:12px;margin:8px 0;background:#e8fff7;border:1px solid #39c6a5;border-radius:10px}.daily-v44-primary:disabled{opacity:.45;pointer-events:none}
+.v72-result>img{width:118px;display:block;margin:0 auto}.v72-result>p{display:flex;flex-direction:column}.v72-result>p strong{font-size:30px;color:#075191}.v72-result .daily-v44-result-grid{grid-template-columns:repeat(3,1fr)}
+.v72-ranking .daily-v44-ranking-head,.v72-ranking li{grid-template-columns:44px minmax(100px,1fr) 67px 58px 54px}.v72-ranking li em{font-size:11px;font-style:normal;color:#075191}.v72-ranking li.is-me{background:#c9fff1;border:1px solid #43cdb1;border-radius:8px}.v72-ranking aside{margin:14px 0;padding:10px;border-radius:10px;background:#eef8fc;color:#19567a;font-size:12px}
 body.native-app .app{
   width:100%;
   max-width:none;
 }
 body.native-app .brand{
   display:flex;
+  flex-direction:column;
   align-items:center;
-  justify-content:flex-start;
-  min-height:60px;
+  justify-content:center;
+  gap:4px;
+  min-height:78px;
   margin:0;
   padding:6px 10px 9px;
 }
@@ -1177,7 +1231,21 @@ body.native-app .native-player-rank-accessible{
   clip-path:inset(50%);
   white-space:nowrap;
 }
+body.native-app .native-player-display-name{
+  width:min(100%, 480px);
+  box-sizing:border-box;
+  padding:0 7px;
+  overflow:hidden;
+  color:#493d37;
+  font-size:15px;
+  font-weight:900;
+  line-height:1.4;
+  text-align:right;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
 body.native-app.native-immersive .native-player-rank-header{ display:none; }
+body.native-app.native-immersive .native-player-display-name{ display:none; }
 body.native-app .card{
   width:min(calc(100% - 20px), 480px);
   margin:0 auto;
@@ -1600,6 +1668,144 @@ body.native-app .native-upcoming-card-login em{
   color:#7e43a8;
   background:#f4ecfb;
 }
+
+body.native-app .native-upcoming-card.is-available{
+  cursor:pointer;
+  opacity:1;
+}
+body.native-app .native-upcoming-card.is-available:active{ transform:scale(.985); }
+
+body.native-app .native-auth-heading{ margin-bottom:16px; }
+body.native-app .native-auth-form{ display:grid; gap:14px; }
+body.native-app .native-auth-form label{ display:grid; gap:7px; }
+body.native-app .native-auth-form label span{ color:#352821; font-size:13px; font-weight:800; }
+body.native-app .native-auth-form input{
+  width:100%; min-height:48px; box-sizing:border-box; padding:12px 14px;
+  border:1px solid #d8cec4; border-radius:13px; background:#fff; color:#231b18;
+  font:inherit; font-size:16px; outline:none;
+}
+body.native-app .native-auth-form input:focus{ border-color:#df4a2f; box-shadow:0 0 0 3px rgba(223,74,47,.13); }
+body.native-app .native-auth-primary,
+body.native-app .native-auth-secondary{
+  min-height:48px; border-radius:14px; font:inherit; font-weight:900; cursor:pointer;
+}
+body.native-app .native-auth-primary{ border:0; background:#df4a2f; color:#fff; box-shadow:0 7px 16px rgba(173,52,33,.18); }
+body.native-app .native-auth-secondary{ border:2px solid #df4a2f; background:#fff; color:#c93d26; }
+body.native-app .native-auth-forgot{
+  justify-self:center; border:0; background:transparent; color:#685d57;
+  font:inherit; font-size:12px; font-weight:800; text-decoration:underline; cursor:pointer;
+}
+body.native-app .native-auth-form button:disabled,
+body.native-app .native-profile-form button:disabled,
+body.native-app .native-auth-sync-actions button:disabled{ opacity:.55; cursor:wait; }
+body.native-app .native-auth-note{ margin:13px 0 0; color:#685d57; font-size:12px; line-height:1.7; }
+body.native-app .native-auth-status{ min-height:23px; margin:13px 5px; color:#16735c; font-size:13px; font-weight:700; line-height:1.6; }
+body.native-app .native-auth-status.is-error{ color:#b92f25; }
+body.native-app .native-auth-signed-in{ display:inline-block; padding:5px 10px; border-radius:999px; background:#e2f5ec; color:#16735c; font-size:11px; font-weight:900; }
+body.native-app .native-auth-account h2{ overflow-wrap:anywhere; }
+body.native-app .native-auth-email{ margin-top:-4px; overflow-wrap:anywhere; color:#685d57; font-size:12px; }
+body.native-app .native-auth-sync-actions{ display:grid; grid-template-columns:1fr 1fr; gap:9px; margin:14px 0; }
+body.native-app .native-auth-sync-actions .link-btn{ margin:0; padding:11px 8px; font-size:12px; }
+body.native-app .native-profile-form{
+  display:grid;
+  gap:9px;
+  margin:18px 0 15px;
+  padding:14px;
+  border:1px solid #eadfd4;
+  border-radius:16px;
+  background:#fffaf3;
+  text-align:left;
+}
+body.native-app .native-profile-form label{ color:#352821; font-size:13px; font-weight:900; }
+body.native-app .native-profile-form input,
+body.native-app .native-profile-form textarea,
+body.native-app .native-profile-form select{
+  width:100%; min-height:48px; box-sizing:border-box; padding:12px 14px;
+  border:1px solid #d8cec4; border-radius:13px; background:#fff; color:#231b18;
+  font:inherit; font-size:16px; outline:none;
+}
+body.native-app .native-profile-form textarea{ resize:vertical; line-height:1.5; }
+body.native-app .native-profile-form input:focus,
+body.native-app .native-profile-form textarea:focus,
+body.native-app .native-profile-form select:focus{ border-color:#df4a2f; box-shadow:0 0 0 3px rgba(223,74,47,.13); }
+body.native-app .native-profile-form small{ color:#685d57; font-size:11px; line-height:1.6; }
+body.native-app .native-profile-form label span{ color:#756861; font-size:11px; font-weight:700; }
+body.native-app .native-profile-form label strong{ color:#c93d26; font-size:11px; }
+body.native-app .native-profile-summary{ display:flex; align-items:center; gap:12px; }
+body.native-app .native-profile-summary h2,
+body.native-app .native-profile-summary p{ margin:0; }
+body.native-app .native-profile-summary p{ margin-top:3px; color:#685d57; font-size:12px; }
+body.native-app .native-profile-avatar{ display:grid; width:52px; height:52px; place-items:center; border-radius:50%; background:#fff3d7; font-size:28px; }
+body.native-app .native-profile-avatars{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin:0; padding:14px; border:1px solid #cfe1ec; border-radius:18px; background:#f6fbff; }
+body.native-app .native-profile-avatars legend{ width:100%; margin-bottom:7px; padding:0 4px; color:#173f63; font-size:14px; font-weight:900; }
+body.native-app .native-profile-avatars legend small{display:block;margin-top:3px;color:#6d8498;font-size:10px;font-weight:700}
+body.native-app .native-profile-avatars label{ position:relative; min-width:0; }
+body.native-app .native-profile-avatars input{ position:absolute; width:1px; height:1px; opacity:0; }
+body.native-app .native-profile-avatars span{ display:grid; min-height:84px; place-items:center; padding:6px 3px; border:2px solid #d8e7ef; border-radius:15px; background:#fff; box-shadow:0 2px 7px rgba(20,76,112,.06); }
+body.native-app .native-profile-avatars svg,body.native-app .native-profile-avatars .native-preset-avatar-image{width:54px;height:54px;display:block;border-radius:50%;object-fit:cover}
+body.native-app .native-profile-avatars b{overflow:hidden;width:100%;color:#49677d;font-size:9px;line-height:1.2;text-align:center;text-overflow:ellipsis;white-space:nowrap}
+body.native-app .native-profile-avatars input:checked + span{ border-color:#2477b5; background:#e9f6ff; box-shadow:0 0 0 3px rgba(36,119,181,.16); }
+body.native-app .native-profile-avatars input:focus-visible + span{outline:3px solid #f2a13a;outline-offset:2px}
+body.native-app .native-profile-stats-placeholder{ margin:15px 0; padding:14px; border:1px dashed #d8cec4; border-radius:14px; text-align:left; }
+body.native-app .native-profile-stats-placeholder h3{ margin:0 0 5px; font-size:14px; }
+body.native-app .native-profile-stats-placeholder p{ margin:0; color:#685d57; font-size:11px; line-height:1.6; }
+body.native-app .native-profile-online-stats{ margin:15px 0; padding:14px; border:1px solid #e1d7cc; border-radius:14px; background:#fffaf3; text-align:left; }
+body.native-app .native-profile-online-stats h3{ margin:0 0 10px; font-size:15px; }
+body.native-app .native-profile-rating{display:flex;align-items:baseline;gap:8px;margin:0 0 10px;padding:12px;border-radius:12px;background:#f2eadc;color:#463526}
+body.native-app .native-profile-rating span{font-size:12px;font-weight:700}
+body.native-app .native-profile-rating strong{margin-left:auto;font-size:27px;line-height:1}
+body.native-app .native-profile-rating small{font-size:11px;color:#766454}
+body.native-app .native-profile-rating-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:12px}
+body.native-app .native-profile-rating-grid>div{display:grid;gap:5px;padding:11px;border-radius:12px;background:#f2eadc;text-align:center}
+body.native-app .native-profile-rating-grid span{font-size:11px;font-weight:800}body.native-app .native-profile-rating-grid strong{font-size:20px}
+body.native-app .native-rating-rank{display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:4px 8px;border:1px solid transparent;border-radius:999px;font-size:10px!important;font-weight:900;line-height:1.2;white-space:nowrap}
+body.native-app .native-rating-rank i{font-size:8px;font-style:normal}.native-rating-rank-bronze{background:#f2dfd0;color:#713a1e;border-color:#b97852}.native-rating-rank-silver{background:#e8edf2;color:#34495d;border-color:#9eacba}.native-rating-rank-gold{background:#fff0b8;color:#604600;border-color:#c79b16}.native-rating-rank-platinum{background:#e0f1ee;color:#205850;border-color:#74aaa2}.native-rating-rank-diamond{background:linear-gradient(135deg,#e5f5ff,#dfe8ff);color:#174e88;border-color:#74a8df}.native-rating-rank-black{background:linear-gradient(135deg,#111820,#343b44);color:#fff;border-color:#05080b;box-shadow:0 2px 7px #10182045}
+body.native-app .native-player-link{cursor:pointer}body.native-app .native-player-link:focus-visible{outline:3px solid #df4a2f;outline-offset:2px}
+body.native-app .native-rank-change{grid-column:1/-1;padding:4px 7px;border-radius:8px;background:#fff0b8;color:#604600;font-size:10px;text-align:center}
+body.native-app .native-public-profile-modal{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:18px;background:rgba(27,20,16,.62)}
+body.native-app .native-public-profile-modal>section{position:relative;width:min(100%,430px);max-height:85vh;overflow:auto;padding:20px;border-radius:18px;background:#fff;color:#352821;box-shadow:0 20px 60px rgba(0,0,0,.28)}
+body.native-app .native-profile-close{position:absolute;top:10px;right:10px;width:36px;height:36px;border:0;border-radius:50%;background:#eee5db;font-size:24px}
+body.native-app .native-public-profile-head{display:flex;align-items:center;gap:12px;padding-right:35px}body.native-app .native-public-profile-head i{font-size:38px;font-style:normal}body.native-app .native-public-profile-head h2,body.native-app .native-public-profile-head p{margin:0}body.native-app .native-public-profile-head p{margin-top:4px;color:#6b5d55;font-size:12px}
+body.native-app .native-public-profile-modal dl{display:grid;gap:0;margin:16px 0 0}body.native-app .native-public-profile-modal dl>div{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 2px;border-top:1px solid #eee5db}body.native-app .native-public-profile-modal dt{font-size:12px;color:#6b5d55}body.native-app .native-public-profile-modal dd{display:flex;align-items:center;gap:5px;margin:0;font-weight:800;text-align:right}
+body.native-app .native-profile-unranked{margin:16px 0 0;padding:12px;border-radius:10px;background:#eee;text-align:center;font-weight:900}
+@media(max-width:420px){body.native-app .native-profile-rating-grid{grid-template-columns:1fr 1fr}body.native-app .native-profile-rating-grid>div:last-child{grid-column:1/-1}}
+body.native-app .native-ranking-link{width:100%;margin:0 0 12px}
+body.native-app .native-online-stats-tabs{ display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-bottom:12px; }
+body.native-app .native-online-stats-tabs button{ min-height:40px; padding:7px; border:1px solid #d8cec4; border-radius:10px; background:#fff; color:#685d57; font:inherit; font-size:12px; font-weight:900; }
+body.native-app .native-online-stats-tabs button.is-selected{ border-color:#df4a2f; background:#df4a2f; color:#fff; }
+body.native-app .native-online-stats-grid{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin:0; }
+body.native-app .native-online-stats-grid div{ min-width:0; padding:10px; border-radius:11px; background:#fff; box-shadow:0 1px 3px rgba(72,48,32,.08); }
+body.native-app .native-online-stats-grid dt{ color:#756861; font-size:11px; font-weight:800; }
+body.native-app .native-online-stats-grid dd{ margin:4px 0 0; color:#352821; font-size:20px; font-weight:950; line-height:1.15; }
+body.native-app .native-online-stats-empty,
+body.native-app .native-online-stats-loading,
+body.native-app .native-online-stats-error{ margin:0; padding:13px 6px; color:#685d57; font-size:12px; line-height:1.6; text-align:center; }
+body.native-app .native-online-stats-error{ color:#a43b2d; }
+body.native-app .native-auth-signout{ border:0; background:transparent; color:#685d57; text-decoration:underline; font:inherit; font-size:12px; cursor:pointer; }
+body.native-app .native-account-delete{
+  margin-top:18px; padding-top:16px; border-top:1px solid #eadfd4; text-align:left;
+}
+body.native-app .native-account-delete h3{ margin:0 0 7px; color:#8f2e25; font-size:14px; }
+body.native-app .native-account-delete p{ margin:0 0 12px; color:#685d57; font-size:11px; line-height:1.7; }
+body.native-app .native-account-delete-open{
+  width:100%; min-height:44px; border:1px solid #c83c31; border-radius:13px;
+  background:#fff; color:#b92f25; font:inherit; font-size:13px; font-weight:900; cursor:pointer;
+}
+body.native-app .native-account-delete-confirmation{ display:grid; gap:9px; padding:12px; border-radius:13px; background:#fff2ef; }
+body.native-app .native-account-delete-confirmation[hidden]{ display:none; }
+body.native-app .native-account-delete-confirmation label{ color:#6f2822; font-size:12px; font-weight:900; }
+body.native-app .native-account-delete-confirmation input{
+  width:100%; min-height:44px; box-sizing:border-box; padding:10px 12px; border:1px solid #d19a94;
+  border-radius:11px; background:#fff; color:#231b18; font:inherit; font-size:16px; outline:none;
+}
+body.native-app .native-account-delete-confirmation input:focus{ border-color:#b92f25; box-shadow:0 0 0 3px rgba(185,47,37,.12); }
+body.native-app .native-account-delete-confirmation div{ display:grid; grid-template-columns:1fr 1.35fr; gap:8px; }
+body.native-app .native-account-delete-cancel,
+body.native-app .native-account-delete-confirm{ min-height:42px; border-radius:11px; font:inherit; font-size:12px; font-weight:900; cursor:pointer; }
+body.native-app .native-account-delete-cancel{ border:1px solid #cdbfb6; background:#fff; color:#685d57; }
+body.native-app .native-account-delete-confirm{ border:0; background:#b92f25; color:#fff; }
+body.native-app .native-account-delete-confirm:disabled{ opacity:.42; cursor:not-allowed; }
+body.native-app .native-auth-back{ margin-top:4px; }
 body.native-app .native-home-progress{
   margin-top:18px;
   padding-top:15px;
@@ -1943,6 +2149,204 @@ body.native-app .native-play-mode-badge{
   font-weight:900;
   white-space:nowrap;
 }
+
+/* ---- Android版 オンライン対戦ロビー ---- */
+body.native-app .native-multiplayer-heading{ margin-bottom:18px; }
+body.native-app .native-multiplayer-notice,
+body.native-app .native-multiplayer-action-card,
+body.native-app .native-multiplayer-modes-note,
+body.native-app .native-room-code-card,
+body.native-app .native-room-members,
+body.native-app .native-room-mode-picker{
+  margin:0 14px 16px;
+  padding:16px;
+  border:1px solid #dce5ef;
+  border-radius:18px;
+  background:#fff;
+  box-shadow:0 8px 22px rgba(31,70,109,.08);
+}
+body.native-app .native-multiplayer-notice{ background:#fff8e5; border-color:#f1d27c; }
+body.native-app .native-multiplayer-notice strong,
+body.native-app .native-multiplayer-notice p{ display:block; margin:0 0 8px; }
+body.native-app .native-multiplayer-status{
+  margin:0 14px 14px;
+  padding:10px 13px;
+  border-radius:12px;
+  background:#e9f7ef;
+  color:#176b45;
+  font-size:14px;
+  font-weight:800;
+}
+body.native-app .native-multiplayer-status[hidden]{ display:none; }
+body.native-app .native-multiplayer-status.is-error{ background:#fff0ed; color:#a43b2d; }
+body.native-app .native-multiplayer-action-card{
+  display:grid;
+  grid-template-columns:48px minmax(0,1fr);
+  gap:10px 12px;
+  align-items:center;
+}
+body.native-app .native-multiplayer-action-icon{
+  display:grid;
+  place-items:center;
+  width:48px;
+  height:48px;
+  border-radius:15px;
+  background:#edf4ff;
+  font-size:24px;
+}
+body.native-app .native-multiplayer-action-card h2{ margin:0 0 3px; color:var(--indigo-deep); font-size:18px; }
+body.native-app .native-multiplayer-action-card p{ margin:0; color:var(--ink-soft); font-size:12px; }
+body.native-app .native-multiplayer-action-card label{ grid-column:1/-1; font-size:13px; font-weight:900; }
+body.native-app .native-multiplayer-action-card select,
+body.native-app .native-multiplayer-action-card input{
+  grid-column:1/-1;
+  width:100%;
+  min-height:48px;
+  padding:10px 13px;
+  border:2px solid #cbd9e8;
+  border-radius:12px;
+  background:#fff;
+  color:var(--ink);
+  font-size:18px;
+  font-weight:900;
+}
+body.native-app .native-multiplayer-action-card input{ text-align:center; letter-spacing:.35em; }
+body.native-app .native-multiplayer-action-card .primary-btn{ grid-column:1/-1; width:100%; min-height:48px; }
+body.native-app .native-multiplayer-modes-note{ display:grid; gap:8px; background:#f7f9fc; }
+body.native-app .native-multiplayer-modes-note strong{ color:var(--indigo-deep); font-size:13px; }
+body.native-app .native-multiplayer-modes-note span{ padding-left:22px; color:var(--ink-soft); font-size:12px; font-weight:800; }
+body.native-app .native-multiplayer-modes-note span::before{ content:'✓'; margin-left:-22px; margin-right:8px; color:#279556; }
+body.native-app .native-room-code-card{ display:grid; grid-template-columns:1fr auto; align-items:center; background:linear-gradient(135deg,#edf5ff,#f5f0ff); }
+body.native-app .native-room-code-card > span{ color:#536579; font-size:12px; font-weight:900; }
+body.native-app .native-room-code-card > strong{ grid-column:1/2; color:#243d75; font-size:34px; letter-spacing:.18em; }
+body.native-app .native-room-code-card > button{ grid-column:2; grid-row:1/3; padding:10px 14px; border:0; border-radius:11px; background:#2f70b7; color:#fff; font-weight:900; }
+body.native-app .native-room-code-card > small{ grid-column:1/-1; margin-top:7px; color:#6d7c8c; font-size:11px; }
+body.native-app .native-room-section-title{ display:flex; justify-content:space-between; gap:12px; align-items:center; margin-bottom:12px; }
+body.native-app .native-room-section-title h2{ margin:0; color:var(--indigo-deep); font-size:17px; }
+body.native-app .native-room-section-title > strong{ color:#2f70b7; font-size:12px; }
+body.native-app .native-room-capacity{ display:flex; gap:5px; margin-bottom:13px; }
+body.native-app .native-room-capacity i{ flex:1; height:7px; border-radius:99px; background:#dfe7ef; }
+body.native-app .native-room-capacity i.is-filled{ background:#2f8f57; }
+body.native-app .native-room-members ol{ display:grid; gap:8px; margin:0; padding:0; list-style:none; }
+body.native-app .native-room-members li{ display:grid; grid-template-columns:28px minmax(0,1fr) auto auto; gap:7px; align-items:center; min-height:42px; padding:8px 10px; border-radius:11px; background:#f5f8fb; }
+body.native-app .native-room-members li strong{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:14px; }
+body.native-app .native-room-members li small,
+body.native-app .native-room-members li em{ padding:3px 7px; border-radius:99px; font-size:9px; font-style:normal; font-weight:900; }
+body.native-app .native-room-members li small{ background:#fff0bf; color:#775700; }
+body.native-app .native-room-members li em{ background:#e2f5ec; color:#16735c; }
+body.native-app .native-room-mode-picker > button{
+  display:grid;
+  grid-template-columns:42px 1fr;
+  gap:9px;
+  align-items:center;
+  width:100%;
+  margin:8px 0;
+  padding:12px;
+  border:2px solid #dbe4ed;
+  border-radius:13px;
+  background:#fff;
+  color:var(--ink);
+  text-align:left;
+}
+body.native-app .native-room-mode-picker > button.is-selected{ border-color:#2f78b8; background:#eef6ff; }
+body.native-app .native-room-mode-picker > button:disabled{ opacity:.75; }
+body.native-app .native-room-mode-picker > button > span:first-child{ font-size:24px; text-align:center; }
+body.native-app .native-room-mode-picker > button strong,
+body.native-app .native-room-mode-picker > button small{ display:block; }
+body.native-app .native-room-mode-picker > button strong{ font-size:13px; }
+body.native-app .native-room-mode-picker > button small{ margin-top:3px; color:var(--ink-soft); font-size:10px; line-height:1.45; }
+body.native-app .native-room-mode-picker > p{ margin:9px 0 0; color:var(--ink-soft); font-size:11px; text-align:center; }
+body.native-app .native-room-start-button,
+body.native-app .native-room-leave-button{
+  display:block;
+  width:calc(100% - 28px);
+  min-height:48px;
+  margin:0 14px 12px;
+  border:0;
+  border-radius:14px;
+  font-size:14px;
+  font-weight:900;
+}
+body.native-app .native-room-start-button{ background:#dce4ec; color:#667482; }
+body.native-app .native-room-start-button.is-ready{ background:#2f8f57; color:#fff; }
+body.native-app .native-room-leave-button{ background:#fff0ed; color:#a43b2d; }
+body.native-app .native-round-summary,
+body.native-app .native-question-history,
+body.native-app .native-question-candidates,
+body.native-app .native-answer-panel,
+body.native-app .native-round-result{
+  margin:0 14px 14px;
+  padding:15px;
+  border:1px solid #dce5ef;
+  border-radius:18px;
+  background:#fff;
+  box-shadow:0 8px 22px rgba(31,70,109,.08);
+}
+body.native-app .native-round-summary{ display:flex; flex-wrap:wrap; gap:8px 14px; align-items:center; }
+body.native-app .native-round-summary > strong{ color:#245b95; font-size:18px; }
+body.native-app .native-round-summary > span{ color:#647586; font-size:12px; font-weight:900; }
+body.native-app .native-round-summary > div{ display:flex; gap:4px; margin-left:auto; }
+body.native-app .native-round-summary i{ display:grid; place-items:center; width:28px; height:28px; border-radius:50%; background:#eef4fa; font-style:normal; }
+body.native-app .native-question-history h2,
+body.native-app .native-question-candidates h2,
+body.native-app .native-answer-panel h2{ margin:0 0 11px; color:var(--indigo-deep); font-size:17px; }
+body.native-app .native-question-history > p{ margin:0; color:#718092; font-size:13px; }
+body.native-app .native-question-history ol{ display:grid; gap:7px; max-height:250px; margin:0; padding:0; overflow:auto; list-style:none; }
+body.native-app .native-question-history li{ display:grid; grid-template-columns:25px minmax(0,1fr) auto; gap:7px; align-items:center; padding:8px; border-radius:10px; background:#f5f8fb; font-size:12px; }
+body.native-app .native-question-history li b{ color:#66788a; text-align:center; }
+body.native-app .native-question-history li strong{ padding:4px 7px; border-radius:99px; font-size:11px; }
+body.native-app .native-question-history li strong.is-yes{ color:#167044; background:#dff5e9; }
+body.native-app .native-question-history li strong.is-no{ color:#a23e35; background:#fde9e5; }
+body.native-app .native-question-candidates > div{ display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+body.native-app .native-question-candidates > div button{ min-height:72px; padding:9px; border:2px solid #d6e2ef; border-radius:12px; background:#f7fbff; color:#28445e; font-size:12px; font-weight:900; line-height:1.4; }
+body.native-app .native-question-shuffle{ width:100%; min-height:44px; margin-top:11px; border:0; border-radius:12px; background:#e9eef5; color:#43566a; font-weight:900; }
+body.native-app .native-question-shuffle:disabled{ opacity:.5; }
+body.native-app .native-question-limit{ padding:10px; border-radius:10px; background:#fff6d9; color:#775d00; font-size:13px; font-weight:900; }
+body.native-app .native-answer-buzzer{ display:block; width:calc(100% - 28px); min-height:68px; margin:0 14px 10px; border:0; border-radius:20px; background:linear-gradient(180deg,#ff654d,#df2e2e); box-shadow:0 7px 0 #a61f25,0 12px 22px rgba(183,34,42,.28); color:#fff; font-size:26px; font-weight:1000; }
+body.native-app .native-answer-buzzer:active{ transform:translateY(4px); box-shadow:0 3px 0 #a61f25; }
+body.native-app .native-answer-buzzer:disabled{ background:#aeb8c2; box-shadow:0 5px 0 #818b94; }
+body.native-app .native-answer-penalty{ margin:0 14px 14px; padding:10px; border-radius:11px; background:#fff0ed; color:#a43b2d; font-weight:900; text-align:center; }
+body.native-app .native-answer-panel{ position:fixed; z-index:1200; inset:56px 10px 76px; margin:0; overflow:auto; box-shadow:0 18px 60px rgba(15,31,50,.35); }
+body.native-app .native-answer-panel[hidden]{ display:none; }
+body.native-app .native-answer-panel > div:first-child{ display:flex; justify-content:space-between; align-items:center; }
+body.native-app .native-answer-panel > div:first-child button{ width:38px; height:38px; border:0; border-radius:50%; background:#edf1f5; font-size:24px; }
+body.native-app .native-answer-panel input{ width:100%; min-height:48px; padding:10px 12px; border:2px solid #b9cce0; border-radius:12px; font-size:16px; }
+body.native-app #nativeMunicipalityCandidates{ display:grid; gap:6px; max-height:48vh; margin:10px 0; overflow:auto; }
+body.native-app #nativeMunicipalityCandidates button{ display:flex; justify-content:space-between; align-items:center; min-height:44px; padding:8px 11px; border:2px solid #e0e7ef; border-radius:10px; background:#fff; text-align:left; }
+body.native-app #nativeMunicipalityCandidates button.is-selected{ border-color:#2f78b8; background:#eaf4ff; }
+body.native-app #nativeMunicipalityCandidates small{ color:#6e7d8c; }
+body.native-app .native-answer-panel .primary-btn{ width:100%; min-height:48px; }
+body.native-app .native-round-result{ padding:24px 16px; background:linear-gradient(145deg,#fff8d9,#fff); text-align:center; }
+body.native-app .native-round-result > span{ font-size:46px; }
+body.native-app .native-round-result h2{ margin:7px 0; color:#b76600; font-size:25px; }
+body.native-app .native-round-result p{ margin:8px 0; }
+body.native-app .native-round-result p strong{ color:#263f77; font-size:20px; }
+body.native-app .native-room-settings,body.native-app .native-final-result{margin:12px 0;padding:16px;border:1px solid #d7e1ea;border-radius:14px;background:#fff}
+body.native-app .native-room-settings label{display:grid;gap:5px;margin-top:10px;font-size:12px;font-weight:900}
+body.native-app .native-room-settings select{min-height:44px;padding:8px;border:1px solid #c8d4df;border-radius:10px;background:#fff}
+body.native-app .native-score-strip{display:flex;max-width:100%;gap:12px;overflow-x:auto;white-space:nowrap;padding:7px 0;font-size:12px;font-weight:900}
+body.native-app .native-reveal-vote{width:100%;min-height:48px;border:0;border-radius:12px;background:#263f77;color:#fff;font-size:16px;font-weight:900}
+body.native-app .native-rankings{display:grid;gap:7px;padding-left:25px;text-align:left}
+body.native-app .native-final-ratings{display:grid;gap:8px;margin:0;padding:0;list-style:none;text-align:left}
+body.native-app .native-final-ratings li{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px;border-radius:11px;background:#f5f8fb}
+body.native-app .native-final-ratings li>span:first-child{display:flex;align-items:center;gap:7px;min-width:0}
+body.native-app .native-final-ratings i{font-style:normal}.native-final-ratings small{font-size:11px;color:#65727d}
+body.native-app .native-rating-result{display:flex;align-items:center;gap:8px;white-space:nowrap}
+body.native-app .native-rating-result em{min-width:36px;font-style:normal;font-weight:900;text-align:right;color:#68747d}
+body.native-app .native-rating-result em.is-up{color:#16764b}.native-rating-result em.is-down{color:#bd3c36}
+body.native-app .native-rating-board{margin:14px 0;padding:14px;border:1px solid #d7e1ea;border-radius:15px;background:#fff}
+body.native-app .native-rating-board>h2,body.native-app .native-my-ranking h2{margin:5px 0 10px;font-size:15px;text-align:left}
+body.native-app .native-rating-list,body.native-app .native-my-ranking ol{display:grid;gap:7px;margin:0 0 16px;padding:0;list-style:none}
+body.native-app .native-rating-list li,body.native-app .native-my-ranking li{display:grid;grid-template-columns:42px 30px minmax(0,1fr) auto;align-items:center;gap:7px;padding:10px;border-radius:11px;background:#f7f8fa;text-align:left}
+body.native-app .native-rating-list li.is-me,body.native-app .native-my-ranking li{background:#fff3cf;outline:2px solid #e6bd4b}
+body.native-app .native-rating-list i,body.native-app .native-my-ranking i{font-size:22px;font-style:normal}
+body.native-app .native-rating-list span,body.native-app .native-my-ranking span{display:grid;min-width:0}
+body.native-app .native-rating-list span strong,body.native-app .native-my-ranking span strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+body.native-app .native-rating-list em,body.native-app .native-my-ranking em{font-size:10px;font-style:normal;color:#8a6110}
+body.native-app .native-rating-list small,body.native-app .native-my-ranking small{font-size:10px;color:#6d7680}
+body.native-app .native-rating-list li>strong:last-child,body.native-app .native-my-ranking li>strong:last-child{font-size:12px;white-space:nowrap}
+body.native-app .native-ranking-unrated,body.native-app .native-ranking-signin{padding:18px;border-radius:11px;background:#fffaf0;text-align:center}
+body.native-app .native-final-result article{margin:9px 0;padding:11px;border-radius:10px;background:#f5f8fb;text-align:left}
 body.native-app .native-play-mode-challenge{
   border-color:#9cc586;
   background:linear-gradient(135deg,#fff,#f5faef);
@@ -1956,7 +2360,7 @@ body.native-app .native-area-card{
   display:grid;
   grid-template-columns:minmax(108px,118px) minmax(0,1fr);
   gap:10px;
-  min-height:492px;
+  min-height:545px;
   padding:12px;
   overflow:hidden;
   border:1px solid #e2d6c2;
@@ -1989,6 +2393,7 @@ body.native-app .native-area-button{
 body.native-app .native-area-button strong{ font-size:11px; line-height:1.2; }
 body.native-app .native-area-button small{ color:inherit; font-size:8px; font-weight:900; opacity:.72; }
 body.native-app .native-area-all{ color:#d84b23; border-color:#f1ad87; background:#fff6ef; }
+body.native-app .native-area-town-village{ color:#25724c; border-color:#aad8bd; background:#effaf3; }
 body.native-app .native-area-hokkaido{ color:#377ab1; background:#eef7ff; }
 body.native-app .native-area-tohoku{ color:#238c80; background:#eef9f7; }
 body.native-app .native-area-kanto{ color:#2b8351; background:#f0f8ed; }
@@ -2510,7 +2915,7 @@ body.native-app .native-tab-bar{
   right:0;
   bottom:0;
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+  grid-template-columns:repeat(5,1fr);
   min-height:calc(80px + env(safe-area-inset-bottom, 0px));
   padding:5px 8px env(safe-area-inset-bottom, 0px);
   border-top:1px solid rgba(216,203,168,.92);
@@ -2541,6 +2946,7 @@ body.native-app .native-tab-icon{
   line-height:1;
   filter:grayscale(.4);
 }
+body.native-app .native-tab-bell{font-size:30px}
 body.native-app .native-tab-icon img{
   width:100%;
   height:100%;
@@ -2564,6 +2970,11 @@ body.native-app.native-starting .native-tab-bar{
   opacity:0;
   pointer-events:none;
 }
+/* V57: 起動画面を「第13回デザイン案」参考画像②の指示に沿って全面刷新。
+   写真カルーセルや歩き回るおらっちのアニメーションを廃止し、
+   淡い背景 + 下部の山シルエットグラデーション + 中央のロゴのみの
+   静的でシンプルなスプラッシュへ変更（AI生成イラストは使わず、
+   既存の native-start-logo.png とCSSの形状/グラデーションのみで構成）。 */
 body.native-app .native-start-screen{
   position:fixed;
   z-index:2000;
@@ -2572,8 +2983,8 @@ body.native-app .native-start-screen{
   min-height:100dvh;
   overflow:hidden;
   padding:0;
-  color:var(--indigo-deep);
-  background:#1d3552;
+  color:var(--v55-navy,#0a3d68);
+  background:linear-gradient(180deg,#ffffff 0%,#f3f8fc 55%,#e8f1f9 100%);
   text-align:center;
   isolation:isolate;
 }
@@ -2587,17 +2998,56 @@ body.native-app .native-start-reveal{
   height:100dvh;
   min-height:100dvh;
   opacity:0;
-  transform:translate3d(0,8px,0);
+  transform:translate3d(0,6px,0);
   will-change:opacity,transform;
 }
+/* 山のシルエット（背景の稜線＋前面の稜線の2層でグラデーションの奥行きを表現） */
+body.native-app .native-start-mountains{
+  position:absolute;
+  z-index:1;
+  left:0;
+  right:0;
+  bottom:0;
+  width:100%;
+  height:38%;
+  min-height:220px;
+  overflow:hidden;
+  pointer-events:none;
+}
+body.native-app .native-start-mountain-back,
+body.native-app .native-start-mountain-front{
+  position:absolute;
+  left:-4%;
+  right:-4%;
+  bottom:0;
+  display:block;
+}
+body.native-app .native-start-mountain-back{
+  height:82%;
+  background:linear-gradient(180deg,#cfe3f4 0%,#a9cbe8 100%);
+  clip-path:polygon(
+    0% 100%,0% 62%,8% 45%,17% 58%,27% 32%,38% 52%,
+    50% 24%,61% 50%,71% 36%,82% 56%,91% 40%,100% 58%,100% 100%
+  );
+  opacity:.85;
+}
+body.native-app .native-start-mountain-front{
+  height:58%;
+  background:linear-gradient(180deg,#8fb7de 0%,#6a9ed2 100%);
+  clip-path:polygon(
+    0% 100%,0% 70%,12% 48%,24% 66%,36% 40%,50% 64%,
+    64% 38%,78% 62%,88% 46%,100% 66%,100% 100%
+  );
+}
+/* ロゴ（既存の native-start-logo.png のみを使用。中央よりやや上に静止表示） */
 body.native-app .native-start-brand{
   position:absolute;
   z-index:8;
-  top:calc(22px + env(safe-area-inset-top, 0px));
+  top:50%;
   left:50%;
-  width:min(92vw,430px);
+  width:min(66vw,300px);
   margin:0;
-  transform:translateX(-50%);
+  transform:translate3d(-50%,-58%,0);
   pointer-events:none;
 }
 body.native-app .native-start-logo{
@@ -2608,365 +3058,40 @@ body.native-app .native-start-logo{
   object-fit:contain;
   object-position:center;
   background:transparent;
-  filter:
-    drop-shadow(3px 0 0 #fff)
-    drop-shadow(-3px 0 0 #fff)
-    drop-shadow(0 3px 0 #fff)
-    drop-shadow(0 -3px 0 #fff)
-    drop-shadow(0 5px 8px rgba(18,35,58,.38));
 }
-body.native-app .native-start-scene{
+body.native-app .native-start-visually-hidden{
   position:absolute;
-  z-index:1;
-  inset:0;
-  width:100%;
-  height:100%;
-  margin:0;
-}
-body.native-app .native-start-landscapes{
-  position:absolute;
-  z-index:0;
-  inset:0;
+  width:1px;
+  height:1px;
+  margin:-1px;
+  padding:0;
   overflow:hidden;
-  border-radius:0;
-  background:#1d3552;
-  box-shadow:none;
-}
-body.native-app .native-start-landscapes::after{
-  content:"";
-  position:absolute;
-  z-index:1;
-  inset:0;
-  pointer-events:none;
-  background:linear-gradient(
-    180deg,
-    rgba(255,255,255,.05),
-    rgba(255,255,255,.02) 52%,
-    rgba(20,35,58,.12)
-  );
-}
-body.native-app .native-start-landscape{
-  position:absolute;
-  inset:0;
-  z-index:0;
-  width:100%;
-  height:100%;
-  display:block;
-  object-fit:cover;
-  object-position:center;
-  opacity:0;
-  transform:translate3d(0,0,0) scale(1.012);
-  will-change:opacity,transform;
-  transition:opacity .68s cubic-bezier(.4,0,.2,1),transform 1.5s ease-out;
-}
-body.native-app .native-start-landscape.is-active{
-  opacity:1;
-  transform:translate3d(0,0,0) scale(1);
-}
-body.native-app .native-start-ground{
-  display:none;
-}
-body.native-app .native-start-mascot-entry{
-  position:absolute;
-  z-index:4;
-  left:0;
-  top:0;
-  bottom:auto;
-  width:clamp(130px,37vw,205px);
-  height:auto;
-  aspect-ratio:340 / 400;
-  transform-origin:50% 92%;
-  opacity:0;
-  will-change:transform,opacity;
-  transform:translate3d(
-    calc(var(--roam-x,50vw) - 50%),
-    calc(var(--roam-y,50vh) - 50% + 96px),
-    0
-  ) scale(.08);
-  filter:drop-shadow(0 8px 7px rgba(17,31,49,.3));
-}
-body.native-app .native-start-screen.is-roaming .native-start-mascot-entry{
-  opacity:1;
-  animation:none;
-  transform:translate3d(
-    calc(var(--roam-x,50vw) - 50%),
-    calc(var(--roam-y,50vh) - 50%),
-    0
-  );
-  transition:transform var(--roam-duration,4800ms) linear;
-}
-body.native-app .native-start-mascot-idle,
-body.native-app .native-start-mascot-stack{
-  position:relative;
-  width:100%;
-  height:100%;
-  transform-origin:50% 92%;
-}
-body.native-app .native-start-mascot-idle,
-body.native-app .native-start-mascot-stack{ will-change:transform; }
-body.native-app .native-start-mascot-stack{
-  transform-origin:44.6% 92%;
-}
-body.native-app .native-start-mascot-entry.is-facing-left .native-start-mascot-stack{
-  transform:scaleX(-1);
-}
-body.native-app .native-start-mascot-image{
-  position:absolute;
-  top:0;
-  right:auto;
-  bottom:0;
-  left:0;
-  width:100%;
-  height:100%;
-  display:block;
-  object-fit:contain;
-  object-position:center bottom;
-  opacity:0;
-  backface-visibility:hidden;
-  will-change:opacity;
-  transition:none;
-}
-body.native-app .native-start-mascot-walk-a{ opacity:1; }
-body.native-app .native-start-mascot-walk-b{
-  transform:translate3d(-3.7%,0,0);
-}
-body.native-app .native-start-mascot-walk-happy{
-  transform:translate3d(-12%,7%,0) scale(1.1);
-  transform-origin:50% 100%;
-}
-body.native-app .native-start-screen.is-settled .native-start-mascot-walk-a{
-  animation:native-start-step-a .68s linear infinite;
-}
-body.native-app .native-start-screen.is-settled .native-start-mascot-walk-b{
-  animation:native-start-step-b .68s linear infinite;
-}
-body.native-app .native-start-screen.expression-wink .native-start-mascot-walk-a,
-body.native-app .native-start-screen.expression-wink .native-start-mascot-walk-b,
-body.native-app .native-start-screen.expression-happy .native-start-mascot-walk-a,
-body.native-app .native-start-screen.expression-happy .native-start-mascot-walk-b{
-  visibility:hidden;
-}
-body.native-app .native-start-screen.expression-wink .native-start-mascot-walk-wink,
-body.native-app .native-start-screen.expression-happy .native-start-mascot-walk-happy{ opacity:1; }
-body.native-app .native-start-screen.is-settled .native-start-mascot-idle{
-  animation:native-start-walk .68s linear infinite;
-}
-body.native-app .native-start-wave-line{
-  display:none;
-}
-body.native-app .native-start-smoke i{
-  position:absolute;
-  z-index:4;
-  top:52%;
-  bottom:auto;
-  left:50%;
-  width:62px;
-  height:62px;
-  border:2px solid rgba(216,203,168,.8);
-  border-radius:50%;
-  background:rgba(255,253,247,.98);
-  box-shadow:0 5px 14px rgba(38,58,92,.1);
-  opacity:0;
-  transform:translate3d(-50%,0,0) scale(.18);
-  will-change:transform,opacity;
-}
-body.native-app .native-start-smoke i:nth-child(1){ --smoke-x:-136px; --smoke-y:-32px; --smoke-delay:0ms; }
-body.native-app .native-start-smoke i:nth-child(2){ --smoke-x:-98px; --smoke-y:-82px; --smoke-delay:35ms; width:48px; height:48px; }
-body.native-app .native-start-smoke i:nth-child(3){ --smoke-x:-55px; --smoke-y:-50px; --smoke-delay:70ms; width:72px; height:72px; }
-body.native-app .native-start-smoke i:nth-child(4){ --smoke-x:-14px; --smoke-y:-98px; --smoke-delay:20ms; width:44px; height:44px; }
-body.native-app .native-start-smoke i:nth-child(5){ --smoke-x:42px; --smoke-y:-61px; --smoke-delay:55ms; width:75px; height:75px; }
-body.native-app .native-start-smoke i:nth-child(6){ --smoke-x:92px; --smoke-y:-84px; --smoke-delay:90ms; width:46px; height:46px; }
-body.native-app .native-start-smoke i:nth-child(7){ --smoke-x:135px; --smoke-y:-34px; --smoke-delay:30ms; width:61px; height:61px; }
-body.native-app .native-start-smoke i:nth-child(8){ --smoke-x:10px; --smoke-y:-28px; --smoke-delay:80ms; width:82px; height:82px; }
-body.native-app .native-start-copy{
-  position:absolute;
-  z-index:8;
-  right:16px;
-  bottom:calc(34px + env(safe-area-inset-bottom, 0px));
-  left:16px;
-  width:auto;
-  max-width:430px;
-  margin:0 auto;
-}
-body.native-app .native-start-copy p{
-  margin:0 0 9px;
-  color:var(--mint);
-  font-size:clamp(12px,3.4vw,14px);
-  font-weight:800;
-  line-height:1.6;
-  -webkit-text-stroke:3px #fff;
-  paint-order:stroke fill;
-  text-shadow:
-    1px 1px 0 #fff,
-    -1px 1px 0 #fff,
-    1px -1px 0 #fff,
-    -1px -1px 0 #fff,
-    0 3px 7px rgba(16,31,51,.35);
-}
-body.native-app .native-start-copy h1{
-  margin:0;
-  color:var(--indigo-deep);
-  font-size:clamp(24px,6.8vw,33px);
-  line-height:1.35;
-  -webkit-text-stroke:4px #fff;
-  paint-order:stroke fill;
-  text-shadow:
-    2px 2px 0 #fff,
-    -2px 2px 0 #fff,
-    2px -2px 0 #fff,
-    -2px -2px 0 #fff,
-    0 4px 9px rgba(16,31,51,.38);
-}
-body.native-app .native-start-button{
-  -webkit-appearance:none;
-  appearance:none;
-  width:100%;
-  min-height:58px;
-  margin-top:clamp(14px,2.4vh,24px);
-  padding:13px 20px;
-  border:0!important;
-  border-radius:0;
-  outline:0!important;
-  color:var(--vermillion-deep);
-  background:linear-gradient(90deg,rgba(193,67,46,.22),rgba(193,67,46,.75) 24%,rgba(193,67,46,.75) 76%,rgba(193,67,46,.22));
-  box-shadow:none!important;
-  -webkit-tap-highlight-color:transparent;
-  font:900 18px/1.2 inherit;
-  letter-spacing:.08em;
-  opacity:.68;
-  -webkit-text-stroke:3px #fff;
-  paint-order:stroke fill;
-  text-shadow:
-    1px 1px 0 #fff,
-    -1px 1px 0 #fff,
-    1px -1px 0 #fff,
-    -1px -1px 0 #fff;
-}
-body.native-app .native-start-button::before,
-body.native-app .native-start-button::after{ content:none!important; }
-body.native-app .native-start-button:active{
-  transform:scale(.985);
-  background:rgba(193,67,46,.88);
-  border:0!important;
-  outline:0!important;
-  box-shadow:none!important;
-}
-body.native-app .native-start-button:focus,
-body.native-app .native-start-button:focus-visible{
-  border:0!important;
-  outline:0!important;
-  box-shadow:none!important;
+  clip:rect(0,0,0,0);
+  white-space:nowrap;
+  border:0;
 }
 body.native-app .native-start-screen.is-leaving{
   pointer-events:none;
-  animation:native-start-leave .34s ease-in both;
+  animation:native-start-leave .32s ease-in both;
 }
 body.native-app .native-start-screen.is-ready .native-start-reveal{
-  animation:native-start-reveal .46s cubic-bezier(.22,.8,.24,1) both;
-}
-body.native-app .native-start-screen.is-ready .native-start-ground{
-  animation:native-start-ground 1.1s cubic-bezier(.2,.75,.25,1) both;
-}
-body.native-app .native-start-screen.is-ready .native-start-mascot-entry{
-  animation:native-start-pop 1.55s cubic-bezier(.16,.82,.24,1) both;
-}
-body.native-app .native-start-screen.is-ready.is-roaming .native-start-mascot-entry{
-  animation:none;
-}
-body.native-app .native-start-screen.is-ready .native-start-smoke i{
-  animation:native-start-smoke 1.22s var(--smoke-delay) cubic-bezier(.18,.72,.25,1) both;
-}
-body.native-app .native-start-screen.is-ready .native-start-button{
-  animation:native-start-button-pulse 1.7s .46s ease-in-out infinite;
-}
-@keyframes native-start-pop{
-  0%{ opacity:0; transform:translate3d(calc(50vw - 50%),calc(50vh - 50% + 96px),0) scale(.08) rotate(-7deg); }
-  20%{ opacity:1; }
-  43%{ opacity:1; transform:translate3d(calc(50vw - 50%),calc(50vh - 50% - 34px),0) scale(1.075) rotate(2.5deg); }
-  59%{ transform:translate3d(calc(50vw - 50%),calc(50vh - 50% + 14px),0) scale(.965) rotate(-1.5deg); }
-  73%{ transform:translate3d(calc(50vw - 50%),calc(50vh - 50% - 11px),0) scale(1.03) rotate(.8deg); }
-  86%{ transform:translate3d(calc(50vw - 50%),calc(50vh - 50% + 5px),0) scale(.99) rotate(-.35deg); }
-  94%{ transform:translate3d(calc(50vw - 50%),calc(50vh - 50% - 3px),0) scale(1.009) rotate(.15deg); }
-  100%{ opacity:1; transform:translate3d(calc(50vw - 50%),calc(50vh - 50%),0) scale(1) rotate(0); }
-}
-@keyframes native-start-smoke{
-  0%{ opacity:0; transform:translate3d(-50%,12px,0) scale(.18); }
-  16%{ opacity:1; }
-  55%{ opacity:.94; }
-  100%{ opacity:0; transform:translate3d(calc(-50% + var(--smoke-x)),var(--smoke-y),0) scale(1.3); }
+  animation:native-start-reveal .5s cubic-bezier(.22,.8,.24,1) both;
 }
 @keyframes native-start-reveal{
-  from{ opacity:0; transform:translate3d(0,8px,0); }
+  from{ opacity:0; transform:translate3d(0,6px,0); }
   to{ opacity:1; transform:translate3d(0,0,0); }
 }
-@keyframes native-start-ground{
-  0%{ opacity:0; transform:scale(.35); }
-  55%{ opacity:.65; transform:scale(1.16); }
-  100%{ opacity:1; transform:scale(1); }
-}
-@keyframes native-start-walk{
-  0%,50%,100%{ transform:translate3d(0,0,0); }
-  25%,75%{ transform:translate3d(0,-2px,0); }
-}
-@keyframes native-start-step-a{
-  0%,49.99%{ opacity:1; }
-  50%,100%{ opacity:0; }
-}
-@keyframes native-start-step-b{
-  0%,49.99%{ opacity:0; }
-  50%,100%{ opacity:1; }
-}
-@keyframes native-start-wave{
-  0%,100%{ transform:translate3d(0,0,0) rotate(0); }
-  20%{ transform:translate3d(-1px,-1px,0) rotate(-1.5deg); }
-  42%{ transform:translate3d(2px,-2px,0) rotate(2deg); }
-  64%{ transform:translate3d(-1px,-1px,0) rotate(-1.2deg); }
-  82%{ transform:translate3d(1px,-1px,0) rotate(.8deg); }
-}
-@keyframes native-start-wave-line{
-  from{ opacity:.15; transform:translate3d(-4px,4px,0) rotate(-18deg) scaleX(.55); }
-  to{ opacity:.82; transform:translate3d(3px,-3px,0) rotate(8deg) scaleX(1); }
-}
-@keyframes native-start-button-pulse{
-  0%,100%{ opacity:.52; }
-  50%{ opacity:1; }
-}
 @keyframes native-start-leave{
-  to{ opacity:0; transform:scale(1.03); }
+  to{ opacity:0; transform:scale(1.02); }
 }
 @media (prefers-reduced-motion: reduce){
-  body.native-app .native-start-mascot-entry,
-  body.native-app .native-start-mascot-idle,
-  body.native-app .native-start-mascot-stack,
-  body.native-app .native-start-copy,
-  body.native-app .native-start-brand,
-  body.native-app .native-start-ground,
-  body.native-app .native-start-button{
+  body.native-app .native-start-reveal{
     opacity:1;
     transform:none;
-    animation:none;
   }
   body.native-app .native-start-screen.is-ready .native-start-reveal{
-    opacity:1;
-    transform:none;
     animation:none;
   }
-  body.native-app .native-start-mascot-entry{
-    left:50%;
-    top:50%;
-    transform:translate3d(-50%,-50%,0);
-  }
-  body.native-app .native-start-landscape{
-    opacity:0;
-    transform:none;
-    animation:none!important;
-    transition:none;
-  }
-  body.native-app .native-start-landscape.is-active{ opacity:1; }
-  body.native-app .native-start-mascot-image{ opacity:0!important; }
-  body.native-app .native-start-mascot-walk-a{ opacity:1!important; }
-  body.native-app .native-start-smoke{ display:none; }
-  body.native-app .native-start-wave-line{ display:none; }
   body.native-app .native-start-screen.is-leaving{ animation-duration:.01ms; }
 }
 body.native-app.native-immersive{
@@ -3333,6 +3458,76 @@ body.native-app .danger-btn{ font-size:13px; }
 .challenge-score-sub{ display: block; font-size: 12px; font-weight: 500; color: var(--ink-soft); margin-top: 2px; }
 .challenge-result-card{ border: 1.5px solid var(--indigo-deep); }
 
+/* V59: 挑戦状モードを現行Android版の青系UIへ統一 */
+body.native-app .challenge-screen{
+  margin:-8px -8px 0;
+  color:#173f70;
+  text-align:center;
+}
+body.native-app .challenge-hero{
+  position:relative;
+  display:grid;
+  grid-template-columns:104px minmax(0,1fr);
+  align-items:center;
+  min-height:142px;
+  margin:0 0 14px;
+  padding:15px 14px;
+  overflow:hidden;
+  border:1.5px solid #9fd6f6;
+  border-radius:20px;
+  background:linear-gradient(145deg,#fafdff 0%,#e8f6ff 100%);
+  box-shadow:0 8px 22px rgba(7,82,189,.10);
+}
+body.native-app .challenge-hero::after{
+  content:"";position:absolute;right:-38px;bottom:-58px;width:158px;height:158px;
+  border-radius:50%;background:rgba(67,177,235,.10);pointer-events:none;
+}
+body.native-app .challenge-hero .mascot-wrap{position:relative;z-index:1;margin:0}
+body.native-app .challenge-hero .mascot{width:98px;height:98px;filter:drop-shadow(0 5px 8px rgba(7,63,146,.14))}
+body.native-app .challenge-hero-copy{position:relative;z-index:1;text-align:left}
+body.native-app .challenge-eyebrow{display:block;color:#008ccf;font-size:10px;font-weight:900;letter-spacing:.14em}
+body.native-app .challenge-hero h1{margin:3px 0 5px;color:#073f92;font-size:20px;line-height:1.35;font-weight:900}
+body.native-app .challenge-hero p{margin:0;color:#52769b;font-size:11.5px;line-height:1.55;font-weight:700}
+body.native-app .challenge-progress{margin:0 2px 11px;text-align:left;color:#0752bd;font-size:11px;font-weight:900}
+body.native-app .challenge-progress>div{height:7px;margin-top:5px;overflow:hidden;border-radius:99px;background:#dceefa}
+body.native-app .challenge-progress i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#40b7ed,#0752bd);transition:width .25s ease}
+body.native-app .challenge-hint-list{
+  margin:0 0 11px;padding:5px 13px;
+  border:1.5px solid #a9d9f5;border-radius:15px;
+  background:#fff;box-shadow:0 5px 15px rgba(7,82,189,.07);
+}
+body.native-app .challenge-hint-item{gap:10px;padding:11px 0;border-bottom:1px solid #dbeefa;color:#274b72;font-size:13px;text-align:left}
+body.native-app .challenge-hint-num{color:#0752bd;background:#e6f5ff;padding:3px 9px}
+body.native-app .challenge-hint-btn{
+  min-height:46px;margin:0 0 14px;border:1.5px solid #55b9ee;border-radius:12px;
+  background:#f1faff;color:#0752bd;font-size:13px;font-weight:900;
+}
+body.native-app .challenge-hint-max{margin:0 0 14px;color:#52769b}
+body.native-app .challenge-answer-block{
+  margin:0;padding:14px;border:1.5px solid #9fd6f6;border-radius:16px;
+  background:linear-gradient(180deg,#fff,#f4fbff);box-shadow:0 6px 18px rgba(7,82,189,.08);text-align:left;
+}
+body.native-app .challenge-input-label{display:block;margin:0 0 7px;color:#073f92;font-size:12px;font-weight:900}
+body.native-app .challenge-input{min-height:48px;margin:0 0 7px;border:1.5px solid #b8dff5;border-radius:11px;background:#fff;color:#173f70;font-size:14px}
+body.native-app .challenge-input:focus{border-color:#168ed0;box-shadow:0 0 0 3px rgba(64,183,237,.15)}
+body.native-app .challenge-candidate-item{min-height:42px;border-color:#b8dff5;background:#fff;color:#174a80}
+body.native-app .challenge-submit-btn{min-height:48px;border-radius:11px;background:linear-gradient(180deg,#168ed0,#0752bd);color:#fff;box-shadow:0 4px 10px rgba(7,82,189,.18)}
+body.native-app .challenge-submit-btn:disabled{background:#dce7ef;color:#7890a7;box-shadow:none}
+body.native-app .challenge-giveup{margin-top:12px;color:#52769b;text-decoration-color:#9fd6f6}
+body.native-app .challenge-feedback-screen{padding:30px 14px 18px}
+body.native-app .challenge-feedback-icon .mascot{width:130px;height:130px}
+body.native-app .challenge-feedback-screen h1{margin:6px 0;color:#073f92;font-size:30px}
+body.native-app .challenge-feedback-screen p{margin:0 0 22px;color:#52769b;font-size:13px}
+body.native-app .challenge-feedback-screen .again{background:linear-gradient(180deg,#168ed0,#0752bd);box-shadow:0 5px 13px rgba(7,82,189,.18)}
+body.native-app .challenge-result-screen .challenge-result-card{border-color:#9fd6f6;background:linear-gradient(180deg,#fff,#f3faff);box-shadow:0 8px 22px rgba(7,82,189,.10)}
+body.native-app .challenge-result-screen .share-eyebrow{color:#0752bd}
+body.native-app .challenge-result-screen .challenge-score{color:#0752bd}
+@media(max-width:360px){
+  body.native-app .challenge-hero{grid-template-columns:88px minmax(0,1fr);padding:12px 10px}
+  body.native-app .challenge-hero .mascot{width:84px;height:84px}
+  body.native-app .challenge-hero h1{font-size:18px}
+}
+
 .daily-challenge-card{
   background: linear-gradient(135deg, rgba(38,58,92,0.06), rgba(193,67,46,0.05));
   border: 1.5px solid var(--line);
@@ -3590,6 +3785,46 @@ body.native-app .danger-btn{ font-size:13px; }
   color: var(--ink-soft);
 }
 
+.native-matchmaking-card,
+.native-matchmaking-wait-card,
+.native-matchmaking-found{
+  margin:16px auto;padding:20px;max-width:680px;border:2px solid #d7c27b;border-radius:20px;background:linear-gradient(145deg,#fffdf5,#fff7d8);box-shadow:0 8px 24px rgba(75,56,16,.1);
+}
+.native-matchmaking-card{display:grid;gap:10px}.native-matchmaking-card h2{margin:0;color:#583f09}.native-matchmaking-card p{margin:4px 0 8px}.native-matchmaking-card label{font-weight:800}.native-matchmaking-card select{min-height:48px;border:1px solid #bba65b;border-radius:12px;padding:0 12px;background:#fff;font-size:16px}.native-ranked-search-button{min-height:56px;font-size:18px}.native-matchmaking-card>small{color:#9a2f27;font-weight:800;text-align:center}
+.native-multiplayer-section-heading{margin:28px auto 4px;max-width:680px}.native-multiplayer-section-copy{margin:0 auto 10px;max-width:680px;color:var(--ink-soft)}
+.native-matchmaking-wait-card{text-align:center}.native-matchmaking-pulse{font-size:44px;animation:nativeMatchmakingPulse 1.2s ease-in-out infinite}.native-matchmaking-wait-card dl{display:grid;grid-template-columns:1fr 1fr;text-align:left;gap:1px;background:#dbc983;border-radius:14px;overflow:hidden}.native-matchmaking-wait-card dl div{padding:12px;background:#fffdf7}.native-matchmaking-wait-card dt{font-size:12px;color:var(--ink-soft)}.native-matchmaking-wait-card dd{margin:3px 0 0;font-weight:900}.native-matchmaking-cancel{width:100%;min-height:52px;border:2px solid #8c3430;border-radius:14px;background:#fff;color:#8c3430;font-weight:900;font-size:16px}
+.native-matchmaking-found ol{list-style:none;margin:0;padding:0;display:grid;gap:10px}.native-matchmaking-found li{display:flex;align-items:center;gap:12px;padding:12px;border-radius:14px;background:#fff}.native-matchmaking-found li>i{font-size:30px;font-style:normal}.native-matchmaking-found li span{display:grid}.native-matchmaking-found>p{text-align:center;font-weight:800}
+@keyframes nativeMatchmakingPulse{50%{transform:scale(1.18);filter:drop-shadow(0 0 10px #e3b82d)}}
+@media(max-width:420px){.native-matchmaking-card,.native-matchmaking-wait-card,.native-matchmaking-found{padding:15px;border-radius:16px}.native-matchmaking-wait-card dl{grid-template-columns:1fr}.native-ranked-search-button{font-size:17px}}
+
+/* v41 product UI — travel map × friendly competition */
+body.native-app{--v41-teal:#087f7a;--v41-teal-dark:#075e5b;--v41-blue:#246aa8;--v41-sun:#f6aa2b;--v41-paper:#f7f5ef;background:radial-gradient(circle at 85% 4%,#d9f2ee 0,transparent 30%),var(--v41-paper);color:#173b3a}
+body.native-app .oramachi-brand{max-width:330px;margin:2px auto 4px}.oramachi-brand svg{display:block;width:100%;height:auto}.oramachi-brand path{fill:none;stroke:var(--v41-teal);stroke-width:7;stroke-linecap:round;stroke-linejoin:round}.oramachi-brand circle{fill:#e84c3d}.oramachi-brand text{fill:#173b3a;font:900 52px/1 sans-serif;letter-spacing:.04em}
+body.native-app .native-home-profile{display:flex;align-items:center;gap:12px;width:100%;max-width:680px;margin:8px auto 18px;padding:11px 14px;border:1px solid #cde2df;border-radius:18px;background:rgba(255,255,255,.92);box-shadow:0 7px 24px rgba(18,79,76,.08);text-align:left}.native-home-profile>span:nth-child(2){display:grid;flex:1}.native-home-profile small{color:#5e7775}.native-home-profile>b{font-size:24px;color:var(--v41-teal)}
+body.native-app .native-home-avatar,body.native-app .native-profile-avatar,body.native-app .native-avatar-preview,body.native-app .native-match-avatar,body.native-app .native-score-avatar,body.native-app .native-ranking-avatar,body.native-app .native-result-avatar{display:grid;place-items:center;flex:0 0 auto;border-radius:50%;overflow:hidden;background:#e5f4f2;font-style:normal}.has-image img,.native-home-avatar svg,.native-profile-avatar svg,.native-avatar-preview svg,.native-match-avatar svg,.native-score-avatar svg,.native-ranking-avatar svg,.native-result-avatar svg{width:100%;height:100%;object-fit:cover;display:block}.native-home-avatar,.native-profile-avatar{width:54px;height:54px;font-size:27px}.native-avatar-preview{width:74px;height:74px;font-size:34px}.native-match-avatar{width:70px;height:70px;font-size:34px;border:4px solid #fff;box-shadow:0 5px 18px #0a555430}.native-score-avatar,.native-ranking-avatar,.native-result-avatar{width:38px;height:38px;font-size:20px}
+body.native-app .native-primary-actions{gap:12px}.native-home-action-ranked{background:linear-gradient(135deg,var(--v41-teal),var(--v41-blue))!important;color:#fff!important;box-shadow:0 9px 24px rgba(8,127,122,.25)!important}.native-home-action-ranked strong,.native-home-action-ranked small{color:#fff!important}.native-home-action-room{border:2px solid #88beba!important;background:#fff!important}
+body.native-app .native-matchmaking-card,body.native-app .native-matchmaking-wait-card,body.native-app .native-matchmaking-found{border:1px solid #c6dfdc;background:#fff;box-shadow:0 12px 35px rgba(14,77,75,.10)}body.native-app .native-matchmaking-card h2{color:var(--v41-teal-dark)}body.native-app .native-matchmaking-card select{border:2px solid #b8d8d4;background:#f9fffe}body.native-app .native-matchmaking-card select:focus{outline:3px solid #50b6ad44;border-color:var(--v41-teal)}body.native-app .native-ranked-search-button{position:sticky;bottom:12px;background:linear-gradient(135deg,var(--v41-teal),var(--v41-blue));box-shadow:0 8px 20px #087f7a40}
+body.native-app .native-matchmaking-wait-card #nativeMatchmakingElapsed{font-size:26px;color:var(--v41-teal)}body.native-app .native-matchmaking-pulse{filter:hue-rotate(130deg)}body.native-app .native-matchmaking-cancel{border-color:#597675;color:#385b59}
+body.native-app .native-matchmaking-found.is-celebration{text-align:center;padding-top:30px;background:linear-gradient(160deg,#087f7a,#246aa8);color:#fff}.native-found-kicker{display:block;color:#ffe09a;font-weight:1000;letter-spacing:.14em}.native-matchmaking-found.is-celebration h1{margin:8px 0 20px}.native-matchmaking-found.is-celebration li{position:relative;background:#ffffff18;border:1px solid #ffffff35;color:#fff}.native-matchmaking-found.is-celebration small{color:#dceeed}.native-vs{position:absolute;right:10px;color:#ffd267;font-size:16px}
+body.native-app .native-round-summary{position:sticky;top:0;z-index:4;background:#f9fffeee;backdrop-filter:blur(9px);border-color:#bedbd7}body.native-app .native-question-history summary{cursor:pointer;padding:14px;font-weight:900;color:var(--v41-teal-dark)}body.native-app .native-question-candidates>div{grid-template-columns:1fr 1fr;gap:9px}body.native-app .native-question-candidates button{min-height:54px;border-color:#b8d8d4;background:#fff}body.native-app .native-answer-buzzer{position:sticky;bottom:12px;z-index:5;background:linear-gradient(180deg,#ffb32f,#ed7d16);box-shadow:0 7px 0 #b85b0c,0 12px 22px #b85b0c44;color:#33230d}
+body.native-app .native-final-ratings li.is-winner{background:linear-gradient(135deg,#fff7d6,#fff);border:2px solid #f2bd3d}.native-rating-result em{font-size:25px!important}.native-rank-change{color:var(--v41-teal)!important}
+body.native-app .native-avatar-editor{display:grid;gap:10px;padding:14px;border:1px solid #c9e0dd;border-radius:16px;background:#f7fffe}.native-avatar-editor>div{display:flex;align-items:center;gap:12px}.native-avatar-editor span span{display:grid}.native-avatar-editor small{display:block;color:#617674}.native-avatar-editor button,.native-avatar-crop-modal button{min-height:42px;padding:0 15px;border:1px solid var(--v41-teal);border-radius:12px;background:#fff;color:var(--v41-teal-dark);font-weight:900}.native-avatar-editor button.is-danger{border-color:#bd5a53;color:#9c3c36}
+body.native-app .native-avatar-crop-modal{position:fixed;inset:0;z-index:1000;padding:18px;background:#062f2dbb;overflow:auto}.native-avatar-crop-modal[hidden]{display:none}.native-avatar-crop-modal>section{max-width:520px;margin:5vh auto;padding:20px;border-radius:22px;background:#fff}.native-avatar-canvas-wrap{overflow:hidden;border-radius:50%;border:5px solid var(--v41-teal);box-shadow:0 0 0 999px #1233}.native-avatar-crop-modal canvas{display:block;width:100%;height:auto}.native-avatar-crop-modal input[type=range]{width:100%;margin:15px 0}.native-avatar-crop-modal>section>div:last-child{display:flex;justify-content:flex-end;gap:9px}
+@media(max-width:420px){body.native-app .native-question-candidates>div{grid-template-columns:1fr}.native-matchmaking-found.is-celebration{margin-top:12vh}.native-home-status{display:none}.native-home-hero{padding-top:4px}.native-avatar-crop-modal{padding:10px}.native-avatar-crop-modal>section{margin:1vh auto}}
+
+/* V63: ログイン後画面をホームと同じ青・淡水色のカード体系へ統一 */
+body.native-app .native-auth-heading,body.native-app .native-rating-board{border-color:#cfe1ec;background:linear-gradient(180deg,#fff,#f6fbff)}
+body.native-app .native-auth-account,body.native-app .native-profile-online-stats,body.native-app .native-profile-form{border-color:#cfe1ec;background:#fff}
+body.native-app .native-auth-form input:focus,body.native-app .native-profile-form input:focus,body.native-app .native-profile-form textarea:focus,body.native-app .native-profile-form select:focus{border-color:#2477b5;box-shadow:0 0 0 3px rgba(36,119,181,.14)}
+body.native-app .native-auth-primary{background:#2477b5;box-shadow:0 7px 16px rgba(30,102,154,.2)}
+body.native-app .native-auth-secondary{border-color:#2477b5;color:#195f92}
+body.native-app .native-profile-rating-grid>div{border:1px solid #d7e7f1;background:#f3f9fd}
+body.native-app .native-rating-list li,body.native-app .native-my-ranking li{border:1px solid #dbe8f0;background:#f8fbfd}
+body.native-app .native-rating-list li.is-me,body.native-app .native-my-ranking li{background:#eaf6ff;outline:2px solid #5ca6d8}
+body.native-app .daily-v44-card.is-error{border-color:#e2b8b4;background:linear-gradient(145deg,#fff,#fff4f3)}
+body.native-app .daily-v63-error{border:1px solid #cfe1ec;background:#fff}
+@media(max-width:380px){body.native-app .native-profile-avatars{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
 .stats-block-top{
   margin-top: 16px;
   padding-top: 14px;
@@ -3615,4 +3850,832 @@ body.native-app .danger-btn{ font-size:13px; }
   font-size: 11.5px;
   color: var(--ink-soft);
   line-height: 1.6;
+}
+
+/* 第13回 今日のおらマチ */
+body.native-app .daily-v44-card{position:relative;margin:10px 0 16px;padding:22px 17px 16px;overflow:hidden;border-radius:18px;color:#fff;background:linear-gradient(145deg,#149cb7,#00798d 62%,#056d83);box-shadow:0 9px 24px #006f8530;text-align:left}body.native-app .daily-v44-card:after{content:'🦝';position:absolute;right:8px;bottom:-10px;font-size:72px}.daily-v44-card .daily-v44-new{position:absolute;top:0;left:0;padding:4px 13px;border-radius:0 0 12px;background:#ff6a1a;font-weight:900}.daily-v44-badge{display:inline-block;margin:3px 0 9px;padding:5px 12px;border-radius:99px;background:#19b577;font-size:11px;font-weight:900}.daily-v44-card h2{margin:0;font-size:25px}.daily-v44-card>strong{display:block;margin:2px 0 8px;font-size:18px}.daily-v44-card p{max-width:70%;margin:0 0 13px;font-size:12px}.daily-v44-card>div{display:flex;gap:18px;margin-bottom:12px;font-size:11px}.daily-v44-card>div b{display:block;font-size:15px}.daily-v44-card>button{position:relative;z-index:1;width:72%;min-height:48px;border:0;border-radius:10px;color:#fff;background:#07945f;font-weight:900;font-size:16px}.daily-v44-card>button span{float:right;margin-right:12px}
+.daily-v44-answer-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}.daily-v44-answer-grid button{min-height:54px;border:0;border-radius:8px;color:#fff;font-size:16px;font-weight:900}.daily-v44-answer-grid .is-yes{background:#168df2}.daily-v44-answer-grid .is-no{background:#f1787d}.daily-v44-answer-grid .is-maybe-yes{color:#1475b0;background:#dff2ff}.daily-v44-answer-grid .is-maybe-no{color:#d66b2f;background:#fff0dc}.daily-v44-report{display:block;width:100%;min-height:42px;margin:2px 0 8px;border:1px solid #b9dbea!important;border-radius:9px;background:#fff!important;color:#174f78!important;font-weight:800!important;text-decoration:none!important}
+.daily-v44-heading,.daily-v44-play-head{display:flex;align-items:center;gap:10px;padding:13px 3px}.daily-v44-heading button,.daily-v44-play-head button{border:0;background:transparent;color:#083c70;font-size:38px}.daily-v44-heading h1{margin:0;font-size:20px}.daily-v44-intro,.daily-v44-question,.daily-v44-history,.daily-v44-result,.daily-v44-ranking{padding:18px;border:1px solid #cfe8f3;border-radius:16px;background:#fff;box-shadow:0 7px 18px #064b7a12}.daily-v44-intro h2,.daily-v44-result h1{text-align:center;color:#0a4676}.daily-v44-intro p,.daily-v44-intro li{line-height:1.7}.daily-v44-intro label{display:grid;gap:8px;margin:18px 0}.daily-v44-intro select{min-height:48px;border:1px solid #a9cbda;border-radius:10px;padding:8px}.daily-v44-primary,.daily-v44-secondary{width:100%;min-height:49px;margin-top:10px;border-radius:10px;font-weight:900}.daily-v44-primary{border:0;color:#fff;background:linear-gradient(90deg,#1199b5,#009374)}.daily-v44-secondary{border:1px solid #9ccce0;color:#174f78;background:#fff}.daily-v44-progress{display:flex;justify-content:space-between;padding:11px 14px;color:#fff;background:#075486}.daily-v44-question-list{display:grid;gap:8px}.daily-v44-question-list button{padding:12px;border:1px solid #b9dbea;border-radius:9px;background:#eef9fd;text-align:left;font-weight:800}.daily-v44-answer{padding:12px;border-radius:10px;background:#e6f8ee;color:#09623d;font-weight:900}.daily-v44-guess{width:100%;margin-top:14px;padding:14px;border:0;border-radius:10px;color:#fff;background:#ef6b31;font-weight:900}.daily-v44-history{margin-top:12px}.daily-v44-history ol{padding:0;list-style:none}.daily-v44-history li{display:grid;grid-template-columns:24px 1fr 45px;align-items:center;border-bottom:1px solid #e3edf2}.daily-v44-history li p{font-size:12px}.daily-v44-history li b.yes{color:#0b8e52}.daily-v44-history li b.no{color:#e3534f}.daily-v44-result{text-align:center}.daily-v44-crown{font-size:64px;color:#ffbd24}.daily-v44-result>p strong{display:block;font-size:25px;color:#0a4676}.daily-v44-result-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.daily-v44-result-grid span{padding:13px;border:1px solid #d5e8f1;border-radius:10px}.daily-v44-result-grid b{display:block;font-size:20px;color:#0a4676}.daily-v44-result aside,.daily-v44-ranking aside{margin:14px 0;padding:12px;border-radius:10px;background:#fff4d7;color:#875407;font-weight:900}.daily-v44-ranking ol{padding:0;list-style:none}.daily-v44-ranking li{display:grid;grid-template-columns:30px 1fr 45px 48px;gap:5px;align-items:center;padding:10px 3px;border-bottom:1px solid #dceaf0}.daily-v44-ranking li img{width:30px;height:30px;border-radius:50%;object-fit:cover;vertical-align:middle}.daily-v44-ranking li em,.daily-v44-ranking time{font-size:11px;font-style:normal}
+
+.native-terms-consent{display:flex!important;gap:10px;align-items:flex-start;margin:10px 0;font-size:13px}.native-terms-consent input{width:auto!important;margin-top:3px}.native-user-report{margin-top:14px;border:1px solid #d9a1a1;background:#fff;color:#9b2c2c;border-radius:10px;padding:9px 14px}.admin-body{margin:0;background:#f3f7f8;color:#16373d;font-family:system-ui,sans-serif}.admin-shell{max-width:1180px;margin:auto;padding:24px}.admin-shell>header{display:flex;justify-content:space-between;align-items:center}.admin-shell h1{margin:.2rem 0 1rem}.admin-card{background:#fff;border-radius:18px;padding:20px;box-shadow:0 8px 28px #174c5b18}.admin-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.admin-tabs button,.admin-shell button{border:0;border-radius:10px;padding:10px 14px;background:#087f8c;color:#fff;font-weight:700}.admin-shell input,.admin-shell select{padding:10px;border:1px solid #bdcdd0;border-radius:8px;margin:4px}.admin-table-wrap{overflow:auto}.admin-shell table{width:100%;border-collapse:collapse;margin-top:14px}.admin-shell th,.admin-shell td{text-align:left;padding:10px;border-bottom:1px solid #e4ecee;vertical-align:top}.admin-shell .is-error{color:#b42318}
+
+/* V50 第18回: 第13回確定UIへの統一 */
+body.native-app{--v50-navy:#073b70;--v50-blue:#0d83e8;--v50-teal:#059a98;--v50-green:#0eae72;--v50-orange:#ff8a25;--v50-line:#c9e3f0;padding-top:env(safe-area-inset-top,0px);color:var(--v50-navy);background:linear-gradient(180deg,#f8fdff,#fff 75%)}
+body.native-app>.app>.brand{display:none!important}
+body.native-app .card{width:min(100%,480px);min-height:calc(100dvh - 78px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));padding:12px 12px 24px;border:0;border-radius:0;background:linear-gradient(180deg,#f9fdff,#fff);box-shadow:none}
+body.native-app .oramachi-brand{display:flex;justify-content:center;margin:0 0 8px;padding:2px 0 0}
+body.native-app .oramachi-brand img{display:block;width:min(210px,55vw);height:auto}
+body.native-app .native-home-profile{border-color:var(--v50-line);border-radius:13px;background:#fff;box-shadow:0 4px 12px #073b7010}
+body.native-app .native-player-rank-header,body.native-app .native-player-display-name{display:none!important}
+body.native-app .native-tab-bar{min-height:calc(76px + env(safe-area-inset-bottom,0px));padding:4px 5px env(safe-area-inset-bottom,0px);border-top-color:#c9e3f0;background:rgba(255,255,255,.98);box-shadow:0 -5px 18px #073b7015}
+body.native-app .native-tab-button{gap:1px;border-radius:9px;color:#073b70;font-size:10px}
+body.native-app .native-tab-icon{width:43px;height:43px;filter:none}
+body.native-app .native-tab-button[aria-current="page"]{color:#0d83e8;background:#eef8ff;box-shadow:inset 0 -3px #0d83e8}
+body.native-app .native-screen-heading,body.native-app .native-play-heading,body.native-app .native-settings-heading,body.native-app .native-record-heading{color:var(--v50-navy)}
+body.native-app .native-menu-list button,body.native-app .native-play-mode-card,body.native-app .native-hub-section,body.native-app .native-settings-section{border-color:var(--v50-line);background:#fff;box-shadow:0 4px 12px #073b700d}
+body.native-app .daily-v44-card{min-height:258px;margin:8px 0 10px;padding:48px 18px 14px;border-radius:12px;background:linear-gradient(135deg,#0b8ed2,#08a3bd 54%,#06788d);box-shadow:0 8px 20px #067c9c32}
+body.native-app .daily-v44-card{isolation:isolate;background-image:linear-gradient(90deg,rgba(0,72,113,.94),rgba(0,104,130,.66) 60%,rgba(0,72,113,.24)),var(--daily-artwork);background-size:cover;background-position:center}
+body.native-app .daily-v44-card>*{position:relative;z-index:1}
+body.native-app .daily-v44-card:after{content:'';right:0;bottom:-4px;width:142px;height:142px;background:url('mascot-happy.png') center bottom/contain no-repeat}
+body.native-app .daily-v44-card h2{font-size:27px;line-height:1.15}
+body.native-app .daily-v44-card>button{width:100%;background:var(--v50-teal)}
+body.native-app .daily-v44-heading,body.native-app .daily-v44-play-head{position:sticky;top:0;z-index:3;margin:-12px -12px 0;padding:12px;background:#fff;border-bottom:1px solid var(--v50-line)}
+body.native-app .daily-v44-heading h1{flex:1;text-align:center;color:var(--v50-navy)}
+body.native-app .daily-v44-intro,body.native-app .daily-v44-question,body.native-app .daily-v44-history,body.native-app .daily-v44-result,body.native-app .daily-v44-ranking{border-color:var(--v50-line);border-radius:12px;box-shadow:0 5px 16px #073b7010}
+body.native-app .daily-v44-answer-grid button{min-height:58px;font-size:16px}
+body.native-app .daily-v44-primary{background:linear-gradient(90deg,var(--v50-teal),#08a874)}
+body.native-app .daily-v44-menu{width:38px;color:var(--v50-navy);font-size:25px;text-align:center}
+body.native-app .daily-v44-date{margin:0 0 12px;color:var(--v50-navy);font-size:17px;font-weight:900;text-align:center}
+body.native-app .daily-v44-hero,body.native-app .daily-v44-question-image{display:block;width:100%;height:145px;border-radius:10px;object-fit:cover}
+body.native-app .daily-v44-question-image{margin:10px 0;height:128px}
+body.native-app .daily-v44-rules{padding:0;list-style:none}
+body.native-app .daily-v44-rules li{display:flex;gap:12px;align-items:center;margin:11px 0;color:var(--v50-navy);font-size:14px;font-weight:800}
+body.native-app .daily-v44-rules li:first-letter{font-size:23px}.daily-v44-rules small{display:block;font-weight:500}
+body.native-app .daily-v44-mascot-note{display:flex;align-items:center;margin:14px 0;padding:8px 12px;border-radius:10px;background:#e4f6ff;font-size:12px;font-weight:700}
+body.native-app .daily-v44-mascot-note img{width:70px;height:72px;object-fit:contain;align-self:flex-end}
+body.native-app .daily-v44-quit{width:100%;min-height:45px;margin:10px 0;border:1px solid var(--v50-line);border-radius:9px;color:var(--v50-navy);background:#fff;font-weight:900}
+body.native-app .daily-v44-result{position:relative;padding-bottom:86px}
+body.native-app .daily-v44-result-mascot,body.native-app .daily-v44-ranking-mascot{display:flex;justify-content:flex-end;align-items:center;margin-top:8px;font-weight:900}
+body.native-app .daily-v44-result-mascot img,body.native-app .daily-v44-ranking-mascot img{width:92px;height:92px;object-fit:contain}
+body.native-app .daily-v44-ranking-tabs{display:grid;grid-template-columns:1fr 1fr;margin:10px 0;border-radius:8px;overflow:hidden;background:#e4f5fd;text-align:center}
+body.native-app .daily-v44-ranking-tabs>*{padding:10px}.daily-v44-ranking-tabs b{color:#fff;background:var(--v50-navy)}
+body.native-app .daily-v44-ranking-head,body.native-app .daily-v44-ranking li{display:grid;grid-template-columns:40px minmax(0,1fr) 52px 54px;gap:4px;align-items:center}
+body.native-app .daily-v44-ranking-head{padding:7px 3px;border-radius:6px;background:#eaf6fb;font-size:10px;text-align:center}
+body.native-app .daily-v44-ranking li.is-me{border-radius:8px;background:#dff3ff}
+body.native-app .daily-v44-pager{display:flex;justify-content:space-between;align-items:center;margin:9px 0;color:var(--v50-navy)}
+body.native-app .daily-v44-pager button{border:0;background:transparent;color:var(--v50-navy);font-size:28px}
+
+/* V53 Android: 第13回確定デザインを最初の表示領域へ固定 */
+body.native-app.native-home-active #stage{padding-top:8px;background:linear-gradient(#fff 0 88%,#e8f7ff 100%)}
+body.native-app .v53-home-brand{display:flex;justify-content:center;margin:0 0 8px;padding:2px 52px 0}
+body.native-app .v53-home-brand img{display:block;width:min(190px,55vw);height:auto;max-height:76px;object-fit:contain}
+
+/* V58: remaining native pages use the approved blue information architecture */
+body.native-app .v57-page-head{
+  position:sticky;top:0;z-index:4;display:grid;grid-template-columns:42px 1fr 42px;
+  align-items:center;gap:6px;margin:-12px -12px 14px;padding:11px 12px 12px;
+  border-bottom:1px solid #c9e3f0;background:rgba(255,255,255,.98);color:#073b70;
+}
+body.native-app .v57-page-head>button{width:42px;height:42px;border:0;background:transparent;color:#0752bd;font-size:34px;line-height:1}
+body.native-app .v57-page-head>button:last-child{font-size:23px}
+body.native-app .v57-page-head div{text-align:center;min-width:0}
+body.native-app .v57-page-head span{display:block;color:#059a98;font-size:10px;font-weight:900;letter-spacing:.08em}
+body.native-app .v57-page-head h1{margin:1px 0;color:#073b70;font-size:22px;line-height:1.2}
+body.native-app .v57-page-head p{margin:3px 0 0;color:#56738e;font-size:10.5px;line-height:1.35}
+body.native-app .v57-rating-summary{display:grid;grid-template-columns:1fr 1px 1fr;align-items:center;margin:0 0 12px;padding:15px;border:1px solid #9fd6f6;border-radius:14px;background:linear-gradient(135deg,#f2faff,#fff);box-shadow:0 5px 15px #0752bd12;text-align:center}
+body.native-app .v57-rating-summary>span{width:1px;height:44px;background:#c9e3f0}
+body.native-app .v57-rating-summary small,body.native-app .v57-rating-summary strong{display:block}
+body.native-app .v57-rating-summary small{color:#56738e;font-size:11px;font-weight:800}
+body.native-app .v57-rating-summary strong{margin-top:2px;color:#0752bd;font-size:25px}
+body.native-app .native-record-summary{border:1px solid #75bfee;background:linear-gradient(135deg,#0752bd,#087fd1);box-shadow:0 7px 18px #0752bd25}
+body.native-app .native-record-metrics .native-metric,body.native-app .native-hub-section,body.native-app .native-settings-card{border-color:#c9e3f0;background:#fff;box-shadow:0 4px 12px #073b700d}
+body.native-app .native-hub-section>h2,body.native-app .native-settings-card h2{color:#0752bd;border-bottom-color:#79c7f2}
+body.native-app .native-menu-list{border-color:#c9e3f0;border-radius:13px}
+body.native-app .native-menu-list button{border-bottom-color:#dcecf5;color:#274b72}
+body.native-app .native-menu-list .native-menu-icon{background:#eaf6ff}
+body.native-app .native-menu-list strong{color:#073b70}
+body.native-app .native-menu-list small{color:#56738e}
+body.native-app .native-menu-list button>span:last-child{color:#0d83e8}
+body.native-app .native-settings-heading,body.native-app .native-screen-heading{border-bottom:1px solid #c9e3f0;background:#fff}
+body.native-app .native-settings-heading span,body.native-app .native-screen-heading>div>span{color:#059a98}
+body.native-app .native-settings-card{border-radius:14px}
+body.native-app .native-settings-card>p,body.native-app .native-setting-toggle small,body.native-app .native-about-row span{color:#56738e}
+body.native-app .native-settings-link{border-top-color:#dcecf5;color:#0752bd}
+body.native-app .v53-home-profile{margin:0 0 8px;border-color:#cfe8f3;border-radius:11px;background:#fff}
+body.native-app .v53-home-actions{gap:7px;margin-top:8px}
+body.native-app .v53-home-actions .native-home-action{min-height:58px;border:1px solid #cfe8f3;border-radius:10px;background:#fff;box-shadow:none}
+body.native-app .v53-home-actions .native-home-action-icon{color:#0877df;background:transparent;font-size:25px}
+body.native-app .daily-v44-card{min-height:0;margin:0;padding:42px 14px 12px;border:1px solid #c6e4ef;border-radius:11px;box-shadow:0 6px 18px #064b7a18}
+body.native-app .daily-v44-card h2{font-size:25px;line-height:1.12}
+body.native-app .daily-v44-card>strong{font-size:18px}
+body.native-app .daily-v44-card p{max-width:65%;font-size:12px}
+body.native-app .daily-v44-card>div{display:grid;grid-template-columns:1fr 1fr;width:100%;gap:0;margin:10px 0 8px;padding:8px 0;border-radius:8px;background:#ffffffeb;color:#0a4676;text-align:center}
+body.native-app .daily-v44-card>div span+span{border-left:1px solid #cfe8f3}
+body.native-app .daily-v44-card>button{width:100%;min-height:48px;border-radius:10px;background:linear-gradient(90deg,#0799a8,#079477)}
+body.native-app .daily-v44-heading,body.native-app .daily-v44-play-head{border-bottom-color:#cfe8f3;background:#fff}
+body.native-app .daily-v44-intro,body.native-app .daily-v44-question,body.native-app .daily-v44-history,body.native-app .daily-v44-result,body.native-app .daily-v44-ranking{border-color:#cfe8f3;background:#fff}
+body.native-app .daily-v44-result-mascot img,body.native-app .daily-v44-ranking-mascot img{width:104px;height:104px}
+body.native-app .question-card{border-color:var(--v50-line);border-radius:12px;background:#fff;box-shadow:0 5px 16px #073b7010}
+body.native-app .answer-buttons{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+body.native-app .answer-buttons .btn{min-height:56px;margin:0;border-radius:9px}
+body.native-app .question-report-btn{min-height:42px;border-color:#b9dbea;color:#174f78;background:#fff}
+@media(max-width:380px){body.native-app .card{padding-left:9px;padding-right:9px}body.native-app .native-tab-icon{width:39px;height:39px}body.native-app .native-tab-button{font-size:9px}}
+
+/* V54 Android: 第13回確定画像を実描画経路で再現する最終上書き。
+   おらっちは背景や疑似要素にせず独立imgにし、overlay/opacityの影響を遮断する。 */
+body.native-app{background:#fff}
+body.native-app .card{padding:10px 11px calc(92px + env(safe-area-inset-bottom,0px));overflow-x:hidden}
+body.native-app.native-home-active #stage{padding-top:0;background:linear-gradient(180deg,#fff 0 88%,#dff3ff 100%)}
+body.native-app .v53-home-brand{max-width:none;width:100%;margin:0 0 6px;padding:0 48px;box-sizing:border-box}
+body.native-app .v53-home-brand img{width:min(176px,52vw);max-height:68px}
+body.native-app .v53-home-profile{min-height:68px;margin:0 0 7px;padding:8px 11px;border:1px solid #cce5f1;border-radius:11px;box-shadow:none}
+body.native-app .v53-home-profile .native-home-avatar{width:48px;height:48px}
+body.native-app .v53-home-profile strong{font-size:15px;color:#073b70}
+body.native-app .v53-home-profile small{font-size:10px;color:#2875a5}
+body.native-app .daily-v44-card{isolation:isolate;min-height:286px;margin:0 0 7px;padding:48px 13px 10px;border:0;border-radius:10px;background-image:linear-gradient(90deg,rgba(0,76,121,.88),rgba(0,116,146,.48) 62%,rgba(0,67,108,.12)),var(--daily-artwork);background-position:center;background-size:cover;box-shadow:none;overflow:hidden}
+body.native-app .daily-v44-card:after{content:none!important;background:none!important}
+body.native-app .daily-v44-card>*{position:relative;z-index:2}
+body.native-app .daily-v44-card .daily-v54-card-mascot{position:absolute;right:6px;bottom:119px;z-index:1;display:block;width:112px;height:112px;object-fit:contain;opacity:1!important;filter:none!important;mix-blend-mode:normal!important;mask:none!important;-webkit-mask:none!important}
+body.native-app .daily-v44-card h2{font-size:26px;text-shadow:0 2px 5px #00395f80}
+body.native-app .daily-v44-card>strong{font-size:18px;text-shadow:0 2px 5px #00395f80}
+body.native-app .daily-v44-card p{max-width:58%;margin-bottom:10px;font-size:11.5px;text-shadow:0 1px 4px #00395f}
+body.native-app .daily-v44-card>.daily-v44-card-stats{display:grid;grid-template-columns:1fr 1fr;width:100%;margin:9px 0 7px;padding:7px 0;border-radius:7px;background:#fffffff2;color:#073b70}
+body.native-app .daily-v44-card>.daily-v44-card-stats span{font-size:10px;text-align:center}
+body.native-app .daily-v44-card>.daily-v44-card-stats span+span{border-left:1px solid #c9e3f0}
+body.native-app .daily-v44-card>.daily-v44-card-stats b{font-size:16px}
+body.native-app .daily-v44-card>button{z-index:3;width:100%;min-height:45px;border-radius:8px;background:#07979d;font-size:15px}
+body.native-app .v53-home-actions{gap:6px;margin-top:0}
+body.native-app .v53-home-actions .native-home-action{min-height:56px;padding:7px 10px;border-radius:9px}
+body.native-app .v53-home-actions .native-home-action-copy strong{font-size:14px;color:#073b70}
+body.native-app .v53-home-actions .native-home-action-copy small{font-size:9.5px;color:#2f688e}
+body.native-app .native-tab-bar{height:calc(76px + env(safe-area-inset-bottom,0px));min-height:calc(76px + env(safe-area-inset-bottom,0px));padding:3px 4px env(safe-area-inset-bottom,0px);background:#fff;box-shadow:0 -2px 10px #073b7014}
+body.native-app .native-tab-button{padding:2px 1px 3px;font-size:9px}
+body.native-app .native-tab-icon{width:42px;height:42px}
+body.native-app .native-tab-button[aria-current="page"]{background:transparent;box-shadow:inset 0 -3px #168df2}
+body.native-app .daily-v44-heading,body.native-app .daily-v44-play-head{min-height:58px;margin:-10px -11px 0;padding:8px 11px}
+body.native-app .daily-v44-intro,body.native-app .daily-v44-question,body.native-app .daily-v44-history,body.native-app .daily-v44-result,body.native-app .daily-v44-ranking{padding:13px;border-radius:10px;box-shadow:none}
+body.native-app .daily-v44-intro h2{margin:8px 0 10px;font-size:20px}
+body.native-app .daily-v44-hero{height:132px}
+body.native-app .daily-v44-intro>p{margin:9px 2px;font-size:12px;line-height:1.55}
+body.native-app .daily-v44-rules li{gap:9px;margin:7px 0;font-size:12px}
+body.native-app .daily-v44-rules small{font-size:10px}
+body.native-app .daily-v44-mascot-note{min-height:74px;margin:8px 0;padding:6px 8px}
+body.native-app .daily-v44-mascot-note img{width:68px;height:68px;opacity:1!important;filter:none!important}
+body.native-app .daily-v44-mascot-note span{font-size:10.5px;line-height:1.45}
+body.native-app .daily-v44-answer-grid{grid-template-columns:1fr 1fr}
+body.native-app .daily-v44-answer-grid button:nth-child(1){grid-column:1;grid-row:1}
+body.native-app .daily-v44-answer-grid button:nth-child(2){grid-column:2;grid-row:1}
+body.native-app .daily-v44-answer-grid button:nth-child(3){grid-column:1;grid-row:2}
+body.native-app .daily-v44-answer-grid button:nth-child(4){grid-column:2;grid-row:2}
+body.native-app .daily-v44-result{padding-bottom:10px}
+body.native-app .daily-v44-result-mascot,body.native-app .daily-v44-ranking-mascot{min-height:92px;margin-top:2px}
+body.native-app .daily-v44-result-mascot img,body.native-app .daily-v44-ranking-mascot img{width:96px;height:96px;opacity:1!important;filter:none!important}
+body.native-app .daily-v44-ranking{padding-bottom:8px}
+body.native-app .daily-v44-ranking ol{margin:5px 0}
+body.native-app .daily-v44-ranking li{padding:7px 3px}
+@media(max-width:380px){body.native-app .daily-v44-card{min-height:270px;padding-top:44px}body.native-app .daily-v44-card .daily-v54-card-mascot{width:98px;height:98px;bottom:112px;right:4px}.daily-v44-card .daily-v44-new{font-size:10px}.daily-v44-badge{font-size:10px}}
+
+/* V55: 第13回確定デザインのホーム操作カード（ランクマッチ／ルーム対戦／ひとりで遊ぶ）を
+   旧v41デザイン（左カラーバー・グラデーション背景・強調枠）から確定デザイン（白背景・
+   細枠・アイコン色分け）へ最終上書きする。旧!important指定はここで明示的に無効化する。 */
+body.native-app .v53-home-actions .native-home-action::before{display:none!important}
+body.native-app .v53-home-actions .native-home-action-ranked{background:#fff!important;box-shadow:none!important}
+body.native-app .v53-home-actions .native-home-action-ranked strong,
+body.native-app .v53-home-actions .native-home-action-ranked small{color:#073b70!important}
+body.native-app .v53-home-actions .native-home-action-ranked .native-home-action-copy small{color:#2f688e!important}
+body.native-app .v53-home-actions .native-home-action-room{border:1px solid #cfe8f3!important;background:#fff!important}
+body.native-app .v53-home-actions .native-home-action-ranked .native-home-action-icon{color:#ff8a25}
+body.native-app .v53-home-actions .native-home-action-room .native-home-action-icon{color:#0eae72}
+body.native-app .v53-home-actions .native-home-action-solo .native-home-action-icon{color:#0d83e8}
+body.native-app .v53-home-actions .native-home-action-arrow{color:#ff8a25}
+
+/* V56: 文字を大きく・ロゴと同じネイビーへ統一・アイコンを大きく・全体を親しみやすく。
+   ロゴPNGの実測ネイビー(#053761)に近い --v55-navy を新設し、見出し・本文・ラベル類の
+   色をこれへ統一する。ホーム＋デイリー5画面（挑戦前・プレイ中・リザルト・ランキング）
+   すべてに適用する。 */
+body.native-app{--v55-navy:#0a3d68}
+
+/* ホーム：プロフィール・操作カードの文字とアイコンを拡大 */
+body.native-app .v53-home-profile strong{font-size:17px;color:var(--v55-navy)}
+body.native-app .v53-home-profile small{font-size:12px;color:#3d6f96}
+body.native-app .v53-home-actions .native-home-action-copy strong{font-size:17px;color:var(--v55-navy)}
+body.native-app .v53-home-actions .native-home-action-copy small{font-size:12px;color:#3d6f96}
+body.native-app .v53-home-actions .native-home-action-icon{font-size:34px}
+body.native-app .v53-home-actions .native-home-action{min-height:64px}
+body.native-app .native-home-profile>span:nth-child(2)>b,
+body.native-app .native-home-profile b{font-size:16px;color:var(--v55-navy)}
+
+/* 今日のおらマチカード：白文字部分は可読性のため維持しつつ文字サイズを拡大 */
+body.native-app .daily-v44-card h2{font-size:29px}
+body.native-app .daily-v44-card>strong{font-size:19px}
+body.native-app .daily-v44-card p{font-size:13.5px;line-height:1.5}
+body.native-app .daily-v44-card>.daily-v44-card-stats span{font-size:11.5px;color:var(--v55-navy)}
+body.native-app .daily-v44-card>.daily-v44-card-stats b{font-size:19px;color:var(--v55-navy)}
+body.native-app .daily-v44-card>button{font-size:17px}
+body.native-app .daily-v44-badge{font-size:12px}
+body.native-app .daily-v44-new{font-size:12px}
+
+/* 挑戦前画面 */
+body.native-app .daily-v44-heading h1,body.native-app .daily-v44-play-head strong{font-size:22px;color:var(--v55-navy);font-weight:900}
+body.native-app .daily-v44-date{font-size:19px;color:var(--v55-navy)}
+body.native-app .daily-v44-intro h2{font-size:23px;color:var(--v55-navy)}
+body.native-app .daily-v44-intro>p{font-size:14px;color:var(--v55-navy);line-height:1.7}
+body.native-app .daily-v44-rules li{font-size:14.5px;color:var(--v55-navy)}
+body.native-app .daily-v44-rules li:first-letter{font-size:26px}
+body.native-app .daily-v44-rules small{font-size:12px;color:#3d6f96}
+body.native-app .daily-v44-mascot-note{background:#eaf7ff}
+body.native-app .daily-v44-mascot-note span{font-size:13px;color:var(--v55-navy);font-weight:800}
+body.native-app .daily-v44-mascot-note img{width:80px;height:80px}
+body.native-app .daily-v44-primary,body.native-app .daily-v44-secondary{font-size:17px;min-height:52px}
+
+/* プレイ中画面 */
+body.native-app .daily-v44-progress{font-size:14px;font-weight:800}
+body.native-app .daily-v44-progress b{font-size:15px}
+body.native-app .daily-v44-question h2{font-size:23px;color:var(--v55-navy);font-weight:900;line-height:1.4}
+body.native-app .daily-v44-answer-grid button{font-size:18px;min-height:60px}
+body.native-app .daily-v44-question-list button{font-size:14.5px;color:var(--v55-navy)}
+body.native-app .question-report-btn{font-size:13.5px}
+body.native-app .daily-v44-history h3{font-size:16px;color:var(--v55-navy)}
+body.native-app .daily-v44-history li p{font-size:13.5px;color:var(--v55-navy)}
+body.native-app .daily-v44-history li{grid-template-columns:26px 1fr 52px;padding:8px 0}
+body.native-app .daily-v44-history li span{font-size:14px;color:#3d6f96}
+body.native-app .daily-v44-guess{font-size:16px}
+body.native-app .daily-v44-quit{font-size:13.5px}
+
+/* リザルト画面 */
+body.native-app .daily-v44-result h1{font-size:32px;color:var(--v55-navy)}
+body.native-app .daily-v44-crown{font-size:72px}
+body.native-app .daily-v44-result>p{font-size:15px;color:var(--v55-navy)}
+body.native-app .daily-v44-result>p strong{font-size:27px;color:var(--v55-navy)}
+body.native-app .daily-v44-result-grid span{font-size:12.5px;color:var(--v55-navy)}
+body.native-app .daily-v44-result-grid b{font-size:23px;color:var(--v55-navy)}
+body.native-app .daily-v44-result aside,body.native-app .daily-v44-ranking aside{font-size:14px}
+body.native-app .daily-v44-result-mascot span,body.native-app .daily-v44-ranking-mascot span{font-size:14px;color:var(--v55-navy);font-weight:800}
+
+/* デイリーランキング画面 */
+body.native-app .daily-v44-ranking>p{font-size:14px;color:var(--v55-navy);font-weight:800}
+body.native-app .daily-v44-ranking-tabs b,body.native-app .daily-v44-ranking-tabs span{font-size:14px}
+body.native-app .daily-v44-ranking-head{font-size:12px;font-weight:800;color:var(--v55-navy)}
+body.native-app .daily-v44-ranking li{font-size:14px;color:var(--v55-navy);font-weight:700}
+body.native-app .daily-v44-ranking li b{font-size:16px}
+body.native-app .daily-v44-ranking li em,body.native-app .daily-v44-ranking time{font-size:13px;color:#3d6f96}
+body.native-app .daily-v44-pager button{font-size:30px}
+
+/* V57: デイリー挑戦前画面のルールアイコンを参考デザインのように色分け（見た目のみ、機能変更なし） */
+body.native-app .daily-v44-rules li{gap:10px}
+body.native-app .daily-v44-rules li>i.daily-v44-rule-icon{flex:none;display:inline-flex;align-items:center;justify-content:center;font-style:normal;font-size:22px;line-height:1;width:1.2em}
+body.native-app .daily-v44-rule-icon-trophy{color:#ffbd24}
+body.native-app .daily-v44-rule-icon-clock{color:#0d83e8}
+body.native-app .daily-v44-rule-icon-people{color:#0eae72}
+body.native-app .daily-v44-date>span{color:#0d83e8;font-size:1.05em}
+
+/* V56 第22回: 確定参考画像の追加5画面 */
+body.native-app{--v56-blue:#004b91;--v56-navy:#003c7c;--v56-line:#c9e5f4;--v56-pale:#eaf7ff}
+body.native-app #stage:has(.v56-game-screen),body.native-app #stage:has(.v56-result-screen),body.native-app #stage:has(.v56-list-screen){padding:0 0 150px!important;background:linear-gradient(#fff 78%,#def3ff)!important;max-width:430px;margin:auto;color:var(--v56-navy)}
+.v56-game-head,.v56-simple-head{height:76px;padding:calc(12px + env(safe-area-inset-top,0px)) 18px 10px;display:grid;grid-template-columns:42px 1fr 42px;align-items:center;border-bottom:1px solid var(--v56-line);background:#fff}
+.v56-game-head{height:84px;background:linear-gradient(135deg,#005090,#00386d);color:#fff;border:0}.v56-game-head button,.v56-simple-head button{border:0;background:none;color:inherit;font-size:38px;line-height:1}.v56-game-head div{text-align:center}.v56-game-head h1,.v56-simple-head h1{margin:0;font-size:21px;font-weight:900}.v56-game-head strong{display:inline-block;margin-top:4px;padding:3px 14px;border-radius:20px;background:#118dea;font-size:12px}.v56-simple-head h1{text-align:center}.v56-simple-head>span{text-align:right;font-size:22px}
+.v56-game-head .v64-game-brand{display:flex;min-width:0;align-items:center;flex-direction:column;justify-content:center;transform:translateY(-10px)}
+.v56-game-head .v64-game-logo{display:block;width:106px;height:35px;object-fit:contain;filter:brightness(0) invert(1)}
+.v56-game-head{position:relative}
+.v56-game-head .v64-game-brand strong{position:absolute;z-index:2;left:50%;bottom:-56px;margin:0;transform:translateX(-50%);background:#118dea}
+.v56-game-progress{display:flex;justify-content:space-between;padding:10px 20px;background:#07508b;color:#fff;font-size:16px}.v56-game-progress b{font-size:19px}.v156-game-narrowing{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 16px 8px;background:#eaf7fd;color:var(--v56-navy);border-bottom:1px solid #c9e7f5;font-size:12px}.v156-game-narrowing strong{font-size:14px;white-space:nowrap}.v156-game-narrowing span{min-width:0;text-align:right;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.v56-question-card{margin:0 14px;padding:13px 12px 10px;border:1px solid #b7dbef;border-radius:12px;background:#fff}.v56-question-card h2{margin:0 0 11px;font-size:20px;line-height:1.42}.v56-question-card>img{display:block;width:100%;height:152px;object-fit:cover;border-radius:8px}.v56-answer-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.v56-answer-grid button{min-height:54px;border:0;border-radius:7px;color:#fff;font:900 17px/1.2 inherit}.v56-answer-grid .yes{background:#159bed}.v56-answer-grid .no{background:#ff8388}.v56-answer-grid .maybe-yes{background:#cdeefe;color:#0878bc}.v56-answer-grid .maybe-no{background:#fff0df;color:#f36d37}.v56-report{width:100%;margin-top:8px;padding:8px;border:1px solid #b6dcec;border-radius:16px;background:#fff;color:var(--v56-navy);font-weight:800}.v56-game-history{margin:9px 14px 0;border:1px solid #cae7f5;border-radius:9px;background:#fff;overflow:hidden;text-align:left}.v56-game-history h3{margin:0;padding:5px 11px;background:#dff2fb;font-size:13px}.v56-game-history ol{list-style:none;margin:0;padding:0 11px}.v56-game-history li{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid #e1eef4;font-size:12px}.v56-game-history i{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;color:#fff;font-style:normal;font-weight:900}.v56-game-history i.yes{background:#11a98e}.v56-game-history i.no{background:#ff654e}.v56-game-history i.unknown{background:#a7becf}.v56-game-history small{display:block}.v56-quit{width:calc(100% - 28px);margin:9px 14px;padding:11px;border:1px solid #bedfed;border-radius:9px;background:#fff;color:var(--v56-navy);font-weight:900}
+.v56-result{padding:8px 18px 0}.v56-confetti{color:#14a1a0;letter-spacing:13px}.v56-crown{height:46px;color:#ffbd25;font-size:55px;line-height:1}.v56-result h2{margin:2px 0;color:#fa5e31;font-size:43px}.v56-result>p{margin:0 0 8px;font-weight:800}.v56-result>p strong{font-size:21px}.v56-result-art{width:100%;height:145px;object-fit:cover;border-radius:8px}.v56-result-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}.v56-result-stats span{padding:6px;border:1px solid var(--v56-line);border-radius:9px}.v56-result-stats b{display:block;font-size:22px}.v56-result aside{margin:7px 0;padding:10px;border-radius:8px;background:#fff6d8;font-weight:900}.v56-result>button{width:100%;min-height:46px;margin:4px 0;border:1px solid #b8dfee;border-radius:9px;background:#fff;color:var(--v56-navy);font-weight:900;font-size:16px}.v56-result>button.primary{border:0;background:#079f9e;color:#fff}
+.v56-list-screen{min-height:780px}.v56-user-card{display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:10px;width:calc(100% - 28px);margin:9px 14px;padding:10px;border:1px solid var(--v56-line);border-radius:9px;background:#fff;color:var(--v56-navy);text-align:left}.v56-user-card span strong,.v56-user-card span small{display:block}.v56-user-card em{padding:6px 9px;border-radius:7px;background:#e8f6ff;font-style:normal;font-weight:900}.v56-user-card>b,.v56-menu-items b,.v56-notices button>b{font-size:27px}.v56-menu-items{margin:3px 14px;background:#fff}.v56-menu-items button{display:grid;grid-template-columns:38px 1fr 20px;align-items:center;width:100%;min-height:51px;padding:0 4px;border:0;border-bottom:1px solid #dcebf2;background:#fff;color:var(--v56-navy);text-align:left;font:700 15px inherit}.v56-menu-items i{font-style:normal;font-size:22px;color:#0787df}.v56-notice-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin:8px 14px;padding-bottom:8px;border-bottom:1px solid var(--v56-line)}.v56-notice-tabs>*{padding:9px 4px;border-radius:7px;background:#eaf6fd;font-size:13px}.v56-notice-tabs b{background:#004b86;color:#fff}.v56-notices{margin:0 14px}.v56-notices button{display:grid;grid-template-columns:38px 1fr 16px;gap:8px;align-items:start;width:100%;padding:10px 0;border:0;border-bottom:1px solid #dcebf2;background:transparent;color:var(--v56-navy);text-align:left}.v56-notices i{font-style:normal;font-size:26px}.v56-notices strong,.v56-notices small{display:block}.v56-notices small{color:#5883a4}.v56-notices p{margin:4px 0 0;font-size:12px;line-height:1.55}.v56-bottom-mascot{position:relative;height:92px;margin-top:8px;overflow:hidden}.v56-bottom-mascot img{position:absolute;right:13px;bottom:-25px;width:105px}.v56-bottom-mascot span{position:absolute;right:108px;top:8px;z-index:1;padding:10px 15px;border:1px solid #acd6ed;border-radius:50%;background:#fff;transform:rotate(-8deg);font-size:13px;font-weight:900}
+body.native-app .daily-v44-ranking li .rank-1{color:#ffc024}body.native-app .daily-v44-ranking li .rank-2{color:#9eb5c7}body.native-app .daily-v44-ranking li .rank-3{color:#f06b2c}body.native-app .daily-v44-ranking aside span,body.native-app .daily-v44-ranking aside b{display:block}body.native-app .daily-v44-ranking aside small{font-size:11px}
+
+/* V66: 確定参考イラストに合わせたランキング／プロフィール */
+body.native-app .native-preset-avatar-image{display:block;width:100%;height:100%;object-fit:cover;border-radius:50%}
+body.native-app .v65-page-head{display:grid;grid-template-columns:44px 1fr 44px;align-items:center;min-height:64px;margin:0 0 10px;border-bottom:1px solid #cce7f4;background:#fff;color:#003e78}
+body.native-app .v65-page-head button{width:44px;height:44px;border:0;background:transparent;color:#0752a0;font-size:36px;line-height:1}
+body.native-app .v65-page-head h1{margin:0;font-size:23px;font-weight:950;letter-spacing:.02em;text-align:center}
+body.native-app .native-auth-account{padding:14px;border:1px solid #bfe0ef;border-radius:14px;box-shadow:none}
+body.native-app .v65-profile-summary{min-height:106px;padding:10px;border:1px solid #bfe0ef;border-radius:13px;background:linear-gradient(145deg,#fff,#f5fbff)}
+body.native-app .v65-profile-summary .native-profile-avatar{width:92px;height:92px;border:7px solid #d7f4ff;background:#e7f7ff}
+body.native-app .v65-profile-summary h2{color:#003e78;font-size:23px;font-weight:950}
+body.native-app .v65-profile-summary p{color:#376a93;font-size:13px;font-weight:750}
+body.native-app .v65-profile-rate{display:grid;grid-template-columns:auto auto 1fr;align-items:center;gap:6px;margin:10px 0;padding:12px;border:1px solid #c6e4f2;border-radius:13px;background:linear-gradient(135deg,#f4fbff,#e9f7fc);color:#064a82}
+body.native-app .v65-profile-rate>span{font-size:15px;font-weight:900}
+body.native-app .v65-profile-rate>strong{font-size:27px;font-weight:950;text-align:right}
+body.native-app .v65-profile-rate>small{grid-column:2/4;color:#1479ba;font-size:11px;font-weight:900;text-align:center}
+body.native-app .native-profile-form{border-color:#c6e4f2;border-radius:14px;background:#fff}
+body.native-app .native-profile-avatars{gap:8px;padding:12px;border-color:#c6e4f2;background:#f6fbff}
+body.native-app .native-profile-avatars span{min-height:68px;padding:4px;border-color:#d5e8f2;border-radius:13px}
+body.native-app .native-profile-avatars .native-preset-avatar-image{width:58px;height:58px}
+body.native-app .native-profile-avatars input:checked+span{border-color:#129af0;background:#e9f7ff;box-shadow:0 0 0 3px #31aaf02b}
+body.native-app .native-profile-online-stats{border-color:#c6e4f2;border-radius:14px;background:#fff}
+body.native-app .native-profile-online-stats h3{color:#064a82;font-size:17px;font-weight:950}
+body.native-app .native-profile-rating-grid>div{border-color:#d3e9f3;background:#f5fbfe;color:#064a82}
+body.native-app .v65-ranking-tabs,body.native-app .v65-ranking-filter{display:grid;grid-template-columns:1fr 1fr;gap:0;margin:0 0 9px;overflow:hidden;border-radius:10px;background:#e8f6fc}
+body.native-app .v65-ranking-tabs button,body.native-app .v65-ranking-filter button{min-height:42px;border:0;background:transparent;color:#0752a0;font:800 13px/1.2 inherit}
+body.native-app .v65-ranking-tabs button.is-selected,body.native-app .v65-ranking-filter button.is-selected{border-radius:9px;background:#159bf0;color:#fff;box-shadow:0 3px 8px #0874bb30}
+body.native-app .native-rating-board{margin:0;padding:9px;border:1px solid #c5e4f2;border-radius:13px;background:#fff;box-shadow:none}
+body.native-app .v65-ranking-head{display:grid;grid-template-columns:38px minmax(0,1fr) 55px 62px;gap:5px;padding:7px 4px;border-radius:7px;background:#e9f7fc;color:#064a82;font-size:10px;font-weight:900;text-align:center}
+body.native-app .native-rating-list{gap:0;margin:0}
+body.native-app .native-rating-list li,body.native-app .native-my-ranking li{grid-template-columns:34px 34px minmax(0,1fr) 54px 62px;gap:5px;min-height:54px;padding:6px 4px;border:0;border-bottom:1px solid #dcecf3;border-radius:0;background:#fff;color:#064a82}
+body.native-app .native-rating-list li.is-me,body.native-app .native-my-ranking li{border-radius:9px;background:#fff8df;outline:1px solid #efc861}
+body.native-app .native-rating-list li>b:first-child,body.native-app .native-my-ranking li>b:first-child{text-align:center;font-size:13px}
+body.native-app .native-ranking-avatar{width:32px;height:32px;border:2px solid #d5f1fb;background:#e7f7ff}
+body.native-app .native-rating-list span strong,body.native-app .native-my-ranking span strong{color:#064a82;font-size:12px;font-weight:900}
+body.native-app .native-rating-list span small,body.native-app .native-my-ranking span small{color:#62829b;font-size:9px}
+body.native-app .native-rating-list li>strong:nth-last-child(2),body.native-app .native-my-ranking li>strong:nth-last-child(2){color:#064a82;font-size:12px;font-weight:900;text-align:right}
+body.native-app .native-my-ranking{margin-top:12px;padding-top:9px;border-top:1px solid #cce7f4}
+body.native-app .native-my-ranking h2{color:#064a82;font-size:13px;font-weight:950}
+body.native-app .native-rating-rank{display:inline-grid;grid-template-columns:26px 1fr;align-items:center;gap:3px;padding:0;border:0;background:transparent!important;box-shadow:none!important;font-size:8px!important;text-align:center}
+body.native-app .native-rating-rank i{position:relative;display:grid;width:25px;height:27px;place-items:center;clip-path:polygon(50% 0,94% 20%,86% 76%,50% 100%,14% 76%,6% 20%);background:linear-gradient(145deg,#c6855d,#814326);color:#fff;font-size:10px;font-style:normal;filter:drop-shadow(0 2px 1px #193b5530)}
+body.native-app .native-rating-rank i b{font-weight:900}
+body.native-app .native-rating-rank em{overflow:hidden;color:inherit;font-size:7px;font-style:normal;font-weight:950;text-overflow:ellipsis}
+body.native-app .native-rating-rank-silver i{background:linear-gradient(145deg,#dbe7f0,#72899e)}
+body.native-app .native-rating-rank-gold i{background:linear-gradient(145deg,#ffd75b,#d68b00)}
+body.native-app .native-rating-rank-platinum i{background:linear-gradient(145deg,#8ee7ff,#2298e8)}
+body.native-app .native-rating-rank-diamond i{background:linear-gradient(145deg,#78d9ff,#315cf2)}
+body.native-app .native-rating-rank-black i{background:linear-gradient(145deg,#56616a,#0d151c)}
+body.native-app .native-rating-rank-bronze{color:#874a2a}.native-rating-rank-silver{color:#536c82}.native-rating-rank-gold{color:#a46a00}.native-rating-rank-platinum{color:#087dc4}.native-rating-rank-diamond{color:#274ec9}.native-rating-rank-black{color:#17212a}
+
+/* V67: 実画面確認に基づく位置・視認性調整 */
+body.native-app .v65-profile-rate{grid-template-columns:auto auto 1fr;min-height:76px;padding:15px 14px}
+body.native-app .v65-profile-rate>span{font-size:18px}
+body.native-app .v65-profile-rate>strong{font-size:34px;line-height:1;font-weight:1000;letter-spacing:.01em}
+body.native-app .v65-profile-rate .native-rating-rank{grid-template-columns:34px auto;gap:5px;font-size:10px!important}
+body.native-app .v65-profile-rate .native-rating-rank i{width:33px;height:36px;font-size:13px}
+body.native-app .v65-profile-rate .native-rating-rank em{font-size:10px}
+body.native-app .challenge-screen{margin:24px -8px 0}
+body.native-app .native-multiplayer-entry-heading{margin-top:28px}
+body.native-app .native-ranked-search-button{border:0!important;background:linear-gradient(180deg,#ffad2f,#ee7916)!important;color:#fff!important;box-shadow:0 6px 14px rgba(210,103,10,.30)!important;font-weight:950!important;text-shadow:0 1px 1px rgba(90,42,0,.25)}
+
+/* V68: ホーム／メニューのランク情報を拡大 */
+body.native-app .native-home-profile .v68-home-profile-line{display:grid;grid-template-columns:minmax(68px,1fr) auto auto;align-items:center;gap:9px}
+body.native-app .native-home-profile .v68-home-profile-line>strong{overflow:hidden;color:#064a82;font-size:18px;font-weight:1000;text-overflow:ellipsis;white-space:nowrap}
+body.native-app .native-home-profile .v68-home-profile-line>small{color:#075da0;font-size:14px;font-weight:950;white-space:nowrap}
+body.native-app .native-home-profile .v68-home-profile-line .native-rating-rank{grid-template-columns:31px auto;gap:4px}
+body.native-app .native-home-profile .v68-home-profile-line .native-rating-rank i{width:30px;height:33px;font-size:12px}
+body.native-app .native-home-profile .v68-home-profile-line .native-rating-rank em{font-size:11px}
+body.native-app .v56-user-card em[class*="v68-menu-rank-"]{display:inline-flex;align-items:center;gap:7px;padding:6px 9px}
+body.native-app .v56-user-card em[class*="v68-menu-rank-"]::after{content:"★";display:grid;width:26px;height:29px;place-items:center;clip-path:polygon(50% 0,94% 20%,86% 76%,50% 100%,14% 76%,6% 20%);background:linear-gradient(145deg,#c6855d,#814326);color:#fff;font-size:10px;font-style:normal}
+body.native-app .v56-user-card em.v68-menu-rank-silver::after{background:linear-gradient(145deg,#dbe7f0,#72899e)}
+body.native-app .v56-user-card em.v68-menu-rank-gold::after{background:linear-gradient(145deg,#ffd75b,#d68b00)}
+body.native-app .v56-user-card em.v68-menu-rank-platinum::after{background:linear-gradient(145deg,#8ee7ff,#2298e8)}
+body.native-app .v56-user-card em.v68-menu-rank-diamond::after{background:linear-gradient(145deg,#78d9ff,#315cf2)}
+body.native-app .v56-user-card em.v68-menu-rank-black::after{background:linear-gradient(145deg,#56616a,#0d151c)}
+@media(max-width:360px){body.native-app .native-home-profile .v68-home-profile-line{grid-template-columns:minmax(58px,1fr) auto auto;gap:5px}body.native-app .native-home-profile .v68-home-profile-line>strong{font-size:16px}body.native-app .native-home-profile .v68-home-profile-line>small{font-size:12px}}
+
+/* V61: ホーム追加カード。既存ホームは縮小せず、縦スクロール領域へ追加する。 */
+body.native-app .native-home-enrichment{display:grid;gap:11px;margin:14px 0 18px}
+body.native-app .native-home-info-card{display:block;width:100%;padding:15px 16px;border:1px solid #b9dbea;border-radius:13px;background:linear-gradient(145deg,#fff,#f3fbff);box-shadow:0 5px 15px #0752bd0d;color:#073b70;text-align:left}
+body.native-app .native-home-info-card header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+body.native-app .native-home-info-card h2{margin:0;color:#073b70;font-size:17px;font-weight:900}
+body.native-app .native-home-info-card header>span{font-size:25px;line-height:1;color:#1685c6}
+body.native-app .native-home-record-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;text-align:center}
+body.native-app .native-home-record-grid span+span{border-left:1px solid #cfe8f3}
+body.native-app .native-home-record-grid small,body.native-app .native-home-record-grid strong{display:block}
+body.native-app .native-home-record-grid small{margin-bottom:4px;color:#537792;font-size:11px;font-weight:800}
+body.native-app .native-home-record-grid strong{color:#0752a8;font-size:17px;font-weight:900}
+body.native-app .native-home-login-note,body.native-app .native-home-data-empty,body.native-app .native-home-data-error{margin:2px 0 10px;color:#537792;font-size:13px}
+body.native-app .native-home-inline-link{padding:0;border:0;background:transparent;color:#087cb9;font-size:13px;font-weight:900}
+body.native-app .native-home-conquest-card{appearance:none;font:inherit}
+body.native-app .native-home-conquest-card>small{display:block;color:#537792;font-size:11px;font-weight:800}
+body.native-app .native-home-conquest-card>strong{display:block;margin:3px 0 9px;color:#0752a8;font-size:25px;font-weight:900}
+body.native-app .native-home-conquest-card>strong em{color:#537792;font-size:13px;font-style:normal}
+body.native-app .native-home-progress,body.native-app .native-conquest-summary>div,body.native-app .native-region-progress li>div{height:8px;overflow:hidden;border-radius:999px;background:#dceef7}
+body.native-app .native-home-progress i,body.native-app .native-conquest-summary i,body.native-app .native-region-progress i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#159bd1,#08a97c)}
+body.native-app .native-home-conquest-card>p{margin:7px 0 0;color:#537792;font-size:12px;font-weight:800}
+body.native-app .native-home-trivia-card>strong{display:block;margin-bottom:6px;color:#0752a8;font-size:15px}
+body.native-app .native-home-trivia-card>p{margin:0;color:#244e6e;font-size:13px;line-height:1.65}
+body.native-app .native-conquest-overview{padding-bottom:20px}
+body.native-app .native-conquest-summary{margin:14px 0;padding:20px;border:1px solid #b9dbea;border-radius:14px;background:#fff;text-align:center}
+body.native-app .native-conquest-summary>strong{color:#0752a8;font-size:31px}.native-conquest-summary>strong small{font-size:15px;color:#537792}.native-conquest-summary>p{margin:5px 0 12px;color:#537792;font-weight:800}
+body.native-app .native-region-progress{display:grid;gap:9px;margin:0;padding:0;list-style:none}
+body.native-app .native-region-progress li{padding:13px 15px;border:1px solid #cfe8f3;border-radius:12px;background:#fff}
+body.native-app .native-region-progress li>span{display:flex;justify-content:space-between;margin-bottom:8px;color:#073b70}.native-region-progress li small{color:#537792;font-weight:800}
+@media(max-width:370px){.v56-question-card h2{font-size:18px}.v56-answer-grid button{font-size:15px;min-height:49px}.v56-menu-items button{min-height:47px}.v56-notices p{font-size:11px}}
+
+/* V74: 添付確定UIに基づくデイリーチャレンジ専用画面 */
+body.native-app .v74-daily-screen{--v74-blue:#07549a;--v74-line:#79c9f2;--v74-teal:#08a99f;min-height:calc(100vh - 120px);margin:-12px -12px 0;padding:0 14px 28px;color:var(--v74-blue);background:linear-gradient(180deg,#e9f9ff 0,#fff 39%,#f8fdff 100%);font-family:inherit}
+body.native-app .v74-daily-header{position:sticky;top:0;z-index:20;display:grid;grid-template-columns:52px 1fr 52px;align-items:center;min-height:105px;margin:0 -14px 8px;padding:8px 16px;background:linear-gradient(180deg,#e8f8ff 0,#fff0 100%)}
+body.native-app .v74-daily-header img{display:block;width:164px;max-height:80px;margin:auto;object-fit:contain}
+body.native-app .v74-daily-header button{display:grid;width:45px;height:45px;place-items:center;border:2px solid #81cef3;border-radius:50%;background:#fff;color:#0763bb;font-size:29px;font-weight:900}
+body.native-app .v74-daily-header button:last-child{justify-self:end;border-color:#0763bb;font-size:27px}
+body.native-app .v74-intro-hero{position:relative;min-height:410px;overflow:hidden;padding:24px 22px 94px;border-radius:24px;background-image:linear-gradient(90deg,#118ff1e8 0,#118ff1b8 54%,#118ff122),var(--daily-artwork);background-position:center;background-size:cover;color:#fff;box-shadow:0 8px 18px #0879ba29;text-align:left}
+body.native-app .v74-badges{display:flex;gap:9px;align-items:center}.v74-badges b,.v74-badges strong{padding:8px 13px;border-radius:22px;background:#ff5350;font-size:13px}.v74-badges strong{background:#00aa85}
+body.native-app .v74-intro-hero h1{max-width:58%;margin:15px 0 1px;font-size:31px;line-height:1.15;text-align:left;text-shadow:0 2px 4px #07549a80}.v74-intro-hero time{display:block;max-width:58%;font-size:20px;font-weight:900;text-align:left}.v74-intro-hero>p{position:relative;z-index:2;width:55%;max-width:190px;margin:17px 0 0;font-size:15px;font-weight:850;line-height:1.72;text-align:left;text-shadow:0 1px 3px #064779}
+body.native-app .v74-intro-hero h1{max-width:66%;font-size:25px;line-height:1.1;white-space:nowrap}
+body.native-app .v74-result-trivia{margin:8px 0 14px;color:#244e6e;font-size:14px;font-weight:700;line-height:1.6}
+body.native-app .v74-intro-hero>img{position:absolute;right:-7px;bottom:72px;width:168px;height:184px;object-fit:contain;object-position:right bottom}.v74-love-town{position:absolute;top:54px;right:14px;max-width:135px;transform:rotate(-7deg);font-size:13px;font-weight:900;text-align:center}
+body.native-app .v74-intro-stats{position:absolute;right:14px;bottom:13px;left:14px;display:grid;grid-template-columns:1fr 1fr;min-height:78px;border-radius:18px;background:#fffffff2;color:#07549a}.v74-intro-stats span{display:grid;place-items:center;font-size:13px;font-weight:900}.v74-intro-stats span+span{border-left:1px solid #9edcf4}.v74-intro-stats b{display:block;font-size:25px}
+body.native-app .v74-cta,body.native-app .v74-outline{position:relative;width:100%;min-height:58px;margin-top:12px;border-radius:13px;font-size:19px;font-weight:950}.v74-cta{border:0;background:linear-gradient(90deg,#0fb2aa,#009f91);color:#fff;box-shadow:0 5px 12px #009d8c30}.v74-cta span,.v74-outline span{position:absolute;right:20px}.v74-cta:disabled{background:#b9c9d0;box-shadow:none;color:#f5f7f8}.v74-outline{border:2px solid #87cff2;background:#fff;color:#07549a}
+body.native-app .v74-search-demo{margin-top:14px;padding:15px;border:1.5px solid #9dd7ef;border-radius:17px;background:#fff}.v74-search-demo h2{margin:0 0 10px;font-size:17px}.v74-search-demo>div{padding:15px;border:2px solid #bee2f2;border-radius:12px;color:#95a4b2}.v74-search-demo aside{display:grid;grid-template-columns:70px 1fr 1.15fr;align-items:end;gap:7px;margin-top:9px}.v74-search-demo img{width:70px;height:80px;object-fit:contain}.v74-search-demo aside>b{padding:11px 5px;border:1px solid #a8dff3;border-radius:12px;font-size:11px;text-align:center}.v74-search-demo aside>span{padding:10px;border-radius:12px;background:#edf8fd;font-weight:900}.v74-search-demo small{display:block;margin-top:5px;color:#647d90;font-weight:500}
+body.native-app .v74-play-title{text-align:center}.v74-play-title h1,.v74-ranking h1{margin:2px 0 0;font-size:26px}.v74-play-title time,.v74-ranking time{font-weight:900}.v74-hint-dots{display:flex;justify-content:center;gap:14px;padding:18px}.v74-hint-dots i{width:22px;height:22px;border:2px solid #93b7ca;border-radius:50%;background:#fff}.v74-hint-dots i.is-open{border-color:#0579b8;background:#13b6e9;box-shadow:inset 0 -3px 4px #087bae}
+body.native-app .v74-hints{display:grid;gap:7px}.v74-hint{padding:10px 12px;border:1.5px solid #9fdced;border-radius:11px;background:#f8fdff}.v74-hint b{display:inline-block;padding:3px 10px;border-radius:8px;background:#078bce;color:#fff}.v74-hint p{margin:5px 0 0;font-size:13px;font-weight:800;line-height:1.4}.v74-hint.is-locked{background:#eef4f7;color:#6e8798;border-color:#d8e5ea}.v74-hint.is-locked b{padding-left:0;background:none;color:#47728c}
+body.native-app .v74-mascot-landscape{height:105px;margin-top:8px;overflow:hidden;border-radius:13px;background:linear-gradient(#eafaff,#c9ecf4)}.v74-mascot-landscape img{display:block;width:130px;height:120px;margin:auto;object-fit:contain}.v74-daily-message{margin:9px 0;padding:15px;border:1px solid #ff9aaf;border-radius:12px;background:#fff0f3;color:#bd2545;font-weight:900;text-align:center}
+body.native-app .v74-live-search{position:relative;margin-top:10px}.v74-live-search label{display:none}.v74-search-box{display:flex;align-items:center;border:2px solid #79c9f2;border-radius:11px;background:#fff}.v74-search-box input{box-sizing:border-box;width:100%;padding:14px;border:0;border-radius:inherit;outline:0;font-size:16px}.v74-search-box span{padding:0 14px;font-size:24px}.v74-candidates{position:absolute;z-index:30;right:0;left:0;max-height:245px;overflow:auto;border:1px solid #a7d9ed;border-radius:0 0 11px 11px;background:#fff;box-shadow:0 9px 18px #064b7a25;touch-action:manipulation}.v74-candidates button{display:flex;width:100%;min-height:49px;align-items:center;padding:10px 14px;border:0;border-bottom:1px solid #dcebf2;background:#fff;color:#07549a;text-align:left;touch-action:manipulation}.v74-candidates button b{font-size:15px}.v74-candidates button span{margin-left:5px;color:#537792}.v74-candidates p{padding:12px;text-align:center}.v74-live-stats{text-align:center;font-size:12px;font-weight:800}
+body.native-app .v74-wrong{margin-top:35px;padding:27px 19px;border:1.5px solid #ff9bb0;border-radius:17px;background:#fff1f4;text-align:center}.v74-wrong h1{color:#df273f;font-size:30px}.v74-wrong p{font-weight:800}.v74-wrong img{display:block;width:145px;height:145px;margin:auto;object-fit:contain}.v74-wrong small{display:block;margin-top:15px;font-weight:800}
+body.native-app .v74-result-hero{position:relative;height:275px;overflow:hidden;margin:0 -14px;background-image:linear-gradient(#5bc0ff55,#064b7a20),var(--daily-artwork);background-position:center;background-size:cover}.v74-result-hero h1{position:absolute;z-index:2;top:10px;right:0;left:0;margin:0;color:#fff200;font-size:48px;text-align:center;text-shadow:-2px -2px #064b7a,2px 2px #064b7a}.v74-result-hero img{position:absolute;right:5px;bottom:-7px;width:185px;height:185px;object-fit:contain}.v74-result-card{position:relative;margin:-35px 0 0;padding:20px 15px;border-radius:16px;background:#fff;box-shadow:0 7px 16px #064b7a20;text-align:center}.v74-result-card small{font-weight:900}.v74-result-card h2{margin:3px;font-size:31px}.v74-result-card p{font-size:13px;font-weight:700}.v74-result-card>div{display:grid;grid-template-columns:repeat(3,1fr);margin-top:12px;border-radius:10px;background:#fff9df}.v74-result-card span{padding:10px 3px;font-size:11px;font-weight:800}.v74-result-card b{display:block;font-size:20px}
+body.native-app .v74-trivia{margin-top:15px;padding:18px;border:1.5px solid #9edcf2;border-radius:16px;background:#fff}.v74-trivia h1,.v74-trivia h2{margin:3px 0}.v74-trivia img{width:100%;height:150px;margin:10px 0;border-radius:10px;object-fit:cover}.v74-trivia p{line-height:1.65;font-weight:700}
+body.native-app .v74-ranking{text-align:center}.v74-ranking>p{display:inline-block;padding:7px 18px;border-radius:9px;background:#e8f5fb}.v74-ranking .daily-v44-ranking-head,.v74-ranking li{grid-template-columns:38px minmax(95px,1fr) 63px 52px 55px}.v74-ranking li{min-height:49px}.v74-ranking aside{display:grid;gap:5px;text-align:left}.v74-ranking aside b{font-size:16px}.v74-ranking aside span,.v74-ranking aside small{font-size:11px}
+@media(max-width:370px){body.native-app .v74-intro-hero{min-height:385px;padding-left:18px}.v74-intro-hero>p{width:53%;font-size:12.5px}.v74-intro-hero>img{right:-12px;width:150px;height:170px}.v74-love-town{display:none}.v74-search-demo aside{grid-template-columns:62px 1fr}.v74-search-demo aside>span{grid-column:1/-1}.v74-ranking .daily-v44-ranking-head,.v74-ranking li{grid-template-columns:32px minmax(82px,1fr) 55px 47px 49px;font-size:10px}}
+
+/* V76: デイリーランキング専用。ほかの画面と共通UIには影響させない。 */
+body.native-app .v76-ranking{padding:13px 9px;text-align:center}
+body.native-app .v76-ranking h1{margin:3px 0 4px;color:#07549a;font-size:27px;line-height:1.15}
+body.native-app .v76-ranking-meta{display:flex;justify-content:center;align-items:center;gap:7px;margin:0 0 9px}
+body.native-app .v76-ranking-meta time,body.native-app .v76-ranking-meta p{display:block;margin:0;padding:7px 12px;border-radius:10px;background:#e8f5fb;color:#07549a;font-size:14px;font-weight:900}
+body.native-app .v76-ranking .daily-v44-ranking-head{display:grid;grid-template-columns:72px minmax(112px,1fr) 54px 50px;gap:3px;min-height:53px;align-items:center;padding:4px 5px;border-radius:10px;background:#dff1f9;color:#07549a;font-size:14px;font-weight:900;line-height:1.15;text-align:center}
+body.native-app .v76-ranking ol{display:grid;gap:7px;margin:8px 0;padding:0}
+body.native-app .v76-ranking .v76-ranking-row{box-sizing:border-box;display:grid;grid-template-columns:72px minmax(112px,1fr) 54px 50px;gap:3px;align-items:center;width:100%;min-height:70px;padding:7px 5px;border:1.5px solid #8ed8ee;border-radius:11px;background:#fff;color:#07549a;transition:background-color .2s,border-color .2s,box-shadow .2s;overflow:hidden}
+body.native-app .v76-ranking .v76-ranking-row.rank-1{border-color:#efd073;background:linear-gradient(90deg,#fff9e8,#fffdf8)}
+body.native-app .v76-ranking .v76-ranking-row.rank-2{border-color:#b8d2df;background:linear-gradient(90deg,#f3f8fb,#fff)}
+body.native-app .v76-ranking .v76-ranking-row.rank-3{border-color:#e8b486;background:linear-gradient(90deg,#fff1e6,#fffaf6)}
+body.native-app .v76-rank-cell,body.native-app .v76-score-cell{display:flex;min-width:0;flex-direction:column;justify-content:center;align-items:center;line-height:1.05}
+body.native-app .v76-rank-cell>b{font-size:23px;line-height:1}.v76-rank-cell time{margin-top:5px;color:#07549a;font-size:11px;font-weight:900;white-space:nowrap}
+body.native-app .v76-player-cell{display:grid;grid-template-columns:43px minmax(0,1fr);grid-template-rows:auto auto;align-items:center;gap:0 7px;min-width:0;text-align:left}
+body.native-app .v76-player-cell .native-ranking-avatar{grid-row:1/3;width:43px;height:43px}
+body.native-app .v76-player-cell .native-ranking-avatar svg,body.native-app .v76-player-cell .native-ranking-avatar img{width:100%;height:100%}
+body.native-app .v76-player-cell strong{min-width:0;overflow:hidden;font-size:14px;line-height:1.15;text-overflow:ellipsis;white-space:nowrap}
+body.native-app .v76-player-cell>small{color:#079278;font-size:10px;font-weight:900}
+body.native-app .v76-score-cell>b{font-size:22px;line-height:1}.v76-score-cell small{margin-top:4px;font-size:10px;font-weight:900}
+body.native-app .v76-ranking .is-podium{min-height:82px;padding-top:8px;padding-bottom:8px}
+body.native-app .v76-ranking .is-podium .v76-rank-cell>b{font-size:29px}
+body.native-app .v76-ranking .is-podium .v76-rank-cell time{font-size:12px}
+body.native-app .v76-ranking .is-podium .v76-player-cell{grid-template-columns:53px minmax(0,1fr);gap:0 8px}
+body.native-app .v76-ranking .is-podium .native-ranking-avatar{width:53px;height:53px}
+body.native-app .v76-ranking .is-podium .v76-player-cell strong{font-size:17px}
+body.native-app .v76-ranking .is-podium .v76-score-cell>b{font-size:28px}
+body.native-app .v76-ranking .is-podium .v76-score-cell small{font-size:11px}
+body.native-app .v76-ranking .v76-ranking-row.is-me{border-color:#18a9b3;box-shadow:0 0 0 2px #9ce9df;background:#eafffa}
+body.native-app .v76-ranking .v76-ranking-row.is-focus-pulse{border-color:#007e9d;box-shadow:0 0 0 4px #39c9c855;background:#d8fff5}
+body.native-app .v76-my-rank-button{z-index:2;touch-action:manipulation;pointer-events:auto}
+body.native-app .v76-my-rank-message{margin:8px 0 0;padding:10px;border-radius:9px;background:#e8f5fb;color:#07549a;font-size:13px;font-weight:850}
+body.native-app .v76-ranking aside{margin-top:10px}
+@media(max-width:370px){body.native-app .v76-ranking .daily-v44-ranking-head,body.native-app .v76-ranking .v76-ranking-row{grid-template-columns:62px minmax(98px,1fr) 47px 44px;gap:2px}.v76-ranking .daily-v44-ranking-head{font-size:12px!important}.v76-ranking .v76-player-cell{grid-template-columns:38px minmax(0,1fr)!important}.v76-ranking .v76-player-cell .native-ranking-avatar{width:38px!important;height:38px!important}.v76-ranking .is-podium .v76-player-cell{grid-template-columns:46px minmax(0,1fr)!important}.v76-ranking .is-podium .native-ranking-avatar{width:46px!important;height:46px!important}.v76-ranking .v76-player-cell strong{font-size:12px!important}.v76-ranking .is-podium .v76-player-cell strong{font-size:14px!important}.v76-ranking .v76-score-cell>b{font-size:19px!important}.v76-ranking .is-podium .v76-score-cell>b{font-size:24px!important}}
+
+/* V87: native normal play only */
+.v56-question-card .v56-unknown-skip{display:block;width:100%;min-height:44px;margin-top:10px;padding:8px 5px;border:1px solid #dfceb3;border-radius:9px;background:#fffdf8;color:#555;font-size:clamp(13px,4vw,16px);font-weight:750;white-space:nowrap;cursor:pointer}
+
+/* V89: native normal play answer labels match the skip button typography. */
+body.native-app .v56-question-card .v56-answer-grid button{font-family:inherit;font-size:clamp(13px,4vw,16px);font-weight:750;line-height:1.28;text-align:center;padding:8px 3px}
+body.native-app .v56-question-card .v56-answer-grid .maybe-yes,body.native-app .v56-question-card .v56-answer-grid .maybe-no{min-height:64px}
+
+/* V155: Android結果画面でも「なぜこのマチだと思ったか」を回収する */
+.v155-reason-card{
+  width:min(100%, 520px);
+  margin:14px auto;
+  padding:14px 16px;
+  box-sizing:border-box;
+  text-align:left;
+  border:1px solid rgba(25,55,82,.14);
+  border-radius:16px;
+  background:rgba(255,255,255,.86);
+  box-shadow:0 5px 16px rgba(25,55,82,.07);
+}
+.v155-reason-card h3{margin:0 0 5px;font-size:15px;line-height:1.4;}
+.v155-reason-card p{margin:0 0 7px;font-size:12px;opacity:.72;}
+.v155-reason-card ul{margin:0;padding-left:20px;}
+.v155-reason-card li{margin:4px 0;font-size:13px;line-height:1.55;font-weight:600;}
+
+/* V157: 終盤の緊張感は節目をまたいだ1画面だけ。候補名は出さず、操作も妨げない。 */
+.v157-tension-milestone{
+  margin: -5px auto 12px;
+  width: fit-content;
+  max-width: calc(100% - 28px);
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: #fff4df;
+  border: 1px solid #f0d3a0;
+  color: #5b3d16;
+  font-size: 12px;
+  font-weight: 800;
+  text-align: center;
+  animation: v157TensionIn .28s ease-out;
+}
+.v156-game-narrowing + .v157-tension-milestone{ margin: 7px auto; }
+@keyframes v157TensionIn{ from{opacity:0;transform:translateY(-3px)} to{opacity:1;transform:none} }
+@media (prefers-reduced-motion: reduce){ .v157-tension-milestone{ animation:none; } }
+
+/* V157: 終盤の緊張感は節目をまたいだ1画面だけ。候補名は出さず、操作も妨げない。 */
+.v157-tension-milestone{margin:-5px auto 12px;width:fit-content;max-width:calc(100% - 28px);padding:5px 11px;border-radius:999px;background:#fff4df;border:1px solid #f0d3a0;color:#5b3d16;font-size:12px;font-weight:800;text-align:center;animation:v157TensionIn .28s ease-out}
+.v156-game-narrowing + .v157-tension-milestone{margin:7px auto}
+@keyframes v157TensionIn{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.v157-tension-milestone{animation:none}}
+
+/* V159: 正解した瞬間の気持ちよさを、派手すぎない短い演出で補強。 */
+.v159-success-kicker{display:inline-block;margin:0 0 2px;padding:4px 10px;border-radius:999px;background:#fff0c2;color:#8b5b00;font-size:12px;font-weight:900;letter-spacing:.04em}
+.v159-success-pop .v56-crown{animation:v159CrownPop .48s cubic-bezier(.2,.9,.25,1.25) both}
+.v159-success-pop h2{animation:v159AnswerPop .42s .08s cubic-bezier(.2,.9,.25,1.18) both}
+.v159-success-pop .v56-confetti{animation:v159ConfettiGlow .7s ease-out both}
+.v159-reason-card{margin:10px 0;padding:12px 14px;border:1px solid #cfe8ef;border-radius:12px;background:#f7fcfe;text-align:left}
+.v159-reason-card h3{margin:0 0 4px;font-size:15px}.v159-reason-card p{margin:0 0 6px;font-size:12px;font-weight:700}.v159-reason-card ul{margin:0;padding-left:20px}.v159-reason-card li{margin:3px 0;font-size:13px;font-weight:700}
+@keyframes v159CrownPop{0%{transform:translateY(8px) scale(.6);opacity:0}70%{transform:translateY(-2px) scale(1.12);opacity:1}100%{transform:none;opacity:1}}
+@keyframes v159AnswerPop{0%{transform:scale(.82);opacity:0}100%{transform:scale(1);opacity:1}}
+@keyframes v159ConfettiGlow{0%{opacity:0;letter-spacing:3px}100%{opacity:1;letter-spacing:13px}}
+@media (prefers-reduced-motion:reduce){.v159-success-pop .v56-crown,.v159-success-pop h2,.v159-success-pop .v56-confetti{animation:none!important}}
+
+
+/* V160: 正解後のリプレイ導線。推理ロジックには影響しない。 */
+.v160-replay-nudge{margin:12px auto;padding:12px 14px;max-width:560px;border:1px solid #d8e6df;border-radius:14px;background:#f8fcfa;display:flex;flex-direction:column;gap:4px;text-align:left}
+.v160-replay-nudge>strong{font-size:15px}.v160-replay-nudge>span{font-size:13px;line-height:1.45}.v160-replay-nudge small{font-size:11px;opacity:.72;white-space:nowrap}
+.v160-replay-native{margin:10px 0;background:#f7fbf9}.v160-replay-native>strong{font-size:14px}.v160-replay-native>span{font-size:12px}
+
+/* V294 — Web showcase: result / record / conquest / ranking refinement.
+   V293 approved home/resume bar is intentionally untouched. */
+body.native-app #stage:has(.v56-result-screen),
+body.native-app #stage:has(.native-record-hub),
+body.native-app #stage:has(.native-conquest-overview),
+body.native-app #stage:has(.v65-page-head){
+  max-width:810px;
+  margin:0 auto;
+}
+body.native-app .v56-result-screen{max-width:810px;margin:0 auto;padding-bottom:96px}
+body.native-app .v56-result{max-width:810px;margin:0 auto;border-radius:18px}
+body.native-app .v56-result-art{max-height:300px;object-fit:cover}
+body.native-app .v56-result-stats{max-width:620px;margin-left:auto;margin-right:auto}
+body.native-app .v155-reason-card{max-width:680px;margin-left:auto;margin-right:auto}
+
+body.native-app .native-record-hub{max-width:810px;margin:0 auto;padding:12px 20px 96px}
+body.native-app .v57-page-head{margin:0 0 16px;padding:8px 0 14px;border-bottom:1px solid #d7eaf5}
+body.native-app .v57-rating-summary,
+body.native-app .native-record-summary{border:1px solid #b9dff3;box-shadow:none}
+body.native-app .native-record-summary{background:#fff}
+body.native-app .native-record-summary strong{color:#073b70}
+body.native-app .native-record-progress{background:#edf6fb}
+body.native-app .native-record-progress span{background:#0b9f9b}
+body.native-app .native-record-metrics{gap:10px}
+body.native-app .native-record-metrics .native-metric{border:1px solid #d7eaf5;background:#fff;border-radius:14px}
+body.native-app .native-hub-section{margin-top:20px}
+body.native-app .native-hub-section>h2{color:#073b70;font-size:15px}
+body.native-app .native-menu-list button{border:1px solid #d7eaf5;background:#fff;box-shadow:none}
+
+body.native-app .native-conquest-overview{max-width:810px;margin:0 auto;padding:12px 20px 96px}
+body.native-app .native-conquest-overview .native-play-heading{margin-bottom:14px}
+body.native-app .native-conquest-summary{border:1px solid #b9dff3;background:#fff;box-shadow:none}
+body.native-app .native-conquest-summary>strong{color:#073b70}
+body.native-app .native-conquest-summary>div{background:#edf6fb}
+body.native-app .native-conquest-summary>div i{background:#0b9f9b}
+body.native-app .native-region-progress{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0;list-style:none}
+body.native-app .native-region-progress li{margin:0;padding:14px;border:1px solid #d7eaf5;border-radius:14px;background:#fff}
+
+body.native-app .v65-page-head{max-width:810px;margin:0 auto 10px}
+body.native-app .v65-ranking-tabs,
+body.native-app .v65-ranking-filter,
+body.native-app .native-rating-board{max-width:810px;margin-left:auto;margin-right:auto}
+body.native-app .native-rating-list li,
+body.native-app .native-my-ranking li{border:1px solid #d7eaf5;background:#fff;box-shadow:none}
+
+@media (max-width:700px){
+  body.native-app .native-region-progress{grid-template-columns:1fr}
+  body.native-app .native-record-hub,
+  body.native-app .native-conquest-overview{padding-left:12px;padding-right:12px}
+}
+
+/* V295 — remaining navigation screens polish (ranking / notice / menu / profile).
+   Approved V293 home and V294 record/conquest layouts are not changed. */
+@media (min-width:701px){
+  body.native-app #stage:has(.v56-list-screen){max-width:810px!important;margin:0 auto!important;padding-left:0!important;padding-right:0!important;background:transparent!important}
+  body.native-app .v56-list-screen{max-width:810px;min-height:0;margin:0 auto;padding:12px 20px 96px}
+  body.native-app .v56-simple-head{height:auto;min-height:72px;padding:10px 0 14px;border-bottom:1px solid #d7eaf5;background:transparent}
+  body.native-app .v56-user-card{width:100%;margin:12px 0 14px;padding:13px 15px;border-color:#b9dff3;border-radius:14px;box-shadow:none}
+  body.native-app .v56-menu-items{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0;background:transparent}
+  body.native-app .v56-menu-items button{min-height:64px;padding:8px 13px;border:1px solid #d7eaf5;border-radius:14px;background:#fff}
+  body.native-app .v56-menu-items button:last-child{border:1px solid #d7eaf5}
+  body.native-app .v56-menu-items button span small{display:block;margin-top:2px;color:#6d8498;font-size:10px;font-weight:700}
+  body.native-app .v56-bottom-mascot{max-width:520px;margin:14px auto 0}
+  body.native-app #stage:has(.v56-notices){max-width:810px!important;margin:0 auto!important}
+  body.native-app .v56-notice-tabs{margin:12px 0 10px}
+  body.native-app .v56-notices{margin:0}
+  body.native-app .v56-notices button{padding:14px;border:1px solid #d7eaf5;border-radius:14px;margin-bottom:8px;background:#fff}
+  body.native-app .v56-notices button:last-child{border-bottom:1px solid #d7eaf5}
+}
+body.native-app .v65-page-head h1{color:#073b70}
+body.native-app .v65-ranking-tabs,
+body.native-app .v65-ranking-filter{gap:8px}
+body.native-app .v65-ranking-tabs button,
+body.native-app .v65-ranking-filter button{border:1px solid #d7eaf5;background:#fff;color:#073b70;box-shadow:none}
+body.native-app .v65-ranking-tabs button.is-selected,
+body.native-app .v65-ranking-filter button.is-selected{border-color:#0b74bd;background:#0b74bd;color:#fff}
+body.native-app .native-rating-board{padding:12px;border:1px solid #d7eaf5;border-radius:16px;background:#fff}
+body.native-app .native-settings-card.native-auth-account{border-color:#b9dff3;background:#fff;box-shadow:none}
+body.native-app .native-profile-online-stats{border-color:#d7eaf5;background:#f8fcff}
+body.native-app .native-profile-rating-grid>div{background:#eef7fc}
+@media (max-width:700px){
+  body.native-app .v56-list-screen{padding-bottom:110px}
+}
+
+/* V297: Android settings screen — align remaining legacy surface with approved V295 language. */
+body.native-app .native-settings-modern{padding-bottom:24px}
+body.native-app .native-settings-modern .native-settings-intro{margin:2px 2px 12px;color:#6d8498;font-size:12px;font-weight:700;line-height:1.6}
+body.native-app .native-settings-modern .native-settings-card{margin:0 0 10px;padding:15px;border:1px solid #d7eaf5;border-radius:14px;background:#fff;box-shadow:none}
+body.native-app .native-settings-modern .native-settings-card h2{margin:0 0 10px;padding:0 0 9px;border-bottom:1px solid #e4f0f7;color:#073b70;font-size:15px}
+body.native-app .native-settings-modern .native-settings-card>p{margin:0 0 12px;color:#56738e;font-size:12px;line-height:1.65}
+body.native-app .native-settings-modern .native-setting-toggle{border-radius:12px;background:#f7fbfe}
+body.native-app .native-settings-modern .native-settings-link{color:#0752bd}
+body.native-app .native-settings-modern .save-io-actions{gap:8px}
+body.native-app .native-settings-modern .link-btn{border-radius:11px}
+body.native-app .native-settings-modern .native-danger-zone{border-color:#efd5d5;background:#fffafa}
+
+/* V298: Android final legacy-surface sweep — mobile menu / notices.
+   Visual-only. Android-only friend/block routes and all game logic remain intact. */
+body.native-app .v56-list-screen .v56-user-card{
+  width:calc(100% - 28px);margin:10px 14px 14px;padding:12px 13px;
+  border:1px solid #b9dff3;border-radius:14px;box-shadow:none;
+}
+body.native-app .v56-list-screen .v56-menu-items{
+  display:grid;grid-template-columns:1fr;gap:8px;margin:0 14px;background:transparent;
+}
+body.native-app .v56-list-screen .v56-menu-items button{
+  min-height:58px;padding:9px 12px;border:1px solid #d7eaf5!important;border-radius:13px;
+  background:#fff;box-shadow:none;
+}
+body.native-app .v56-list-screen .v56-menu-items button:last-child{border:1px solid #d7eaf5!important}
+body.native-app .v56-list-screen .v56-notice-tabs{margin:10px 14px 12px}
+body.native-app .v56-list-screen .v56-notices{display:grid;gap:8px;margin:0 14px}
+body.native-app .v56-list-screen .v56-notices button{
+  padding:13px 12px;border:1px solid #d7eaf5!important;border-radius:14px;background:#fff;box-shadow:none;
+}
+body.native-app .v56-list-screen .v56-notices button:last-child{border:1px solid #d7eaf5!important}
+@media (min-width:701px){
+  body.native-app .v56-list-screen .v56-user-card{width:100%;margin-left:0;margin-right:0}
+  body.native-app .v56-list-screen .v56-menu-items{grid-template-columns:1fr 1fr;margin-left:0;margin-right:0}
+  body.native-app .v56-list-screen .v56-notice-tabs,
+  body.native-app .v56-list-screen .v56-notices{margin-left:0;margin-right:0}
+}
+
+/* V306 — Android play hub / multiplayer visual refresh.
+   Bring the remaining old surfaces into the approved Web V295 white × navy × sky-blue language.
+   Visual-only except for the challenge-mode back affordance. */
+body.native-app .native-play-heading{
+  margin:12px 12px 18px;
+  padding:18px 18px 16px;
+  border:1px solid #cfe7f4;
+  border-radius:20px;
+  background:linear-gradient(145deg,#ffffff 0%,#f4fbff 58%,#eef9f6 100%);
+  box-shadow:0 8px 24px rgba(7,59,112,.07);
+}
+body.native-app .native-play-heading::before,
+body.native-app .native-play-heading::after{opacity:.45}
+body.native-app .native-play-back{
+  border:1px solid #d8eaf3;
+  background:#fff;
+  color:#0752a0;
+  box-shadow:0 3px 10px rgba(7,59,112,.07);
+}
+body.native-app .native-play-heading-copy span{color:#15906f}
+body.native-app .native-play-heading-copy h1{color:#073b70}
+body.native-app .native-play-heading-copy p{color:#617b91}
+body.native-app .native-play-heading-mascot .mascot{filter:drop-shadow(0 5px 7px rgba(7,59,112,.12))}
+body.native-app .native-play-section{margin-left:14px;margin-right:14px}
+body.native-app .native-play-section-title::after{border-color:#cfe3ee}
+body.native-app .native-play-section-title h2{color:#073b70}
+body.native-app .native-play-section-title p{color:#6d8498}
+body.native-app .native-play-section-icon{background:#eef8fc}
+body.native-app .native-play-mode-list{gap:9px}
+body.native-app .native-play-mode-card,
+body.native-app .native-play-mode-solo{
+  min-height:88px;
+  grid-template-columns:52px minmax(0,1fr) 22px;
+  gap:11px;
+  padding:12px 13px;
+  border:1px solid #d7eaf5;
+  border-radius:15px;
+  background:#fff;
+  box-shadow:none;
+}
+body.native-app .native-play-mode-card:active:not(:disabled){background:#f6fbfe}
+body.native-app .native-play-mode-icon{
+  width:48px;height:48px;border-radius:13px;
+  color:#0b74bd;background:#edf7fd;font-size:23px;
+}
+body.native-app .native-play-mode-copy strong{color:#073b70;font-size:16px}
+body.native-app .native-play-mode-copy small{margin-top:4px;color:#6d8498;font-size:10.5px;line-height:1.45}
+body.native-app .native-play-mode-arrow{color:#78a8c7;font-size:27px}
+body.native-app .native-play-mode-multi{
+  grid-template-columns:52px minmax(0,1fr) 22px;
+  border-color:#c8e5f4;
+  background:linear-gradient(135deg,#fff,#f7fcff);
+}
+body.native-app .native-play-mode-multi .native-play-mode-icon{color:#087f7a;background:#eaf7f5}
+body.native-app .native-play-mode-multi .native-play-mode-copy strong{color:#075e5b}
+body.native-app .native-play-mode-challenge{border-color:#d4eadc;background:linear-gradient(135deg,#fff,#f8fcf8)}
+body.native-app .native-play-mode-challenge .native-play-mode-icon{color:#279556;background:#edf8ef}
+body.native-app .native-play-mode-challenge .native-play-mode-copy strong,
+body.native-app .native-play-mode-challenge .native-play-mode-arrow{color:#238d4c}
+body.native-app .native-area-card{border-color:#d7eaf5!important;background:#fff!important;box-shadow:none!important}
+body.native-app .native-play-point-card{border-color:#d7eaf5!important;background:#f8fcff!important;box-shadow:none!important}
+
+/* Online battle entry: same restrained card system as Web/record/menu. */
+body.native-app .native-multiplayer-entry-heading{margin-top:12px;margin-bottom:14px}
+body.native-app .native-multiplayer-notice,
+body.native-app .native-matchmaking-card,
+body.native-app .native-multiplayer-action-card{
+  max-width:680px;
+  margin:0 14px 10px;
+  padding:15px;
+  border:1px solid #d7eaf5;
+  border-radius:15px;
+  background:#fff;
+  box-shadow:none;
+}
+body.native-app .native-multiplayer-notice{background:#f8fcff;border-color:#c8e5f4}
+body.native-app .native-multiplayer-notice strong{color:#073b70}
+body.native-app .native-multiplayer-notice p{color:#6d8498}
+body.native-app .native-matchmaking-card{display:grid;gap:9px}
+body.native-app .native-matchmaking-card h2,
+body.native-app .native-multiplayer-action-card h2{color:#073b70}
+body.native-app .native-matchmaking-card p,
+body.native-app .native-multiplayer-action-card p{color:#6d8498}
+body.native-app .native-matchmaking-card label,
+body.native-app .native-multiplayer-action-card label{color:#376a93;font-size:12px}
+body.native-app .native-matchmaking-card select,
+body.native-app .native-multiplayer-action-card select,
+body.native-app .native-multiplayer-action-card input{
+  min-height:45px;
+  border:1px solid #c9e1ee;
+  border-radius:11px;
+  background:#fbfdff;
+  color:#173b56;
+  box-shadow:none;
+}
+body.native-app .native-matchmaking-card select:focus,
+body.native-app .native-multiplayer-action-card select:focus,
+body.native-app .native-multiplayer-action-card input:focus{
+  outline:3px solid rgba(21,155,240,.14);
+  border-color:#159bf0;
+}
+body.native-app .native-multiplayer-action-icon{background:#eef8fc;border-radius:12px}
+body.native-app .native-ranked-search-button,
+body.native-app .native-multiplayer-action-card .primary-btn{
+  position:static;
+  min-height:48px;
+  border:0!important;
+  border-radius:11px!important;
+  background:#0b74bd!important;
+  color:#fff!important;
+  box-shadow:none!important;
+  text-shadow:none!important;
+  font-weight:900!important;
+}
+body.native-app .native-multiplayer-action-card .primary-btn.secondary{background:#087f7a!important}
+body.native-app .native-multiplayer-section-heading{margin:22px 14px 3px;color:#073b70;font-size:17px}
+body.native-app .native-multiplayer-section-copy{margin:0 14px 10px;color:#6d8498;font-size:11.5px}
+body.native-app .native-multiplayer-status{margin:0 14px 10px;border:1px solid #cce8db;background:#f4fbf7;color:#176b45}
+
+/* Challenge mode: add the same circular back affordance used by the other play screens. */
+body.native-app .challenge-hero{position:relative;padding-left:54px}
+body.native-app .challenge-back-button{
+  position:absolute;left:10px;top:50%;z-index:4;
+  width:34px;height:34px;display:grid;place-items:center;
+  transform:translateY(-50%);
+  border:1px solid #d8eaf3;border-radius:50%;
+  background:#fff;color:#0752a0;
+  box-shadow:0 3px 10px rgba(7,59,112,.08);
+  font:900 24px/1 system-ui,-apple-system,sans-serif;
+  cursor:pointer;
+}
+body.native-app .challenge-back-button:active{transform:translateY(-50%) scale(.96)}
+body.native-app .challenge-back-button:focus-visible{outline:3px solid rgba(21,155,240,.2);outline-offset:2px}
+@media(max-width:420px){
+  body.native-app .native-play-heading{margin-left:10px;margin-right:10px;padding-left:14px;padding-right:12px}
+  body.native-app .native-play-section{margin-left:12px;margin-right:12px}
+  body.native-app .native-play-mode-card,body.native-app .native-play-mode-solo{min-height:82px}
+  body.native-app .native-multiplayer-notice,body.native-app .native-matchmaking-card,body.native-app .native-multiplayer-action-card{margin-left:12px;margin-right:12px}
+  body.native-app .native-multiplayer-section-heading,body.native-app .native-multiplayer-section-copy{margin-left:12px;margin-right:12px}
+  body.native-app .challenge-hero{padding-left:48px}
+  body.native-app .challenge-back-button{left:8px;width:32px;height:32px;font-size:22px}
+}
+
+/* V307 — Android play UI final polish.
+   Unify back affordances and tighten multiplayer form rhythm only. */
+body.native-app .native-play-back,
+body.native-app .challenge-back-button{
+  width:36px;
+  height:36px;
+  padding:0 0 2px;
+  border:1px solid #d8eaf3;
+  border-radius:50%;
+  background:#fff;
+  color:#0752a0;
+  box-shadow:0 3px 10px rgba(7,59,112,.07);
+  font:800 25px/1 system-ui,-apple-system,sans-serif;
+}
+body.native-app .challenge-back-button{left:10px}
+body.native-app .challenge-hero{padding-left:52px}
+
+body.native-app .native-matchmaking-card,
+body.native-app .native-multiplayer-action-card{
+  gap:7px;
+  padding:13px 14px;
+}
+body.native-app .native-matchmaking-card h2,
+body.native-app .native-multiplayer-action-card h2{
+  margin-bottom:1px;
+  font-size:18px;
+}
+body.native-app .native-matchmaking-card p,
+body.native-app .native-multiplayer-action-card p{
+  margin-top:1px;
+  margin-bottom:3px;
+  line-height:1.45;
+}
+body.native-app .native-matchmaking-card label,
+body.native-app .native-multiplayer-action-card label{
+  margin-top:2px;
+  line-height:1.25;
+}
+body.native-app .native-matchmaking-card select,
+body.native-app .native-multiplayer-action-card select,
+body.native-app .native-multiplayer-action-card input{
+  min-height:41px;
+  padding-top:7px;
+  padding-bottom:7px;
+}
+body.native-app .native-ranked-search-button,
+body.native-app .native-multiplayer-action-card .primary-btn{
+  min-height:44px;
+  margin-top:3px;
+}
+body.native-app .native-multiplayer-section-heading{margin-top:18px}
+@media(max-width:420px){
+  body.native-app .native-play-back,
+  body.native-app .challenge-back-button{width:34px;height:34px;font-size:23px}
+  body.native-app .challenge-back-button{left:8px}
+  body.native-app .challenge-hero{padding-left:48px}
+  body.native-app .native-matchmaking-card,
+  body.native-app .native-multiplayer-action-card{padding:12px 13px;gap:6px}
 }

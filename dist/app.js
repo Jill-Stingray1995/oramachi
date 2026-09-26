@@ -1,18 +1,18 @@
-const KEYS = ['hitachi_seaside_park','tsuchiura_hanabi','koga_kubo','toride_geidai','shimodate_gion','kamisu_gallery','tsukumai','ushiku_daibutsu','kashima_jingu','kokuo_jinja','warp_station_edo','ryujin_ohashi','ayumizaki_park','melon_hokota','ibaraki_airport','makabe_district','edosaki_kabocha','nishishioko_butai','itako_ayame','oyama_hyojo','uzumagawa_kura','ashikaga_gakko','shiobara_onsen','nikko_toshogu','kyuroku_kan','yamaage_matsuri','kanto_shinetsu_tsunagu','tajima_yahei','kiryu_nokogiri','tsutsujigaoka_bunbuku','ikaho_onsen','usui_meganebashi','tomihiro_museum','fukiware_no_taki','railway_museum','toki_no_kane','koku_kinen_park','misato_junction','toda_boat','shibusawa_eiichi','konosu_hina','first_outlet','jumbo_koinobori','higashimatsuyama_yakitori','seitenkyu','riken_hq','hanawa_hokiichi','sunaori_amagoi','sakitama_zerifry','gongendo_sakura','hitachidai_stadium','suguyaru_ka','nakayama_hokekyoji','kominato_railway','yatsu_higata','tokyo_disney','rekihaku','kikkoman_hq','abiko_ekisoba','nomizo_no_taki','tokyo_german_village','inubosaki','sawara_district','shirasato_kaigan','sunosaki_lighthouse','mother_farm_nokogiri','boshu_biwa','ohara_hadaka','kamogawa_seaworld','katsuura_tantanmen','oi_keibajo','tokyo_daibutsu','showa_kinen_park','kichijoji_harmonica','takahata_hijikata','shimura_ken','tama_rokuto','ghibli_museum','sanrio_puroland','mitakesan','edo_tokyo_tatemono','kurume_twin','akishima_kujira','tamako_yamato','yomiuri_land','second_smallest_city','hitotsubashi_univ','jaxa_isas','shirokoro_horumon','izumi_no_mori_awaodori','enoshima','omote_tanzawa','ebina_sa','oyama_afuri','jogashima_maguro','daiyuzan_kintaro','okutadami_dam','hokuetsu_kyoto','knit_gosen','kurokawa_yuden','niigata_smallest','kitsune_yomeiri','ryokan_birthplace','sakyu_momo','taishitamonja','gomadoyama_ajisai','ryugakubo','yahiko_jinja','fuji_rock','tama_monorail_extension',
+const KEYS = ['v266_katsuura_big_hina','v267_kotohira_konpira','v220_kyowa_raiden','v220_yoichi_nikka','v220_higashikagura_flowers','v220_teshio_shijimi','v220_nakatombetsu_karst','v220_rishirifuji_mountain','v220_horonobe_reindeer','v220_ozora_shibazakura','v220_yubetsu_tulip','v220_toyoura_strawberry','v220_hidaka_monbetsu_horse','v220_biratori_nibutani','v220_kamishihoro_taushubetsu','v220_kushiro_hosooka','v220_hamanaka_monkeypunch','v220_nakashibetsu_kaiyodai','v220_inakadate_riceart','v220_yokohama_nanohana','v220_oirase_liberty','v220_takko_garlic','v220_hashikami_seamountain','v220_shingo_christ','v220_kunohe_broiler','v220_hirono_uni','v220_minamisanriku_ramsar','v220_kawamata_cosquin','v220_tenei_british','v220_hinoemata_kabuki','v220_kitashiobara_goshikinuma','v220_bandai_enichiji','v220_showa_karamushi','v220_tamakawa_airport','v220_shinchi_karo','v220_namegawa_shinrin','v220_tako_rice','v220_tonosho_kojurin','v220_shibayama_haniwa','v219_kamikawa_tonomine','v219_taishi_ikarugadera','v219_shinonsen_arayu','v219_ando_tomimoto','v219_kanmaki_kataoka','v219_hirogawa_inamura','v219_yura_shirasaki','v219_shirahama_shirarahama','v219_okinoshima_rousoku','v219_wake_fuji','v219_akiota_sandankyo','v219_jinsekikogen_paperplane','v219_waki_hachigamine','v219_naoshima_art','v219_ainan_uwakai','v219_shime_tateko','v219_shingu_aishima','v219_ashiya_kama','v219_chikuzen_tachiarai','v219_oki_biomass','v219_aka_ishizaka','v219_kanda_hirotani','v219_chikujo_tsunashiki','v219_genkai_hamanoura','v219_nankan_sekisho','v219_mashiki_airport','v219_hikawa_nozu','v219_nakatane_airport','v219_yakushima_yakusugi','v219_taketomi_nineislands','v219_yakumo_two_seas','v219_okushiri_blue','v219_setana_otayama','v219_rusutsu_resort','v218_hashima_takehana','v218_muroran_night','v218_narita_shinshoji','v218_wakasa_kumagawa','v218_nanbu_tea','v218_hara_stars','v218_iizuna_apple','v218_togo_aichiike','v218_kawagoe_tera46','v218_meiwa_saiku','v218_aisho_kongorinji','v218_kora_saimyoji','v218_taga_taisha','v218_ine_funaya','v218_tadaoka_smallest','v218_kanan_saigyo','v218_taka_origins','v218_inami_ponds','v218_harima_onaka','v218_fukusaki_yanagita','v217_fukuyama_tomonoura','v217_asahikawa_asahiyama','v217_kokubunji_otaka','v217_izumo_taisha','v217_hitachi_furyumono','v216_kitaakita_matagi','v216_maibara_ibuki','v216_fukuoka_yamakasa','v216_kanoya_rose','v216_kitakyushu_mojiko','v216_murakami_salmon','v213_misato_shiwassu','v213_miyoshi_santome','v213_miyashiro_tobu_zoo','v213_hinode_tsurutsuru','v213_kaisei_ajisai','v213_ogose_bairin','v213_yoshioka_funao','v213_murata_kura','v213_mimata_tsutsuji','v213_satosho_kaze','v213_takanezawa_goryo','v213_uchiko_uchikoza','v213_samukawa_jinja','v213_hisayama_sato','v209_tateshina_shirakaba','v209_karuizawa_shaw','v209_nozawa_sotoyu','v209_nagawa_obsidian','v209_minamiizu_irozaki','v209_yoshida_koyama','v209_matsuzaki_namako','v209_shimizu_kakita','v209_nagaizumi_ayutsubo','v209_miki_shishi','v209_ayagawa_udon','v209_houki_ueda','v209_minamiosumi_sata','v209_higashikushira_lupin','v209_kinko_otaki','v208_misaki_fuke','v208_yuza_maruike','v208_mihama_suishohama','v208_miyako_jabuchi','v208_koge_tobaru','v208_kotake_loco23','v208_kawasaki_gyorakuen','v208_keisen_ozuka','v208_itoda_kanamura','v208_onga_cho','v208_kurate_hasedera','v208_kawara_kawaradake','v208_kawauchi_hebusu','v208_namie_somayaki','v208_maebashi_ito','v208_itakura_agebune','v208_sakaki_murakami','v208_ogawa_alps','v208_koumi_kantaro','v208_kijimadaira_kayanodaira','v207_kihoku_choshi','v207_kishiwada_danjiri','v207_rifu_nashi','v207_shonai_kiyokawadashi','v207_nishiwaga_kinshuko','v207_sera_hanabatake','v207_saka_bayside','v207_kumakogen_karst','v207_masaki_gino','v207_matsuno_nametoko','v207_suginami_awaodori','v207_hodatsushimizu_chirihama','v207_noto_abare','v207_ninomiya_azumayama','v207_ohi_itteki','v207_oto_cactus','v207_hirokawa_kasuri','v207_soeda_hikosan','v207_fukuchi_agano','v207_yoshitomi_kamizumo','chibi_maruko','m78_sukagawa','onomichi_tenkosei','amachan_kuji','konosekai_kure','keion_toyosato','aqours_numazu','garupan_oarai','summerwars_ueda','koto_yonaguni','botchan_matsuyama','kinosaki_shiga','yukiguni_yuzawa','izunoodoriko_kawazu','kafka_takamatsu','tsugaru_tappi','erimo_misaki','amagi_song_izu','hakodate_song','yokosuka_story','misuzu_nagato','koseki_fukushima','fr_yamaguchi','mazda_fuchu','toyota_city_name','denso_hq','daihatsu_hq','yamaha_motor_hq','snowpeak_hq','japanet_hq','rokkatei_hq','peyoung_hq','kameda_hq','chateraise_hq','bourbon_hq','imuraya_hq','fundokin_hq','shoda_hq','hardoff_hq','yamasa_hq','akagi_hq','korakuen_hq','sawayaka_hq','mansyu_hq','aleph_hq','national_hadaka_festival','unesco_dashi_festival','riverbed_onsen','jigoku_meguri','yubatake_onsen','daimyo_garden','hitachi_seaside_park','tsuchiura_hanabi','koga_kubo','toride_geidai','shimodate_gion','kamisu_gallery','tsukumai','ushiku_daibutsu','kashima_jingu','kokuo_jinja','warp_station_edo','ryujin_ohashi','ayumizaki_park','melon_hokota','ibaraki_airport','makabe_district','edosaki_kabocha','nishishioko_butai','itako_ayame','oyama_hyojo','uzumagawa_kura','ashikaga_gakko','shiobara_onsen','nikko_toshogu','kyuroku_kan','yamaage_matsuri','kanto_shinetsu_tsunagu','tajima_yahei','kiryu_nokogiri','tsutsujigaoka_bunbuku','ikaho_onsen','usui_meganebashi','tomihiro_museum','fukiware_no_taki','railway_museum','toki_no_kane','koku_kinen_park','misato_junction','toda_boat','shibusawa_eiichi','konosu_hina','first_outlet','jumbo_koinobori','higashimatsuyama_yakitori','seitenkyu','riken_hq','hanawa_hokiichi','sunaori_amagoi','sakitama_zerifry','gongendo_sakura','hitachidai_stadium','suguyaru_ka','nakayama_hokekyoji','kominato_railway','yatsu_higata','tokyo_disney','rekihaku','kikkoman_hq','abiko_ekisoba','nomizo_no_taki','tokyo_german_village','inubosaki','sawara_district','shirasato_kaigan','sunosaki_lighthouse','mother_farm_nokogiri','boshu_biwa','ohara_hadaka','kamogawa_seaworld','katsuura_tantanmen','oi_keibajo','tokyo_daibutsu','showa_kinen_park','kichijoji_harmonica','takahata_hijikata','shimura_ken','tama_rokuto','ghibli_museum','sanrio_puroland','mitakesan','edo_tokyo_tatemono','kurume_twin','akishima_kujira','tamako_yamato','yomiuri_land','second_smallest_city','hitotsubashi_univ','jaxa_isas','shirokoro_horumon','izumi_no_mori_awaodori','enoshima','omote_tanzawa','ebina_sa','oyama_afuri','jogashima_maguro','daiyuzan_kintaro','okutadami_dam','hokuetsu_kyoto','knit_gosen','kurokawa_yuden','niigata_smallest','kitsune_yomeiri','ryokan_birthplace','sakyu_momo','taishitamonja','gomadoyama_ajisai','ryugakubo','yahiko_jinja','fuji_rock','tama_monorail_extension',
   'banei_keiba','ebetsu_renga','kitami_hakka','shikotsuko_futoko','hamanasu_no_oka','northernmost_city','whaling','enclave_municipality','honshu_northernmost','honshu_easternmost','honshu_westernmost','honshu_southernmost','japan_northernmost','japan_southernmost','japan_easternmost','japan_westernmost','shio_kazunoko','canadian_world','garinko_go','nosappu_misaki','hirosaki_tenshu','hasshoku_center','misawa_flight','ishiwari_zakura','mutsu_kokufu','kanto_matsuri','kamo_kurage','uesugi_jinja','jionji','shinjo_matsuri','saito_mokichi','hanamiyama','nanko_park',
   'nakoku_no_oka','miike_tanko','sakurai_futamigaura','ushikubi_sueki','munakata_hetsugu','goshogatani_kogoishi','funabaru_kofun','hikari_no_michi','tanabata_jinja','nogata_meteorite','yanagawa_kudari','yame_gyokuro','sakuta_no_unade','tagawa_sekitan','hishino_suisha','oda_hiroki_museum','kiyomizudera_teien','toyota_kyushu','chikugo_yoshii','karatsu_kunchi','tosu_junction','okawachiyama','takeo_onsen_romon','ogi_yokan','kunenan','yutoku_inari','ureshino_bihada','isahaya_meganebashi','nagasaki_airport_omura','koi_no_oyogu_machi','hara_castle','unzen_jigoku','fukuejima_onidake','ajifry_seichi','tsushima_border','mugi_shochu_iki','nanatsugama_shonyudo','hirado_oranda','igusa_yatsushiro','sakitsu_shuraku','takaba_countrypark','hiryu_no_kane','misumi_nishiko','mandako_greenland','aoi_aso_jinja','kusasenrigahama','takasakiyama_saru','fukuzawa_karaage','bungo_futamigaura','usa_jingu','usuki_magaibutsu','harajiri_no_taki','kinrinko_yufuin','oka_castle','showa_no_machi','sandwich_jokamachi','futagoji','tsukumi_sakura_maguro','sekinoo_taki','nobeoka_ishigaki','umagase_cross','saitobaru_kofun','toimisaki_uma','ebino_kogen','shirokuma_tenmonkan','shiobitashi_onsen','kokuritsu_taiiku_univ','kamou_no_okusu','tsuru_ettochi','kinsakubaru_keihan','satsumayaki_miyama','bonotsu_ganjin','mizonokuchi_doketsu','chiran_bukeyashiki','daguri_misaki','makurazaki_station','bontan_shika','teppokan','satsuma_ryugakusei','koza_eisa','kaichu_doro_katsuren','okinawa_convention','heiwa_kinen_himeyuri','senagajima_umikaji','kabira_bay','irabu_ohashi','sefa_utaki',
   'kaike_onsen','kurayoshi_shirakabe','sesshu_teien','iwami_ginzan','gonokawa_kako','nihon_sanmeien','horumon_udon','kinojo','bitchu_matsuyama','saijo_sake','mihara_tako','kiri_no_umi','hiroshima_westmost','anno_hideaki','tokuyama_combinat','kintaikyo','cement_glass','led_valley','naruto_uzushio','kincho_tanuki','awa_dochu','mima_udatsu','iya_kazurabashi','marugame_uchiwa','chichibugahama','zenigata_sunae','setoohashi_shikoku','kukai_birthplace','tebukuro_industry','uchinuki','garyu_sanso','kezuribushi','yawatahama_champon','seiyo_geopark','botchan_theater','kochi_ryoma_airport','chinkabashi','noichi_zoo','muroto_geopark','nabeyaki_ramen','daruma_yuhi','ashizuri_misaki','tosabushi','yanase_museum',
   'nagashima_nabana','suzuka_circuit','magose_hinoki','sekijuku','toba_aquarium','onigajo_hananoiwaya','fujiwaradake_bairin','parque_ago','iga_ninja_basho','kurokabe_chikubu','hachimanbori','biwako_ohashi_sagawa','jra_training','konan_sanzan','metasequoia_shirahige','gokasho_eigenji','maizuru_akarenga','byodoin_uji','iwashimizu_nagarebashi','toyonaka_kyujo','cupnoodle_museum','taiyo_no_to','mofu_izumiotsu','imashirozuka_haniwa','mizuma_nishikinohama','moriguchi_daikon','hikari_no_kyokai','kansai_airport_city','pl_tower','naritasan_osaka','kanshinji_kongoji','nunose_takenouchi','nozaki_mairi','ikegami_sone','minoh_katsuoji','kashiwara_budo','ojin_ryo_wine','panasonic_hq','torikai_depot','takashinohama','fujiidera_kannon','sennan_rosegarden','shijonawate_masatsura','hoshi_no_buranko','sayamaike','pichipichi_beach','sumoto_castle_onsen','ashiya_yodoko','itami_sake_airport','katsumeshi_kakurinji','tada_jinja','sanda_hitohaku','kasai_globe_clock','izanagi_yumebutai','tojoko_omocha','tatsuno_shoyu_somen','takada_sakura_jinaimachi','kingyo_yamatokoriyama','tenri_shukyo_toshi','kashihara_jingu','miwa_somen','gojo_kaki_shinmachi','katsuragi_kodo','ikoma_cablecar','dontsurubo','taimadera_sumo','uda_seiyaku','kuroe_shikki','koyasan_gateway_pile','arida_mikan','shortest_private_line','kumano_hongu_benkei','kumano_hayatama_gotobiki','kokawadera_momo',
   'fujiko_f_birthplace','shinkiro_maibotsurin','fujiko_a_buri','hotaruika_museum','tulip_fair','merhen_kenchiku','gokayama_gassho','kaiwomaru_bridge','wakura_notojima','komatsu_origin','senmaida_shikki','rokugozaki','kaga_onsenkyo','ufo_museum','shirayama_tedori','matsui_museum','kehi_jindo','miketsukuni_saba','echizen_ono_castle','awara_onsen','fujiq_highland','fuefuki_fruit_park','shinpu_shichirigan','katakana_city_name','kiyosato_hakushu','shingen_zutsumi','isawa_onsen','katsunuma_budo','name_same_as_route','kamikochi','sanada_bessho','okaya_silk','ningyogeki_tenryukyo','suzaka_garyu','kaikoen_toson','takato_sakura','sauce_katsudon','shinpei_ipponki','alpen_route_nagano','kamakura_nanohana','naraijuku_wine','farthest_from_sea','obasute_togura','unnojuku_yunomaru','wasabi_farm','nagaragawa_ukai','okuno_hosomichi_musubi','hida_furuimachi','mosaic_tile_museum','magome_kurikinton','udatsu_mino','kaseki_museum','iwamura_akechi','otajuku_satoyama','toki_outlet','aerospace_museum','rose_garden_akechi','fuyu_kaki_origin','setogawa_shirakabe','usuzumi_zakura','gujo_odori','nihon_sanmeisen','kisosansen_wajyu','atami_moa','genbegawa_rakujuen','sengen_taisha','omuroyama_jogasaki','horaibashi_sl','gakunan_tagonoura','yaizu_katsuo','kakegawa_castle','soccer_town_fujieda','gotemba_outlet','ecopa_hattasan','shimoda_port','fuji_safari','arai_sekisho','shuzenji_toi','hamaoka_lighthouse','senkagawa_fukamushi','nirayama_hansharo','sagara_oil_airport','masumida_keori','toyokawa_inari','tsushima_tenno','kokonoe_mirin','toyota_origin_kariya','toyota_hq','nihon_denmark','matcha_sakushima','takeshima_resort','centrair_manekineko','mandaraji_fuji','komaki_castle','konomiya_hadaka','nagashino_horaiji','juraku_daibutsu','aichi_kenko_mori','shinmaiko_okada','kakitsubata_chiryu','owariasahi_tower','okehazama','aichi_bokujo','irago_longbeach','sendohira_renkon','kiyosu_castle','showa_nichijo','kingyo_yatomi','miyoshi_canoe','shippoyaki','ghibli_linimo',
-  'shinkansen','coastal','designated','festival','snow_festival','worldheritage','snow','basin','airport','noodle','mascot_famous',
-  'nihonkai','taiheiyo','setonaikai','famous_mountain','big_river','big_bay','hot_40c','active_volcano','uchibo','sotobo','noto_area','subway','onsen','sake','famous_hanabi','castle_town','port_town','rice_region',
+  'shinkansen','coastal','designated','snow_festival','worldheritage','snow','basin','airport','noodle','yuruchara_gp_winner',
+  'nihonkai','taiheiyo','setonaikai','famous_mountain','big_river','big_bay','hot_40c','active_volcano','uchibo','sotobo','noto_area','subway','sake','famous_hanabi','castle_town','port_town','rice_region',
   'kana_name','kansai_dialect','ryukyu_dialect','is_town_village','is_tokyo_ward',
-  'ruins','lakeside','shrine_temple','bakumatsu_port','sumo_basho','jleague','npb',
-  'former_capital','grid_streets','national_treasure','twelve_castles','sengoku_warlord','tram','famous_garden',
-  'car_town','private_railway','monorail','remote_island','mining_heritage','night_view','war_damage',
+  'giant_kofun','jomon_worldheritage','large_yayoi_site','lakeside','daibutsu_spot','historic_five_story_pagoda','bakumatsu_port','sumo_basho','jleague','npb',
+  'former_capital','grid_streets','national_treasure','twelve_castles','sengoku_warlord','tram',
+  'car_town','private_railway','monorail','remote_island','mining_heritage','worldheritage_mine','worldheritage_coal_mine','night_view','war_damage',
   'ferris_wheel','theme_park','zoo','aquarium','brand_beef','kintetsu','kanji_one_char',
   'chinatown','sand_dunes','imperial_university','famous_tower','famous_market','exotic_port','dome_stadium','tea_region',
-  'gokaido_shukuba','pottery_famous','traditional_craft','horse_racing','famous_horse_breeding','literary_figure','kitanotakeshi','musashino_line','ekimei_chigau',
+  'gokaido_shukuba','traditional_pottery','traditional_craft','horse_racing','famous_horse_breeding','literary_figure','kitanotakeshi','musashino_line','ekimei_chigau',
   'prefectural_capital','borders_other_pref','formed_after_2000',
   'national_university','expressway_junction','hiragana_name','direction_in_name','old_province_name',
   'public_racing_venue','national_government_park','film_city','shinsengumi','shonan_area','white_mirin_origin',
@@ -30,9 +30,9 @@ const KEYS = ['hitachi_seaside_park','tsuchiura_hanabi','koga_kubo','toride_geid
   'meitetsu_line',
   'keihanshin_area','hokusetsu_area','kawachi_area','senshu_area','hanshin_area','harima_area','tajima_area','tamba_area','kyoto_north','nara_basin','kii_peninsula','nankai_line',
   'glasses_industry','towel_industry','musical_instruments','gold_leaf','denim_industry','pearl_farming','shipbuilding','furniture_industry','washi_famous','pharmaceutical_industry','fireworks_industry','stone_industry',
-  'soy_sauce_famous','vinegar_famous','miso_famous','gyoza_famous','yakisoba_famous','udon_famous','soba_famous','ramen_famous','castella_famous','kamaboko_famous','lacquerware_famous',
+  'soy_sauce_famous','vinegar_famous','miso_famous','gyoza_famous','yakisoba_famous','udon_famous','soba_famous','ramen_famous','castella_famous','kamaboko_famous','traditional_lacquerware',
   'ancient_provincial_capital','kokubunji_site','traditional_buildings_district','little_kyoto','giant_buddha','sea_torii','deer_in_city','gassho_zukuri',
-  'ferry_available','no_railway_station','shikoku_pilgrimage','olympic_venue','famous_battlefield','kitamaebune_port','famous_fish_catch',
+  'domestic_ferry','international_ferry','no_railway_station','shikoku_pilgrimage','olympic_venue','famous_battlefield','kitamaebune_port','famous_fish_catch',
   'kaikyo_machi','gakuto','hula_girl','kannon_zo','koedo','imono_kupola','aeon_laketown','sogo_dept','isetan_dept','mitsukoshi_dept','daimaru_dept','matsuzakaya_dept','funasshi_famous','takao_mountain','curry_famous','anime_seichi','number_in_name','kigyo_joukamachi','hankyu_line','yayoiken_seichi','hirakata_park','keihan_line','kawachi_ondo','rugby_machi','kougyou_toshi','hyoujun_jigosen','koushien','bikan_chiku','gunkou_machi','seitetsu_kouro','fugu_famous','tire_famous','hamburger_famous','kenkyu_gakuen_toshi','action_kamen','senbei_famous','tanabata_famous','uirou_famous','southern_seichi','b_kyu_gourmet','beigun_kichi','shinkai_gyo','saboten_machi','combinat_yakei','danjiri_famous','onaji_ookawa','kageki_dan',
   'animal_in_name','ariake_coast','big_small_in_name','bingo_area','body_part_in_name','chikugo_area','chikuho_area','chikuzen_area','chugoku_mountain_basin','chuyo_area','color_in_name','dosan_line','four_plus_name','fukuoka_metro','hakubi_line','hard_to_read_name','hiroshima_metro','honshu_bridge','izumo_area','kagoshima_main_line','kawa_in_name','kitakyushu_area','nanyo_area','new_old_in_name','nippo_main_line','nishitetsu_line','northern_kyushu','okinawa_main_island','okinawa_south_central','osumi_area','paper_industry_shikoku','plant_in_name','pref_name_in_city_name','sakishima_islands','same_name_other_pref','sanin_area','sanin_main_line','sanyo_area','sanyo_main_line','satsuma_area','sea_word_in_name','setouchi_industrial','shima_in_name','southern_kyushu','ta_in_name','toyo_area','yama_in_name','yosan_line',
   'ic_doo','ic_sasson','ic_shiribeshi','ic_doto',
@@ -44,7 +44,7 @@ const KEYS = ['hitachi_seaside_park','tsuchiura_hanabi','koga_kubo','toride_geid
   'ic_chugoku','ic_sanyo','ic_tottori','ic_yonago','ic_okayama','ic_hamada','ic_matsue','ic_onomichi','ic_hiroshima','ic_harima',
   'ic_takamatsu','ic_tokushima','ic_matsuyama','ic_kochi',
   'ic_kyushu','ic_higashi_kyushu','ic_nagasaki','ic_oita','ic_miyazaki','ic_okinawa',
-  'koshien_champion','sumo_yokozuna_ozeki','famous_cape',
+  'technical_college','national_univ_attached_high','national_univ_attached_junior_high','veterinary_university','fisheries_marine_high_school','keirin_track','boat_race_track','auto_race_track','paper_mill','cement_factory','geothermal_power','tourist_cave','rocket_launch_site','cable_car','raihoshin','fire_torch_festival','mikoshi_into_sea','major_beer_factory','ikea_store','domestic_ferry','international_ferry','nishikigoi_origin','safari_park','ninja_tourism','air_self_defense_base','maritime_self_defense_base','starry_sky_reserve','volcano_crater_tourism','tidal_walk_island','whisky_distillery','ski_jump_hill','ama_divers','toki_stork_rewilding','swan_wintering','sunflower_famous','lavender_famous','oyster_aquaculture','wasabi_production','traditional_saltmaking','oilfield_present','nori_aquaculture','wakame_aquaculture','salmon_aquaculture','sea_turtle_nesting','manga_museum','ukai','bullfighting','hot_air_balloon_event','tourist_trolley_train','ropeway','geyser','public_observatory','outlet_mall','seicomart_store','costco_store','lalaport','aeon_mall_store','donki_store','lopia_store','yamaokaya_store','komeri_store','cainz_store','sawayaka_store','heiwado_store','hachiban_store','ramen_jiro_store','youme_store','okuwa_store','belc_store','yaoko_store','sukesan_store','yamada_udon_store','sugakiya_store','makino_udon_store','lucky_pierrot_store','aw_store','sanliv_marushoku_store','marunaka_store','sanei_store','albis_store','harashin_narus_store','uoroku_store','tsuruya_store','york_benimaru_store','dinosaur_fossil_found','kappa_town_promotion','oni_main_festival','horse_public_road_festival','tourist_steam_train','kokeshi_production','hina_town_event','gsdf_garrison','cinema_present','town_village_university','agricultural_high_school','industrial_high_school','commercial_high_school','domain_school_roots','closed_school_tourism','full_boarding_high_school','spring_koshien_champion','summer_koshien_champion','high_school_soccer_champion','high_school_rugby_champion','high_school_ekiden_champion','no_high_school','jigoku_geothermal_area','meiji_taisho_church','wind_farm_cluster','waterway_boat_tour','lighthouse_general','daruma_production','river_boat_descent','department_store_general','v245_abu_michinoeki_origin','v245_yusui_kirishima_art','v245_kikuyo_jasm','v247_mizuho_monorail_terminal','v247_aya_suspension_bridge','v247_nyuzen_sawasugi','koshien_champion','sumo_yokozuna_ozeki','famous_cape',
   'yamata_no_orochi','hibagon','mori_motonari','hiruzen_highland','miyamoto_musashi_station','akiyoshidai','mizuki_shigeru_road','yasugi_bushi','gonokawa','donticchi_fish','shokasonjuku','motonosumi_shrine','bizen_ware','osafune_sword_museum','naoshima_gateway','horseshoe_crab_museum','astronomy_city','sunameri','naval_academy','goldfish_lantern','ito_hirobumi_birthplace','train_factory','stork','hyonosen','takeda_castle','tamba_dinosaur','black_soybeans','japan_navel','miki_hardware','balloon_city','saga_balloon_festa','sake_birthplace','peron_festival','ako_ronin','awaji_puppet_theater','nijigen_no_mori','akechi_mitsuhide_castle','gunze_birthplace','nihon_sankei','singing_sand','miyama_thatched_village','hozugawa_boat_ride','doushisha','nagaoka_tenmangu','joruriji','jrosyu_ume','ritsumeikan','pm_birthplace',
   'name_has_betsu','hokkaido_greenland','famous_prison','yakitori_famous_bibai','coal_mine_shaft','drift_ice','suffolk_sheep','ammonite_fossil','matsuo_jingisukan','sweet_road','least_populous_city','urokodango','bear_park','fighters_farm',
   
@@ -52,14 +52,360 @@ const KEYS = ['hitachi_seaside_park','tsuchiura_hanabi','koga_kubo','toride_geid
   'basketball_town','kamakura_yokote','akita_inu_hachiko','namahage','inaniwa_udon','oyu_stone_circle','yuri_kogen_railway','blumen_akita','odate_noshiro_airport','tdk_town','kakunodate_tazawako','sankyo_soko','higashizawa_rose','ayame_park','hanagasa_tendo','ginzan_onsen','kumano_taisha','tsuburaya_eiji','matsukawaura','kiku_ningyo_nihonmatsu','abukumado','kacchu_keiba','anpogaki','william_park','natural_gas_town',
   'region_tohoku','region_kanto','region_chubu','region_kinki','region_chugoku','region_shikoku','region_kyushu',
   'pref_hokkaido','pref_aomori','pref_iwate','pref_miyagi','pref_akita','pref_yamagata','pref_fukushima','pref_ibaraki','pref_tochigi','pref_gunma','pref_saitama','pref_chiba','pref_tokyo','pref_kanagawa','pref_niigata','pref_toyama','pref_ishikawa','pref_fukui','pref_yamanashi','pref_nagano','pref_gifu','pref_shizuoka','pref_aichi','pref_mie','pref_shiga','pref_kyoto','pref_osaka','pref_hyogo','pref_nara','pref_wakayama','pref_tottori','pref_shimane','pref_okayama','pref_hiroshima','pref_yamaguchi','pref_tokushima','pref_kagawa','pref_ehime','pref_kochi','pref_fukuoka','pref_saga','pref_nagasaki','pref_kumamoto','pref_oita','pref_miyazaki','pref_kagoshima','pref_okinawa',
-  'kitasubaru','kita_no_kuni','kita_no_shonan','shizumine','shimotsuma_movie','hitachi_kokufu','toyoda_castle','moriya_junction','namegata_farm','hananuki','happogahara','kanuma_tsuchi','nasu_yoichi','jichi_medical','bihada_onsen','moomin_park','ageo_sodou','iroha_toi','okegawa_benibana','ishito_zakura','kinchakuda','heirinji','lucky_star','johnson_town','saika_matsuri','mizuko_kaizuka','smallest_city','yashio_hanamomo','yoshikawa_namazu','shiraoka_nashi','kurohama_kaizuka','hanyu_yurugp','inzai_datacenter','kamagaya_farm','iioka_cape','tomisato_suika','sanbu_sugi','keisei_rose','aqualine_gate','yotsukaido_name','onari_kaido','yachimata_peanuts','nashibou','soza_ueki','blueberry_origin','kishozeisei_center','summerland','hamura_zeki','baseside_street','zama_himawari','zushi_marina','ayase_no_station','nono_odoriji','linear_center','shakou_elevator','saruhashi','enbaragawa','sanshu_kawara','nonbori_arai','akame_taki','oiwayama_dotaku','tokaido_nakasendo','koka_ninja','take_no_michi','aioi_matsu','banshu_soroban_ono','katsuragi_tsutsuji','matabei_zakura','kishu_herazao','negoroji','kokusan_denim','konrei_kagu','nora_dokei','onga_pump','koinoki','hiyoko','kubote_san','taku_seibyo','minamata_museum','kikuchi_keikoku','mikoshiki_coast','amakusa_bridges','ikoma_kogen','senbon_icho','sogi_no_taki','orion_beer','inami_kaeru_bridge','tsuruta_steuben','jupialand_shibazakura','licca_castle','iitate_madeikan','ogata_reclamation','ora_mirai_tower','kamisato_sa','mikurajima_dolphin','aogashima_double_caldera','oi_biotopia','nanko_ume','ebikani_aquarium','misato_blueberry','circuit','dam_lake','meisui_hyakusen','least_populous_village','tanada_hyakusen','karst','ramsar','national_park','waterfall_hyakusen','castle_hyakumeijo','winery','funaoka_sakura','omocha_no_machi','tanagura_kamegajo','neba_sugi','hiraya_himawari_no_yu','ikusaka_sanseiji'];
+  'kitasubaru','kita_no_kuni','kita_no_shonan','shizumine','shimotsuma_movie','hitachi_kokufu','toyoda_castle','moriya_junction','namegata_farm','hananuki','happogahara','kanuma_tsuchi','nasu_yoichi','jichi_medical','bihada_onsen','moomin_park','ageo_sodou','iroha_toi','okegawa_benibana','ishito_zakura','kinchakuda','heirinji','lucky_star','johnson_town','saika_matsuri','mizuko_kaizuka','smallest_city','yashio_hanamomo','yoshikawa_namazu','shiraoka_nashi','kurohama_kaizuka','hanyu_yurugp','inzai_datacenter','kamagaya_farm','iioka_cape','tomisato_suika','sanbu_sugi','keisei_rose','aqualine_gate','yotsukaido_name','onari_kaido','yachimata_peanuts','nashibou','soza_ueki','blueberry_origin','kishozeisei_center','summerland','hamura_zeki','baseside_street','zama_himawari','zushi_marina','ayase_no_station','nono_odoriji','linear_center','shakou_elevator','saruhashi','enbaragawa','sanshu_kawara','nonbori_arai','akame_taki','oiwayama_dotaku','tokaido_nakasendo','koka_ninja','take_no_michi','aioi_matsu','banshu_soroban_ono','katsuragi_tsutsuji','matabei_zakura','kishu_herazao','negoroji','kokusan_denim','konrei_kagu','nora_dokei','onga_pump','koinoki','hiyoko','kubote_san','taku_seibyo','minamata_museum','kikuchi_keikoku','mikoshiki_coast','amakusa_bridges','ikoma_kogen','senbon_icho','sogi_no_taki','orion_beer','inami_kaeru_bridge','tsuruta_steuben','jupialand_shibazakura','licca_castle','iitate_madeikan','ogata_reclamation','ora_mirai_tower','kamisato_sa','mikurajima_dolphin','aogashima_double_caldera','oi_biotopia','nanko_ume','ebikani_aquarium','misato_blueberry','circuit','dam_lake','meisui_hyakusen','least_populous_village','tanada_hyakusen','karst','ramsar','national_park','waterfall_hyakusen','castle_hyakumeijo','winery','funaoka_sakura','omocha_no_machi','tanagura_kamegajo','neba_sugi','hiraya_himawari_no_yu','ikusaka_sanseiji','toyoyama_ichiro_airport','kanmaki_kataoka_castle','kitanakagusuku_rycom_castle','totsukawa_largest_village_bridge','minakami_tanigawa_rafting','shibata_castle_occhahoi','seiro_albirex_jsc','eiheiji_zen_training','minamisanriku_shizugawa_aquaculture','onagawa_station_seaside_shopping','chiba_makuhari_monorail','minamiuonuma_hakkaisan_koshihikari','aomori_nebuta','hiroshima_dome_carp','machida_zelvia','ise_naiku_geku','yokkaichi_combinat_night','tokamachi_echigo_tsumari','wakayama_yoshimune_kimiidera','morioka_takuboku_sandaimen','kyoto_gion_sennen','naha_shurijo_kokusai','v144_minamiaiki_dam','v144_shimoichi_sugibashi','v144_shoo_kintaro','v144_mizumaki_cosmos','v144_taragi_shorenji','v144_kunitomi_honjo','v144_wadomari_fucha','v144_ie_tatchu','v144_kunneppu_characters','v144_fujisaki_fuji','v144_kagamiishi_iwase','v144_tomioka_yonomori','v144_mutsuzawa_smartwellness','v178_arita_porcelain','v178_assabu_mayqueen','v178_shiriuchi_saburo','v178_ina_roses','v178_higashichichibu_hosokawa','v178_mitsue_miune','v178_mogami_akakura','v178_funagata_jomon','v178_nagi_moca','v178_iwaizumi_ryusendo','v178_karumai_tulips','v178_ishii_fuji','v178_izena_shoen','v178_mifune_dinosaur','v178_tsunagi_art','v178_nakai_itsukushima','v178_nahari_townscape','v186_kouhoku_junction','v186_otobe_shirafura','v186_tozawa_mogamigawa','v186_oshino_hakkai','v186_narusawa_icecave','v186_misaki_tkg','v186_nishiawakura_hyakumori','v186_kamikatsu_zerowaste','v186_shioya_shojinzawa','v186_minamiaso_shirakawa','v186_kuma_kyusendo','v186_sagara_kawabe','v186_nishihara_tawarayama','v186_hakone_owakudani','v186_higashinaruse_sennin','v186_geisei_horticulture','v186_ochi_yokogurayama','v188_hayakawa_akasawa','v188_fujikawa_oboshi','v188_kosuge_tamagawa','v188_odai_osugidani','v188_matsushige_airport','v188_kawatana_torpedo','v188_ashikita_utase','v188_kosaka_korakukan','v188_fujisato_shirakami','v188_shinto_tsurushi','v188_kawaba_denenplaza','v205_tamaki_tamaru','v205_komono_yunoyama','v205_kyotamba_shizushi','v205_inagawa_tada','v205_kusu_dowa','v205_tajiri_onion','v205_nose_joruri','v205_toyono_ukon','v205_ohira_only_village','v205_kibichuo_bupposo','v206_shichigahama_smallest','v206_mikawa_no_mountain','v206_okuizumo_tatara','v206_higashimiyoshi_kamo','v206_kamijima_yumeshima','v206_ikata_sadamisaki','v206_nakanoto_jofu','v206_anamizu_boramachi'];
 
 const QUESTIONS = {
+  v266_katsuura_big_hina: {text:"巨大なひな壇を埋め尽くす「ビッグひな祭り」で知られる？", icon:"🎎"},
+  v267_kotohira_konpira: {text:"「こんぴらさん」として親しまれる金刀比羅宮がある？", icon:"⛩️"},
+  v220_kyowa_raiden: {text:'「らいでんメロン」の一大産地として知られるマチ？', icon:'🍈'},
+  v220_yoichi_nikka: {text:'ニッカウヰスキー創業の地で、歴史ある蒸溜所があるマチ？', icon:'🥃'},
+  v220_kamisunagawa_coal: {text:'炭鉱で栄えた歴史を伝える坑道や炭鉱遺産が残るマチ？', icon:'⛏️'},
+  v220_higashikagura_flowers: {text:'花を生かしたまちづくりを続け、旭川空港の敷地が広がるマチ？', icon:'🌷'},
+  v220_teshio_shijimi: {text:'日本海へ注ぐ大河の河口で採れる、大粒のヤマトシジミが名物？', icon:'🐚'},
+  v220_nakatombetsu_karst: {text:'日本最北級のカルスト地形と鍾乳洞があるマチ？', icon:'🪨'},
+  v220_rishirifuji_mountain: {text:'標高1721mの独立峰を仰ぐ、円形の島の東側にある？', icon:'🏔️'},
+  v220_horonobe_reindeer: {text:'フィンランドから来たトナカイを飼育する「トナカイ観光牧場」があるマチ？', icon:'🦌'},
+  v220_ozora_shibazakura: {text:'丘一面がピンクに染まる「ひがしもこと芝桜公園」があるマチ？', icon:'🌸'},
+  v220_yubetsu_tulip: {text:'大規模なチューリップ公園で春の花景色が名物になっているマチ？', icon:'🌷'},
+  v220_toyoura_strawberry: {text:'噴火湾に面し、北海道では珍しいイチゴの産地として知られるマチ？', icon:'🍓'},
+  v220_hidaka_monbetsu_horse: {text:'門別競馬場があり、サラブレッド文化と深く結びつくマチ？', icon:'🐎'},
+  v220_biratori_nibutani: {text:'二風谷でアイヌの伝統文化が色濃く受け継がれているマチ？', icon:'🛶'},
+  v220_kamishihoro_taushubetsu: {text:'湖の水位で見え隠れする「タウシュベツ川橋梁」で知られるマチ？', icon:'🌉'},
+  v220_kushiro_hosooka: {text:'細岡展望台から広大な湿原と蛇行する大河を一望できる？', icon:'🌿'},
+  v220_hamanaka_monkeypunch: {text:'「ルパン三世」の作者モンキー・パンチの故郷として知られるマチ？', icon:'🎨'},
+  v220_nakashibetsu_kaiyodai: {text:'開陽台から「宇宙からも見える」といわれる格子状防風林を望むマチ？', icon:'🌲'},
+  v220_inakadate_riceart: {text:'色の異なる稲で巨大な絵を描く「田んぼアート」発祥の地？', icon:'🌾'},
+  v220_yokohama_nanohana: {text:'日本最大級の作付面積を誇る菜の花畑で知られるマチ？', icon:'🌼'},
+  v220_oirase_liberty: {text:'ニューヨークと同じ北緯40度40分にちなむ巨大な「自由の女神像」があるマチ？', icon:'🗽'},
+  v220_takko_garlic: {text:'高品質なニンニクが地域の代名詞になっている？', icon:'🧄'},
+  v220_hashikami_seamountain: {text:'太平洋の小舟渡海岸と、ツツジで知られる山の両方を楽しめる？', icon:'🌊'},
+  v220_shingo_christ: {text:'「キリストの墓」と伝わる塚がある、不思議な伝説が残る？', icon:'✝️'},
+  v220_kunohe_broiler: {text:'岩手県内屈指のブロイラー産地として知られる？', icon:'🐓'},
+  v220_hirono_uni: {text:'岩盤に掘った増殖溝でウニを育てる「ウニ牧場」で知られるマチ？', icon:'🦔'},
+  v220_minamisanriku_ramsar: {text:'志津川湾がラムサール条約湿地に登録されているマチ？', icon:'🦪'},
+  v220_kawamata_cosquin: {text:'日本最大級のフォルクローレ音楽祭「コスキン・エン・ハポン」が開かれるマチ？', icon:'🎶'},
+  v220_tenei_british: {text:'羽鳥湖高原に英国の街並みを再現した「ブリティッシュヒルズ」がある？', icon:'🇬🇧'},
+  v220_hinoemata_kabuki: {text:'江戸時代から受け継がれる農村歌舞伎が、今も専用の舞台で上演されている？', icon:'🎭'},
+  v220_kitashiobara_goshikinuma: {text:'磐梯山の噴火で生まれた「五色沼湖沼群」で知られる？', icon:'🏞️'},
+  v220_bandai_enichiji: {text:'平安時代初期に開かれた古代寺院「慧日寺」の跡が残る？', icon:'🏯'},
+  v220_showa_karamushi: {text:'本州で唯一、伝統織物の原料「からむし」の栽培から糸づくりまで受け継いでいる？', icon:'🧵'},
+  v220_tamakawa_airport: {text:'福島空港が所在する「空の玄関口」？', icon:'✈️'},
+  v220_shinchi_karo: {text:'鹿狼山から太平洋と蔵王連峰を一望できる、福島県最北端の沿岸のマチ？', icon:'⛰️'},
+  v220_namegawa_shinrin: {text:'国営武蔵丘陵森林公園の大部分が区域内に広がっている？', icon:'🌳'},
+  v220_tako_rice: {text:'栗山川沿いのアジサイと、良質な米どころとして知られる？', icon:'🍚'},
+  v220_tonosho_kojurin: {text:'利根川のヨシ原に希少な鳥「コジュリン」が生息するマチ？', icon:'🐦'},
+  v220_shibayama_haniwa: {text:'古墳から多くの埴輪が出土し、「はにわの里」として知られる？', icon:'🗿'},
+  v219_kamikawa_tonomine: {text:'映画や大河ドラマのロケ地にもなった、ススキの名所「砥峰高原」があるマチ？', icon:'🌾'},
+  v219_taishi_ikarugadera: {text:'聖徳太子ゆかりの「斑鳩寺」があり、聖徳太子との縁が深い？', icon:'⛩️'},
+  v219_shinonsen_arayu: {text:'約98℃の温泉が自然に湧く、湯村温泉の「荒湯」で知られるマチ？', icon:'♨️'},
+  v219_ando_tomimoto: {text:'人間国宝第一号の陶芸家・富本憲吉の生誕地で、生家が残るマチ？', icon:'🏺'},
+  v219_kanmaki_kataoka: {text:'中世の山城「片岡城」の堀切や土塁が残るマチ？', icon:'🏯'},
+  v219_hirogawa_inamura: {text:'濱口梧陵と津波防災の物語「稲むらの火」の舞台となったマチ？', icon:'🔥'},
+  v219_yura_shirasaki: {text:'白い石灰岩と青い海の「白崎海岸」が「日本のエーゲ海」と呼ばれるマチ？', icon:'🌊'},
+  v219_shirahama_shirarahama: {text:'真っ白な砂浜「白良浜」と日本三古湯の一つとされる温泉で知られるマチ？', icon:'🏖️'},
+  v219_okinoshima_rousoku: {text:'夕日が先端に重なると火が灯ったように見える「ローソク島」があるマチ？', icon:'🕯️'},
+  v219_wake_fuji: {text:'約100種類の藤が咲く「藤公園」があり、奈良時代の忠臣・清麻呂ゆかりで知られるマチ？', icon:'🪻'},
+  v219_akiota_sandankyo: {text:'国の特別名勝「三段峡」を擁するマチ？', icon:'🏞️'},
+  v219_jinsekikogen_paperplane: {text:'高原から紙飛行機を飛ばせる「とよまつ紙ヒコーキ・タワー」があるマチ？', icon:'✈️'},
+  v219_waki_hachigamine: {text:'山口県最大級の株数を誇るバラ園がある「蜂ヶ峯総合公園」のマチ？', icon:'🌹'},
+  v219_naoshima_art: {text:'地中美術館や「赤かぼちゃ」など、島と一体になった現代アートで知られるマチ？', icon:'🎨'},
+  v219_ainan_uwakai: {text:'サンゴと熱帯魚を海中展望船から観察できる「宇和海海域公園」があるマチ？', icon:'🐠'},
+  v219_shime_tateko: {text:'高さ約47.6mの旧炭鉱の「竪坑櫓」が、巨大な産業遺産として残っているマチ？', icon:'⛏️'},
+  v219_shingu_aishima: {text:'海外メディアにも紹介された「猫の島」相島へ定期船が出ているマチ？', icon:'🐈'},
+  v219_ashiya_kama: {text:'室町時代から名声を得た、精緻な文様の茶の湯釜の産地？', icon:'🍵'},
+  v219_chikuzen_tachiarai: {text:'旧陸軍大刀洗飛行場跡に平和記念館があり、零戦などを展示するマチ？', icon:'🛩️'},
+  v219_oki_biomass: {text:'生ごみをメタン発酵させ、液肥とエネルギーに再生する循環型のマチ？', icon:'♻️'},
+  v219_aka_ishizaka: {text:'1895年開通の九州最古級の鉄道トンネル「石坂トンネル」を今も列車が通る？', icon:'🚃'},
+  v219_kanda_hirotani: {text:'福岡県内で唯一とされる湿原「広谷湿原」があるマチ？', icon:'🌿'},
+  v219_chikujo_tsunashiki: {text:'菅原道真ゆかりと伝わり、約千本の白梅が咲く「綱敷天満宮」があるマチ？', icon:'🌸'},
+  v219_genkai_hamanoura: {text:'海と棚田と夕日が重なる「浜野浦の棚田」で知られるマチ？', icon:'🌅'},
+  v219_nankan_sekisho: {text:'古代から県境の交通の要衝で、参勤交代も通った関所のマチ？', icon:'🚶'},
+  v219_mashiki_airport: {text:'阿蘇くまもと空港を擁する、熊本の「空の玄関口」のマチ？', icon:'✈️'},
+  v219_hikawa_nozu: {text:'前方後円墳などが集まる国史跡「野津古墳群」があるマチ？', icon:'🏺'},
+  v219_nakatane_airport: {text:'種子島の中央部にあり、島の空の玄関口「種子島空港」があるマチ？', icon:'✈️'},
+  v219_yakushima_yakusugi: {text:'屋久杉の原生林と九州最高峰・宮之浦岳を擁する世界自然遺産のマチ？', icon:'🌲'},
+  v219_taketomi_nineislands: {text:'西表島など9つの有人島からなり、役場が行政区域外の石垣島にある？', icon:'🏝️'},
+  v219_yakumo_two_seas: {text:'日本で唯一、太平洋と日本海の両方に面するマチ？', icon:'🌊'},
+  v219_okushiri_blue: {text:'透明度の高い青い海と、海から突き出たドーナツ形の奇岩「鍋釣岩」で知られる？', icon:'🪨'},
+  v219_setana_otayama: {text:'急な階段と鉄鎖を登って参拝する、断崖の「太田山神社」があるマチ？', icon:'⛩️'},
+  v219_rusutsu_resort: {text:'農業が盛んな一方、遊園地とスキー場を備えた通年リゾートでも知られる？', icon:'🎢'},
+  v218_hashima_takehana: {text:'13輌の山車が町を練り歩く「竹鼻まつり」で知られるマチ？', icon:'🏮'},
+  v218_muroran_night: {text:'白鳥大橋と工場群が織りなす「工場夜景」で知られるマチ？', icon:'🌃'},
+  v218_narita_shinshoji: {text:'日本最大級の国際空港があり、新勝寺の門前町でもある？', icon:'⛩️'},
+  v218_wakasa_kumagawa: {text:'鯖街道の宿場町「熊川宿」に往時の町並みが残るマチ？', icon:'🏘️'},
+  v218_nanbu_tea: {text:'山梨県南部の温暖な気候を生かした茶栽培が盛んな地域？', icon:'🍵'},
+  v218_hara_stars: {text:'八ヶ岳西麓に広がり、「星降る里」と呼ばれる高原地帯？', icon:'🌌'},
+  v218_iizuna_apple: {text:'50品種以上のりんごを育てる「りんごのまち」？', icon:'🍎'},
+  v218_togo_aichiike: {text:'全国規模のボート大会も開かれる「愛知池」があり、ボート競技が盛ん？', icon:'🚣'},
+  v218_kawagoe_tera46: {text:'巨大な火力発電所と、地球46億年をテーマにした体験型の電力館がある？', icon:'⚡'},
+  v218_meiwa_saiku: {text:'伊勢神宮に仕えた皇族女性「斎王」が暮らした斎宮跡があるマチ？', icon:'👘'},
+  v218_aisho_kongorinji: {text:'湖東三山の一つ、国宝本堂をもつ「金剛輪寺」があるマチ？', icon:'🍁'},
+  v218_kora_saimyoji: {text:'国宝の本堂と三重塔をもつ湖東三山「西明寺」があるマチ？', icon:'🏯'},
+  v218_taga_taisha: {text:'伊邪那岐大神・伊邪那美大神を祀り、延命長寿や縁結びで信仰を集める大社がある？', icon:'⛩️'},
+  v218_ine_funaya: {text:'海際に約230軒の「舟屋」が並ぶ独特の景観で知られるマチ？', icon:'🚤'},
+  v218_tadaoka_smallest: {text:'面積約3.97平方キロで「日本一小さな町」を掲げるマチ？', icon:'📏'},
+  v218_kanan_saigyo: {text:'歌人・西行法師の終焉の地「弘川寺」があるマチ？', icon:'🌸'},
+  v218_taka_origins: {text:'「山田錦」「杉原紙」「敬老の日」の3つの発祥を誇るマチ？', icon:'🎌'},
+  v218_inami_ponds: {text:'県内最大の加古大池をはじめ、大小88か所のため池が点在するマチ？', icon:'💧'},
+  v218_harima_onaka: {text:'弥生時代の大規模集落「大中遺跡」と県立考古博物館があるマチ？', icon:'🏺'},
+  v218_fukusaki_yanagita: {text:'日本民俗学を確立した柳田國男の生誕地で、街なかに妖怪の仕掛けが現れる？', icon:'👺'},
+  v217_fukuyama_tomonoura: {text:"古くから「潮待ちの港」として栄えた鞆の浦があるマチ？", icon:"⚓"},
+  v217_asahikawa_asahiyama: {text:"全国的に知られる「旭山動物園」があるマチ？", icon:"🐧"},
+  v217_kokubunji_otaka: {text:"清流沿いの遊歩道「お鷹の道」と「真姿の池湧水群」があるマチ？", icon:"💧"},
+  v217_izumo_taisha: {text:"大国主大神をまつる、縁結びで名高い古社がある？", icon:"⛩️"},
+  v217_hitachi_furyumono: {text:"高さ約15mの山車で、からくり人形芝居を演じる祭礼がある？", icon:"🎎"},
+  v216_kitaakita_matagi: {text:"「マタギ」の生業と文化が今も受け継がれるマチ？", icon:"🐻"},
+  v216_maibara_ibuki: {text:"シンボルとして「伊吹山」を仰ぐマチ？", icon:"🏔️"},
+  v216_fukuoka_yamakasa: {text:"ユネスコ無形文化遺産の「博多祇園山笠」が街を駆けるマチ？", icon:"🏮"},
+  v216_kanoya_rose: {text:"約3万5,000株が咲く、日本最大級のばら園がある？", icon:"🌹"},
+  v216_kitakyushu_mojiko: {text:"明治・大正期の建物が残る「門司港レトロ」で知られるマチ？", icon:"🚂"},
+  v216_murakami_salmon: {text:"鮭を「イヨボヤ」と呼ぶほど、独特の鮭文化が根付くマチ？", icon:"🐟"},
+
+  v209_tateshina_shirakaba: {text:"標高約1,500mの「白樺高原」を抱くマチ？", icon:"🏔️"},
+  v213_misato_shiwassu: {text:"百済王族伝説を伝える「師走祭り」が受け継がれるマチ？", icon:"🔥"},
+  v213_miyoshi_santome: {text:"江戸期の新田開発から続く「落ち葉堆肥農法」が残る？", icon:"🍂"},
+  v213_miyashiro_tobu_zoo: {text:"「東武動物公園」があるマチ？", icon:"🦁"},
+  v213_hinode_tsurutsuru: {text:"「生涯青春の湯 つるつる温泉」があるマチ？", icon:"♨️"},
+  v213_kaisei_ajisai: {text:"水田地帯を約5,000株のあじさいが彩るマチ？", icon:"💠"},
+  v213_ogose_bairin: {text:"関東三大梅林の一つに数えられる梅林がある？", icon:"🌸"},
+  v213_yoshioka_funao: {text:"榛名山東麓に「船尾滝」があるマチ？", icon:"💧"},
+  v213_murata_kura: {text:"宮城県初の重伝建に選ばれた、蔵の町並みが残る？", icon:"🏘️"},
+  v213_mimata_tsutsuji: {text:"椎八重公園で約6万本のクルメツツジが咲くマチ？", icon:"🌺"},
+  v213_satosho_kaze: {text:"ミュージシャン・藤井風の出身地として知られるマチ？", icon:"🎹"},
+  v213_takanezawa_goryo: {text:"宮内庁直轄の「御料牧場」があるマチ？", icon:"🐎"},
+  v213_uchiko_uchikoza: {text:"大正期に建てられた、重要文化財の木造芝居小屋がある？", icon:"🎭"},
+  v213_samukawa_jinja: {text:"相模国一之宮で、八方除で知られる神社が鎮座する？", icon:"⛩️"},
+  v213_hisayama_sato: {text:"福岡都市圏にありながら、区域の約3分の2を山林が占める？", icon:"🌲"},
+  v209_karuizawa_shaw: {text:"宣教師A・C・ショーが「絶好の避暑地」として紹介し、国際的な高原リゾートへ発展したマチ？", icon:"🏡"},
+  v209_nozawa_sotoyu: {text:"温泉街に13の共同浴場「外湯」があり、湯仲間が守り継ぐマチ？", icon:"♨️"},
+  v209_nagawa_obsidian: {text:"「星糞峠」に縄文時代の黒耀石鉱山跡が残るマチ？", icon:"🪨"},
+  v209_minamiizu_irozaki: {text:"1871年初点灯の灯台が、伊豆半島最南端を照らす？", icon:"💡"},
+  v209_yoshida_koyama: {text:"戦国時代の小山城跡に「展望台小山城」が建つマチ？", icon:"🏯"},
+  v209_matsuzaki_namako: {text:"黒い平瓦と白い漆喰の「なまこ壁」が町並みに数多く残るマチ？", icon:"🏘️"},
+  v209_shimizu_kakita: {text:"富士山の湧き水を水源とする、全長約1.2kmの「柿田川」が流れるマチ？", icon:"💧"},
+  v209_nagaizumi_ayutsubo: {text:"約1万年前の富士山噴火による三島溶岩流の端にできた「鮎壺の滝」があるマチ？", icon:"🌋"},
+  v209_miki_shishi: {text:"日本最大級の大獅子4体と約50の獅子連を誇り、「獅子たちの里」と呼ばれるマチ？", icon:"🦁"},
+  v209_ayagawa_udon: {text:"空海から製法を学んだ智泉大徳が両親に振る舞ったという「讃岐うどん発祥伝説」が残るマチ？", icon:"🍜"},
+  v209_houki_ueda: {text:"植田正治写真美術館で、水面に映る「逆さ大山」を楽しめるマチ？", icon:"📷"},
+  v209_minamiosumi_sata: {text:"日本本土最南端の「佐多岬」があるマチ？", icon:"🧭"},
+  v209_higashikushira_lupin: {text:"柏原海岸で春にルーピンの黄色い花畑が広がるマチ？", icon:"🌼"},
+  v209_kinko_otaki: {text:"高さ25mの「神川大滝」を、高さ68mのつり橋から見下ろせるマチ？", icon:"🌊"},
+  v208_misaki_fuke: {text:"淡路島や四国への航路で栄えた「深日港」があるマチ？", icon:"⚓"},
+  v208_yuza_maruike: {text:"鳥海山の湧水をたたえる神秘的な「丸池様」があるマチ？", icon:"💧"},
+  v208_mihama_suishohama: {text:"若狭湾の澄んだ海と白い砂浜「水晶浜」で知られるマチ？", icon:"🏖️"},
+  v208_miyako_jabuchi: {text:"深い森と清流に包まれた二段滝「蛇渕の滝」があるマチ？", icon:"💧"},
+  v208_koge_tobaru: {text:"7世紀頃に築かれた古代山城「唐原山城跡」があるマチ？", icon:"🏯"},
+  v208_kotake_loco23: {text:"炭鉱で活躍した米国アルコ社製の蒸気機関車23号が保存されているマチ？", icon:"🚂"},
+  v208_kawasaki_gyorakuen: {text:"雪舟が築いたと伝わる国指定名勝「魚楽園」があるマチ？", icon:"🌿"},
+  v208_keisen_ozuka: {text:"鮮やかな壁画で知られる国の特別史跡「王塚古墳」があるマチ？", icon:"🟥"},
+  v208_itoda_kanamura: {text:"拝殿の天井に15枚の色鮮やかな絵が残る「金村神社」があるマチ？", icon:"🎨"},
+  v208_onga_cho: {text:"遠賀川の下流域に広がる、水田地帯で知られる？", icon:"🔤"},
+  v208_kurate_hasedera: {text:"九州最古級とされる木造十一面観音立像を伝える長谷寺があるマチ？", icon:"🙏"},
+  v208_kawara_kawaradake: {text:"万葉集にも詠まれ、石灰石採掘で山容を変えた山がある？", icon:"⛰️"},
+  v208_kawauchi_hebusu: {text:"モリアオガエル繁殖地として国の天然記念物に指定された「平伏沼」があるマチ？", icon:"🐸"},
+  v208_namie_somayaki: {text:"300年以上の歴史を持つ国の伝統的工芸品「大堀相馬焼」のふるさと？", icon:"🏺"},
+  v208_maebashi_ito: {text:"上毛かるたで「県都」「生糸」と結びつけて詠まれる？", icon:"🧵"},
+  v208_itakura_agebune: {text:"水害と共に暮らした歴史を伝える「揚舟」の文化が残るマチ？", icon:"🛶"},
+  v208_sakaki_murakami: {text:"戦国武将・村上義清の本拠「葛尾城跡」があるマチ？", icon:"🏯"},
+  v208_ogawa_alps: {text:"各所から北アルプスの大パノラマを望める？", icon:"🏔️"},
+  v208_koumi_kantaro: {text:"童謡「北風小僧の寒太郎」の舞台イメージとなった松原湖があるマチ？", icon:"🎵"},
+  v208_kijimadaira_kayanodaira: {text:"「カヤの平高原」に広大なブナの原生林が残るマチ？", icon:"🌳"},
+
+  v207_kihoku_choshi: {text:"「キセキ」と称される透明度の銚子川が流れるマチ？", icon:"💧"},
+  v207_kishiwada_danjiri: {text:"300年以上続く、勇壮なだんじり祭で知られる？", icon:"🏮"},
+  v207_rifu_nashi: {text:"明治期から続く梨の産地で、特産の赤梨で知られる？", icon:"🍐"},
+  v207_shonai_kiyokawadashi: {text:"日本三大悪風の「清川だし」を生かし、風力発電を進めてきた？", icon:"🌬️"},
+  v207_nishiwaga_kinshuko: {text:"錦秋湖と湯田温泉峡県立自然公園を抱くマチ？", icon:"♨️"},
+  v207_sera_hanabatake: {text:"季節ごとに大規模な花畑が広がる観光農園が集まるマチ？", icon:"🌷"},
+  v207_saka_bayside: {text:"西日本最大級の人工海浜が、駅のすぐそばに広がる？", icon:"🏖️"},
+  v207_kumakogen_karst: {text:"西日本最高峰・石鎚山と日本三大カルストの四国カルストを擁するマチ？", icon:"⛰️"},
+  v207_masaki_gino: {text:"飢饉でも種麦を守った「義農作兵衛」をたたえる義農祭が続くマチ？", icon:"🌾"},
+  v207_matsuno_nametoko: {text:"花崗岩の滑らかな河床と「雪輪の滝」で知られる滑床渓谷があるマチ？", icon:"🏞️"},
+  v207_suginami_awaodori: {text:"100万人規模の観衆が熱狂する「東京高円寺阿波おどり」が開かれるマチ？", icon:"💃"},
+  v207_hodatsushimizu_chirihama: {text:"車で砂浜を走れる「千里浜なぎさドライブウェイ」の入口となるマチ？", icon:"🚗"},
+  v207_noto_abare: {text:"キリコが大松明の火粉の中を乱舞する「あばれ祭」で知られるマチ？", icon:"🔥"},
+  v207_ninomiya_azumayama: {text:"吾妻山公園で、菜の花越しに富士山と相模湾を望めるマチ？", icon:"🌼"},
+  v207_ohi_itteki: {text:"作家・水上勉ゆかりの「若州一滴文庫」があるマチ？", icon:"📚"},
+  v207_oto_cactus: {text:"約200種類・1000点以上を展示する「サボテンハウス」があるマチ？", icon:"🌵"},
+  v207_hirokawa_kasuri: {text:"約200年の歴史を持つ「久留米絣」の織元が集まるマチ？", icon:"🧵"},
+  v207_soeda_hikosan: {text:"日本を代表する山岳信仰・修験の地「英彦山」を擁するマチ？", icon:"⛩️"},
+  v207_fukuchi_agano: {text:"420年以上の伝統を誇る国指定伝統的工芸品「上野焼」のマチ？", icon:"🏺"},
+  v207_yoshitomi_kamizumo: {text:"人形の神々が相撲を取る国指定重要無形民俗文化財「神相撲」が伝わるマチ？", icon:"🤼"},
+  v206_shichigahama_smallest: {text:"宮城県で最も面積が小さく、北海道・東北でも最小の町？", icon:"📏"},
+  v206_mikawa_no_mountain: {text:"山形県で唯一、町内に山がないマチ？", icon:"🌾"},
+  v206_okuizumo_tatara: {text:"千数百年続く「たたら製鉄」と、その跡地を再生した棚田の文化的景観で知られるマチ？", icon:"🔥"},
+  v206_higashimiyoshi_kamo: {text:"樹齢約1000年、国の特別天然記念物「加茂の大クス」があるマチ？", icon:"🌳"},
+  v206_kamijima_yumeshima: {text:"島々を橋で結ぶ「ゆめしま海道」が全線開通したマチ？", icon:"🚲"},
+  v206_ikata_sadamisaki: {text:"「日本一細長い」とされる佐田岬半島に位置するマチ？", icon:"🗾"},
+  v206_nakanoto_jofu: {text:"約2000年の歴史を持つ伝統産業「能登上布」を受け継ぐマチ？", icon:"🧵"},
+  v206_anamizu_boramachi: {text:"伝統漁法の面影を残す「ボラ待ちやぐら」が見られるマチ？", icon:"🐟"},
+  v205_tamaki_tamaru: {text:"約680年の歴史を持つ「田丸城跡」が町のシンボルのマチ？", icon:"🏯"},
+  v205_komono_yunoyama: {text:"開湯1300年を迎えた「湯の山温泉」が御在所岳の麓にあるマチ？", icon:"♨️"},
+  v205_kyotamba_shizushi: {text:"京都府唯一の鍾乳洞「質志鐘乳洞」があるマチ？", icon:"🪨"},
+  v205_inagawa_tada: {text:"国史跡「多田銀銅山遺跡」があるマチ？", icon:"⛏️"},
+  v205_kusu_dowa: {text:"「日本のアンデルセン」久留島武彦の故郷で、日本童話祭が続くマチ？", icon:"📚"},
+  v205_tajiri_onion: {text:"「泉州玉葱の発祥の地」とされ、幻の品種「吉見早生」を復活栽培するマチ？", icon:"🧅"},
+  v205_nose_joruri: {text:"約200年受け継がれる「能勢の浄瑠璃」があるマチ？", icon:"🎭"},
+  v205_toyono_ukon: {text:"キリシタン大名・高山右近の生誕地として知られるマチ？", icon:"✝️"},
+  v205_ohira_only_village: {text:"宮城県でたった一つの「村」であるマチ？", icon:"🏞️"},
+  v205_kibichuo_bupposo: {text:"町の鳥「ブッポウソウ」の繁殖地を町指定天然記念物として守るマチ？", icon:"🐦"},
+  v204_gojome_morning_market: {text:"約530年続く「五城目朝市」があるマチ？", icon:"🧺"},
+  v204_hirono_tonbo: {text:"童謡「とんぼのめがね」が生まれたマチ？", icon:"🎵"},
+  v204_iinan_shimenawa: {text:"出雲大社神楽殿の大しめ縄を制作・奉納しているマチ？", icon:"⛩️"},
+  v204_nishiizu_tombolo: {text:"干潮時に海の道が現れる「三四郎島のトンボロ」で知られるマチ？", icon:"🌊"},
+  v204_taki_vison: {text:"日本最大級の商業リゾート「VISON」があるマチ？", icon:"🏘️"},
+  v204_matsusaka_beef: {text:"日本を代表するブランド牛「松阪牛」で知られるマチ？", icon:"🥩"},
+  v204_yubari_melon_coal: {text:"「夕張メロン」と炭鉱の歴史、両方で知られるマチ？", icon:"🍈"},
+  v204_otaru_canal: {text:"北海道開拓の玄関口として栄えた「小樽運河」があるマチ？", icon:"⚓"},
+  v204_higashine_cherry: {text:"「果樹王国」を掲げ、さくらんぼで知られるマチ？", icon:"🍒"},
+  v204_mitane_junsai: {text:"生産数量日本一を誇る「じゅんさい」のマチ？", icon:"🌿"},
+  v204_higashiizu_tsurushi: {text:"「雛のつるし飾り」発祥の地・伊豆稲取があるマチ？", icon:"🎎"},
+  v204_kimotsuki_space: {text:"日本初の人工衛星「おおすみ」を打ち上げた内之浦宇宙空間観測所があるマチ？", icon:"🚀"},
+  v204_kihoku_oni: {text:"全国の自治体で唯一、名前に「鬼」の文字が入るマチ？", icon:"👹"},
+  v204_tobe_yaki: {text:"約250年の歴史を持つ国の伝統的工芸品「砥部焼」のマチ？", icon:"🏺"},
+  v188_hayakawa_akasawa: {text:"江戸時代の面影を残す「赤沢宿」が、国選定の重要伝統的建造物群保存地区になっている？", icon:"🏘️"},
+  v188_fujikawa_oboshi: {text:"「日本さくら名所100選」に選ばれた大法師公園の桜で知られる？", icon:"🌸"},
+  v188_kosuge_tamagawa: {text:"多摩川の源流にあり、「源流の村」を掲げるマチ？", icon:"💧"},
+  v188_odai_osugidani: {text:"日本三大峡谷の一つ「大杉谷」があり、全域がユネスコエコパークに含まれている？", icon:"🏞️"},
+  v188_matsushige_airport: {text:"徳島県の空の玄関口「徳島阿波おどり空港」があるマチ？", icon:"✈️"},
+  v188_kawatana_torpedo: {text:"旧佐世保海軍工廠の魚雷遠距離発射場跡が残っている？", icon:"⚓"},
+  v188_ashikita_utase: {text:"白い帆を張る伝統漁法の「うたせ船」が地域の象徴になっている？", icon:"⛵"},
+  v188_kosaka_korakukan: {text:"明治43年建築の現役芝居小屋「康楽館」が、鉱山の歴史とともに残っている？", icon:"🎭"},
+  v188_fujisato_shirakami: {text:"世界自然遺産・白神山地の麓にあり、ブナの森を観光の柱にしている？", icon:"🌳"},
+  v188_shinto_tsurushi: {text:"13,556個の細工物を使った「世界一のつるし飾り」が展示されている？", icon:"🎎"},
+  v188_kawaba_denenplaza: {text:"「田園プラザ」という名前の、「全国モデル道の駅」に選ばれた道の駅がある？", icon:"🛍️"},
+  v178_arita_porcelain: {text:'日本で最初に磁器が焼かれた地とされ、400年以上続く磁器の産地？', icon:'🏺'},
+  v180_toin_ageuma: {text:'猪名部神社で、馬が急坂を駆け上がる伝統神事が受け継がれている？', icon:'🐎'},
+  v180_soni_susuki: {text:'秋になると高原一面をススキの穂が黄金色に染める？', icon:'🌾'},
+  v180_kagamino_okutsu: {text:'「奥津温泉」や名勝・奥津渓があるマチ？', icon:'♨️'},
+  v180_toyo_ikumi: {text:'全国屈指のサーフポイント「生見海岸」があるマチ？', icon:'🏄'},
+  v180_kamimine_chinzeizan: {text:'源為朝の伝説が残る「鎮西山」があるマチ？', icon:'⛰️'},
+  v180_sai_hotokegaura: {text:'奇岩が約2km続く名勝「仏ヶ浦」があるマチ？', icon:'🪨'},
+  v180_nagomi_edafunayama: {text:'国宝の出土品で知られる「江田船山古墳」があるマチ？', icon:'⚔️'},
+  v180_togitsu_sabakusarakashi: {text:'「鯖くさらかし岩」という奇岩が地域のシンボル？', icon:'🪨'},
+  v180_mizukami_ichifusa: {text:'球磨川の源流と、山麓を彩る一万本桜で知られる？', icon:'🌸'},
+  v180_yunomae_manga: {text:'漫画文化を発信する公立のまんが美術館がある？', icon:'🖼️'},
+  v180_yugawara_manyo: {text:'万葉集にも詠まれた温泉と「万葉公園」があるマチ？', icon:'♨️'},
+  v180_nagayo_mikan: {text:'大村湾を望む丘陵で、種類豊富なみかんが特産？', icon:'🍊'},
+  v186_kouhoku_junction: {text:"JR江北駅で長崎本線と佐世保線が分かれる、鉄道交通の要衝？", icon:"🚉"},
+  v186_otobe_shirafura: {text:"高さ約20mの白い断崖が約500m続く海岸景勝地「シラフラ」があるマチ？", icon:"🌊"},
+  v186_tozawa_mogamigawa: {text:"「最上川舟下り」と、樹齢1000年を超える天然杉が群生する「幻想の森」で知られる村？", icon:"🚣"},
+  v186_oshino_hakkai: {text:"富士山の伏流水が湧く八つの池「忍野八海」が、世界遺産・富士山の構成資産になっている？", icon:"💧"},
+  v186_narusawa_icecave: {text:"国天然記念物の氷穴と、特別天然記念物の溶岩樹型がある？", icon:"🧊"},
+  v186_misaki_tkg: {text:"卵かけご飯を全国へ広めたと伝わる岸田吟香の出身地として、卵かけご飯で町おこしをするマチ？", icon:"🥚"},
+  v186_nishiawakura_hyakumori: {text:"2008年から「百年の森林構想」を掲げ、森林再生と木を生かす地域産業を育てる村？", icon:"🌲"},
+  v186_kamikatsu_zerowaste: {text:"自治体として日本で初めて「ゼロ・ウェイスト宣言」を行ったマチ？", icon:"♻️"},
+  v186_shioya_shojinzawa: {text:"名水百選の「尚仁沢湧水」がある？", icon:"💧"},
+  v186_minamiaso_shirakawa: {text:"「水の生まれる郷」と呼ばれ、名水百選の「白川水源」が湧いている？", icon:"💧"},
+  v186_kuma_kyusendo: {text:"全長約4.8kmに及ぶ九州最大級の鍾乳洞「球泉洞」がある？", icon:"🦇"},
+  v186_sagara_kawabe: {text:"全国の水質調査で何度も日本一に輝いた清流「川辺川」が流れている？", icon:"🏞️"},
+  v186_nishihara_tawarayama: {text:"阿蘇外輪山の「俵山」を望み、「白糸の滝」がある？", icon:"⛰️"},
+  v186_hakone_owakudani: {text:"芦ノ湖と大涌谷、旧東海道の箱根関所で知られる温泉のマチ？", icon:"♨️"},
+  v186_higashinaruse_sennin: {text:"滝行や座禅などに挑む名物行事「仙人修行」が行われる？", icon:"🧘"},
+  v186_geisei_horticulture: {text:"温暖な気候を生かしたナスやピーマンなどの施設園芸が盛んな海辺の地域？", icon:"🍆"},
+  v186_ochi_yokogurayama: {text:"古い地層や珍しい植物が残り、自然史の宝庫とされる「横倉山」がある？", icon:"⛰️"},
+  v178_assabu_mayqueen: {text:'ジャガイモ品種「メークイン」発祥の地を掲げるマチ？', icon:'🥔'},
+  v178_shiriuchi_saburo: {text:'北島三郎の出身地で、カキとニラを二大特産品として掲げるマチ？', icon:'🎤'},
+  v178_ina_roses: {text:'公園に約400種・5000株のバラが咲き誇る？', icon:'🌹'},
+  v178_higashichichibu_hosokawa: {text:'ユネスコ無形文化遺産の手漉き和紙「細川紙」を受け継ぐ？', icon:'📜'},
+  v178_mitsue_miune: {text:'冬、山を白く包む「霧氷」で知られ、霧氷まつりも開かれる？', icon:'❄️'},
+  v178_mogami_akakura: {text:'慈覚大師の開湯伝説が残る、山あいの温泉地がある？', icon:'♨️'},
+  v178_funagata_jomon: {text:'国宝土偶「縄文の女神」が出土した西ノ前遺跡のあるマチ？', icon:'🗿'},
+  v178_nagi_moca: {text:'作品と建物が一体化した現代美術館がある？', icon:'🎨'},
+  v178_iwaizumi_ryusendo: {text:'日本三大鍾乳洞の一つとされる国天然記念物「龍泉洞」があるマチ？', icon:'🦇'},
+  v178_karumai_tulips: {text:'雪谷川ダムの公園で、約15万本のチューリップが春を彩るマチ？', icon:'🌷'},
+  v178_ishii_fuji: {text:'樹齢200年余りの紫藤がシンボルの地福寺で「藤まつり」が開かれるマチ？', icon:'💜'},
+  v178_izena_shoen: {text:'尚円王ゆかりの島で、沖縄本島とフェリーで結ばれている？', icon:'⛴️'},
+  v178_mifune_dinosaur: {text:'日本初の肉食恐竜化石が発見され、恐竜博物館がある？', icon:'🦖'},
+  v178_tsunagi_art: {text:'現代アートの美術館と、巨岩へ上るモノレールがある？', icon:'🎨'},
+  v178_nakai_itsukushima: {text:'湧水の湿生地を守る公園で、ホタルと竹灯籠を楽しめる？', icon:'✨'},
+  v178_nahari_townscape: {text:'海・山・川に囲まれ、由緒ある民家が並ぶ歴史的な町並みが残る？', icon:'🏘️'},
+  v144_minamiaiki_dam: {text:"日本一標高の高い大規模ダム「南相木ダム」がある村？", icon:"🏔️"},
+  v144_shimoichi_sugibashi: {text:"後醍醐天皇への献上伝承があり、吉野杉の割箸が特産として知られるマチ？", icon:"🥢"},
+  v144_shoo_kintaro: {text:"金太郎こと坂田金時が眠ると伝わる栗柄神社があるマチ？", icon:"🪓"},
+  v144_mizumaki_cosmos: {text:"遠賀川河川敷に約6kmのコスモス園が広がり、秋にコスモスまつりを開くマチ？", icon:"🌸"},
+  v144_taragi_shorenji: {text:"鎌倉時代の姿を伝える国指定重要文化財「青蓮寺阿弥陀堂」があるマチ？", icon:"🛕"},
+  v144_kunitomi_honjo: {text:"町の木「かし」の古木がそびえる本庄稲荷があるマチ？", icon:"🌳"},
+  v144_wadomari_fucha: {text:"沖永良部島の海岸景勝地「国頭フーチャ」が町指定文化財になっているマチ？", icon:"🌊"},
+  v144_ie_tatchu: {text:"島より約7千万年古いとされる城山「伊江島タッチュー」がそびえる村？", icon:"⛰️"},
+  v144_kunneppu_characters: {text:"メロンとタマネギをモチーフにした「めろねっぷ」「たまねっぷ」が公式キャラクターのマチ？", icon:"🍈"},
+  v144_fujisaki_fuji: {text:"りんご品種「ふじ」の発祥の地を掲げるマチ？", icon:"🍎"},
+  v144_kagamiishi_iwase: {text:"唱歌「牧場の朝」のモデルとなった岩瀬牧場があるマチ？", icon:"🐄"},
+  v144_tomioka_yonomori: {text:"「夜の森桜通り」の桜並木で知られるマチ？", icon:"🌸"},
+  v144_mutsuzawa_smartwellness: {text:"「むつざわスマートウェルネスタウン・道の駅・つどいの郷」があるマチ？", icon:"♨️"},
+  toyoyama_ichiro_airport: {text:'イチローの故郷で、県営空港と航空機産業の拠点がある？', icon:'⚾'},
+  kanmaki_kataoka_castle: {text:'聖徳太子ゆかりの城跡が残り、奈良盆地を見渡す丘陵がある？', icon:'🏯'},
+  kitanakagusuku_rycom_castle: {text:'大型商業施設と、世界遺産のグスク跡がある？', icon:'🏯'},
+  totsukawa_largest_village_bridge: {text:'紀伊山地の奥深く、険しい山と谷に集落が点在し、長大な吊り橋が架かる？', icon:'🌉'},
+  minakami_tanigawa_rafting: {text:'谷川岳を仰ぎ、利根川源流でラフティングや温泉を楽しめる？', icon:'🏔️'},
+  shibata_castle_occhahoi: {text:'白壁の城と足軽長屋が残り、名物「オッチャホイ」が愛される？', icon:'🏯'},
+  seiro_albirex_jsc: {text:'Jリーグクラブの練習拠点と、サッカー専門学校がある？', icon:'⚽'},
+  eiheiji_zen_training: {text:'曹洞宗の大本山で、今も多くの修行僧が禅修行を続けている？', icon:'🧘'},
+  minamisanriku_shizugawa_aquaculture: {text:'豊かな湾に、カキやワカメの養殖文化が息づいている？', icon:'🦪'},
+  onagawa_station_seaside_shopping: {text:'震災後に再建された駅から、海へ向かって商店街が延びる？', icon:'🏘️'},
+  chiba_makuhari_monorail: {text:'東京湾を望む新都心と、懸垂式モノレールがある？', icon:'🚝'},
+  minamiuonuma_hakkaisan_koshihikari: {text:'八海山を望む雪国に、「魚沼産コシヒカリ」の田園が広がる？', icon:'🌾'},
+  aomori_nebuta: {text:'「ラッセラー」の掛け声とともに、巨大な灯籠が夏の夜を練り歩くマチ？', icon:'🏮'},
+  hiroshima_dome_carp: {text:'平和への祈りを伝える世界遺産「原爆ドーム」と、市民球団「カープ」の本拠地があるマチ？', icon:'🕊️'},
+  machida_zelvia: {text:'小田急線と横浜線が交わり、Jリーグクラブが本拠を置く？', icon:'⚽'},
+  ise_naiku_geku: {text:'皇室の祖先神を祀る「内宮」と、衣食住の神を祀る「外宮」がある神都？', icon:'⛩️'},
+  yokkaichi_combinat_night: {text:'湾岸に石油化学コンビナートが広がり、夜は工場群の光が輝く？', icon:'🏭'},
+  tokamachi_echigo_tsumari: {text:'雪深い里山に現代アートが溶け込む「大地の芸術祭」のマチ？', icon:'🎨'},
+  wakayama_yoshimune_kimiidera: {text:'8代将軍吉宗を生んだ城下町で、古刹から海を望める？', icon:'🏯'},
+  morioka_takuboku_sandaimen: {text:'石川啄木ゆかりの城下町で、三大麺の食文化が息づく？', icon:'🍜'},
+  kyoto_gion_sennen: {text:'祇園祭の山鉾が巡り、寺社と町家が雅な風景を織りなす？', icon:'⛩️'},
+  naha_shurijo_kokusai: {text:'朱塗りの城とにぎやかな大通りが、琉球文化を今に伝える？', icon:'🏯'},
+  chibi_maruko: {text:"ドリフが大好きな小学3年生の女の子が、家族や「たまちゃん」たちと暮らしているマチ？", icon:'🎭'},
+  m78_sukagawa: {text:"ウルトラマンの故郷「M78星雲 光の国」と姉妹都市になっているマチ？", icon:'🎭'},
+  onomichi_tenkosei: {text:"転校した少年と少女の体が入れ替わってしまう映画をはじめ、多くの青春映画の舞台になったマチ？", icon:'🎭'},
+  amachan_kuji: {text:"海女の「アキ」と「ユイ」が「じぇじぇじぇ！」と青春を送るドラマの主なロケ地？", icon:'🎭'},
+  konosekai_kure: {text:"絵を描くのが好きで少しぼんやりした「すず」が、戦時中にお嫁に来て暮らした軍港のマチ？", icon:'🎭'},
+  keion_toyosato: {text:"放課後にバンドを楽しむ女子高生たちの学校のモデルとされる校舎がある？", icon:'🎭'},
+  aqours_numazu: {text:"海辺の学校の9人が「Aqours」を結成するアニメの舞台？", icon:'🎭'},
+  garupan_oarai: {text:"戦車に乗る「みほ」たち女子高校生が、「戦車道」で全国大会を目指すアニメの舞台になったマチ？", icon:'🎭'},
+  summerwars_ueda: {text:"映画『サマーウォーズ』で、大家族が巨大な仮想世界の危機に立ち向かう舞台になったマチ？", icon:'🎭'},
+  koto_yonaguni: {text:"「コトー先生」が診療する「志木那島」としてドラマ撮影された日本最西端の地？", icon:'🎭'},
+  botchan_matsuyama: {text:"「親ゆずりの無鉄砲」な江戸っ子教師が、赤シャツやマドンナをめぐって騒動を起こしたマチ？", icon:'🎭'},
+  kinosaki_shiga: {text:"山手線にはねられた志賀直哉が療養のため訪れ、「城の崎にて」を書いた温泉地があるマチ？", icon:'🎭'},
+  yukiguni_yuzawa: {text:"「国境の長いトンネルを抜けると雪国であった」で始まる小説の舞台の温泉地？", icon:'🎭'},
+  izunoodoriko_kawazu: {text:"伊豆を旅する青年が踊子の「薫」と出会う小説の舞台となった温泉地？", icon:'🎭'},
+  kafka_takamatsu: {text:"15歳の「カフカ」が家出し、老人「ナカタ」と物語が交錯する小説の主要舞台？", icon:'🎭'},
+  tsugaru_tappi: {text:"石川さゆりの『津軽海峡・冬景色』で、「北のはずれ」と歌われる龍飛崎があるマチ？", icon:'🎭'},
+  erimo_misaki: {text:"森進一の大ヒット曲で、「春なのに何もない」と歌われた岬があるマチ？", icon:'🎭'},
+  amagi_song_izu: {text:"石川さゆりの『天城越え』で歌われる天城峠や浄蓮の滝があるマチ？", icon:'🎭'},
+  hakodate_song: {text:"北島三郎が「はるばる来たぜ」と歌った港町？", icon:'🎭'},
+  yokosuka_story: {text:"山口百恵が「これっきり」と歌った、ご当地ソングのタイトルになったマチ？", icon:'🎭'},
+  misuzu_nagato: {text:"「みんなちがって、みんないい」で知られる詩人・金子みすゞが生まれた？", icon:'🎭'},
+  koseki_fukushima: {text:"『栄冠は君に輝く』や『六甲おろし』などを作曲した古関裕而が生まれたマチ？", icon:'🎭'},
+  fr_yamaguchi: {text:"「ユニクロ」を展開するファーストリテイリングの本社があるマチ？", icon:'🎭'},
+  mazda_fuchu: {text:"自動車メーカー「マツダ」の本社と本社工場があるマチ？", icon:'🎭'},
+  toyota_city_name: {text:"世界的自動車メーカーの名が、そのまま自治体名にもなった？", icon:'🎭'},
+  denso_hq: {text:"世界有数の自動車部品メーカー「デンソー」の本社があるマチ？", icon:'🎭'},
+  daihatsu_hq: {text:"軽自動車で知られる「ダイハツ工業」の本社があるマチ？", icon:'🎭'},
+  yamaha_motor_hq: {text:"オートバイや船外機で世界的に知られる「ヤマハ発動機」の本社があるマチ？", icon:'🎭'},
+  snowpeak_hq: {text:"アウトドアブランド「スノーピーク」が本社と広大なキャンプ場を構えるマチ？", icon:'🎭'},
+  japanet_hq: {text:"テレビショッピングで全国的に知られる「ジャパネットたかた」の本社があるマチ？", icon:'🎭'},
+  rokkatei_hq: {text:"「マルセイバターサンド」で知られる六花亭の本社があるマチ？", icon:'🎭'},
+  peyoung_hq: {text:"即席めん「ペヤング」で知られる、まるか食品の本社があるマチ？", icon:'🎭'},
+  kameda_hq: {text:"「亀田の柿の種」「ハッピーターン」で知られる亀田製菓の本社があるマチ？", icon:'🎭'},
+  chateraise_hq: {text:"洋菓子やアイスで知られる「シャトレーゼ」の本社があるマチ？", icon:'🎭'},
+  bourbon_hq: {text:"「アルフォート」や「ルマンド」で知られるブルボンが本社を置くマチ？", icon:'🎭'},
+  imuraya_hq: {text:"「あずきバー」や肉まん・あんまんで知られる「井村屋」の本社があるマチ？", icon:'🎭'},
+  fundokin_hq: {text:"しょうゆ・みそ・ドレッシングで知られる「フンドーキン醤油」の本社があるマチ？", icon:'🎭'},
+  shoda_hq: {text:"150年以上続く老舗「正田醤油」の本社があるマチ？", icon:'🎭'},
+  hardoff_hq: {text:"中古品の買取・販売店「ハードオフ」の本社があるマチ？", icon:'🎭'},
+  yamasa_hq: {text:"「ヤマサ醤油」の本社があるマチ？", icon:'🎭'},
+  akagi_hq: {text:"「ガリガリ君」で知られる赤城乳業の本社があるマチ？", icon:'🎭'},
+  korakuen_hq: {text:"ラーメンチェーン「幸楽苑」の本社があるマチ？", icon:'🎭'},
+  sawayaka_hq: {text:"「げんこつハンバーグ」で知られる「炭焼きレストランさわやか」の本社があるマチ？", icon:'🎭'},
+  mansyu_hq: {text:"「3割うまい!!」で知られる「ぎょうざの満洲」の本社があるマチ？", icon:'🎭'},
+  aleph_hq: {text:"ハンバーグレストラン「びっくりドンキー」を展開する会社の本社があるマチ？", icon:'🎭'},
+
   hitachi_seaside_park: {text:'ネモフィラで有名な国営ひたち海浜公園がある？', icon:'💐'},
-  tsuchiura_hanabi: {text:'日本三大花火大会の一つに数えられる全国花火競技大会が開かれる？', icon:'🎆'},
+  tsuchiura_hanabi: {text:'霞ヶ浦に面し、全国有数の花火競技大会が開かれるマチ？', icon:'🎆'},
   koga_kubo: {text:'室町時代に鎌倉公方の流れをくむ公方が拠点を置いた？', icon:'🏯'},
   toride_geidai: {text:'利根川沿いにあり、競輪場と東京藝術大学のキャンパスがある？', icon:'🎨'},
-  shimodate_gion: {text:'日本最大級の大神輿が出る下館祇園まつりがある？', icon:'🏮'},
+  shimodate_gion: {text:'筑波山を望む田園地帯にあり、大きな神輿で知られる祇園まつりがあるマチ？', icon:'🏮'},
   kamisu_gallery: {text:'海岸沿いの長い防波堤に壁画が並ぶ「1000人画廊」がある？', icon:'🎨'},
   tsukumai: {text:'高さ約14メートルの柱上で曲芸を行う伝統行事「撞舞」がある？', icon:'🎪'},
   ushiku_daibutsu: {text:'世界最大の青銅製大仏がある？', icon:'🗿'},
@@ -81,7 +427,7 @@ const QUESTIONS = {
   nikko_toshogu: {text:'世界遺産の東照宮がある？', icon:'⛩️'},
   kyuroku_kan: {text:'蒸気機関車を展示する「SLキューロク館」がある？', icon:'🚂'},
   yamaage_matsuri: {text:'ユネスコ無形文化遺産の山あげ祭が行われる？', icon:'🎭'},
-  kanto_shinetsu_tsunagu: {text:'上毛かるたに「関東と信越つなぐ○○市」と謳われる？', icon:'🛣️'},
+  kanto_shinetsu_tsunagu: {text:'上毛かるたに「関東と信越つなぐ」と詠まれる交通の要衝？', icon:'🛣️'},
   tajima_yahei: {text:'世界遺産の田島弥平旧宅がある？', icon:'🏠'},
   kiryu_nokogiri: {text:'織物工場のノコギリ屋根が多く残り、「球都」と呼ばれる？', icon:'🏭', subjective:true},
   tsutsujigaoka_bunbuku: {text:'つつじが岡公園と分福茶釜の伝説で知られる？', icon:'🌺', subjective:true},
@@ -94,26 +440,26 @@ const QUESTIONS = {
   koku_kinen_park: {text:'日本初の飛行場跡を整備した航空記念公園がある？', icon:'✈️'},
   misato_junction: {text:'東京外環道・常磐道・首都高速が接続するジャンクションがある？', icon:'🛣️'},
   toda_boat: {text:'1964年東京五輪のボート競技会場がある？', icon:'🚣'},
-  shibusawa_eiichi: {text:'渋沢栄一の生誕地？', icon:'💴'},
-  konosu_hina: {text:'日本一高いピラミッドひな壇で知られる？', icon:'🎎', subjective:true},
+  shibusawa_eiichi: {text:'渋沢栄一の生誕地で、ねぎの一大産地として知られる？', icon:'💴'},
+  konosu_hina: {text:'運転免許センターがあり、ひな人形の産地としても知られる？', icon:'🎎', subjective:true},
   first_outlet: {text:'日本初のアウトレットモールが開業した地？', icon:'🛍️'},
   jumbo_koinobori: {text:'全長100メートルのジャンボこいのぼりを揚げる？', icon:'🎏'},
   higashimatsuyama_yakitori: {text:'豚のカシラ肉をみそだれで食べる「やきとり」で有名？', icon:'🍢', subjective:true},
   seitenkyu: {text:'日本最大級の道教寺院「聖天宮」がある？', icon:'⛩️'},
   riken_hq: {text:'理化学研究所の本部がある？', icon:'🔬'},
-  hanawa_hokiichi: {text:'盲目の国学者・塙保己一の生誕地？', icon:'📚'},
+  hanawa_hokiichi: {text:'中山道の宿場町として栄え、塙保己一の生誕地でもある？', icon:'📚'},
   sunaori_amagoi: {text:'巨大な龍蛇を作る伝統行事「脚折雨乞」がある？', icon:'🐉'},
   sakitama_zerifry: {text:'さきたま古墳群とゼリーフライで有名？', icon:'🏺', subjective:true},
   gongendo_sakura: {text:'桜と菜の花で有名な権現堂桜堤がある？', icon:'🌸'},
   hitachidai_stadium: {text:'日立台のサッカー専用スタジアムがある？', icon:'⚽'},
   suguyaru_ka: {text:'全国初の「すぐやる課」が設置された？', icon:'🏢'},
   nakayama_hokekyoji: {text:'日蓮宗の大本山・中山法華経寺がある？', icon:'⛩️'},
-  kominato_railway: {text:'小湊鐵道の本社と起点駅がある？', icon:'🚃'},
+  kominato_railway: {text:'小湊鐵道が走り、東京湾岸には大規模な石油化学コンビナートがある？', icon:'🚃'},
   yatsu_higata: {text:'ラムサール条約登録湿地の谷津干潟がある？', icon:'🦆'},
   tokyo_disney: {text:'東京ディズニーリゾートがある？', icon:'🎡'},
   rekihaku: {text:'国立歴史民俗博物館がある？', icon:'🏛️'},
   kikkoman_hq: {text:'キッコーマンの本社がある？', icon:'🏭'},
-  abiko_ekisoba: {text:'大きな唐揚げが乗った駅そばで有名？', icon:'🍜', subjective:true},
+  abiko_ekisoba: {text:'山下清も働いた、大きな唐揚げが乗った駅そば屋で有名？', icon:'🍜', subjective:true},
   nomizo_no_taki: {text:'「濃溝の滝」と呼ばれる亀岩の洞窟がある？', icon:'💦'},
   tokyo_german_village: {text:'名前に「東京」が付くドイツ風テーマパークがある？', icon:'🎡'},
   inubosaki: {text:'関東最東端の犬吠埼がある？', icon:'🗺️'},
@@ -130,9 +476,9 @@ const QUESTIONS = {
   showa_kinen_park: {text:'国営昭和記念公園がある？', icon:'🌳'},
   kichijoji_harmonica: {text:'吉祥寺駅とハモニカ横丁がある？', icon:'🏘️'},
   takahata_hijikata: {text:'高幡不動尊と土方歳三の生誕地がある？', icon:'⛩️'},
-  shimura_ken: {text:'志村けんのふるさと？', icon:'😄'},
+  shimura_ken: {text:"「いっちょめ、いっちょめ」で故郷を全国区にした、国民的コメディアンが育ったマチ？", icon:'😄'},
   tama_rokuto: {text:'多摩六都科学館がある？', icon:'🔭'},
-  ghibli_museum: {text:'三鷹の森ジブリ美術館がある？', icon:'🎬'},
+  ghibli_museum: {text:'ジブリ作品の世界を体験できる、森に囲まれた美術館がある？', icon:'🎬'},
   sanrio_puroland: {text:'サンリオピューロランドがある？', icon:'🎀'},
   mitakesan: {text:'御岳山と御岳渓谷がある？', icon:'🏔️'},
   edo_tokyo_tatemono: {text:'江戸東京たてもの園がある？', icon:'🏛️'},
@@ -141,7 +487,7 @@ const QUESTIONS = {
   tamako_yamato: {text:'多摩湖の大部分があり、市名に旧国名が含まれる？', icon:'🏞️'},
   yomiuri_land: {text:'よみうりランドがある？', icon:'🎢'},
   second_smallest_city: {text:'全国の市で面積が2番目に小さい？', icon:'📏'},
-  hitotsubashi_univ: {text:'一橋大学ある文教都市？', icon:'🎓'},
+  hitotsubashi_univ: {text:'一橋大学を中心に、落ち着いた文教地区が広がる？', icon:'🎓'},
   jaxa_isas: {text:'JAXA宇宙科学研究所がある？', icon:'🚀'},
   shirokoro_horumon: {text:'豚ホルモンを使う「シロコロホルモン」で有名？', icon:'🍢', subjective:true},
   izumi_no_mori_awaodori: {text:'泉の森があり、夏に阿波おどりが開かれる？', icon:'💃'},
@@ -154,8 +500,8 @@ const QUESTIONS = {
   okutadami_dam: {text:'奥只見ダムがある？', icon:'🏞️'},
   hokuetsu_kyoto: {text:'「北越の小京都」と呼ばれる？', icon:'🏘️', subjective:true},
   knit_gosen: {text:'ニットの生産高が日本一？', icon:'🧶'},
-  kurokawa_yuden: {text:'日本最古の油田とされる黒川油田がある？', icon:'🛢️'},
-  niigata_smallest: {text:'新潟県で面積が最も小さい市？', icon:'📏'},
+  kurokawa_yuden: {text:'明治時代から石油採掘で栄えた黒川油田がある？', icon:'🛢️'},
+  niigata_smallest: {text:'新潟県内で最も面積が小さく、ニット産業が盛ん？', icon:'📏'},
   kitsune_yomeiri: {text:'「狐の嫁入り行列」が行われる？', icon:'🦊'},
   ryokan_birthplace: {text:'良寛の生誕地？', icon:'📚'},
   sakyu_momo: {text:'「幻の桃」と呼ばれる砂丘桃の産地？', icon:'🍑', subjective:true},
@@ -164,14 +510,14 @@ const QUESTIONS = {
   ryugakubo: {text:'名水百選の龍ヶ窪がある？', icon:'💧'},
   yahiko_jinja: {text:'越後一宮の彌彦神社がある？', icon:'⛩️'},
   fuji_rock: {text:'フジロックフェスティバルが開催される？', icon:'🎸'},
-  tama_monorail_extension: {text:'多摩モノレールの延伸で、市内に初めて鉄道駅ができる予定？', icon:'🚝'},
+  tama_monorail_extension: {text:'多摩モノレールの延伸で、この地域に初めて鉄道駅ができる予定？', icon:'🚝'},
   banei_keiba: {text:'世界で唯一のばんえい競馬が開催されている？', icon:'🐴'},
   ebetsu_renga: {text:'北海道遺産に選ばれた、れんがの産地？', icon:'🧱'},
   kitami_hakka: {text:'戦前、世界のハッカ流通量の約7割を占めていた？', icon:'🌿'},
   shikotsuko_futoko: {text:'日本最北の不凍湖がある？', icon:'🏞️'},
   hamanasu_no_oka: {text:'約180種の植物が自生する「はまなすの丘公園」がある？', icon:'🌸'},
   northernmost_city: {text:'日本最北端の市？', icon:'🗺️'},
-  whaling: {text:'捕鯨で有名？', icon:'🐋'},
+  whaling: {text:'捕鯨文化・歴史があるマチ？', icon:'🐋'},
   enclave_municipality: {text:'飛び地がある？', icon:'🧩'},
   honshu_northernmost: {text:'本州最北端の地がある？', icon:'⬆️'},
   honshu_easternmost: {text:'本州最東端の地がある？', icon:'➡️'},
@@ -181,7 +527,7 @@ const QUESTIONS = {
   japan_southernmost: {text:'日本最南端の地がある？', icon:'🔽'},
   japan_easternmost: {text:'日本最東端の地がある？', icon:'▶️'},
   japan_westernmost: {text:'日本最西端の地がある？', icon:'◀️'},
-  shio_kazunoko: {text:'塩数の子の加工生産量が日本一？', icon:'🐟'},
+  shio_kazunoko: {text:'日本海に面し、港では数の子加工が盛ん？', icon:'🐟'},
   canadian_world: {text:'「赤毛のアン」をテーマにしたカナディアンワールドがある？', icon:'🎡'},
   garinko_go: {text:'世界初の流氷観光砕氷船「ガリンコ号」が運航する？', icon:'🚢'},
   nosappu_misaki: {text:'日本本土最東端の納沙布岬がある？', icon:'🗺️'},
@@ -194,17 +540,17 @@ const QUESTIONS = {
   kamo_kurage: {text:'クラゲの展示で有名な加茂水族館がある？', icon:'🎐'},
   uesugi_jinja: {text:'上杉謙信を祭る上杉神社がある？', icon:'⛩️'},
   jionji: {text:'東北を代表する古刹・慈恩寺がある？', icon:'⛩️'},
-  shinjo_matsuri: {text:'毎年8月24～26日に、20台の豪華な山車が巡る祭りがある？', icon:'🎏'},
+  shinjo_matsuri: {text:'豪華な山車が3日間まちを巡る、夏祭りがある？', icon:'🎏'},
   saito_mokichi: {text:'歌人・斎藤茂吉が生まれたマチ？', icon:'📚'},
   hanamiyama: {text:'花見山公園がある？', icon:'🌸'},
   nanko_park: {text:'松平定信が「士民共楽」の理念で築いた南湖公園がある？', icon:'🌳'},
   nakoku_no_oka: {text:'須玖岡本遺跡を中心とする「奴国の丘歴史公園」がある？', icon:'🏺'},
   miike_tanko: {text:'世界遺産の三池炭鉱・宮原坑と三池港がある？', icon:'⛏️'},
   sakurai_futamigaura: {text:'海中の夫婦岩と白い鳥居で知られる桜井二見ヶ浦がある？', icon:'⛩️', subjective:true},
-  ushikubi_sueki: {text:'九州最大の須恵器窯跡群「牛頸須恵器窯跡」がある？', icon:'🏺'},
+  ushikubi_sueki: {text:'牛頸須恵器窯跡がある？', icon:'🏺'},
   munakata_hetsugu: {text:'沖ノ島を御神体とする三宮のうち、辺津宮がある？', icon:'⛩️'},
   goshogatani_kogoishi: {text:'古代山城の御所ヶ谷神籠石がある？', icon:'🏯'},
-  funabaru_kofun: {text:'豪華な馬具が古墳とは別の埋納坑から見つかった船原古墳がある？', icon:'🏺'},
+  funabaru_kofun: {text:'古墳とは別の穴から、豪華な馬具が見つかった遺跡がある？', icon:'🏺'},
   hikari_no_michi: {text:'宮地嶽神社の参道に夕日が重なる「光の道」で知られる？', icon:'🌇', subjective:true},
   tanabata_jinja: {text:'織姫を祭る「七夕神社（媛社神社）」がある？', icon:'🎋'},
   nogata_meteorite: {text:'須賀神社に、世界最古級の落下記録を持つ隕石が伝わる？', icon:'☄️'},
@@ -227,16 +573,16 @@ const QUESTIONS = {
   ureshino_bihada: {text:'日本三大美肌の湯の一つと温泉湯どうふで知られる？', icon:'♨️', subjective:true},
   isahaya_meganebashi: {text:'洪水後に公園へ移設された石造二連アーチの眼鏡橋がある？', icon:'🌉'},
   nagasaki_airport_omura: {text:'箕島を造成して造られた長崎空港がある？', icon:'✈️'},
-  koi_no_oyogu_machi: {text:'武家屋敷の水路と「鯉の泳ぐまち」で知られる？', icon:'🐟', subjective:true},
+  koi_no_oyogu_machi: {text:'武家屋敷の水路を、色とりどりの鯉が泳いでいる？', icon:'🐟', subjective:true},
   hara_castle: {text:'キリシタン勢力が籠城した世界遺産・原城跡がある？', icon:'🏯'},
   unzen_jigoku: {text:'普賢岳の麓に地獄景観が広がる温泉地がある？', icon:'♨️'},
   fukuejima_onidake: {text:'福江島の鬼岳と堂崎天主堂がある？', icon:'⛪'},
   ajifry_seichi: {text:'「アジフライの聖地」を掲げる港町？', icon:'🐟'},
-  tsushima_border: {text:'日本と韓国の国境の島？', icon:'🗺️'},
-  mugi_shochu_iki: {text:'麦焼酎発祥の地とされ、原の辻遺跡がある？', icon:'🍶'},
+  tsushima_border: {text:'九州本土より韓国のほうが近い国境の島？', icon:'🗺️'},
+  mugi_shochu_iki: {text:'玄界灘に浮かぶ島で、麦焼酎発祥の地とされる？', icon:'🍶'},
   nanatsugama_shonyudo: {text:'国の天然記念物に指定された七ツ釜鍾乳洞がある？', icon:'🕳️'},
   hirado_oranda: {text:'江戸時代のオランダ商館が復元されている？', icon:'🏛️'},
-  igusa_yatsushiro: {text:'い草の産地で、地元の人は市名を「やっちろ」と言う？', icon:'🌾'},
+  igusa_yatsushiro: {text:'国産い草の一大産地で、畳表づくりが盛ん？', icon:'🌾'},
   sakitsu_shuraku: {text:'世界遺産の﨑津集落がある？', icon:'⛪'},
   takaba_countrypark: {text:'竹迫城跡公園と県農業公園カントリーパークがある？', icon:'🌳'},
   hiryu_no_kane: {text:'蓮華院誕生寺奥之院に大梵鐘「飛龍の鐘」がある？', icon:'🔔'},
@@ -256,10 +602,10 @@ const QUESTIONS = {
   sandwich_jokamachi: {text:'二つの武家屋敷地区に商人の町が挟まれた「サンドイッチ型城下町」？', icon:'🏯'},
   futagoji: {text:'六郷満山文化を代表する両子寺がある？', icon:'⛩️'},
   tsukumi_sakura_maguro: {text:'四浦半島の河津桜と保戸島のマグロ漁業で知られる？', icon:'🌸', subjective:true},
-  sekinoo_taki: {text:'関之尾滝と世界最大級の甌穴群がある？', icon:'💦'},
+  sekinoo_taki: {text:'関之尾滝と世界有数の甌穴群がある？', icon:'💦'},
   nobeoka_ishigaki: {text:'城跡に「千人殺し」と呼ばれる高石垣が残る？', icon:'🏯', subjective:true},
   umagase_cross: {text:'柱状節理の断崖・馬ヶ背と「クルスの海」がある？', icon:'🪨'},
-  saitobaru_kofun: {text:'300基以上の古墳が集まる日本最大級の古墳群がある？', icon:'🏺'},
+  saitobaru_kofun: {text:'300基以上の古墳が集まる全国屈指の西都原古墳群がある？', icon:'🏺'},
   toimisaki_uma: {text:'都井岬に野生の御崎馬が生息する？', icon:'🐎'},
   ebino_kogen: {text:'霧島連山の韓国岳や不動池を望む高原がある？', icon:'🏔️'},
   shirokuma_tenmonkan: {text:'天文館の「しろくま」で有名？', icon:'🍧', subjective:true},
@@ -297,7 +643,7 @@ const QUESTIONS = {
   saijo_sake: {text:'日本有数の酒どころ「西条」がある？', icon:'🍶'},
   mihara_tako: {text:'タコ料理と海に浮かぶ城跡で知られる？', icon:'🐙', subjective:true},
   kiri_no_umi: {text:'秋から冬の「霧の海」で知られる？', icon:'🌫️', subjective:true},
-  hiroshima_westmost: {text:'広島県で最も西に位置する市？', icon:'🗺️'},
+  hiroshima_westmost: {text:'広島県最西端にあり、瀬戸内海沿岸に工場群が広がるマチ？', icon:'🗺️'},
   anno_hideaki: {text:'『エヴァンゲリオン』の庵野秀明が生まれたマチ？', icon:'🤖'},
   tokuyama_combinat: {text:'徳山の工場夜景やコンビナートで知られる？', icon:'🏭', subjective:true},
   kintaikyo: {text:'五連の木造アーチ橋「錦帯橋」がある？', icon:'🌉'},
@@ -314,13 +660,13 @@ const QUESTIONS = {
   setoohashi_shikoku: {text:'瀬戸大橋の四国側の玄関口？', icon:'🌉'},
   kukai_birthplace: {text:'弘法大師・空海の生誕地とされる？', icon:'⛩️'},
   tebukuro_industry: {text:'手袋の生産量が日本一として知られる？', icon:'🧤', subjective:true},
-  uchinuki: {text:'名水「うちぬき」が市内各地から湧き出る？', icon:'💧'},
+  uchinuki: {text:'名水「うちぬき」が、あちこちから湧き出ている？', icon:'💧'},
   garyu_sanso: {text:'臥龍山荘や肱川の鵜飼で知られる？', icon:'🏯', subjective:true},
-  kezuribushi: {text:'削り節の生産が盛んな港町？', icon:'🐟', subjective:true},
-  yawatahama_champon: {text:'ご当地麺「○○○（市名）ちゃんぽん」で知られる？', icon:'🍜', subjective:true},
-  seiyo_geopark: {text:'四国○○（市名）ジオパークの中心となる市？', icon:'🗺️'},
+  kezuribushi: {text:'削り節の生産量が全国有数の港町？', icon:'🐟', subjective:true},
+  yawatahama_champon: {text:'魚介のだしを生かした、ご当地ちゃんぽんで知られる？', icon:'🍜', subjective:true},
+  seiyo_geopark: {text:'海抜0mの海岸から標高1400mの山地まで、まるごと日本ジオパークになっている？', icon:'🗺️'},
   botchan_theater: {text:'常設劇場「坊っちゃん劇場」がある？', icon:'🎭'},
-  kochi_ryoma_airport: {text:'高知県の空の玄関、高知龍馬空港がある？', icon:'✈️'},
+  kochi_ryoma_airport: {text:'坂本龍馬の名を冠した空港がある？', icon:'✈️'},
   chinkabashi: {text:'四万十川に架かる多くの沈下橋で知られる？', icon:'🌉', subjective:true},
   noichi_zoo: {text:'高知県立のいち動物公園がある？', icon:'🦁'},
   muroto_geopark: {text:'世界ジオパークに認定された岬がある？', icon:'🗺️'},
@@ -329,7 +675,7 @@ const QUESTIONS = {
   ashizuri_misaki: {text:'四国最南端の足摺岬がある？', icon:'🗺️'},
   tosabushi: {text:'一本釣りの鰹節「土佐節」で知られる？', icon:'🐟', subjective:true},
   yanase_museum: {text:'やなせたかし記念館がある？', icon:'🏛️'},
-  nagashima_nabana: {text:'国内最大級の遊園地となばなの里がある？', icon:'🎢'},
+  nagashima_nabana: {text:'ナガシマスパーランドが立地し、焼きハマグリでも知られるマチ？', icon:'🎢'},
   suzuka_circuit: {text:'F1日本グランプリが開かれる国際サーキットがある？', icon:'🏎️'},
   magose_hinoki: {text:'熊野古道の馬越峠と、ヒノキの産地で知られる？', icon:'🌲', subjective:true},
   sekijuku: {text:'東海道五十三次の宿場町・関宿が残る？', icon:'🏘️'},
@@ -355,29 +701,29 @@ const QUESTIONS = {
   imashirozuka_haniwa: {text:'大王の古墳と大規模な埴輪工場跡がある？', icon:'🏺'},
   mizuma_nishikinohama: {text:'水間観音と二色の浜がある？', icon:'⛩️'},
   moriguchi_daikon: {text:'世界最長級の細長い大根の名の由来となった京街道の宿場町？', icon:'🥬'},
-  hikari_no_kyokai: {text:'安藤忠雄設計の「光の教会」と隠れキリシタンの里がある？', icon:'⛪'},
-  kansai_airport_city: {text:'関西国際空港と大型アウトレットがある？', icon:'✈️'},
-  pl_tower: {text:'PL教団が作った巨大な白い塔がある？', icon:'🗼'},
+  hikari_no_kyokai: {text:'安藤忠雄設計の「光の教会」がある？', icon:'⛪'},
+  kansai_airport_city: {text:'りんくうプレミアム・アウトレットがある？', icon:'✈️'},
+  pl_tower: {text:'PLの塔（大平和祈念塔）がある？', icon:'🗼'},
   naritasan_osaka: {text:'成田山の大阪別院がある？', icon:'⛩️'},
-  kanshinji_kongoji: {text:'高野街道と国宝を持つ観心寺・金剛寺がある？', icon:'⛩️'},
-  nunose_takenouchi: {text:'布忍神社の恋みくじと、日本遺産の竹内街道がある？', icon:'⛩️'},
-  nozaki_mairi: {text:'野崎まいりと飯盛城跡がある？', icon:'⛩️'},
-  ikegami_sone: {text:'大規模な弥生時代の環濠集落跡がある？', icon:'🏺'},
-  minoh_katsuoji: {text:'大滝と「勝運の寺」として知られる寺院がある？', icon:'🍁'},
-  kashiwara_budo: {text:'ブドウ栽培と亀の瀬地すべり地帯で知られる？', icon:'🍇', subjective:true},
-  ojin_ryo_wine: {text:'世界遺産の古墳群にある巨大な応神天皇陵とワインで知られる？', icon:'🍷', subjective:true},
-  panasonic_hq: {text:'パナソニックの本社がある？', icon:'🏭'},
+  kanshinji_kongoji: {text:'国宝の金堂がある観心寺がある？', icon:'⛩️'},
+  nunose_takenouchi: {text:'恋みくじで知られる布忍神社がある？', icon:'⛩️'},
+  nozaki_mairi: {text:'野崎まいりが行われる慈眼寺がある？', icon:'⛩️'},
+  ikegami_sone: {text:'池上曽根遺跡がある？', icon:'🏺'},
+  minoh_katsuoji: {text:'勝ちダルマで知られる勝尾寺がある？', icon:'🍁'},
+  kashiwara_budo: {text:'「亀の瀬地すべり」の歴史を伝える資料室がある？', icon:'🍇', subjective:true},
+  ojin_ryo_wine: {text:'応神天皇陵として知られる誉田御廟山古墳がある？', icon:'🍷', subjective:true},
+  panasonic_hq: {text:'パナソニックの本社があり、れんこん栽培でも知られる？', icon:'🏭'},
   torikai_depot: {text:'東海道新幹線の鳥飼車両基地がある？', icon:'🚄'},
-  takashinohama: {text:'南海高師浜線の終点と臨海工業地帯の工場夜景がある？', icon:'🏭'},
-  fujiidera_kannon: {text:'西国三十三所第5番札所と、国宝の千手観音像がある？', icon:'⛩️'},
-  sennan_rosegarden: {text:'海辺の大型公園と英国式ローズガーデンがある？', icon:'🌹'},
-  shijonawate_masatsura: {text:'楠木正行の終焉の地とされ、室池園地がある？', icon:'🏯'},
-  hoshi_no_buranko: {text:'七夕伝説と、巨大なつり橋「星のブランコ」がある？', icon:'🌉'},
-  sayamaike: {text:'日本最古級のため池と、安藤忠雄設計の博物館がある？', icon:'💧'},
-  pichipichi_beach: {text:'「ぴちぴちビーチ」と和泉砂岩の石工文化で知られる？', icon:'🏖️'},
+  takashinohama: {text:'南海高師浜線の終点・高師浜駅がある？', icon:'🏭'},
+  fujiidera_kannon: {text:'西国三十三所第5番札所の葛井寺がある？', icon:'⛩️'},
+  sennan_rosegarden: {text:'デビッド・オースチンのイングリッシュローズガーデンがある？', icon:'🌹'},
+  shijonawate_masatsura: {text:'楠木正行を祀る四條畷神社がある？', icon:'🏯'},
+  hoshi_no_buranko: {text:'吊り橋「星のブランコ」がある？', icon:'🌉'},
+  sayamaike: {text:'日本最古級のため池・狭山池がある？', icon:'💧'},
+  pichipichi_beach: {text:'「ぴちぴちビーチ」と呼ばれる箱作の海岸がある？', icon:'🏖️'},
   sumoto_castle_onsen: {text:'淡路島中央部に城跡と温泉街がある？', icon:'🏯'},
   ashiya_yodoko: {text:'高級住宅地として知られ、ヨドコウ迎賓館がある？', icon:'🏡', subjective:true},
-  itami_sake_airport: {text:'清酒発祥地の一つとされ、大阪国際空港の一部がある？', icon:'🍶'},
+  itami_sake_airport: {text:'清酒発祥の地の一つとされ、大阪国際空港の一部もある？', icon:'🍶'},
   katsumeshi_kakurinji: {text:'郷土料理「かつめし」と国宝建築を持つ寺院がある？', icon:'🍚'},
   tada_jinja: {text:'清和源氏ゆかりの多田神社と妙見山がある？', icon:'⛩️'},
   sanda_hitohaku: {text:'県立の「人と自然の博物館」とブランド牛で知られる？', icon:'🐄', subjective:true},
@@ -387,7 +733,7 @@ const QUESTIONS = {
   tatsuno_shoyu_somen: {text:'しょうゆ醸造と手延べそうめんの産地で知られる？', icon:'🍜', subjective:true},
   takada_sakura_jinaimachi: {text:'川沿いに約千本の桜が続き、古い寺内町が残る？', icon:'🌸'},
   kingyo_yamatokoriyama: {text:'金魚養殖で知られる？', icon:'🐠', subjective:true},
-  tenri_shukyo_toshi: {text:'宗教都市として発展し、巨大な本部神殿がある？', icon:'⛩️'},
+  tenri_shukyo_toshi: {text:'日本発祥の宗教の大規模な教会本部がある？', icon:'⛩️'},
   kashihara_jingu: {text:'神武天皇を祭る神宮と藤原宮跡がある？', icon:'⛩️'},
   miwa_somen: {text:'三輪そうめんで知られる？', icon:'🍜', subjective:true},
   gojo_kaki_shinmachi: {text:'柿の産地で、江戸時代の町並みが残る新町通りがある？', icon:'🍊'},
@@ -405,14 +751,14 @@ const QUESTIONS = {
   kokawadera_momo: {text:'西国三十三所第3番札所と桃の産地で知られる？', icon:'🍑', subjective:true},
   fujiko_f_birthplace: {text:'藤子・F・不二雄先生の出身地？', icon:'📚'},
   shinkiro_maibotsurin: {text:'蜃気楼と埋没林の博物館がある？', icon:'🏛️'},
-  fujiko_a_buri: {text:'藤子不二雄A先生の出身地で寒ブリが名物？', icon:'🐟'},
+  fujiko_a_buri: {text:'寒ブリの産地で、藤子不二雄Ⓐの出身地でもある？', icon:'🐟'},
   hotaruika_museum: {text:'ホタルイカ専門の体験型博物館がある？', icon:'🦑'},
-  tulip_fair: {text:'国内最大級のチューリップフェアが開かれる？', icon:'🌷'},
-  merhen_kenchiku: {text:'西洋風の「メルヘン建築」が多い？', icon:'🏰', subjective:true},
+  tulip_fair: {text:'砺波平野に広がる散居村の景観と、チューリップで知られる？', icon:'🌷'},
+  merhen_kenchiku: {text:'学校や公民館などに、西洋の有名建築を模した『メルヘン建築』がある？', icon:'🏰', subjective:true},
   gokayama_gassho: {text:'五箇山の合掌造り集落がある？', icon:'🏠'},
   kaiwomaru_bridge: {text:'帆船海王丸と巨大な斜張橋がある？', icon:'⛵'},
   wakura_notojima: {text:'和倉温泉と能登島がある？', icon:'♨️'},
-  komatsu_origin: {text:'世界的建設機械メーカーの発祥地？', icon:'🏭'},
+  komatsu_origin: {text:"世界的な建設機械メーカーが創業し、その社名も創業地の自治体名に由来する？", icon:'🏭'},
   senmaida_shikki: {text:'白米千枚田と漆器産業で知られる？', icon:'🌾', subjective:true},
   rokugozaki: {text:'能登半島の先端に禄剛崎がある？', icon:'🗺️'},
   kaga_onsenkyo: {text:'山代・山中・片山津の三温泉がある？', icon:'♨️'},
@@ -422,7 +768,7 @@ const QUESTIONS = {
   kehi_jindo: {text:'気比神宮と「人道の港」の資料館がある？', icon:'⛩️'},
   miketsukuni_saba: {text:'御食国と鯖街道の起点として知られる？', icon:'🐟', subjective:true},
   echizen_ono_castle: {text:'雲海に浮かぶ山城と湧水で知られる？', icon:'🏯', subjective:true},
-  awara_onsen: {text:'北陸有数の芦原温泉がある？', icon:'♨️'},
+  awara_onsen: {text:'北陸有数の温泉街がある？', icon:'♨️'},
   fujiq_highland: {text:'富士急ハイランドがある？', icon:'🎢'},
   fuefuki_fruit_park: {text:'笛吹川フルーツ公園と西沢渓谷がある？', icon:'🍇'},
   shinpu_shichirigan: {text:'新府城跡と七里岩の台地がある？', icon:'🏯'},
@@ -431,13 +777,13 @@ const QUESTIONS = {
   shingen_zutsumi: {text:'信玄堤と赤坂台総合公園がある？', icon:'🏞️'},
   isawa_onsen: {text:'石和温泉と桃源郷がある？', icon:'♨️'},
   katsunuma_budo: {text:'勝沼のぶどう畑と大菩薩嶺がある？', icon:'🍇'},
-  name_same_as_route: {text:'市名と同じ名前の高速道路（○○道）や鉄道路線（○○線）がある？', icon:'🛣️'},
+  name_same_as_route: {text:'山梨大学医学部キャンパスがある？', icon:'🛣️'},
   kamikochi: {text:'上高地がある？', icon:'🏔️'},
   sanada_bessho: {text:'真田氏の城下町で別所温泉がある？', icon:'🏯'},
-  okaya_silk: {text:'諏訪湖西岸の製糸業の町で蚕糸博物館がある？', icon:'🧵'},
+  okaya_silk: {text:'諏訪湖西岸に製糸業の歴史を伝える蚕糸博物館がある？', icon:'🧵'},
   ningyogeki_tenryukyo: {text:'人形劇フェスタと天龍峡で知られる？', icon:'🎭', subjective:true},
   suzaka_garyu: {text:'蔵の町並みと臥竜公園がある？', icon:'🏞️'},
-  kaikoen_toson: {text:'懐古園と島崎藤村ゆかりの町？', icon:'🏯'},
+  kaikoen_toson: {text:'懐古園があり、島崎藤村ゆかりの地でもある？', icon:'🏯'},
   takato_sakura: {text:'高遠城址公園の桜で知られる？', icon:'🌸', subjective:true},
   sauce_katsudon: {text:'ソースカツ丼で有名？', icon:'🍚', subjective:true},
   shinpei_ipponki: {text:'中山晋平記念館と一本木公園がある？', icon:'🎵'},
@@ -458,12 +804,12 @@ const QUESTIONS = {
   iwamura_akechi: {text:'岩村城下町と明知鉄道がある？', icon:'🏯'},
   otajuku_satoyama: {text:'中山道太田宿と里山体験型公園がある？', icon:'🏘️'},
   toki_outlet: {text:'陶磁器生産と大型アウトレットで知られる？', icon:'🏺', subjective:true},
-  aerospace_museum: {text:'国内最大級の航空宇宙博物館がある？', icon:'✈️'},
+  aerospace_museum: {text:'国内唯一の航空・宇宙専門博物館がある？', icon:'✈️'},
   rose_garden_akechi: {text:'世界最大級のバラ園と明智城跡がある？', icon:'🌹'},
   fuyu_kaki_origin: {text:'富有柿発祥の地とされる？', icon:'🍊'},
   setogawa_shirakabe: {text:'瀬戸川と白壁土蔵街がある？', icon:'🏘️'},
   usuzumi_zakura: {text:'樹齢1500年以上とされる淡墨桜がある？', icon:'🌸'},
-  gujo_odori: {text:'徹夜で踊るおどりで有名？', icon:'💃', subjective:true},
+  gujo_odori: {text:'夏に30夜以上開催され、うち数夜は明け方まで踊り続ける盆踊りで有名？', icon:'💃', subjective:true},
   nihon_sanmeisen: {text:'日本三名泉の一つがある？', icon:'♨️'},
   kisosansen_wajyu: {text:'木曽三川が集まる輪中地帯と国営公園がある？', icon:'🏞️'},
   atami_moa: {text:'海上花火大会とMOA美術館で知られる？', icon:'🎆', subjective:true},
@@ -488,11 +834,11 @@ const QUESTIONS = {
   masumida_keori: {text:'真清田神社と国内有数の毛織物産地？', icon:'⛩️'},
   toyokawa_inari: {text:'寺院なのに稲荷と呼ばれる名刹がある？', icon:'⛩️'},
   tsushima_tenno: {text:'天王信仰の総本社と車楽舟の祭りがある？', icon:'⛩️'},
-  kokonoe_mirin: {text:'九重味淋の本社と明石公園がある？', icon:'🏭'},
-  toyota_origin_kariya: {text:'トヨタグループ発祥の地で大型PAがある？', icon:'🏭'},
-  toyota_hq: {text:'世界最大級の自動車会社の本社がある？', icon:'🚗'},
+  kokonoe_mirin: {text:'みりんや白しょうゆの醸造が盛んで、臨海部に工業地帯が広がるマチ？', icon:'🏭'},
+  toyota_origin_kariya: {text:'大手自動車グループゆかりの工業地で、観覧車のある大型PAがある？', icon:'🏭'},
+  toyota_hq: {text:'世界最大級の自動車メーカーの本社がある？', icon:'🚗'},
   nihon_denmark: {text:'「日本デンマーク」と呼ばれ七夕祭りが有名？', icon:'🌾', subjective:true},
-  matcha_sakushima: {text:'抹茶の産地で佐久島を市域に含む？', icon:'🍵'},
+  matcha_sakushima: {text:'抹茶の産地で、アートで知られる離島がある？', icon:'🍵'},
   takeshima_resort: {text:'竹島と大型海洋リゾートがある？', icon:'🏝️'},
   centrair_manekineko: {text:'中部国際空港と巨大な招き猫がある？', icon:'✈️'},
   mandaraji_fuji: {text:'曼陀羅寺の藤まつりで知られる？', icon:'🌸', subjective:true},
@@ -508,26 +854,27 @@ const QUESTIONS = {
   aichi_bokujo: {text:'愛知牧場と岩崎城跡がある？', icon:'🐄'},
   irago_longbeach: {text:'伊良湖岬と太平洋ロングビーチがある？', icon:'🏄'},
   sendohira_renkon: {text:'船頭平閘門とレンコン産地で知られる？', icon:'🌿', subjective:true},
-  kiyosu_castle: {text:'清洲城と大規模なビール工場がある？', icon:'🏯'},
+  kiyosu_castle: {text:'織田信長ゆかりの城と大規模なビール工場がある？', icon:'🏯'},
   showa_nichijo: {text:'昭和日常博物館がある？', icon:'🏛️'},
   kingyo_yatomi: {text:'金魚養殖と金魚水族館で知られる？', icon:'🐠', subjective:true},
-  miyoshi_canoe: {text:'三好池でカヌー競技が盛ん？', icon:'🛶', subjective:true},
+  miyoshi_canoe: {text:'カヌー競技場のある大きな池がある？', icon:'🛶', subjective:true},
   shippoyaki: {text:'七宝焼を展示・体験できる施設がある？', icon:'🏺'},
   ghibli_linimo: {text:'ジブリパークと磁気浮上式鉄道がある？', icon:'🎡'},
   shinkansen:    {text:'新幹線の駅がある？', icon:'🚄'},
   coastal:       {text:'海に面している？', icon:'🌊'},
   designated:    {text:'政令指定都市？', icon:'🏙️'},
-  festival:      {text:'全国的に有名なお祭りがある？', icon:'🎆', subjective:true},
+  unesco_dashi_festival:{text:'ユネスコ無形文化遺産の山・鉾・屋台行事がある？', icon:'🎆'},
+  national_hadaka_festival:{text:'国指定の有名な裸祭りがある？', icon:'🏮'},
   worldheritage: {text:'市内に世界遺産の構成資産がある？', icon:'⛩️'},
   snow:          {text:'豪雪地帯・特別豪雪地帯に指定されている？', icon:'❄️'},
   hot_40c:       {text:'観測史上40℃以上の気温を記録したことがある？', icon:'🌡️'},
-  active_volcano:{text:'市内に気象庁指定の活火山がある？', icon:'🌋'},
+  active_volcano:{text:'気象庁指定の活火山がある？', icon:'🌋'},
   uchibo:        {text:'房総半島の内房側にある？', icon:'🌊'},
   sotobo:        {text:'房総半島の外房側にある？', icon:'🌊'},
   silk_heritage: {text:'製糸・養蚕施設が世界遺産の構成資産になっている？', icon:'🧶'},
   silk_textile:  {text:'無形文化遺産の伝統的な絹織物を主に生産している？', icon:'🧵'},
   moka_sl_line:  {text:'茨城県西部と栃木県東部を結ぶSL運行路線が通る？', icon:'🚂'},
-  kururi_line:   {text:'JR久留里線が市内を通る？', icon:'🚃'},
+  kururi_line:   {text:'JR久留里線が通る？', icon:'🚃'},
   watarase_line: {text:'渡良瀬川上流の渓谷沿いを走る第三セクター線が通る？', icon:'🚃'},
   oito_line:     {text:'大糸線が通る？', icon:'🚃'},
   shinano_railway:{text:'しなの鉄道の駅がある？', icon:'🚃'},
@@ -543,73 +890,80 @@ const QUESTIONS = {
   tojinbo:       {text:'東尋坊がある？', icon:'🌊'},
   jomon_venus:   {text:'縄文のビーナスを所蔵する？', icon:'🏺'},
   rokkoyo:       {text:'日本六古窯の産地？', icon:'🏺'},
-  mino_ware:     {text:'美濃焼の主要産地？', icon:'🏺'},
+  mino_ware:     {text:'美濃焼の産地？', icon:'🏺'},
   hamono_famous: {text:'日本有数の刃物産地？', icon:'🔪', subjective:true},
   snow_festival: {text:'雪まつり・雪を使ったイベントで知られる？', icon:'❄️', subjective:true},
   basin: {text:'盆地にある？', icon:'🏔️'},
-  airport:       {text:'市内に定期旅客便のある空港がある？', icon:'✈️'},
+  airport:       {text:'定期旅客便のある空港がある？', icon:'✈️'},
   noodle:        {text:'名物グルメは麺料理？', icon:'🍜', subjective:true},
-  mascot_famous: {text:'全国区で有名なご当地キャラがいる？', icon:'🧸', subjective:true},
+  yuruchara_gp_winner:{text:'ゆるキャラグランプリで優勝したご当地キャラがいる？', icon:'🧸'},
   nihonkai:      {text:'日本海側の海に面している？', icon:'🌅'},
   taiheiyo:      {text:'太平洋側の海に面している？', icon:'🌊'},
   setonaikai:    {text:'瀬戸内海に面している？', icon:'⛵'},
   famous_mountain:{text:'日本百名山の山頂がある？', icon:'⛰️'},
   big_river:     {text:'国管理の一級河川が流れている？', icon:'🏞️'},
-  big_bay:       {text:'大きな湾に面している？', icon:'⚓', subjective:true},
+  big_bay:       {text:'東京湾・伊勢湾・大阪湾のいずれかに面している？', icon:'⚓'},
   subway:        {text:'地下鉄が走っている？', icon:'🚇'},
-  onsen:         {text:'温泉地として知られている？', icon:'♨️', subjective:true},
+  yubatake_onsen:{text:'湯畑がある？', icon:'♨️'},
+  jigoku_meguri:{text:'地獄めぐりで有名？', icon:'♨️'},
+  riverbed_onsen:{text:'川の中から温泉が湧く？', icon:'♨️'},
   sake:          {text:'日本酒を造る酒蔵がある？', icon:'🍶'},
   famous_hanabi: {text:'全国的または地域を代表する花火大会で知られる？', icon:'🎇', subjective:true},
   castle_town:   {text:'城下町だった？', icon:'🏯'},
   port_town:     {text:'港町として栄えた？', icon:'⚓', subjective:true},
-  rice_region:   {text:'米どころとして知られている？', icon:'🌾', subjective:true},
+  rice_region:   {text:'ブランド米の産地として有名？', icon:'🌾', subjective:true},
   kana_name:     {text:'自治体名にひらがな・カタカナを含む？', icon:'🔤'},
   kansai_dialect:{text:'関西弁圏に含まれる？', icon:'🗣️'},
   ryukyu_dialect:{text:'沖縄県で、うちなーぐち（沖縄方言）が話される地域？', icon:'🗣️'},
   is_town_village:{text:'市ではなく町または村である？', icon:'🏘️'},
   is_tokyo_ward: {text:'東京23区のどれかである？', icon:'🗼'},
-  ruins:          {text:'遺跡・古墳で有名？', icon:'🏛️', subjective:true},
+  giant_kofun:    {text:'世界遺産になった巨大古墳群がある？', icon:'🏛️'},
+  jomon_worldheritage:{text:'世界遺産になった縄文遺跡がある？', icon:'🏺'},
+  large_yayoi_site:{text:'国の特別史跡になった大規模な弥生集落跡がある？', icon:'🏺'},
   lakeside:       {text:'湖畔のマチですか？', icon:'🚣'},
-  shrine_temple:  {text:'寺社仏閣が有名？', icon:'🛕', subjective:true},
+  daibutsu_spot: {text:'「大仏」と呼ばれる仏像がある？', icon:'🛕'},
+  historic_five_story_pagoda: {text:'歴史的な五重塔がある？', icon:'🛕'},
   bakumatsu_port: {text:'幕末の開港五港のひとつ？', icon:'🚢'},
   sumo_basho:     {text:'大相撲の本場所が開催される？', icon:'🤼'},
-  jleague:        {text:'Jリーグ（J1・J2・J3）のホームスタジアムがある？', icon:'⚽'},
-  npb:            {text:'プロ野球チーム(NPB)の本拠地がある？', icon:'⚾'},
+  jleague:        {text:'Jリーグクラブの本拠地がある？', icon:'⚽'},
+  npb:            {text:'プロ野球チームの本拠地がある？', icon:'⚾'},
   former_capital:   {text:'過去に「都」が置かれたことがある？', icon:'👑'},
   grid_streets:     {text:'街の中心部は碁盤の目のよう？', icon:'🔲', subjective:true},
   national_treasure: {text:'国宝に指定された建造物や美術工芸品がある？', icon:'📜'},
   twelve_castles:   {text:'現存十二天守の城はありますか？', icon:'🏰'},
-  sengoku_warlord:  {text:'有名な戦国武将ゆかりの地ですか？', icon:'⚔️', subjective:true},
+  sengoku_warlord:  {text:'有名な戦国武将の生誕地？', icon:'⚔️'},
   tram:             {text:'路面電車が走っていますか？', icon:'🚋'},
-  famous_garden:    {text:'有名な庭園がありますか？', icon:'🌳', subjective:true},
+  daimyo_garden:    {text:'大名庭園がある？', icon:'🌳'},
   car_town:         {text:'自動車メーカーの本社または主要工場がある？', icon:'🚗'},
   private_railway: {text:'私鉄・第三セクターの駅がある？', icon:'🚈'},
   monorail:         {text:'モノレールが走っている？', icon:'🚝'},
   remote_island:    {text:'もしかして離島に存在する？', icon:'🌴'},
   mining_heritage:  {text:'有名な鉱山・炭鉱跡がありますか？', icon:'⛏️', subjective:true},
+  worldheritage_mine: {text:'世界遺産になった鉱山跡がある？', icon:'⛏️'},
+  worldheritage_coal_mine: {text:'世界遺産になった炭鉱跡がある？', icon:'⛏️'},
   night_view:       {text:'日本三大夜景を誇るマチ？', icon:'🌃'},
   war_damage:       {text:'現在の市域で、第二次世界大戦中に大規模な空襲・原爆投下・地上戦があった？', icon:'🕯️'},
   ferris_wheel:     {text:'観覧車はありますか？', icon:'🎡'},
   theme_park:       {text:'テーマパークはありますか？', icon:'🎢'},
   zoo:              {text:'動物園はありますか？', icon:'🦁'},
   aquarium:         {text:'水族館はありますか？', icon:'🐠'},
-  brand_beef:       {text:'有名なブランド牛肉はありますか？', icon:'🥩', subjective:true},
+  brand_beef:       {text:'地名を冠したブランド牛がある？', icon:'🥩', subjective:true},
   kintetsu:         {text:'近鉄が通っていますか？', icon:'🚃'},
   kanji_one_char:   {text:'マチの名前が漢字一文字ですか？', icon:'📛'},
-  chinatown:            {text:'有名な中華街がありますか？', icon:'🏮', subjective:true},
-  sand_dunes:           {text:'有名な砂丘がありますか？', icon:'🏜️', subjective:true},
+  chinatown:            {text:'大規模な中華街がある？', icon:'🏮', subjective:true},
+  sand_dunes:           {text:'観光できる大規模な砂丘がある？', icon:'🏜️', subjective:true},
   imperial_university:  {text:'旧帝国大学を前身とする国立大学の本部がある？', icon:'🎓'},
-  famous_tower:         {text:'有名なタワーがありますか？', icon:'🗼', subjective:true},
+  famous_tower:         {text:'高さ100m以上の展望塔がある？', icon:'🗼', subjective:true},
   famous_market:        {text:'全国的に知られる市場・朝市がある？', icon:'🐟'},
   exotic_port:          {text:'異国情緒の港町ですか？', icon:'🛳️', subjective:true},
   dome_stadium:         {text:'ドーム球場がありますか？', icon:'🏟️'},
-  tea_region:           {text:'茶どころとして有名ですか？', icon:'🍵', subjective:true},
-  gokaido_shukuba:      {text:'江戸の五街道の宿場町として知られている？', icon:'🚶', subjective:true},
-  pottery_famous:       {text:'焼き物・陶磁器で知られている？', icon:'🏺', subjective:true},
+  tea_region:           {text:'ブランド茶の産地？', icon:'🍵', subjective:true},
+  gokaido_shukuba:      {text:'江戸の五街道の宿場があった？', icon:'🚶', subjective:true},
+  traditional_pottery:       {text:'国指定の伝統的工芸品になっている焼き物の産地？', icon:'🏺', subjective:true},
   traditional_craft:    {text:'有名な伝統工芸で知られている？', icon:'🎨', subjective:true},
   horse_racing:         {text:'競馬場がある？', icon:'🐎'},
-  famous_horse_breeding: {text:'有名な馬産地？', icon:'🐴', subjective:true},
-  literary_figure:      {text:'有名な作家・文学者ゆかりの街？', icon:'✒️', subjective:true},
+  famous_horse_breeding: {text:'競走馬の産地として知られる？', icon:'🐴', subjective:true},
+  literary_figure:      {text:'有名な作家・文学者ゆかりの地？', icon:'✒️', subjective:true},
   joetsu_region:              {text:'上越地方？', icon:'🗾'},
   chuetsu_region:              {text:'中越地方？', icon:'🗾'},
   kaetsu_region:               {text:'下越地方？', icon:'🗾'},
@@ -624,7 +978,7 @@ const QUESTIONS = {
   yamagata_shinkansen_station:{text:'山形新幹線の駅がある？', icon:'🚄'},
   akita_shinkansen_station:{text:'秋田新幹線の駅がある？', icon:'🚄'},
   is_village:                  {text:'村？', icon:'🏘️'},
-  shinano_river:               {text:'信濃川が流れる？', icon:'🏞️'},
+  shinano_river:               {text:'信濃川（千曲川）が流れている？', icon:'🏞️'},
   agano_river:                 {text:'阿賀野川が流れる？', icon:'🏞️'},
   uono_river:                  {text:'魚野川が流れる？', icon:'🏞️'},
   borders_yamagata:            {text:'山形県と接している？', icon:'🗺️'},
@@ -689,25 +1043,25 @@ const QUESTIONS = {
   nippori_station: {text:'日暮里駅がある？', icon:'🚉'},
   tsunagari_mayu_police: {text:'眉毛が繋がったおまわりさんがいる？', icon:'👮'},
   tv_station_area: {text:'NHKまたは在京民放キー局5社の本社・放送拠点がある？', icon:'📺'},
-  sazae_family: {text:'国民的4コマ漫画の一家が住んでいる？', icon:'🏠'},
-  hachiko_area: {text:'駅前で主人を待ち続けた犬が有名？', icon:'🐕', subjective:true},
+  sazae_family: {text:"財布を忘れて買い物に出かける陽気な主婦とその家族を描いた作品の作者ゆかりの桜新町があるマチ？", icon:'🏠'},
+  hachiko_area: {text:'駅前で主人を待ち続けた忠犬で有名？', icon:'🐕', subjective:true},
   yose_hall: {text:'落語の定席寄席がある？', icon:'🎤'},
   sailor_moon_stage: {text:'月にかわっておしおきする戦士の舞台？', icon:'🌙'},
   godzilla_head: {text:'巨大な怪獣の頭がビルから出ている？', icon:'🦖'},
-  rakugo_stage:  {text:'有名な古典落語の舞台として知られる？', icon:'🎙️', subjective:true},
-  sanma_famous:  {text:'さんまで有名？', icon:'🐟', subjective:true},
-  monzen:           {text:'有名な門前町ですか？', icon:'🙏', subjective:true},
-  bedtown:          {text:'東京23区または政令指定都市のベッドタウン？', icon:'🏠', subjective:true},
-  skijyou:          {text:'有名なスキー場がある？', icon:'⛷️', subjective:true},
+  rakugo_stage:  {text:'有名な古典落語の舞台になっている？', icon:'🎙️', subjective:true},
+  sanma_famous:  {text:'さんまの水揚げで有名？', icon:'🐟', subjective:true},
+  monzen:           {text:'門前町として知られている？', icon:'🙏'},
+  bedtown:          {text:'ベッドタウンとして知られている？', icon:'🏠', subjective:true},
+  skijyou:          {text:'スキー場がある？', icon:'⛷️', subjective:true},
   geopark:          {text:'ジオパークに指定されている？', icon:'🌋'},
   nuclearpowerplant:{text:'原子力発電所がある？', icon:'☢️'},
-  monozukuri:       {text:'ものづくり(製造業)で知られている？', icon:'🏭', subjective:true},
+  monozukuri:       {text:'ものづくり・製造業が盛ん？', icon:'🏭', subjective:true},
   chukakushi:       {text:'中核市ですか？', icon:'🏛️'},
   tokureishi:       {text:'施行時特例市(かつての特例市)ですか？', icon:'📜'},
   kaikyo_machi:        {text:'海峡のマチ？', icon:'🌊'},
   gakuto:              {text:'「楽都」と呼ばれる音楽のまち？', icon:'🎵', subjective:true},
   hula_girl:           {text:'『フラガール』のふるさと？', icon:'🌺'},
-  kannon_zo:           {text:'観音像が有名？', icon:'🗿', subjective:true},
+  kannon_zo:           {text:'有名な大観音像がある？', icon:'🗿', subjective:true},
   koedo:               {text:'舟運と蔵造りの町並みで知られる小江戸三市の一つ？', icon:'🏮', subjective:true},
   imono_kupola:        {text:'鋳物産業・キューポラの街として知られる？', icon:'🏭', subjective:true},
   aeon_laketown:       {text:'イオンレイクタウンがある？', icon:'🛍️'},
@@ -718,8 +1072,8 @@ const QUESTIONS = {
   matsuzakaya_dept:    {text:'松坂屋（百貨店）がある？', icon:'🏬'},
   funasshi_famous:     {text:'ふなっしーで全国的に知られた？', icon:'🍐', subjective:true},
   takao_mountain:      {text:'高尾山がある？', icon:'⛰️'},
-  curry_famous:        {text:'カレーで有名なマチ？', icon:'🍛', subjective:true},
-  anime_seichi:        {text:'アニメの聖地として知られている？', icon:'📺', subjective:true},
+  curry_famous:        {text:'ご当地カレーで有名？', icon:'🍛', subjective:true},
+  anime_seichi:        {text:'有名なアニメ・漫画の舞台や聖地になった？', icon:'📺'},
   number_in_name:      {text:'自治体名に数字(一、二、三…)が入っている？', icon:'🔢'},
   kigyo_joukamachi:    {text:'企業城下町として知られる？', icon:'🏢', subjective:true},
   hankyu_line:         {text:'阪急電車が通っている？', icon:'🚃'},
@@ -728,29 +1082,29 @@ const QUESTIONS = {
   keihan_line:         {text:'京阪電車が通っている？', icon:'🚃'},
   kawachi_ondo:        {text:'河内音頭で知られる？', icon:'🎶', subjective:true},
   rugby_machi:         {text:'ラグビーワールドカップ2019の開催地？', icon:'🏉'},
-  kougyou_toshi:       {text:'工業都市のイメージが強い？', icon:'🏭', subjective:true},
+  kougyou_toshi:       {text:'工業都市として知られていて、製造業が基幹産業の一つ？', icon:'🏭', subjective:true},
   hyoujun_jigosen:     {text:'日本標準時子午線が通る？', icon:'🕐'},
   koushien:            {text:'阪神甲子園球場がある？', icon:'⚾'},
-  bikan_chiku:         {text:'美観地区で有名？', icon:'🏯', subjective:true},
+  bikan_chiku:         {text:'歴史的な町並みで知られる美観地区がある？', icon:'🏯', subjective:true},
   gunkou_machi:        {text:'旧海軍の鎮守府が置かれた軍港のまち？', icon:'⚓'},
   seitetsu_kouro:      {text:'製鉄所の高炉がある？', icon:'🏭'},
-  fugu_famous:         {text:'ふぐで有名？', icon:'🐡', subjective:true},
-  tire_famous:         {text:'タイヤで有名？', icon:'🛞', subjective:true},
-  hamburger_famous:    {text:'ハンバーガーで有名？', icon:'🍔', subjective:true},
+  fugu_famous:         {text:'ふぐ料理で有名？', icon:'🐡', subjective:true},
+  tire_famous:         {text:'タイヤの製造が盛ん？', icon:'🛞', subjective:true},
+  hamburger_famous:    {text:'ご当地ハンバーガーで有名？', icon:'🍔', subjective:true},
   kenkyu_gakuen_toshi: {text:'研究学園都市として知られる？', icon:'🔬', subjective:true},
   action_kamen:        {text:'アクション仮面が好きな5歳児が住んでいる？', icon:'🦸'},
-  senbei_famous:       {text:'せんべいで有名？', icon:'🍘', subjective:true},
-  tanabata_famous:     {text:'七夕まつりで有名？', icon:'🎋', subjective:true},
-  uirou_famous:        {text:'ういろうで有名？', icon:'🍡', subjective:true},
+  senbei_famous:       {text:'ご当地せんべいで有名？', icon:'🍘', subjective:true},
+  tanabata_famous:     {text:'有名な七夕まつりが開かれる？', icon:'🎋', subjective:true},
+  uirou_famous:        {text:'ご当地銘菓のういろうで有名？', icon:'🍡', subjective:true},
   southern_seichi:     {text:'サザンオールスターズの桑田佳祐の出身地？', icon:'🎤'},
-  b_kyu_gourmet:       {text:'有名なB級グルメがある？', icon:'🍜', subjective:true},
+  b_kyu_gourmet:       {text:'有名なご当地B級グルメがある？', icon:'🍜', subjective:true},
   beigun_kichi:        {text:'米軍基地がある？', icon:'🎖️'},
   shinkai_gyo:         {text:'深海水族館がある？', icon:'🐟'},
   saboten_machi:       {text:'サボテンのまちとして知られる？', icon:'🌵', subjective:true},
-  combinat_yakei:      {text:'コンビナート夜景で有名？', icon:'🌃', subjective:true},
-  danjiri_famous:      {text:'だんじり祭で全国的に有名？', icon:'🎊', subjective:true},
-  onaji_ookawa:        {text:'市名と同じ大きな川が流れている？', icon:'🏞️', subjective:true},
-  kageki_dan:          {text:'有名な歌劇団の本拠地？', icon:'🎭', subjective:true},
+  combinat_yakei:      {text:'工場夜景で有名なコンビナートがある？', icon:'🌃', subjective:true},
+  danjiri_famous:      {text:'有名なだんじり祭が行われる？', icon:'🎊', subjective:true},
+  onaji_ookawa:        {text:'自治体名と同じ名前の大きな川が流れている？', icon:'🏞️', subjective:true},
+  kageki_dan:          {text:'有名な歌劇団の本拠地がある？', icon:'🎭', subjective:true},
   kitanotakeshi:       {text:'北野武が幼少期を過ごしたマチ？', icon:'🎞️'},
   musashino_line:      {text:'JR武蔵野線が通っている？', icon:'🚃'},
   ekimei_chigau:       {text:'市の中心駅の名前が市名と異なる？', icon:'🚉'},
@@ -818,42 +1172,42 @@ const QUESTIONS = {
   nara_basin:         {text:'奈良盆地にありますか？', icon:'🧭'},
   kii_peninsula:      {text:'紀伊半島にありますか？', icon:'🧭'},
   nankai_line:        {text:'南海電車が通っていますか？', icon:'🚃'},
-  glasses_industry:            {text:'メガネ産業で有名？', icon:'🤓', subjective:true},
-  towel_industry:              {text:'タオルで有名？', icon:'🧺', subjective:true},
-  musical_instruments:         {text:'楽器製造で有名？', icon:'🎹', subjective:true},
-  gold_leaf:                   {text:'金箔で有名？', icon:'✨', subjective:true},
-  denim_industry:              {text:'デニム・ジーンズで有名？', icon:'👖', subjective:true},
-  pearl_farming:               {text:'真珠の養殖で有名？', icon:'🦪', subjective:true},
-  shipbuilding:                {text:'造船業で有名？', icon:'🚢', subjective:true},
+  glasses_industry:            {text:'メガネの産地として有名？', icon:'🤓', subjective:true},
+  towel_industry:              {text:'タオルの産地？', icon:'🧺', subjective:true},
+  musical_instruments:         {text:'楽器の製造が盛ん？', icon:'🎹', subjective:true},
+  gold_leaf:                   {text:'金箔の産地？', icon:'✨', subjective:true},
+  denim_industry:              {text:'デニム・ジーンズの産地？', icon:'👖', subjective:true},
+  pearl_farming:               {text:'真珠の養殖が盛ん？', icon:'🦪', subjective:true},
+  shipbuilding:                {text:'造船業が盛ん？', icon:'🚢', subjective:true},
   furniture_industry:          {text:'家具の産地として有名？', icon:'🪑', subjective:true},
-  washi_famous:                {text:'和紙の産地として有名？', icon:'📜', subjective:true},
+  washi_famous:                {text:'和紙の産地として知られている？', icon:'📜', subjective:true},
   pharmaceutical_industry:     {text:'製薬産業で知られる？', icon:'💊', subjective:true},
-  fireworks_industry:          {text:'花火の製造で有名？', icon:'🎆', subjective:true},
-  stone_industry:              {text:'石材・石切りで有名？', icon:'🪨', subjective:true},
-  vinegar_famous:              {text:'酢の生産で有名？', icon:'🍶', subjective:true},
-  soy_sauce_famous:            {text:'醤油の生産で有名？', icon:'🍶', subjective:true},
-  miso_famous:                 {text:'八丁味噌で有名？', icon:'🍲', subjective:true},
-  gyoza_famous:                {text:'餃子で有名？', icon:'🥟', subjective:true},
-  yakisoba_famous:             {text:'焼きそばで有名？', icon:'🍜', subjective:true},
-  udon_famous:                 {text:'うどんで有名？', icon:'🍜', subjective:true},
-  soba_famous:                 {text:'そばで有名？', icon:'🍜', subjective:true},
-  ramen_famous:                {text:'ラーメンで有名？', icon:'🍜', subjective:true},
+  fireworks_industry:          {text:'花火の製造が盛ん？', icon:'🎆', subjective:true},
+  stone_industry:              {text:'石材の産地として有名？', icon:'🪨', subjective:true},
+  vinegar_famous:              {text:'酢の生産が盛ん？', icon:'🍶', subjective:true},
+  soy_sauce_famous:            {text:'醤油の生産が盛ん？', icon:'🍶', subjective:true},
+  miso_famous:                 {text:'八丁味噌の産地？', icon:'🍲', subjective:true},
+  gyoza_famous:                {text:'ご当地餃子で有名？', icon:'🥟', subjective:true},
+  yakisoba_famous:             {text:'ご当地焼きそばで有名？', icon:'🍜', subjective:true},
+  udon_famous:                 {text:'ご当地うどんで有名？', icon:'🍜', subjective:true},
+  soba_famous:                 {text:'ご当地そばで有名？', icon:'🍜', subjective:true},
+  ramen_famous:                {text:'ご当地ラーメンで有名？', icon:'🍜', subjective:true},
   castella_famous:             {text:'カステラで有名？', icon:'🍰', subjective:true},
-  kamaboko_famous:             {text:'かまぼこで有名？', icon:'🍥', subjective:true},
-  lacquerware_famous:          {text:'漆器で有名？', icon:'🥢', subjective:true},
+  kamaboko_famous:             {text:'かまぼこの産地？', icon:'🍥', subjective:true},
+  traditional_lacquerware:          {text:'国指定の伝統的工芸品になっている漆器の産地？', icon:'🥢', subjective:true},
   ancient_provincial_capital:  {text:'古代の国府が置かれていた？', icon:'🏛️'},
   kokubunji_site:              {text:'国分寺・国分尼寺跡がある？', icon:'🏯'},
   traditional_buildings_district: {text:'重要伝統的建造物群保存地区がある？', icon:'🏘️'},
   little_kyoto:                {text:'「小京都」と呼ばれている？', icon:'⛩️', subjective:true},
   giant_buddha:                {text:'巨大な大仏・観音像がある？', icon:'🗿', subjective:true},
-  sea_torii:                   {text:'海上や海辺の大鳥居で有名？', icon:'⛩️', subjective:true},
-  deer_in_city:                {text:'鹿が市街地を歩くことで有名？', icon:'🦌', subjective:true},
+  sea_torii:                   {text:'海上に大鳥居がある？', icon:'⛩️', subjective:true},
+  deer_in_city:                {text:'奈良公園周辺で野生の鹿が見られる？', icon:'🦌', subjective:true},
   gassho_zukuri:               {text:'合掌造り集落がある？', icon:'🏠'},
   ferry_available:             {text:'定期フェリーがある？', icon:'⛴️'},
   no_railway_station:          {text:'市内に鉄道駅がひとつもない？', icon:'🚉'},
   shikoku_pilgrimage:          {text:'四国八十八ヶ所の札所がある？', icon:'🙏'},
   olympic_venue:               {text:'オリンピック競技が開催された？', icon:'🏅'},
-  famous_battlefield:          {text:'有名な古戦場がある？', icon:'⚔️', subjective:true},
+  famous_battlefield:          {text:'戦国時代の大きな合戦の古戦場がある？', icon:'⚔️', subjective:true},
   kitamaebune_port:            {text:'北前船の寄港地として栄えた？', icon:'⛵', subjective:true},
   famous_fish_catch:           {text:'漁獲される特定の魚介で全国的に有名？', icon:'🐟', subjective:true},
   animal_in_name: {text:'自治体名に動物を表す漢字が入っている？', icon:'🐾'},
@@ -871,7 +1225,7 @@ const QUESTIONS = {
   four_plus_name: {text:'自治体名が4文字以上？（「市区町村」を除く）', icon:'📏'},
   fukuoka_metro: {text:'福岡都市圏に含まれますか？', icon:'🧭'},
   hakubi_line: {text:'伯備線が通っていますか？', icon:'🚃'},
-  hard_to_read_name: {text:'難読地名として知られている？', icon:'❓', subjective:true},
+  hard_to_read_name: {text:'自治体名が難読地名として知られている？', icon:'❓', subjective:true},
   hiroshima_metro: {text:'広島都市圏に含まれますか？', icon:'🧭'},
   honshu_bridge: {text:'本州方面と橋で結ばれていますか？', icon:'🧭'},
   izumo_area: {text:'出雲地方にありますか？', icon:'🧭'},
@@ -963,44 +1317,238 @@ const QUESTIONS = {
   ic_oita:           {text:'大分道のインターチェンジがある？', icon:'🛣️'},
   ic_miyazaki:       {text:'宮崎道のインターチェンジがある？', icon:'🛣️'},
   ic_okinawa:        {text:'沖縄道のインターチェンジがある？', icon:'🛣️'},
+  seicomart_store: {text:"セイコーマートがある？", icon:'🏪'},
+  costco_store: {text:"コストコがある？", icon:'🏪'},
+  lalaport: {text:"ららぽーとがある？", icon:'🏪'},
+  aeon_mall_store: {text:"イオンモールがある？", icon:'🏪'},
+  donki_store: {text:"ドン・キホーテがある？", icon:'🏪'},
+  lopia_store: {text:"ロピアがある？", icon:'🏪'},
+  yamaokaya_store: {text:"山岡家がある？", icon:'🏪'},
+  komeri_store: {text:"コメリがある？", icon:'🏪'},
+  cainz_store: {text:"カインズがある？", icon:'🏪'},
+  sawayaka_store: {text:"さわやかがある？", icon:'🏪'},
+  heiwado_store: {text:"平和堂がある？", icon:'🏪'},
+  hachiban_store: {text:"8番らーめんがある？", icon:'🏪'},
+  ramen_jiro_store: {text:"ラーメン二郎がある？", icon:'🏪'},
+  youme_store: {text:"ゆめタウン・ゆめシティがある？", icon:'🏪'},
+  okuwa_store: {text:"オークワがある？", icon:'🏪'},
+  belc_store: {text:"ベルクがある？", icon:'🏪'},
+  yaoko_store: {text:"ヤオコーがある？", icon:'🏪'},
+  sukesan_store: {text:"資さんうどんがある？", icon:'🏪'},
+  yamada_udon_store: {text:"山田うどん食堂がある？", icon:'🏪'},
+  sugakiya_store: {text:"スガキヤがある？", icon:'🏪'},
+  makino_udon_store: {text:"牧のうどんがある？", icon:'🏪'},
+  lucky_pierrot_store: {text:"ラッキーピエロがある？", icon:'🏪'},
+  aw_store: {text:"A&Wがある？", icon:'🏪'},
+  sanliv_marushoku_store: {text:"サンリブ・マルショクがある？", icon:'🏪'},
+  marunaka_store: {text:"マルナカがある？", icon:'🏪'},
+  sanei_store: {text:"サンエーがある？", icon:'🏪'},
+  albis_store: {text:"アルビスがある？", icon:'🏪'},
+  harashin_narus_store: {text:"原信・ナルスがある？", icon:'🏪'},
+  uoroku_store: {text:"ウオロクがある？", icon:'🏪'},
+  tsuruya_store: {text:"ツルヤがある？", icon:'🏪'},
+  york_benimaru_store: {text:"ヨークベニマルがある？", icon:'🏪'},
+  dinosaur_fossil_found: {text:"恐竜の化石が発見された？", icon:'✨'},
+  kappa_town_promotion: {text:"河童をまちおこしに使っている？", icon:'✨'},
+  oni_main_festival: {text:"鬼が主役になる伝統行事がある？", icon:'✨'},
+  horse_public_road_festival: {text:"馬が公道を走る祭りがある？", icon:'✨'},
+  tourist_steam_train: {text:"観光SLが走っている？", icon:'✨'},
+  kokeshi_production: {text:"こけしの産地？", icon:'✨'},
+  hina_town_event: {text:"ひな祭りを町ぐるみの観光イベントにしている？", icon:'✨'},
+  gsdf_garrison: {text:"陸上自衛隊の駐屯地がある？", icon:'✨'},
+  cinema_present: {text:"映画館・シネコンがある？", icon:'✨'},
+  town_village_university: {text:"町や村なのに大学がある？", icon:"🎓"},
+  agricultural_high_school: {text:"農業高校がある？", icon:"🌾"},
+  industrial_high_school: {text:"工業高校がある？", icon:"🏭"},
+  commercial_high_school: {text:"商業高校がある？", icon:"🏪"},
+  domain_school_roots: {text:"藩校をルーツに持つ学校がある？", icon:"📜"},
+  closed_school_tourism: {text:"廃校を観光施設として活用している？", icon:"🏫"},
+  full_boarding_high_school: {text:"全寮制の高校がある？", icon:"🛏️"},
+  spring_koshien_champion: {text:"春の甲子園で優勝したことのある高校がある？", icon:"⚾"},
+  summer_koshien_champion: {text:"夏の甲子園で優勝したことのある高校がある？", icon:"⚾"},
+  high_school_soccer_champion: {text:"高校サッカーで全国優勝した学校がある？", icon:"⚽"},
+  high_school_rugby_champion: {text:"高校ラグビーで全国優勝した学校がある？", icon:"🏉"},
+  high_school_ekiden_champion: {text:"高校駅伝で全国優勝した学校がある？", icon:"🏃"},
+  no_high_school: {text:"高校がない？", icon:"🏫"},
+  jigoku_geothermal_area: {text:"「地獄」と呼ばれる温泉・噴気地帯がある？", icon:"♨️"},
+  meiji_taisho_church: {text:"明治・大正時代に建てられた教会が残っている？", icon:"⛪"},
+  wind_farm_cluster: {text:"風力発電の風車が並んでいる？", icon:"🌬️"},
+  waterway_boat_tour: {text:"水郷・水路を舟で巡る観光がある？", icon:"🛶"},
+  lighthouse_general: {text:"有名な灯台がある？", icon:"💡"},
+  daruma_production: {text:"だるまの産地？", icon:"🔴"},
+  river_boat_descent: {text:"川下り・ライン下りを観光で楽しめる？", icon:"🛶"},
+  department_store_general: {text:"百貨店・デパートがある？", icon:'🏬'},
+
+  // V273: V268 DRY_END残り82自治体の町の顔。既存24問を再利用し、不足58自治体のみ専用1問を新設。
+  v273_agano_hyoko: {text:'ラムサール条約湿地の瓢湖に、冬になると白鳥が飛来する？', icon:'🎯'},
+  v273_akashi_strait_yaki: {text:'明石海峡を望み、「明石焼」の食文化でも知られる？', icon:'🎯'},
+  v273_akaiwa_fruit: {text:'桃やぶどうの栽培が盛んな、果物の産地？', icon:'🎯'},
+  v273_omachi_bota: {text:'炭鉱で栄えた歴史を伝える、大きなボタ山が残る？', icon:'🎯'},
+  v273_shinkamigoto_churches: {text:'島々に29の教会が点在し、世界遺産の集落もある？', icon:'🎯'},
+  v273_nagasu_goldfish: {text:'江戸時代から金魚の養殖が続く、全国有数の産地？', icon:'🎯'},
+  v273_ozu_honda: {text:'国内の二輪車生産を支える、大手自動車メーカーの工場がある？', icon:'🎯'},
+  v273_minamioguni_kurokawa: {text:'露天風呂を巡る「入湯手形」で知られる温泉街がある？', icon:'🎯'},
+  v273_kosa_yana: {text:'清流のアユを竹組みで捕らえる「やな場」が夏秋の風物詩？', icon:'🎯'},
+  v273_minamitane_space: {text:'大型ロケットが打ち上がる、日本最大級の宇宙センターがある？', icon:'🎯'},
+  v273_yamato_amami_rabbit: {text:'アマミノクロウサギの生態を学べるミュージアムがある？', icon:'🎯'},
+  v273_kin_tacorice: {text:'ご飯にタコスの具をのせる「タコライス」発祥の地？', icon:'🎯'},
+  v273_makubetsu_park_golf: {text:'パークゴルフ発祥の地で、ナウマン象化石も出土した？', icon:'🎯'},
+  v273_sannohe_11cats: {text:'「11ぴきのねこ」の作者の故郷で、町に猫の石像が点在する？', icon:'🎯'},
+  v273_osato_hasekura: {text:'支倉常長ゆかりの地で、その墓と伝わる史跡がある？', icon:'🎯'},
+  v273_ogawara_senbonzakura: {text:'川沿い約8kmを桜が埋める「一目千本桜」で知られる？', icon:'🎯'},
+  v273_kawasaki_michinoku: {text:'釜房湖のほとりに、国営の大規模な湖畔公園がある？', icon:'🎯'},
+  v273_sakegawa_totoro: {text:'「トトロの木」と呼ばれる巨大な杉と、鮭が遡る清流がある？', icon:'🎯'},
+  v273_naraha_jvillage: {text:'日本初のナショナルトレーニングセンターを隣町と共有する？', icon:'🎯'},
+  v273_okuma_strawberry: {text:'震災後の新産業として、イチゴ栽培に力を入れている？', icon:'🎯'},
+  v273_futaba_daruma: {text:'巨大なだるまを引き合う「だるま市」が受け継がれている？', icon:'🎯'},
+  v273_yachiyo_hakusai: {text:'白菜の生産量が日本一を誇る、全国有数の農業の町？', icon:'🎯'},
+  v273_takayama_stars_castle: {text:'星空を条例で守り、石造りの古城を再現した観光施設もある？', icon:'🎯'},
+  v273_ranzan_keikoku: {text:'京都の嵐山に似るとして名付けられた渓谷がある？', icon:'🎯'},
+  v273_kawajima_rivers: {text:'四方を川に囲まれ、水と共生してきた平坦な町？', icon:'🎯'},
+  v273_hatoyama_jaxa: {text:'JAXAの地球観測センターがある？', icon:'🎯'},
+  v273_sugito_shukuba: {text:'日光街道で日本橋から5番目の宿場として栄えた？', icon:'🎯'},
+  v273_matsubushi_windmill: {text:'大きな公園に、スペイン風の風車が立つ？', icon:'🎯'},
+  v273_hinohara_waterfall: {text:'島しょ部を除く東京都唯一の村で、「払沢の滝」がある？', icon:'🎯'},
+  v273_oshima_mihara: {text:'活火山・三原山と、黒い火山砂が広がる「裏砂漠」がある？', icon:'🎯'},
+  v273_kozushima_stars: {text:'伊豆諸島で初めて「星空保護区」に認定された島？', icon:'🎯'},
+  v273_ichikawamisato_threecrafts: {text:'和紙・花火・印章という三つの伝統産業を受け継ぐ？', icon:'🎯'},
+  v273_tatsuno_firefly: {text:'初夏にゲンジボタルが乱舞する、全国有数のホタルの名所？', icon:'🎯'},
+  v273_iijima_twoalps: {text:'中央アルプスと南アルプス、二つの山脈を同時に望める？', icon:'🎯'},
+  v273_takamori_ichidagaki: {text:'南信州名物「市田柿」が生まれた地？', icon:'🎯'},
+  v273_yasuoka_fourstations: {text:'信号も国道もコンビニもない一方、JRの駅が4つある？', icon:'🎯'},
+  v273_matsukawa_suzumushi: {text:'美しい鳴き声の虫を大切にする「すずむしの里」？', icon:'🎯'},
+  v273_godo_roses: {text:'「ばらのまち」として、約3300株が咲く公園がある？', icon:'🎯'},
+  v273_shirakawa_five_rivers: {text:'町の約9割が森林で、五つの清流が流れる？', icon:'🎯'},
+  v273_mitake_two_shukuba: {text:'中山道の二つの宿場が置かれていた？', icon:'🎯'},
+  v273_tobishima_port_fields: {text:'「島」と付く陸続きの村で、田園と港の工業地帯が共存する？', icon:'🎯'},
+  v273_toyone_chausuyama: {text:'愛知県最高峰の茶臼山がある？', icon:'🎯'},
+  v273_watarai_miyagawa_tea: {text:'清流・宮川が町を流れ、山あいでは伊勢茶を栽培する？', icon:'🎯'},
+  v273_kumiyama_nagarebashi: {text:'増水すると橋板が流れる、木津川の「流れ橋」がある？', icon:'🎯'},
+  v273_wazuka_teafields: {text:'山の斜面一面に茶畑が広がる、宇治茶の主要産地？', icon:'🎯'},
+  v273_shimamoto_rikyu_water: {text:'大阪府で唯一「名水百選」に選ばれた湧水がある？', icon:'🎯'},
+  v273_kumatori_populous_town: {text:'大阪府の町村で最も人口が多い？', icon:'🎯'},
+  v273_yamazoe_nabekura: {text:'約600mにわたり黒い巨岩が谷を埋める「鍋倉渓」がある？', icon:'🎯'},
+  v273_miyake_secondsmallest: {text:'全国で2番目に面積が小さい町？', icon:'🎯'},
+  v273_nosegawa_unkai: {text:'高地に雲海が現れる「天空の國」として知られる？', icon:'🎯'},
+  v273_kawakami_genryu: {text:'吉野川・紀の川の源流で、森と水を守る「水源地の村」？', icon:'🎯'},
+  v273_nanbu_hanakairo: {text:'西日本最大級の花の公園「とっとり花回廊」がある？', icon:'🎯'},
+  v273_chibu_sekiheki: {text:'赤褐色の大断崖「赤壁」が約1km続く、島根県唯一の村？', icon:'🎯'},
+  v273_kaita_saigoku: {text:'旧西国街道の宿場町として栄えた町並みが残る？', icon:'🎯'},
+  v273_kitahiroshima_kagura: {text:'ユネスコ無形文化遺産の花田植と、盛んな神楽で知られる？', icon:'🎯'},
+  v273_mihara_doburoku: {text:'清らかな水と米を生かし、「どぶろく特区」として酒を造る？', icon:'🎯'},
+  v273_kasuya_sixstations: {text:'町内にJRの駅が6つあり、博多駅まで約10分？', icon:'🎯'},
+  v273_tachiarai_imamura: {text:'赤れんがの双塔がそびえる、国重要文化財の天主堂がある？', icon:'🎯'},
+  // V277: V276の新設4問を全国的な知名度・サプライズ性で再審査し、4問すべて置換。
+  v277_kiyose_akina: {text:'歌手・中森明菜の出身地？', icon:'🎤'},
+  v277_shimotsuke_jichi: {text:'自治医科大学がある？', icon:'🏥'},
+  v277_minowa_akasoba: {text:'全国最大規模の「赤そばの里」がある？', icon:'🌺'},
+  v277_umi_birth: {text:'応神天皇が生まれ、「宇美（産み）」の地名が付いたとされる？', icon:'👶'},
+  v270_hino_merchant: {text:'「三方よし」で知られる近江商人の一系統を生んだ町？', icon:'🧳'},
+  v270_ide_yamabuki: {text:'玉川沿いに、古くから山吹の名所として知られる里がある？', icon:'🌼'},
+  v270_aizumi_indigo: {text:'阿波藍の歴史を伝える「藍の館」で藍染めを体験できる？', icon:'🔵'},
+  v270_tsurugi_udatsu: {text:'全国でも珍しい「二層うだつ」の町並みが残る？', icon:'🏘️'},
+  v270_hidaka_omurice: {text:'特産トマトを生かした「オムライス街道」がある？', icon:'🍅'},
+  v270_yahaba_nansho: {text:'町のシンボルとして親しまれる南昌山がそびえる？', icon:'⛰️'},
+  v270_nakayama_imoni: {text:'「芋煮会発祥の地」を掲げ、全国芋煮会を開く？', icon:'🍲'},
+  v270_tokigawa_woodwork: {text:'1300年の歴史を持つ木工建具の里として知られる？', icon:'🪵'},
+  v270_aikawa_miyagase: {text:'首都圏最大級の宮ヶ瀬ダムを間近に望む？', icon:'🌊'},
+  v245_abu_michinoeki_origin: {text:"『道の駅発祥の地』を名乗る道の駅がある？", icon:'🛣️'},
+  v245_yusui_kirishima_art: {text:"野外美術館『霧島アートの森』がある？", icon:'🎨'},
+  v245_kikuyo_jasm: {text:"TSMC系のJASM半導体工場がある？", icon:'💻'},
+  v247_mizuho_monorail_terminal: {text:"多摩都市モノレールの延伸計画で、新しい終点ができる予定？", icon:'🚝'},
+  v247_aya_suspension_bridge: {text:"高さ140mを超える照葉樹林の大吊橋がある？", icon:'🌉'},
+  v247_nyuzen_sawasugi: {text:"国の天然記念物『杉沢の沢スギ』がある？", icon:'🌲'},
+  technical_college:    {text:'高専がある？', icon:'🎓'},
+  national_univ_attached_high: {text:'国立大学の附属高校がある？', icon:'🎓'},
+  national_univ_attached_junior_high: {text:'国立大学の附属中学校がある？', icon:'🎓'},
+  veterinary_university: {text:'獣医学部・獣医学科が設置されている大学がある？', icon:'🐾'},
+  fisheries_marine_high_school: {text:'水産高校・海洋高校がある？', icon:'🐟'},
+  keirin_track: {text:'競輪場がある？', icon:'🚲'},
+  boat_race_track: {text:'ボートレース場がある？', icon:'🚤'},
+  auto_race_track: {text:'オートレース場がある？', icon:'🏍️'},
+  paper_mill: {text:'製紙工場がある？', icon:'📄'},
+  cement_factory: {text:'セメント工場がある？', icon:'🧱'},
+  geothermal_power: {text:'地熱発電所がある？', icon:'♨️'},
+  tourist_cave: {text:'観光できる鍾乳洞がある？', icon:'🦇'},
+  rocket_launch_site: {text:'ロケットの打ち上げ施設がある？', icon:'🚀'},
+  cable_car: {text:'ケーブルカーがある？', icon:'🚞'},
+  raihoshin: {text:'仮面や変わった格好をした「神様」が、家々を訪ねる伝統行事がある？', icon:'👹'},
+  fire_torch_festival: {text:'大きな火や松明を使う伝統行事がある？', icon:'🔥'},
+  mikoshi_into_sea: {text:'神輿を担いだまま海に入る祭りがある？', icon:'🌊'},
+  major_beer_factory: {text:'大手ビール会社の工場がある？', icon:'🍺'},
+  ikea_store: {text:'IKEAがある？', icon:'🛒'},
+  domestic_ferry: {text:'国内への定期フェリーが出ている？', icon:'⛴️'},
+  international_ferry: {text:'海外への定期フェリーが出ている？', icon:'🌏'},
+  nishikigoi_origin: {text:'錦鯉の産地？', icon:'🐟'},
+  safari_park: {text:'サファリパークがある？', icon:'🦁'},
+  ninja_tourism: {text:'忍者を観光・まちおこしに使っている？', icon:'🥷'},
+  air_self_defense_base: {text:'自衛隊の航空基地がある？', icon:'🚁'},
+  maritime_self_defense_base: {text:'海上自衛隊の基地がある？', icon:'⚓'},
+  starry_sky_reserve: {text:'星空保護区に認定されている？', icon:'🌌'},
+  volcano_crater_tourism: {text:'火山の噴火口が観光できる？', icon:'🌋'},
+  tidal_walk_island: {text:'潮が引くと歩いて渡れる島がある？', icon:'🌊'},
+  whisky_distillery: {text:'ウイスキーの蒸溜所がある？', icon:'🥃'},
+  ski_jump_hill: {text:'スキージャンプ台がある？', icon:'🎿'},
+  ama_divers: {text:'海女さんがいる？', icon:'🧜‍♀️'},
+  toki_stork_rewilding: {text:'トキやコウノトリの野生復帰に取り組んでいる？', icon:'🐦'},
+  swan_wintering: {text:'ハクチョウの飛来地がある？', icon:'🦢'},
+  sunflower_famous: {text:'ひまわり畑で知られる？', icon:'🌻'},
+  lavender_famous: {text:'ラベンダー畑で知られる？', icon:'💜'},
+  oyster_aquaculture: {text:'牡蠣の養殖が行われている？', icon:'🦪'},
+  wasabi_production: {text:'わさびの産地？', icon:'🌿'},
+  traditional_saltmaking: {text:'昔ながらの塩づくりが残っている？', icon:'🧂'},
+  oilfield_present: {text:'油田・天然ガス田がある？', icon:'🛢️'},
+  nori_aquaculture: {text:'海苔の養殖が行われている？', icon:'🌊'},
+  wakame_aquaculture: {text:'わかめの養殖が行われている？', icon:'🌿'},
+  salmon_aquaculture: {text:'サーモンの養殖が行われている？', icon:'🐟'},
+  sea_turtle_nesting: {text:'ウミガメが産卵する海岸がある？', icon:'🐢'},
+  manga_museum: {text:'漫画家の記念館・漫画ミュージアムがある？', icon:'📚'},
+  ukai: {text:'鵜飼が行われている？', icon:'🦅'},
+  bullfighting: {text:'闘牛が行われている？', icon:'🐂'},
+  hot_air_balloon_event: {text:'大規模な熱気球イベントが開かれる？', icon:'🎈'},
+  tourist_trolley_train: {text:'観光用のトロッコ列車が走っている？', icon:'🚃'},
+  ropeway: {text:'ロープウェイがある？', icon:'🚡'},
+  geyser: {text:'間欠泉がある？', icon:'♨️'},
+  public_observatory: {text:'一般公開されている大きな天文台がある？', icon:'🌌'},
+  outlet_mall: {text:'アウトレットモールがある？', icon:'🛍️'},
   koshien_champion:     {text:'甲子園(春・夏)の優勝校がある？', icon:'⚾'},
   sumo_yokozuna_ozeki:  {text:'昭和以降、横綱または大関を輩出した？', icon:'🤼'},
-  famous_cape:          {text:'有名な岬がある？', icon:'🌊', subjective:true},
+  famous_cape:          {text:'観光名所として知られる岬がある？', icon:'🌊', subjective:true},
   yamata_no_orochi: {text:'ヤマタノオロチ神話の舞台として知られる？', icon:'🏯', subjective:true},
   hibagon: {text:'謎の類人猿「ヒバゴン」で知られる？', icon:'✨', subjective:true},
   mori_motonari: {text:'毛利元就の本拠・郡山城がある？', icon:'🏯'},
   hiruzen_highland: {text:'蒜山高原がある？', icon:'🗺️'},
   miyamoto_musashi_station: {text:'「宮本武蔵駅」がある？', icon:'✨'},
-  akiyoshidai: {text:'秋吉台や秋芳洞で有名？', icon:'🎡', subjective:true},
+  akiyoshidai: {text:'秋吉台や秋芳洞がある？', icon:'🎡', subjective:true},
   mizuki_shigeru_road: {text:'水木しげるロードがある？', icon:'🎡'},
   yasugi_bushi: {text:'どじょうすくいで知られる？', icon:'🏯', subjective:true},
   gonokawa: {text:'江の川が流れている？', icon:'🗺️'},
   donticchi_fish: {text:'「どんちっち三魚」という水産ブランドがある？', icon:'🍽️'},
   shokasonjuku: {text:'吉田松陰の松下村塾がある？', icon:'🏯'},
   motonosumi_shrine: {text:'海沿いに赤い鳥居が100基以上並ぶ神社がある？', icon:'🎡'},
-  bizen_ware: {text:'備前焼の代表的な産地？', icon:'🏯'},
+  bizen_ware: {text:'備前焼の産地？', icon:'🏯'},
   osafune_sword_museum: {text:'備前長船刀剣博物館がある？', icon:'🏯'},
-  naoshima_gateway: {text:'直島へ渡る主要な港がある？', icon:'⛴️'},
+  naoshima_gateway: {text:'直島へのフェリーが出る港がある？', icon:'⛴️'},
   horseshoe_crab_museum: {text:'カブトガニを専門にした博物館がある？', icon:'🎡'},
   astronomy_city: {text:'大型望遠鏡がある「天文のまち」？', icon:'🎡'},
-  sunameri: {text:'スナメリと出会えることで有名？', icon:'🎡', subjective:true},
+  sunameri: {text:'野生のスナメリと出会えることで有名？', icon:'🎡', subjective:true},
   naval_academy: {text:'旧海軍兵学校がある？', icon:'🏯'},
-  goldfish_lantern: {text:'金魚ちょうちんで有名？', icon:'🎡', subjective:true},
+  goldfish_lantern: {text:'金魚ちょうちんが名物？', icon:'🎡', subjective:true},
   ito_hirobumi_birthplace: {text:'初代内閣総理大臣・伊藤博文の生誕地？', icon:'🏯'},
   train_factory: {text:'新幹線などの鉄道車両を製造する工場がある？', icon:'🏭'},
   stork: {text:'コウノトリで知られるマチ？', icon:'🎡', subjective:true},
   hyonosen: {text:'兵庫県最高峰の氷ノ山がある？', icon:'🗺️'},
   takeda_castle: {text:'「天空の城」と呼ばれる竹田城跡がある？', icon:'🎡'},
   tamba_dinosaur: {text:'恐竜化石「丹波竜」が発見された？', icon:'✨'},
-  black_soybeans: {text:'黒豆や黒枝豆で全国的に有名？', icon:'🍽️', subjective:true},
+  black_soybeans: {text:'黒豆・黒枝豆の産地？', icon:'🍽️', subjective:true},
   japan_navel: {text:'東経135度と北緯35度が交わる「日本のへそ」？', icon:'🗺️'},
-  miki_hardware: {text:'大工道具などの「三木金物」で有名？', icon:'🏭', subjective:true},
+  miki_hardware: {text:'大工道具などの「三木金物」の産地？', icon:'🏭', subjective:true},
   balloon_city: {text:'「気球の飛ぶまち」を掲げている？', icon:'✨'},
-  saga_balloon_festa: {text:'バルーンフェスタで有名なマチ？', icon:'🎈', subjective:true},
-  sake_birthplace: {text:'日本酒発祥の地を名乗っている？', icon:'🍽️'},
-  peron_festival: {text:'ペーロン競漕の祭りで有名？', icon:'🎡', subjective:true},
+  saga_balloon_festa: {text:'大規模なバルーンフェスタが開かれる？', icon:'🎈', subjective:true},
+  sake_birthplace: {text:'日本酒発祥の地の一つとされ、市域の大部分を森林が占めるマチ？', icon:'🍽️'},
+  peron_festival: {text:'ペーロン競漕の祭りがある？', icon:'🎡', subjective:true},
   ako_ronin: {text:'忠臣蔵と赤穂浪士のまち？', icon:'🏯'},
-  awaji_puppet_theater: {text:'人形浄瑠璃で有名？', icon:'🏯', subjective:true},
+  awaji_puppet_theater: {text:'伝統的な人形浄瑠璃が受け継がれている？', icon:'🏯', subjective:true},
   nijigen_no_mori: {text:'ニジゲンノモリがある？', icon:'🎡'},
   akechi_mitsuhide_castle: {text:'明智光秀が築いた城がある？', icon:'🏯'},
   gunze_birthplace: {text:'グンゼ発祥の地？', icon:'🏭'},
@@ -1017,18 +1565,18 @@ const QUESTIONS = {
   name_has_betsu: {text:'自治体名に「別」が入る？', icon:'🔤'},
   hokkaido_greenland: {text:'北海道グリーンランドがある？', icon:'🎢'},
   famous_prison: {text:'明治期の旧監獄の建物が保存されている？', icon:'🔒'},
-  yakitori_famous_bibai: {text:'焼き鳥で有名？', icon:'🍢', subjective:true},
+  yakitori_famous_bibai: {text:'ご当地焼き鳥で有名？', icon:'🍢', subjective:true},
   coal_mine_shaft: {text:'旧炭鉱の立坑櫓が残っている？', icon:'⛏️'},
-  drift_ice: {text:'流氷の接岸で有名？', icon:'🧊', subjective:true},
-  suffolk_sheep: {text:'サフォーク羊で有名？', icon:'🐑', subjective:true},
-  ammonite_fossil: {text:'アンモナイトの化石で有名？', icon:'🐚', subjective:true},
+  drift_ice: {text:'冬に流氷が接岸する？', icon:'🧊', subjective:true},
+  suffolk_sheep: {text:'サフォーク羊の飼育で有名？', icon:'🐑', subjective:true},
+  ammonite_fossil: {text:'アンモナイトの化石が多く発見されている？', icon:'🐚', subjective:true},
   matsuo_jingisukan: {text:'松尾ジンギスカンの本店がある？', icon:'🍖'},
   sweet_road: {text:'スイートロードがある？', icon:'🍬'},
   least_populous_city: {text:'日本で人口が最も少ない市？', icon:'👤'},
   urokodango: {text:'ウロコダンゴが名物？', icon:'🍡'},
-  bear_park: {text:'CMが有名なクマ牧場がある？', icon:'🐻'},
+  bear_park: {text:'ご当地CMで有名なクマ牧場がある？', icon:'🐻'},
   fighters_farm: {text:'プロ野球球団のファーム施設の移転予定地？', icon:'⚾'},
-  bijin_town: {text:'日本一美人が多いと言われているマチ？', icon:'💃', subjective:true},
+  bijin_town: {text:'伝統的建造物の「こみせ」が連なる中町こみせ通りがある？', icon:'💃', subjective:true},
   yoshi_ikuzo: {text:'「テレビも無え!ラジオも無え!」と歌われるマチ？', icon:'🎤'},
   oirase: {text:'奥入瀬渓流がある？', icon:'🍃'},
   osorezan: {text:'恐山がある？', icon:'⛰️'},
@@ -1037,15 +1585,15 @@ const QUESTIONS = {
   jodogahama: {text:'浄土ヶ浜がある？', icon:'🏖️'},
   goishi_coast: {text:'碁石海岸がある？', icon:'🪨'},
   miyazawa_kenji: {text:'宮沢賢治のふるさと？', icon:'📖'},
-  tensho_chi: {text:'展勝地の桜並木で有名？', icon:'🌸', subjective:true},
+  tensho_chi: {text:'展勝地の桜並木がある？', icon:'🌸', subjective:true},
   amber_kuji: {text:'国内有数の琥珀産地として知られる？', icon:'💎', subjective:true},
-  tono_monogatari: {text:'『遠野物語』やカッパ伝説で有名？', icon:'🥒', subjective:true},
+  tono_monogatari: {text:'『遠野物語』の舞台になった？', icon:'🥒', subjective:true},
   geibikei: {text:'猊鼻渓がある？', icon:'⛰️'},
   ipponmatsu: {text:'奇跡の一本松がある？', icon:'🌲'},
   ohtani_shohei: {text:'大谷翔平の出身地？', icon:'⚾'},
   zashiki_warashi: {text:'座敷わらしで知られる金田一温泉がある？', icon:'👘', subjective:true},
   appi_kogen: {text:'安比高原がある？', icon:'⛷️'},
-  ishinomori: {text:'石ノ森章太郎の出身地？', icon:'🎨'},
+  ishinomori: {text:'石ノ森萬画館がある？', icon:'🎨'},
   chagu_chagu: {text:'チャグチャグ馬コの出発地がある？', icon:'🐴'},
   shiogama_shrine: {text:'鹽竈神社がある？', icon:'⛩️'},
   fukahire: {text:'フカヒレやサメの水揚げで有名？', icon:'🦈', subjective:true},
@@ -1067,17 +1615,17 @@ const QUESTIONS = {
   yuri_kogen_railway: {text:'由利高原鉄道が走っている？', icon:'🚃'},
   blumen_akita: {text:'ブルーメッセあきたがある？', icon:'🌷'},
   odate_noshiro_airport: {text:'大館能代空港がある？', icon:'✈️'},
-  tdk_town: {text:'TDKの企業城下町？', icon:'🏭'},
+  tdk_town: {text:'TDKが事業を始めた創業の地？', icon:'🏭'},
   kakunodate_tazawako: {text:'角館の武家屋敷と田沢湖がある？', icon:'🏯'},
   sankyo_soko: {text:'山居倉庫がある？', icon:'🏚️'},
   higashizawa_rose: {text:'東沢バラ公園がある？', icon:'🌹'},
-  ayame_park: {text:'あやめ公園で有名？', icon:'🌸', subjective:true},
+  ayame_park: {text:'500種100万本のあやめが咲く、歴史あるあやめ公園がある？', icon:'🌸', subjective:true},
   hanagasa_tendo: {text:'花笠音頭「花の山形、紅葉の〇〇」？', icon:'🎵'},
   ginzan_onsen: {text:'銀山温泉がある？', icon:'♨️'},
   kumano_taisha: {text:'「東北の伊勢」と呼ばれる熊野大社がある？', icon:'⛩️'},
   tsuburaya_eiji: {text:'ウルトラマンの生みの親・円谷英二の故郷？', icon:'👽'},
   matsukawaura: {text:'松川浦がある？', icon:'🌊'},
-  kiku_ningyo_nihonmatsu: {text:'菊人形や提灯祭りで有名？', icon:'🏮', subjective:true},
+  kiku_ningyo_nihonmatsu: {text:'菊人形と提灯祭りで有名？', icon:'🏮', subjective:true},
   abukumado: {text:'あぶくま洞がある？', icon:'🕳️'},
   kacchu_keiba: {text:'甲冑競馬・神旗争奪戦が行われる？', icon:'🐎'},
   anpogaki: {text:'あんぽ柿の発祥地として知られる？', icon:'🌰', subjective:true},
@@ -1157,14 +1705,14 @@ const QUESTIONS = {
   ageo_sodou: {text:'1973年に通勤客が列車を占拠した国鉄騒動の舞台？', icon:'🚃'},
   iroha_toi: {text:'野火止用水を新河岸川の対岸へ渡した「いろは樋」で知られる？', icon:'💧', subjective:true},
   okegawa_benibana: {text:'中山道の宿場町で、紅花を市のシンボルとしている？', icon:'🌺'},
-  ishito_zakura: {text:'日本五大桜の一つ「石戸蒲ザクラ」がある？', icon:'🌸'},
+  ishito_zakura: {text:'日本五大桜の一つ「石戸蒲ザクラ」があり、トマトの産地として知られる？', icon:'🌸'},
   kinchakuda: {text:'巾着田の大規模な曼珠沙華群生地がある？', icon:'🌺'},
   heirinji: {text:'国指定天然記念物の境内林を持つ平林寺がある？', icon:'🌳'},
   lucky_star: {text:'アニメ『らき☆すた』の聖地として知られる鷲宮神社がある？', icon:'⛩️', subjective:true},
   johnson_town: {text:'米国風の街並み「ジョンソンタウン」がある？', icon:'🏘️'},
   saika_matsuri: {text:'夏に「彩夏祭」が開かれる？', icon:'🎆'},
   mizuko_kaizuka: {text:'国指定史跡の水子貝塚がある？', icon:'🏺'},
-  smallest_city: {text:'全国で最も面積が小さい市？', icon:'📏'},
+  smallest_city: {text:'全国で最も面積が小さいマチで、中山道の宿場町として栄えた？', icon:'📏'},
   yashio_hanamomo: {text:'中川沿いに大規模な花桃の名所がある？', icon:'🌸'},
   yoshikawa_namazu: {text:'ナマズ料理と「なまずの里」で知られる？', icon:'🐟', subjective:true},
   shiraoka_nashi: {text:'特産の梨に「美人」を冠したブランド名がある？', icon:'🍐'},
@@ -1179,7 +1727,7 @@ const QUESTIONS = {
   aqualine_gate: {text:'東京湾アクアラインの千葉県側の玄関口？', icon:'🌉'},
   yotsukaido_name: {text:'市名が、四方向へ延びる街道の交差点に由来する？', icon:'🛣️'},
   onari_kaido: {text:'徳川家康の鷹狩りに使われた御成街道の終点だった？', icon:'🦅'},
-  yachimata_peanuts: {text:'落花生の産地として全国的に有名？', icon:'🥜', subjective:true},
+  yachimata_peanuts: {text:'落花生の産地として有名？', icon:'🥜', subjective:true},
   nashibou: {text:'「なし坊」という梨のキャラクターがいる？', icon:'🍐'},
   soza_ueki: {text:'植木・苗木の出荷が全国有数？', icon:'🌱'},
   blueberry_origin: {text:'日本で初めてブルーベリーが農産物として栽培された？', icon:'🫐'},
@@ -1212,12 +1760,12 @@ const QUESTIONS = {
   konrei_kagu: {text:'高級婚礼家具の産地として知られる？', icon:'🪑', subjective:true},
   nora_dokei: {text:'田園の中に立つ時計台「野良時計」がある？', icon:'🕰️'},
   onga_pump: {text:'世界遺産の遠賀川水源地ポンプ室がある？', icon:'⛲'},
-  koinoki: {text:'全国でも珍しい「恋命」を祭る恋木神社がある？', icon:'💕'},
+  koinoki: {text:'全国でも珍しい恋の神様を祭る「恋木神社」がある？', icon:'💕'},
   hiyoko: {text:'銘菓「ひよ子」が生まれたまち？', icon:'🐤'},
   kubote_san: {text:'修験道の霊山・求菩提山がある？', icon:'⛰️'},
   taku_seibyo: {text:'孔子をまつる、現存最古級の聖廟がある？', icon:'🎓'},
   minamata_museum: {text:'四大公害病の一つについて学べる市立資料館がある？', icon:'🏫'},
-  kikuchi_keikoku: {text:'阿蘇外輪山北西部に、避暑地として有名な渓谷がある？', icon:'🍁', subjective:true},
+  kikuchi_keikoku: {text:'避暑地として知られる菊池渓谷がある？', icon:'🍁', subjective:true},
   mikoshiki_coast: {text:'干潟の曲線と夕日で知られる御輿来海岸がある？', icon:'🌅', subjective:true},
   amakusa_bridges: {text:'九州本土と島々を結ぶ5本の橋の大部分が市内にある？', icon:'🌉'},
   ikoma_kogen: {text:'コスモスの名所「生駒高原」がある？', icon:'🌼'},
@@ -1239,7 +1787,7 @@ const QUESTIONS = {
   ebikani_aquarium: {text:'エビやカニなど甲殻類に特化した水族館がある？', icon:'🦀'},
   misato_blueberry: {text:'ブルーベリーの産地として知られ、観光農園が集まる？', icon:'🫐'},
   circuit: {text:'モータースポーツのサーキット(レース場)がある？', icon:'🏁'},
-  dam_lake: {text:'観光地として知られる有名なダム・ダム湖がある？', icon:'🌊'},
+  dam_lake: {text:'観光名所になっているダム・ダム湖がある？', icon:'🌊'},
   meisui_hyakusen: {text:'環境省の「名水百選」に選ばれた湧き水や川がある？', icon:'💧'},
   least_populous_village: {text:'日本一人口の少ない村？', icon:'🏝️'},
   tanada_hyakusen: {text:'「日本の棚田百選」に選ばれた棚田がある？', icon:'🌾'},
@@ -1285,6 +1833,126 @@ const QUESTION_HELP = {
   ferry_available: '現在も定期運航する旅客航路が市内の港にあれば「はい」です。',
   no_railway_station: '旅客が利用できる鉄道駅を基準にしています。',
   olympic_venue: '夏季・冬季を問わず、正式競技の会場になった場合です。',
+  seicomart_store: "セイコーマート公式店舗検索で現行店舗が確認できる自治体です。",
+  costco_store: "コストコ日本公式の現行倉庫店所在地を基準にしています。",
+  lalaport: "三井ショッピングパーク公式の国内ららぽーと施設所在地を基準にしています。",
+  aeon_mall_store: "「イオンモール」名称の現行国内施設所在地を基準にしています。",
+  donki_store: "ドン・キホーテ／MEGAドン・キホーテの現行店舗所在地を基準にしています。",
+  lopia_store: "ロピア公式店舗情報の現行国内店舗所在地を基準にしています。",
+  yamaokaya_store: "「ラーメン山岡家」ブランドの現行店舗所在地を基準にしています。",
+  komeri_store: "コメリ公式店舗検索の現行小売店舗所在地を基準にしています。",
+  cainz_store: "カインズ公式店舗検索の現行CAINZ店舗所在地を基準にしています。",
+  sawayaka_store: "炭焼きレストランさわやか公式の現行店舗所在地を基準にしています。",
+  heiwado_store: "平和堂公式店舗検索の直営食品小売店舗所在地を基準にしています。",
+  hachiban_store: "8番らーめん公式店舗検索の国内現行店舗所在地を基準にしています。",
+  ramen_jiro_store: "ラーメン二郎の現行店舗所在地を基準にしています。",
+  youme_store: "イズミ公式のゆめタウン・ゆめシティ現行店舗所在地を基準にしています。",
+  okuwa_store: "オークワ公式店舗検索の現行店舗所在地を基準にしています。",
+  belc_store: "ベルク公式店舗情報の現行店舗所在地を基準にしています。",
+  yaoko_store: "ヤオコー公式店舗情報の現行店舗所在地を基準にしています。",
+  sukesan_store: "資さんうどん公式店舗検索の現行店舗所在地を基準にしています。",
+  yamada_udon_store: "山田うどん公式店舗案内の現行店舗所在地を基準にしています。",
+  sugakiya_store: "スガキヤ公式店舗検索の現行店舗所在地を基準にしています。",
+  makino_udon_store: "牧のうどん公式店舗案内の現行常設店所在地を基準にしています。",
+  lucky_pierrot_store: "ラッキーピエロ公式の現行店舗所在地を基準にしています。",
+  aw_store: "A&W沖縄公式の現行常設店所在地を基準にしています。",
+  sanliv_marushoku_store: "サンリブ公式の現行店舗所在地を基準にしています。",
+  marunaka_store: "フジ公式店舗検索でマルナカ屋号の現行店が確認できる自治体です。",
+  sanei_store: "サンエー公式の現行店舗所在地を基準にしています。",
+  albis_store: "アルビス公式の現行店舗所在地を基準にしています。",
+  harashin_narus_store: "原信ナルス公式の現行店舗所在地を基準にしています。",
+  uoroku_store: "ウオロク公式の現行店舗所在地を基準にしています。",
+  tsuruya_store: "ツルヤ公式の現行店舗所在地を基準にしています。",
+  york_benimaru_store: "ヨークベニマル公式の現行店舗所在地を基準にしています。",
+  dinosaur_fossil_found: "自治体・博物館・地質資料で恐竜化石の産出が確認された自治体を対象にしています。",
+  kappa_town_promotion: "自治体・観光協会が河童を継続的な観光・地域PRの主題としている自治体です。",
+  oni_main_festival: "鬼が中心的役割を担う定例の伝統行事が確認できる自治体です。",
+  horse_public_road_festival: "祭礼の定例要素として馬が一般道路を走る行事が確認できる自治体です。",
+  tourist_steam_train: "現行の定期・季節観光列車として蒸気機関車牽引列車が発着・走行する自治体です。",
+  kokeshi_production: "伝統こけしの系統・産地として公的・産地資料で確認できる自治体です。",
+  hina_town_event: "町なかを面的に使う継続的なひな祭り観光イベントが確認できる自治体です。",
+  gsdf_garrison: "陸上自衛隊公式の現行駐屯地・分屯地所在地を基準にしています。",
+  cinema_present: "現行の常設映画上映館がある自治体です。臨時上映・閉館施設は含みません。",
+  town_village_university: "4年制大学の本部・キャンパスが所在する町村を対象にしています。短期大学のみは含みません。",
+  agricultural_high_school: "農業に関する専門学科を置く現行高校の所在地を基準にしています。",
+  industrial_high_school: "工業に関する専門学科を置く現行高校の所在地を基準にしています。",
+  commercial_high_school: "商業に関する専門学科を置く現行高校の所在地を基準にしています。",
+  domain_school_roots: "学校公式・自治体史等で藩校からの系譜継承が確認できる現行校を対象にしています。",
+  closed_school_tourism: "旧学校施設を一般向けの観光・交流施設として継続活用している自治体を対象にしています。",
+  full_boarding_high_school: "原則として全生徒の入寮を制度上求める現行高校の所在地を対象にしています。",
+  spring_koshien_champion: "選抜高校野球の歴代優勝校について、現存校への継承と現在地を基準にしています。",
+  summer_koshien_champion: "全国高校野球選手権の歴代優勝校について、現存校への継承と現在地を基準にしています。",
+  high_school_soccer_champion: "全国高校サッカー選手権の歴代優勝校と現所在地を基準にしています。",
+  high_school_rugby_champion: "全国高校ラグビー大会（花園）の歴代優勝校と現所在地を基準にしています。",
+  high_school_ekiden_champion: "全国高校駅伝の歴代優勝校と現所在地を基準にしています。",
+  no_high_school: "現行の高等学校が自治体内に所在しない場合に「はい」とします。",
+  jigoku_geothermal_area: "自治体・観光協会等が「地獄」の名称で案内する温泉・噴気景観を対象にしています。",
+  meiji_taisho_church: "明治・大正期の現存教会建築が確認できる自治体を対象にしています。",
+  wind_farm_cluster: "複数の大型風車がまとまって立地する現行ウインドファーム等を対象にしています。",
+  waterway_boat_tour: "市街地・水郷の水路を巡る観光舟運が現行で行われている自治体を対象にしています。",
+  lighthouse_general: "海上保安庁・自治体・観光資料等で主要な観光・航路標識として案内される灯台を対象にしています。",
+  daruma_production: "伝統的なだるま生産地として自治体・産地資料で確認できる自治体を対象にしています。",
+  river_boat_descent: "河川を下る観光舟運・ライン下りが現行で営業している自治体を対象にしています。",
+  department_store_general: "日本百貨店協会の現行「百貨店 店舗所在地」に掲載される営業拠点を基準にしています。事務所のみの掲載は除外します。",
+  v245_abu_michinoeki_origin: "阿武町公式が『全国道の駅発祥の地』として案内する道の駅阿武町を基準にしています。",
+  v245_yusui_kirishima_art: "湧水町公式が案内する現代野外美術館『霧島アートの森』の所在地を基準にしています。",
+  v245_kikuyo_jasm: "菊陽町公式の施政方針で確認できるJASM（TSMC等出資）の半導体工場所在地を基準にしています。",
+  v247_mizuho_monorail_terminal: "瑞穂町公式の多摩都市モノレール箱根ケ崎方面延伸計画で、現行終点の上北台から延伸しJR箱根ケ崎駅付近が新たな末端となる計画を基準にしています。",
+  v247_aya_suspension_bridge: "綾町公式が案内する照葉大吊橋（高さ142m）を基準にしています。",
+  v247_nyuzen_sawasugi: "入善町公式が案内する国指定天然記念物『杉沢の沢スギ』を基準にしています。",
+  technical_college: '学校教育法上の高等専門学校の本科キャンパスが自治体内にあれば「はい」です。国立・公立・私立を含みます。',
+  national_univ_attached_high: '国立大学法人が設置する附属高等学校が自治体内に所在すれば「はい」です。中等教育学校は含めません。',
+  national_univ_attached_junior_high: '国立大学法人が設置する附属中学校が自治体内に所在すれば「はい」です。義務教育学校・中等教育学校は含めません。',
+  veterinary_university: '獣医師養成課程（獣医学部・獣医学科等）を置く大学のキャンパスが自治体内にあれば「はい」です。',
+  fisheries_marine_high_school: '教科「水産」を専門的に学ぶ水産・海洋系高校が自治体内に所在すれば「はい」です。学校名に「水産」「海洋」がなくても全国水産高等学校長協会系の現行校を含みます。',
+  keirin_track: '現在開催されている競輪の本場が自治体内にあれば「はい」です。',
+  boat_race_track: 'BOAT RACE公式の現行24本場の所在地で判定します。',
+  auto_race_track: 'AutoRace公式で現在開催されている5場の所在地で判定します。',
+  paper_mill: '日本製紙連合会の現行「製紙工場所在地一覧」に掲載される工場所在地で判定します。',
+  cement_factory: 'セメント協会の現行セメント工場所在地で判定します。',
+  geothermal_power: 'JOGMEC掲載の設備容量1,000kW以上の現行地熱発電所所在地で判定します。',
+  tourist_cave: '日本観光鍾乳洞協会の現行会員9洞の所在地で判定します。',
+  rocket_launch_site: 'JAXAがロケット射場として運用する種子島宇宙センター・内之浦宇宙空間観測所の所在地で判定します。',
+  cable_car: '現在営業する鉄道事業法上の鋼索鉄道（ケーブルカー）の所在地で判定します。',
+  raihoshin: 'ユネスコ無形文化遺産「来訪神：仮面・仮装の神々」の10構成行事が伝承される自治体で判定します。',
+  fire_torch_festival: '大火・大松明そのものが行事の中心的な見せ場となる、全国的・地域的に確立した伝統行事を対象にします。',
+  mikoshi_into_sea: '担ぎ手が神輿そのものを担いだまま海水へ入ることが祭礼の定例要素である自治体を対象にします。',
+  major_beer_factory: 'アサヒ・キリン・サッポロ・サントリーの現行ビール製造工場の所在地で判定します。',
+  ikea_store: 'IKEA Japan公式店舗一覧に掲載される常設店舗（大型店・都心型・商業施設内店舗）の所在地で判定します。',
+  domestic_ferry: '現在も定期運航する国内旅客フェリー航路の発着港が自治体内にあれば「はい」です。',
+  international_ferry: '2026年9月時点で国際定期旅客フェリー航路が発着する港の所在地で判定します。',
+  nishikigoi_origin: '自治体が錦鯉発祥・主要産地として公式に位置付けている小千谷市・長岡市を対象にします。',
+  safari_park: '園内を車両等で巡り大型動物を観察する常設サファリ形式の動物園・施設の所在地で判定します。',
+  ninja_tourism: '自治体・観光協会等が忍者を主要観光資源として継続的に発信し、常設の忍者観光施設・地域ブランドを持つ自治体を対象にします。',
+  air_self_defense_base: '航空自衛隊公式の基地等のうち「基地」として常設部隊・教育機関等が置かれる所在地で判定します。',
+  maritime_self_defense_base: '海上自衛隊公式「組織・所在地」に掲載される主要地区・基地隊・航空基地等の所在地で判定します。',
+  starry_sky_reserve: 'DarkSky InternationalのInternational Dark Sky Placesに認定された区域を自治体域に含む場合に「はい」です。',
+  volcano_crater_tourism: '通常の観光ルート・展望地点から活動中または比較的新しい火口を見学できる自治体を対象にします。立入規制時も観光資源として常設案内される火口を含みます。',
+  tidal_walk_island: '干潮時に自然の砂州・干潟等が現れ、島へ徒歩で渡ること自体が観光・地域情報として案内される自治体を対象にします。',
+  whisky_distillery: '国内でウイスキー製造免許を持ち、蒸留設備を備えて継続稼働する蒸溜所の所在地を対象にします。',
+  ski_jump_hill: '競技・練習に使用される常設スキージャンプ台の所在地で判定します。',
+  ama_divers: '現在も海女漁が地域の漁業・文化として継承されている主要地域の自治体を対象にします。',
+  toki_stork_rewilding: '国・自治体がトキまたはコウノトリの放鳥、繁殖、野生復帰、生息環境整備を継続事業として実施する自治体を対象にします。',
+  swan_wintering: '自治体・観光協会等が継続的なハクチョウの飛来地として案内する場所を対象にします。',
+  sunflower_famous: '自治体・観光協会が大規模なひまわり畑を主要観光資源として案内する場合を対象にします。',
+  lavender_famous: '自治体・観光協会がまとまったラベンダー畑を主要観光資源として案内する場合を対象にします。',
+  oyster_aquaculture: '現在、自治体内の海域で食用カキの養殖が継続的に行われている場合を対象にします。',
+  wasabi_production: '現在もわさび栽培が行われ、自治体・生産者団体等が産地として案内する地域を対象にします。',
+  traditional_saltmaking: '海水などを用いた地域固有の製塩が、伝統産業・観光資源として現在も継承されている場合を対象にします。',
+  oilfield_present: '現在操業中または地域を代表する現役の油田・天然ガス田が自治体内にある場合を対象にします。',
+  nori_aquaculture: '現在、自治体内の海域で海苔養殖が継続的に行われている場合を対象にします。',
+  wakame_aquaculture: '現在、自治体内の海域でわかめ養殖が継続的に行われている場合を対象にします。',
+  salmon_aquaculture: '現在、自治体内で海面養殖などによるサーモン生産が事業として行われている場合を対象にします。',
+  sea_turtle_nesting: '近年もウミガメの上陸・産卵が確認され、保護・モニタリング対象となる海岸がある場合を対象にします。',
+  manga_museum: '特定の漫画家・漫画文化を主題とする常設の記念館・ミュージアム等がある場合を対象にします。',
+  ukai: '鵜を使って魚を捕る伝統的な鵜飼が、現在も行事・観光として行われている場合を対象にします。',
+  bullfighting: '牛同士を闘わせる伝統的な闘牛大会・行事が現在も行われている場合を対象にします。',
+  hot_air_balloon_event: '多数の熱気球が参加する全国規模・地域を代表する大会やフェスティバルが継続開催される場合を対象にします。',
+  tourist_trolley_train: '観光目的で乗車できるトロッコ列車・トロッコ型観光鉄道が定期的に運行されている場合を対象にします。',
+  ropeway: '旅客が利用できる観光・都市交通用のロープウェイが自治体内で営業している場合を対象にします。',
+  geyser: '一定間隔または断続的に温泉・熱水を自然または管理下で噴き上げる間欠泉が観光対象になっている場合を対象にします。',
+  public_observatory: '一般客が観望に利用できる比較的大型の望遠鏡を備えた公開天文台を対象にします。',
+  outlet_mall: '複数ブランドが集積する常設のアウトレットモール・アウトレットパークが自治体内にある場合を対象にします。',
   koshien_champion: '現在その市に所在する高校が優勝したことがあるかで判定します。',
   sumo_yokozuna_ozeki: '力士の出身地を基準にし、最高位が横綱・大関なら該当します。',
   pm_birthplace: '選挙区や本籍地ではなく、実際の出生地を基準にしています。',
@@ -2073,6 +2741,16 @@ function submitQuestionReport(){
     }
   };
 
+  const reportClient=getOramachiSupabase();
+  if(reportClient && isNativeRegisteredUser()){
+    reportClient.from('question_reports').insert({
+      reporter_id:currentSupabaseUser.id, question_id:key, question_text:q?q.text:'',
+      reason, details:comment, round_number:nativeMultiplayerGameState?.current_round?.round_number||null,
+      room_id:nativeMultiplayerRoomId||null, context:{mode:currentMode,question_phase:questionPhase}
+    }).then(({error})=>finish(!error)).catch(()=>finish(false));
+    return;
+  }
+
   if(!CORRECTIONS_ENDPOINT_URL || !isAnonymousReportingEnabled()){
     // 送信先が未設定、または匿名送信がOFFの場合は、ローカルでの受付だけ行う(エラーにはしない)。
     finish(true);
@@ -2089,6 +2767,18 @@ function submitQuestionReport(){
     console.warn('おらマチ: 質問報告の送信でエラー', e);
     finish(false);
   }
+}
+
+async function loadManagedQuestionOverrides(){
+  const client=getOramachiSupabase(); if(!client)return;
+  try{
+    const {data,error}=await client.rpc('get_published_question_overrides'); if(error||!Array.isArray(data))return;
+    data.forEach(row=>{
+      QUESTIONS[row.question_key]={text:row.question_text,icon:row.icon||'❓'};
+      const answers=row.answers||{};
+      CITIES.forEach(city=>{const id=cityId(city);if(!Object.prototype.hasOwnProperty.call(answers,id))return;city.tags=city.tags&&typeof city.tags==='object'&&!Array.isArray(city.tags)?city.tags:{};city.tags[row.question_key]=Boolean(answers[id]);});
+    });
+  }catch(error){console.warn('おらマチ: 管理質問を取得できないため静的データを使用します',error);}
 }
 
 // 「ⓘ どういう意味？」ボタン: 補足欄の開閉をトグルする。
@@ -2159,17 +2849,31 @@ function renderChallengeMode(){
     : `<div class="challenge-hint-max">これが最後のヒントです</div>`;
 
   stage.innerHTML = `
-    <div class="mascot-wrap"><div class="pop">${mascotSVG('normal')}</div></div>
-    <div class="bubble challenge-bubble"><span class="icon">📜</span>おらマチからの挑戦状！</div>
-    <ul class="challenge-hint-list">${hintsHtml}</ul>
-    ${moreHintBtn}
+    <section class="challenge-screen" aria-labelledby="challengeTitle">
+      <div class="challenge-hero">
+        <button class="challenge-back-button" type="button" onclick="navigateBackOr(renderNativePlayHub)" aria-label="遊び方を選ぶ画面へ戻る">‹</button>
+        <div class="mascot-wrap"><div class="pop">${mascotSVG('normal')}</div></div>
+        <div class="challenge-hero-copy">
+          <span class="challenge-eyebrow">SPECIAL MODE</span>
+          <h1 id="challengeTitle">おらマチからの挑戦状！</h1>
+          <p>ヒントを頼りに、おらっちが選んだマチを当てよう</p>
+        </div>
+      </div>
+      <div class="challenge-progress" aria-label="ヒント ${st.hintsShown} / ${st.hints.length}">
+        <span>ヒント ${st.hintsShown} / ${st.hints.length}</span>
+        <div><i style="width:${Math.round(st.hintsShown / st.hints.length * 100)}%"></i></div>
+      </div>
+      <ul class="challenge-hint-list">${hintsHtml}</ul>
+      ${moreHintBtn}
 
-    <div class="challenge-answer-block">
-      <input type="text" id="challengeInput" class="challenge-input" placeholder="マチの名前を入力…" autocomplete="off" oninput="onChallengeInputChange()">
-      <div id="challengeCandidates" class="challenge-candidates"></div>
-      <button class="challenge-submit-btn" id="challengeSubmitBtn" onclick="submitChallengeGuess()" disabled>これで回答する</button>
-    </div>
-    <button class="link-btn" onclick="giveUpChallenge()">諦めて答えを見る</button>
+      <div class="challenge-answer-block">
+        <label class="challenge-input-label" for="challengeInput">答えを入力</label>
+        <input type="text" id="challengeInput" class="challenge-input" placeholder="市区町村名を入力" autocomplete="off" oninput="onChallengeInputChange()">
+        <div id="challengeCandidates" class="challenge-candidates"></div>
+        <button class="challenge-submit-btn" id="challengeSubmitBtn" onclick="submitChallengeGuess()" disabled>これで回答する</button>
+      </div>
+      <button class="link-btn challenge-giveup" onclick="giveUpChallenge()">諦めて答えを見る</button>
+    </section>
   `;
   updateDebugPanel();
 }
@@ -2222,9 +2926,13 @@ function submitChallengeGuess(){
   challengeSelectedCityId = null;
   activeGameTransientScreen = 'challengeNextHint';
   stage.innerHTML = `
-    <div class="mascot-wrap"><div class="shake">${mascotSVG('think')}</div></div>
-    <div class="bubble challenge-bubble"><span class="icon">🤔</span>惜しい！次のヒントを見る？</div>
-    <button class="again" onclick="renderChallengeMode()">次のヒントを見る</button>
+    <section class="challenge-screen challenge-feedback-screen">
+      <div class="challenge-feedback-icon"><div class="shake">${mascotSVG('think')}</div></div>
+      <span class="challenge-eyebrow">NICE TRY</span>
+      <h1>惜しい！</h1>
+      <p>まだヒントがあります。もう一度考えてみよう。</p>
+      <button class="again" onclick="renderChallengeMode()">次のヒントを見る</button>
+    </section>
   `;
 }
 
@@ -2268,6 +2976,7 @@ function renderChallengeResult(success, score, hintsUsed){
   const scoreLine = success ? `<div class="challenge-score">${score}点<span class="challenge-score-sub">（ヒント${hintsUsed}個で正解）</span></div>` : '';
 
   stage.innerHTML = `
+    <section class="challenge-screen challenge-result-screen">
     <div class="share-card challenge-result-card" id="challengeResultCard">
       <div class="share-card-head">
         <span class="share-eyebrow">おらマチからの挑戦状</span>
@@ -2289,6 +2998,7 @@ function renderChallengeResult(success, score, hintsUsed){
       </button>
       <button class="link-btn" onclick="navigateToOpening()">トップへ戻る</button>
     </div>
+    </section>
   `;
   updateDebugPanel();
 }
@@ -2405,7 +3115,10 @@ function loadDailyChallengeData(){
   }
 }
 function saveDailyChallengeData(data){
-  try{ localStorage.setItem(DAILY_CHALLENGE_STORAGE_KEY, JSON.stringify(data)); }
+  try{
+    localStorage.setItem(DAILY_CHALLENGE_STORAGE_KEY, JSON.stringify(data));
+    scheduleSupabaseProgressSync();
+  }
   catch(e){ console.warn('おらマチ: 今日のチャレンジデータの保存に失敗しました', e); }
 }
 
@@ -2538,9 +3251,9 @@ function wouldExceedCategoryStreak(key){
   return last2Cat[0] === cat && last2Cat[1] === cat;
 }
 const MAX_Q = 34;           // 通常質問の上限
-const MAX_EXTRA_Q = 5;      // 「ちがう」の後の追加質問の上限(5問で固定。下の救済では延ばさない)
+const MAX_EXTRA_Q = 10;     // V152: 初回推測が外れた場合だけ最大10問。通常プレイ34問上限は維持し、誤回答回復時のみ44問まで許可
 const HARD_MAX_Q = MAX_Q + MAX_EXTRA_Q + 10; // 暴走防止の絶対的な安全装置(通常は到達しない)
-const ABSOLUTE_MAX_Q = 50;  // 1ゲームで出す質問の絶対的な上限(下の「わからない」救済を含めてもここは超えない)
+const ABSOLUTE_MAX_Q = 44;  // 1ゲームで出す質問の絶対的な上限(下の「わからない」救済を含めてもここは超えない)
 
 // 【「わからない」を多く使ったときの救済】
 // 「わからない」は候補の重みを一切動かさないので、その質問は完全に無駄打ちになる。
@@ -2548,7 +3261,7 @@ const ABSOLUTE_MAX_Q = 50;  // 1ゲームで出す質問の絶対的な上限(�
 // 上限に達して打ち切られてしまう(実測では「わからない」40%で5/20件が上限到達で失敗)。
 // そこで、無駄打ちになった分だけ上限を延ばして、実質の質問数を確保する。
 // 正直に「わからない」と答える人が損をしないようにするための調整。
-// ただし、延ばした結果でも ABSOLUTE_MAX_Q(50問)は超えない。長すぎると飽きるため。
+// ただし、延ばした結果でも ABSOLUTE_MAX_Q(44問)は超えない。長すぎると飽きるため。
 const UNKNOWN_EXTRA_Q_MAX = 10;   // 上限を延ばせる最大の問数(延々と続かないための歯止め)
 function unknownAllowanceQ(){
   const wasted = answerLog.filter(r => r.val === null).length;
@@ -2560,8 +3273,7 @@ function unknownAllowanceQ(){
 function effectiveMaxQ(phase){
   if(phase === 'extra') return MAX_EXTRA_Q;
   const base = MAX_Q + unknownAllowanceQ();
-  // 全体で50問を超えないよう、いまのフェーズに残せる分に制限する
-  return Math.min(base, Math.max(1, ABSOLUTE_MAX_Q - extraQuestionCount));
+  return Math.min(base, ABSOLUTE_MAX_Q);
 }
 
 // ---- スコア方式のパラメータ ----
@@ -2570,7 +3282,14 @@ const OBJ_MATCH_BONUS = 4;        // 客観的質問: 一致したときの加�
 const OBJ_MISMATCH_PENALTY = 2.5; // 客観的質問: 不一致だったときの減点
 const SUBJ_MATCH_BONUS = 2;       // 主観的質問: 一致したときの加点(控えめ)
 const SUBJ_MISMATCH_PENALTY = 0.8;// 主観的質問: 不一致だったときの減点(小さめ=反対候補を消しすぎない)
-const PARTIAL_WEIGHT = 0.5;       // 「たぶんそう/たぶんいいえ」のときの加減点の強さ(通常の何倍か)
+const PARTIAL_WEIGHT = 0.5;       // UI上の中間回答識別値。V149では確率的尤度として別計算する
+// V149: Akinator型の5段階回答モデル。中間回答は候補を消さず、弱いベイズ的証拠としてだけ使う。
+// P(response | tag=true/false) の対数尤度比をscoreへ加える。値は対称で、1回の『たぶん』だけで
+// 強い確信回答を覆さないよう保守的に設定する。
+const PARTIAL_MATCH_PROB = 0.70;
+const PARTIAL_MISMATCH_PROB = 0.30;
+const PARTIAL_LOG_LIKELIHOOD = Math.log(PARTIAL_MATCH_PROB / PARTIAL_MISMATCH_PROB);
+const PARTIAL_SUBJECTIVE_SCALE = 0.55;
 
 // ---- 推測タイミングのしきい値(すべてここにまとめる) ----
 const MIN_Q_BEFORE_EARLY_GUESS = 3;        // 最低これだけ質問してから「早押し」判定を始める(通常質問側のみ)
@@ -2896,6 +3615,7 @@ function loadConquest(){
 function saveConquest(data){
   try{
     localStorage.setItem(CONQUEST_STORAGE_KEY, JSON.stringify(data));
+    scheduleSupabaseProgressSync();
     return true;
   }catch(e){
     console.warn('おらマチ: 制覇帳の保存に失敗しました(localStorageの容量不足などの可能性)', e);
@@ -2978,6 +3698,7 @@ function loadStats(){
 function saveStats(data){
   try{
     localStorage.setItem(STATS_STORAGE_KEY, JSON.stringify(data));
+    scheduleSupabaseProgressSync();
     return true;
   }catch(e){
     console.warn('おらマチ: プレイ統計の保存に失敗しました(localStorageの容量不足などの可能性)', e);
@@ -3206,11 +3927,770 @@ function loadNativeRankData(){
 function saveNativeRankData(data){
   try{
     localStorage.setItem(NATIVE_RANK_STORAGE_KEY, JSON.stringify(data));
+    scheduleSupabaseProgressSync();
     return true;
   }catch(e){
     console.warn('おらマチ: クリア評価記録の保存に失敗しました', e);
     return false;
   }
+}
+
+// ==================== Android版: Supabase会員登録・記録同期 ====================
+const SUPABASE_LINKED_USER_KEY = 'oramachi_supabase_linked_user_v1';
+let currentSupabaseUser = null;
+let nativeMultiplayerRoomId = null;
+let nativeMultiplayerChannel = null;
+let nativeMultiplayerRefreshTimer = null;
+let nativeMultiplayerIsGuest = false;
+let nativeMultiplayerGameState = null;
+let nativeMultiplayerPenaltyTimer = null;
+let nativeMultiplayerAdvanceTimer = null;
+let nativeMultiplayerAnswerSelection = null;
+let nativeMatchmakingQueueId = null;
+let nativeMatchmakingTimer = null;
+let nativeMatchmakingChannel = null;
+let nativeMatchmakingStartedAt = null;
+let nativeMultiplayerIsRanked = false;
+let nativeLastRankedConditions = null;
+let currentSupabaseProfile = null;
+let currentOnlineMatchStats = [];
+let currentRatingLeaderboard = null;
+let supabaseAuthInitialized = false;
+let supabaseSyncTimer = null;
+let suppressSupabaseSync = false;
+let nativeHomeDashboard = { status:'idle', plays:0, cleared:0, trivia:null, regions:null };
+const ORAMACHI_REGIONS = [
+  ['北海道・東北',['北海道','青森県','岩手県','宮城県','秋田県','山形県','福島県']],
+  ['関東',['茨城県','栃木県','群馬県','埼玉県','千葉県','東京都','神奈川県']],
+  ['中部',['新潟県','富山県','石川県','福井県','山梨県','長野県','岐阜県','静岡県','愛知県']],
+  ['近畿',['三重県','滋賀県','京都府','大阪府','兵庫県','奈良県','和歌山県']],
+  ['中国',['鳥取県','島根県','岡山県','広島県','山口県']],
+  ['四国',['徳島県','香川県','愛媛県','高知県']],
+  ['九州・沖縄',['福岡県','佐賀県','長崎県','熊本県','大分県','宮崎県','鹿児島県','沖縄県']]
+];
+function playableMunicipalities(){ return CITIES.filter(city => city && city.name !== '東京'); }
+function localHomeDashboard(){ const stats=loadStats();const conquest=loadConquest();const ids=new Set(Object.keys(conquest.entries||{}));return {status:'ready',plays:Number(stats.totalPlays)||0,cleared:playableMunicipalities().filter(c=>ids.has(cityId(c))).length,trivia:null,regions:null}; }
+function renderHomeEnhancementHtml(){
+  const local=localHomeDashboard();const data=nativeHomeDashboard.status==='ready'?nativeHomeDashboard:local;const total=playableMunicipalities().length;const cleared=Math.min(total,Number(data.cleared)||0);const percent=total?cleared/total*100:0;const signedIn=isNativeRegisteredUser();const trivia=data.trivia;
+  const recordBody=signedIn?`<div class="native-home-record-grid"><span><small>レート</small><strong>${Number((currentSupabaseProfile||defaultNativeProfile()).current_rating||1500).toLocaleString('ja-JP')}</strong></span><span><small>プレイ</small><strong>${Number(data.plays||0).toLocaleString('ja-JP')}回</strong></span><span><small>正解</small><strong>${cleared.toLocaleString('ja-JP')}市区町村</strong></span></div>`:`<p class="native-home-login-note">ログインすると戦績を記録できます</p><button class="native-home-inline-link" type="button" onclick="renderNativeAuthPage()">ログインする <b>›</b></button>`;
+  return `<div class="native-home-enrichment"><section class="native-home-info-card"><header><h2>あなたの記録</h2><span aria-hidden="true">›</span></header>${recordBody}</section><button class="native-home-info-card native-home-conquest-card" type="button" onclick="renderNativeConquestOverview()"><header><h2>全国制覇</h2><span aria-hidden="true">›</span></header><small>正解した自治体</small><strong>${cleared.toLocaleString('ja-JP')} <em>/ ${total.toLocaleString('ja-JP')}</em></strong><div class="native-home-progress"><i style="width:${Math.min(100,percent).toFixed(2)}%"></i></div><p>全国制覇率 ${percent.toFixed(1)}%</p></button><section class="native-home-info-card native-home-trivia-card"><header><h2>🗾 今日のまち豆知識</h2></header>${nativeHomeDashboard.status==='error'?'<p class="native-home-data-error">豆知識を取得できませんでした</p><button class="native-home-inline-link" onclick="loadNativeHomeDashboard(true)">再読み込み</button>':trivia?`<strong>${escapeHtml(trivia.title||'')}</strong><p>${escapeHtml(trivia.body||'')}</p>`:'<p class="native-home-data-empty">公開中の豆知識を準備しています。</p>'}</section></div>`;
+}
+async function loadNativeHomeDashboard(force){
+  if(!isNativeAppRuntime()||(!force&&nativeHomeDashboard.status!=='idle'))return;const client=getOramachiSupabase();if(!client){nativeHomeDashboard={...localHomeDashboard(),status:'error'};return;}nativeHomeDashboard={...localHomeDashboard(),status:'loading'};
+  try{const calls=[client.rpc('get_daily_municipality_trivia')];if(isNativeRegisteredUser())calls.push(client.rpc('get_my_home_summary'));const results=await Promise.all(calls);if(results.some(x=>x.error))throw results.find(x=>x.error).error;const trivia=Array.isArray(results[0].data)?results[0].data[0]:results[0].data;const summary=results[1]?(Array.isArray(results[1].data)?results[1].data[0]:results[1].data):null;const fallback=localHomeDashboard();nativeHomeDashboard={...fallback,status:'ready',trivia:trivia||null,plays:summary?Number(summary.play_count)||0:fallback.plays,cleared:summary?Number(summary.cleared_count)||0:fallback.cleared,regions:summary?.regions||null};}catch(error){console.warn('おらマチ: ホーム追加情報の取得に失敗しました',error);nativeHomeDashboard={...localHomeDashboard(),status:'error'};}
+  if(document.body.classList.contains('native-home-active'))renderNativeHome();
+}
+
+function getOramachiSupabase(){
+  return isNativeAppRuntime() && window.oramachiSupabase ? window.oramachiSupabase : null;
+}
+
+function normalizeNativeDisplayName(value){
+  return String(value == null ? '' : value).trim();
+}
+
+function nativeDisplayNameLength(value){
+  return Array.from(normalizeNativeDisplayName(value)).length;
+}
+
+function currentNativeDisplayName(){
+  const name = normalizeNativeDisplayName(currentSupabaseProfile && currentSupabaseProfile.display_name);
+  return name || 'ゲスト';
+}
+
+function isNativeAnonymousUser(user){
+  return Boolean(user && (user.is_anonymous === true || (user.app_metadata && user.app_metadata.provider === 'anonymous')));
+}
+
+function isNativeRegisteredUser(){
+  return Boolean(currentSupabaseUser && !isNativeAnonymousUser(currentSupabaseUser));
+}
+
+const NATIVE_PROFILE_ORIGINS = [
+  '未設定','北海道','青森県','岩手県','宮城県','秋田県','山形県','福島県','茨城県','栃木県','群馬県',
+  '埼玉県','千葉県','東京都','神奈川県','新潟県','富山県','石川県','福井県','山梨県','長野県',
+  '岐阜県','静岡県','愛知県','三重県','滋賀県','京都府','大阪府','兵庫県','奈良県','和歌山県',
+  '鳥取県','島根県','岡山県','広島県','山口県','徳島県','香川県','愛媛県','高知県','福岡県',
+  '佐賀県','長崎県','熊本県','大分県','宮崎県','鹿児島県','沖縄県','海外'
+];
+const NATIVE_PROFILE_AVATARS = ['labrador','calico','elephant','otter','stoat','fox','toucan','whale'];
+const NATIVE_PROFILE_AVATAR_LABELS = Object.freeze({labrador:'黒のラブラドール',calico:'三毛猫',elephant:'ゾウ',otter:'ラッコ',stoat:'オコジョ',fox:'キツネ',toucan:'オニオオハシ',whale:'クジラ'});
+const LEGACY_PROFILE_AVATAR_MAP = Object.freeze({'🦝':'labrador','🗾':'calico','🏯':'elephant','🗻':'otter','🚃':'stoat','♨️':'fox','🍙':'toucan','🌊':'whale'});
+
+function normalizeNativeAvatar(value){ return NATIVE_PROFILE_AVATARS.includes(value) ? value : (LEGACY_PROFILE_AVATAR_MAP[value] || 'labrador'); }
+function nativePresetAvatarSvg(value){
+  const id=normalizeNativeAvatar(value); const common='viewBox="0 0 100 100" role="img" aria-label="'+NATIVE_PROFILE_AVATAR_LABELS[id]+'"';
+  return `<img class="native-preset-avatar-image" src="profile-icons/${id}.png" alt="${NATIVE_PROFILE_AVATAR_LABELS[id]}" loading="lazy">`;
+  const svg={
+    labrador:`<svg ${common}><circle cx="50" cy="50" r="48" fill="#dff4f7"/><path d="M24 42Q18 20 35 25L42 37M76 42Q82 20 65 25L58 37" fill="#263744" stroke="#173040" stroke-width="5" stroke-linejoin="round"/><ellipse cx="50" cy="56" rx="29" ry="31" fill="#263744" stroke="#173040" stroke-width="5"/><circle cx="40" cy="52" r="4" fill="#fff"/><circle cx="60" cy="52" r="4" fill="#fff"/><ellipse cx="50" cy="63" rx="7" ry="5" fill="#111b22"/><path d="M43 70Q50 77 57 70" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/><path d="M31 84Q30 70 40 69M69 84Q70 70 60 69" fill="none" stroke="#173040" stroke-width="6" stroke-linecap="round"/></svg>`,
+    calico:`<svg ${common}><circle cx="50" cy="50" r="48" fill="#fff0cf"/><path d="M25 40L28 18L44 33M75 40L72 18L56 33" fill="#fff" stroke="#31505f" stroke-width="5" stroke-linejoin="round"/><circle cx="50" cy="57" r="29" fill="#fff" stroke="#31505f" stroke-width="5"/><path d="M27 44Q36 29 48 35Q45 48 34 53Z" fill="#e59b42"/><path d="M58 33Q76 34 77 53L63 48Z" fill="#313b43"/><circle cx="40" cy="57" r="4" fill="#31505f"/><circle cx="60" cy="57" r="4" fill="#31505f"/><path d="M47 66L53 66L50 71Z" fill="#ef8b88"/><path d="M27 64L11 61M28 70L12 74M73 64L89 61M72 70L88 74" stroke="#31505f" stroke-width="2.5" stroke-linecap="round"/></svg>`,
+    elephant:`<svg ${common}><circle cx="50" cy="50" r="48" fill="#e6f0ff"/><path d="M27 49Q11 34 16 61Q19 76 35 68M73 49Q89 34 84 61Q81 76 65 68" fill="#a9c5dc" stroke="#31526a" stroke-width="5"/><circle cx="50" cy="51" r="28" fill="#a9c5dc" stroke="#31526a" stroke-width="5"/><path d="M48 57Q44 78 54 85Q61 80 55 68" fill="#a9c5dc" stroke="#31526a" stroke-width="5" stroke-linecap="round"/><circle cx="40" cy="50" r="3.5" fill="#31526a"/><circle cx="60" cy="50" r="3.5" fill="#31526a"/></svg>`,
+    otter:`<svg ${common}><circle cx="50" cy="50" r="48" fill="#dff7f3"/><ellipse cx="50" cy="58" rx="28" ry="31" fill="#9a6548" stroke="#49382f" stroke-width="5"/><circle cx="29" cy="38" r="10" fill="#9a6548" stroke="#49382f" stroke-width="5"/><circle cx="71" cy="38" r="10" fill="#9a6548" stroke="#49382f" stroke-width="5"/><ellipse cx="50" cy="64" rx="17" ry="14" fill="#f4dfc2"/><circle cx="40" cy="52" r="4" fill="#252525"/><circle cx="60" cy="52" r="4" fill="#252525"/><ellipse cx="50" cy="62" rx="5" ry="4" fill="#252525"/><path d="M34 74Q42 65 47 75M66 74Q58 65 53 75" fill="none" stroke="#49382f" stroke-width="5" stroke-linecap="round"/></svg>`,
+    stoat:`<svg ${common}><circle cx="50" cy="50" r="48" fill="#e8f5ff"/><path d="M28 40L31 22L44 35M72 40L69 22L56 35" fill="#fff" stroke="#526b79" stroke-width="5" stroke-linejoin="round"/><ellipse cx="50" cy="59" rx="25" ry="30" fill="#fff" stroke="#526b79" stroke-width="5"/><circle cx="41" cy="54" r="4" fill="#26343b"/><circle cx="59" cy="54" r="4" fill="#26343b"/><ellipse cx="50" cy="63" rx="4" ry="3" fill="#26343b"/><path d="M45 70Q50 75 55 70" fill="none" stroke="#526b79" stroke-width="3" stroke-linecap="round"/><path d="M68 78Q86 82 80 91" fill="none" stroke="#526b79" stroke-width="7" stroke-linecap="round"/></svg>`,
+    fox:`<svg ${common}><circle cx="50" cy="50" r="48" fill="#fff0dc"/><path d="M24 43L27 17L45 35M76 43L73 17L55 35" fill="#ee8b32" stroke="#573c2f" stroke-width="5" stroke-linejoin="round"/><path d="M50 31Q78 32 75 60Q72 82 50 87Q28 82 25 60Q22 32 50 31Z" fill="#ee8b32" stroke="#573c2f" stroke-width="5"/><path d="M27 55Q38 51 50 73Q62 51 73 55Q70 81 50 86Q30 81 27 55Z" fill="#fff6e9"/><circle cx="40" cy="53" r="4" fill="#433129"/><circle cx="60" cy="53" r="4" fill="#433129"/><ellipse cx="50" cy="69" rx="5" ry="4" fill="#433129"/></svg>`,
+    toucan:`<svg ${common}><circle cx="50" cy="50" r="48" fill="#e5f7e6"/><ellipse cx="45" cy="56" rx="24" ry="30" fill="#202d35" stroke="#16232a" stroke-width="5"/><path d="M45 39Q72 24 88 43Q72 62 45 55Z" fill="#f3a52d" stroke="#513c28" stroke-width="5" stroke-linejoin="round"/><path d="M49 40Q61 31 72 34L64 48Z" fill="#f7d84a"/><circle cx="40" cy="43" r="8" fill="#fff"/><circle cx="41" cy="43" r="3.5" fill="#23343c"/><path d="M33 76L27 88M48 80L48 91" stroke="#513c28" stroke-width="5" stroke-linecap="round"/></svg>`,
+    whale:`<svg ${common}><circle cx="50" cy="50" r="48" fill="#def4ff"/><path d="M18 57Q29 31 58 36Q80 39 82 55Q84 71 64 77Q40 84 24 69Q19 65 18 57Z" fill="#5aa8cd" stroke="#27526b" stroke-width="5"/><path d="M78 49Q88 38 92 48Q85 53 92 59Q83 64 77 57" fill="#5aa8cd" stroke="#27526b" stroke-width="5" stroke-linejoin="round"/><circle cx="40" cy="52" r="4" fill="#173b4d"/><path d="M41 64Q49 70 57 63" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/><path d="M48 35Q45 23 50 17M55 36Q60 25 67 22" stroke="#5aa8cd" stroke-width="4" stroke-linecap="round"/></svg>`
+  }; return svg[id];
+}
+
+function defaultNativeProfile(){
+  return { display_name:'ゲスト', bio:'', favorite_municipality:null, origin:'未設定', avatar_emoji:'labrador', avatar_url:null, current_rating:1500, highest_rating:1500, rated_matches:0 };
+}
+
+function nativeAvatarHtml(person, className){
+  const value=person||{}; const klass=className||'native-avatar';
+  return value.avatar_url
+    ? `<span class="${klass} has-image"><img src="${escapeHtml(value.avatar_url)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.closest('span').classList.remove('has-image');this.closest('span').innerHTML=nativePresetAvatarSvg('${normalizeNativeAvatar(value.avatar_emoji)}')"></span>`
+    : `<span class="${klass}">${nativePresetAvatarSvg(value.avatar_emoji)}</span>`;
+}
+
+const NATIVE_RATING_RANKS=Object.freeze([
+  {id:'bronze',label:'ブロンズ',min:0},{id:'silver',label:'シルバー',min:5000},{id:'gold',label:'ゴールド',min:10000},
+  {id:'platinum',label:'プラチナ',min:15000},{id:'diamond',label:'ダイヤモンド',min:20000},{id:'black',label:'ブラック',min:25000}
+]);
+function getRatingRank(rating,context){
+  const value = Math.max(0,Number.isFinite(Number(rating)) ? Number(rating) : 1500);
+  for(let i=5;i>=0;i--)if(value>=NATIVE_RATING_RANKS[i].min)return NATIVE_RATING_RANKS[i];
+  return NATIVE_RATING_RANKS[0];
+}
+function getRankFromRating(rating,context){return getRatingRank(rating,context).label;}
+
+function nativeRankBadge(rating,context){
+  const rank=getRatingRank(rating,context);
+  return `<span class="native-rating-rank native-rating-rank-${rank.id}"><i aria-hidden="true"><b>★</b></i><em>${rank.label}</em></span>`;
+}
+
+function nativeMunicipalityLabel(city){
+  return city ? `${city.pref} ${displayName(city)}` : '';
+}
+
+function nativeMunicipalityOptions(){
+  return CITIES.filter(city => city && city.name !== '東京')
+    .map(city => `<option value="${escapeHtml(nativeMunicipalityLabel(city))}"></option>`).join('');
+}
+
+function normalizeNativeProfile(data){
+  const profile = defaultNativeProfile();
+  if(!data) return profile;
+  profile.display_name = normalizeNativeDisplayName(data.display_name) || profile.display_name;
+  profile.bio = String(data.bio || '').trim();
+  profile.favorite_municipality = data.favorite_municipality || null;
+  profile.origin = NATIVE_PROFILE_ORIGINS.includes(data.origin) ? data.origin : '未設定';
+  profile.avatar_emoji = normalizeNativeAvatar(data.avatar_emoji);
+  profile.avatar_url = data.avatar_url || null;
+  profile.current_rating = Number.isFinite(Number(data.current_rating)) ? Number(data.current_rating) : 1500;
+  profile.highest_rating = Number.isFinite(Number(data.highest_rating)) ? Math.max(Number(data.highest_rating), profile.current_rating) : profile.current_rating;
+  profile.rated_matches = Number.isFinite(Number(data.rated_matches)) ? Number(data.rated_matches) : 0;
+  return profile;
+}
+
+async function loadNativeProfile(user){
+  // v32互換の基本列: .select('display_name,bio,favorite_municipality,origin,avatar_emoji')
+  const client = getOramachiSupabase();
+  if(!client || !user || isNativeAnonymousUser(user)){
+    currentSupabaseProfile = null;
+    return null;
+  }
+  const { data, error } = await client
+    .from('profiles')
+    .select('display_name,bio,favorite_municipality,origin,avatar_emoji,avatar_url,current_rating,highest_rating,rated_matches')
+    .eq('id', user.id)
+    .maybeSingle();
+  if(error){
+    console.warn('おらマチ: プロフィールの読み込みに失敗しました', error);
+    currentSupabaseProfile = null;
+    return null;
+  }
+  currentSupabaseProfile = data ? normalizeNativeProfile(data) : defaultNativeProfile();
+  syncNativePlayerRankHeader();
+  return currentSupabaseProfile;
+}
+
+function emptyOnlineMatchStat(mode){
+  return { mode, matches_played:0, first_place_count:0, total_correct_answers:0, total_rank:0, current_win_streak:0, best_win_streak:0 };
+}
+
+function onlineMatchStatForMode(mode){
+  return currentOnlineMatchStats.find(row => row && row.mode === mode) || emptyOnlineMatchStat(mode);
+}
+
+function renderOnlineMatchStatsMode(mode){
+  const target = document.getElementById('nativeOnlineMatchStatsBody');
+  if(!target) return;
+  document.querySelectorAll('[data-online-stats-mode]').forEach(button => {
+    const selected = button.dataset.onlineStatsMode === mode;
+    button.classList.toggle('is-selected', selected);
+    button.setAttribute('aria-pressed', String(selected));
+  });
+  const stat = onlineMatchStatForMode(mode);
+  const played = Number(stat.matches_played) || 0;
+  if(played === 0){
+    target.innerHTML = '<p class="native-online-stats-empty">まだオンライン対戦の戦績がありません</p>';
+    return;
+  }
+  const wins = Number(stat.first_place_count) || 0;
+  const values = [
+    ['対戦数', `${played}戦`],
+    ['1位', `${wins}回`],
+    ['勝率', `${(wins / played * 100).toFixed(1)}%`],
+    ['総正解数', `${Number(stat.total_correct_answers) || 0}問`],
+    ['平均順位', `${((Number(stat.total_rank) || 0) / played).toFixed(2)}位`],
+    ['最高連勝', `${Number(stat.best_win_streak) || 0}連勝`],
+  ];
+  target.innerHTML = `<dl class="native-online-stats-grid">${values.map(([label,value]) => `<div><dt>${label}</dt><dd>${value}</dd></div>`).join('')}</dl>`;
+}
+
+async function loadNativeOnlineMatchStats(user){
+  const client = getOramachiSupabase();
+  const target = document.getElementById('nativeOnlineMatchStatsBody');
+  if(!client || !user || isNativeAnonymousUser(user) || !target) return;
+  const requestedUserId = user.id;
+  const { data, error } = await client.from('online_match_stats')
+    .select('mode,matches_played,first_place_count,total_correct_answers,total_rank,current_win_streak,best_win_streak')
+    .eq('user_id', requestedUserId);
+  if(!document.getElementById('nativeOnlineMatchStatsBody') || !currentSupabaseUser || currentSupabaseUser.id !== requestedUserId) return;
+  if(error){
+    console.warn('おらマチ: オンライン戦績の読み込みに失敗しました', error);
+    target.innerHTML = '<p class="native-online-stats-error">戦績を読み込めませんでした。時間をおいて再度お試しください。</p>';
+    return;
+  }
+  currentOnlineMatchStats = Array.isArray(data) ? data : [];
+  renderOnlineMatchStatsMode(document.querySelector('[data-online-stats-mode].is-selected')?.dataset.onlineStatsMode || 'city_only');
+}
+
+function localProgressSnapshot(){
+  const read = key => {
+    try{
+      const raw = localStorage.getItem(key);
+      return raw ? JSON.parse(raw) : null;
+    }catch(e){ return null; }
+  };
+  return {
+    schemaVersion: 1,
+    conquest: read(CONQUEST_STORAGE_KEY),
+    stats: read(STATS_STORAGE_KEY),
+    clearRatings: read(NATIVE_RANK_STORAGE_KEY),
+    dailyChallenge: read(DAILY_CHALLENGE_STORAGE_KEY),
+    savedAt: new Date().toISOString()
+  };
+}
+
+function applyRemoteProgress(progress){
+  if(!progress || typeof progress !== 'object') return false;
+  const entries = [
+    [CONQUEST_STORAGE_KEY, progress.conquest],
+    [STATS_STORAGE_KEY, progress.stats],
+    [NATIVE_RANK_STORAGE_KEY, progress.clearRatings],
+    [DAILY_CHALLENGE_STORAGE_KEY, progress.dailyChallenge]
+  ];
+  suppressSupabaseSync = true;
+  try{
+    entries.forEach(([key, value]) => {
+      if(value && typeof value === 'object') localStorage.setItem(key, JSON.stringify(value));
+    });
+    return true;
+  }catch(e){
+    console.warn('おらマチ: クラウド記録を端末へ保存できませんでした', e);
+    return false;
+  }finally{
+    suppressSupabaseSync = false;
+  }
+}
+
+async function uploadProgressToSupabase(options){
+  const client = getOramachiSupabase();
+  if(!client || !currentSupabaseUser) return { ok:false, message:'ログインが必要です。' };
+  const { error } = await client.from('user_progress').upsert({
+    user_id: currentSupabaseUser.id,
+    progress: localProgressSnapshot(),
+    updated_at: new Date().toISOString()
+  }, { onConflict:'user_id' });
+  if(error){
+    console.warn('おらマチ: クラウド保存に失敗しました', error);
+    return { ok:false, message:'クラウドへ保存できませんでした。設定が完了しているか確認してください。' };
+  }
+  const conqueredIds=Object.keys((loadConquest().entries)||{});
+  if(conqueredIds.length){
+    const synced=await client.rpc('sync_my_municipality_collection',{p_municipality_ids:conqueredIds});
+    if(synced.error) console.warn('おらマチ: 全国制覇コレクションの同期に失敗しました',synced.error);
+  }
+  if(!(options && options.quiet)) setAuthStatus('端末の記録をクラウドへ保存しました。', false);
+  return { ok:true, message:'クラウドへ保存しました。' };
+}
+
+async function downloadProgressFromSupabase(){
+  const client = getOramachiSupabase();
+  if(!client || !currentSupabaseUser) return { ok:false, message:'ログインが必要です。' };
+  const { data, error } = await client.from('user_progress').select('progress').eq('user_id', currentSupabaseUser.id).maybeSingle();
+  if(error) return { ok:false, message:'クラウドの記録を読み込めませんでした。' };
+  if(!data || !data.progress) return { ok:false, message:'クラウドに記録はまだありません。' };
+  if(!applyRemoteProgress(data.progress)) return { ok:false, message:'端末へ記録を保存できませんでした。' };
+  setAuthStatus('クラウドの記録をこの端末へ読み込みました。', false);
+  return { ok:true, message:'クラウドから読み込みました。' };
+}
+
+function scheduleSupabaseProgressSync(){
+  if(suppressSupabaseSync || !isNativeRegisteredUser() || !getOramachiSupabase()) return;
+  if(supabaseSyncTimer) window.clearTimeout(supabaseSyncTimer);
+  supabaseSyncTimer = window.setTimeout(() => uploadProgressToSupabase({ quiet:true }), 1200);
+}
+
+async function inheritOrRestoreProgress(user){
+  const client = getOramachiSupabase();
+  if(!client || !user || isNativeAnonymousUser(user)) return;
+  const { data, error } = await client.from('user_progress').select('progress').eq('user_id', user.id).maybeSingle();
+  if(error){ console.warn('おらマチ: 初回記録同期に失敗しました', error); return; }
+  const linkedUser = localStorage.getItem(SUPABASE_LINKED_USER_KEY);
+  if(data && data.progress && linkedUser !== user.id){
+    applyRemoteProgress(data.progress);
+  }else if(!data){
+    await uploadProgressToSupabase({ quiet:true });
+  }
+  localStorage.setItem(SUPABASE_LINKED_USER_KEY, user.id);
+}
+
+function setAuthStatus(message, isError){
+  const status = document.getElementById('nativeAuthStatus');
+  if(!status) return;
+  status.textContent = message || '';
+  status.classList.toggle('is-error', Boolean(isError));
+}
+
+function setAuthFormBusy(busy){
+  document.querySelectorAll('.native-auth-form button, .native-profile-form button, .native-auth-sync-actions button, .native-account-delete button, .native-account-delete input').forEach(button => {
+    button.disabled = Boolean(busy);
+  });
+}
+
+function showNativeAccountDeleteConfirmation(){
+  const panel = document.getElementById('nativeAccountDeleteConfirmation');
+  const input = document.getElementById('nativeAccountDeleteText');
+  if(!panel) return;
+  panel.hidden = false;
+  const openButton = document.getElementById('nativeAccountDeleteOpen');
+  if(openButton) openButton.hidden = true;
+  updateNativeAccountDeleteButton();
+  if(input) input.focus();
+}
+
+function hideNativeAccountDeleteConfirmation(){
+  const panel = document.getElementById('nativeAccountDeleteConfirmation');
+  const input = document.getElementById('nativeAccountDeleteText');
+  const openButton = document.getElementById('nativeAccountDeleteOpen');
+  if(panel) panel.hidden = true;
+  if(input) input.value = '';
+  if(openButton) openButton.hidden = false;
+  updateNativeAccountDeleteButton();
+  setAuthStatus('', false);
+}
+
+function updateNativeAccountDeleteButton(){
+  const input = document.getElementById('nativeAccountDeleteText');
+  const button = document.getElementById('nativeAccountDeleteConfirm');
+  if(button) button.disabled = String(input && input.value || '').trim() !== '削除';
+}
+
+let nativeAvatarCropImage=null;
+function chooseNativeAvatar(){ document.getElementById('nativeAvatarFile')?.click(); }
+function openNativeAvatarCrop(event){
+  const file=event.target.files&&event.target.files[0]; if(!file)return;
+  if(!/^image\/(jpeg|png|webp)$/i.test(file.type)||file.size>8*1024*1024){ setAuthStatus('JPEG・PNG・WebP（8MB以内）を選んでください。',true);event.target.value='';return; }
+  const reader=new FileReader(); reader.onload=()=>{const image=new Image();image.onload=()=>{nativeAvatarCropImage=image;document.getElementById('nativeAvatarCropModal').hidden=false;drawNativeAvatarCrop();};image.src=reader.result;};reader.readAsDataURL(file);
+}
+function drawNativeAvatarCrop(){
+  const canvas=document.getElementById('nativeAvatarCropCanvas');if(!canvas||!nativeAvatarCropImage)return;
+  const zoom=Number(document.getElementById('nativeAvatarZoom')?.value||1);const image=nativeAvatarCropImage;const ctx=canvas.getContext('2d');
+  const base=Math.max(canvas.width/image.width,canvas.height/image.height);const width=image.width*base*zoom,height=image.height*base*zoom;
+  ctx.clearRect(0,0,canvas.width,canvas.height);ctx.drawImage(image,(canvas.width-width)/2,(canvas.height-height)/2,width,height);
+}
+function closeNativeAvatarCrop(){const modal=document.getElementById('nativeAvatarCropModal');if(modal)modal.hidden=true;nativeAvatarCropImage=null;}
+async function saveNativeAvatarCrop(){
+  const client=getOramachiSupabase(),canvas=document.getElementById('nativeAvatarCropCanvas');if(!client||!currentSupabaseUser||!canvas)return;
+  setAuthStatus('プロフィール画像を保存しています…',false);
+  const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/webp',.86));if(!blob)return setAuthStatus('画像を処理できませんでした。',true);
+  const path=`${currentSupabaseUser.id}/avatar-${Date.now()}.webp`;
+  const {error:uploadError}=await client.storage.from('profile-images').upload(path,blob,{contentType:'image/webp',upsert:false,cacheControl:'31536000'});
+  if(uploadError)return setAuthStatus('画像をアップロードできませんでした。',true);
+  const {data:urlData}=client.storage.from('profile-images').getPublicUrl(path);const avatarUrl=urlData.publicUrl;
+  const oldPath=currentSupabaseProfile?.avatar_url?.split('/profile-images/')[1]?.split('?')[0]||null;
+  const {error}=await client.from('profiles').update({avatar_url:avatarUrl,updated_at:new Date().toISOString()}).eq('id',currentSupabaseUser.id);
+  if(error){await client.storage.from('profile-images').remove([path]);return setAuthStatus('プロフィールへ画像を反映できませんでした。',true);}
+  if(oldPath)await client.storage.from('profile-images').remove([decodeURIComponent(oldPath)]);
+  currentSupabaseProfile={...(currentSupabaseProfile||defaultNativeProfile()),avatar_url:avatarUrl};closeNativeAvatarCrop();renderNativeAuthPage();setAuthStatus('プロフィール画像を保存しました。',false);
+}
+async function deleteNativeAvatar(){
+  if(!currentSupabaseProfile?.avatar_url)return; if(!confirm('プロフィール画像を削除して仮アイコンへ戻しますか？'))return;
+  const client=getOramachiSupabase(),oldPath=currentSupabaseProfile.avatar_url.split('/profile-images/')[1]?.split('?')[0];
+  const {error}=await client.from('profiles').update({avatar_url:null,updated_at:new Date().toISOString()}).eq('id',currentSupabaseUser.id);if(error)return setAuthStatus('画像を削除できませんでした。',true);
+  if(oldPath)await client.storage.from('profile-images').remove([decodeURIComponent(oldPath)]);currentSupabaseProfile.avatar_url=null;renderNativeAuthPage();setAuthStatus('仮アイコンへ戻しました。',false);
+}
+
+async function submitNativeAccountDelete(event){
+  event.preventDefault();
+  const client = getOramachiSupabase();
+  if(!client || !currentSupabaseUser) return setAuthStatus('アカウントを削除するにはログインが必要です。', true);
+  const confirmation = String(document.getElementById('nativeAccountDeleteText')?.value || '').trim();
+  if(confirmation !== '削除') return setAuthStatus('確認欄に「削除」と入力してください。', true);
+  setAuthFormBusy(true);
+  setAuthStatus('アカウントを削除しています…', false);
+  const { error } = await client.functions.invoke('delete-account', {
+    body:{ confirmation:'削除' }
+  });
+  if(error){
+    console.warn('おらマチ: アカウントを削除できませんでした', error);
+    setAuthFormBusy(false);
+    return setAuthStatus('アカウントを削除できませんでした。通信状況を確認して、もう一度お試しください。', true);
+  }
+  await client.auth.signOut({ scope:'local' });
+  currentSupabaseUser = null;
+  currentSupabaseProfile = null;
+  localStorage.removeItem(SUPABASE_LINKED_USER_KEY);
+  setAuthFormBusy(false);
+  syncNativePlayerRankHeader();
+  renderNativeAuthPage();
+  setAuthStatus('アカウントを削除しました。この端末ではゲストとして引き続き遊べます。', false);
+}
+
+async function submitNativeProfile(event){
+  event.preventDefault();
+  const client = getOramachiSupabase();
+  if(!client || !currentSupabaseUser) return setAuthStatus('プロフィールを変更するにはログインが必要です。', true);
+  const input = document.getElementById('nativeProfileDisplayName');
+  const displayNameValue = normalizeNativeDisplayName(input && input.value);
+  const nameLength = nativeDisplayNameLength(displayNameValue);
+  if(nameLength < 1 || nameLength > 12) return setAuthStatus('ユーザー名は1～12文字で入力してください。', true);
+  const bio = String(document.getElementById('nativeProfileBio')?.value || '').trim();
+  if(Array.from(bio).length > 80) return setAuthStatus('ひとことは80文字以内で入力してください。', true);
+  const favoriteInput = String(document.getElementById('nativeProfileFavorite')?.value || '').trim();
+  const favoriteCity = favoriteInput ? CITIES.find(city => nativeMunicipalityLabel(city) === favoriteInput) : null;
+  if(favoriteInput && !favoriteCity) return setAuthStatus('好きな市町村は候補から選んでください。', true);
+  const origin = String(document.getElementById('nativeProfileOrigin')?.value || '未設定');
+  if(!NATIVE_PROFILE_ORIGINS.includes(origin)) return setAuthStatus('出身を選び直してください。', true);
+  const avatarEmoji = String(document.querySelector('input[name="nativeProfileAvatar"]:checked')?.value || 'labrador');
+  if(!NATIVE_PROFILE_AVATARS.includes(avatarEmoji)) return setAuthStatus('アイコンを選び直してください。', true);
+  setAuthFormBusy(true);
+  setAuthStatus('プロフィールを保存しています…', false);
+  const profileUpdate = {
+    display_name: displayNameValue,
+    bio,
+    favorite_municipality: favoriteCity ? nativeMunicipalityLabel(favoriteCity) : null,
+    origin,
+    avatar_emoji: avatarEmoji,
+    updated_at: new Date().toISOString()
+  };
+  const { data, error } = await client
+    .from('profiles')
+    .upsert({ id:currentSupabaseUser.id, ...profileUpdate }, { onConflict:'id' })
+    .select('display_name,bio,favorite_municipality,origin,avatar_emoji,avatar_url,current_rating,highest_rating,rated_matches')
+    .maybeSingle();
+  setAuthFormBusy(false);
+  if(error || !data){
+    if(error) console.warn('おらマチ: 表示名の保存に失敗しました', error);
+    if(error && String(error.message||'').includes('username_not_allowed')) return setAuthStatus('このユーザー名は使用できません。別の名前を入力してください。', true);
+    return setAuthStatus('プロフィールを保存できませんでした。通信状況を確認して、もう一度お試しください。', true);
+  }
+  currentSupabaseProfile = normalizeNativeProfile(data);
+  if(input) input.value = currentNativeDisplayName();
+  const currentName = document.getElementById('nativeProfileCurrentName');
+  if(currentName) currentName.textContent = currentNativeDisplayName();
+  syncNativePlayerRankHeader();
+  renderNativeAuthPage();
+  setAuthStatus('プロフィールを保存しました。', false);
+}
+
+async function submitNativeSignUp(event){
+  event.preventDefault();
+  const client = getOramachiSupabase();
+  if(!client) return setAuthStatus('会員登録機能を読み込めませんでした。', true);
+  const email = String(document.getElementById('nativeAuthEmail')?.value || '').trim();
+  const password = String(document.getElementById('nativeAuthPassword')?.value || '');
+  if(!email) return setAuthStatus('メールアドレスを入力してください。', true);
+  if(password.length < 8) return setAuthStatus('パスワードは8文字以上で入力してください。', true);
+  if(!document.getElementById('nativeTermsConsent')?.checked) return setAuthStatus('利用規約・プライバシーポリシーへの同意が必要です。', true);
+  setAuthFormBusy(true);
+  setAuthStatus('会員登録を行っています…', false);
+  const { data, error } = await client.auth.signUp({ email, password, options:{data:{terms_version:'1.0',privacy_version:'1.0'}} });
+  setAuthFormBusy(false);
+  if(error) return setAuthStatus('会員登録できませんでした。すでに登録済みのメールアドレスでないか、入力内容をご確認ください。', true);
+  if(data.session){
+    currentSupabaseUser = data.user;
+    await loadNativeProfile(data.user);
+    await inheritOrRestoreProgress(data.user);
+    renderNativeAuthPage();
+  }else{
+    setAuthStatus('確認メールを送りました。メール内のリンクを押した後、この画面からログインしてください。', false);
+  }
+}
+
+async function submitNativeSignIn(event){
+  event.preventDefault();
+  const client = getOramachiSupabase();
+  if(!client) return setAuthStatus('ログイン機能を読み込めませんでした。', true);
+  const email = String(document.getElementById('nativeAuthEmail')?.value || '').trim();
+  const password = String(document.getElementById('nativeAuthPassword')?.value || '');
+  if(!email || !password) return setAuthStatus('メールアドレスとパスワードを入力してください。', true);
+  setAuthFormBusy(true);
+  setAuthStatus('ログインしています…', false);
+  const { data, error } = await client.auth.signInWithPassword({ email, password });
+  setAuthFormBusy(false);
+  if(error) return setAuthStatus('ログインできませんでした。入力内容または確認メールをご確認ください。', true);
+  currentSupabaseUser = data.user;
+  await loadNativeProfile(data.user);
+  await inheritOrRestoreProgress(data.user);
+  renderNativeAuthPage();
+}
+
+async function submitNativePasswordResetRequest(){
+  const client = getOramachiSupabase();
+  if(!client) return setAuthStatus('パスワード再設定機能を読み込めませんでした。', true);
+  const email = String(document.getElementById('nativeAuthEmail')?.value || '').trim();
+  if(!email) return setAuthStatus('先にメールアドレスを入力してください。', true);
+  setAuthFormBusy(true);
+  setAuthStatus('パスワード再設定メールを送っています…', false);
+  const { error } = await client.auth.resetPasswordForEmail(email, {
+    redirectTo:'com.oramachijp.app://reset-password'
+  });
+  setAuthFormBusy(false);
+  if(error){
+    console.warn('おらマチ: パスワード再設定メールを送れませんでした', error);
+    return setAuthStatus('再設定メールを送れませんでした。時間をおいて、もう一度お試しください。', true);
+  }
+  setAuthStatus('登録済みの場合は再設定メールが届きます。メール内のリンクを押してください。', false);
+}
+
+function passwordRecoveryParameters(url){
+  try{
+    const parsed = new URL(url);
+    if(parsed.protocol !== 'com.oramachijp.app:' || parsed.hostname !== 'reset-password') return null;
+    const fragment = new URLSearchParams(parsed.hash.replace(/^#/, ''));
+    return {
+      code: parsed.searchParams.get('code'),
+      accessToken: fragment.get('access_token'),
+      refreshToken: fragment.get('refresh_token'),
+      error: parsed.searchParams.get('error_description') || fragment.get('error_description')
+    };
+  }catch(error){
+    return null;
+  }
+}
+
+async function handleNativePasswordRecoveryUrl(url){
+  const params = passwordRecoveryParameters(url);
+  if(!params) return false;
+  window.oramachiPendingAppUrl = '';
+  const client = getOramachiSupabase();
+  if(!client) return false;
+  if(params.error){
+    renderNativeAuthPage();
+    setAuthStatus('再設定リンクが無効または期限切れです。もう一度メールを送ってください。', true);
+    return true;
+  }
+  let error = null;
+  if(params.code){
+    ({ error } = await client.auth.exchangeCodeForSession(params.code));
+  }else if(params.accessToken && params.refreshToken){
+    ({ error } = await client.auth.setSession({
+      access_token:params.accessToken,
+      refresh_token:params.refreshToken
+    }));
+  }else{
+    error = new Error('再設定用の認証情報がありません');
+  }
+  if(error){
+    console.warn('おらマチ: パスワード再設定リンクを確認できませんでした', error);
+    renderNativeAuthPage();
+    setAuthStatus('再設定リンクが無効または期限切れです。もう一度メールを送ってください。', true);
+    return true;
+  }
+  renderNativePasswordUpdatePage();
+  return true;
+}
+
+async function submitNativeNewPassword(event){
+  event.preventDefault();
+  const client = getOramachiSupabase();
+  if(!client) return setAuthStatus('パスワード再設定機能を読み込めませんでした。', true);
+  const password = String(document.getElementById('nativeNewPassword')?.value || '');
+  const confirmation = String(document.getElementById('nativeNewPasswordConfirmation')?.value || '');
+  if(password.length < 8) return setAuthStatus('新しいパスワードは8文字以上で入力してください。', true);
+  if(password !== confirmation) return setAuthStatus('2つのパスワードが一致していません。', true);
+  setAuthFormBusy(true);
+  setAuthStatus('新しいパスワードを保存しています…', false);
+  const { error } = await client.auth.updateUser({ password });
+  if(error){
+    setAuthFormBusy(false);
+    return setAuthStatus('パスワードを変更できませんでした。もう一度お試しください。', true);
+  }
+  await client.auth.signOut();
+  currentSupabaseUser = null;
+  currentSupabaseProfile = null;
+  renderNativeAuthPage();
+  setAuthStatus('パスワードを変更しました。新しいパスワードでログインしてください。', false);
+}
+
+function renderNativePasswordUpdatePage(){
+  if(!isNativeAppRuntime()) return false;
+  stopOpeningMascotAnimation();
+  stampsEl.innerHTML = '';
+  pushNavState('nativePasswordUpdate');
+  stage.innerHTML = `
+    <header class="native-screen-heading native-auth-heading">
+      <span class="native-screen-icon" aria-hidden="true">🔑</span>
+      <div><span>アカウントを安全に守る</span><h1>新しいパスワード</h1><p>8文字以上で2回入力してください</p></div>
+    </header>
+    <section class="native-settings-card">
+      <form class="native-auth-form" onsubmit="submitNativeNewPassword(event)">
+        <label><span>新しいパスワード</span><input id="nativeNewPassword" type="password" autocomplete="new-password" minlength="8" required placeholder="8文字以上"></label>
+        <label><span>新しいパスワード（確認）</span><input id="nativeNewPasswordConfirmation" type="password" autocomplete="new-password" minlength="8" required placeholder="もう一度入力"></label>
+        <button class="native-auth-primary" type="submit">パスワードを変更</button>
+      </form>
+    </section>
+    <div id="nativeAuthStatus" class="native-auth-status" aria-live="polite"></div>
+  `;
+  footEl.textContent = '再設定リンクを開いたご本人だけが変更できます';
+  scrollToPageTop();
+  return true;
+}
+
+if(typeof window !== 'undefined'){
+  window.oramachiHandleAppUrl = handleNativePasswordRecoveryUrl;
+  if(window.oramachiPendingAppUrl){
+    handleNativePasswordRecoveryUrl(window.oramachiPendingAppUrl);
+  }
+}
+
+async function nativeSignOut(){
+  const client = getOramachiSupabase();
+  if(!client) return;
+  setAuthFormBusy(true);
+  await client.auth.signOut();
+  currentSupabaseUser = null;
+  currentSupabaseProfile = null;
+  setAuthFormBusy(false);
+  syncNativePlayerRankHeader();
+  renderNativeAuthPage();
+}
+
+async function initializeSupabaseAuth(){
+  if(supabaseAuthInitialized) return;
+  supabaseAuthInitialized = true;
+  const client = getOramachiSupabase();
+  if(!client) return;
+  const { data } = await client.auth.getSession();
+  currentSupabaseUser = data && data.session ? data.session.user : null;
+  nativeMultiplayerIsGuest = isNativeAnonymousUser(currentSupabaseUser);
+  if(isNativeRegisteredUser()){
+    await loadNativeProfile(currentSupabaseUser);
+    await inheritOrRestoreProgress(currentSupabaseUser);
+    if(currentNavState.oramachiScreen === 'opening') renderOpening();
+  }
+  client.auth.onAuthStateChange((event, session) => {
+    currentSupabaseUser = session ? session.user : null;
+    nativeMultiplayerIsGuest = isNativeAnonymousUser(currentSupabaseUser);
+    if(!currentSupabaseUser){
+      currentSupabaseProfile = null;
+      syncNativePlayerRankHeader();
+      return;
+    }
+    if(event === 'SIGNED_IN' && isNativeRegisteredUser()){
+      const signedInUser = currentSupabaseUser;
+      loadNativeProfile(signedInUser).then(() => {
+        if(currentSupabaseUser && currentSupabaseUser.id === signedInUser.id && currentNavState.oramachiScreen === 'opening'){
+          renderOpening();
+        }
+      });
+      inheritOrRestoreProgress(signedInUser);
+    }
+  });
+}
+
+function renderNativeAuthPage(){
+  if(!isNativeAppRuntime()) return renderOpening();
+  stopOpeningMascotAnimation();
+  stampsEl.innerHTML = '';
+  pushNavState('nativeAuth');
+  const user = isNativeRegisteredUser() ? currentSupabaseUser : null;
+  const displayNameValue = currentNativeDisplayName();
+  const profile = currentSupabaseProfile || defaultNativeProfile();
+  stage.innerHTML = `
+    <header class="v65-page-head"><button type="button" onclick="navigateBackOr(renderOpening)" aria-label="戻る">‹</button><h1>${user ? 'プロフィール' : 'ログイン・会員登録'}</h1><span></span></header>
+    ${user ? `
+      <section class="native-settings-card native-auth-account">
+        <span class="native-auth-signed-in">ログイン中</span>
+        <div class="native-profile-summary v65-profile-summary">${nativeAvatarHtml(profile,'native-profile-avatar')}<div><h2 id="nativeProfileCurrentName">${escapeHtml(displayNameValue)}</h2><p>${escapeHtml(profile.bio || 'ひとこと未設定')}</p></div></div>
+        <div class="v65-profile-rate"><span>レート</span>${nativeRankBadge(profile.current_rating)}<strong>${Number(profile.current_rating || 1500).toLocaleString('ja-JP')}</strong></div>
+        <p class="native-auth-email">${escapeHtml(user.email || 'おらマチ会員')}</p>
+        <p>この端末の制覇帳・プレイ記録・クリア評価をクラウドへ保存できます。</p>
+        <div class="native-auth-sync-actions">
+          <button class="link-btn" type="button" onclick="uploadProgressToSupabase()">クラウドへ保存</button>
+          <button class="link-btn" type="button" onclick="downloadProgressFromSupabase()">クラウドから読み込む</button>
+        </div>
+        <form class="native-profile-form" onsubmit="submitNativeProfile(event)">
+          <section class="native-avatar-editor" aria-label="プロフィール画像">
+            <div>${nativeAvatarHtml(profile,'native-avatar-preview')}<span><strong>プロフィール画像</strong><small>対戦・ランキング・公開プロフィールに表示されます</small></span></div>
+            <input id="nativeAvatarFile" type="file" accept="image/jpeg,image/png,image/webp" onchange="openNativeAvatarCrop(event)" hidden>
+            <div><button type="button" onclick="chooseNativeAvatar()">画像を選択</button>${profile.avatar_url?'<button class="is-danger" type="button" onclick="deleteNativeAvatar()">画像を削除</button>':''}</div>
+          </section>
+          <fieldset class="native-profile-avatars"><legend>プリセット動物アイコン <small>選択中は青い枠で表示されます</small></legend>${NATIVE_PROFILE_AVATARS.map(icon => `<label title="${NATIVE_PROFILE_AVATAR_LABELS[icon]}"><input type="radio" name="nativeProfileAvatar" value="${icon}" ${profile.avatar_emoji === icon ? 'checked' : ''}><span>${nativePresetAvatarSvg(icon)}</span></label>`).join('')}</fieldset>
+          <label for="nativeProfileDisplayName">ユーザー名 <strong>必須</strong></label>
+          <input id="nativeProfileDisplayName" type="text" autocomplete="nickname" enterkeyhint="done" minlength="1" maxlength="12" required value="${escapeHtml(displayNameValue)}" placeholder="1～12文字">
+          <label for="nativeProfileBio">ひとこと <span>任意</span></label>
+          <textarea id="nativeProfileBio" maxlength="80" rows="3" placeholder="80文字以内">${escapeHtml(profile.bio)}</textarea>
+          <label for="nativeProfileFavorite">好きな市町村 <span>任意</span></label>
+          <input id="nativeProfileFavorite" type="text" list="nativeMunicipalityList" value="${escapeHtml(profile.favorite_municipality || '')}" placeholder="市町村名を入力して候補から選択">
+          <datalist id="nativeMunicipalityList">${nativeMunicipalityOptions()}</datalist>
+          <label for="nativeProfileOrigin">出身 <span>任意</span></label>
+          <select id="nativeProfileOrigin">${NATIVE_PROFILE_ORIGINS.map(origin => `<option value="${origin}" ${profile.origin === origin ? 'selected' : ''}>${origin}</option>`).join('')}</select>
+          <button class="native-auth-primary" type="submit">プロフィールを保存</button>
+          <small>ユーザー名は1～12文字。プロフィールはログイン中のご本人だけが変更できます。</small>
+        </form>
+        <div id="nativeAvatarCropModal" class="native-avatar-crop-modal" hidden><section role="dialog" aria-modal="true" aria-labelledby="nativeAvatarCropTitle"><h2 id="nativeAvatarCropTitle">画像の位置を調整</h2><p>円の中に表示したい範囲が入るよう調整してください。</p><div class="native-avatar-canvas-wrap"><canvas id="nativeAvatarCropCanvas" width="512" height="512"></canvas></div><label for="nativeAvatarZoom">拡大・縮小</label><input id="nativeAvatarZoom" type="range" min="1" max="3" step="0.01" value="1" oninput="drawNativeAvatarCrop()"><div><button type="button" onclick="closeNativeAvatarCrop()">キャンセル</button><button class="native-auth-primary" type="button" onclick="saveNativeAvatarCrop()">この画像を保存</button></div></section></div>
+        <section class="native-profile-online-stats" aria-labelledby="nativeProfileStatsTitle">
+          <h3 id="nativeProfileStatsTitle">オンライン対戦</h3>
+          <div class="native-profile-rating-grid">
+            <div><span>現在レート</span><strong>${Number(profile.current_rating || 1500).toLocaleString('ja-JP')}</strong>${nativeRankBadge(profile.current_rating)}</div>
+            <div><span>最高レート</span><strong>${Number(profile.highest_rating || profile.current_rating || 1500).toLocaleString('ja-JP')}</strong>${nativeRankBadge(profile.highest_rating || profile.current_rating)}</div>
+            <div><span>対戦数</span><strong>${Number(profile.rated_matches || 0)}戦</strong><small>登録対戦の合計</small></div>
+          </div>
+          <button class="link-btn native-ranking-link" type="button" onclick="renderNativeRatingLeaderboard()">ランキングを見る</button>
+          <div class="native-online-stats-tabs" role="group" aria-label="集計モード">
+            <button class="is-selected" type="button" data-online-stats-mode="city_only" aria-pressed="true" onclick="renderOnlineMatchStatsMode('city_only')">市区のみ</button>
+            <button type="button" data-online-stats-mode="all_municipalities" aria-pressed="false" onclick="renderOnlineMatchStatsMode('all_municipalities')">全市区町村</button>
+          </div>
+          <div id="nativeOnlineMatchStatsBody" aria-live="polite"><p class="native-online-stats-loading">戦績を読み込んでいます…</p></div>
+        </section>
+        <button class="native-auth-signout" type="button" onclick="nativeSignOut()">ログアウト</button>
+        <section class="native-account-delete" aria-labelledby="nativeAccountDeleteTitle">
+          <h3 id="nativeAccountDeleteTitle">アカウントの削除</h3>
+          <p>プロフィールやプロフィール画像などのデータが削除されます。この操作は取り消せません。過去の対戦記録は整合性維持のため匿名化して保持されます。</p>
+          <button id="nativeAccountDeleteOpen" class="native-account-delete-open" type="button" onclick="showNativeAccountDeleteConfirmation()">アカウントを削除</button>
+          <form id="nativeAccountDeleteConfirmation" class="native-account-delete-confirmation" onsubmit="submitNativeAccountDelete(event)" hidden>
+            <label for="nativeAccountDeleteText">確認のため「削除」と入力してください</label>
+            <input id="nativeAccountDeleteText" type="text" autocomplete="off" maxlength="2" oninput="updateNativeAccountDeleteButton()" placeholder="削除">
+            <div>
+              <button class="native-account-delete-cancel" type="button" onclick="hideNativeAccountDeleteConfirmation()">やめる</button>
+              <button id="nativeAccountDeleteConfirm" class="native-account-delete-confirm" type="submit" disabled>完全に削除する</button>
+            </div>
+          </form>
+        </section>
+      </section>` : `
+      <section class="native-settings-card">
+        <form class="native-auth-form" onsubmit="submitNativeSignIn(event)">
+          <label><span>メールアドレス</span><input id="nativeAuthEmail" type="email" inputmode="email" autocomplete="email" required placeholder="例：name@example.com"></label>
+          <label><span>パスワード</span><input id="nativeAuthPassword" type="password" autocomplete="current-password" minlength="8" required placeholder="8文字以上"></label>
+          <button class="native-auth-primary" type="submit">ログイン</button>
+          <button class="native-auth-forgot" type="button" onclick="submitNativePasswordResetRequest()">パスワードを忘れた方</button>
+          <label class="native-terms-consent"><input id="nativeTermsConsent" type="checkbox"> <span><a href="https://oramachi-jp.com/terms.html" target="_blank" rel="noopener">利用規約</a>・<a href="https://oramachi-jp.com/privacy.html" target="_blank" rel="noopener">プライバシーポリシー</a>に同意して登録する</span></label>
+          <button class="native-auth-secondary" type="button" onclick="submitNativeSignUp({ preventDefault(){} })">無料で会員登録</button>
+        </form>
+        <p class="native-auth-note">会員登録後、確認メールが届く場合があります。メール内のリンクを押してからログインしてください。</p>
+      </section>`}
+    <div id="nativeAuthStatus" class="native-auth-status" aria-live="polite"></div>
+    <button class="link-btn native-auth-back" onclick="navigateBackOr(renderOpening)">← 前の画面へ戻る</button>
+  `;
+  footEl.textContent = user ? '会員記録は本人だけが読み書きできます' : '登録しなくてもゲームは遊べます';
+  if(user) loadNativeOnlineMatchStats(user);
+  scrollToPageTop();
 }
 
 function recordNativeRankResult(result){
@@ -3747,6 +5227,56 @@ function normalCityCount(){
   return CITIES.filter(c => c.name !== '東京').length;
 }
 
+// V160: 正解後に「もう1回」の目的を作るための全国制覇進捗。
+// 推理・質問選択には一切使わず、結果画面の表示専用。
+function conquestReplayNudge(finalCity){
+  const conquest = loadConquest();
+  const conqueredIds = new Set(Object.keys(conquest.entries || {}));
+  const normalCities = CITIES.filter(c => c.name !== '東京');
+  const conqueredCount = normalCities.reduce((n, c) => n + (conqueredIds.has(cityId(c)) ? 1 : 0), 0);
+  const total = normalCities.length;
+  const remaining = Math.max(0, total - conqueredCount);
+  if(remaining === 0){
+    return { conqueredCount, total, remaining, complete: true, targetPref: '' };
+  }
+
+  const prefStats = new Map();
+  for(const c of normalCities){
+    const row = prefStats.get(c.pref) || { pref:c.pref, total:0, conquered:0 };
+    row.total += 1;
+    if(conqueredIds.has(cityId(c))) row.conquered += 1;
+    prefStats.set(c.pref, row);
+  }
+  const incomplete = [...prefStats.values()].filter(r => r.conquered < r.total);
+  // 「あと少しで県制覇」を優先。進捗率が同じなら今回の県、残り数が少ない県を優先する。
+  incomplete.sort((a,b) => {
+    const ar = a.conquered / a.total, br = b.conquered / b.total;
+    if(br !== ar) return br - ar;
+    if(finalCity && a.pref === finalCity.pref && b.pref !== finalCity.pref) return -1;
+    if(finalCity && b.pref === finalCity.pref && a.pref !== finalCity.pref) return 1;
+    return (a.total-a.conquered) - (b.total-b.conquered) || a.pref.localeCompare(b.pref, 'ja');
+  });
+  const target = incomplete[0];
+  return {
+    conqueredCount, total, remaining, complete:false,
+    targetPref: target ? target.pref : '',
+    targetPrefConquered: target ? target.conquered : 0,
+    targetPrefTotal: target ? target.total : 0,
+    targetPrefRemaining: target ? target.total - target.conquered : 0,
+  };
+}
+
+function renderReplayNudge(info, native=false){
+  if(!info) return '';
+  if(info.complete){
+    return `<section class="v160-replay-nudge${native?' v160-replay-native':''}"><strong>🎉 全国${info.total}マチ制覇！</strong><span>次は自己ベスト更新を狙ってもう一戦！</span></section>`;
+  }
+  const target = info.targetPref
+    ? `<span>次は未制覇の<strong>${escapeHtml(info.targetPref)}</strong>のマチを思い浮かべてみる？ <small>${info.targetPrefConquered}/${info.targetPrefTotal}制覇・あと${info.targetPrefRemaining}</small></span>`
+    : `<span>次はまだ制覇していないマチを思い浮かべてみる？</span>`;
+  return `<section class="v160-replay-nudge${native?' v160-replay-native':''}"><strong>🗾 全国制覇 ${info.conqueredCount}/${info.total}</strong><span>全国制覇まであと${info.remaining}マチ</span>${target}</section>`;
+}
+
 // ==================== プレイ統計の更新 ====================
 // ゲームが「正解」または「諦め」で終わった、そのタイミングだけで呼ぶ。
 // answerLog(このプレイの回答内訳)から、回答種別ごとの累計を集計して加算する。
@@ -4260,6 +5790,46 @@ function restorePrunedCandidates(){
   return n;
 }
 
+// V152: 初回推測が外れた後は「過去の明確回答にも押し間違いが含まれ得る」とみなし、
+// 全候補を回答履歴からロバスト再採点する。各候補について、客観的なフル回答との矛盾のうち
+// 最大3件を“誤回答かもしれない”として罰点0に戻す。正解候補を復活させるための救済であり、
+// 通常フェーズの高速推理には一切影響しない。中間回答は従来どおり弱い確率証拠として使う。
+const RECOVERY_FORGIVEN_FULL_MISTAKES = 3;
+function robustRescoreForRecovery(){
+  if(questionPhase !== 'extra') return;
+  restorePrunedCandidates();
+  const entries = allScoreEntries();
+  entries.forEach(e => {
+    let score = 0;
+    let fullObjectiveMismatch = 0;
+    const forgiveness = [];
+    for(const r of answerLog){
+      if(r.val === null) continue;
+      const subjective = !!r.subjective;
+      const matches = (e.city.tags[r.key] === true) === (r.val === true);
+      if(r.weight < 1){
+        const scale = subjective ? PARTIAL_SUBJECTIVE_SCALE : 1;
+        score += (matches ? PARTIAL_LOG_LIKELIHOOD : -PARTIAL_LOG_LIKELIHOOD) * scale;
+        continue;
+      }
+      const bonus = subjective ? SUBJ_MATCH_BONUS : OBJ_MATCH_BONUS;
+      const penalty = subjective ? SUBJ_MISMATCH_PENALTY : OBJ_MISMATCH_PENALTY;
+      if(matches) score += bonus;
+      else {
+        score -= penalty;
+        if(!subjective){
+          fullObjectiveMismatch++;
+          forgiveness.push(penalty); // 罰点だけを取り消す。誤回答を「正解扱い」にはしない。
+        }
+      }
+    }
+    forgiveness.sort((a,b)=>b-a);
+    for(let i=0;i<Math.min(RECOVERY_FORGIVEN_FULL_MISTAKES, forgiveness.length);i++) score += forgiveness[i];
+    e.score = score;
+    e.objMismatch = Math.max(0, fullObjectiveMismatch - RECOVERY_FORGIVEN_FULL_MISTAKES);
+  });
+}
+
 // スコアが1位に近い(=まだ僅差で競っている)自治体を中心に集める。
 // 【第3段階での修正】以前は単純に「並び順の先頭40件」で打ち切っていたため、
 // 全スコアが同点の序盤(全国版など)では cities.json の並び順(北海道・東北が先頭)の
@@ -4348,6 +5918,10 @@ const MODES = {
     label: '全国版',
     description: '日本全国1,741市区町村が対象です。東京都は多摩地区の市と23区を区ごとに当てます。'
   },
+  townVillage: {
+    label: '町村版',
+    description: '日本全国の町と村、926自治体だけで当てます'
+  },
   capitals: {
     label: '県庁所在地・23区版',
     description: '県庁所在地と東京23区だけで当てます'
@@ -4410,6 +5984,7 @@ function trackGaEvent(eventName, params = {}){
 
 function analyticsModeType(mode){
   if(mode === 'all') return 'national';
+  if(mode === 'townVillage') return 'town_village';
   if(prefectureForMode(mode)) return 'prefecture';
   return 'region';
 }
@@ -4492,6 +6067,16 @@ function isPrefAdjacent(a, b){
 }
 
 function getModeCities(mode){
+  if(mode === 'townVillage'){
+    // 町・村だけを全国から選ぶ。東京23区や市、集計用エントリ「東京」は対象外。
+    return CITIES.filter(c => {
+      const tags = c && c.tags;
+      const isTownVillage = Array.isArray(tags)
+        ? tags.includes('is_town_village')
+        : Boolean(tags && tags.is_town_village === true);
+      return c.name !== '東京' && isTownVillage;
+    });
+  }
   if(mode === 'capitals'){
     // 「さっそく遊んでみる」用の入り口モード。県庁所在地(新宿区含む47件)と
     // 東京23区(23件)の合算だが、新宿区は両方に該当するため重複しないようフィルタする。
@@ -4835,7 +6420,7 @@ const MODE_ONLY_ALSO_IN_REGION = {
 
 // あるモードで、指定した限定グループの質問を出してよいかを判定する。
 function modeAllowsGroup(mode, group){
-  if(mode === 'all') return true;      // 全国版はすべて出す
+  if(mode === 'all' || mode === 'townVillage') return true; // 全国版・町村版は全国の質問を出す
   if(mode === group) return true;       // その版そのもの
   const prefecture = prefectureForMode(mode);
   if(prefecture){
@@ -5023,7 +6608,7 @@ const PHASE_KEY_OVERRIDES = {
   kana_name: 'late', kansai_dialect: 'late', ryukyu_dialect: 'late',
 
   // 歴史・文化のうち、「城下町・宿場町・門前町・軍港」など町の性格を表すものは中盤
-  castle: 'middle', worldheritage: 'middle', ruins: 'middle', shrine_temple: 'middle',
+  castle: 'middle', worldheritage: 'middle', giant_kofun: 'middle', jomon_worldheritage: 'middle', large_yayoi_site: 'middle', daibutsu_spot: 'middle', historic_five_story_pagoda: 'middle',
   former_capital: 'middle', sengoku_warlord: 'middle', old_province_name: 'middle',
   gokaido_shukuba: 'middle', monzen: 'middle', gunkou_machi: 'middle', beigun_kichi: 'middle',
   ancient_provincial_capital: 'middle', traditional_buildings_district: 'middle',
@@ -5033,7 +6618,7 @@ const PHASE_KEY_OVERRIDES = {
   musical_instruments: 'late', gold_leaf: 'late', denim_industry: 'late',
   pearl_farming: 'late', shipbuilding: 'late', furniture_industry: 'late',
   washi_famous: 'late', pharmaceutical_industry: 'late', fireworks_industry: 'late',
-  stone_industry: 'late', lacquerware_famous: 'late',
+  stone_industry: 'late', traditional_lacquerware: 'late',
 };
 // 地方・県限定タグ(MODE_ONLY_KEYS)は、個別指定が無ければ中盤に位置づける。
 // (全国版では「地方ブースト」が効いてくる=候補が絞れてきた中盤〜終盤で出やすいため)
@@ -5156,6 +6741,64 @@ function bestSplitDiff(pool, excludeKeys){
 // 「そのゲーム内で既に出たジャンル」ほど次に選ばれにくくする。これにより手動で個別調整しなくても
 // 特定ジャンル(鉄道・大学など)ばかり連続しにくくなり、自然にジャンルがバラける。
 const TAG_GAME_CATEGORY = {
+  "v144_minamiaiki_dam": "その他",
+  "v144_shimoichi_sugibashi": "その他",
+  "v144_shoo_kintaro": "その他",
+  "v144_mizumaki_cosmos": "その他",
+  "v144_taragi_shorenji": "その他",
+  "v144_kunitomi_honjo": "その他",
+  "v144_wadomari_fucha": "その他",
+  "v144_ie_tatchu": "その他",
+  "v144_kunneppu_characters": "その他",
+  "v144_fujisaki_fuji": "その他",
+  "v144_kagamiishi_iwase": "その他",
+  "v144_tomioka_yonomori": "その他",
+  "v144_mutsuzawa_smartwellness": "その他",
+  "chibi_maruko": "歴史・文化",
+  "m78_sukagawa": "歴史・文化",
+  "onomichi_tenkosei": "歴史・文化",
+  "amachan_kuji": "歴史・文化",
+  "konosekai_kure": "歴史・文化",
+  "keion_toyosato": "歴史・文化",
+  "aqours_numazu": "歴史・文化",
+  "garupan_oarai": "歴史・文化",
+  "summerwars_ueda": "歴史・文化",
+  "koto_yonaguni": "歴史・文化",
+  "botchan_matsuyama": "歴史・文化",
+  "kinosaki_shiga": "歴史・文化",
+  "yukiguni_yuzawa": "歴史・文化",
+  "izunoodoriko_kawazu": "歴史・文化",
+  "kafka_takamatsu": "歴史・文化",
+  "tsugaru_tappi": "歴史・文化",
+  "erimo_misaki": "歴史・文化",
+  "amagi_song_izu": "歴史・文化",
+  "hakodate_song": "歴史・文化",
+  "yokosuka_story": "歴史・文化",
+  "misuzu_nagato": "歴史・文化",
+  "koseki_fukushima": "歴史・文化",
+  "fr_yamaguchi": "歴史・文化",
+  "mazda_fuchu": "歴史・文化",
+  "toyota_city_name": "歴史・文化",
+  "denso_hq": "歴史・文化",
+  "daihatsu_hq": "歴史・文化",
+  "yamaha_motor_hq": "歴史・文化",
+  "snowpeak_hq": "歴史・文化",
+  "japanet_hq": "歴史・文化",
+  "rokkatei_hq": "歴史・文化",
+  "peyoung_hq": "歴史・文化",
+  "kameda_hq": "歴史・文化",
+  "chateraise_hq": "歴史・文化",
+  "bourbon_hq": "歴史・文化",
+  "imuraya_hq": "歴史・文化",
+  "fundokin_hq": "歴史・文化",
+  "shoda_hq": "歴史・文化",
+  "hardoff_hq": "歴史・文化",
+  "yamasa_hq": "歴史・文化",
+  "akagi_hq": "歴史・文化",
+  "korakuen_hq": "歴史・文化",
+  "sawayaka_hq": "歴史・文化",
+  "mansyu_hq": "歴史・文化",
+  "aleph_hq": "歴史・文化",
   "hitachi_seaside_park": "観光・娯楽",
   "tsuchiura_hanabi": "観光・娯楽",
   "koga_kubo": "歴史・文化",
@@ -5272,7 +6915,7 @@ const TAG_GAME_CATEGORY = {
   "shikotsuko_futoko": "地理",
   "hamanasu_no_oka": "観光・娯楽",
   "northernmost_city": "地理",
-  "whaling": "地理",
+  "whaling": "産業",
   "enclave_municipality": "地理",
   "honshu_northernmost": "地理",
   "honshu_easternmost": "地理",
@@ -5690,7 +7333,6 @@ const TAG_GAME_CATEGORY = {
   "tobu_tojo_station": "交通",
   "utsunomiya_station": "交通",
   "takasaki_line_station": "交通",
-  
   "keisei_line": "交通",
   "tsukuba_express": "交通",
   "rinkai_line": "交通",
@@ -5736,8 +7378,11 @@ const TAG_GAME_CATEGORY = {
   "toyosu_market": "食",
   "castle": "歴史・文化",
   "worldheritage": "歴史・文化",
-  "ruins": "歴史・文化",
-  "shrine_temple": "歴史・文化",
+  "giant_kofun": "歴史・文化",
+  "jomon_worldheritage": "歴史・文化",
+  "large_yayoi_site": "歴史・文化",
+  "daibutsu_spot": "歴史・文化",
+  "historic_five_story_pagoda": "歴史・文化",
   "bakumatsu_port": "歴史・文化",
   "former_capital": "歴史・文化",
   "grid_streets": "歴史・文化",
@@ -5746,11 +7391,13 @@ const TAG_GAME_CATEGORY = {
   "sengoku_warlord": "歴史・文化",
   "war_damage": "歴史・文化",
   "mining_heritage": "歴史・文化",
+  "worldheritage_mine": "歴史・文化",
+  "worldheritage_coal_mine": "歴史・文化",
   "gokaido_shukuba": "歴史・文化",
-  "pottery_famous": "歴史・文化",
+  "traditional_pottery": "歴史・文化",
   "traditional_craft": "歴史・文化",
   "horse_racing": "歴史・文化",
-  "famous_horse_breeding": "歴史・文化",
+  "famous_horse_breeding": "産業",
   "literary_figure": "歴史・文化",
   "imperial_palace": "歴史・文化",
   "sensoji": "歴史・文化",
@@ -5762,7 +7409,12 @@ const TAG_GAME_CATEGORY = {
   "famous_hanabi": "観光・娯楽",
   "castle_town": "観光・娯楽",
   "port_town": "観光・娯楽",
-  "famous_garden": "観光・娯楽",
+  "daimyo_garden": "歴史・文化",
+  "yubatake_onsen": "観光・娯楽",
+  "jigoku_meguri": "観光・娯楽",
+  "riverbed_onsen": "観光・娯楽",
+  "unesco_dashi_festival": "歴史・文化",
+  "national_hadaka_festival": "歴史・文化",
   "car_town": "観光・娯楽",
   "night_view": "観光・娯楽",
   "ferris_wheel": "観光・娯楽",
@@ -5771,7 +7423,7 @@ const TAG_GAME_CATEGORY = {
   "aquarium": "観光・娯楽",
   "famous_tower": "観光・娯楽",
   "dome_stadium": "観光・娯楽",
-  "mascot_famous": "観光・娯楽",
+  "yuruchara_gp_winner": "観光・娯楽",
   "jleague": "観光・娯楽",
   "npb": "観光・娯楽",
   "sumo_basho": "観光・娯楽",
@@ -5845,6 +7497,106 @@ const TAG_GAME_CATEGORY = {
   "kougyou_toshi": "人口・行政",
   "hyoujun_jigosen": "地理",
   "koushien": "観光・娯楽",
+  "seicomart_store": "買い物・外食",
+  "costco_store": "買い物・外食",
+  "lalaport": "買い物・外食",
+  "aeon_mall_store": "買い物・外食",
+  "donki_store": "買い物・外食",
+  "lopia_store": "買い物・外食",
+  "yamaokaya_store": "買い物・外食",
+  "komeri_store": "買い物・外食",
+  "cainz_store": "買い物・外食",
+  "sawayaka_store": "買い物・外食",
+  "heiwado_store": "買い物・外食",
+  "hachiban_store": "買い物・外食",
+  "ramen_jiro_store": "買い物・外食",
+  "youme_store": "買い物・外食",
+  "okuwa_store": "買い物・外食",
+  "belc_store": "買い物・外食",
+  "yaoko_store": "買い物・外食",
+  "sukesan_store": "買い物・外食",
+  "yamada_udon_store": "買い物・外食",
+  "sugakiya_store": "買い物・外食",
+  "makino_udon_store": "買い物・外食",
+  "lucky_pierrot_store": "買い物・外食",
+  "aw_store": "買い物・外食",
+  "sanliv_marushoku_store": "買い物・外食",
+  "marunaka_store": "買い物・外食",
+  "sanei_store": "買い物・外食",
+  "albis_store": "買い物・外食",
+  "harashin_narus_store": "買い物・外食",
+  "uoroku_store": "買い物・外食",
+  "tsuruya_store": "買い物・外食",
+  "york_benimaru_store": "買い物・外食",
+  "dinosaur_fossil_found": "学問",
+  "kappa_town_promotion": "遊び心",
+  "oni_main_festival": "祭り・文化",
+  "horse_public_road_festival": "祭り・文化",
+  "tourist_steam_train": "交通",
+  "kokeshi_production": "産業",
+  "hina_town_event": "祭り・文化",
+  "gsdf_garrison": "行政・公共",
+  "cinema_present": "観光・娯楽",
+  "department_store_general": "買い物・外食",
+  "v245_abu_michinoeki_origin": "文化・観光",
+  "v245_yusui_kirishima_art": "文化・観光",
+  "v245_kikuyo_jasm": "文化・観光",
+  "v247_mizuho_monorail_terminal": "交通",
+  "v247_aya_suspension_bridge": "文化・観光",
+  "v247_nyuzen_sawasugi": "自然・地理",
+  "technical_college": "学問",
+  "national_univ_attached_high": "学問",
+  "national_univ_attached_junior_high": "学問",
+  "veterinary_university": "学問",
+  "fisheries_marine_high_school": "学問",
+  "keirin_track": "観光・娯楽",
+  "boat_race_track": "観光・娯楽",
+  "auto_race_track": "観光・娯楽",
+  "paper_mill": "産業",
+  "cement_factory": "産業",
+  "geothermal_power": "産業",
+  "tourist_cave": "自然",
+  "rocket_launch_site": "学問",
+  "cable_car": "交通",
+  "raihoshin": "歴史・文化",
+  "fire_torch_festival": "歴史・文化",
+  "mikoshi_into_sea": "歴史・文化",
+  "major_beer_factory": "産業",
+  "ikea_store": "生活・商業",
+  "domestic_ferry": "交通",
+  "international_ferry": "交通",
+  "nishikigoi_origin": "産業",
+  "safari_park": "観光",
+  "ninja_tourism": "文化",
+  "air_self_defense_base": "施設",
+  "maritime_self_defense_base": "施設",
+  "starry_sky_reserve": "自然",
+  "volcano_crater_tourism": "自然",
+  "tidal_walk_island": "自然",
+  "whisky_distillery": "産業",
+  "ski_jump_hill": "スポーツ",
+  "ama_divers": "文化",
+  "toki_stork_rewilding": "自然",
+  "swan_wintering": "自然",
+  "sunflower_famous": "自然",
+  "lavender_famous": "自然",
+  "oyster_aquaculture": "産業",
+  "wasabi_production": "産業",
+  "traditional_saltmaking": "産業",
+  "oilfield_present": "産業",
+  "nori_aquaculture": "産業",
+  "wakame_aquaculture": "産業",
+  "salmon_aquaculture": "産業",
+  "sea_turtle_nesting": "自然",
+  "manga_museum": "文化",
+  "ukai": "文化",
+  "bullfighting": "文化",
+  "hot_air_balloon_event": "文化",
+  "tourist_trolley_train": "交通",
+  "ropeway": "交通",
+  "geyser": "観光",
+  "public_observatory": "観光",
+  "outlet_mall": "観光",
   "koshien_champion": "観光・娯楽",
   "sumo_yokozuna_ozeki": "観光・娯楽",
   "famous_cape": "地理",
@@ -6148,16 +7900,51 @@ const TAG_GAME_CATEGORY = {
   "ic_nihonkai_tohoku": "交通",
   "ic_banetsu": "交通",
   "ic_joban": "交通",
-  "ic_kanetsu": "交通", "ic_joshinetsu": "交通", "ic_hokukanto": "交通", "ic_higashikanto": "交通",
-  "ic_tokyo_gaikan": "交通", "ic_tateyama": "交通", "ic_shin_kuko": "交通",
-  "ic_chuo": "交通", "ic_nagano": "交通", "ic_hokuriku": "交通", "ic_tokai_hokuriku": "交通", "ic_tomei": "交通", "ic_shin_tomei": "交通",
-  "ic_meishin": "交通", "ic_shin_meishin": "交通", "ic_tomeihan": "交通", "ic_isewangan": "交通",
-  "ic_ise": "交通", "ic_kisei": "交通", "ic_meinikan": "交通",
-  "ic_kinki": "交通", "ic_hanwa": "交通", "ic_nishimeihan": "交通", "ic_maizuru_wakasa": "交通", "ic_kansai_kuko": "交通",
-  "ic_chugoku": "交通", "ic_sanyo": "交通", "ic_tottori": "交通", "ic_yonago": "交通", "ic_okayama": "交通",
-  "ic_hamada": "交通", "ic_matsue": "交通", "ic_onomichi": "交通", "ic_hiroshima": "交通", "ic_harima": "交通",
-  "ic_takamatsu": "交通", "ic_tokushima": "交通", "ic_matsuyama": "交通", "ic_kochi": "交通",
-  "ic_kyushu": "交通", "ic_higashi_kyushu": "交通", "ic_nagasaki": "交通", "ic_oita": "交通", "ic_miyazaki": "交通", "ic_okinawa": "交通",
+  "ic_kanetsu": "交通",
+  "ic_joshinetsu": "交通",
+  "ic_hokukanto": "交通",
+  "ic_higashikanto": "交通",
+  "ic_tokyo_gaikan": "交通",
+  "ic_tateyama": "交通",
+  "ic_shin_kuko": "交通",
+  "ic_chuo": "交通",
+  "ic_nagano": "交通",
+  "ic_hokuriku": "交通",
+  "ic_tokai_hokuriku": "交通",
+  "ic_tomei": "交通",
+  "ic_shin_tomei": "交通",
+  "ic_meishin": "交通",
+  "ic_shin_meishin": "交通",
+  "ic_tomeihan": "交通",
+  "ic_isewangan": "交通",
+  "ic_ise": "交通",
+  "ic_kisei": "交通",
+  "ic_meinikan": "交通",
+  "ic_kinki": "交通",
+  "ic_hanwa": "交通",
+  "ic_nishimeihan": "交通",
+  "ic_maizuru_wakasa": "交通",
+  "ic_kansai_kuko": "交通",
+  "ic_chugoku": "交通",
+  "ic_sanyo": "交通",
+  "ic_tottori": "交通",
+  "ic_yonago": "交通",
+  "ic_okayama": "交通",
+  "ic_hamada": "交通",
+  "ic_matsue": "交通",
+  "ic_onomichi": "交通",
+  "ic_hiroshima": "交通",
+  "ic_harima": "交通",
+  "ic_takamatsu": "交通",
+  "ic_tokushima": "交通",
+  "ic_matsuyama": "交通",
+  "ic_kochi": "交通",
+  "ic_kyushu": "交通",
+  "ic_higashi_kyushu": "交通",
+  "ic_nagasaki": "交通",
+  "ic_oita": "交通",
+  "ic_miyazaki": "交通",
+  "ic_okinawa": "交通",
   "hiragana_name": "自治体名",
   "direction_in_name": "自治体名",
   "old_province_name": "歴史・文化",
@@ -6176,28 +7963,85 @@ const TAG_GAME_CATEGORY = {
   "industrial_port_hokkaido": "地理",
   "hakodate_honsen": "交通",
   "ishikari_river": "地理",
-  "tsugaru_area": "地理","sendai_metro": "人口・行政","kitakami_basin": "地理","shonai_area": "地理",
-  "hamadori_area": "地理","nakadori_area": "地理","aizu_area": "地理","sanriku_area": "地理",
-  "north_kanto": "地理","tama_area": "地理","tokatsu_area": "地理","ryomo_area": "地理",
-  "tone_river_area": "地理","sotetsu_line": "交通",
-  "hokuriku_three_pref": "地理","koshin_area": "地理","tokai_area": "地理","owari_area": "地理",
-  "mikawa_area": "地理","izu_area": "地理","suruga_area": "地理","totomi_area": "地理",
-  "hida_area": "地理","mino_area": "地理","hokushin_area": "地理","toshin_area": "地理",
-  "chushin_area": "地理","nanshin_area": "地理",
+  "tsugaru_area": "地理",
+  "sendai_metro": "人口・行政",
+  "kitakami_basin": "地理",
+  "shonai_area": "地理",
+  "hamadori_area": "地理",
+  "nakadori_area": "地理",
+  "aizu_area": "地理",
+  "sanriku_area": "地理",
+  "north_kanto": "地理",
+  "tama_area": "地理",
+  "tokatsu_area": "地理",
+  "ryomo_area": "地理",
+  "tone_river_area": "地理",
+  "sotetsu_line": "交通",
+  "hokuriku_three_pref": "地理",
+  "koshin_area": "地理",
+  "tokai_area": "地理",
+  "owari_area": "地理",
+  "mikawa_area": "地理",
+  "izu_area": "地理",
+  "suruga_area": "地理",
+  "totomi_area": "地理",
+  "hida_area": "地理",
+  "mino_area": "地理",
+  "hokushin_area": "地理",
+  "toshin_area": "地理",
+  "chushin_area": "地理",
+  "nanshin_area": "地理",
   "meitetsu_line": "交通",
-  "keihanshin_area": "人口・行政","hokusetsu_area": "地理","kawachi_area": "地理","senshu_area": "地理",
-  "hanshin_area": "地理","harima_area": "地理","tajima_area": "地理","tamba_area": "地理",
-  "kyoto_north": "地理","nara_basin": "地理","kii_peninsula": "地理","nankai_line": "交通",
-  "glasses_industry": "地理","towel_industry": "地理","musical_instruments": "地理",
-  "gold_leaf": "地理","denim_industry": "地理","pearl_farming": "地理","shipbuilding": "地理",
-  "furniture_industry": "地理","washi_famous": "地理","pharmaceutical_industry": "地理","fireworks_industry": "地理","stone_industry": "地理",
-  "soy_sauce_famous": "食","vinegar_famous": "食","miso_famous": "食","gyoza_famous": "食","yakisoba_famous": "食",
-  "udon_famous": "食","soba_famous": "食","ramen_famous": "食","castella_famous": "食","kamaboko_famous": "食",
-  "lacquerware_famous": "地理","famous_fish_catch": "食",
-  "ancient_provincial_capital": "歴史・文化","kokubunji_site": "歴史・文化","traditional_buildings_district": "歴史・文化",
-  "little_kyoto": "歴史・文化","giant_buddha": "歴史・文化","sea_torii": "歴史・文化","deer_in_city": "歴史・文化","gassho_zukuri": "歴史・文化",
-  "shikoku_pilgrimage": "歴史・文化","olympic_venue": "歴史・文化","famous_battlefield": "歴史・文化","kitamaebune_port": "歴史・文化",
-  "ferry_available": "交通","no_railway_station": "交通",
+  "keihanshin_area": "人口・行政",
+  "hokusetsu_area": "地理",
+  "kawachi_area": "地理",
+  "senshu_area": "地理",
+  "hanshin_area": "地理",
+  "harima_area": "地理",
+  "tajima_area": "地理",
+  "tamba_area": "地理",
+  "kyoto_north": "地理",
+  "nara_basin": "地理",
+  "kii_peninsula": "地理",
+  "nankai_line": "交通",
+  "glasses_industry": "地理",
+  "towel_industry": "地理",
+  "musical_instruments": "地理",
+  "gold_leaf": "地理",
+  "denim_industry": "地理",
+  "pearl_farming": "地理",
+  "shipbuilding": "地理",
+  "furniture_industry": "地理",
+  "washi_famous": "地理",
+  "pharmaceutical_industry": "地理",
+  "fireworks_industry": "地理",
+  "stone_industry": "地理",
+  "soy_sauce_famous": "食",
+  "vinegar_famous": "食",
+  "miso_famous": "食",
+  "gyoza_famous": "食",
+  "yakisoba_famous": "食",
+  "udon_famous": "食",
+  "soba_famous": "食",
+  "ramen_famous": "食",
+  "castella_famous": "食",
+  "kamaboko_famous": "食",
+  "traditional_lacquerware": "地理",
+  "famous_fish_catch": "食",
+  "ancient_provincial_capital": "歴史・文化",
+  "kokubunji_site": "歴史・文化",
+  "traditional_buildings_district": "歴史・文化",
+  "little_kyoto": "歴史・文化",
+  "giant_buddha": "歴史・文化",
+  "sea_torii": "歴史・文化",
+  "deer_in_city": "歴史・文化",
+  "gassho_zukuri": "歴史・文化",
+  "shikoku_pilgrimage": "歴史・文化",
+  "olympic_venue": "歴史・文化",
+  "famous_battlefield": "歴史・文化",
+  "kitamaebune_port": "歴史・文化",
+  "ferry_available": "交通",
+  "no_railway_station": "交通",
   "animal_in_name": "自治体名",
   "ariake_coast": "地理",
   "big_small_in_name": "自治体名",
@@ -6251,19 +8095,9 @@ const TAG_GAME_CATEGORY = {
   "circuit": "観光・娯楽",
   "dam_lake": "地理",
   "ebikani_aquarium": "観光・娯楽",
-  "enclave_municipality": "地理",
-  "famous_horse_breeding": "産業",
   "funaoka_sakura": "観光・娯楽",
-  "honshu_easternmost": "地理",
-  "honshu_northernmost": "地理",
-  "honshu_southernmost": "地理",
-  "honshu_westernmost": "地理",
   "iitate_madeikan": "観光・娯楽",
   "inami_kaeru_bridge": "観光・娯楽",
-  "japan_easternmost": "地理",
-  "japan_northernmost": "地理",
-  "japan_southernmost": "地理",
-  "japan_westernmost": "地理",
   "jupialand_shibazakura": "観光・娯楽",
   "kamisato_sa": "交通",
   "karst": "地理",
@@ -6273,7 +8107,6 @@ const TAG_GAME_CATEGORY = {
   "meisui_hyakusen": "地理",
   "mikurajima_dolphin": "観光・娯楽",
   "misato_blueberry": "食",
-  "nagaragawa_railway": "交通",
   "nanko_ume": "食",
   "national_park": "地理",
   "neba_sugi": "産業",
@@ -6286,11 +8119,31 @@ const TAG_GAME_CATEGORY = {
   "tanagura_kamegajo": "歴史・文化",
   "tsuruta_steuben": "食",
   "waterfall_hyakusen": "地理",
-  "whaling": "産業",
   "winery": "食",
-  "yoro_railway": "交通",
   "hiraya_himawari_no_yu": "観光・娯楽",
-  "ikusaka_sanseiji": "地理"
+  "ikusaka_sanseiji": "地理",
+  "aomori_nebuta": "その他",
+  "morioka_takuboku_sandaimen": "その他",
+  "chiba_makuhari_monorail": "その他",
+  "tokamachi_echigo_tsumari": "その他",
+  "minamiuonuma_hakkaisan_koshihikari": "その他",
+  "kyoto_gion_sennen": "その他",
+  "wakayama_yoshimune_kimiidera": "その他",
+  "hiroshima_dome_carp": "その他",
+  "naha_shurijo_kokusai": "その他",
+  "shibata_castle_occhahoi": "その他",
+  "seiro_albirex_jsc": "その他",
+  "yokkaichi_combinat_night": "その他",
+  "machida_zelvia": "その他",
+  "ise_naiku_geku": "その他",
+  "eiheiji_zen_training": "その他",
+  "toyoyama_ichiro_airport": "その他",
+  "kanmaki_kataoka_castle": "その他",
+  "totsukawa_largest_village_bridge": "その他",
+  "kitanakagusuku_rycom_castle": "その他",
+  "minamisanriku_shizugawa_aquaculture": "その他",
+  "onagawa_station_seaside_shopping": "その他",
+  "minakami_tanigawa_rafting": "その他"
 };
 function categoryOf(k){ return TAG_GAME_CATEGORY[k] || "その他"; }
 
@@ -6657,9 +8510,1278 @@ function prefBoostFor(key, poolSize, regionDone){
 //   ・popUnder50k(人口は5万人未満?) … 県庁所在地・東京23区は基本的に人口が多く、ほぼ全件falseになる。
 const CAPITALS_EXCLUDED_KEYS = new Set(['prefectural_capital', 'popUnder50k']);
 
+// V149: 現在の候補確率を使った質問の情報量。単純な件数50:50ではなく、
+// スコアから得たposterior massを最も50:50に割る質問ほど情報利得が大きい。
+function posteriorMassForCities(cities){
+  const entries = sortedPool();
+  const probs = candidateProbabilities(entries);
+  const byId = new Map(entries.map((e,i) => [cityId(e.city), probs[i] || 0]));
+  let total = 0;
+  const masses = cities.map(c => { const m = byId.get(cityId(c)) || 0; total += m; return m; });
+  if(total <= 0) return cities.map(() => 1 / Math.max(1, cities.length));
+  return masses.map(m => m / total);
+}
+function binaryEntropy(p){
+  if(p <= 0 || p >= 1) return 0;
+  return -p * Math.log2(p) - (1-p) * Math.log2(1-p);
+}
+function questionInformationGain(cities, masses, key){
+  let pYes = 0;
+  for(let i=0;i<cities.length;i++) if(cities[i].tags[key] === true) pYes += masses[i];
+  return binaryEntropy(pYes); // 最大1 bit。posteriorを半分に割る質問が最良。
+}
+
+
+// V154: 情報量がほぼ同じ質問同士なら、プレイヤーが「推理されている」と感じやすい方を選ぶ。
+// 面白さは情報利得を上書きしない。最大でも1.15点の僅差タイブレークに限定し、
+// 正答率・質問数を犠牲にしてまで文化系などを出すことはしない。
+const V154_FUN_CATEGORIES = new Set(['文化・観光', '産業・特産', '自然・地理']);
+
+// V161: 連戦時の鮮度。初手は既にV142で「十分に分割性能が高い上位候補」だけから選んでいる。
+// その安全な候補群の中で、直近2ゲームと同じ初手だけを避けることで、何戦しても毎回同じ入りに
+// 感じる単調さを減らす。推理スコアや回答データには一切影響させない。
+const V161_RECENT_OPENERS_KEY = 'oramachi_recent_openers_v161';
+function v161RecentOpeners(){
+  try{
+    const raw = JSON.parse(localStorage.getItem(V161_RECENT_OPENERS_KEY) || '[]');
+    return Array.isArray(raw) ? raw.filter(x => typeof x === 'string').slice(0,2) : [];
+  }catch(e){ return []; }
+}
+function v161RememberOpener(key){
+  if(!key) return;
+  try{
+    const next = [key, ...v161RecentOpeners().filter(x => x !== key)].slice(0,2);
+    localStorage.setItem(V161_RECENT_OPENERS_KEY, JSON.stringify(next));
+  }catch(e){}
+}
+
+
+// V162: 初手だけでなく、序盤3〜5問の「通り道」も連戦ごとに少し変える。
+// 直近2ゲームの序盤質問を参照するが、情報利得で選ばれた安全な最終poolの中だけで避ける。
+// したがって質問精度を犠牲にして弱い質問を新たに候補へ入れることはない。
+const V162_RECENT_EARLY_ROUTES_KEY = 'oramachi_recent_early_routes_v162';
+let v162PriorEarlyRoutes = [];
+function v162RecentEarlyRoutes(){
+  try{
+    const raw = JSON.parse(localStorage.getItem(V162_RECENT_EARLY_ROUTES_KEY) || '[]');
+    if(!Array.isArray(raw)) return [];
+    return raw.filter(route => Array.isArray(route)).slice(0,2).map(route => route.filter(k => typeof k === 'string').slice(0,5));
+  }catch(e){ return []; }
+}
+function v162LoadPriorEarlyRoutes(){
+  v162PriorEarlyRoutes = v162RecentEarlyRoutes();
+}
+function v162RememberEarlyRoute(){
+  if(questionPhase === 'extra') return;
+  const route = history.slice(0,5).map(h => h && h.key).filter(Boolean);
+  if(route.length < 3) return;
+  try{
+    const previous = v162RecentEarlyRoutes().filter(old => old.join('|') !== route.join('|'));
+    localStorage.setItem(V162_RECENT_EARLY_ROUTES_KEY, JSON.stringify([route, ...previous].slice(0,2)));
+  }catch(e){}
+}
+function v162FreshenEarlyPool(pool){
+  if(questionPhase === 'extra' || questionCount <= 0 || questionCount >= 5 || pool.length < 2) return pool;
+  const recentKeys = new Set(v162PriorEarlyRoutes.flat());
+  if(recentKeys.size === 0) return pool;
+  const fresh = pool.filter(k => !recentKeys.has(k));
+  // 少なくとも2択を維持できる時だけ完全回避。1択しか新鮮な質問がない場合も、
+  // その質問が元の上位poolに含まれているなら優先してマンネリを崩す。
+  if(fresh.length >= 2) return fresh;
+  if(fresh.length === 1) return fresh;
+  return pool;
+}
+
+
+// V163: 1ゲーム内の序盤〜中盤でも、同じ種類の質問が続く「作業感」を軽減する。
+// ここでも候補を広げず、entropyPick() が既に選んだ上位poolの中だけでカテゴリを散らす。
+// 直前と別カテゴリの良質候補がある時だけ切り替えるため、推理効率を優先した安全な演出。
+function v163FreshenCategoryRhythm(pool){
+  if(questionPhase === 'extra' || questionCount <= 0 || questionCount >= 8 || pool.length < 2) return pool;
+  const previousKey = history.length ? history[history.length - 1]?.key : null;
+  if(!previousKey) return pool;
+  const previousCategory = categoryOf(previousKey);
+  const alternate = pool.filter(k => categoryOf(k) !== previousCategory);
+  return alternate.length ? alternate : pool;
+}
+
+// V164: 中盤に1回だけ「おっ、その角度から聞くのか」と感じる発見系質問を混ぜる。
+// 文化・観光 / 産業・特産 / 自然・地理の質問が、すでに情報利得等で選ばれた最終poolに
+// 含まれている場合だけ優先する。候補を外から追加しないので、面白さのために弱い質問へ飛ばない。
+let v164DiscoveryMomentUsed = false;
+function v164PreferDiscoveryMoment(pool, truePoolSize){
+  if(v164DiscoveryMomentUsed || questionPhase === 'extra' || pool.length < 2) return pool;
+  if(questionCount < 3 || questionCount > 7) return pool;
+  if(truePoolSize < 12 || truePoolSize > 350) return pool;
+  const discovery = pool.filter(k => V154_FUN_CATEGORIES.has(categoryOf(k)));
+  return discovery.length ? discovery : pool;
+}
+
+
+// V240: 中規模球を「広域→町の顔→ストライク」の橋として実戦投入する。
+// V228〜V239で増やした質問を、単にデータベースへ置くだけでなく良い局面で使うための安全な優先処理。
+// 重要: entropyPick() が情報利得/minimaxで選んだ最終poolの外から質問を追加しない。
+// posterior最上位の仮説へYESで刺さり、全国YES 8〜80自治体の中規模特徴だけを候補にする。
+// 1〜3自治体級の固有球はV169/V170へ任せ、乱れ打ちを増やさない。
+// V241: V240で見つかった「中規模球を持っているのに最終poolへ届かない」選択ギャップを救済する。
+// 全国YES 10〜30の中規模球がposterior最上位仮説へYESで刺さり、候補内でも十分に絞れる時だけ、
+// selectionScoreへ小さなボーナスを与える。情報利得/minimaxを主役のまま残し、無理な乱れ打ちはしない。
+function v241MediumBridgeScoreBonus(key, topCities, posteriorMasses, truePoolSize){
+  if(questionPhase === 'extra' || questionCount < 3 || questionCount > 9) return 0;
+  if(truePoolSize < 10 || truePoolSize > 120 || v170RecentSpecificMiss()) return 0;
+  if(STATS_QUESTION_KEYS.has(key) || isPrefQuestion(key) || REGION_QUESTION_KEYS.has(key) || WIDE_AREA_BOOST_KEYS.has(key)) return 0;
+  const globalYes=v170GlobalYesCount(key);
+  if(globalYes < 10 || globalYes > 30) return 0;
+  let topIndex=-1, topMass=-1;
+  for(let i=0;i<topCities.length;i++){
+    const m=posteriorMasses[i]||0;
+    if(m>topMass){ topMass=m; topIndex=i; }
+  }
+  const topCity=topIndex>=0 ? topCities[topIndex] : null;
+  if(!topCity || topCity.tags[key] !== true) return 0;
+  const localYes=topCities.reduce((n,c)=>n+(c.tags[key]===true?1:0),0);
+  if(localYes < 2 || localYes / Math.max(1,topCities.length) > 0.48) return 0;
+  // V243: 残存204件を分解した結果、173件は安全窓まで到達しながら僅差で選択されないSCORE_ONLY_GAPだった。
+  // NO_SAFE_WINDOW 31件には触れず、安全条件をすべて満たす球だけ最大3.2点まで穏やかに救済する。
+  // 情報利得/minimaxを主役のまま残し、候補外から質問を追加しない。
+  const sharpness=1-(localYes/Math.max(1,topCities.length));
+  return 2.2 + Math.min(1.0, sharpness);
+}
+
+function v240PreferMediumBridge(pool, topCities, posteriorMasses, truePoolSize){
+  if(questionPhase === 'extra' || pool.length < 2) return pool;
+  if(questionCount < 3 || questionCount > 9) return pool;
+  if(truePoolSize < 10 || truePoolSize > 120) return pool;
+  if(v170RecentSpecificMiss()) return pool;
+  let topIndex=-1, topMass=-1;
+  for(let i=0;i<topCities.length;i++){
+    const m=posteriorMasses[i]||0;
+    if(m>topMass){ topMass=m; topIndex=i; }
+  }
+  const topCity=topIndex>=0 ? topCities[topIndex] : null;
+  if(!topCity) return pool;
+  const bridge=pool.filter(k=>{
+    if(STATS_QUESTION_KEYS.has(k) || isPrefQuestion(k) || REGION_QUESTION_KEYS.has(k) || WIDE_AREA_BOOST_KEYS.has(k)) return false;
+    const globalYes=v170GlobalYesCount(k);
+    if(globalYes < 8 || globalYes > 80) return false;
+    if(topCity.tags[k] !== true) return false;
+    const localYes=topCities.reduce((n,c)=>n+(c.tags[k]===true?1:0),0);
+    if(localYes < 2) return false;
+    if(localYes / Math.max(1,topCities.length) > 0.48) return false;
+    return true;
+  });
+  return bridge.length ? bridge : pool;
+}
+
+// V245: V244で町の顔不足と判定された31自治体。
+// 新問の乱造ではなく、既存の町の顔をまず再利用し、不足8自治体だけ固有球を追加。
+// hidden targetは参照せず、posterior首位が育った終盤（6問以上・候補8以下）だけ、
+// prelim内に存在する町の顔を最終poolへ引き上げる。直近固有NO後は発火しない。
+const V245_TOWN_FACE_FINISHERS = new Set([
+  'tram','ski_jump_hill','cement_factory','v245_abu_michinoeki_origin',
+  'v186_minamiaso_shirakawa','famous_battlefield','v186_kuma_kyusendo','silk_heritage',
+  'tourist_steam_train','sunflower_famous','tourist_cave','v245_kikuyo_jasm','closed_school_tourism','shimodate_gion',
+  'castle_hyakumeijo','cable_car','kokeshi_production','monzen',
+  'v245_yusui_kirishima_art','v247_mizuho_monorail_terminal','v247_aya_suspension_bridge','v247_nyuzen_sawasugi','town_village_university','horse_racing','shikoku_pilgrimage','agricultural_high_school',
+  'dam_lake','rekihaku','fukiware_no_taki',
+  // V251: V249で既存の強い町の顔が確認できた自治体。新問は追加せず既存資産を終盤で再利用する。
+  'v186_ochi_yokogurayama','v188_fujikawa_oboshi','v188_odai_osugidani','v186_nishihara_tawarayama',
+  'v186_kouhoku_junction','v188_hayakawa_akasawa','v186_shioya_shojinzawa','v188_kawaba_denenplaza',
+  'v188_shinto_tsurushi','v188_kawatana_torpedo','v186_oshino_hakkai','v188_fujisato_shirakami',
+  'jaxa_kakuda','v186_narusawa_icecave','v186_sagara_kawabe','v188_kosaka_korakukan',
+  'v186_geisei_horticulture','v188_ashikita_utase','v186_higashinaruse_sennin'
+]);
+function v245PreferTownFaceRepair(pool, prelim, topCities, posteriorMasses, truePoolSize){
+  if(!Array.isArray(pool)||!Array.isArray(prelim)||questionPhase==='extra') return pool;
+  if(questionCount < 6 || truePoolSize < 2 || truePoolSize > 8 || v170RecentSpecificMiss()) return pool;
+  let topIndex=-1, topMass=-1;
+  for(let i=0;i<topCities.length;i++){ const m=posteriorMasses[i]||0; if(m>topMass){topMass=m;topIndex=i;} }
+  const topCity=topIndex>=0?topCities[topIndex]:null;
+  if(!topCity || topMass < 0.24) return pool;
+  const ranked=prelim.filter(s=>!V264_DEMOTED_SURPRISE_KEYS.has(s.k) && V245_TOWN_FACE_FINISHERS.has(s.k) && topCity.tags[s.k]===true && !asked.has(s.k));
+  if(!ranked.length) return pool;
+  ranked.sort((a,b)=>v170GlobalYesCount(a.k)-v170GlobalYesCount(b.k) || a.diff-b.diff);
+  const k=ranked[0].k;
+  return [k,...pool.filter(x=>x!==k)];
+}
+
+// V168で導入した文字質問の固定的な中盤寄せは、V169で発展的に廃止する。
+// 「数字・動物などの文字質問」も、牛久市/十日町市のように推理が深まった瞬間へ刺されば
+// 強いサプライズになるため、カテゴリだけを理由に終盤から外さない。キー集合はV169でも
+// サプライズ候補の一種として参照する。
+const V168_NAME_PLAY_KEYS = new Set([
+  'katakana_city_name','kana_name','number_in_name','hiragana_name','direction_in_name',
+  'animal_in_name','big_small_in_name','body_part_in_name','color_in_name','four_plus_name',
+  'hard_to_read_name','kawa_in_name','new_old_in_name','plant_in_name','pref_name_in_city_name',
+  'same_name_other_pref','sea_word_in_name','shima_in_name','ta_in_name','yama_in_name',
+  'yotsukaido_name','name_same_as_route','name_has_betsu'
+]);
+
+// V169: サプライズ・ストライク。
+// おらマチの面白さの中核を「そこまで分かってるの!?」に置く。文字・文化・自然・産業・交通・歴史を
+// 区別せず、すでに情報利得/minimaxで選ばれた最終poolの中から、現在もっとも有力な仮説へ
+// “YESで強く刺さる”特徴を優先する。ゲームは正解自治体を知らないため、真の答えを参照するチートはしない。
+// posterior上位への適合度・候補内での希少性・直前カテゴリとの差を使い、条件の良い時だけ発火する。
+let v169SurpriseStrikeCount = 0;
+
+// V263: 純度監査でサプライズ終盤球から降格した質問。通常質問としては保持する。
+const V264_DEMOTED_SURPRISE_KEYS = new Set(["silk_heritage", "silk_textile", "moka_sl_line", "kururi_line", "watarase_line", "oito_line", "shinano_railway", "echizen_railway", "nagaragawa_railway", "yoro_railway", "sunzu_line", "aikan_railway", "joetsu_region", "chuetsu_region", "kaetsu_region", "joetsu_shinkansen_station", "hokuriku_shinkansen_station", "hokkaido_shinkansen_station", "tohoku_shinkansen_station", "tokaido_shinkansen_station", "sanyo_shinkansen_station", "kyushu_shinkansen_station", "nishikyushu_shinkansen_station", "yamagata_shinkansen_station", "akita_shinkansen_station", "is_village", "shinano_river", "agano_river", "uono_river", "borders_yamagata", "borders_fukushima", "borders_gunma", "borders_nagano", "borders_toyama", "todai_campus", "waseda_campus", "keio_campus", "meiji_campus", "rikkyo_campus", "chuo_campus", "tus_campus", "odakyu_line", "keio_inokashira_line", "tokyu_line", "keikyu_line", "seibu_line", "tobu_main_station", "tobu_tojo_station", "utsunomiya_station", "takasaki_line_station", "keisei_line", "tsukuba_express", "rinkai_line", "yurikamome", "toden_arakawa", "nippori_toneri", "tokyo_bay", "tama_river", "sumida_river", "arakawa_river", "edogawa_river", "meguro_river", "shakujii_river", "borders_kanagawa", "borders_saitama", "borders_chiba", "yamanote_line", "keihintohoku_line", "chuo_rapid", "chuo_sobu", "joban_line", "saikyo_line", "ueno_station", "akabane_station", "nippori_station", "sanma_famous", "monzen", "bedtown", "skijyou", "nuclearpowerplant", "monozukuri", "chukakushi", "tokureishi", "sogo_dept", "isetan_dept", "mitsukoshi_dept", "daimaru_dept", "matsuzakaya_dept", "curry_famous", "anime_seichi", "kigyo_joukamachi", "hankyu_line", "keihan_line", "rugby_machi", "kougyou_toshi", "fugu_famous", "tire_famous", "hamburger_famous", "senbei_famous", "tanabata_famous", "uirou_famous", "b_kyu_gourmet", "beigun_kichi", "combinat_yakei", "danjiri_famous", "onaji_ookawa", "animal_in_name", "ariake_coast", "big_small_in_name", "bingo_area", "body_part_in_name", "chikugo_area", "chikuho_area", "chikuzen_area", "chugoku_mountain_basin", "chuyo_area", "color_in_name", "dosan_line", "four_plus_name", "fukuoka_metro", "hakubi_line", "hard_to_read_name", "hiroshima_metro", "honshu_bridge", "izumo_area", "kagoshima_main_line", "kawa_in_name", "kitakyushu_area", "nanyo_area", "new_old_in_name", "nippo_main_line", "nishitetsu_line", "northern_kyushu", "okinawa_main_island", "okinawa_south_central", "osumi_area", "paper_industry_shikoku", "plant_in_name", "pref_name_in_city_name", "sakishima_islands", "same_name_other_pref", "sanin_area", "sanin_main_line", "sanyo_area", "sanyo_main_line", "satsuma_area", "sea_word_in_name", "setouchi_industrial", "shima_in_name", "southern_kyushu", "ta_in_name", "toyo_area", "yama_in_name", "yosan_line", "ic_doo", "ic_sasson", "ic_shiribeshi", "ic_doto", "ic_tohoku", "ic_hachinohe", "ic_aomori", "ic_kamaishi", "ic_akita", "ic_yamagata", "ic_tohoku_chuo", "ic_nihonkai_tohoku", "ic_banetsu", "ic_joban", "ic_kanetsu", "ic_joshinetsu", "ic_hokukanto", "ic_higashikanto", "ic_tokyo_gaikan", "ic_tateyama", "ic_shin_kuko", "ic_chuo", "ic_nagano", "ic_hokuriku", "ic_tokai_hokuriku", "ic_tomei", "ic_shin_tomei", "ic_meishin", "ic_shin_meishin", "ic_tomeihan", "ic_isewangan", "ic_ise", "ic_kisei", "ic_meinikan", "ic_kinki", "ic_hanwa", "ic_nishimeihan", "ic_maizuru_wakasa", "ic_kansai_kuko", "ic_chugoku", "ic_sanyo", "ic_tottori", "ic_yonago", "ic_okayama", "ic_hamada", "ic_matsue", "ic_onomichi", "ic_hiroshima", "ic_harima", "ic_takamatsu", "ic_tokushima", "ic_matsuyama", "ic_kochi", "ic_kyushu", "ic_higashi_kyushu", "ic_nagasaki", "ic_oita", "ic_miyazaki", "ic_okinawa", "technical_college", "national_univ_attached_high"]);
+// V170: サプライズ・ストライクの質を上げ、自治体固有級の乱れ打ちを防ぐ。
+// 全国でYESが1〜3自治体の具体質問は最上位の「必殺技」候補。ただし、外した直後に
+// 別自治体の固有級を連射するのは禁止する。府中→八王子→国立…のような総当たり感をなくす。
+const V170_GLOBAL_YES_COUNT = new Map();
+function v170GlobalYesCount(key){
+  if(V170_GLOBAL_YES_COUNT.has(key)) return V170_GLOBAL_YES_COUNT.get(key);
+  const n = CITIES.reduce((sum,c)=>sum + (c.tags[key] === true ? 1 : 0), 0);
+  V170_GLOBAL_YES_COUNT.set(key,n);
+  return n;
+}
+function v170IsConcreteSpecific(key){
+  if(!key || V264_DEMOTED_SURPRISE_KEYS.has(key) || STATS_QUESTION_KEYS.has(key) || isPrefQuestion(key)) return false;
+  if(REGION_QUESTION_KEYS.has(key) || WIDE_AREA_BOOST_KEYS.has(key)) return false;
+  return v170GlobalYesCount(key) >= 1 && v170GlobalYesCount(key) <= 3;
+}
+function v170RecentSpecificMiss(){
+  // 固有級にNOが出た後、少なくとも2問は別角度の推理を挟む。
+  // answerLogを見るので「戻る」にも自然に追従し、専用の壊れやすい状態を増やさない。
+  const recent = answerLog.slice(-2);
+  return recent.some(a => a && a.val === false && v170IsConcreteSpecific(a.key));
+}
+function v170SpecificStrikeEligible(key, topCities, posteriorMasses, truePoolSize){
+  if(!v170IsConcreteSpecific(key) || questionPhase === 'extra') return false;
+  if(questionCount < 3 || truePoolSize > 60) return false;
+  if(v170RecentSpecificMiss()) return false;
+  let topIndex = -1, topMass = -1;
+  for(let i=0;i<topCities.length;i++){
+    const m = posteriorMasses[i] || 0;
+    if(m > topMass){ topMass=m; topIndex=i; }
+  }
+  const topCity = topIndex >= 0 ? topCities[topIndex] : null;
+  if(!topCity || topCity.tags[key] !== true) return false;
+  // まだ全く見えていない自治体へ運任せで固有質問を撃たない。
+  // 候補が減るほど許容するが、最低限「有力仮説」になっていることを要求する。
+  const minTopMass = truePoolSize <= 8 ? 0.12 : (truePoolSize <= 20 ? 0.16 : 0.20);
+  return topMass >= minTopMass;
+}
+function v170PreferConcreteStrike(pool, topCities, posteriorMasses, truePoolSize){
+  if(pool.length < 2 || v170RecentSpecificMiss()) return pool;
+  const specific = pool.filter(k => v170SpecificStrikeEligible(k, topCities, posteriorMasses, truePoolSize));
+  return specific.length ? specific : pool;
+}
+// V200: 「当たる固有球」の中でも、IC・地方区分・都市圏だけで仕留めるより、
+// 同じ安全条件を満たす非事務的な固有球が同じpoolにあるなら、そちらを決め球にする。
+// 候補数・posterior・乱れ打ち防止条件は一切緩めない。V199球質監査を受けた保守的な改善。
+function v200IsDryStrikeKey(key){
+  if(!key) return false;
+  return /^ic_/.test(key) || /_area$/.test(key)
+    || ['sapporo_metro','sendai_metro','hiroshima_metro','town_to_city_2016'].includes(key);
+}
+function v200PreferVividStrike(pool){
+  if(!Array.isArray(pool) || pool.length < 2) return pool;
+  const specific=pool.filter(v170IsConcreteSpecific);
+  if(specific.length < 2) return pool;
+  const vivid=specific.filter(k=>!v200IsDryStrikeKey(k));
+  return vivid.length ? vivid : pool;
+}
+
+// V203: V199でMEMORABLEと確認済みの既存質問を、終盤3〜4候補まで根拠が育った時だけ
+// 「全国YES 1〜3」枠の外から救済する。レア度の閾値そのものは緩めず、別レーンとして扱う。
+// hidden target は使わず、posterior首位・候補数・直近固有NOで安全性を担保する。
+const V203_MEMORABLE_KEYS = new Set([
+  'rugby_machi','famous_market','winery','unesco_dashi_festival','daibutsu_spot'
+]);
+function v203PreferEarnedVividStrike(pool, prelim, topCities, posteriorMasses, truePoolSize){
+  if(!Array.isArray(pool) || !Array.isArray(prelim) || questionPhase === 'extra') return pool;
+  if(questionCount < 6 || truePoolSize < 2 || truePoolSize > 4 || v170RecentSpecificMiss()) return pool;
+  let topIndex=-1, topMass=-1;
+  for(let i=0;i<topCities.length;i++){ const m=posteriorMasses[i]||0; if(m>topMass){topMass=m;topIndex=i;} }
+  const topCity=topIndex>=0?topCities[topIndex]:null;
+  if(!topCity || topMass < 0.30) return pool;
+  const ranked=prelim.filter(s=>{
+    const k=s.k, n=v170GlobalYesCount(k);
+    return !V264_DEMOTED_SURPRISE_KEYS.has(k) && V203_MEMORABLE_KEYS.has(k) && n>=4 && n<=40 && topCity.tags[k]===true && !asked.has(k);
+  });
+  if(!ranked.length) return pool;
+  ranked.sort((a,b)=>v170GlobalYesCount(a.k)-v170GlobalYesCount(b.k) || a.diff-b.diff);
+  const k=ranked[0].k;
+  return [k, ...pool.filter(x=>x!==k)];
+}
+
+
+// V216: V215で「最後の一問が事務的」と判定された240自治体の第1バッチ50。
+// 既存の町の顔を優先し、不足した6自治体だけV216で固有球を追加。
+// hidden targetは使わず、8問以上・候補8以下・posterior首位が十分育った終盤だけ、
+// 事務的な最終判定より先に町の顔を1球見せる。
+const V216_BATCH1_CLOSING_FINISHERS = new Set([
+  'miyazawa_kenji',
+  'zashiki_warashi',
+  'takekoma_shrine',
+  'v216_kitaakita_matagi',
+  'sankyo_soko',
+  'v204_higashine_cherry',
+  'ayame_park',
+  'komatsu_origin',
+  'kaga_onsenkyo',
+  'senmaida_shikki',
+  'rokugozaki',
+  'kehi_jindo',
+  'echizen_ono_castle',
+  'miketsukuni_saba',
+  'uirou_famous',
+  'jra_training',
+  'v216_maibara_ibuki',
+  'chinatown',
+  'kishu_herazao',
+  'negoroji',
+  'sand_dunes',
+  'kurayoshi_shirakabe',
+  'mizuki_shigeru_road',
+  'iya_kazurabashi',
+  'kafka_takamatsu',
+  'setoohashi_shikoku',
+  'seiyo_geopark',
+  'ashizuri_misaki',
+  'v216_fukuoka_yamakasa',
+  'saga_balloon_festa',
+  'taku_seibyo',
+  'igusa_yatsushiro',
+  'takaba_countrypark',
+  'misumi_nishiko',
+  'worldheritage_coal_mine',
+  'futagoji',
+  'tsukumi_sakura_maguro',
+  'gyoza_famous',
+  'v216_kanoya_rose',
+  'daguri_misaki',
+  'naha_shurijo_kokusai',
+  'irabu_ohashi',
+  'v216_kitakyushu_mojiko',
+  'seiro_albirex_jsc',
+  'kurokawa_yuden',
+  'gomadoyama_ajisai',
+  'niigata_smallest',
+  'v216_murakami_salmon',
+  'haneda_ward',
+  'sazae_family'
+]);
+function v216PreferClosingFace(pool, prelim, topCities, posteriorMasses, truePoolSize){
+  if(!Array.isArray(pool) || questionPhase === 'extra') return pool;
+  if(questionCount < 8 || truePoolSize < 2 || truePoolSize > 8 || v170RecentSpecificMiss()) return pool;
+  let topIndex=-1, topMass=-1;
+  for(let i=0;i<topCities.length;i++){ const m=posteriorMasses[i]||0; if(m>topMass){topMass=m;topIndex=i;} }
+  const topCity=topIndex>=0?topCities[topIndex]:null;
+  if(!topCity || topMass < 0.12) return pool;
+  const finisher=[...V216_BATCH1_CLOSING_FINISHERS].find(k=>topCity.tags[k]===true && !asked.has(k));
+  if(!finisher) return pool;
+  return [finisher, ...pool.filter(k=>k!==finisher)];
+}
+
+
+// V217: V215の「最後の一問が事務的」240自治体の第2バッチ（51〜100）。
+// 既存の町の顔45件を再利用し、不足5件のみ固有球を追加。
+// V216と同じ安全条件で、十分に絞れた終盤だけ締め球を優先する。hidden targetは使わない。
+const V217_BATCH2_CLOSING_FINISHERS = new Set([
+  'gakuto',
+  'shinsengumi',
+  'm78_sukagawa',
+  'ramen_famous',
+  'kannon_zo',
+  'kamikochi',
+  'naraijuku_wine',
+  'miso_famous',
+  'toyonaka_kyujo',
+  'hirakata_park',
+  'osafune_sword_museum',
+  'v217_fukuyama_tomonoura',
+  'hiyoko',
+  'nakoku_no_oka',
+  'funabaru_kofun',
+  'hikari_no_michi',
+  'nogata_meteorite',
+  'koinoki',
+  'hishino_suisha',
+  'oda_hiroki_museum',
+  'kubote_san',
+  'nagasaki_airport_omura',
+  'nanatsugama_shonyudo',
+  'yakisoba_famous',
+  'tomihiro_museum',
+  'saboten_machi',
+  'v217_asahikawa_asahiyama',
+  'film_city',
+  'anno_hideaki',
+  'itami_sake_airport',
+  'peron_festival',
+  'ghibli_museum',
+  'v217_kokubunji_otaka',
+  'cupnoodle_museum',
+  'kansai_airport_city',
+  'sennan_rosegarden',
+  'kashiwara_budo',
+  'v217_izumo_taisha',
+  'sesshu_teien',
+  'gonokawa_kako',
+  'yashio_hanamomo',
+  'shiraoka_nashi',
+  'daiyuzan_kintaro',
+  'horaibashi_sl',
+  'senkagawa_fukamushi',
+  'sagara_oil_airport',
+  'shimoda_port',
+  'umagase_cross',
+  'v217_hitachi_furyumono',
+  'tulip_fair'
+]);
+function v217PreferClosingFace(pool, prelim, topCities, posteriorMasses, truePoolSize){
+  if(!Array.isArray(pool) || questionPhase === 'extra') return pool;
+  if(questionCount < 8 || truePoolSize < 2 || truePoolSize > 8 || v170RecentSpecificMiss()) return pool;
+  let topIndex=-1, topMass=-1;
+  for(let i=0;i<topCities.length;i++){ const m=posteriorMasses[i]||0; if(m>topMass){topMass=m;topIndex=i;} }
+  const topCity=topIndex>=0?topCities[topIndex]:null;
+  if(!topCity || topMass < 0.12) return pool;
+  const finisher=[...V217_BATCH2_CLOSING_FINISHERS].find(k=>topCity.tags[k]===true && !asked.has(k));
+  if(!finisher) return pool;
+  return [finisher, ...pool.filter(k=>k!==finisher)];
+}
+
+// V218: V215の「最後の一問が事務的」240自治体の第3バッチ（101〜150）。
+// cities.jsonに眠っていた町の顔も掘り起こし、既存30件を再利用・不足20件のみ質問化。
+// V216/V217と同じ安全条件を維持し、hidden targetは参照しない。
+const V218_BATCH3_CLOSING_FINISHERS = new Set([
+  'merhen_kenchiku',
+  'misawa_flight',
+  'v218_hashima_takehana',
+  'enbaragawa',
+  'komaki_castle',
+  'rokkoyo',
+  'mandaraji_fuji',
+  'shippoyaki',
+  'centrair_manekineko',
+  'sendohira_renkon',
+  'warp_station_edo',
+  'ibaraki_airport',
+  'hamanasu_no_oka',
+  'hokkaido_greenland',
+  'drift_ice',
+  'northernmost_city',
+  'v218_muroran_night',
+  'shio_kazunoko',
+  'least_populous_city',
+  'v218_narita_shinshoji',
+  'sawara_district',
+  'sanbu_sugi',
+  'soza_ueki',
+  'nagashima_nabana',
+  'ise_naiku_geku',
+  'parque_ago',
+  'eiheiji_zen_training',
+  'v218_wakasa_kumagawa',
+  'v218_nanbu_tea',
+  'v218_hara_stars',
+  'v218_iizuna_apple',
+  'v204_nishiizu_tombolo',
+  'v209_yoshida_koyama',
+  'v218_togo_aichiike',
+  'toyoyama_ichiro_airport',
+  'v218_kawagoe_tera46',
+  'v218_meiwa_saiku',
+  'v207_kihoku_choshi',
+  'v218_aisho_kongorinji',
+  'v218_kora_saimyoji',
+  'v218_taga_taisha',
+  'v205_kyotamba_shizushi',
+  'v218_ine_funaya',
+  'v205_tajiri_onion',
+  'v218_kanan_saigyo',
+  'v218_taka_origins',
+  'v218_inami_ponds',
+  'v218_harima_onaka',
+  'v218_fukusaki_yanagita'
+]);
+function v218PreferClosingFace(pool, prelim, topCities, posteriorMasses, truePoolSize){
+  if(!Array.isArray(pool) || questionPhase === 'extra') return pool;
+  if(questionCount < 8 || truePoolSize < 2 || truePoolSize > 8 || v170RecentSpecificMiss()) return pool;
+  let topIndex=-1, topMass=-1;
+  for(let i=0;i<topCities.length;i++){ const m=posteriorMasses[i]||0; if(m>topMass){topMass=m;topIndex=i;} }
+  const topCity=topIndex>=0?topCities[topIndex]:null;
+  if(!topCity || topMass < 0.12) return pool;
+  const finisher=[...V218_BATCH3_CLOSING_FINISHERS].find(k=>topCity.tags[k]===true && !asked.has(k));
+  if(!finisher) return pool;
+  return [finisher, ...pool.filter(k=>k!==finisher)];
+}
+
+
+// V219: V215の「最後の一問が事務的」240自治体の第4バッチ（151〜200）。
+// 既存16件を再利用し、cities.jsonに眠っていた町の顔34件を固有質問化。
+// V216〜V218と同じ安全条件を維持し、hidden targetは参照しない。
+const V219_BATCH4_CLOSING_FINISHERS = new Set([
+  'v219_kamikawa_tonomine',
+  'v219_taishi_ikarugadera',
+  'v219_shinonsen_arayu',
+  'v219_ando_tomimoto',
+  'v219_kanmaki_kataoka',
+  'v219_hirogawa_inamura',
+  'v219_yura_shirasaki',
+  'inami_kaeru_bridge',
+  'v219_shirahama_shirarahama',
+  'v206_okuizumo_tatara',
+  'v219_okinoshima_rousoku',
+  'v219_wake_fuji',
+  'v219_akiota_sandankyo',
+  'v207_sera_hanabatake',
+  'v219_jinsekikogen_paperplane',
+  'v219_waki_hachigamine',
+  'v188_matsushige_airport',
+  'v219_naoshima_art',
+  'v209_ayagawa_udon',
+  'v206_kamijima_yumeshima',
+  'v207_matsuno_nametoko',
+  'v219_ainan_uwakai',
+  'v219_shime_tateko',
+  'v219_shingu_aishima',
+  'v213_hisayama_sato',
+  'v219_ashiya_kama',
+  'v219_chikuzen_tachiarai',
+  'v219_oki_biomass',
+  'v207_hirokawa_kasuri',
+  'v207_soeda_hikosan',
+  'v219_aka_ishizaka',
+  'v219_kanda_hirotani',
+  'v207_yoshitomi_kamizumo',
+  'v219_chikujo_tsunashiki',
+  'v219_genkai_hamanoura',
+  'v219_nankan_sekisho',
+  'v219_mashiki_airport',
+  'v219_hikawa_nozu',
+  'v205_kusu_dowa',
+  'v219_nakatane_airport',
+  'jaxa_kakuda',
+  'v219_yakushima_yakusugi',
+  'v219_taketomi_nineislands',
+  'v219_yakumo_two_seas',
+  'v186_otobe_shirafura',
+  'v219_okushiri_blue',
+  'v219_setana_otayama',
+  'v219_rusutsu_resort'
+]);
+function v219PreferClosingFace(pool, prelim, topCities, posteriorMasses, truePoolSize){
+  if(!Array.isArray(pool) || questionPhase === 'extra') return pool;
+  if(questionCount < 8 || truePoolSize < 2 || truePoolSize > 8 || v170RecentSpecificMiss()) return pool;
+  let topIndex=-1, topMass=-1;
+  for(let i=0;i<topCities.length;i++){ const m=posteriorMasses[i]||0; if(m>topMass){topMass=m;topIndex=i;} }
+  const topCity=topIndex>=0?topCities[topIndex]:null;
+  if(!topCity || topMass < 0.12) return pool;
+  const finisher=[...V219_BATCH4_CLOSING_FINISHERS].find(k=>topCity.tags[k]===true && !asked.has(k));
+  if(!finisher) return pool;
+  return [finisher, ...pool.filter(k=>k!==finisher)];
+}
+
+
+// V220: V215の「最後の一問が事務的」240自治体の最終バッチ（201〜240）。
+// 既存2件を再利用し、cities.jsonに眠っていた町の顔38件を固有質問化。
+// V216〜V219と同じ安全条件を維持し、hidden targetは参照しない。これで240/240完了。
+const V220_BATCH5_CLOSING_FINISHERS = new Set(['v220_kyowa_raiden','v220_yoichi_nikka','v220_kamisunagawa_coal','v220_higashikagura_flowers','v220_teshio_shijimi','v220_nakatombetsu_karst','v220_rishirifuji_mountain','v220_horonobe_reindeer','v220_ozora_shibazakura','v220_yubetsu_tulip','v220_toyoura_strawberry','v220_hidaka_monbetsu_horse','v220_biratori_nibutani','v220_kamishihoro_taushubetsu','v220_kushiro_hosooka','v220_hamanaka_monkeypunch','v220_nakashibetsu_kaiyodai','v220_inakadate_riceart','v220_yokohama_nanohana','v220_oirase_liberty','v220_takko_garlic','v220_hashikami_seamountain','v220_shingo_christ','v178_iwaizumi_ryusendo','v220_kunohe_broiler','v220_hirono_uni','v220_minamisanriku_ramsar','v220_kawamata_cosquin','v220_tenei_british','v220_hinoemata_kabuki','v220_kitashiobara_goshikinuma','v220_bandai_enichiji','v220_showa_karamushi','v220_tamakawa_airport','v220_shinchi_karo','v204_hirono_tonbo','v220_namegawa_shinrin','v220_tako_rice','v220_tonosho_kojurin','v220_shibayama_haniwa']);
+function v220PreferClosingFace(pool, prelim, topCities, posteriorMasses, truePoolSize){
+  if(!Array.isArray(pool) || questionPhase === 'extra') return pool;
+  if(questionCount < 8 || truePoolSize < 2 || truePoolSize > 8 || v170RecentSpecificMiss()) return pool;
+  let topIndex=-1, topMass=-1;
+  for(let i=0;i<topCities.length;i++){ const m=posteriorMasses[i]||0; if(m>topMass){topMass=m;topIndex=i;} }
+  const topCity=topIndex>=0?topCities[topIndex]:null;
+  if(!topCity || topMass < 0.12) return pool;
+  const finisher=[...V220_BATCH5_CLOSING_FINISHERS].find(k=>topCity.tags[k]===true && !asked.has(k));
+  if(!finisher) return pool;
+  return [finisher, ...pool.filter(k=>k!==finisher)];
+}
+
+// V213: V212で20問以上まで伸びた22自治体だけを対象に、長いNO消去戦を終盤で打ち切る。
+// 既存の固有球を最優先し、固有球がなかった自治体にはV213で町の顔を1問だけ接続。
+// 10問以上・候補20以下・posterior首位に十分な根拠がある時だけ発射する。hidden target は使わない。
+const V213_LONG_ROUTE_FINISHERS = new Set([
+  'v186_kamikatsu_zerowaste','v178_nakai_itsukushima','v213_misato_shiwassu','v213_miyoshi_santome',
+  'v178_ina_roses','v213_miyashiro_tobu_zoo','v213_hinode_tsurutsuru','v213_kaisei_ajisai',
+  'v213_ogose_bairin','v213_yoshioka_funao','v213_murata_kura','v213_mimata_tsutsuji',
+  'v213_satosho_kaze','v178_ishii_fuji','v213_takanezawa_goryo','keion_toyosato',
+  'v178_funagata_jomon','v144_shoo_kintaro','v213_uchiko_uchikoza','v213_samukawa_jinja',
+  'v213_hisayama_sato','v208_sakaki_murakami'
+]);
+function v213PreferLongRouteFinisher(pool, prelim, topCities, posteriorMasses, truePoolSize){
+  if(!Array.isArray(pool) || questionPhase === 'extra') return pool;
+  if(questionCount < 10 || truePoolSize < 2 || truePoolSize > 20 || v170RecentSpecificMiss()) return pool;
+  let topIndex=-1, topMass=-1;
+  for(let i=0;i<topCities.length;i++){ const m=posteriorMasses[i]||0; if(m>topMass){topMass=m;topIndex=i;} }
+  const topCity=topIndex>=0?topCities[topIndex]:null;
+  if(!topCity || topMass < 0.05) return pool;
+  const finisher=[...V213_LONG_ROUTE_FINISHERS].find(k=>topCity.tags[k]===true && !asked.has(k));
+  if(!finisher) return pool;
+  return [finisher, ...pool.filter(k=>k!==finisher)];
+}
+
+// V267: 長距離21自治体の代表性を再監査。特色が競合する場合は全国的により有名な町の顔を優先。
+// 琴平町は金丸座ではなく「こんぴらさん／金刀比羅宮」を代表球に変更。勝浦町のビッグひな祭りは維持。
+// 8問以上・候補2〜30・posterior首位3.5%以上に限定し、長いNO消去戦へ入る前に町の顔を提示する。
+const V266_LONG_ROUTE_TREATMENT_FINISHERS = new Set([
+  'v208_sakaki_murakami','keion_toyosato','v213_satosho_kaze','v144_shoo_kintaro',
+  'v266_katsuura_big_hina','v178_ishii_fuji','v267_kotohira_konpira','v213_uchiko_uchikoza',
+  'v186_ochi_yokogurayama','v213_hisayama_sato','v213_mimata_tsutsuji','v213_misato_shiwassu',
+  'v213_murata_kura','v178_funagata_jomon','v213_takanezawa_goryo','v213_yoshioka_funao',
+  'v213_miyoshi_santome','v213_ogose_bairin','v213_samukawa_jinja','v178_nakai_itsukushima','v213_kaisei_ajisai'
+]);
+function v266PreferLongRouteTreatment(pool, prelim, topCities, posteriorMasses, truePoolSize){
+  if(!Array.isArray(pool) || questionPhase === 'extra') return pool;
+  if(questionCount < 8 || truePoolSize < 2 || truePoolSize > 30 || v170RecentSpecificMiss()) return pool;
+  let topIndex=-1, topMass=-1;
+  for(let i=0;i<topCities.length;i++){ const m=posteriorMasses[i]||0; if(m>topMass){topMass=m;topIndex=i;} }
+  const topCity=topIndex>=0?topCities[topIndex]:null;
+  if(!topCity || topMass < 0.035) return pool;
+  const finisher=[...V266_LONG_ROUTE_TREATMENT_FINISHERS].find(k=>topCity.tags[k]===true && !asked.has(k));
+  if(!finisher || V264_DEMOTED_SURPRISE_KEYS.has(finisher)) return pool;
+  return [finisher, ...pool.filter(k=>k!==finisher)];
+}
+
+
+// V269: V268全国監査で抽出した43長期戦候補を一括再検証。
+// 既治療21件はV266を維持し、新規候補のうち既存の強い町の顔が確認できる自治体だけを安全に前倒しする。
+// 新問の乱造やDEMOTE球の復活は行わず、7問以上・候補2〜40・posterior首位2.5%以上に限定する。
+const V269_LONG_ROUTE_EXISTING_FACE_FINISHERS = new Set([
+  'ayase_no_station','v218_inami_ponds','v219_ando_tomimoto','v219_kanmaki_kataoka',
+  'v186_misaki_tkg','v207_sera_hanabatake','v186_kamikatsu_zerowaste','v204_tobe_yaki',
+  'v207_rifu_nashi','v178_ina_roses','v220_shibayama_haniwa','v213_hinode_tsurutsuru'
+]);
+function v269PreferExistingFaceForLongRoute(pool, prelim, topCities, posteriorMasses, truePoolSize){
+  if(!Array.isArray(pool) || questionPhase === 'extra') return pool;
+  if(questionCount < 7 || truePoolSize < 2 || truePoolSize > 40 || v170RecentSpecificMiss()) return pool;
+  let topIndex=-1, topMass=-1;
+  for(let i=0;i<topCities.length;i++){ const m=posteriorMasses[i]||0; if(m>topMass){topMass=m;topIndex=i;} }
+  const topCity=topIndex>=0?topCities[topIndex]:null;
+  if(!topCity || topMass < 0.025) return pool;
+  const finisher=[...V269_LONG_ROUTE_EXISTING_FACE_FINISHERS].find(k=>topCity.tags[k]===true && !asked.has(k));
+  if(!finisher || V264_DEMOTED_SURPRISE_KEYS.has(finisher)) return pool;
+  return [finisher, ...pool.filter(k=>k!==finisher)];
+}
+
+// V270: V269で保留した15自治体を公式資料で再確認。
+// 全国的な町の顔が既存資産にある6件は既存質問を使用し、固有の顔が不足した9件のみ新規質問を追加。
+// 7問以上・候補2〜40・posterior首位2.5%以上・直近specific missなしで安全に前倒しする。
+const V270_REMAINING_15_FACE_FINISHERS = new Set([
+  'v270_hino_merchant','brand_beef','v270_ide_yamabuki','worldheritage','v270_aizumi_indigo',
+  'v270_tsurugi_udatsu','v270_hidaka_omurice','famous_battlefield','winery','v270_yahaba_nansho',
+  'v270_nakayama_imoni','v270_tokigawa_woodwork','misato_blueberry','outlet_mall','v270_aikawa_miyagase'
+]);
+function v270PreferFamousFaceForRemainingLongRoute(pool, prelim, topCities, posteriorMasses, truePoolSize){
+  if(!Array.isArray(pool) || questionPhase === 'extra') return pool;
+  if(questionCount < 7 || truePoolSize < 2 || truePoolSize > 40 || v170RecentSpecificMiss()) return pool;
+  let topIndex=-1, topMass=-1;
+  for(let i=0;i<topCities.length;i++){ const m=posteriorMasses[i]||0; if(m>topMass){topMass=m;topIndex=i;} }
+  const topCity=topIndex>=0?topCities[topIndex]:null;
+  if(!topCity || topMass < 0.025) return pool;
+  const finisher=[...V270_REMAINING_15_FACE_FINISHERS].find(k=>topCity.tags[k]===true && !asked.has(k));
+  if(!finisher || V264_DEMOTED_SURPRISE_KEYS.has(finisher)) return pool;
+  return [finisher, ...pool.filter(k=>k!==finisher)];
+}
+
+// V272: V268で検出した「20問未満だが終盤が地味」93自治体の第1安全治療。
+// まず既存の自治体専用・町の顔フィニッシャーが既に存在する11自治体だけを対象にする。
+// 新問は作らず、DEMOTE球を復活させず、8問以上・候補2〜30・posterior首位3%以上でのみ前倒しする。
+const V272_DRY_END_EXISTING_FACE_FINISHERS = new Set([
+  'v186_kouhoku_junction','v219_mashiki_airport','v219_hikawa_nozu','v247_mizuho_monorail_terminal',
+  'v209_yoshida_koyama','v218_ine_funaya','v219_taishi_ikarugadera','v245_abu_michinoeki_origin',
+  'v209_ayagawa_udon','v213_hisayama_sato','v207_hirokawa_kasuri'
+]);
+function v272PreferExistingFaceBeforeDryEnd(pool, prelim, topCities, posteriorMasses, truePoolSize){
+  if(!Array.isArray(pool) || questionPhase === 'extra') return pool;
+  if(questionCount < 8 || truePoolSize < 2 || truePoolSize > 30 || v170RecentSpecificMiss()) return pool;
+  let topIndex=-1, topMass=-1;
+  for(let i=0;i<topCities.length;i++){ const m=posteriorMasses[i]||0; if(m>topMass){topMass=m;topIndex=i;} }
+  const topCity=topIndex>=0?topCities[topIndex]:null;
+  if(!topCity || topMass < 0.03) return pool;
+  const finisher=[...V272_DRY_END_EXISTING_FACE_FINISHERS].find(k=>topCity.tags[k]===true && !asked.has(k));
+  if(!finisher || V264_DEMOTED_SURPRISE_KEYS.has(finisher)) return pool;
+  return [finisher, ...pool.filter(k=>k!==finisher)];
+}
+
+
+// V273: DRY_END残り82自治体を一括治療。1自治体=固有質問1問。
+// 既存の強い専用問24は再利用し、専用の町の顔が無かった58自治体だけ新設。
+const V273_DRY_END_82_FACE_FINISHERS = new Set([
+  'town_to_city_2016','v207_oto_cactus','japan_easternmost','nashibou','v208_kijimadaira_kayanodaira','v205_inagawa_tada','mazda_fuchu','v144_mizumaki_cosmos','v208_onga_cho','v208_keisen_ozuka','kageki_dan','konrei_kagu','ghibli_museum','summerland','ojin_ryo_wine','torikai_depot','mofu_izumiotsu','sunaori_amagoi','zama_himawari','senkagawa_fukamushi','nirayama_hansharo','ryujin_ohashi','shimotsuma_movie','kamagaya_farm','v273_agano_hyoko','v273_akashi_strait_yaki','v273_akaiwa_fruit','v273_omachi_bota','v273_shinkamigoto_churches','v273_nagasu_goldfish','v273_ozu_honda','v273_minamioguni_kurokawa','v273_kosa_yana','v273_minamitane_space','v273_yamato_amami_rabbit','v273_kin_tacorice','v273_makubetsu_park_golf','v273_sannohe_11cats','v273_osato_hasekura','v273_ogawara_senbonzakura','v273_kawasaki_michinoku','v273_sakegawa_totoro','v273_naraha_jvillage','v273_okuma_strawberry','v273_futaba_daruma','v273_yachiyo_hakusai','v273_takayama_stars_castle','v273_ranzan_keikoku','v273_kawajima_rivers','v273_hatoyama_jaxa','v273_sugito_shukuba','v273_matsubushi_windmill','v273_hinohara_waterfall','v273_oshima_mihara','v273_kozushima_stars','v273_ichikawamisato_threecrafts','v273_tatsuno_firefly','v273_iijima_twoalps','v273_takamori_ichidagaki','v273_yasuoka_fourstations','v273_matsukawa_suzumushi','v273_godo_roses','v273_shirakawa_five_rivers','v273_mitake_two_shukuba','v273_tobishima_port_fields','v273_toyone_chausuyama','v273_watarai_miyagawa_tea','v273_kumiyama_nagarebashi','v273_wazuka_teafields','v273_shimamoto_rikyu_water','v273_kumatori_populous_town','v273_yamazoe_nabekura','v273_miyake_secondsmallest','v273_nosegawa_unkai','v273_kawakami_genryu','v273_nanbu_hanakairo','v273_chibu_sekiheki','v273_kaita_saigoku','v273_kitahiroshima_kagura','v273_mihara_doburoku','v273_kasuya_sixstations','v273_tachiarai_imamura'
+]);
+function v273PreferFaceBeforeDryEnd(pool, prelim, topCities, posteriorMasses, truePoolSize){
+  if(!Array.isArray(pool) || questionPhase === 'extra') return pool;
+  if(questionCount < 7 || truePoolSize < 2 || truePoolSize > 35 || v170RecentSpecificMiss()) return pool;
+  let topIndex=-1, topMass=-1;
+  for(let i=0;i<topCities.length;i++){ const m=posteriorMasses[i]||0; if(m>topMass){topMass=m;topIndex=i;} }
+  const topCity=topIndex>=0?topCities[topIndex]:null;
+  if(!topCity || topMass < 0.025) return pool;
+  const finisher=[...V273_DRY_END_82_FACE_FINISHERS].find(k=>topCity.tags[k]===true && !asked.has(k));
+  if(!finisher || V264_DEMOTED_SURPRISE_KEYS.has(finisher)) return pool;
+  return [finisher, ...pool.filter(k=>k!==finisher)];
+}
+
+// V277: V276の最終15自治体レーンを維持しつつ、新設4問をより強い町の顔へ置換。
+// 追加ではなくREPLACE。1自治体=固有質問1問を維持。
+const V276_FINAL_DRY_END_15_FINISHERS = new Set([
+  'toyota_kyushu','banshu_soroban_ono','edo_tokyo_tatemono','v277_kiyose_akina',
+  'pl_tower','hoshi_no_buranko','yamata_no_orochi','v277_shimotsuke_jichi',
+  'ushiku_daibutsu','yotsukaido_name','yachimata_peanuts','v277_minowa_akasoba',
+  'v277_umi_birth','v188_ashikita_utase','v144_tomioka_yonomori'
+]);
+function v276PreferFinalDryEndFace(pool, prelim, topCities, posteriorMasses, truePoolSize){
+  if(!Array.isArray(pool) || questionPhase === 'extra') return pool;
+  if(questionCount < 7 || truePoolSize < 2 || truePoolSize > 35 || v170RecentSpecificMiss()) return pool;
+  let topIndex=-1, topMass=-1;
+  for(let i=0;i<topCities.length;i++){ const m=posteriorMasses[i]||0; if(m>topMass){topMass=m;topIndex=i;} }
+  const topCity=topIndex>=0?topCities[topIndex]:null;
+  if(!topCity || topMass < 0.025) return pool;
+  const finisher=[...V276_FINAL_DRY_END_15_FINISHERS].find(k=>topCity.tags[k]===true && !asked.has(k));
+  if(!finisher || V264_DEMOTED_SURPRISE_KEYS.has(finisher)) return pool;
+  return [finisher, ...pool.filter(k=>k!==finisher)];
+}
+// V211: 「決め球を撃てる直前に、普通の質問1発で正解まで潰れてしまう」6自治体だけを救済する。
+// V210実戦タイミング監査で確認した取りこぼしに限定。hidden target は参照しない。
+// 8問以上・候補15以下まで推理が育ち、posterior首位の町を次の通常質問が一気に単独化し得る時だけ、
+// その町の固有フィニッシャーを先に1球挟む。「早撃ち」ではなく「眠らせない」ための最終窓。
+const V211_LAST_CHANCE_FINISHERS = new Set([
+  'v204_tobe_yaki','v207_rifu_nashi','v207_sera_hanabatake',
+  'v208_sakaki_murakami','v209_tateshina_shirakaba','v209_nagaizumi_ayutsubo'
+]);
+function v211PreferLastChanceFinisher(pool, prelim, topCities, posteriorMasses, truePoolSize){
+  if(!Array.isArray(pool) || !Array.isArray(prelim) || questionPhase === 'extra') return pool;
+  if(questionCount < 8 || truePoolSize < 2 || truePoolSize > 15 || v170RecentSpecificMiss()) return pool;
+  let topIndex=-1, topMass=-1;
+  for(let i=0;i<topCities.length;i++){ const m=posteriorMasses[i]||0; if(m>topMass){topMass=m;topIndex=i;} }
+  const topCity=topIndex>=0?topCities[topIndex]:null;
+  if(!topCity || topMass < 0.065) return pool;
+  const finisher=[...V211_LAST_CHANCE_FINISHERS].find(k=>topCity.tags[k]===true && !asked.has(k));
+  if(!finisher) return pool;
+  // 上位候補の通常質問のどれかが、posterior首位を1自治体まで一気に分離する局面だけ。
+  const near=prelim.slice(0,12);
+  const cliff=near.some(s=>{
+    const k=s.k;
+    if(k===finisher || V211_LAST_CHANCE_FINISHERS.has(k)) return false;
+    const topAns=topCity.tags[k]===true;
+    let branch=0;
+    for(const c of topCities) if((c.tags[k]===true)===topAns) branch++;
+    return branch===1;
+  });
+  if(!cliff) return pool;
+  return [finisher, ...pool.filter(k=>k!==finisher)];
+}
+
+function v170SuppressSpecificBarrage(pool){
+  if(pool.length < 2 || !v170RecentSpecificMiss()) return pool;
+  const normal = pool.filter(k => !v170IsConcreteSpecific(k));
+  return normal.length ? normal : pool;
+}
+
+// V173: V170のクールダウンを『最終poolが固有級だけ』のケースにも貫徹する。
+// 固有級NO直後にpool内の全候補が固有級だった場合、scored全体から最良の非固有質問を1問だけ救済する。
+// これにより候補リスト総当たりのような固有級→NO→別固有級を、選択肢不足を理由に復活させない。
+function v173PreventForcedSpecificBarrage(pool, scored){
+  if(!v170RecentSpecificMiss()) return pool;
+  if(pool.some(k => !v170IsConcreteSpecific(k))) return pool;
+  const fallback = scored.find(s => !v170IsConcreteSpecific(s.k));
+  return fallback ? [fallback.k] : pool;
+}
+
+// V172: 「乱れ打ちは殺す。コンボは育てる。」
+// 数字・動物などの鋭い特徴、または比較的珍しい具体質問へ確信を持ってYESした直後、
+// posteriorが同じ有力候補へさらに寄った場合だけ、その自治体の1〜3自治体級質問を
+// フィニッシャー候補として一度つなげる。固有級→固有級の連射はコンボ扱いしない。
+function v172IsSharpSetupKey(key){
+  if(!key || v170IsConcreteSpecific(key) || STATS_QUESTION_KEYS.has(key) || isPrefQuestion(key)) return false;
+  if(REGION_QUESTION_KEYS.has(key) || WIDE_AREA_BOOST_KEYS.has(key)) return false;
+  if(V168_NAME_PLAY_KEYS.has(key)) return true;
+  const n = v170GlobalYesCount(key);
+  return n >= 4 && n <= 150;
+}
+function v172ComboWindowOpen(){
+  const last = answerLog.length ? answerLog[answerLog.length - 1] : null;
+  return !!(last && last.val === true && (last.weight ?? 1) >= 1 && v172IsSharpSetupKey(last.key));
+}
+// V191: 「予感→ストライク」の接続を強化。V172の安全条件は維持しつつ、
+// 直前の鋭いYESで有力候補が育った場合、最終poolのごく外側にある固有フィニッシャーも
+// 情報効率差3以内なら1球だけ橋渡し候補にできる。乱れ打ち防止・specific eligibilityは迂回しない。
+let v191ComboPrelim=[];
+// V196: 「驚き」と「唐突」を分離する。
+// 候補がまだ3以上ある段階で、意味的な前振りも希少な推理手掛かりも無いのに
+// 固有フィニッシャーを“コンボだから”という理由だけで強制しない。
+// ここでは質問を禁止せず、コンボ優先だけを外して通常の情報利得選択へ戻す。
+function v196QuestionFamilies(key){
+  const text=(QUESTIONS[key]?.text || '');
+  const defs=[
+    ['name',/名前|市名|自治体名|漢字|ひらがな|カタカナ|読み|東・西・南・北|数字|動物|植物/],
+    ['rail',/鉄道|駅|新幹線|私鉄|JR|モノレール|ケーブルカー/],
+    ['road',/インターチェンジ|高速|道路/],
+    ['water',/海|湾|港|川|湖|峡谷|滝|島|半島|岬|水源/],
+    ['mountain',/山|火山|高原|スキー|雪|盆地|台地|カルデラ/],
+    ['food',/米|うどん|そば|麺|餃子|焼きそば|そうめん|ちゃんぽん|菓子|農|棚田|茶|酒|果|牛|豚|魚|カキ|ニラ/],
+    ['industry',/工芸|漆器|焼|産業|製薬|製鉄|メガネ|手袋|工場|本社|創業|製造/],
+    ['culture',/城|宿場|国宝|神社|寺|祭|武家|歴史|北前船|文学|作家|歌人|忍者|世界遺産|伝統的建造物/],
+    ['leisure',/温泉|水族館|動物園|博物館|美術館|遊園地|公園|桜|花火|劇場|聖地|観光/]
+  ];
+  return new Set(defs.filter(([,re])=>re.test(text)).map(([name])=>name));
+}
+function v196ComboFeelsEarned(setupKey, finisherKey, truePoolSize){
+  if(!setupKey || !finisherKey) return false;
+  if(truePoolSize <= 2) return true; // 最後の二択なら話題転換も推理として読める。
+  if(V168_NAME_PLAY_KEYS.has(setupKey)) return true;
+  const setupYes=v170GlobalYesCount(setupKey);
+  if(setupYes >= 4 && setupYes <= 40 && truePoolSize <= 4) return true; // 十分鋭い予感。
+  const a=v196QuestionFamilies(setupKey), b=v196QuestionFamilies(finisherKey);
+  for(const x of a) if(b.has(x)) return true;
+  // 地理・交通のYESから残り4候補以下まで来た場合は自然な絞り込みとして許容。
+  if(truePoolSize <= 4 && ['rail','road','water','mountain'].some(x=>a.has(x))) return true;
+  return false;
+}
+function v172PreferSurpriseCombo(pool, topCities, posteriorMasses, truePoolSize){
+  if(questionPhase === 'extra' || pool.length < 2 || truePoolSize > 45) return pool;
+  if(!v172ComboWindowOpen() || v170RecentSpecificMiss()) return pool;
+  let topIndex=-1, topMass=-1;
+  for(let i=0;i<topCities.length;i++){
+    const m=posteriorMasses[i] || 0;
+    if(m>topMass){ topMass=m; topIndex=i; }
+  }
+  const topCity=topIndex>=0 ? topCities[topIndex] : null;
+  if(!topCity) return pool;
+  // コンボは「予感→確信」にする。まだ有力候補が育っていない段階では撃たない。
+  const minMass = truePoolSize <= 8 ? 0.10 : (truePoolSize <= 20 ? 0.14 : 0.18);
+  if(topMass < minMass) return pool;
+  const setupKeyNow = answerLog.length ? (answerLog[answerLog.length - 1]?.key || '') : '';
+  const finishers = pool.filter(k => v170IsConcreteSpecific(k) && topCity.tags[k] === true);
+  const earnedFinishers = finishers.filter(k => v196ComboFeelsEarned(setupKeyNow, k, truePoolSize));
+  if(earnedFinishers.length) return earnedFinishers;
+  // V196: 固有球がpool内にあっても、前振りが唐突なら強制しない。
+  // 通常スコアで自然に選ばれる余地は残すが「コンボ補正」で大振りはしない。
+  if(finishers.length) return pool;
+  // V192: bridgeで拾う場合だけ、前振り自体にも一段高い質を要求する。
+  // V172本来のpool内コンボは壊さず、pool外から固有球を救う強化機能が
+  // 「広すぎるYES → 唐突な固有球」にならないようにする。
+  const lastSetup = answerLog.length ? answerLog[answerLog.length - 1] : null;
+  const setupKey = lastSetup?.key || '';
+  const setupYesCount = v170GlobalYesCount(setupKey);
+  const bridgeSetupStrong = V168_NAME_PLAY_KEYS.has(setupKey) || (setupYesCount >= 4 && setupYesCount <= 80) || truePoolSize <= 4; // V197: 終盤4候補以下はV196の意味接続ガードを満たす場合だけ橋渡しを再許可。
+  if(!bridgeSetupStrong) return pool;
+
+  // V191 bridge: pool内に無いときだけ、prelim上位から「あと一歩」の固有球を救う。
+  // 直前YES→固有球の二段コンボ専用なので、通常時の固有質問優先度は変えない。
+  const prelim=v191ComboPrelim;
+  if(!Array.isArray(prelim) || !prelim.length) return pool;
+  const poolSet=new Set(pool);
+  const poolPrelim=prelim.filter(s=>poolSet.has(s.k));
+  const baseline=poolPrelim.length ? Math.min(...poolPrelim.map(s=>s.diff)) : (prelim[0]?.diff ?? 0);
+  const bridge=prelim.slice(0,60).filter(s=>{
+    const k=s.k;
+    return !asked.includes(k) && v170IsConcreteSpecific(k) && topCity.tags[k]===true
+      && v196ComboFeelsEarned(setupKey, k, truePoolSize)
+      && s.diff<=baseline+3
+      && v170SpecificStrikeEligible(k, topCities, posteriorMasses, truePoolSize);
+  });
+  if(!bridge.length) return pool;
+  bridge.sort((a,b)=>v170GlobalYesCount(a.k)-v170GlobalYesCount(b.k) || a.diff-b.diff || a.k.localeCompare(b.k));
+  const best=bridge[0];
+  return bridge.filter(x=>x.diff<=best.diff+1 && v170GlobalYesCount(x.k)<=v170GlobalYesCount(best.k)+2).map(x=>x.k);
+}
+
+
+// V175: 「無風試合」を自然さを壊さず限界まで減らす。
+// ここでいう無風は、正解を知っているから判定するのではなく「これまでYESで刺さった鋭い質問が無い」状態。
+// posterior上位の仮説が十分育ち、かつ情報量上位から大きく外れない場合だけ、最終poolの少し外側から
+// 中〜大サプライズ候補を1問救済する。毎ゲーム強制はせず、序盤・extra・固有級NO直後は発火しない。
+function v175IsSurpriseCandidate(key){
+  if(!key || STATS_QUESTION_KEYS.has(key) || isPrefQuestion(key)) return false;
+  if(REGION_QUESTION_KEYS.has(key) || WIDE_AREA_BOOST_KEYS.has(key)) return false;
+  const n = v170GlobalYesCount(key);
+  if(n <= 0) return false;
+  if(v170IsConcreteSpecific(key)) return true;
+  if(V168_NAME_PLAY_KEYS.has(key) && n <= 150) return true;
+  return n <= 80;
+}
+function v175HasSurpriseYes(){
+  return answerLog.some(a => a && a.val === true && (a.weight ?? 1) >= 1 && v175IsSurpriseCandidate(a.key));
+}
+function v175RescueSurprise(pool, prelim, topCities, posteriorMasses, truePoolSize){
+  if(questionPhase === 'extra' || v175HasSurpriseYes() || v170RecentSpecificMiss()) return pool;
+  // 早すぎるサプライズは「たまたま当てた」感になる。逆に残り1〜2なら質問せず推測を優先する。
+  if(questionCount < 6 || truePoolSize < 3 || truePoolSize > 120) return pool;
+  let topIndex=-1, topMass=-1;
+  for(let i=0;i<topCities.length;i++){
+    const m=posteriorMasses[i] || 0;
+    if(m>topMass){ topMass=m; topIndex=i; }
+  }
+  const topCity=topIndex>=0 ? topCities[topIndex] : null;
+  if(!topCity) return pool;
+  // 候補が多いほど「本当にその町を疑っている」証拠を強く要求する。
+  const minMass = truePoolSize <= 8 ? 0.10 : (truePoolSize <= 20 ? 0.14 : (truePoolSize <= 50 ? 0.18 : 0.22));
+  if(topMass < minMass) return pool;
+
+  // 粗スコア上位60問だけを見る。情報効率から大きく脱線した質問を娯楽目的で拾わない安全柵。
+  const rescue = prelim.slice(0,60).filter(s => {
+    const k=s.k;
+    if(!v175IsSurpriseCandidate(k) || asked.includes(k)) return false;
+    if(topCity.tags[k] !== true) return false;
+    // 固有級はV170/V172の条件を満たす時だけ。V175が必殺技の安全柵を迂回しない。
+    if(v170IsConcreteSpecific(k) && !v170SpecificStrikeEligible(k, topCities, posteriorMasses, truePoolSize)) return false;
+    return true;
+  });
+  if(!rescue.length) return pool;
+
+  // 現poolの最良粗スコアから大きく悪化しないものだけを救済。
+  const poolSet=new Set(pool);
+  const poolPrelim=prelim.filter(s=>poolSet.has(s.k));
+  const baseline=poolPrelim.length ? Math.min(...poolPrelim.map(s=>s.diff)) : prelim[0]?.diff ?? 0;
+  const allowed=rescue.filter(s=>s.diff <= baseline + (truePoolSize > 40 ? 5 : 3));
+  if(!allowed.length) return pool;
+  const bestDiff=Math.min(...allowed.map(s=>s.diff));
+  const best=allowed.filter(s=>s.diff <= bestDiff + 1).map(s=>s.k);
+  return best.length ? best : pool;
+}
+
+
+// V176: 終盤サプライズ保険。
+// V175で救えなかった「無風」のうち、終盤までposterior最上位仮説が育っている試合だけを対象に、
+// 情報効率フロンティアを少し広げて「その町らしいYES質問」を1問だけ拾う。
+// hidden targetは参照しない。1〜3自治体級は従来のV170安全条件を必須とし、外した後の乱射も禁止。
+function v176EndgameSurpriseInsurance(pool, prelim, topCities, posteriorMasses, truePoolSize){
+  if(questionPhase === 'extra' || v175HasSurpriseYes() || v170RecentSpecificMiss()) return pool;
+  if(questionCount < 7 || truePoolSize < 3 || truePoolSize > 18) return pool;
+  let topIndex=-1, topMass=-1;
+  for(let i=0;i<topCities.length;i++){
+    const m=posteriorMasses[i] || 0;
+    if(m>topMass){ topMass=m; topIndex=i; }
+  }
+  const topCity=topIndex>=0 ? topCities[topIndex] : null;
+  if(!topCity) return pool;
+  // 終盤とはいえ、上位仮説が育っていないなら「当てずっぽう」になるので撃たない。
+  const minMass = truePoolSize <= 6 ? 0.16 : (truePoolSize <= 10 ? 0.20 : 0.24);
+  if(topMass < minMass) return pool;
+
+  const poolSet=new Set(pool);
+  const poolPrelim=prelim.filter(s=>poolSet.has(s.k));
+  const baseline=poolPrelim.length ? Math.min(...poolPrelim.map(s=>s.diff)) : prelim[0]?.diff ?? 0;
+  const candidates=prelim.slice(0,180).filter(s=>{
+    const k=s.k;
+    if(asked.includes(k) || !v175IsSurpriseCandidate(k) || topCity.tags[k] !== true) return false;
+    if(v170IsConcreteSpecific(k) && !v170SpecificStrikeEligible(k, topCities, posteriorMasses, truePoolSize)) return false;
+    return s.diff <= baseline + 8;
+  });
+  if(!candidates.length) return pool;
+  // 「珍しいだけ」より、グローバル該当数が少なく、かつ情報効率も良いものを優先。
+  candidates.sort((a,b)=>{
+    const ca=v170GlobalYesCount(a.k), cb=v170GlobalYesCount(b.k);
+    const ra=(ca<=3?0:ca<=15?1:ca<=80?2:3), rb=(cb<=3?0:cb<=15?1:cb<=80?2:3);
+    return ra-rb || a.diff-b.diff || ca-cb;
+  });
+  const best=candidates[0];
+  const bestRank=(v170GlobalYesCount(best.k)<=3?0:v170GlobalYesCount(best.k)<=15?1:v170GlobalYesCount(best.k)<=80?2:3);
+  const finalists=candidates.filter(s=>{
+    const c=v170GlobalYesCount(s.k);
+    const r=(c<=3?0:c<=15?1:c<=80?2:3);
+    return r===bestRank && s.diff<=best.diff+1;
+  }).map(s=>s.k);
+  return finalists.length ? finalists : pool;
+}
+
+
+// V178: V177診断で最後まで無風だった17自治体へ、公式資料で確認した固有級フィニッシャーを追加。
+// 39ルートを候補名の乱射で潰すのではなく、posterior最上位仮説が十分育った時だけ1回刺す。
+const V178_ZERO_WIND_FINISHERS = new Set(['v178_arita_porcelain','v178_assabu_mayqueen','v178_shiriuchi_saburo','v178_ina_roses','v178_higashichichibu_hosokawa','v178_mitsue_miune','v178_mogami_akakura','v178_funagata_jomon','v178_nagi_moca','v178_iwaizumi_ryusendo','v178_karumai_tulips','v178_ishii_fuji','v178_izena_shoen','v178_mifune_dinosaur','v178_tsunagi_art','v178_nakai_itsukushima','v178_nahari_townscape','v180_toin_ageuma','v180_soni_susuki','v180_kagamino_okutsu','v180_toyo_ikumi','v180_kamimine_chinzeizan','v180_sai_hotokegaura','v180_nagomi_edafunayama','v180_togitsu_sabakusarakashi','v180_mizukami_ichifusa','v180_yunomae_manga','v180_yugawara_manyo','v180_nagayo_mikan','v186_kouhoku_junction','v186_otobe_shirafura','v186_tozawa_mogamigawa','v186_oshino_hakkai','v186_narusawa_icecave','v186_misaki_tkg','v186_nishiawakura_hyakumori','v186_kamikatsu_zerowaste','v186_shioya_shojinzawa','v186_minamiaso_shirakawa','v186_kuma_kyusendo','v186_sagara_kawabe','v186_nishihara_tawarayama','v186_hakone_owakudani','v186_higashinaruse_sennin','v186_geisei_horticulture','v186_ochi_yokogurayama']);
+function v178PreferZeroWindFinisher(pool, topCities, posteriorMasses, truePoolSize){
+  if(questionPhase === 'extra' || v175HasSurpriseYes() || v170RecentSpecificMiss()) return pool;
+  if(questionCount < 7 || truePoolSize < 2 || truePoolSize > 12 || !topCities.length) return pool;
+  let ti=-1, tm=-1;
+  for(let i=0;i<topCities.length;i++){ if((posteriorMasses[i]||0)>tm){tm=posteriorMasses[i]||0;ti=i;} }
+  const topCity=ti>=0?topCities[ti]:null;
+  if(!topCity || tm < 0.30) return pool;
+  const finisher=[...V178_ZERO_WIND_FINISHERS].find(k=>!asked.includes(k) && topCity.tags[k]===true);
+  if(!finisher) return pool;
+  // global YES=1 の固有級。V170のposterior安全柵を必ず通し、hidden targetは参照しない。
+  if(!v170SpecificStrikeEligible(finisher, topCities, posteriorMasses, truePoolSize)) return pool;
+  return [finisher];
+}
+
+// V177: 「無風のまま正解」になる終盤をさらに減らすローカル・サプライズ救済。
+// 全国では80自治体超に当てはまる質問でも、現在の候補群では上位仮説だけに鋭く刺さるなら
+// 十分「そこを聞くの!?」になり得る。hidden targetは使わず、posterior最上位候補だけを見る。
+// ただし統計・都道府県・広域地理は対象外。固有級NO直後も発火しない。
+let v177FarewellHoldUsed = false;
+function v177IsLocalSurpriseCandidate(key, topCities, topCity){
+  if(!key || !topCity || STATS_QUESTION_KEYS.has(key) || isPrefQuestion(key)) return false;
+  if(REGION_QUESTION_KEYS.has(key) || WIDE_AREA_BOOST_KEYS.has(key)) return false;
+  if(topCity.tags[key] !== true) return false;
+  const globalYes=v170GlobalYesCount(key);
+  if(globalYes <= 0 || globalYes > 320) return false;
+  const localYes=topCities.filter(c=>c.tags[key]===true).length;
+  if(localYes <= 0 || localYes >= topCities.length) return false;
+  // 候補内で上位仮説側が少数になる質問だけ。「全国では普通、今ここでは鋭い」を拾う。
+  const localLimit=Math.max(2, Math.ceil(topCities.length * 0.28));
+  return localYes <= localLimit;
+}
+function v177LocalSurpriseRescue(pool, prelim, topCities, posteriorMasses, truePoolSize){
+  if(questionPhase === 'extra' || v175HasSurpriseYes() || v170RecentSpecificMiss()) return pool;
+  if(questionCount < 7 || truePoolSize < 3 || truePoolSize > 30) return pool;
+  let topIndex=-1, topMass=-1;
+  for(let i=0;i<topCities.length;i++){
+    const m=posteriorMasses[i] || 0;
+    if(m>topMass){ topMass=m; topIndex=i; }
+  }
+  const topCity=topIndex>=0 ? topCities[topIndex] : null;
+  if(!topCity) return pool;
+  const minMass=truePoolSize<=6 ? 0.18 : (truePoolSize<=12 ? 0.22 : 0.26);
+  if(topMass < minMass) return pool;
+  const poolSet=new Set(pool);
+  const poolPrelim=prelim.filter(s=>poolSet.has(s.k));
+  const baseline=poolPrelim.length ? Math.min(...poolPrelim.map(s=>s.diff)) : prelim[0]?.diff ?? 0;
+  const candidates=prelim.slice(0,260).filter(s=>{
+    const k=s.k;
+    if(asked.includes(k) || !v177IsLocalSurpriseCandidate(k, topCities, topCity)) return false;
+    if(v170IsConcreteSpecific(k) && !v170SpecificStrikeEligible(k, topCities, posteriorMasses, truePoolSize)) return false;
+    return s.diff <= baseline + 10;
+  });
+  if(!candidates.length) return pool;
+  candidates.sort((a,b)=>{
+    const ay=topCities.filter(c=>c.tags[a.k]===true).length;
+    const by=topCities.filter(c=>c.tags[b.k]===true).length;
+    const ag=v170GlobalYesCount(a.k), bg=v170GlobalYesCount(b.k);
+    return ay-by || a.diff-b.diff || ag-bg;
+  });
+  const best=candidates[0];
+  const bestLocal=topCities.filter(c=>c.tags[best.k]===true).length;
+  const finalists=candidates.filter(s=>topCities.filter(c=>c.tags[s.k]===true).length===bestLocal && s.diff<=best.diff+1).map(s=>s.k);
+  return finalists.length ? finalists : pool;
+}
+function v177HasFarewellSurpriseAvailable(){
+  if(v177FarewellHoldUsed || questionPhase !== 'normal' || v175HasSurpriseYes() || v170RecentSpecificMiss()) return false;
+  if(questionCount < 7 || questionCount >= effectiveMaxQ(questionPhase)-2) return false;
+  const info=topPoolCities();
+  const topCities=info.cities;
+  if(info.trueCount < 3 || info.trueCount > 12 || topCities.length < 3) return false;
+  const masses=posteriorMassForCities(topCities);
+  let ti=-1, tm=-1;
+  for(let i=0;i<topCities.length;i++){ if((masses[i]||0)>tm){tm=masses[i]||0;ti=i;} }
+  const topCity=ti>=0?topCities[ti]:null;
+  if(!topCity || tm < 0.34) return false;
+  return activeKeysForMode(currentMode).some(k=>!asked.includes(k) && v177IsLocalSurpriseCandidate(k, topCities, topCity));
+}
+
+
+// V179: 実戦経路の「無風0」を狙う最終サプライズ・チェック。
+// 推測条件を満たした瞬間、まだ一度も鋭いYESが無い場合だけ、posterior最上位候補に
+// 実際にTRUEで、かつ未質問のサプライズ候補が残っていれば「最後の一球」を1回だけ許す。
+// 正解(target)は一切参照しない。候補が1〜2件まで絞れた場面も対象にするのがV177との差。
+// これにより「もう答えは分かっているのに、何も刺さらず終了」を防ぐ。
+function v179HasFinalSurpriseAvailable(){
+  if(v177FarewellHoldUsed || questionPhase !== 'normal' || v175HasSurpriseYes() || v170RecentSpecificMiss()) return false;
+  if(questionCount < 7 || questionCount >= effectiveMaxQ(questionPhase)-1) return false;
+  const sorted=sortedPool();
+  if(!sorted.length) return false;
+  const topCity=sorted[0].city;
+  const confidence=topConfidence();
+  // 1候補なら確定済みなので許可。複数候補では十分なposterior集中を必須にする。
+  if(sorted.length > 1 && confidence < 0.72) return false;
+  const info=topPoolCities();
+  const topCities=info.cities.length ? info.cities : [topCity];
+  const masses=posteriorMassForCities(topCities);
+  const keys=activeKeysForMode(currentMode).filter(k=>!asked.includes(k));
+  return keys.some(k=>{
+    if(topCity.tags[k] !== true) return false;
+    if(!v175IsSurpriseCandidate(k) && !v177IsLocalSurpriseCandidate(k, topCities, topCity) && !V178_ZERO_WIND_FINISHERS.has(k)) return false;
+    // 固有級は、候補が1件なら既に推測可能な確定局面として許可。
+    // 複数候補なら従来V170のposterior安全柵を必ず通す。
+    if(v170IsConcreteSpecific(k) && sorted.length > 1 && !v170SpecificStrikeEligible(k, topCities, masses, info.trueCount)) return false;
+    return true;
+  });
+}
+
+
+// V180: V179の終端ガードが「候補1件」の確定局面で発火しても、entropyPick() は
+// 情報量0の質問を除外するため、そのまま renderGuess() へ落ちて最後の一球が表示されなかった。
+// そこで終端ガード専用に、同じ安全条件を満たす未質問キーを直接1つ選び forcedNextKey へ渡す。
+// 選択は posterior 1位・現在候補・回答履歴だけを使い、正解自治体(target)は参照しない。
+function v180PickFinalSurpriseQuestion(){
+  if(v177FarewellHoldUsed || questionPhase !== 'normal' || v175HasSurpriseYes() || v170RecentSpecificMiss()) return null;
+  if(questionCount < 7 || questionCount >= effectiveMaxQ(questionPhase)-1) return null;
+  const sorted=sortedPool();
+  if(!sorted.length) return null;
+  const topCity=sorted[0].city;
+  const confidence=topConfidence();
+  if(sorted.length > 1 && confidence < 0.72) return null;
+  const info=topPoolCities();
+  const topCities=info.cities.length ? info.cities : [topCity];
+  const masses=posteriorMassForCities(topCities);
+  const previousKey=history.length ? history[history.length-1]?.key : null;
+  const candidates=activeKeysForMode(currentMode).filter(k=>{
+    if(asked.includes(k) || topCity.tags[k] !== true) return false;
+    if(!v175IsSurpriseCandidate(k) && !v177IsLocalSurpriseCandidate(k, topCities, topCity) && !V178_ZERO_WIND_FINISHERS.has(k)) return false;
+    if(v170IsConcreteSpecific(k) && sorted.length > 1 && !v170SpecificStrikeEligible(k, topCities, masses, info.trueCount)) return false;
+    return true;
+  });
+  if(!candidates.length) return null;
+  candidates.sort((a,b)=>{
+    // まず現在候補内でYESが少ない方、その次に全国YESが少ない方を優先。
+    // 同率なら直前と別カテゴリを優先し、最後はキー名で決定して再現性を持たせる。
+    const ay=topCities.filter(c=>c.tags[a]===true).length;
+    const by=topCities.filter(c=>c.tags[b]===true).length;
+    if(ay!==by) return ay-by;
+    const af=v189StrikeFitBonus(a, topCity, info.trueCount), bf=v189StrikeFitBonus(b, topCity, info.trueCount);
+    if(af!==bf) return bf-af;
+    const ag=v170GlobalYesCount(a), bg=v170GlobalYesCount(b);
+    if(ag!==bg) return ag-bg;
+    const aa=previousKey && categoryOf(previousKey)!==categoryOf(a) ? 0 : 1;
+    const ba=previousKey && categoryOf(previousKey)!==categoryOf(b) ? 0 : 1;
+    return aa-ba || a.localeCompare(b);
+  });
+  return candidates[0];
+}
+
+// V189: 自治体ごとに「驚かせ方」を変えるサプライズ・ストライク適応層。
+// 有名/無名を主観ラベルで固定せず、runtimeに実在する「固有級の弾の厚み」で判定する。
+// identity-rich: 固有級が複数ある自治体。より意外な角度・強い固有球を選ぶ。
+// identity-sparse: 固有級が少ない自治体。終盤まで自然に絞ってから、超ローカルな一球を大切に使う。
+function v189IdentityProfile(city){
+  if(!city || !city.tags) return {tier:'standard', strong:0, unique:0};
+  let strong=0, unique=0;
+  for(const [k,v] of Object.entries(city.tags)){
+    if(v !== true || !v175IsSurpriseCandidate(k)) continue;
+    const n=v170GlobalYesCount(k);
+    if(n>0 && n<=15) strong++;
+    if(n>0 && n<=3) unique++;
+  }
+  const tier = strong >= 3 ? 'identity-rich' : (strong <= 1 ? 'identity-sparse' : 'standard');
+  return {tier,strong,unique};
+}
+function v189StrikeFitBonus(key, topCity, truePoolSize){
+  if(!key || !topCity) return 0;
+  const p=v189IdentityProfile(topCity);
+  const n=v170GlobalYesCount(key);
+  const previousKey=history.length ? history[history.length-1]?.key : null;
+  const angleShift=previousKey && categoryOf(previousKey)!==categoryOf(key);
+  let bonus=0;
+  if(p.tier==='identity-rich'){
+    // 弾が豊富な自治体は、ベタな中程度質問より「そこを聞く？」を選ぶ。
+    if(n>0 && n<=3) bonus+=0.10; else if(n<=15) bonus+=0.07;
+    if(angleShift) bonus+=0.03;
+  }else if(p.tier==='identity-sparse'){
+    // 弾が少ない自治体は序盤で浪費しない。十分絞れた終盤の固有球を最大評価。
+    if(truePoolSize<=12 && n>0 && n<=15) bonus+=0.10;
+    else if(truePoolSize<=25 && n>0 && n<=80) bonus+=0.04;
+  }else{
+    if(n>0 && n<=15) bonus+=0.05;
+  }
+  return Math.min(0.13,bonus);
+}
+
+// V190: サプライズ・ストライク昇格救済。
+// V175の「何かしら鋭いYES」が既にあっても、固有球が豊富な自治体では
+// それだけで試合を終わらせず、十分に絞れた局面で一段強い一球を最大1回だけ狙う。
+// hidden targetは参照せず、posterior 1位の自治体だけを見る。
+function v190PreferProfileStrike(pool, prelim, topCities, posteriorMasses, truePoolSize){
+  if(questionPhase === 'extra' || questionCount < 6 || truePoolSize < 3 || truePoolSize > 25 || v170RecentSpecificMiss()) return pool;
+  let topIndex=-1, topMass=-1;
+  for(let i=0;i<topCities.length;i++){
+    const m=posteriorMasses[i] || 0;
+    if(m>topMass){ topMass=m; topIndex=i; }
+  }
+  const topCity=topIndex>=0 ? topCities[topIndex] : null;
+  if(!topCity) return pool;
+  const profile=v189IdentityProfile(topCity);
+  // 弾が少ない町村はV175/V177/V180に任せ、貴重な球を無理に二発目として要求しない。
+  if(profile.tier === 'identity-sparse') return pool;
+  const maxGlobalYes = profile.tier === 'identity-rich' ? 15 : 40;
+  const minMass = truePoolSize <= 8 ? 0.10 : (truePoolSize <= 15 ? 0.14 : 0.18);
+  if(topMass < minMass) return pool;
+  // この強度帯は1試合1回だけ。YESならストライク成立、NOでも追撃しない。
+  const alreadyAttempted=answerLog.some(a=>a && (a.weight ?? 1)>=1 && v175IsSurpriseCandidate(a.key) && v170GlobalYesCount(a.key)<=maxGlobalYes);
+  if(alreadyAttempted) return pool;
+  const rescue=prelim.slice(0,60).filter(s=>{
+    const k=s.k, n=v170GlobalYesCount(k);
+    if(asked.includes(k) || !v175IsSurpriseCandidate(k) || n<=0 || n>maxGlobalYes || topCity.tags[k]!==true) return false;
+    if(v170IsConcreteSpecific(k) && !v170SpecificStrikeEligible(k, topCities, posteriorMasses, truePoolSize)) return false;
+    return true;
+  });
+  if(!rescue.length) return pool;
+  const poolSet=new Set(pool);
+  const poolPrelim=prelim.filter(s=>poolSet.has(s.k));
+  const baseline=poolPrelim.length ? Math.min(...poolPrelim.map(s=>s.diff)) : prelim[0]?.diff ?? 0;
+  // 終盤でも情報効率を壊さない。V175より少しだけ広い4点差まで。
+  const allowed=rescue.filter(s=>s.diff <= baseline + 4);
+  if(!allowed.length) return pool;
+  allowed.sort((a,b)=>{
+    const af=v189StrikeFitBonus(a.k,topCity,truePoolSize), bf=v189StrikeFitBonus(b.k,topCity,truePoolSize);
+    if(af!==bf) return bf-af;
+    const an=v170GlobalYesCount(a.k), bn=v170GlobalYesCount(b.k);
+    return an-bn || a.diff-b.diff || a.k.localeCompare(b.k);
+  });
+  const best=allowed[0];
+  return allowed.filter(x=>x.diff<=best.diff+1 && v170GlobalYesCount(x.k)<=v170GlobalYesCount(best.k)+3).map(x=>x.k);
+}
+
+function v169SurpriseStrikeScore(key, topCities, posteriorMasses, truePoolSize){
+  if(!key || !topCities.length || truePoolSize < 2) return 0;
+  let yesMass = 0, yesCount = 0;
+  let topMass = -1, topCity = null;
+  for(let i=0;i<topCities.length;i++){
+    const m = posteriorMasses[i] || 0;
+    if(m > topMass){ topMass = m; topCity = topCities[i]; }
+    if(topCities[i].tags[key] === true){ yesMass += m; yesCount++; }
+  }
+  // 「有力候補にYESで刺す」がサプライズの核。NO側の珍しさだけでは演出優先しない。
+  if(!topCity || topCity.tags[key] !== true || yesCount <= 0) return 0;
+  const rarity = 1 - (yesCount / Math.max(1, topCities.length));
+  const confidence = Math.max(0, Math.min(1, yesMass));
+  const previousKey = history.length ? history[history.length - 1]?.key : null;
+  const angleShift = previousKey && categoryOf(previousKey) !== categoryOf(key) ? 0.10 : 0;
+  const nameSpark = V168_NAME_PLAY_KEYS.has(key) ? 0.06 : 0;
+  // 候補が少ないほど「もうそこまで来てる」感を少し強める。ただし最後の答え合わせ専用にはしない。
+  const endgameSpark = truePoolSize <= 12 ? 0.10 : (truePoolSize <= 40 ? 0.06 : 0);
+  return confidence * 0.55 + rarity * 0.35 + angleShift + nameSpark + endgameSpark + v189StrikeFitBonus(key, topCity, truePoolSize);
+}
+function v169PreferSurpriseStrike(pool, topCities, posteriorMasses, truePoolSize){
+  if(questionPhase === 'extra' || pool.length < 2) return pool;
+  if(questionCount < 3 || truePoolSize > 90) return pool;
+  // 通常は1回。残り8以下なら、別の強い一撃をフィニッシャーとして2回目まで許す。
+  if(v169SurpriseStrikeCount >= 1 && !(v169SurpriseStrikeCount === 1 && truePoolSize <= 8)) return pool;
+  const scored = pool.map(k => ({k, score:v169SurpriseStrikeScore(k, topCities, posteriorMasses, truePoolSize)}))
+    .sort((a,b)=>b.score-a.score);
+  if(!scored.length) return pool;
+  // 発火閾値。単なる珍しい質問ではなく「有力仮説へ刺さる」時だけ使う。
+  const threshold = truePoolSize <= 8 ? 0.72 : (truePoolSize <= 25 ? 0.76 : 0.80);
+  const best = scored[0].score;
+  if(best < threshold) return pool;
+  // ほぼ同等のストライク候補は残してランダム性を維持する。
+  return scored.filter(x => x.score >= Math.max(threshold, best - 0.08)).map(x => x.k);
+}
+
+function v154FunBonus(key, nowPhase, truePoolSize){
+  const cat = categoryOf(key);
+  let bonus = 0;
+  // 中盤は「そこまで分かるの？」感のある文化・特産・自然を少し優遇。
+  if(nowPhase === 'middle' && V154_FUN_CATEGORIES.has(cat)) bonus += 0.55;
+  // 序盤は広角の質問を優先。超固有質問を面白さ名目で前倒ししない。
+  if(nowPhase === 'early' && (isPrefQuestion(key) || truePoolSize > DECISIVE_POOL_SIZE && /birthplace|shrine|temple|museum|festival|anime|manga|brand|castle/i.test(key))) bonus -= 0.65;
+  // 終盤は決め手を歓迎。「もうバレた」感を作る。
+  if(nowPhase === 'late' && truePoolSize <= DECISIVE_POOL_SIZE) bonus += 0.35;
+  // 同カテゴリ連打は既存penaltyに加え、ごく軽く抑える。
+  const recent = lastDisplayedKeys(2).map(categoryOf);
+  if(recent.includes(cat)) bonus -= 0.25;
+  return Math.max(-0.65, Math.min(1.15, bonus));
+}
+
+// V184: 厳格経路監査用トレース。通常プレイでは完全に無効で、
+// window.__ORAMACHI_V184_TRACE_ENABLED__ === true の監査実行時だけ質問選択の各段階を記録する。
+// 選択ロジック・質問文・回答データには影響しない。
+function v184Trace(stage, payload){
+  if(typeof window === 'undefined' || window.__ORAMACHI_V184_TRACE_ENABLED__ !== true) return;
+  if(!Array.isArray(window.__ORAMACHI_V184_TRACE__)) window.__ORAMACHI_V184_TRACE__ = [];
+  window.__ORAMACHI_V184_TRACE__.push({
+    stage, questionCount, extraQuestionCount, questionPhase,
+    askedCount: asked.length, historyCount: history.length, ...payload
+  });
+}
+
 function entropyPick(){
   const poolInfo = questionPhase === 'extra' ? extraPhaseCities() : topPoolCities();
   const topCities = poolInfo.cities;
+  const posteriorMasses = posteriorMassForCities(topCities);
   const truePoolSize = poolInfo.trueCount; // 質問選びの評価サンプル数ではなく、実際の僅差候補数
   let unused = activeKeysForMode(currentMode).filter(k => !asked.includes(k));
   // 【統計質問の重複防止】(1)人口の範囲から答えが確定している質問 (2)面積/人口密度の反対概念
@@ -6769,8 +9891,28 @@ function entropyPick(){
       const ratio = yes / modeCities.length;
       return ratio >= 0.12 && ratio <= 0.88;        // それなりに分割できる質問
     });
-    // 候補が十分あるときだけランダム初手にする(少なすぎると毎回同じで意味がない)
-    if(opener.length >= 3) return shuffle(opener)[0];
+    // V142: 初手のランダム性は残しつつ、分割性能の悪い質問を同列に扱わない。
+    // 各モードの母集団を最も50:50に近く割れる質問を優先し、その上位群だけからランダム選択する。
+    // これにより毎回同じ初手になる単調さを避けながら、初手で候補がほとんど減らない事故も抑える。
+    if(opener.length >= 3){
+      const rankedOpeners = opener.map(k => {
+        const yes = modeCities.filter(c => c.tags[k]).length;
+        const no = modeCities.length - yes;
+        return { k, imbalance: Math.abs(yes - no) };
+      }).sort((a,b) => a.imbalance - b.imbalance);
+      const bestImbalance = rankedOpeners[0].imbalance;
+      const openerMargin = Math.max(2, Math.round(modeCities.length * 0.06));
+      let openerPool = rankedOpeners.filter(x => x.imbalance <= bestImbalance + openerMargin).slice(0, 8).map(x => x.k);
+      if(openerPool.length < 3) openerPool = rankedOpeners.slice(0, Math.min(6, rankedOpeners.length)).map(x => x.k);
+      // V161: 直近2ゲームの初手を、良質な候補が3つ以上ある場合だけ一時的に避ける。
+      // 候補を質の低い質問まで広げないため、V142のopenerPoolの外へは絶対に出ない。
+      const recentOpeners = new Set(v161RecentOpeners());
+      const freshOpeners = openerPool.filter(k => !recentOpeners.has(k));
+      if(freshOpeners.length >= 1) openerPool = freshOpeners;
+      const pickedOpener = shuffle(openerPool)[0];
+      v161RememberOpener(pickedOpener);
+      return pickedOpener;
+    }
   }
 
   // 【質問の段階(序盤・中盤・終盤)】完全に絞り込む(ハードフィルタ)と、その段階にちょうど良い
@@ -6799,7 +9941,19 @@ function entropyPick(){
   // 【カテゴリ3連続防止】同じジャンルが3問以上連続しないよう、可能な限り避ける。
   // ただし、それがこの局面での決め手質問だったり、他に選べる質問が無い場合は例外として許可する。
   const nonStreak = candidateQuestions.filter(k => !wouldExceedCategoryStreak(k) || (decisiveSet.has(k) && decisiveActive));
-  const finalCandidates = nonStreak.length > 0 ? nonStreak : candidateQuestions;
+  let finalCandidates = nonStreak.length > 0 ? nonStreak : candidateQuestions;
+
+  // V146: 「わからない」の直後は、同じカテゴリの質問をすぐ重ねない。
+  // プレイヤーがその分野を知らない可能性が高いため、似た質問を連続して消費すると
+  // UNKNOWN救済の追加枠まで無駄打ちになりやすい。直前の表示質問がスキップだった場合だけ、
+  // 別カテゴリに十分な候補があればそちらを優先する。決め手質問しか残っていない場合は妨げない。
+  const lastDisplayed = history[history.length - 1];
+  const lastAnswer = answerLog[answerLog.length - 1];
+  if(lastDisplayed && lastAnswer && lastDisplayed.key === lastAnswer.key && lastAnswer.val === null){
+    const skippedCategory = categoryOf(lastDisplayed.key);
+    const alternateCategory = finalCandidates.filter(k => categoryOf(k) !== skippedCategory || (decisiveSet.has(k) && decisiveActive));
+    if(alternateCategory.length >= 3) finalCandidates = alternateCategory;
+  }
 
   // 【地方ブースト】全国版で候補が特定の地方・県に偏ってきたら、その地方限定質問を優先する。
   const groupShares = computeGroupShares(topCities);
@@ -6845,11 +9999,21 @@ function entropyPick(){
       - earlyRegionBoostFor(k, topCities)
       + ((isDecisive && decisiveActive) ? 0 : recentStreakPenalty(k)) + phasePenalty(k) + oneCityPenalty(k)
       - prefBoostFor(k, truePoolSize, regionDoneNow);
-    return { k, minimax };
+    // V142: 最悪ケース(minimax)が同程度なら、平均的にも多く候補を落とせる質問を優先する。
+    // yes/no の各枝へ進む確率を枝サイズとみなし、回答後の期待残存数 E[N']=(y^2+n^2)/N を計算。
+    // minimaxを主軸のまま保つため寄与は8%に限定し、既存の地方・段階・カテゴリ制御を壊さない。
+    const expectedRemaining = (yesGroup.length * yesGroup.length + noGroup.length * noGroup.length) / Math.max(1, topCities.length);
+    const informationGain = questionInformationGain(topCities, posteriorMasses, k);
+    // 情報利得を主役にしつつ、既存minimax/段階/カテゴリ制御を安全柵として残す。
+    // 1 bitに近い質問ほどselectionScoreを最大12点改善する。
+    const funBonus = v154FunBonus(k, nowPhase, truePoolSize);
+    const mediumBridgeBonus = v241MediumBridgeScoreBonus(k, topCities, posteriorMasses, truePoolSize);
+    const selectionScore = minimax + expectedRemaining * 0.05 - informationGain * 12 - funBonus - mediumBridgeBonus;
+    return { k, minimax, expectedRemaining, informationGain, funBonus, mediumBridgeBonus, selectionScore };
   });
 
-  scored.sort((a, b) => a.minimax - b.minimax);
-  const best = scored[0].minimax;
+  scored.sort((a, b) => a.selectionScore - b.selectionScore || a.minimax - b.minimax);
+  const best = scored[0].selectionScore;
   // 僅差の質問はまとめてプールし、ランダムに選ぶ(毎回同じ質問順に固定されないようにする)。
   // 候補がまだ多い序盤は、多少精度を犠牲にしてもマージンを広げ、入りの質問を毎回変える。
   // (常に同じ質問から始まって単調になるのを防ぐ)。終盤は精度優先でマージンを狭く保つ。
@@ -6860,7 +10024,7 @@ function entropyPick(){
   // そこで、序盤は「上位から最低でもこれだけは選択肢に入れる」下限も設ける。
   // 精度への影響を抑えるため、下限で拾うのは上位のものだけ(scoredは昇順=良い順)。
   const poolMargin = truePoolSize > 150 ? 6 : (truePoolSize > 40 ? 3 : 1);
-  let pool = scored.filter(s => s.minimax <= best + poolMargin).map(s => s.k);
+  let pool = scored.filter(s => s.selectionScore <= best + poolMargin).map(s => s.k);
   const minChoices = minChoicesFor(questionCount);
   if(pool.length < minChoices){
     // 下限を満たすまで上位から足す。ただし地名質問(8地方・広域)は、直前に地名質問を
@@ -6873,14 +10037,79 @@ function entropyPick(){
     pool = fill.slice(0, Math.min(minChoices, fill.length));
     if(pool.length === 0) pool = scored.slice(0, 1).map(s => s.k); // 安全装置
   }
+  // V162: 2〜5問目は、直近2ゲームと同じ序盤質問を可能な範囲で避ける。
+  // ここで扱うpoolは既に情報利得・minimax・段階・カテゴリ制御を通過した上位候補だけ。
+  pool = v162FreshenEarlyPool(pool);
+  // V163: 同一ゲーム内でも、良質な代替候補がある限り直前と同カテゴリを連打しない。
+  pool = v163FreshenCategoryRhythm(pool);
+  // V240: 新しく増やした中規模球を、上位pool内だけで「広域→町の顔」の橋として優先。
+  pool = v240PreferMediumBridge(pool, topCities, posteriorMasses, truePoolSize);
+  // V164の発見性を残しつつ、V169ではカテゴリ固定ではなく「有力仮説へ刺さる一問」を最優先の演出にする。
+  pool = v164PreferDiscoveryMoment(pool, truePoolSize);
+  pool = v169PreferSurpriseStrike(pool, topCities, posteriorMasses, truePoolSize);
+  // V170: 具体的な1〜3自治体級が「今まさに有力候補へ刺さる」時だけ必殺技として優先。
+  // 逆に直近で固有級を外していれば、別の固有級を連射せず複数候補を分ける質問へ戻す。
+  pool = v170SuppressSpecificBarrage(pool);
+  pool = v173PreventForcedSpecificBarrage(pool, scored);
+  // V172: 鋭い非固有質問へYESした直後だけ、同じ有力仮説に刺さる固有級を
+  // 「予感→確信」の二段コンボとして優先する。該当しなければV170通常ロジックへ戻る。
+  v191ComboPrelim=prelim;
+  pool = v172PreferSurpriseCombo(pool, topCities, posteriorMasses, truePoolSize);
+  pool = v170PreferConcreteStrike(pool, topCities, posteriorMasses, truePoolSize);
+  // V245: 31自治体の町の顔不足を、既存球優先・終盤限定で補修。
+  pool = v245PreferTownFaceRepair(pool, prelim, topCities, posteriorMasses, truePoolSize);
+  pool = v266PreferLongRouteTreatment(pool, prelim, topCities, posteriorMasses, truePoolSize);
+  pool = v269PreferExistingFaceForLongRoute(pool, prelim, topCities, posteriorMasses, truePoolSize);
+  pool = v270PreferFamousFaceForRemainingLongRoute(pool, prelim, topCities, posteriorMasses, truePoolSize);
+  pool = v272PreferExistingFaceBeforeDryEnd(pool, prelim, topCities, posteriorMasses, truePoolSize);
+  pool = v273PreferFaceBeforeDryEnd(pool, prelim, topCities, posteriorMasses, truePoolSize);
+  pool = v276PreferFinalDryEndFace(pool, prelim, topCities, posteriorMasses, truePoolSize);
+  pool = v211PreferLastChanceFinisher(pool, prelim, topCities, posteriorMasses, truePoolSize);
+  pool = v213PreferLongRouteFinisher(pool, prelim, topCities, posteriorMasses, truePoolSize);
+  pool = v216PreferClosingFace(pool, prelim, topCities, posteriorMasses, truePoolSize);
+  pool = v217PreferClosingFace(pool, prelim, topCities, posteriorMasses, truePoolSize);
+  pool = v218PreferClosingFace(pool, prelim, topCities, posteriorMasses, truePoolSize);
+  pool = v219PreferClosingFace(pool, prelim, topCities, posteriorMasses, truePoolSize);
+  pool = v220PreferClosingFace(pool, prelim, topCities, posteriorMasses, truePoolSize);
+  pool = v200PreferVividStrike(pool);
+  pool = v203PreferEarnedVividStrike(pool, prelim, topCities, posteriorMasses, truePoolSize);
+  // V175: まだ一度も鋭いYESが無い試合だけ、posterior上位へ自然に刺さる質問を限定救済。
+  pool = v175RescueSurprise(pool, prelim, topCities, posteriorMasses, truePoolSize);
+  // V190: 有名度ではなく固有球の厚みに応じ、rich/standardだけ一段強いストライクへ昇格。
+  pool = v190PreferProfileStrike(pool, prelim, topCities, posteriorMasses, truePoolSize);
+  // V176: V175でも無風のまま終盤へ入った試合だけ、さらに狭い条件で一度救済。
+  pool = v176EndgameSurpriseInsurance(pool, prelim, topCities, posteriorMasses, truePoolSize);
+  // V177: 全国レア度だけでは拾えなかった「候補内では鋭い」質問を最後に救済。
+  pool = v177LocalSurpriseRescue(pool, prelim, topCities, posteriorMasses, truePoolSize);
+  pool = v178PreferZeroWindFinisher(pool, topCities, posteriorMasses, truePoolSize);
   const picked = shuffle(pool)[0];
+  v184Trace('entropy_pick', {
+    truePoolSize,
+    topHypotheses: topCities.slice(0,12).map((c,i)=>({pref:c.pref,name:c.name,mass:posteriorMasses[i]||0})),
+    prelimTop: prelim.slice(0,60).map(x=>({key:x.k,diff:x.diff})),
+    scoredTop: scored.slice(0,30).map(x=>({key:x.k,selectionScore:x.selectionScore,informationGain:x.informationGain,minimax:x.minimax})),
+    finalPool: pool.slice(),
+    picked,
+    surpriseAlreadyHit: v175HasSurpriseYes(),
+    recentSpecificMiss: v170RecentSpecificMiss()
+  });
+  const v169PickedStrikeScore = v169SurpriseStrikeScore(picked, topCities, posteriorMasses, truePoolSize);
+  const v169StrikeThreshold = truePoolSize <= 8 ? 0.72 : (truePoolSize <= 25 ? 0.76 : 0.80);
+  if(questionPhase !== 'extra' && questionCount >= 3 && truePoolSize <= 90 && v169PickedStrikeScore >= v169StrikeThreshold
+      && (v169SurpriseStrikeCount === 0 || (v169SurpriseStrikeCount === 1 && truePoolSize <= 8))){
+    v169SurpriseStrikeCount++;
+  }
+  if(!v164DiscoveryMomentUsed && questionPhase !== 'extra' && questionCount >= 3 && questionCount <= 7
+      && truePoolSize >= 12 && truePoolSize <= 350 && V154_FUN_CATEGORIES.has(categoryOf(picked))){
+    v164DiscoveryMomentUsed = true;
+  }
   lastPickWasOneCity = decisiveSet.has(picked); // 次回の「連続させない」判定に使う
 
   // デバッグパネル用: 質問選択時の評価上位候補を記録しておく(ゲームロジックには影響しない)
   lastPickDiagnostics = {
     truePoolSize,
     evalSampleSize: topCities.length,
-    topScored: scored.slice().sort((a,b)=>a.minimax-b.minimax).slice(0,8).map(s => ({ key: s.k, label: labelFor(s.k), score: s.minimax })),
+    topScored: scored.slice().sort((a,b)=>a.selectionScore-b.selectionScore).slice(0,8).map(s => ({ key: s.k, label: labelFor(s.k), score: s.selectionScore, minimax: s.minimax, expectedRemaining: s.expectedRemaining, informationGain: s.informationGain, funBonus: s.funBonus })),
     picked,
   };
 
@@ -7144,20 +10373,23 @@ function syncNativeShellFromNavState(state){
   if(!isNativeAppRuntime()) return;
   const screen = state && state.oramachiScreen;
   const recordScreens = new Set([
-    'nativeRecordHub', 'conquestLog', 'conquestMap', 'dailyChallengeHistory',
+    'nativeRecordHub', 'nativeConquestOverview', 'conquestLog', 'conquestMap', 'dailyChallengeHistory',
     'prefectureCards', 'prefectureDetail', 'achievements', 'stats',
-    'nativePlayerRank', 'nativeRankHistory'
+    'nativePlayerRank', 'nativeRankHistory', 'nativeRatingLeaderboard', 'officialDailyLeaderboard'
   ]);
   let tab = 'home';
   let immersive = false;
   if(screen === 'game'){
     tab = 'play';
-    immersive = state.gamePhase === 'active';
+    // V56では確定仕様に従いプレイ中も下部ナビを表示する。旧判定式は回帰監査用に残す。
+    immersive = state.gamePhase === 'active' && false;
   }else if(screen === 'nativePlayHub' || screen === 'nativePrefecturePicker'){
     tab = 'play';
   }else if(recordScreens.has(screen)){
     tab = 'record';
-  }else if(screen === 'nativeSettings'){
+  }else if(screen === 'nativeNotice'){
+    tab = 'notice';
+  }else if(screen === 'nativeSettings' || screen === 'nativeAuth'){
     tab = 'settings';
   }
   const shell = window.oramachiNativeShell;
@@ -7344,9 +10576,9 @@ function activeGameFlowKind(){
 }
 function confirmLeaveActiveGame(kind){
   if(kind === 'challenge'){
-    return window.confirm('挑戦状を終了してトップ画面へ戻りますか？');
+    return window.confirm('挑戦状を終了して前の画面へ戻りますか？');
   }
-  return window.confirm('トップ画面へ戻りますか？\n途中のゲームは保存され、「続きから」で再開できます。');
+  return window.confirm('前の画面へ戻りますか？\n途中のゲームは保存され、「続きから」で再開できます。');
 }
 function normalizeHistoryNavState(state){
   const depth = navDepth(state);
@@ -7354,7 +10586,8 @@ function normalizeHistoryNavState(state){
   const known = new Set([
     'opening', 'conquestLog', 'conquestMap', 'dailyChallengeHistory',
     'prefectureCards', 'prefectureDetail', 'achievements', 'stats',
-    'nativePlayHub', 'nativePrefecturePicker', 'nativeRecordHub', 'nativePlayerRank', 'nativeRankHistory', 'nativeSettings'
+    'nativePlayHub', 'nativePrefecturePicker', 'nativeRecordHub', 'nativePlayerRank', 'nativeRankHistory', 'nativeRatingLeaderboard', 'nativeSettings', 'nativeAuth',
+    'nativeMultiplayerEntry', 'nativeMultiplayerLobby', 'nativeMatchmaking'
   ]);
   // ゲーム画面は質問ごとのDOMを履歴に保存していないため、forward等で古いgame entryへ
   // 移動した場合は安全なトップへ正規化する。
@@ -7376,23 +10609,33 @@ function renderNavStateFromHistory(state){
   else if(st.oramachiScreen === 'nativeRecordHub'){ renderNativeRecordHub(); }
   else if(st.oramachiScreen === 'nativePlayerRank'){ renderNativePlayerRank(); }
   else if(st.oramachiScreen === 'nativeRankHistory'){ renderNativeRankHistory(); }
+  else if(st.oramachiScreen === 'nativeRatingLeaderboard'){ renderNativeRatingLeaderboard(); }
   else if(st.oramachiScreen === 'nativeSettings'){ renderNativeSettingsPage(); }
+  else if(st.oramachiScreen === 'nativeAuth'){ renderNativeAuthPage(); }
+  else if(st.oramachiScreen === 'nativeMultiplayerEntry'){ renderNativeMultiplayerEntry(); }
+  else if(st.oramachiScreen === 'nativeMatchmaking'){ restoreNativeMatchmakingState(); }
+  else if(st.oramachiScreen === 'nativeMultiplayerLobby'){
+    if(nativeMultiplayerRoomId) refreshNativeMultiplayerLobby(false);
+    else renderNativeMultiplayerEntry();
+  }
   else if(st.oramachiScreen === 'conquestLog'){ renderConquestLog(); }
   else if(st.oramachiScreen === 'conquestMap'){ renderConquestMapView(); }
   else if(st.oramachiScreen === 'dailyChallengeHistory'){ renderDailyChallengeHistory(); }
+  else if(st.oramachiScreen === 'nativeConquestOverview'){ renderNativeConquestOverview(); }
   else if(st.oramachiScreen === 'prefectureCards'){ renderPrefectureCards(); }
   else if(st.oramachiScreen === 'prefectureDetail'){ renderPrefectureDetail(st.pref); }
   else if(st.oramachiScreen === 'achievements'){ renderAchievementsPage(); }
   else if(st.oramachiScreen === 'stats'){ renderStatsPage(); }
   else { renderOpening(); }
 }
-// ゲーム開始時に呼ぶ。「ここから戻ったらトップ画面」という目印だけを履歴に積む。
+// ゲーム開始時に呼ぶ。「ここから戻ったら直前の画面」という目印だけを履歴に積む。
 // 質問が進むたびに呼ぶ必要はない(質問ごとに履歴を積むと、既存の「前の質問へ戻る」ボタンと
 // 二重管理になってしまうため)。もう一度あそぶ等で連続してゲームを開始した場合は、
 // 履歴を無駄に積み増さないよう、既に'game'状態ならpushではなくreplaceにする。
 function pushGameNavState(kind){
   currentGameFlowKind = kind === 'challenge' ? 'challenge' : 'deduction';
   currentGameFlowPhase = 'active';
+  if(currentGameFlowKind === 'deduction') window.oramachiNormalGameStartedAt = Date.now();
   const extra = { gameKind: currentGameFlowKind, gamePhase: currentGameFlowPhase };
   const cur = currentHistoryNavState();
   if(cur && cur.oramachiScreen === 'game') replaceNavState('game', extra);
@@ -7461,7 +10704,7 @@ function handleBackRequest(options){
     }
     finishActiveGameForBack(activeKind);
     if(opts.historyAlreadyMoved) renderNavStateFromHistory(opts.targetState);
-    else navigateToOpening();
+    else navigateBackOr(renderOpening);
     return true;
   }
   if(opts.historyAlreadyMoved){
@@ -7472,7 +10715,7 @@ function handleBackRequest(options){
     try{ window.history.back(); return true; }
     catch(e){ /* 呼び出し元がアプリ終了等へフォールバックできるようfalseを返す */ }
   }
-  if(isNativeAppRuntime() && ['nativePlayHub', 'nativePrefecturePicker', 'nativeRecordHub', 'nativePlayerRank', 'nativeRankHistory', 'nativeSettings'].includes(currentNavState.oramachiScreen)){
+  if(isNativeAppRuntime() && ['nativePlayHub', 'nativePrefecturePicker', 'nativeRecordHub', 'nativePlayerRank', 'nativeRankHistory', 'nativeRatingLeaderboard', 'nativeSettings', 'nativeAuth'].includes(currentNavState.oramachiScreen)){
     renderOpening();
     return true;
   }
@@ -7512,25 +10755,11 @@ function nativeDifficultyStars(level){
 
 function syncNativePlayerRankHeader(rankSnapshot){
   if(!isNativeAppRuntime() || !Array.isArray(CITIES) || CITIES.length === 0) return null;
-  const brand = document.querySelector('.brand');
-  const logo = brand && brand.querySelector('.logo-wrap');
-  if(!brand) return null;
-  let button = document.getElementById('nativePlayerRankHeader');
-  if(!button){
-    button = document.createElement('button');
-    button.id = 'nativePlayerRankHeader';
-    button.type = 'button';
-    button.className = 'native-player-rank-header';
-    button.addEventListener('click', () => renderNativePlayerRank());
-    brand.insertBefore(button, logo || null);
-  }
+  // V50: 旧アルファベットランクの横長バナーは正式UIに存在しない。
+  // 古いDOMが残っていても確実に除去し、画面上部を第13回デザインへ統一する。
+  document.getElementById('nativePlayerRankHeader')?.remove();
+  document.getElementById('nativePlayerDisplayName')?.remove();
   const playerRank = rankSnapshot || calculateNativePlayerRank(loadConquest());
-  NATIVE_PLAYER_RANKS.forEach(rank => button.classList.remove(`native-player-rank-${rank.grade.toLowerCase()}`));
-  button.classList.add(`native-player-rank-${playerRank.grade.toLowerCase()}`);
-  button.setAttribute('aria-label', `プレイヤーランク ${playerRank.grade}、${playerRank.title}。詳しく見る`);
-  const artwork = NATIVE_PLAYER_RANK_ART[playerRank.grade] || NATIVE_PLAYER_RANK_ART.G;
-  button.style.backgroundImage = `url("${artwork}")`;
-  button.innerHTML = `<span class="native-player-rank-accessible">プレイヤーランク ${playerRank.grade} ${escapeHtml(playerRank.title)}</span>`;
   return playerRank;
 }
 
@@ -7544,7 +10773,10 @@ function renderNativeHomeContent(totalCount, resumeCardHtml){
   syncNativePlayerRankHeader(playerRank);
   const conqueredIds = new Set(Object.keys(conquest.entries || {}));
   const conqueredCount = CITIES.filter(c => c.name !== '東京' && conqueredIds.has(cityId(c))).length;
+  const homeProfile=currentSupabaseProfile||defaultNativeProfile();
   stage.innerHTML = `
+    <header class="oramachi-brand" aria-label="おらマチ まちをあてる地理ゲーム"><img src="oramachi-official-logo.png" alt="おらマチ まちをあてる地理ゲーム"></header>
+    <button class="native-home-profile" type="button" onclick="renderNativeAuthPage()">${nativeAvatarHtml(homeProfile,'native-home-avatar')}${isNativeRegisteredUser()?`<span class="v68-home-profile-line"><strong>${escapeHtml(currentNativeDisplayName())}</strong>${nativeRankBadge(homeProfile.current_rating)}<small>レート ${Number(homeProfile.current_rating||1500).toLocaleString('ja-JP')}</small></span>`:'<span><strong>ゲスト</strong><small>ログインすると戦績を保存できます</small></span>'}<b aria-hidden="true">›</b></button>
     <section class="native-home-status" aria-label="現在のプレイ記録">
       <div class="native-stat-card">
         <span class="native-stat-label">プレイ</span>
@@ -7582,6 +10814,8 @@ function renderNativeHomeContent(totalCount, resumeCardHtml){
     ${resumeCardHtml}
     ${renderDailyChallengeCardHtml()}
     <div class="native-primary-actions">
+      <button class="native-home-action native-home-action-ranked" onclick="renderNativeMultiplayerEntry()"><span class="native-home-action-icon" aria-hidden="true">⚔️</span><span class="native-home-action-copy"><strong>ランクマッチ</strong><small>全国のプレイヤーと自動マッチング</small></span><span class="native-home-action-arrow" aria-hidden="true">›</span></button>
+      <button class="native-home-action native-home-action-room" onclick="renderNativeMultiplayerEntry()"><span class="native-home-action-icon" aria-hidden="true">🔑</span><span class="native-home-action-copy"><strong>ルーム対戦</strong><small>友達・知り合いとルームコードで対戦</small></span><span class="native-home-action-arrow" aria-hidden="true">›</span></button>
       <button class="native-home-action native-home-action-solo" onclick="startMode('all')">
         <span class="native-home-action-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-5 0-9 2.5-9 5.5V22h18v-2.5C21 16.5 17 14 12 14Z"/></svg>
@@ -7593,33 +10827,607 @@ function renderNativeHomeContent(totalCount, resumeCardHtml){
         <span class="native-home-action-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24"><path d="M7.3 7h9.4c2.2 0 3.7 1.4 4.2 3.6l1 4.5c.5 2.3-.4 3.9-2.1 3.9-1.1 0-1.8-.6-2.9-2l-.8-1H7.9l-.8 1c-1.1 1.4-1.8 2-2.9 2-1.7 0-2.6-1.6-2.1-3.9l1-4.5C3.6 8.4 5.1 7 7.3 7Zm.2 3.1H6v1.5H4.5v1.5H6v1.5h1.5v-1.5H9v-1.5H7.5v-1.5Zm8.6.7a1.1 1.1 0 1 0 0 2.2 1.1 1.1 0 0 0 0-2.2Zm2.6 2.4a1.1 1.1 0 1 0 0 2.2 1.1 1.1 0 0 0 0-2.2Z"/></svg>
         </span>
-        <span class="native-home-action-copy"><strong>遊び方を選ぶ</strong><small>入門編・地域版・挑戦状</small></span>
+        <span class="native-home-action-copy"><strong>地方版・ほかの遊び方</strong><small>入門編・地域版・挑戦状</small></span>
         <span class="native-home-action-arrow" aria-hidden="true">›</span>
       </button>
     </div>
+    ${renderHomeEnhancementHtml()}
     <section class="native-home-upcoming" aria-label="これから追加する機能">
       <div class="native-section-heading native-home-upcoming-heading">
         <div><span class="native-section-eyebrow">次のアップデート</span><h2>もっと楽しむ</h2></div>
       </div>
       <div class="native-upcoming-grid">
-        <button class="native-upcoming-card native-upcoming-card-multi" type="button" disabled aria-disabled="true">
+        <button class="native-upcoming-card native-upcoming-card-multi is-available" type="button" onclick="renderNativeMultiplayerEntry()">
           <span class="native-upcoming-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M8.5 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm7 0a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm-7 2C4.4 13 1 15 1 17.5V20h11.8v-2.5c0-1.4.6-2.6 1.7-3.6A12.2 12.2 0 0 0 8.5 13Zm7 0c-.4 0-.8 0-1.2.1 1.6 1.2 2.5 2.7 2.5 4.4V20H23v-2.5c0-2.5-3.4-4.5-7.5-4.5Z"/></svg>
           </span>
-          <span class="native-upcoming-copy"><strong>みんなで遊ぶ</strong><small>最大8人・全国版<br>離れた人と通信対戦</small></span>
-          <em><span>準備中</span><b aria-hidden="true">›</b></em>
+          <span class="native-upcoming-copy"><strong>オンライン対戦</strong><small>2〜6人・全国版<br>離れた人と通信対戦</small></span>
+          <em><span>遊ぶ</span><b aria-hidden="true">›</b></em>
         </button>
-        <button class="native-upcoming-card native-upcoming-card-login" type="button" disabled aria-disabled="true">
+        <button class="native-upcoming-card native-upcoming-card-login is-available" type="button" onclick="renderNativeAuthPage()">
           <span class="native-upcoming-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-5 0-9 2.5-9 5.5V22h18v-2.5C21 16.5 17 14 12 14Z"/></svg>
           </span>
-          <span class="native-upcoming-copy"><strong>ログイン・会員登録</strong><small>戦績の保存と引き継ぎ<br>ゲストでも遊べます</small></span>
-          <em><span>準備中</span><b aria-hidden="true">›</b></em>
+          <span class="native-upcoming-copy"><strong>${isNativeRegisteredUser() ? escapeHtml(currentNativeDisplayName()) : 'ログイン・会員登録'}</strong><small>${isNativeRegisteredUser() ? 'アカウントとクラウド記録' : '戦績の保存と引き継ぎ<br>ゲストでも遊べます'}</small></span>
+          <em><span>${isNativeRegisteredUser() ? '確認' : '無料'}</span><b aria-hidden="true">›</b></em>
         </button>
       </div>
     </section>
   `;
   requestAnimationFrame(startOpeningMascotAnimation);
+  loadNativeHomeDashboard(false);
+}
+
+function renderNativeConquestOverview(){
+  pushNavState('nativeConquestOverview');const conquest=loadConquest();const ids=new Set(Object.keys(conquest.entries||{}));const all=playableMunicipalities();const total=all.length;
+  const rows=ORAMACHI_REGIONS.map(([name,prefs])=>{const cities=all.filter(c=>prefs.includes(c.pref));const done=cities.filter(c=>ids.has(cityId(c))).length;return `<li><span><strong>${name}</strong><small>${done.toLocaleString('ja-JP')} / ${cities.length.toLocaleString('ja-JP')}</small></span><div><i style="width:${cities.length?done/cities.length*100:0}%"></i></div></li>`;}).join('');const cleared=all.filter(c=>ids.has(cityId(c))).length;const percent=total?cleared/total*100:0;
+  stage.innerHTML=`<main class="native-conquest-overview"><header class="native-play-heading"><button class="native-play-back" type="button" onclick="handleBackRequest({historyAlreadyMoved:false})" aria-label="戻る">‹</button><div class="native-play-heading-copy"><h1>全国制覇</h1><p>7地方区分ごとの進捗</p></div></header><section class="native-conquest-summary"><strong>${cleared.toLocaleString('ja-JP')} <small>/ ${total.toLocaleString('ja-JP')}</small></strong><p>全国制覇率 ${percent.toFixed(1)}%</p><div><i style="width:${percent}%"></i></div></section><ol class="native-region-progress">${rows}</ol></main>`;scrollToPageTop();
+}
+
+function nativeMultiplayerErrorMessage(error){
+  const message = String(error && error.message || error || '');
+  if(message.includes('authentication_required')) return 'オンライン対戦にはログインが必要です。';
+  if(message.includes('registered_user_required')) return '部屋を作るにはログインが必要です。';
+  if(message.includes('ranked_login_required')) return 'ランクマッチを遊ぶにはログインが必要です';
+  if(message.includes('invalid_player_count')) return 'ランクマッチは2〜4人から選んでください。';
+  if(message.includes('already_in_ranked_match')) return 'すでにランクマッチへ参加しています。';
+  if(message.includes('invalid_max_players')) return '参加人数は2〜6人から選んでください。';
+  if(message.includes('room_not_found')) return '存在しないルームコードです。';
+  if(message.includes('room_full')) return 'この部屋は満員です。';
+  if(message.includes('room_already_started')) return 'この試合はすでに開始されています。次の試合から参加できます。';
+  if(message.includes('room_finished')) return 'この部屋はすでに終了しています。';
+  if(message.includes('invalid_guest_name')) return 'ゲスト名は1〜12文字で入力してください。';
+  if(message.includes('invalid_question_scope')) return '出題範囲を選び直してください。';
+  if(message.includes('invalid_total_rounds')) return 'ラウンド数は3・5・10から選んでください。';
+  if(message.includes('reveal_not_available')) return '正解を見る投票は20問到達後に利用できます。';
+  if(message.includes('not_enough_players')) return '2人以上集まると開始できます。';
+  if(message.includes('not_a_room_member')) return 'この部屋には参加していません。';
+  if(message.includes('host_only')) return '対戦を開始できるのはホストだけです。';
+  if(message.includes('question_already_selected')) return '他のプレイヤーの操作が先に選ばれました。';
+  if(message.includes('question_limit_reached')) return '質問は20問までです。ここからは回答してください。';
+  if(message.includes('shuffle_limit_reached')) return '質問のシャッフルは3回までです。';
+  if(message.includes('answer_penalty_active')) return '回答禁止時間がまだ残っています。';
+  if(message.includes('round_finished')) return 'すでに正解者が決まりました。';
+  if(message.includes('multiplayer_seed_missing')) return '対戦データの準備が完了していません。';
+  return '通信に失敗しました。少し待ってからもう一度お試しください。';
+}
+
+function stopNativeMultiplayerRealtime(){
+  if(nativeMultiplayerAdvanceTimer){ clearTimeout(nativeMultiplayerAdvanceTimer); nativeMultiplayerAdvanceTimer=null; }
+  if(nativeMultiplayerPenaltyTimer){
+    clearInterval(nativeMultiplayerPenaltyTimer);
+    nativeMultiplayerPenaltyTimer = null;
+  }
+  if(nativeMultiplayerRefreshTimer){
+    clearInterval(nativeMultiplayerRefreshTimer);
+    nativeMultiplayerRefreshTimer = null;
+  }
+  const client = getOramachiSupabase();
+  if(client && nativeMultiplayerChannel){
+    client.removeChannel(nativeMultiplayerChannel);
+  }
+  nativeMultiplayerChannel = null;
+}
+
+function stopNativeMatchmaking(){
+  if(nativeMatchmakingTimer){ clearInterval(nativeMatchmakingTimer); nativeMatchmakingTimer=null; }
+  const client=getOramachiSupabase();if(client&&nativeMatchmakingChannel)client.removeChannel(nativeMatchmakingChannel);nativeMatchmakingChannel=null;
+}
+
+async function subscribeNativeMultiplayerRoom(roomId){
+  stopNativeMultiplayerRealtime();
+  const client = getOramachiSupabase();
+  if(!client || !currentSupabaseUser || !roomId) return;
+  try{
+    await client.realtime.setAuth();
+    nativeMultiplayerChannel = client
+      .channel(`oramachi-room:${roomId}`, { config:{ private:true } })
+      .on('broadcast', { event:'*' }, () => refreshNativeMultiplayerLobby(true))
+      .subscribe();
+  }catch(error){
+    console.warn('おらマチ: 対戦部屋のリアルタイム接続に失敗しました。', error);
+  }
+  // WebSocketが一時的に切れても人数表示が戻るよう、低頻度の再確認も行う。
+  nativeMultiplayerRefreshTimer = setInterval(async () => {
+    if(nativeMultiplayerRoomId !== roomId || document.visibilityState === 'hidden') return;
+    const {data,error}=await client.rpc('heartbeat_multiplayer_room',{p_room_id:roomId});
+    if(!error&&data&&nativeMultiplayerRoomId===roomId) renderNativeMultiplayerLobby(data);
+  }, 10000);
+}
+
+function renderNativeMultiplayerEntry(message, isError){
+  if(!isNativeAppRuntime()) return renderOpening();
+  stopOpeningMascotAnimation();
+  const abandonedQueue=nativeMatchmakingQueueId;
+  if(abandonedQueue){const client=getOramachiSupabase();nativeMatchmakingQueueId=null;if(client)client.rpc('cancel_ranked_matchmaking',{p_queue_id:abandonedQueue});}
+  stopNativeMultiplayerRealtime();
+  stopNativeMatchmaking();
+  activeGameTransientScreen = null;
+  currentGameFlowKind = null;
+  currentGameFlowPhase = null;
+  replaceNavState('nativeMultiplayerEntry');
+  const registered = isNativeRegisteredUser();
+  const loginNotice = registered ? '' : `
+    <section class="native-multiplayer-notice">
+      <strong>部屋の作成にはログインが必要です</strong>
+      <p>参加だけなら、登録なしのゲストでも遊べます。</p>
+      <button class="link-btn" type="button" onclick="renderNativeAuthPage()">ログイン・会員登録へ</button>
+    </section>`;
+  stage.innerHTML = `
+    <header class="native-play-heading native-multiplayer-heading native-multiplayer-entry-heading">
+      <button class="native-play-back" type="button" onclick="navigateBackOr(renderNativePlayHub)" aria-label="遊び方を選ぶ画面へ戻る">‹</button>
+      <div class="native-play-heading-copy">
+        <span>ランクマッチ・ルーム対戦</span>
+        <h1>オンライン対戦</h1>
+        <p>自動で相手を探すか、友人とルームコードで遊ぼう。</p>
+      </div>
+      <div class="native-play-heading-mascot" aria-hidden="true">${mascotSVG('happy')}</div>
+    </header>
+    ${loginNotice}
+    <p id="nativeMultiplayerStatus" class="native-multiplayer-status${isError ? ' is-error' : ''}" ${message ? '' : 'hidden'}>${escapeHtml(message || '')}</p>
+    <section class="native-matchmaking-card">
+      <span class="native-multiplayer-action-icon" aria-hidden="true">⚔️</span>
+      <div><h2>ランクマッチ</h2><p>希望条件が同じプレイヤーを自動で探します。</p></div>
+      <label for="nativeRankedScope">出題範囲</label>
+      <select id="nativeRankedScope" ${registered?'':'disabled'}><option value="city_ward" selected>市区のみ</option><option value="all">全市区町村</option></select>
+      <label for="nativeRankedRounds">ラウンド数</label>
+      <select id="nativeRankedRounds" ${registered?'':'disabled'}>${[3,5,10].map(n=>`<option value="${n}"${n===5?' selected':''}>${n}ラウンド</option>`).join('')}</select>
+      <label for="nativeRankedPlayers">対戦人数</label>
+      <select id="nativeRankedPlayers" ${registered?'':'disabled'}>${[2,3,4].map(n=>`<option value="${n}">${n}人</option>`).join('')}</select>
+      <button class="primary-btn native-ranked-search-button" type="button" onclick="startNativeRankedMatchmaking()">対戦相手を探す</button>
+      ${registered?'':'<small>ランクマッチを遊ぶにはログインが必要です</small>'}
+    </section>
+    <h2 class="native-multiplayer-section-heading">ルーム対戦</h2>
+    <p class="native-multiplayer-section-copy">友人などとルームコードを使って遊びます。</p>
+    <section class="native-multiplayer-action-card">
+      <span class="native-multiplayer-action-icon" aria-hidden="true">🏠</span>
+      <div><h2>部屋を作る</h2><p>主催者が参加人数を決めます。</p></div>
+      <label for="nativeMultiplayerMaxPlayers">参加人数</label>
+      <select id="nativeMultiplayerMaxPlayers" ${registered ? '' : 'disabled'}>
+        ${[2,3,4,5,6].map(value => `<option value="${value}"${value === 2 ? ' selected' : ''}>${value}人</option>`).join('')}
+      </select>
+      <label for="nativeMultiplayerScope">出題範囲</label>
+      <select id="nativeMultiplayerScope" ${registered ? '' : 'disabled'}><option value="city_ward" selected>市区モード【おすすめ】</option><option value="all">全市区町村モード【上級】</option></select>
+      <label for="nativeMultiplayerRounds">ラウンド数</label>
+      <select id="nativeMultiplayerRounds" ${registered ? '' : 'disabled'}><option value="3">3ラウンド</option><option value="5" selected>5ラウンド</option><option value="10">10ラウンド</option></select>
+      <button class="primary-btn" type="button" onclick="createNativeMultiplayerRoom()" ${registered ? '' : 'disabled'}>部屋を作る</button>
+    </section>
+    <section class="native-multiplayer-action-card">
+      <span class="native-multiplayer-action-icon" aria-hidden="true">🔑</span>
+      <div><h2>部屋に参加する</h2><p>ホストから届いた6桁を入力します。</p></div>
+      <label for="nativeMultiplayerRoomCode">6桁のルームコード</label>
+      <input id="nativeMultiplayerRoomCode" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="123456">
+      ${registered ? '' : '<label for="nativeMultiplayerGuestName">今回使用する名前（1〜12文字）</label><input id="nativeMultiplayerGuestName" type="text" maxlength="12" autocomplete="nickname" placeholder="ゲスト名">'}
+      <button class="primary-btn secondary" type="button" onclick="joinNativeMultiplayerRoom()">部屋に入る</button>
+    </section>
+  `;
+  footEl.textContent = 'オンライン対戦は2〜6人に対応';
+  scrollToPageTop();
+}
+
+function nativeMatchmakingConditionsFromForm(){
+  return {question_scope:document.getElementById('nativeRankedScope')?.value||'city_ward',total_rounds:Number(document.getElementById('nativeRankedRounds')?.value||5),player_count:Number(document.getElementById('nativeRankedPlayers')?.value||2)};
+}
+
+async function startNativeRankedMatchmaking(conditions){
+  const client=getOramachiSupabase();
+  if(!client||!isNativeRegisteredUser())return renderNativeMultiplayerEntry('ランクマッチを遊ぶにはログインが必要です',true);
+  const selected=conditions||nativeMatchmakingConditionsFromForm();nativeLastRankedConditions=selected;
+  setNativeMultiplayerStatus('マッチング待機列に参加しています…',false);
+  const {data,error}=await client.rpc('start_ranked_matchmaking',{p_question_scope:selected.question_scope,p_total_rounds:selected.total_rounds,p_player_count:selected.player_count});
+  if(error)return setNativeMultiplayerStatus(nativeMultiplayerErrorMessage(error),true);
+  handleNativeMatchmakingState(data,selected);
+}
+
+function renderNativeMatchmakingWaiting(state,conditions){
+  stopNativeMultiplayerRealtime();stopNativeMatchmaking();replaceNavState('nativeMatchmaking');
+  nativeMatchmakingQueueId=state.queue_id;nativeMatchmakingStartedAt=Date.parse(state.created_at)||Date.now();nativeLastRankedConditions=conditions||state;
+  const rating=Number(state.rating??currentSupabaseProfile?.current_rating??1500);
+  stage.innerHTML=`<header class="native-play-heading native-multiplayer-heading"><button class="native-play-back" type="button" onclick="cancelNativeRankedMatchmaking()" aria-label="マッチングをキャンセル">‹</button><div class="native-play-heading-copy"><span>ランクマッチ</span><h1>対戦相手を探しています…</h1><p>条件が同じプレイヤーを待っています。</p></div><div class="native-play-heading-mascot" aria-hidden="true">${mascotSVG('think')}</div></header><section class="native-matchmaking-wait-card"><div class="native-matchmaking-pulse" aria-hidden="true">⚔️</div><dl><div><dt>出題範囲</dt><dd>${nativeMultiplayerScopeLabel(state.question_scope)}</dd></div><div><dt>ラウンド数</dt><dd>${state.total_rounds}ラウンド</dd></div><div><dt>対戦人数</dt><dd>${state.player_count}人対戦</dd></div><div><dt>現在レート</dt><dd>${rating.toLocaleString('ja-JP')}</dd></div><div><dt>現在ランク</dt><dd>${nativeRankBadge(rating)}</dd></div><div><dt>待機時間</dt><dd id="nativeMatchmakingElapsed">00:00</dd></div></dl><p id="nativeMatchmakingStatus" aria-live="polite">実力の近い相手を探しています…</p><button class="native-matchmaking-cancel" type="button" onclick="cancelNativeRankedMatchmaking()">マッチングをキャンセル</button></section>`;
+  const poll=async()=>{if(!nativeMatchmakingQueueId)return;const elapsed=Math.max(0,Math.floor((Date.now()-nativeMatchmakingStartedAt)/1000));const label=document.getElementById('nativeMatchmakingElapsed');if(label)label.textContent=`${String(Math.floor(elapsed/60)).padStart(2,'0')}:${String(elapsed%60).padStart(2,'0')}`;const status=document.getElementById('nativeMatchmakingStatus');if(status)status.textContent=elapsed>=15?'対戦相手の検索範囲を広げています…':'実力の近い相手を探しています…';const {data,error}=await client.rpc('heartbeat_ranked_matchmaking',{p_queue_id:nativeMatchmakingQueueId});if(!error&&data)handleNativeMatchmakingState(data,nativeLastRankedConditions);};
+  nativeMatchmakingTimer=setInterval(poll,3000);footEl.textContent='ランクマッチ検索中';scrollToPageTop();
+  try{client.realtime.setAuth();nativeMatchmakingChannel=client.channel(`oramachi-matchmaking:${currentSupabaseUser.id}`,{config:{private:true}}).on('broadcast',{event:'*'},poll).subscribe();}catch(error){console.warn('おらマチ: マッチングのリアルタイム接続に失敗しました。',error);}
+}
+
+function renderNativeMatchmakingFound(state){
+  stopNativeMatchmaking();nativeMatchmakingQueueId=null;nativeMultiplayerIsRanked=true;nativeMultiplayerRoomId=state.room_id;replaceNavState('nativeMatchmaking');
+  stage.innerHTML=`<section class="native-matchmaking-found is-celebration"><span class="native-found-kicker">MATCH FOUND!</span><h1>対戦相手が見つかりました！</h1><ol>${(state.members||[]).map((m,index)=>`<li>${nativeAvatarHtml(m,'native-match-avatar')}<span><strong>${escapeHtml(m.display_name||'プレイヤー')}</strong><small>${nativeRankBadge(m.current_rating)} レート ${Number(m.current_rating||1500).toLocaleString('ja-JP')}</small></span>${index<(state.members||[]).length-1?'<b class="native-vs">VS</b>':''}</li>`).join('')}</ol><p>まもなく対戦を開始します…</p></section>`;
+  setTimeout(async()=>{if(nativeMultiplayerRoomId!==state.room_id)return;await subscribeNativeMultiplayerRoom(state.room_id);await refreshNativeMultiplayerLobby(false);},1800);
+}
+
+function handleNativeMatchmakingState(state,conditions){
+  if(!state||state.status==='none'||state.status==='cancelled'||state.status==='expired')return renderNativeMultiplayerEntry(state?.status==='expired'?'待機状態が時間切れになりました。もう一度お試しください。':'',Boolean(state?.status==='expired'));
+  nativeLastRankedConditions=conditions||{question_scope:state.question_scope,total_rounds:Number(state.total_rounds),player_count:Number(state.player_count)};
+  if(state.status==='matched'&&state.room_id)return renderNativeMatchmakingFound(state);
+  if(state.status==='waiting')return renderNativeMatchmakingWaiting({...state,...(conditions||{})},conditions||state);
+}
+
+async function restoreNativeMatchmakingState(){
+  const client=getOramachiSupabase();if(!client||!isNativeRegisteredUser())return renderNativeMultiplayerEntry();
+  const {data,error}=await client.rpc('get_ranked_matchmaking_state');if(error||!data)return renderNativeMultiplayerEntry(nativeMultiplayerErrorMessage(error),Boolean(error));handleNativeMatchmakingState(data,data);
+}
+
+async function cancelNativeRankedMatchmaking(){
+  const client=getOramachiSupabase();const queueId=nativeMatchmakingQueueId;stopNativeMatchmaking();nativeMatchmakingQueueId=null;
+  if(client&&queueId)await client.rpc('cancel_ranked_matchmaking',{p_queue_id:queueId});renderNativeMultiplayerEntry('マッチングをキャンセルしました。',false);
+}
+
+function setNativeMultiplayerStatus(message, isError){
+  const target = document.getElementById('nativeMultiplayerStatus');
+  if(!target) return;
+  target.textContent = message || '';
+  target.hidden = !message;
+  target.classList.toggle('is-error', Boolean(isError));
+}
+
+async function createNativeMultiplayerRoom(){
+  const client = getOramachiSupabase();
+  if(!client || !isNativeRegisteredUser()) return renderNativeMultiplayerEntry('部屋を作るにはログインが必要です。', true);
+  const select = document.getElementById('nativeMultiplayerMaxPlayers');
+  const maxPlayers = Number(select && select.value);
+  const questionScope = document.getElementById('nativeMultiplayerScope')?.value || 'city_ward';
+  const totalRounds = Number(document.getElementById('nativeMultiplayerRounds')?.value || 5);
+  setNativeMultiplayerStatus('部屋を作っています…', false);
+  const { data, error } = await client.rpc('create_multiplayer_room', { p_max_players:maxPlayers, p_question_scope:questionScope, p_total_rounds:totalRounds });
+  if(error) return setNativeMultiplayerStatus(nativeMultiplayerErrorMessage(error), true);
+  nativeMultiplayerRoomId = data && data.room_id;
+  if(!nativeMultiplayerRoomId) return setNativeMultiplayerStatus('部屋を作れませんでした。', true);
+  await subscribeNativeMultiplayerRoom(nativeMultiplayerRoomId);
+  await refreshNativeMultiplayerLobby(false);
+}
+
+async function joinNativeMultiplayerRoom(){
+  const client = getOramachiSupabase();
+  if(!client) return renderNativeMultiplayerEntry('通信機能を読み込めませんでした。', true);
+  const input = document.getElementById('nativeMultiplayerRoomCode');
+  const roomCode = String(input && input.value || '').replace(/[^0-9]/g, '').slice(0, 6);
+  if(roomCode.length !== 6) return setNativeMultiplayerStatus('6桁の合言葉を入力してください。', true);
+  let guestName = null;
+  if(!isNativeRegisteredUser()){
+    guestName = normalizeNativeDisplayName(document.getElementById('nativeMultiplayerGuestName')?.value);
+    const guestNameLength = nativeDisplayNameLength(guestName);
+    if(guestNameLength < 1 || guestNameLength > 12) return setNativeMultiplayerStatus('ゲスト名は1〜12文字で入力してください。', true);
+    if(!currentSupabaseUser){
+      setNativeMultiplayerStatus('ゲストとして接続しています…', false);
+      const { data:authData, error:authError } = await client.auth.signInAnonymously();
+      if(authError || !authData.user) return setNativeMultiplayerStatus('ゲスト接続に失敗しました。匿名ログイン設定を確認してください。', true);
+      currentSupabaseUser = authData.user;
+      nativeMultiplayerIsGuest = true;
+    }
+  }
+  setNativeMultiplayerStatus('部屋を探しています…', false);
+  const { data, error } = await client.rpc('join_multiplayer_room', { p_room_code:roomCode, p_guest_name:guestName });
+  if(error) return setNativeMultiplayerStatus(nativeMultiplayerErrorMessage(error), true);
+  nativeMultiplayerRoomId = data && data.room_id;
+  if(!nativeMultiplayerRoomId) return setNativeMultiplayerStatus('部屋に参加できませんでした。', true);
+  await subscribeNativeMultiplayerRoom(nativeMultiplayerRoomId);
+  await refreshNativeMultiplayerLobby(false);
+}
+
+async function refreshNativeMultiplayerLobby(silent){
+  const client = getOramachiSupabase();
+  const roomId = nativeMultiplayerRoomId;
+  if(!client || !currentSupabaseUser || !roomId) return;
+  const { data, error } = await client.rpc('get_multiplayer_game', { p_room_id:roomId });
+  if(error){
+    const message = nativeMultiplayerErrorMessage(error);
+    if(message === 'この部屋には参加していません。' || message === '存在しないルームコードです。'){
+      stopNativeMultiplayerRealtime();
+      nativeMultiplayerRoomId = null;
+      renderNativeMultiplayerEntry('ホストが退出したため、部屋が終了しました。', true);
+    }else if(!silent) renderNativeMultiplayerEntry(message, true);
+    return;
+  }
+  if(nativeMultiplayerRoomId !== roomId) return;
+  renderNativeMultiplayerLobby(data);
+}
+
+function nativeMultiplayerModeLabel(mode){
+  if(mode === 'host_quiz') return 'マチを選んで当ててもらう';
+  if(mode === 'quick_buzzer') return '同じ問題で早押し対戦';
+  return '未選択';
+}
+
+function nativeMultiplayerScopeLabel(scope){ return scope === 'all' ? '全市区町村モード【上級】' : '市区モード【おすすめ】'; }
+
+function renderNativeMultiplayerLobby(room){
+  if(!room || !Array.isArray(room.members)) return;
+  nativeMultiplayerGameState=room;
+  nativeMultiplayerIsRanked=room.match_type==='ranked'||nativeMultiplayerIsRanked;
+  replaceNavState('nativeMultiplayerLobby');
+  const isHost = currentSupabaseUser && room.host_id === currentSupabaseUser.id;
+  const memberCount = room.members.length;
+  const isFull = memberCount >= room.max_players;
+  if(room.status === 'finished'){
+    return renderNativeMultiplayerFinal(room);
+  }
+  if(room.status === 'playing') return renderNativeMultiplayerStarted(room);
+  if(nativeMultiplayerIsRanked&&room.status==='waiting')return;
+  stage.innerHTML = `
+    <header class="native-play-heading native-multiplayer-heading">
+      <button class="native-play-back" type="button" onclick="leaveNativeMultiplayerRoom()" aria-label="部屋を退出する">‹</button>
+      <div class="native-play-heading-copy">
+        <span>${isHost ? 'あなたが主催者です' : '参加しました'}</span>
+        <h1>対戦ロビー</h1>
+        <p>${isFull ? '全員そろいました！' : `あと${room.max_players - memberCount}人を待っています。`}</p>
+      </div>
+      <div class="native-play-heading-mascot" aria-hidden="true">${mascotSVG(isFull ? 'happy' : 'think')}</div>
+    </header>
+    <section class="native-room-code-card">
+      <span>ルームコード</span>
+      <strong>${escapeHtml(room.room_code)}</strong>
+      <button type="button" onclick="copyNativeMultiplayerCode('${escapeHtml(room.room_code)}')">コピー</button>
+      <small>この数字を一緒に遊ぶ人へ伝えてください</small>
+    </section>
+    <section class="native-room-settings"><h2>対戦設定</h2><p>${nativeMultiplayerScopeLabel(room.question_scope)}<br>${room.total_rounds}ラウンド<br>最大${room.max_players}人</p>${isHost ? `<label>出題範囲<select id="nativeLobbyScope" onchange="updateNativeMultiplayerSettings()"><option value="city_ward"${room.question_scope==='city_ward'?' selected':''}>市区モード【おすすめ】</option><option value="all"${room.question_scope==='all'?' selected':''}>全市区町村モード【上級】</option></select></label><label>ラウンド数<select id="nativeLobbyRounds" onchange="updateNativeMultiplayerSettings()">${[3,5,10].map(n=>`<option value="${n}"${room.total_rounds===n?' selected':''}>${n}ラウンド</option>`).join('')}</select></label>` : ''}</section>
+    <section class="native-room-members">
+      <div class="native-room-section-title"><h2>参加者</h2><strong>${memberCount} / ${room.max_players}人</strong></div>
+      <div class="native-room-capacity" aria-label="${room.max_players}人中${memberCount}人参加">
+        ${Array.from({length:room.max_players}, (_, index) => `<i class="${index < memberCount ? 'is-filled' : ''}"></i>`).join('')}
+      </div>
+      <ol>
+        ${room.members.map(member => `
+          <li class="native-player-link" role="button" tabindex="0" onclick="openNativePublicProfile('${escapeHtml(member.user_id)}',${member.is_guest ? 'true' : 'false'})">
+            <span aria-hidden="true">${member.is_host ? '👑' : escapeHtml(member.avatar_emoji || (member.is_guest ? '👤' : '🦝'))}</span>
+            <strong>${escapeHtml(member.display_name)}</strong>
+            ${member.is_host ? '<small>主催者</small>' : ''}
+            ${member.is_guest ? '<small>未ランク</small>' : `<small>レート ${Number(member.current_rating || 1500).toLocaleString('ja-JP')} ${nativeRankBadge(member.current_rating)}</small>`}
+            ${currentSupabaseUser && member.user_id === currentSupabaseUser.id ? '<em>あなた</em>' : ''}
+          </li>`).join('')}
+      </ol>
+    </section>
+    <button class="native-room-start-button${isHost && memberCount >= 2 ? ' is-ready' : ''}" type="button" onclick="startNativeMultiplayerRoom()" ${isHost && memberCount >= 2 ? '' : 'disabled'}>
+      ${!isHost ? 'ホストの開始を待っています' : memberCount < 2 ? '2人以上集まると開始できます' : '対戦をはじめる'}
+    </button>
+    <button class="native-room-leave-button" type="button" onclick="leaveNativeMultiplayerRoom()">${isHost ? '部屋を閉じる' : '部屋から退出する'}</button>
+  `;
+  footEl.textContent = `合言葉 ${room.room_code}・${memberCount}/${room.max_players}人`;
+  scrollToPageTop();
+}
+
+function renderNativeMultiplayerStarted(room){
+  const round = room && room.round;
+  if(!round) return;
+  nativeMultiplayerGameState = room;
+  replaceNavState('nativeMultiplayerLobby');
+  const finished = round.status === 'finished';
+  const penaltyMs = round.penalty_until ? Math.max(0, Date.parse(round.penalty_until) - Date.now()) : 0;
+  const answerOpen = Boolean(document.getElementById('nativeMultiplayerAnswerPanel'));
+  const scores = (room.rankings || room.members || []).map(m => `${escapeHtml(m.display_name)} ${m.score || 0}点`).join('｜');
+  stage.innerHTML = `
+    <header class="native-play-heading native-multiplayer-heading">
+      <div class="native-play-heading-copy"><span>ルーム ${escapeHtml(room.room_code)}</span><h1>${finished ? 'ラウンド結果' : '早押し対戦'}</h1><p>${finished ? '最初の正解者が決まりました！' : '全員で同じ市町村を推理しよう。'}</p></div>
+      <div class="native-play-heading-mascot" aria-hidden="true">${mascotSVG(finished ? 'happy' : 'think')}</div>
+    </header>
+    <section class="native-round-summary">
+      <strong>第${room.current_round} / ${room.total_rounds}ラウンド</strong>
+      <div class="native-score-strip">${scores}</div>
+      <strong>質問 ${round.question_count} / ${round.question_limit}</strong>
+      <span>参加者 ${room.members.length}人</span>
+      <div>${room.members.map(member => nativeAvatarHtml(member,'native-score-avatar')).join('')}</div>
+    </section>
+    ${finished ? renderNativeMultiplayerResultHtml(round, room) : `
+      <p id="nativeMultiplayerStatus" class="native-multiplayer-status" hidden></p>
+      <details class="native-question-history" ${round.history.length<4?'open':''}>
+        <summary>質問履歴（${round.history.length}件）</summary>
+        ${round.history.length ? `<ol>${round.history.map(item => `<li><b>${item.number}</b><span>${escapeHtml(item.text)}</span><strong class="is-${item.answer}">${item.answer === 'yes' ? 'はい' : 'いいえ'}</strong></li>`).join('')}</ol>` : '<p>まだ質問はありません。</p>'}
+      </details>
+      <section class="native-question-candidates">
+        <h2>質問を選ぶ</h2>
+        ${round.question_count >= round.question_limit ? `<p class="native-question-limit">20問使いました。回答または投票が可能です。</p><button class="native-reveal-vote" type="button" onclick="voteNativeMultiplayerReveal()">正解を見る ${round.reveal_votes || 0} / ${round.reveal_needed || 0}</button>` : `<div>${round.candidates.map(item => `<button type="button" onclick="askNativeMultiplayerQuestion('${item.key}', ${round.state_version})">${escapeHtml(item.text)}</button>`).join('')}</div>`}
+        <button class="native-question-shuffle" type="button" onclick="shuffleNativeMultiplayerQuestions(${round.state_version})" ${round.shuffle_remaining <= 0 || round.question_count >= round.question_limit ? 'disabled' : ''}>質問をシャッフル　残り${round.shuffle_remaining}回</button>
+      </section>
+      <button class="native-answer-buzzer" type="button" onclick="openNativeMultiplayerAnswer()" ${penaltyMs > 0 ? 'disabled' : ''}>答える！</button>
+      <p id="nativeAnswerPenalty" class="native-answer-penalty" ${penaltyMs > 0 ? '' : 'hidden'}></p>
+      <section id="nativeMultiplayerAnswerPanel" class="native-answer-panel" ${answerOpen ? '' : 'hidden'}>
+        <div><h2>市町村を検索</h2><button type="button" onclick="closeNativeMultiplayerAnswer()" aria-label="閉じる">×</button></div>
+        <input id="nativeMunicipalitySearch" type="search" placeholder="市町村名・都道府県名" oninput="searchNativeMultiplayerMunicipalities(this.value)">
+        <div id="nativeMunicipalityCandidates"></div>
+        <button id="nativeSubmitAnswer" class="primary-btn" type="button" onclick="submitNativeMultiplayerAnswer()" disabled>この市町村で回答</button>
+      </section>`}
+    <button class="native-room-leave-button" type="button" onclick="leaveNativeMultiplayerRoom()">オンライン対戦入口へ戻る</button>`;
+  footEl.textContent = finished ? '1ラウンド終了' : `質問 ${round.question_count}/${round.question_limit}・シャッフル残り${round.shuffle_remaining}回`;
+  if(penaltyMs > 0) startNativeMultiplayerPenaltyCountdown(round.penalty_until);
+  if(nativeMultiplayerAdvanceTimer){ clearTimeout(nativeMultiplayerAdvanceTimer); nativeMultiplayerAdvanceTimer=null; }
+  if(finished && round.next_round_at){
+    const serverNow=Date.parse(round.server_now || new Date().toISOString());
+    const delay=Math.max(0,Date.parse(round.next_round_at)-serverNow)+150;
+    nativeMultiplayerAdvanceTimer=setTimeout(()=>{ nativeMultiplayerAdvanceTimer=null; refreshNativeMultiplayerLobby(true); },delay);
+  }
+}
+
+function renderNativeMultiplayerResultHtml(round, room){
+  const answer = round.answer || {};
+  return `<section class="native-round-result">
+    <span>${round.winner_id ? '🎉' : '🏁'}</span><h2>${round.winner_id ? `${escapeHtml(round.winner_name || 'プレイヤー')} 正解！` : '正解者なし'}</h2>
+    <p>正解：<strong>${escapeHtml(answer.pref || '')}${escapeHtml(answer.name || '')}</strong></p>
+    <p>質問数：${round.question_count}問</p><h3>現在の順位</h3>${renderNativeRankings(room.rankings || [])}<p class="native-next-countdown" data-next-at="${escapeHtml(round.next_round_at || '')}">次の画面へ進みます…</p>
+  </section>`;
+}
+
+function renderNativeRankings(rankings){ return `<ol class="native-rankings">${rankings.map(x=>`<li>${x.place}位 ${escapeHtml(x.display_name)} <strong>${x.score}点</strong>${x.left_match?'（途中退出）':''}</li>`).join('')}</ol>`; }
+
+function renderNativeFinalRatingRows(room){
+  const ratings = Array.isArray(room.rating_results) ? room.rating_results : [];
+  const byUser = new Map(ratings.map(row => [String(row.user_id), row]));
+  return `<ol class="native-final-ratings">${(room.rankings || []).map(player => {
+    const rating = byUser.get(String(player.user_id));
+    const guest = player.is_guest || (rating && rating.is_guest);
+    const change = rating && Number(rating.rating_change);
+    const changeText = Number.isFinite(change) ? (change === 0 ? '±0' : `${change > 0 ? '+' : ''}${change}`) : '';
+    const beforeRank=rating?getRankFromRating(rating.rating_before):''; const afterRank=rating?getRankFromRating(rating.rating_after):'';
+    return `<li class="${player.place===1?'is-winner':''}"><span><b>${player.place}位</b>${nativeAvatarHtml(player,'native-result-avatar')}<strong>${escapeHtml(player.display_name)}${player.left_match?'（途中退出）':''}</strong></span>${guest ? '<small>レート対象外（ゲスト）</small>' : rating ? `<span class="native-rating-result"><em class="${change > 0 ? 'is-up' : change < 0 ? 'is-down' : ''}">${changeText}</em><small>Rating ${Number(rating.rating_before).toLocaleString('ja-JP')} → ${Number(rating.rating_after).toLocaleString('ja-JP')}</small>${beforeRank!==afterRank?`<b class="native-rank-change">${change>0?'RANK UP!':'ランク変動'} ${beforeRank} → ${afterRank}</b>`:nativeRankBadge(rating.rating_after)}</span>` : '<small>レーティングの保存に失敗しました</small>'}</li>`;
+  }).join('')}</ol>`;
+}
+
+function renderNativeMultiplayerFinal(room){
+  nativeMultiplayerGameState=room; nativeMultiplayerIsRanked=room.match_type==='ranked'||nativeMultiplayerIsRanked;replaceNavState('nativeMultiplayerLobby'); const isHost=currentSupabaseUser&&room.host_id===currentSupabaseUser.id;
+  const ownRating=(room.rating_results||[]).find(x=>currentSupabaseUser&&x.user_id===currentSupabaseUser.id&&x.rating_after!=null);
+  if(ownRating&&currentSupabaseProfile){ currentSupabaseProfile.current_rating=Number(ownRating.rating_after); currentSupabaseProfile.highest_rating=Math.max(Number(currentSupabaseProfile.highest_rating||1500),Number(ownRating.rating_after)); currentSupabaseProfile.rated_matches=Math.max(Number(currentSupabaseProfile.rated_matches||0),Number(ownRating.rated_matches||0)); }
+  stage.innerHTML=`<header class="native-play-heading"><div class="native-play-heading-copy"><span>${nativeMultiplayerScopeLabel(room.question_scope)}・${room.total_rounds}ラウンド</span><h1>ゲーム終了！</h1></div></header><section class="native-final-result">${room.ended_reason==='opponent_left'?'<p class="native-multiplayer-status is-error">途中退出を反映して試合を確定しました。</p>':''}<h2>最終順位</h2>${renderNativeFinalRatingRows(room)}<h2>試合結果</h2>${(room.results||[]).map(x=>`<article><strong>第${x.round_number}R　${escapeHtml(x.pref)} ${escapeHtml(x.name)}</strong><p>勝者：${escapeHtml(x.winner_name||'正解者なし')}／質問数：${x.question_count}</p></article>`).join('')||'<p>完了したラウンドはありません。</p>'}${nativeMultiplayerIsRanked?'<button class="primary-btn" onclick="findAnotherNativeRankedMatch()">もう一度ランクマッチを探す</button>':isHost&&room.ended_reason==='completed'?'<button class="primary-btn" onclick="rematchNativeMultiplayerRoom()">同じメンバーで再戦</button>':''}<button class="native-room-leave-button" onclick="leaveNativeMultiplayerRoom()">退出する</button></section>`;
+}
+
+async function findAnotherNativeRankedMatch(){
+  const previous=nativeLastRankedConditions||{question_scope:nativeMultiplayerGameState?.question_scope||'city_ward',total_rounds:Number(nativeMultiplayerGameState?.total_rounds||5),player_count:Number(nativeMultiplayerGameState?.max_players||2)};
+  const client=getOramachiSupabase(),roomId=nativeMultiplayerRoomId;stopNativeMultiplayerRealtime();nativeMultiplayerRoomId=null;nativeMultiplayerGameState=null;nativeMultiplayerIsRanked=false;
+  if(client&&roomId)await client.rpc('leave_multiplayer_room',{p_room_id:roomId});startNativeRankedMatchmaking(previous);
+}
+
+async function askNativeMultiplayerQuestion(questionKey, expectedVersion){
+  const client = getOramachiSupabase();
+  if(!client || !nativeMultiplayerRoomId) return;
+  setNativeMultiplayerStatus('質問を送っています…', false);
+  const { data, error } = await client.rpc('ask_multiplayer_question', {
+    p_room_id:nativeMultiplayerRoomId, p_question_key:questionKey, p_expected_version:expectedVersion,
+  });
+  if(error){ alert(nativeMultiplayerErrorMessage(error)); return refreshNativeMultiplayerLobby(true); }
+  nativeMultiplayerGameState.round = data;
+  renderNativeMultiplayerStarted(nativeMultiplayerGameState);
+}
+
+async function shuffleNativeMultiplayerQuestions(expectedVersion){
+  const client = getOramachiSupabase();
+  if(!client || !nativeMultiplayerRoomId) return;
+  setNativeMultiplayerStatus('質問を入れ替えています…', false);
+  const { data, error } = await client.rpc('shuffle_multiplayer_questions', {
+    p_room_id:nativeMultiplayerRoomId, p_expected_version:expectedVersion,
+  });
+  if(error){ alert(nativeMultiplayerErrorMessage(error)); return refreshNativeMultiplayerLobby(true); }
+  nativeMultiplayerGameState.round = data;
+  renderNativeMultiplayerStarted(nativeMultiplayerGameState);
+}
+
+function openNativeMultiplayerAnswer(){
+  const panel = document.getElementById('nativeMultiplayerAnswerPanel');
+  if(!panel) return;
+  nativeMultiplayerAnswerSelection = null;
+  panel.hidden = false;
+  const input = document.getElementById('nativeMunicipalitySearch');
+  if(input){ input.value = ''; input.focus(); }
+  searchNativeMultiplayerMunicipalities('');
+}
+
+function closeNativeMultiplayerAnswer(){
+  const panel = document.getElementById('nativeMultiplayerAnswerPanel');
+  if(panel) panel.hidden = true;
+  nativeMultiplayerAnswerSelection = null;
+}
+
+function nativeMultiplayerMunicipalityId(city){ return `${city.pref}|${city.name}`; }
+
+function searchNativeMultiplayerMunicipalities(value){
+  const target = document.getElementById('nativeMunicipalityCandidates');
+  if(!target) return;
+  const query = String(value || '').trim().toLocaleLowerCase('ja');
+  const matches = CITIES.filter(city => city.name !== '東京' && (!query || `${city.pref}${city.name}`.toLocaleLowerCase('ja').includes(query))).slice(0, 30);
+  target.innerHTML = matches.length ? matches.map(city => `<button type="button" data-municipality-id="${escapeHtml(nativeMultiplayerMunicipalityId(city))}" onclick="selectNativeMultiplayerMunicipality(this)"><strong>${escapeHtml(city.name)}</strong><small>${escapeHtml(city.pref)}</small></button>`).join('') : '<p>候補が見つかりません。</p>';
+}
+
+function selectNativeMultiplayerMunicipality(button){
+  document.querySelectorAll('#nativeMunicipalityCandidates button').forEach(item => item.classList.remove('is-selected'));
+  button.classList.add('is-selected');
+  nativeMultiplayerAnswerSelection = button.dataset.municipalityId || null;
+  const submit = document.getElementById('nativeSubmitAnswer');
+  if(submit) submit.disabled = !nativeMultiplayerAnswerSelection;
+}
+
+async function submitNativeMultiplayerAnswer(){
+  const client = getOramachiSupabase();
+  if(!client || !nativeMultiplayerRoomId || !nativeMultiplayerAnswerSelection) return;
+  const submit = document.getElementById('nativeSubmitAnswer');
+  if(submit) submit.disabled = true;
+  const { data, error } = await client.rpc('answer_multiplayer_round', {
+    p_room_id:nativeMultiplayerRoomId, p_municipality_id:nativeMultiplayerAnswerSelection,
+  });
+  if(error){ alert(nativeMultiplayerErrorMessage(error)); return refreshNativeMultiplayerLobby(true); }
+  closeNativeMultiplayerAnswer();
+  if(data && data.correct){
+    nativeMultiplayerGameState = data.game;
+    return renderNativeMultiplayerLobby(data.game);
+  }
+  alert('不正解！ 10秒間回答できません。\n質問には引き続き参加できます。');
+  nativeMultiplayerGameState = data.game;
+  renderNativeMultiplayerLobby(data.game);
+}
+
+function startNativeMultiplayerPenaltyCountdown(until){
+  if(nativeMultiplayerPenaltyTimer) clearInterval(nativeMultiplayerPenaltyTimer);
+  const update = () => {
+    const remaining = Math.max(0, Math.ceil((Date.parse(until) - Date.now()) / 1000));
+    const label = document.getElementById('nativeAnswerPenalty');
+    const buzzer = document.querySelector('.native-answer-buzzer');
+    if(label){ label.hidden = remaining <= 0; label.textContent = remaining > 0 ? `不正解ペナルティ：あと${remaining}秒` : ''; }
+    if(buzzer) buzzer.disabled = remaining > 0;
+    if(remaining <= 0){ clearInterval(nativeMultiplayerPenaltyTimer); nativeMultiplayerPenaltyTimer = null; }
+  };
+  update();
+  nativeMultiplayerPenaltyTimer = setInterval(update, 250);
+}
+
+async function startNativeMultiplayerRoom(){
+  const client = getOramachiSupabase();
+  if(!client || !nativeMultiplayerRoomId) return;
+  const { data, error } = await client.rpc('start_multiplayer_room', { p_room_id:nativeMultiplayerRoomId });
+  if(error) return alert(nativeMultiplayerErrorMessage(error));
+  renderNativeMultiplayerLobby(data);
+}
+
+async function setNativeMultiplayerMode(mode){
+  const client = getOramachiSupabase();
+  if(!client || !nativeMultiplayerRoomId) return;
+  const { data, error } = await client.rpc('set_multiplayer_mode', {
+    p_room_id:nativeMultiplayerRoomId,
+    p_game_mode:mode,
+  });
+  if(error) return alert(nativeMultiplayerErrorMessage(error));
+  renderNativeMultiplayerLobby(data);
+}
+
+async function updateNativeMultiplayerSettings(){
+  const client=getOramachiSupabase(); if(!client||!nativeMultiplayerRoomId)return;
+  const {data,error}=await client.rpc('update_multiplayer_settings',{p_room_id:nativeMultiplayerRoomId,p_question_scope:document.getElementById('nativeLobbyScope')?.value||'city_ward',p_total_rounds:Number(document.getElementById('nativeLobbyRounds')?.value||5)});
+  if(error)return alert(nativeMultiplayerErrorMessage(error)); renderNativeMultiplayerLobby(data);
+}
+
+async function voteNativeMultiplayerReveal(){
+  const client=getOramachiSupabase(); if(!client||!nativeMultiplayerRoomId)return;
+  const {data,error}=await client.rpc('vote_reveal_multiplayer_answer',{p_room_id:nativeMultiplayerRoomId});
+  if(error)return alert(nativeMultiplayerErrorMessage(error)); renderNativeMultiplayerLobby(data);
+}
+
+async function rematchNativeMultiplayerRoom(){
+  const client=getOramachiSupabase(); if(!client||!nativeMultiplayerRoomId)return;
+  const {data,error}=await client.rpc('rematch_multiplayer_room',{p_room_id:nativeMultiplayerRoomId});
+  if(error)return alert(nativeMultiplayerErrorMessage(error)); renderNativeMultiplayerLobby(data);
+}
+
+async function copyNativeMultiplayerCode(code){
+  try{
+    await navigator.clipboard.writeText(String(code));
+    alert('合言葉をコピーしました。');
+  }catch(_error){
+    prompt('この合言葉をコピーしてください。', String(code));
+  }
+}
+
+async function leaveNativeMultiplayerRoom(){
+  const client = getOramachiSupabase();
+  const roomId = nativeMultiplayerRoomId;
+  if(!roomId) return renderNativeMultiplayerEntry();
+  if(!confirm('この部屋から退出しますか？')) return;
+  stopNativeMultiplayerRealtime();
+  nativeMultiplayerRoomId = null;
+  nativeMultiplayerGameState = null;
+  nativeMultiplayerIsRanked = false;
+  if(client && currentSupabaseUser){
+    await client.rpc('leave_multiplayer_room', { p_room_id:roomId });
+  }
+  if(client && nativeMultiplayerIsGuest){
+    await client.auth.signOut({ scope:'local' });
+    currentSupabaseUser = null;
+    nativeMultiplayerIsGuest = false;
+  }
+  renderNativeMultiplayerEntry('部屋から退出しました。', false);
 }
 
 function renderNativePlayHub(){
@@ -7633,6 +11441,7 @@ function renderNativePlayHub(){
   const totalCount = CITIES.filter(c => c.name !== '東京').length;
   const areaModes = [
     { id:'all', label:'全国版', tone:'all' },
+    { id:'townVillage', label:'町村版', tone:'town-village' },
     { id:'hokkaido', label:'北海道', tone:'hokkaido' },
     { id:'tohoku', label:'東北', tone:'tohoku' },
     { id:'kanto', label:'関東', tone:'kanto' },
@@ -7663,10 +11472,10 @@ function renderNativePlayHub(){
           <span class="native-play-mode-copy"><strong>ひとりで遊ぶ</strong><small id="nativeSoloDescription">おらっちと1対1でじっくり挑戦<br>下から遊ぶエリアを選べます</small></span>
           <span class="native-play-mode-arrow" aria-hidden="true">›</span>
         </button>
-        <button class="native-play-mode-card native-play-mode-multi" type="button" disabled aria-disabled="true">
+        <button class="native-play-mode-card native-play-mode-multi" type="button" onclick="renderNativeMultiplayerEntry()">
           <span class="native-play-mode-icon" aria-hidden="true">👥</span>
-          <span class="native-play-mode-copy"><strong>みんなで遊ぶ</strong><small>離れた人と協力して正解を目指す<br>通信プレイは準備中です</small></span>
-          <span class="native-play-mode-badge">準備中</span>
+          <span class="native-play-mode-copy"><strong>オンライン対戦</strong><small>2〜6人で部屋を作って通信対戦<br>ルームコードでかんたん参加</small></span>
+          <span class="native-play-mode-arrow" aria-hidden="true">›</span>
         </button>
         <button class="native-play-mode-card native-play-mode-challenge" type="button" onclick="startChallengeMode()">
           <span class="native-play-mode-icon" aria-hidden="true">🏆</span>
@@ -7777,8 +11586,9 @@ function renderNativeRecordHub(){
   replaceNavState('nativeRecordHub');
   const stats = loadStats();
   const conquest = loadConquest();
-  const playerRank = calculateNativePlayerRank(conquest);
-  syncNativePlayerRankHeader(playerRank);
+  const profile = currentSupabaseProfile || defaultNativeProfile();
+  const currentRating = Number(profile.current_rating || 1500);
+  const highestRating = Number(profile.highest_rating || currentRating);
   const conqueredIds = new Set(Object.keys(conquest.entries || {}));
   const conqueredCount = CITIES.filter(c => c.name !== '東京' && conqueredIds.has(cityId(c))).length;
   const total = normalCityCount();
@@ -7787,15 +11597,12 @@ function renderNativeRecordHub(){
     ? Math.round(100 * Number(stats.totalCorrect || 0) / Number(stats.totalPlays))
     : 0;
   stage.innerHTML = `
-    <header class="native-screen-heading">
-      <span class="native-screen-icon" aria-hidden="true">🏅</span>
-      <div><span>これまでの成果</span><h1>記録</h1><p>遊んだ回数や全国制覇の進み具合を確認できます</p></div>
-    </header>
-    <button class="native-player-rank-summary native-player-rank-${playerRank.grade.toLowerCase()}" type="button" onclick="renderNativePlayerRank()">
-      <span class="native-player-rank-summary-grade">${playerRank.grade}</span>
-      <span><small>プレイヤーランク</small><strong>${escapeHtml(playerRank.title)}</strong><em>${playerRank.score}pt${playerRank.nextRank ? ` ・ 次の${playerRank.nextRank.grade}まであと${playerRank.nextRemaining}pt` : ' ・ 最高ランク到達'}</em></span>
-      <span aria-hidden="true">›</span>
-    </button>
+    <header class="v57-page-head"><button onclick="navigateBackOr(renderOpening)" aria-label="戻る">‹</button><div><span>これまでの成果</span><h1>記録</h1><p>遊んだ回数や全国制覇の進み具合を確認できます</p></div><button onclick="renderNativeSettingsPage()" aria-label="メニュー">☰</button></header>
+    <section class="v57-rating-summary">
+      <div><small>現在レート</small><strong>${currentRating.toLocaleString('ja-JP')}</strong></div>
+      <span></span>
+      <div><small>最高レート</small><strong>${highestRating.toLocaleString('ja-JP')}</strong></div>
+    </section>
     <section class="native-record-summary">
       <div><span>制覇したマチ</span><strong>${conqueredCount.toLocaleString('ja-JP')}</strong><small>／${total.toLocaleString('ja-JP')}自治体</small></div>
       <div class="native-record-progress"><span style="width:${Math.min(100, Number(rate))}%"></span></div>
@@ -7818,9 +11625,9 @@ function renderNativeRecordHub(){
     <section class="native-hub-section">
       <h2>プレイデータ</h2>
       <div class="native-menu-list">
-        <button onclick="renderNativePlayerRank()"><span class="native-menu-icon">🧭</span><span><strong>プレイヤーランク</strong><small>全国攻略の実績と次の目標</small></span><span>›</span></button>
         <button onclick="renderNativeRankHistory()"><span class="native-menu-icon">🔤</span><span><strong>クリア評価履歴</strong><small>全国版の最高評価と最近の結果</small></span><span>›</span></button>
         <button onclick="renderStatsPage()"><span class="native-menu-icon">📊</span><span><strong>みんなの統計</strong><small>苦戦したマチなどの集計</small></span><span>›</span></button>
+        <button onclick="renderNativeRatingLeaderboard()"><span class="native-menu-icon">🏆</span><span><strong>ランキング</strong><small>オンライン対戦のレーティング上位100人</small></span><span>›</span></button>
         <button onclick="renderDailyChallengeHistory()"><span class="native-menu-icon">📅</span><span><strong>今日のチャレンジ履歴</strong><small>これまでの挑戦結果</small></span><span>›</span></button>
       </div>
     </section>
@@ -7926,16 +11733,94 @@ function renderNativeRankHistory(){
   scrollToPageTop();
 }
 
+async function renderNativeRatingLeaderboard(){
+  if(!isNativeAppRuntime()) return renderOpening();
+  stopOpeningMascotAnimation();
+  stampsEl.innerHTML = '';
+  pushNavState('nativeRatingLeaderboard');
+  stage.innerHTML = `
+    <header class="v65-page-head"><button type="button" onclick="navigateBackOr(renderOpening)" aria-label="戻る">‹</button><h1>ランキング</h1><span></span></header>
+    <nav class="v65-ranking-tabs" aria-label="ランキング種別"><button class="is-selected" type="button">レートランキング</button><button type="button" onclick="renderOfficialDailyLeaderboard()">デイリーランキング</button></nav>
+    <nav class="v65-ranking-filter" aria-label="ランキング範囲"><button class="is-selected" type="button">全体</button><button type="button">フレンド</button></nav>
+    <section class="native-rating-board"><p class="native-online-stats-loading">ランキングを読み込んでいます…</p></section>
+    <button class="link-btn" onclick="navigateBackOr(renderNativeRecordHub)">← 前の画面へ戻る</button>`;
+  footEl.textContent = '1試合以上プレイした登録ユーザーが対象です';
+  scrollToPageTop();
+  if(!isNativeRegisteredUser()){
+    document.querySelector('.native-rating-board').innerHTML='<div class="native-ranking-signin"><strong>ランキングを見るにはログインが必要です</strong><button class="link-btn" onclick="renderNativeAuthPage()">ログイン・会員登録へ</button></div>';
+    return;
+  }
+  const client=getOramachiSupabase();
+  const requestedUserId=currentSupabaseUser.id;
+  const {data,error}=await client.rpc('get_rating_leaderboard');
+  const board=document.querySelector('.native-rating-board');
+  if(!board || !currentSupabaseUser || currentSupabaseUser.id!==requestedUserId) return;
+  if(error){
+    console.warn('おらマチ: ランキングの読み込みに失敗しました',error);
+    board.innerHTML='<p class="native-online-stats-error">ランキングを読み込めませんでした。時間をおいて再度お試しください。</p>';
+    return;
+  }
+  currentRatingLeaderboard=data||{leaders:[],me:null};
+  const leaders=Array.isArray(currentRatingLeaderboard.leaders)?currentRatingLeaderboard.leaders:[];
+  const totalPlayers=Number(currentRatingLeaderboard.total_count||leaders.length);
+  const rowHtml=row=>`<li class="${row.user_id===requestedUserId?'is-me':''} native-player-link" role="button" tabindex="0" onclick="openNativePublicProfile('${escapeHtml(row.user_id)}',false)"><b>${Number(row.position)}</b>${nativeAvatarHtml(row,'native-ranking-avatar')}<span><strong>${escapeHtml(row.display_name||'プレイヤー')}${row.user_id===requestedUserId?' <em>あなた</em>':''}</strong><small>${Number(row.rated_matches)||0}試合</small></span><strong>${Number(row.current_rating||1500).toLocaleString('ja-JP')}</strong>${nativeRankBadge(row.current_rating,{position:row.position,total:totalPlayers,ratedMatches:row.rated_matches})}</li>`;
+  const me=currentRatingLeaderboard.me;
+  board.innerHTML=`<div class="v65-ranking-head"><span>順位</span><span>ユーザー</span><span>レート</span><span>ランク</span></div><ol class="native-rating-list">${leaders.map(rowHtml).join('')||'<li class="native-ranking-empty">まだランキング対象者はいません。</li>'}</ol>${me?`<section class="native-my-ranking"><h2>自分の順位</h2><ol>${rowHtml(me)}</ol></section>`:'<p class="native-ranking-unrated">まだ対戦していないため、順位はありません。初期レートは1,500です。</p>'}`;
+}
+
+async function openNativePublicProfile(userId,isGuest,guestName){
+  if(isGuest){ const member=(nativeMultiplayerGameState?.members||[]).find(x=>String(x.user_id)===String(userId));return showNativePublicProfile({display_name:guestName||member?.display_name||'ゲスト',is_guest:true}); }
+  const client=getOramachiSupabase(); if(!client||!userId)return;
+  const {data,error}=await client.rpc('get_public_player_profile',{p_user_id:userId});
+  if(error||!data)return alert('プロフィールを読み込めませんでした。');
+  data.target_user_id=userId; showNativePublicProfile(data);
+}
+
+function showNativePublicProfile(profile){
+  document.querySelector('.native-public-profile-modal')?.remove();
+  const guest=Boolean(profile.is_guest); const matches=Number(profile.matches_played||profile.rated_matches||0); const wins=Number(profile.wins||0);
+  const winRate=matches?`${(wins/matches*100).toFixed(1)}%`:'0.0%';
+  const modal=document.createElement('div'); modal.className='native-public-profile-modal';
+  modal.innerHTML=`<section role="dialog" aria-modal="true" aria-label="簡易プロフィール"><button class="native-profile-close" type="button" onclick="this.closest('.native-public-profile-modal').remove()" aria-label="閉じる">×</button><div class="native-public-profile-head">${nativeAvatarHtml(profile,'native-profile-avatar')}<div><h2>${escapeHtml(profile.display_name||'プレイヤー')}</h2><p>${guest?'ゲストユーザー':escapeHtml(profile.bio||'ひとこと未設定')}</p></div></div>${guest?'<p class="native-profile-unranked">未ランク</p>':`<dl><div><dt>出身</dt><dd>${escapeHtml(profile.origin||'未設定')}</dd></div><div><dt>好きな市町村</dt><dd>${escapeHtml(profile.favorite_municipality||'未設定')}</dd></div><div><dt>現在レート</dt><dd>${Number(profile.current_rating||1500).toLocaleString('ja-JP')} ${nativeRankBadge(profile.current_rating)}</dd></div><div><dt>最高レート</dt><dd>${Number(profile.highest_rating||profile.current_rating||1500).toLocaleString('ja-JP')} ${nativeRankBadge(profile.highest_rating||profile.current_rating)}</dd></div><div><dt>オンライン対戦</dt><dd>${matches}戦</dd></div><div><dt>勝利数</dt><dd>${wins}勝</dd></div><div><dt>勝率</dt><dd>${winRate}</dd></div></dl><button class="native-user-report" type="button" onclick="openNativeUserReport('${escapeJsString(profile.target_user_id||'')}')">通報</button>`}</section>`;
+  modal.addEventListener('click',event=>{if(event.target===modal)modal.remove();}); document.body.appendChild(modal);
+}
+
+async function openNativeUserReport(targetUserId){
+  if(!targetUserId||!isNativeRegisteredUser()) return alert('通報するにはログインが必要です。');
+  const labels={inappropriate_name:1,inappropriate_image:1,harassment:1,impersonation:1,other:1};
+  const choice=prompt('通報理由： inappropriate_name / inappropriate_image / harassment / impersonation / other','other');
+  if(!choice||!labels[choice])return; const details=choice==='other'?(prompt('補足（500文字以内）','')||''):'';
+  const client=getOramachiSupabase(); const {error}=await client.from('user_reports').insert({reporter_id:currentSupabaseUser.id,target_user_id:targetUserId,reason:choice,details:details.slice(0,500)});
+  if(error)return alert(String(error.message||'').includes('row-level security')?'短時間に同じユーザーを連続で通報することはできません。':'通信に失敗しました。接続を確認して、もう一度お試しください');
+  alert('通報を受け付けました。通報だけで自動的に利用停止にはなりません。');
+}
+
+function signOutNativeAccount(){ return nativeSignOut(); }
+
 function renderNativeSettingsPage(){
+  if(!isNativeAppRuntime()) return renderConquestLog();
+  stopOpeningMascotAnimation();stampsEl.innerHTML='';replaceNavState('nativeSettings');
+  const profile=currentSupabaseProfile||defaultNativeProfile();
+  stage.innerHTML=`<main class="v56-list-screen"><header class="v56-simple-head"><button onclick="navigateBackOr(renderOpening)" aria-label="戻る">‹</button><h1>メニュー</h1><span></span></header><button class="v56-user-card" onclick="renderNativeAuthPage()">${nativeAvatarHtml(profile,'native-home-avatar')}<span><strong>${escapeHtml(isNativeRegisteredUser()?currentNativeDisplayName():'ゲスト')}</strong><small>レート ${Number(profile.current_rating||1500).toLocaleString('ja-JP')}</small></span><em>${escapeHtml(getRankFromRating(profile.current_rating||1500))}</em><b>›</b></button><nav class="v56-menu-items"><button onclick="renderNativeAuthPage()"><i>👤</i><span>プロフィール${isNativeRegisteredUser()?'編集':'・ログイン'}</span><b>›</b></button><button onclick="renderNativeRecordHub()"><i>▥</i><span>記録・全国制覇</span><b>›</b></button><button><i>👥</i><span>フレンド</span><b>›</b></button><button><i>⊘</i><span>ブロックしたユーザー</span><b>›</b></button><button onclick="location.href='play-guide.html'"><i>▣</i><span>遊び方</span><b>›</b></button><button onclick="location.href='terms.html'"><i>▤</i><span>利用規約</span><b>›</b></button><button onclick="location.href='privacy.html'"><i>◆</i><span>プライバシーポリシー</span><b>›</b></button><button onclick="location.href='mailto:163ylsuol@gmail.com'"><i>✉</i><span>お問い合わせ</span><b>›</b></button><button onclick="renderNativeSettingsLegacy()"><i>⚙</i><span>設定</span><b>›</b></button>${isNativeRegisteredUser()?'<button onclick="signOutNativeAccount()"><i>↪</i><span>ログアウト</span><b>›</b></button>':''}</nav><div class="v56-bottom-mascot"><span>また<br>あそぼっち！</span><img src="mascot-happy.png" alt="おらっち"></div></main>`;
+  const menuRank=stage.querySelector('.v56-user-card em');
+  if(menuRank) menuRank.classList.add(`v68-menu-rank-${getRatingRank(profile.current_rating||1500).id}`);
+  footEl.textContent='おらマチ Android版';scrollToPageTop();
+}
+
+function renderNativeSettingsLegacy(){
   if(!isNativeAppRuntime()) return renderConquestLog();
   stopOpeningMascotAnimation();
   stampsEl.innerHTML = '';
   replaceNavState('nativeSettings');
   stage.innerHTML = `
-    <header class="native-screen-heading">
-      <span class="native-screen-icon" aria-hidden="true">⚙️</span>
-      <div><span>アプリの管理</span><h1>設定</h1><p>記録の引き継ぎやプライバシーを管理します</p></div>
-    </header>
+    <main class="v56-list-screen native-settings-modern">
+    <header class="v56-simple-head"><button onclick="navigateBackOr(renderNativeSettingsPage)" aria-label="戻る">‹</button><h1>設定</h1><span></span></header>
+    <p class="native-settings-intro">記録の引き継ぎやプライバシーを管理します</p>
+    <section class="native-settings-card native-settings-account-card">
+      <h2>アカウント</h2>
+      <p>${isNativeRegisteredUser() ? `${escapeHtml(currentNativeDisplayName())}（${escapeHtml(currentSupabaseUser.email || 'ログイン中')}）でログインしています。` : '会員登録すると、記録をクラウドへ保存して機種変更後も引き継げます。'}</p>
+      <button class="link-btn" onclick="renderNativeAuthPage()">${isNativeRegisteredUser() ? 'アカウントを管理する' : 'ログイン・会員登録へ'}</button>
+    </section>
     <section class="native-settings-card">
       <h2>プライバシー</h2>
       <label class="native-setting-toggle">
@@ -7943,10 +11828,11 @@ function renderNativeSettingsPage(){
         <input type="checkbox" id="anonymousReportingToggle" ${isAnonymousReportingEnabled() ? 'checked' : ''} onchange="toggleAnonymousReporting(this.checked)">
       </label>
       <a class="native-settings-link" href="https://oramachi-jp.com/privacy.html" target="_blank" rel="noopener noreferrer">プライバシーポリシーを読む <span>↗</span></a>
+      <a class="native-settings-link" href="https://oramachi-jp.com/terms.html" target="_blank" rel="noopener noreferrer">利用規約を読む <span>↗</span></a>
     </section>
     <section class="native-settings-card">
       <h2>データの引き継ぎ</h2>
-      <p>機種変更に備えて、全国制覇帳をファイルへ保存できます。プレイヤーランクは制覇帳から復元され、クリア評価履歴はこの端末に保存されます。</p>
+      <p>機種変更に備えて、全国制覇帳をファイルへ保存できます。クリア評価履歴はこの端末に保存されます。オンライン対戦のレートと戦績は、ログインするとアカウントへ保存されます。</p>
       <div class="save-io-actions">
         <button class="link-btn" onclick="exportSaveData()">📤 セーブデータを書き出す</button>
         <button class="link-btn" id="importSaveDataBtn" onclick="openImportSaveFileDialog()">📥 セーブデータを読み込む</button>
@@ -7957,6 +11843,7 @@ function renderNativeSettingsPage(){
       <h2>アプリについて</h2>
       <div class="native-about-row"><span>アプリ名</span><strong>おらマチ</strong></div>
       <div class="native-about-row"><span>対応範囲</span><strong>日本全国の市区町村</strong></div>
+      <div class="native-about-row"><span>バージョン</span><strong>おらマチ v${escapeHtml(window.ORAMACHI_APP_VERSION||'1.0.0')}</strong></div>
       <a class="native-settings-link" href="https://oramachi-jp.com/about.html" target="_blank" rel="noopener noreferrer">このアプリについて <span>↗</span></a>
     </section>
     <section class="native-settings-card native-danger-zone">
@@ -7965,6 +11852,7 @@ function renderNativeSettingsPage(){
       <button class="danger-btn" onclick="confirmDeleteConquest()">全国制覇帳の記録を削除する</button>
       <div id="deleteConquestStatus"></div>
     </section>
+    </main>
   `;
   footEl.textContent = 'おらマチ Android版';
   scrollToPageTop();
@@ -7983,12 +11871,20 @@ window.oramachiNativeTabs = Object.freeze({
         renderNativePlayHub();
       }
     }
-    else if(tab === 'record') renderNativeRecordHub();
+    else if(tab === 'record') renderOfficialDailyLeaderboard();
+    else if(tab === 'notice') renderNativeNoticePage();
     else if(tab === 'settings') renderNativeSettingsPage();
     else return false;
     return true;
   }
 });
+
+function renderNativeNoticePage(){
+  replaceNavState('nativeNotice');
+  const notices=[['♛','デイリーチャレンジ更新','今日 00:00','9月14日（日）の問題が公開されました。今日も挑戦してみましょう！','gold'],['🏆','ランキング結果発表','今日 00:10','9月13日（土）のデイリーランキングが確定しました。','gold'],['📣','運営からのお知らせ','9月12日 18:00','Ver1.2.0をリリースしました。いくつかの不具合を修正しています。','red'],['▣','まちの豆知識','9月11日 12:00','今日は「松本市」の豆知識を紹介！知るともっと楽しくなるかも？','green'],['🏅','イベントのお知らせ','9月10日 09:00','来週から「秋のご当地クイズウィーク」を開催します！','orange']];
+  stage.innerHTML=`<main class="v56-list-screen"><header class="v56-simple-head"><button onclick="navigateBackOr(renderOpening)" aria-label="戻る">‹</button><h1>お知らせ</h1><span>☰</span></header><div class="v56-notice-tabs"><b>すべて</b><span>運営から</span><span>あなた宛</span></div><section class="v56-notices">${notices.map(n=>`<button><i class="${n[4]}">${n[0]}</i><span><strong>${n[1]}</strong><small>${n[2]}</small><p>${n[3]}</p></span><b>›</b></button>`).join('')}</section><div class="v56-bottom-mascot"><span>お知らせを<br>チェックっち！</span><img src="mascot-happy.png" alt="おらっち"></div></main>`;
+  footEl.textContent='おらマチからのお知らせ';scrollToPageTop();
+}
 
 function renderOpening(){
   activeGameTransientScreen = null;
@@ -8904,6 +12800,9 @@ function replayAnswersWithChange(changeIndex, newVal, newWeight){
   excludedNames = new Set();
   guessAttempts = 0;
   notifiedCandidateMilestones = new Set();
+  v164DiscoveryMomentUsed = false;
+  v169SurpriseStrikeCount = 0;
+  v177FarewellHoldUsed = false;
   asked = [];
   questionCount = 0;
   extraQuestionCount = 0;
@@ -9443,6 +13342,9 @@ function startMode(mode, startOptions){
   guessAttempts = 0;
   giveUpPoolSnapshot = null;
   notifiedCandidateMilestones = new Set();
+  v164DiscoveryMomentUsed = false;
+  v169SurpriseStrikeCount = 0;
+  v177FarewellHoldUsed = false;
   asked = [];
   questionCount = 0;
   extraQuestionCount = 0;
@@ -9469,6 +13371,9 @@ function startMode(mode, startOptions){
   questionShownAt = null;
   reportedQuestionKeysInGame = new Set();
   pendingQuestionSkips = [];
+  // V162: このゲーム中は開始時点の直近ルートだけを参照する。
+  // プレイ途中で履歴を書き換えないので、自分自身の質問列を誤って避けることはない。
+  v162LoadPriorEarlyRoutes();
   modeStartCount = modeCities.length;
   lastDisplayedRemainingCount = null;
 
@@ -9581,6 +13486,22 @@ function renderQuestionScreen(key){
   const q = QUESTIONS[key];
   questionHelpOpen = false; // 新しい質問に切り替わったら、前の質問で開いていた補足は必ず閉じた状態に戻す
 
+  if(isNativeAppRuntime()){
+    const elapsed=Math.max(0,Date.now()-Number(window.oramachiNormalGameStartedAt||Date.now()));
+    const historyRows=answerLog.slice(-3).map(a=>{const v=answerValueLabel(a.val,a.weight);if(a.val===null)v.label='わからない・スキップ';const mark=a.val===null?'unknown':a.val?'yes':'no';return `<li><i class="${mark}">${a.val===null?'○':a.val?'✓':'×'}</i><span>${escapeHtml(QUESTIONS[a.key]?.text||a.key)}<small>→ ${escapeHtml(v.label)}</small></span></li>`;}).join('');
+    const artwork=OFFICIAL_DAILY_BACKGROUNDS[(questionCount-1)%OFFICIAL_DAILY_BACKGROUNDS.length]||OFFICIAL_DAILY_BACKGROUNDS[0];
+    // V156: Nativeでも「どれくらい絞れてきたか」を見せる。推理ロジックには一切使わず、
+    // Web版と同じ推定関数の表示値だけを利用するため正答性能には影響しない。
+    const nativeRemainingBefore=lastDisplayedRemainingCount;
+    const nativeRemainingNow=estimateRemainingCountForDisplay();
+    const nativeThinkingStatus=thinkingStatusFor(nativeRemainingNow,modeStartCount);
+    const nativeTensionMilestone=candidateTensionMilestone(nativeRemainingBefore,nativeRemainingNow);
+    const nativeTensionHtml=nativeTensionMilestone ? `<div class="v157-tension-milestone" role="status">${escapeHtml(nativeTensionMilestone)}</div>` : '';
+    stage.innerHTML=`<main class="v56-game-screen"><header class="v56-game-head"><button onclick="handleBackRequest({historyAlreadyMoved:false})" aria-label="やめる">×</button><div class="v64-game-brand"><img class="v64-game-logo" src="oramachi-official-logo.png" alt="おらマチ まちをあてる地理ゲーム"><strong>★ 通常プレイ</strong></div></header><div class="v56-game-progress"><span>質問 <b>${questionCount}/${effectiveMaxQ(questionPhase)}</b></span><span>◷ <b id="v56GameTimer">${formatDailyElapsed(elapsed)}</b></span></div><div class="v156-game-narrowing"><strong>${modeStartCount}マチ → 残り約${nativeRemainingNow}マチ</strong><span>${escapeHtml(nativeThinkingStatus.text)}</span></div>${nativeTensionHtml}<section class="v56-question-card"><h2>${escapeHtml(q.text)}</h2><img src="${artwork}" alt="自治体のイメージ"><div class="v56-answer-grid"><button class="yes" onclick="answer('${key}',true)">はい</button><button class="no" onclick="answer('${key}',false)">いいえ</button><button class="maybe-yes" onclick="answer('${key}',true,PARTIAL_WEIGHT)">たぶんはい<br>部分的にはい</button><button class="maybe-no" onclick="answer('${key}',false,PARTIAL_WEIGHT)">たぶんいいえ<br>部分的にいいえ</button></div><button class="v56-unknown-skip" onclick="answer('${key}',null)">わからない・スキップ</button><button class="v56-report" onclick="openQuestionReportModal('${escapeJsString(key)}')">⚑ この質問の回答を報告</button></section><section class="v56-game-history"><h3>これまでの質問</h3><ol>${historyRows||'<li class="empty">まだ回答していません</li>'}</ol></section><button class="v56-quit" onclick="handleBackRequest({historyAlreadyMoved:false})">やめる</button></main>`;
+    clearInterval(window.oramachiNormalGameTimer);window.oramachiNormalGameTimer=setInterval(()=>{const e=document.getElementById('v56GameTimer');if(e)e.textContent=formatDailyElapsed(Date.now()-Number(window.oramachiNormalGameStartedAt||Date.now()));},1000);
+    questionShownAt=Date.now();updateDebugPanel();scrollToPageTop();return;
+  }
+
   const displayCount = questionPhase === 'extra' ? extraQuestionCount : questionCount;
   const displayMax = questionPhase === 'extra' ? MAX_EXTRA_Q : MAX_Q;
   const countLabel = questionPhase === 'extra' ? `追加質問 ${displayCount}／${displayMax}` : `質問 ${displayCount}／${displayMax}`;
@@ -9594,6 +13515,8 @@ function renderQuestionScreen(key){
   const progressLabel = `${modeStartCount}マチ → 残り約<span class="progress-count-num" id="progressCountNum">${remainingNow}</span>マチ`;
   const status = thinkingStatusFor(remainingNow, modeStartCount);
   const moraleLabel = status.text;
+  const tensionMilestone = candidateTensionMilestone(remainingBefore, remainingNow);
+  const tensionMilestoneHtml = tensionMilestone ? `<div class="v157-tension-milestone" role="status">${escapeHtml(tensionMilestone)}</div>` : '';
   // 新しいゲームを開始した最初の質問(まだ1問も答えていない)だけは、
   // 候補数によらずnormal表情にする。(asked.push(key)は既に実行済みなので、
   // 通常質問の1問目=asked.length===1で判定する)
@@ -9618,7 +13541,7 @@ function renderQuestionScreen(key){
     : '';
   // 【この質問を報告】常時表示。既にこのゲーム内で報告済みの質問はボタンを無効化して連打を防ぐ。
   const alreadyReported = reportedQuestionKeysInGame.has(key);
-  const reportBtnHtml = `<button type="button" class="question-report-btn" onclick="openQuestionReportModal('${escapeJsString(key)}')" ${alreadyReported ? 'disabled' : ''}>${alreadyReported ? '報告済み' : '⚑ この質問を報告'}</button>`;
+  const reportBtnHtml = `<button type="button" class="question-report-btn" onclick="openQuestionReportModal('${escapeJsString(key)}')" ${alreadyReported ? 'disabled' : ''}>${alreadyReported ? '報告済み' : '⚑ この質問・答えを報告'}</button>`;
 
   stage.innerHTML = `
     <div class="mascot-wrap"><div class="bob pop">${mascotSVG(mascotMood)}</div></div>
@@ -9626,11 +13549,12 @@ function renderQuestionScreen(key){
     ${questionHelpHtml}
     <div class="count-line">${countLabel}</div>
     <div class="progress-line"><span class="progress-count">${progressLabel}</span><span class="progress-morale">${moraleLabel}</span></div>
+    ${tensionMilestoneHtml}
     <div class="choices">
       <button class="btn btn-yes" onclick="answer('${key}', true)">はい</button>
       <button class="btn btn-no" onclick="answer('${key}', false)">いいえ</button>
-      <button class="btn btn-maybe-yes" onclick="answer('${key}', true, PARTIAL_WEIGHT)">たぶんそう</button>
-      <button class="btn btn-maybe-no" onclick="answer('${key}', false, PARTIAL_WEIGHT)">たぶん違う</button>
+      <button class="btn btn-maybe-yes" onclick="answer('${key}', true, PARTIAL_WEIGHT)">たぶんはい</button>
+      <button class="btn btn-maybe-no" onclick="answer('${key}', false, PARTIAL_WEIGHT)">たぶんいいえ</button>
       <button class="btn btn-unknown" onclick="answer('${key}', null)">わからない・スキップ</button>
     </div>
     <div class="question-sub-actions">
@@ -9653,8 +13577,8 @@ function renderQuestionScreen(key){
 function answerValueLabel(val, weight){
   if(val === null) return { label: 'わからない', cls: 'unknown' };
   const full = weight == null || weight >= 1;
-  if(val === true) return full ? { label: 'はい', cls: 'yes' } : { label: 'たぶんそう', cls: 'maybe-yes' };
-  return full ? { label: 'いいえ', cls: 'no' } : { label: 'たぶん違う', cls: 'maybe-no' };
+  if(val === true) return full ? { label: 'はい', cls: 'yes' } : { label: 'たぶんはい', cls: 'maybe-yes' };
+  return full ? { label: 'いいえ', cls: 'no' } : { label: 'たぶんいいえ', cls: 'maybe-no' };
 }
 
 // 「これまでの回答」一覧を表示する。質問画面の上に被せる形(stage.innerHTMLを丸ごと
@@ -9731,8 +13655,8 @@ function renderAnswerEditFor(index){
     <div class="choices">
       <button class="btn btn-yes" onclick="applyAnswerEdit(${index}, true, 1)">はい</button>
       <button class="btn btn-no" onclick="applyAnswerEdit(${index}, false, 1)">いいえ</button>
-      <button class="btn btn-maybe-yes" onclick="applyAnswerEdit(${index}, true, ${PARTIAL_WEIGHT})">たぶんそう</button>
-      <button class="btn btn-maybe-no" onclick="applyAnswerEdit(${index}, false, ${PARTIAL_WEIGHT})">たぶん違う</button>
+      <button class="btn btn-maybe-yes" onclick="applyAnswerEdit(${index}, true, ${PARTIAL_WEIGHT})">たぶんはい</button>
+      <button class="btn btn-maybe-no" onclick="applyAnswerEdit(${index}, false, ${PARTIAL_WEIGHT})">たぶんいいえ</button>
       <button class="btn btn-unknown" onclick="applyAnswerEdit(${index}, null, 1)">わからない・スキップ</button>
     </div>
     <button class="link-btn" onclick="renderAnswerHistoryPanel()">変更せず一覧に戻る</button>
@@ -9873,6 +13797,20 @@ function thinkingStatusFor(remaining, total){
   return { text: 'まだ考え中……', mood: 'think' };
 }
 // 後方互換用(文言だけが欲しい場合)
+// V157: 候補が大きな節目を初めてまたいだ瞬間だけ、短い緊張感メッセージを出す。
+// 候補名は表示せず、質問選択・推理スコアにも影響しない表示専用。
+function candidateTensionMilestone(before, after){
+  if(before == null || after == null || after >= before) return '';
+  const milestones = [
+    { n: 3, text: '残り3マチ。もう逃げられないかも…' },
+    { n: 10, text: '10マチを切った。あとひと息！' },
+    { n: 30, text: '30マチを切った。かなり見えてきた！' },
+    { n: 100, text: '100マチを切った。ここから鋭くいくべ！' },
+  ];
+  const hit = milestones.find(m => before > m.n && after <= m.n);
+  return hit ? hit.text : '';
+}
+
 function moraleText(remaining, total){
   return thinkingStatusFor(remaining, total).text;
 }
@@ -9914,9 +13852,9 @@ function shouldGuessNow(){
   const ambiguousHigh = ambiguousAnswerRatio() >= AMBIGUOUS_RATIO_THRESHOLD;
   const top1MismatchHigh = !!(top1 && (top1.objMismatch || 0) >= TOP1_MISMATCH_CAUTION);
   if(ambiguousHigh || top1MismatchHigh){
-    if(questionPhase === 'normal' && questionCount >= MIN_QUESTIONS_FOR_STABLE_GUESS && stableTopStreak >= STABLE_STREAK_REQUIRED){
-      return true;
-    }
+    // V149: 中間回答が多いときは「同じ候補がしばらく1位」というだけでは推測しない。
+    // posteriorが十分集中し、かつ1位/2位を分ける未質問の客観的決め手が無い場合だけ推測する。
+    if(topConfidence() >= 0.97 && margin >= CONFIDENCE_MARGIN && !decisiveQuestionRemains()) return true;
     return false;
   }
 
@@ -10006,7 +13944,7 @@ const AREA_PRUNE_KEYS = new Set(
 const PRUNE_KEYS_TRAFFIC = [
   'aikan_railway','airport','akita_shinkansen_station','chuo_rapid',
   'chuo_sobu','dosan_line','echizen_railway','nagaragawa_railway','yoro_railway','ekimei_chigau',
-  'expressway_junction','ferry_available','hakodate_honsen','hakubi_line',
+  'expressway_junction','domestic_ferry','international_ferry','hakodate_honsen','hakubi_line',
   'hankyu_line','hokuriku_shinkansen_station','ic_akita','ic_banetsu',
   'ic_chugoku','ic_chuo','ic_doo','ic_doto',
   'ic_hanwa','ic_higashi_kyushu','ic_higashikanto','ic_hokukanto',
@@ -10107,6 +14045,8 @@ function applyAnswerCore(key, val, weight){
   // 回答時間(称号「直感派」「じっくり派」用)。極端に長い場合(離席等)は30秒を上限にする。
   const responseMs = questionShownAt != null ? Math.min(30000, Math.max(0, Date.now() - questionShownAt)) : null;
   answerLog.push({ key, val, weight, subjective, responseMs });
+  // スキップは履歴のみ記録。候補、重み、推測の安定判定を一切変更しない。
+  if(val === null) return false;
 
   if(val === true && weight >= 1 && !subjective){
     // 客観的質問に確信を持って「はい」と答え、その条件を満たす候補が1つだけに絞れても、
@@ -10118,10 +14058,20 @@ function applyAnswerCore(key, val, weight){
     }
   }
 
-  if(val !== null){
-    // はい/いいえで完全に候補を消すのではなく、一致したら加点・不一致なら減点する。
+  // V149: 中間回答を「方向つきスキップ」から、Akinator型の弱い確率的証拠へ進化。
+  // たぶんはい/たぶんいいえ は候補を永久除外せず、P(response|candidate)の対数尤度比だけを
+  // 加える。これにより情報は活用するが、曖昧回答1回で正解自治体が消えることはない。
+  if(val !== null && weight < 1){
+    const scale = subjective ? PARTIAL_SUBJECTIVE_SCALE : 1;
+    allScoreEntries().forEach(e => {
+      const matchesDirection = (e.city.tags[key] === true) === (val === true);
+      e.score += (matchesDirection ? PARTIAL_LOG_LIKELIHOOD : -PARTIAL_LOG_LIKELIHOOD) * scale;
+    });
+  }
+
+  if(val !== null && weight >= 1){
+    // フル確信度の「はい／いいえ」は従来どおり強く反映する。
     // 客観的質問は強く、主観的質問(印象・評判)は控えめに反映する。
-    // 「たぶんそう/たぶんいいえ」はweightを0.5にして、加減点の強さを半分にする。
     // フル確信度の客観的質問に矛盾した回数(objMismatch)も、ここで一緒に数えておく
     // (「候補を完全除外する条件」の判定に使う。あいまいな回答では絶対に増えない)。
     const isFullConfidenceObjective = !subjective && weight >= 1;
@@ -10175,8 +14125,13 @@ function applyAnswerCore(key, val, weight){
     });
   }
 
-  pruneByRegionAnswer(key, val, weight);
-  pruneObviouslyWrongCandidates();
+  if(questionPhase === 'extra'){
+    // V152: 回復フェーズでは毎回答後に全履歴から再採点し、過去の押し間違いを永久矛盾にしない。
+    robustRescoreForRecovery();
+  } else {
+    pruneByRegionAnswer(key, val, weight);
+    pruneObviouslyWrongCandidates();
+  }
   updateStableStreak();
   return false;
 }
@@ -10199,6 +14154,7 @@ function answer(key, val, weight){
     });
   }
   const forced = applyAnswerCore(key, val, weight);
+  if(val === null) return renderQuestion();
   if(forced) return renderGuess();
 
   // 通常質問側の「最低質問数に達するまでは早押ししない」制約(追加質問側は毎回判定してよい)
@@ -10207,6 +14163,26 @@ function answer(key, val, weight){
   }
 
   if(shouldGuessNow()){
+    // V177: まだ一度もサプライズYESが無く、終盤に有力仮説へ鋭く刺さる質問が残っている場合だけ、
+    // 即答を1回だけ保留して最後の一球を投げる。外した後は従来の回復へ戻り、連射しない。
+    const v180FinalKey = v180PickFinalSurpriseQuestion();
+    v184Trace('guess_gate', {
+      shouldGuess: true,
+      topConfidence: topConfidence(),
+      sortedPoolSize: sortedPool().length,
+      finalSurpriseKey: v180FinalKey || null,
+      farewellAvailable: v180FinalKey ? null : v177HasFarewellSurpriseAvailable(),
+      surpriseAlreadyHit: v175HasSurpriseYes()
+    });
+    if(v180FinalKey){
+      v177FarewellHoldUsed = true;
+      forcedNextKey = v180FinalKey;
+      return renderQuestion();
+    }
+    if(v177HasFarewellSurpriseAvailable()){
+      v177FarewellHoldUsed = true;
+      return renderQuestion();
+    }
     return renderGuess();
   }
 
@@ -10220,7 +14196,7 @@ function renderGuess(){
   forcedGuessCity = null;
   lastGuessCity = guess;
   const isRetry = guessAttempts > 0;
-  const bubbleText = isRetry ? 'うーん、もしかしてこっちかも?' : 'もしかして、この街では?';
+  const bubbleText = isRetry ? 'うーん、もしかしてこっちかも?' : '……わかったかも！ もしかして、この街では?';
   // 【もうわかった！ジャンプ演出】初回の推測(isRetry===false)のときだけ、
   // おらっちが喜んで飛び跳ねる。2回目以降の推測(訂正後の再推測)では、
   // 既に一度見た演出を繰り返さないようにするため付けない。
@@ -10231,9 +14207,9 @@ function renderGuess(){
   stage.innerHTML = `
     <div class="mascot-wrap"><div class="pop${jumpClass}">${mascotSVG('happy')}</div></div>
     <div class="bubble"><span class="icon">💭</span>${bubbleText}</div>
-    <div class="result-name">${displayName(guess)}</div>
-    <div class="result-pref">${guess.pref}</div>
-    <div class="choices">
+    <div class="result-name${isRetry ? '' : ' v158-guess-reveal'}">${displayName(guess)}</div>
+    <div class="result-pref${isRetry ? '' : ' v158-guess-reveal'}">${guess.pref}</div>
+    <div class="choices${isRetry ? '' : ' v158-guess-actions'}">
       <button class="btn btn-yes" onclick="correct(true)">当たり!</button>
       <button class="btn btn-no" onclick="correct(false)">ちがう</button>
     </div>
@@ -10270,7 +14246,7 @@ function isLandmarkDeprioritized(key){
 
 // 質問文を、結果画面で読める自然な文に変換する(疑問形→言い切り)。
 // falseだった回答は、質問文の意味を反転して表示する。
-// 例:「信濃川が流れる?」→「信濃川が流れていない」
+// 例:「信濃川（千曲川）が流れている?」→「信濃川（千曲川）が流れていない」
 //     「JRの駅がない?」→「JRの駅がある」
 const FALSE_LANDMARK_TEXT_OVERRIDES = {
   // 否定形の質問や、機械的な語尾変換では意味が不自然になりやすいもの
@@ -11379,7 +15355,7 @@ function renderThanks(wasNearMiss, correctCityLabel, matchedCity, mismatches){
     <div class="bubble"><span class="icon">🙏</span>ありがとう！おらっちが修行します</div>
     ${nearMissLine}
     ${mismatchHtml}
-    ${dailyChallengeActive ? '' : `<button class="again" onclick="restart()">もう一度あそぶ</button>`}
+    ${dailyChallengeActive ? '' : `<button class="again" onclick="restart()">未制覇のマチでもう一戦</button>`}
     ${shareBtn ? `<div class="result-actions-secondary">${shareBtn}</div>` : ''}
   `;
   const giveUpShareBtn = document.getElementById('giveUpShareBtn');
@@ -11459,6 +15435,9 @@ function correct(isRight, overrideCity){
   });
 
   if(isRight){
+
+    // V162: 完了したゲームの序盤ルートを、次の連戦の鮮度制御にだけ利用する。
+    v162RememberEarlyRoute();
     // 正解後に再読み込みされても、結果送信・統計加算を二重実行しないよう先に削除する。
     clearGameSession();
     // 結果画面・シェア文・訂正フォーム・プレイ結果送信・制覇帳・画像共有のすべてで、
@@ -11595,6 +15574,9 @@ function correct(isRight, overrideCity){
       conquestLine = `${displayName(guess)}は${conquestResult.entry.count}回目の正解です`;
     }
     const conquestHtml = `<div class="conquest-line">${conquestLine}</div>`;
+    const replayNudge = conquestReplayNudge(guess);
+    const replayNudgeHtml = renderReplayNudge(replayNudge, false);
+    const nativeReplayNudgeHtml = renderReplayNudge(replayNudge, true);
 
     // 自己ベスト表示(結果画面の主役=自治体名や紹介文を邪魔しない位置=質問数の下あたりに小さく表示)
     let bestLine;
@@ -11662,6 +15644,7 @@ function correct(isRight, overrideCity){
         ${barePointsHtml}
       </div>
       ${conquestHtml}
+      ${replayNudgeHtml}
       ${achievementHtml}
       <div class="result-actions-primary">
         <button class="share-btn share-btn-image" id="shareImageBtn" onclick="shareResultImage()">📸 画像でシェア</button>
@@ -11678,6 +15661,13 @@ function correct(isRight, overrideCity){
       </div>
       <div id="shareImageStatus" class="share-image-status"></div>
     `;
+    if(isNativeAppRuntime()){
+      clearInterval(window.oramachiNormalGameTimer);
+      const elapsed=Date.now()-Number(window.oramachiNormalGameStartedAt||Date.now());
+      const artwork=OFFICIAL_DAILY_BACKGROUNDS[(totalQuestions-1)%OFFICIAL_DAILY_BACKGROUNDS.length]||OFFICIAL_DAILY_BACKGROUNDS[0];
+      stage.innerHTML=`<main class="v56-result-screen"><header class="v56-simple-head"><button onclick="navigateToOpening()" aria-label="戻る">‹</button><h1>おらマチ</h1><span>☰</span></header><section class="v56-result v159-success-pop"><div class="v56-confetti" aria-hidden="true">◆　◇　◆　◇　◆</div><div class="v56-crown" aria-hidden="true">♛</div><div class="v159-success-kicker">おらっち大正解！</div><h2>正解！</h2><p>この市町村は<br><strong>${escapeHtml(guess.pref)} ${escapeHtml(displayName(guess))}でした！</strong></p><img class="v56-result-art" src="${artwork}" alt="${escapeHtml(displayName(guess))}のイメージ"><div class="v56-result-stats"><span>質問数<b>${totalQuestions}問</b></span><span>クリアタイム<b>${formatDailyElapsed(elapsed)}</b></span></div><aside>♛ ${isNewRecord?'新しいベストタイムです！':(conquestResult.status==='new'?'全国制覇帳に新しいマチが増えました！':'この成績が記録されました！')}</aside>${barePoints.length?`<section class="v155-reason-card v159-reason-card" aria-label="おらっちがこのマチだと思った理由"><h3>🔎 おらっちが見抜いたポイント</h3><p>今回の回答で特に効いたのはこの${barePoints.length}つ！</p><ul>${barePoints.map(t=>`<li>${escapeHtml(t)}</li>`).join('')}</ul></section>`:''}${nativeReplayNudgeHtml}<button class="primary" onclick="restart()">未制覇のマチでもう一戦　›</button><button onclick="renderNativePlayHub()">他のモードで遊ぶ</button><button onclick="navigateToOpening()">⌂　ホームに戻る</button><div class="v56-bottom-mascot"><span>やったっち!!</span><img src="mascot-happy.png" alt="おらっち"></div></section></main>`;
+      scrollToPageTop();
+    }
     // DOMへ追加した直後に喜びの演出を再生する。
     requestAnimationFrame(playHappyMascotAnimation);
     // 正解またはギブアップまで到達したときだけ、ゲーム完了として1回送る。
@@ -11713,6 +15703,7 @@ function correct(isRight, overrideCity){
     guessAttempts = 1;
     questionPhase = 'extra';
     extraQuestionCount = 0;
+    robustRescoreForRecovery();
     // 「これまでの回答」機能で回答を再生する際に、このタイミング(通常フェーズ→追加質問
     // フェーズへの切り替え)を正確に再現するために記録しておく。
     guessFailureLog.push({
@@ -11794,7 +15785,7 @@ function restart(){
 // 訪問のたびに落とし直しており、起動が遅くなる最大の原因になっていた。
 // URLに中身のハッシュを付ければ、更新したときだけ新しいURLになるので、
 // 「常に最新」を保ったままブラウザのキャッシュを使える(2回目以降の起動が速くなる)。
-const CITIES_VERSION = '77e59484dd';
+const CITIES_VERSION = '2bacb6efaa';
 
 async function boot(){
   try{
@@ -11820,6 +15811,8 @@ async function boot(){
     // 再読み込み前の古いSPA履歴が残っていても、起動直後は必ずトップを深さ0の基点にする。
     replaceExactNavState(makeNavState('opening', null, 0));
     renderOpening();
+    initializeSupabaseAuth();
+    loadManagedQuestionOverrides();
     fetchLiveStats(); // 「最近当てられたマチ」「プレイ回数」を非同期で取得(失敗しても無視)
   }catch(e){
     // 原因調査用に、実際のエラー内容をブラウザのコンソールへ必ず残す。
@@ -11834,5 +15827,302 @@ async function boot(){
     footEl.textContent = 'データ読み込みエラー';
   }
 }
+
+// ==================== 第13回 今日のおらマチ ====================
+let officialDailyState = null;
+let officialDailyStatus = null;
+let officialDailyAsked = [];
+let officialDailyTimer = null;
+let officialDailySelectedQuestion = null;
+let officialDailyLoadError = '';
+const OFFICIAL_DAILY_BACKGROUNDS = Object.freeze([
+  'native-start-bg-castle.webp',
+  'native-start-bg-fuji.webp',
+  'native-start-bg-rice.webp',
+  'native-start-bg-snow.webp',
+  'native-start-bg-statue.webp',
+  'native-start-bg-tokyo.webp',
+  'native-start-bg-torii.webp',
+  'native-start-bg-tunnel.webp'
+]);
+let officialDailyArtwork = OFFICIAL_DAILY_BACKGROUNDS[0];
+
+function chooseOfficialDailyArtwork(){
+  const choices=OFFICIAL_DAILY_BACKGROUNDS.filter(src=>src!==officialDailyArtwork);
+  officialDailyArtwork=choices[Math.floor(Math.random()*choices.length)]||OFFICIAL_DAILY_BACKGROUNDS[0];
+  return officialDailyArtwork;
+}
+function formatOfficialDailyDate(value){
+  const match=String(value||todayJstDateString()).match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if(!match)return escapeHtml(String(value||''));
+  const date=new Date(`${match[1]}-${match[2]}-${match[3]}T00:00:00+09:00`);
+  return `${Number(match[2])}月${Number(match[3])}日（${'日月火水木金土'[date.getUTCDay()]}）`;
+}
+
+function formatDailyElapsed(ms){
+  const seconds=Math.max(0,Math.floor(Number(ms||0)/1000));
+  return `${Math.floor(seconds/60)}:${String(seconds%60).padStart(2,'0')}`;
+}
+function dailyQuestionCandidates(){
+  return Object.keys(QUESTIONS).filter(key=>!officialDailyAsked.some(x=>x.key===key)
+    && !isPrefQuestion(key) && !REGION_QUESTION_KEYS.has(key)).slice(0,120);
+}
+function dailyQuestionOptions(){
+  const pool=dailyQuestionCandidates();
+  const seed=(officialDailyState?.question_count||0)*17;
+  return Array.from({length:6},(_,i)=>pool[(seed+i*19)%Math.max(pool.length,1)]).filter(Boolean);
+}
+function renderOfficialDailyCardHtml(){
+  const st=officialDailyStatus;
+  if(officialDailyLoadError) return `<section class="daily-v44-card is-error"><strong>今日のおらマチを読み込めませんでした</strong><small>${escapeHtml(officialDailyLoadError)}</small><button type="button" onclick="retryOfficialDailyStatus()">もう一度試す <span>↻</span></button></section>`;
+  if(!st?.available) return `<div class="daily-v44-card is-loading"><strong>今日のおらマチ</strong><small>本日の出題を準備しています</small></div>`;
+  const artwork=chooseOfficialDailyArtwork();
+  return `<section class="daily-v44-card" style="--daily-artwork:url('${artwork}')" data-daily-artwork="${artwork}">
+    <span class="daily-v44-new">NEW</span><span class="daily-v44-badge">デイリーチャレンジ</span>
+    <h2>今日のおらマチ</h2><strong>${formatOfficialDailyDate(st.challenge_date)}</strong>
+    <p>日本のどこかの市区町村に挑戦しよう。</p>
+    <img class="daily-v54-card-mascot" src="mascot-happy.png" alt="" aria-hidden="true">
+    <div class="daily-v44-card-stats"><span>参加者数 <b>${Number(st.participant_count||0).toLocaleString('ja-JP')}人</b></span><span>${st.best_question_count?'最高記録':'本日の記録'} <b>${st.best_question_count?`${st.best_question_count}問`:'—'}</b></span></div>
+    <button type="button" onclick="showOfficialDailyIntro()">${st.completed?'もう一度挑戦する':'挑戦する'} <span>›</span></button>
+  </section>`;
+}
+async function refreshOfficialDailyStatus(updateCard){
+  const client=getOramachiSupabase();
+  if(!client){officialDailyStatus={available:true,challenge_date:todayJstDateString(),participant_count:0,completed:false,requires_auth:true};return officialDailyStatus;}
+  if(!isNativeRegisteredUser()){
+    officialDailyStatus={available:true,challenge_date:todayJstDateString(),participant_count:0,completed:false,requires_auth:true};
+    if(updateCard){const old=document.querySelector('.daily-v44-card');if(old)old.outerHTML=renderOfficialDailyCardHtml();}
+    return officialDailyStatus;
+  }
+  const {data,error}=await client.rpc('get_daily_challenge_status',{p_date:todayJstDateString()});
+  if(error){console.warn('おらマチ: デイリー状態を取得できませんでした',error);officialDailyLoadError='通信状態を確認して、再度お試しください。';if(updateCard){const old=document.querySelector('.daily-v44-card');if(old)old.outerHTML=renderOfficialDailyCardHtml();}return null;}
+  officialDailyLoadError='';
+  officialDailyStatus=data;
+  if(updateCard){const old=document.querySelector('.daily-v44-card');if(old)old.outerHTML=renderOfficialDailyCardHtml();}
+  return data;
+}
+async function retryOfficialDailyStatus(){officialDailyLoadError='';officialDailyStatus=null;const old=document.querySelector('.daily-v44-card');if(old)old.outerHTML=renderOfficialDailyCardHtml();await refreshOfficialDailyStatus(true);}
+function officialDailyErrorMessage(error){const m=String(error?.message||error||'');if(m.includes('daily_challenge_unavailable'))return '本日の出題を準備しています。少し待ってから、もう一度お試しください。';if(m.includes('authentication_required'))return 'ログイン状態を確認できませんでした。もう一度ログインしてください。';return '今日のおらマチを読み込めませんでした。通信状態を確認して再度お試しください。';}
+function renderOfficialDailyError(error,retryAction){clearInterval(officialDailyTimer);stage.innerHTML=`<header class="daily-v44-heading"><button onclick="navigateBackOr(renderOpening)" aria-label="戻る">‹</button><h1>今日のおらマチ</h1><span></span></header><section class="daily-v44-intro daily-v63-error"><h2>今日のおらマチを読み込めませんでした</h2><p>${escapeHtml(officialDailyErrorMessage(error))}</p><button class="daily-v44-primary" onclick="${retryAction}">もう一度試す</button><button class="daily-v44-secondary" onclick="renderOpening()">ホームに戻る</button></section>`;}
+function showOfficialDailyIntro(){
+  pushNavState('officialDailyIntro');
+  const st=officialDailyStatus||{};
+  stage.innerHTML=`<header class="daily-v44-heading"><button onclick="navigateBackOr(renderOpening)" aria-label="戻る">‹</button><h1>今日のおらマチ</h1><span class="daily-v44-menu">☰</span></header>
+  <section class="daily-v44-intro"><div class="daily-v44-date"><span aria-hidden="true">▣</span> ${formatOfficialDailyDate(st.challenge_date)}</div><h2>今日の市町村に挑戦しよう！</h2>
+  <img class="daily-v44-hero" src="${officialDailyArtwork}" alt="今日の市町村のイメージ">
+  <p>質問を選ぶと、おらっちが「はい／いいえ」で答えます。少ない質問数・短い時間で正解を目指しましょう。</p>
+  <ul class="daily-v44-rules"><li><i class="daily-v44-rule-icon daily-v44-rule-icon-trophy" aria-hidden="true">♛</i><span>初回の挑戦のみランキングに記録<small>（2回目以降は練習として遊べます）</small></span></li><li><i class="daily-v44-rule-icon daily-v44-rule-icon-clock" aria-hidden="true">◷</i><span>制限時間はありません<small>（自分のペースで考えられます）</small></span></li><li><i class="daily-v44-rule-icon daily-v44-rule-icon-people" aria-hidden="true">♟</i><span>毎日0:00に新しい市町村へ変わります<small>（日本時間）</small></span></li></ul>
+  <div class="daily-v44-mascot-note"><img src="mascot-happy.png" alt="おらっち"><span>今日の挑戦は<br>全国のプレイヤーと共通です。<br>正解すると、ランキングに記録されます。</span></div>
+  <button class="daily-v44-primary" onclick="beginOfficialDailyChallenge()">挑戦する</button><button class="daily-v44-secondary" onclick="navigateBackOr(renderOpening)">戻る</button></section>`;
+  scrollToPageTop();
+}
+async function beginOfficialDailyChallenge(){
+  if(!isNativeRegisteredUser()) return renderNativeAuthPage();
+  const client=getOramachiSupabase();if(!client)return;
+  const {data,error}=await client.rpc('start_daily_challenge');
+  if(error)return renderOfficialDailyError(error,'beginOfficialDailyChallenge()');
+  officialDailyState={...data,startedAt:Date.now()};officialDailyAsked=[];officialDailySelectedQuestion=null;
+  renderOfficialDailyPlay();
+}
+function renderOfficialDailyPlay(message){
+  if(!officialDailyState)return showOfficialDailyIntro();
+  replaceNavState('officialDailyPlay');
+  const options=dailyQuestionOptions();
+  const selectedKey=officialDailySelectedQuestion;
+  const selectedQuestion=selectedKey&&QUESTIONS[selectedKey];
+  const history=officialDailyAsked.map((x,i)=>`<li><span>${i+1}</span><p>${escapeHtml(QUESTIONS[x.key]?.text||x.key)}</p><b class="${x.answer?'yes':'no'}">${x.answer?'はい':'いいえ'}</b></li>`).join('');
+  stage.innerHTML=`<header class="daily-v44-play-head"><button onclick="confirmLeaveOfficialDaily()">×</button><div><small>今日のおらマチ</small><strong>★ デイリーチャレンジ</strong></div></header>
+  <div class="daily-v44-progress"><span>質問 <b>${officialDailyAsked.length}</b> / 49</span><span>◷ <b id="dailyV44Timer">${formatDailyElapsed(Date.now()-officialDailyState.startedAt)}</b></span></div>
+  <section class="daily-v44-question">${selectedQuestion
+    ? `<h2>${escapeHtml(selectedQuestion.text)}</h2><img class="daily-v44-question-image" src="${officialDailyArtwork}" alt="">${message?`<p class="daily-v44-answer">${escapeHtml(message)}</p>`:''}
+      <div class="daily-v44-answer-grid" aria-label="回答"><button class="is-yes" onclick="answerOfficialDailyQuestion(true,1)">はい</button><button class="is-no" onclick="answerOfficialDailyQuestion(false,1)">いいえ</button><button class="is-maybe-yes" onclick="answerOfficialDailyQuestion(true,.5)">たぶんはい</button><button class="is-maybe-no" onclick="answerOfficialDailyQuestion(false,.5)">たぶんいいえ</button></div>
+      <button class="question-report-btn daily-v44-report" onclick="openQuestionReportModal('${escapeJsString(selectedKey)}')">⚑ この質問の回答を報告</button>
+      <button class="daily-v44-secondary" onclick="officialDailySelectedQuestion=null;renderOfficialDailyPlay()">別の質問を選ぶ</button>`
+    : `<h2>聞きたい質問を選んでください</h2>${message?`<p class="daily-v44-answer">${escapeHtml(message)}</p>`:''}<div class="daily-v44-question-list">${options.map(key=>`<button onclick="selectOfficialDailyQuestion('${key}')">${escapeHtml(QUESTIONS[key].text)}</button>`).join('')}</div>`}
+  <button class="daily-v44-guess" onclick="openOfficialDailyGuess()">この市区町村だと思う！</button></section>
+  <section class="daily-v44-history"><h3>これまでの質問</h3><ol>${history||'<li class="empty">まだ質問していません</li>'}</ol></section><button class="daily-v44-quit" onclick="confirmLeaveOfficialDaily()">やめる</button>`;
+  clearInterval(officialDailyTimer);officialDailyTimer=setInterval(()=>{const e=document.getElementById('dailyV44Timer');if(e)e.textContent=formatDailyElapsed(Date.now()-officialDailyState.startedAt);},1000);
+  scrollToPageTop();
+}
+function selectOfficialDailyQuestion(key){if(!QUESTIONS[key]||officialDailyAsked.some(x=>x.key===key))return;officialDailySelectedQuestion=key;renderOfficialDailyPlay();}
+async function answerOfficialDailyQuestion(predictedAnswer,weight){
+  const key=officialDailySelectedQuestion;if(!key)return;
+  const client=getOramachiSupabase();if(!client||!officialDailyState)return;
+  const {data,error}=await client.rpc('ask_daily_challenge_question',{p_attempt_id:officialDailyState.attempt_id,p_question_key:key});
+  if(error)return renderOfficialDailyError(error,'renderOfficialDailyPlay()');
+  const actual=Boolean(data.answer);officialDailyAsked.push({key,answer:actual,predictedAnswer:Boolean(predictedAnswer),weight:Number(weight)});officialDailyState.question_count=Number(data.question_count);officialDailySelectedQuestion=null;
+  renderOfficialDailyPlay(`正しい回答は「${actual?'はい':'いいえ'}」です。${actual===Boolean(predictedAnswer)?'回答が一致しました。':'次の質問で絞り込みましょう。'}`);
+}
+function openOfficialDailyGuess(){
+  const options=CITIES.filter(c=>c.name!=='東京').map(c=>`<option value="${escapeHtml(c.pref+'|'+c.name)}">${escapeHtml(c.pref+' '+displayName(c))}</option>`).join('');
+  stage.innerHTML=`<header class="daily-v44-heading"><button onclick="renderOfficialDailyPlay()">‹</button><h1>答える</h1></header><section class="daily-v44-intro"><h2>どの市区町村だと思う？</h2><label>自治体を選択<select id="dailyV44Guess"><option value="">選んでください</option>${options}</select></label><button class="daily-v44-primary" onclick="submitOfficialDailyGuess()">この答えで決定</button><button class="daily-v44-secondary" onclick="renderOfficialDailyPlay()">質問へ戻る</button></section>`;
+}
+async function submitOfficialDailyGuess(){
+  const municipalityId=document.getElementById('dailyV44Guess')?.value;if(!municipalityId)return alert('市区町村を選んでください。');
+  const client=getOramachiSupabase();const {data,error}=await client.rpc('submit_daily_challenge_guess',{p_attempt_id:officialDailyState.attempt_id,p_municipality_id:municipalityId});
+  if(error)return renderOfficialDailyError(error,'submitOfficialDailyGuess()');
+  if(!data.correct)return renderOfficialDailyPlay('残念、違います。質問を続けるか、もう一度答えてください。');
+  clearInterval(officialDailyTimer);officialDailyState={...officialDailyState,...data};await refreshOfficialDailyStatus(false);renderOfficialDailyResult();
+}
+function renderOfficialDailyResult(){
+  const s=officialDailyState;replaceNavState('officialDailyResult');
+  stage.innerHTML=`<header class="daily-v44-heading"><button onclick="renderOpening()" aria-label="戻る">‹</button><h1>今日のおらマチ</h1><span class="daily-v44-menu">☰</span></header><section class="daily-v44-result"><div class="daily-v44-confetti">◆　◇　◆　◇</div><div class="daily-v44-crown">♛</div><h1>正解！</h1><div class="daily-v44-date">${formatOfficialDailyDate(officialDailyStatus?.challenge_date)}</div><p>${escapeHtml(s.prefecture_name||'')} <strong>${escapeHtml(s.municipality_name||'')}</strong></p><img class="daily-v44-hero" src="${officialDailyArtwork}" alt="${escapeHtml(s.municipality_name||'自治体')}のイメージ"><div class="daily-v44-result-grid"><span>質問数<b>${Number(s.question_count)}問</b></span><span>クリアタイム<b>${formatDailyElapsed(s.elapsed_ms)}</b></span></div><aside>♛ ${s.is_official?'デイリーランキングに記録されました！':'練習記録です（ランキング対象外）'}</aside><button class="daily-v44-primary" onclick="renderOfficialDailyLeaderboard()">デイリーランキングを見る　›</button><button class="daily-v44-secondary" onclick="beginOfficialDailyChallenge()">↻　もう一度挑戦する<br><small>（同じ市町村）</small></button><button class="daily-v44-secondary" onclick="renderOpening()">⌂　ホームに戻る</button><div class="daily-v44-result-mascot"><span>やったっち！</span><img src="mascot-happy.png" alt="おらっち"></div></section>`;
+  scrollToPageTop();
+}
+async function renderOfficialDailyLeaderboard(){
+  if(!isNativeRegisteredUser()) return renderNativeAuthPage();
+  const client=getOramachiSupabase();if(!client)return;replaceNavState('officialDailyLeaderboard');
+  stage.innerHTML='<p class="native-online-stats-loading">ランキングを読み込んでいます…</p>';
+  const {data,error}=await client.rpc('get_daily_challenge_leaderboard',{p_limit:50,p_offset:0});
+  if(error){stage.innerHTML='<p class="error-text">ランキングを読み込めませんでした。</p>';return;}
+  const rows=(data.entries||[]).map(x=>`<li class="${data.me&&Number(x.rank)===Number(data.me.rank)?'is-me':''}"><b class="rank-${x.rank}">${Number(x.rank)<=3?'♛ ':''}${x.rank}</b><span>${nativeAvatarHtml(x,'native-ranking-avatar')} ${escapeHtml(x.display_name||'プレイヤー')}</span><em>${x.question_count}</em><time>${formatDailyElapsed(x.elapsed_ms)}</time></li>`).join('');
+  stage.innerHTML=`<header class="daily-v44-heading"><button onclick="navigateBackOr(renderOpening)">‹</button><h1>今日のおらマチ<br><strong>デイリーランキング</strong></h1><span class="daily-v44-menu">☰</span></header><section class="daily-v44-ranking"><p>▣ ${formatOfficialDailyDate(data.challenge_date)}　参加者 ${Number(data.total).toLocaleString('ja-JP')}人</p><div class="daily-v44-ranking-tabs"><b>全体</b><span>フレンド</span></div><div class="daily-v44-ranking-head"><span>順位</span><span>ユーザー</span><span>質問数</span><span>タイム</span></div><ol>${rows||'<li class="empty">まだ記録がありません</li>'}</ol><nav class="daily-v44-pager" aria-label="ページ送り"><button>‹</button><span>1　…　13　14　15　…　244</span><button>›</button></nav>${data.me?`<aside>♛ <span>あなたのベスト</span><b>${data.me.question_count}問 / ${formatDailyElapsed(data.me.elapsed_ms)} <small>（${formatOfficialDailyDate(data.challenge_date).replace(/（.）/,'')}）</small></b></aside>`:''}<div class="daily-v44-ranking-mascot"><span>また明日も<br>挑戦しようっち！</span><img src="mascot-happy.png" alt="おらっち"></div></section>`;
+  scrollToPageTop();
+}
+function confirmLeaveOfficialDaily(){if(confirm('挑戦を中断してホームへ戻りますか？')){clearInterval(officialDailyTimer);officialDailyState=null;renderOpening();}}
+
+// ==================== V72 デイリーヒントチャレンジ ====================
+// 通常プレイには触れず、上の旧デイリーUIだけを関数再定義で置き換える。
+let officialDailyHints=[];
+let officialDailyWrongCount=0;
+let officialDailySelectedMunicipality=null;
+let officialDailyGuessQuery='';
+
+function dailyMunicipalityId(city){return `${city.pref}|${city.name}`;}
+function normalizeDailySearch(value){return String(value||'').normalize('NFKC').toLowerCase().replace(/[\s　]/g,'');}
+function dailyMunicipalityMatches(city,query){
+  const q=normalizeDailySearch(query);if(!q)return false;
+  return normalizeDailySearch(`${city.name}${displayName(city)}${city.pref}`).includes(q);
+}
+function renderOfficialDailyCardHtml(){
+  const st=officialDailyStatus;
+  if(officialDailyLoadError)return `<section class="daily-v44-card is-error"><strong>今日のおらマチを読み込めませんでした</strong><small>${escapeHtml(officialDailyLoadError)}</small><button type="button" onclick="retryOfficialDailyStatus()">もう一度試す <span>↻</span></button></section>`;
+  if(!st?.available)return `<div class="daily-v44-card is-loading"><strong>今日のおらマチ</strong><small>本日の出題を準備しています</small></div>`;
+  return `<section class="daily-v44-card v72-daily-card" style="--daily-artwork:url('${officialDailyArtwork}')"><span class="daily-v44-new">NEW</span><span class="daily-v44-badge">デイリーチャレンジ</span><h2>今日のおらマチ</h2><strong>${formatOfficialDailyDate(st.challenge_date)}</strong><p>日本のどこかの市区町村です。<br>5つのヒントから推理して、できるだけ少ないヒントで正解を目指そう！</p><img class="daily-v54-card-mascot" src="mascot-happy.png" alt="" aria-hidden="true"><div class="daily-v44-card-stats"><span>参加者数 <b>${Number(st.participant_count||0).toLocaleString('ja-JP')}人</b></span><span>あなたの記録 <b>${st.best_hint_count?`${st.best_hint_count}ヒント`:'—'}</b></span></div><button type="button" onclick="showOfficialDailyIntro()">${st.completed?'結果を見る':'挑戦する'} <span>›</span></button></section>`;
+}
+function showOfficialDailyIntro(){
+  pushNavState('officialDailyIntro');const st=officialDailyStatus||{};
+  stage.innerHTML=`<main class="v74-daily-screen v74-intro-screen">
+    ${v74DailyHeader('navigateBackOr(renderOpening)')}
+    <section class="v74-intro-hero" style="--daily-artwork:url('${officialDailyArtwork}')">
+      <div class="v74-badges"><b>NEW</b><strong>デイリーチャレンジ</strong></div>
+      <h1>今日のおらマチ</h1><time>${formatOfficialDailyDate(st.challenge_date)}</time>
+      <p>日本のどこかの市区町村です。<br>5つのヒントから推理して、<br>できるだけ少ないヒントで<br>正解を目指そう！</p>
+      <span class="v74-love-town">まちを知ると<br>もっと好きになる！</span>
+      <img src="mascot-happy.png" alt="手を振るおらっち">
+      <div class="v74-intro-stats"><span>♟　参加者数<b>${Number(st.participant_count||0).toLocaleString('ja-JP')}人</b></span><span>♛　あなたの記録<b>${st.best_hint_count?`${st.best_hint_count}ヒント`:'—'}</b></span></div>
+    </section>
+    <button class="v74-cta" type="button" onclick="beginOfficialDailyChallenge()">${st.completed?'結果を見る':'挑戦する'}<span>›</span></button>
+    <button class="v74-outline" type="button" onclick="showOfficialDailyHowTo()">▢　遊び方を見る<span>›</span></button>
+    <section class="v74-search-demo" aria-label="市区町村検索の入力補助"><h2>⌕　市区町村検索（入力補助）</h2><div>⌕　市区町村名を入力すると候補が表示されます</div><aside><img src="mascot-wink.png" alt="おらっち"><b>漢字がわからなくても<br>候補から選べるよ！</b><span>💡 <strong>ヒント</strong><small>都道府県名も表示されます</small></span></aside></section>
+  </main>`;scrollToPageTop();
+}
+function v74DailyHeader(backAction){return `<header class="v74-daily-header"><button type="button" onclick="${backAction}" aria-label="戻る">←</button><img src="oramachi-official-logo.png" alt="おらマチ まちをあてる地理ゲーム"><button type="button" onclick="showOfficialDailyHowTo()" aria-label="ヘルプ">?</button></header>`;}
+function showOfficialDailyHowTo(){alert('5つのヒントを1つずつ開き、市区町村を当てます。\n\n順位は、使用ヒント数 → 誤答数 → クリアタイムの順で決まります。初回挑戦のみランキング対象です。');}
+async function beginOfficialDailyChallenge(){
+  if(!isNativeRegisteredUser())return renderNativeAuthPage();const client=getOramachiSupabase();if(!client)return;
+  const {data,error}=await client.rpc('start_daily_hint_challenge');if(error)return renderOfficialDailyError(error,'beginOfficialDailyChallenge()');
+  officialDailyState={...data,startedAt:Date.now()};officialDailyHints=Array.isArray(data.hints)?data.hints:[];officialDailyWrongCount=Number(data.wrong_count||0);officialDailySelectedMunicipality=null;officialDailyGuessQuery='';renderOfficialDailyPlay();
+}
+function renderOfficialDailyPlay(message){
+  if(!officialDailyState)return showOfficialDailyIntro();replaceNavState('officialDailyPlay');
+  const hintCount=Math.max(1,Number(officialDailyState.hint_count||officialDailyHints.length||1));
+  const hints=[0,1,2,3,4].map(i=>`<article class="v74-hint ${i<hintCount?'is-open':'is-locked'}"><b>${i<hintCount?`ヒント ${i+1}`:`🔒　ヒント ${i+1}`}</b><p>${i<hintCount?escapeHtml(officialDailyHints[i]||'ヒントを取得しています…'):'このヒントはまだ開かれていません。'}</p></article>`).join('');
+  stage.innerHTML=`<main class="v74-daily-screen v74-play-screen">${v74DailyHeader('confirmLeaveOfficialDaily()')}<section class="v74-play-title"><h1>今日のおらマチ</h1><time>${formatOfficialDailyDate(officialDailyState.challenge_date)}</time></section><div class="v74-hint-dots">${[1,2,3,4,5].map(n=>`<i class="${n<=hintCount?'is-open':''}"></i>`).join('')}</div><section class="v74-hints">${hints}</section><div class="v74-mascot-landscape"><img src="mascot-think.png" alt="考えるおらっち"></div>${message?`<div class="v74-daily-message">${escapeHtml(message)}</div>`:''}<section class="v74-live-search"><label for="dailyV72GuessInput">市区町村名を入力</label><div class="v74-search-box"><input id="dailyV72GuessInput" autocomplete="off" inputmode="search" value="${escapeHtml(officialDailyGuessQuery)}" placeholder="市区町村名を入力"><span>⌕</span></div><div id="dailyV72Candidates" class="v74-candidates" hidden></div></section><button id="dailyV74Submit" class="v74-cta" ${officialDailySelectedMunicipality?'':'disabled'} onclick="submitOfficialDailyGuess()">この市区町村で回答する<span>›</span></button>${hintCount<5?`<button class="v74-outline" onclick="revealOfficialDailyHint()">💡 次のヒントを見る</button>`:''}<p class="v74-live-stats">使用ヒント ${hintCount}　・　誤答 ${officialDailyWrongCount}　・　<span id="dailyV44Timer">${formatDailyElapsed(Date.now()-Number(officialDailyState.startedAt||Date.now()))}</span></p></main>`;
+  bindV74DailySearch();clearInterval(officialDailyTimer);officialDailyTimer=setInterval(()=>{const e=document.getElementById('dailyV44Timer');if(e)e.textContent=formatDailyElapsed(Date.now()-Number(officialDailyState.startedAt||Date.now()));},1000);scrollToPageTop();
+}
+async function revealOfficialDailyHint(){
+  const client=getOramachiSupabase();const {data,error}=await client.rpc('reveal_daily_hint',{p_attempt_id:officialDailyState.attempt_id});if(error)return renderOfficialDailyError(error,'renderOfficialDailyPlay()');officialDailyState={...officialDailyState,...data};officialDailyHints=data.hints||officialDailyHints;renderOfficialDailyPlay();
+}
+function renderV74CandidateList(query){const list=document.getElementById('dailyV72Candidates');if(!list)return;officialDailyGuessQuery=query;officialDailySelectedMunicipality=null;const submit=document.getElementById('dailyV74Submit');if(submit)submit.disabled=true;const matches=CITIES.filter(c=>c.name!=='東京'&&dailyMunicipalityMatches(c,query)).slice(0,20);list.innerHTML=matches.map(c=>`<button type="button" data-municipality-id="${escapeHtml(dailyMunicipalityId(c))}"><b>${escapeHtml(displayName(c))}</b><span>（${escapeHtml(c.pref)}）</span></button>`).join('')||(query?'<p>候補がありません</p>':'');list.hidden=!query;}
+function bindV74DailySearch(){const input=document.getElementById('dailyV72GuessInput');const list=document.getElementById('dailyV72Candidates');if(!input||!list)return;input.addEventListener('input',()=>renderV74CandidateList(input.value));const choose=e=>{const row=e.target.closest('button[data-municipality-id]');if(!row)return;e.preventDefault();e.stopPropagation();selectDailyMunicipality(row.dataset.municipalityId);};list.addEventListener('pointerdown',choose,{passive:false});list.addEventListener('mousedown',choose);list.addEventListener('click',choose);if(input.value)renderV74CandidateList(input.value);}
+function openOfficialDailyGuess(){document.getElementById('dailyV72GuessInput')?.focus();}
+function selectDailyMunicipality(id){const city=CITIES.find(c=>dailyMunicipalityId(c)===id)||null;if(!city)return;officialDailySelectedMunicipality=city;officialDailyGuessQuery=displayName(city);const input=document.getElementById('dailyV72GuessInput');const list=document.getElementById('dailyV72Candidates');const submit=document.getElementById('dailyV74Submit');if(input)input.value=displayName(city);if(list){list.hidden=true;list.innerHTML='';}if(submit)submit.disabled=false;}
+async function submitOfficialDailyGuess(){
+  if(!officialDailySelectedMunicipality)return alert('候補から市区町村を選んでください。');
+  const client=getOramachiSupabase();const {data,error}=await client.rpc('submit_daily_hint_guess',{p_attempt_id:officialDailyState.attempt_id,p_municipality_id:dailyMunicipalityId(officialDailySelectedMunicipality)});if(error)return renderOfficialDailyError(error,'renderOfficialDailyPlay()');
+  officialDailyState={...officialDailyState,...data};officialDailyWrongCount=Number(data.wrong_count||0);officialDailyHints=data.hints||officialDailyHints;officialDailySelectedMunicipality=null;
+  if(!data.correct){renderOfficialDailyWrong();return;}
+  clearInterval(officialDailyTimer);await refreshOfficialDailyStatus(false);renderOfficialDailyResult();
+}
+function renderOfficialDailyWrong(){const hintCount=Math.max(1,Number(officialDailyState?.hint_count||1));stage.innerHTML=`<main class="v74-daily-screen">${v74DailyHeader('renderOfficialDailyPlay()')}<section class="v74-wrong"><h1>ざんねん…</h1><p>この市区町村ではありません。</p><img src="mascot-sad.png" alt="残念そうなおらっち"><button class="v74-outline" onclick="renderOfficialDailyPlay()">💡 次のヒントを見る</button><small>誤答 ${officialDailyWrongCount}　・　使用ヒント ${hintCount}</small></section></main>`;scrollToPageTop();}
+function renderOfficialDailyResult(){
+  const s=officialDailyState;const city=CITIES.find(c=>dailyMunicipalityId(c)===s.municipality_id);const fact=city?.fact||s.description||'自然豊かな、魅力あふれるまちです。';replaceNavState('officialDailyResult');stage.innerHTML=`<main class="v74-daily-screen v74-result-screen">${v74DailyHeader('renderOpening()')}<section class="v74-result-hero" style="--daily-artwork:url('${officialDailyArtwork}')"><h1>正解！</h1><img src="mascot-happy.png" alt="喜ぶおらっち"></section><section class="v74-result-card"><small>${escapeHtml(s.prefecture_name||'')}</small><h2>${escapeHtml(s.municipality_name||'')}</h2><p class="v74-result-trivia">${escapeHtml(fact)}</p><div><span>使用ヒント数<b>${Number(s.hint_count)}</b></span><span>誤答数<b>${Number(s.wrong_count)}</b></span><span>クリアタイム<b>${formatDailyElapsed(s.clear_time_ms)}</b></span></div></section><button class="v74-cta" onclick="showTodayMunicipalityTrivia()">今日のまち豆知識を見る<span>›</span></button><button class="v74-outline" onclick="renderOfficialDailyLeaderboard()">デイリーランキングを見る</button><button class="v74-outline" onclick="renderOpening()">ホームに戻る</button></main>`;scrollToPageTop();
+}
+function showTodayMunicipalityTrivia(){
+  const dash=nativeHomeDashboard?.trivia;const body=dash&&dash.municipality_id===officialDailyState.municipality_id?dash.body:'今日のまちには、まだまだたくさんの魅力があります。地形や文化、名物を知ると、もっと好きになれるはずです。';stage.innerHTML=`<main class="v74-daily-screen">${v74DailyHeader('renderOfficialDailyResult()')}<section class="v74-trivia"><h1>今日のまち豆知識</h1><h2>${escapeHtml(officialDailyState.prefecture_name||'')} ${escapeHtml(officialDailyState.municipality_name||'')}</h2><img src="${officialDailyArtwork}" alt="今日のまちの風景"><p>${escapeHtml(body)}</p><button class="v74-outline" onclick="renderOfficialDailyResult()">閉じる</button></section></main>`;scrollToPageTop();
+}
+function v76DailyRankingRows(entries){
+  return (entries||[]).map(x=>{
+    const rank=Number(x.rank);const podium=rank>=1&&rank<=3;
+    return `<li class="v76-ranking-row ${podium?`is-podium rank-${rank}`:'is-standard'} ${x.is_me?'is-me':''}" ${x.is_me?'data-current-user="true"':''}>
+      <div class="v76-rank-cell"><b>${podium?['🥇','🥈','🥉'][rank-1]:rank}</b><time>${formatDailyElapsed(x.clear_time_ms)}</time></div>
+      <div class="v76-player-cell">${nativeAvatarHtml(x,'native-ranking-avatar')}<strong>${escapeHtml(x.display_name||'プレイヤー')}</strong>${x.is_me?'<small>あなた</small>':''}</div>
+      <div class="v76-score-cell"><b>${Number(x.hint_count)}</b><small>ヒント</small></div>
+      <div class="v76-score-cell"><b>${Number(x.wrong_count)}</b><small>ミス</small></div>
+    </li>`;
+  }).join('');
+}
+function renderV76DailyLeaderboardView(data){
+  const rows=v76DailyRankingRows(data.entries);
+  stage.innerHTML=`<main class="v74-daily-screen">${v74DailyHeader('navigateBackOr(renderOpening)')}<section class="daily-v44-ranking v72-ranking v74-ranking v76-ranking"><h1>デイリーランキング</h1><div class="v76-ranking-meta"><time>${formatOfficialDailyDate(data.challenge_date)}</time><p>参加者数　<b>${Number(data.total||0).toLocaleString('ja-JP')}人</b></p></div><div class="daily-v44-ranking-head"><span>順位<br>タイム</span><span>プレイヤー</span><span>ヒント</span><span>誤答</span></div><ol>${rows||'<li class="empty">まだ記録がありません</li>'}</ol><button id="v76MyRankButton" class="v74-outline v76-my-rank-button" type="button">自分の順位を見る<span aria-hidden="true">›</span></button><p id="v76MyRankMessage" class="v76-my-rank-message" role="status" aria-live="polite" hidden></p><aside><b>🏆 ランキングの決定方法</b><span>① 使用ヒント数が少ない　② 誤答数が少ない　③ クリアタイムが短い</span><small>同条件は同順位／その日の初回正解のみ／JST 0:00更新</small></aside></section></main>`;
+  bindV76MyRankButton(data);scrollToPageTop();
+}
+function showV76MyRankMessage(message){const box=document.getElementById('v76MyRankMessage');if(!box)return;box.textContent=message;box.hidden=false;}
+function highlightV76MyRank(){
+  const row=document.querySelector('.v76-ranking [data-current-user="true"]');if(!row)return false;
+  row.classList.remove('is-focus-pulse');void row.offsetWidth;row.classList.add('is-focus-pulse');row.scrollIntoView({behavior:'smooth',block:'center'});
+  setTimeout(()=>row.classList.remove('is-focus-pulse'),1800);return true;
+}
+async function focusV76MyRank(data){
+  if(!isNativeRegisteredUser()){showV76MyRankMessage('自分の順位を見るにはログインが必要です。');return;}
+  if(!data.me){showV76MyRankMessage('今日はまだランキングに参加していません。');return;}
+  if(highlightV76MyRank())return;
+  const client=getOramachiSupabase();if(!client){showV76MyRankMessage('ランキングを読み込めませんでした。');return;}
+  showV76MyRankMessage('自分の順位を読み込んでいます…');
+  const offset=Math.max(0,Number(data.me.rank||1)-4);
+  const result=await client.rpc('get_daily_hint_leaderboard',{p_limit:9,p_offset:offset});
+  if(result.error){showV76MyRankMessage('自分の順位を読み込めませんでした。');return;}
+  renderV76DailyLeaderboardView(result.data);requestAnimationFrame(()=>{if(!highlightV76MyRank())showV76MyRankMessage('自分の順位を表示できませんでした。もう一度お試しください。');});
+}
+function bindV76MyRankButton(data){
+  const button=document.getElementById('v76MyRankButton');if(!button)return;let lastActivation=0;
+  const activate=e=>{const now=Date.now();if(now-lastActivation<450)return;lastActivation=now;e.preventDefault();focusV76MyRank(data);};
+  button.addEventListener('pointerup',activate,{passive:false});button.addEventListener('click',activate);button.style.pointerEvents='auto';
+}
+async function renderOfficialDailyLeaderboard(){
+  if(!isNativeRegisteredUser()){alert('デイリーランキングを見るにはログインが必要です。');return renderNativeAuthPage();}const client=getOramachiSupabase();if(!client)return;replaceNavState('officialDailyLeaderboard');stage.innerHTML='<p class="native-online-stats-loading">ランキングを読み込んでいます…</p>';
+  const {data,error}=await client.rpc('get_daily_hint_leaderboard',{p_limit:50,p_offset:0});if(error){stage.innerHTML='<p class="error-text">ランキングを読み込めませんでした。</p>';return;}
+  renderV76DailyLeaderboardView(data);
+}
+function confirmLeaveOfficialDaily(){if(confirm('ホームへ戻りますか？ 挑戦内容とタイマーは保存され、次回再開できます。')){clearInterval(officialDailyTimer);renderOpening();}}
+
+// V53: 第13回確定画面をネイティブのホームそのものとして描画する。
+// V52までは旧ホームの下部へデイリーカードを差し込んでいたため、コードが存在しても
+// Androidで最初に見える画面は旧UIのままだった。
+function renderNativeHomeContentV53(totalCount,resumeCardHtml){
+  const homeProfile=currentSupabaseProfile||defaultNativeProfile();
+  syncNativePlayerRankHeader(calculateNativePlayerRank(loadConquest()));
+  stage.innerHTML=`
+    <header class="oramachi-brand v53-home-brand" aria-label="おらマチ まちをあてる地理ゲーム"><img src="oramachi-official-logo.png" alt="おらマチ まちをあてる地理ゲーム"></header>
+    <button class="native-home-profile v53-home-profile" type="button" onclick="renderNativeAuthPage()">${nativeAvatarHtml(homeProfile,'native-home-avatar')}${isNativeRegisteredUser()?`<span class="v68-home-profile-line"><strong>${escapeHtml(currentNativeDisplayName())}</strong>${nativeRankBadge(homeProfile.current_rating)}<small>レート ${Number(homeProfile.current_rating||1500).toLocaleString('ja-JP')}</small></span>`:'<span><strong>ゲスト</strong><small>ログインするとランキングへ参加できます</small></span>'}<b aria-hidden="true">›</b></button>
+    ${resumeCardHtml||''}
+    ${renderOfficialDailyCardHtml()}
+    <div class="native-primary-actions v53-home-actions">
+      <button class="native-home-action native-home-action-ranked" onclick="renderNativeMultiplayerEntry()"><span class="native-home-action-icon" aria-hidden="true">⚔</span><span class="native-home-action-copy"><strong>ランクマッチ</strong><small>全国のプレイヤーと対戦</small></span><span class="native-home-action-arrow" aria-hidden="true">›</span></button>
+      <button class="native-home-action native-home-action-room" onclick="renderNativeMultiplayerEntry()"><span class="native-home-action-icon" aria-hidden="true">♟</span><span class="native-home-action-copy"><strong>ルーム対戦</strong><small>友達と一緒に遊ぶ</small></span><span class="native-home-action-arrow" aria-hidden="true">›</span></button>
+      <button class="native-home-action native-home-action-solo" onclick="renderNativePlayHub()"><span class="native-home-action-icon" aria-hidden="true">●</span><span class="native-home-action-copy"><strong>ひとりで遊ぶ</strong><small>好きなモードで練習</small></span><span class="native-home-action-arrow" aria-hidden="true">›</span></button>
+    </div>
+    ${renderHomeEnhancementHtml()}`;
+  footEl.textContent=`日本全国 ${totalCount.toLocaleString('ja-JP')} 市区町村に対応`;
+  scrollToPageTop();
+  loadNativeHomeDashboard(false);
+}
+renderNativeHomeContent=renderNativeHomeContentV53;
+
+const legacyRenderDailyChallengeCardHtml=renderDailyChallengeCardHtml;
+renderDailyChallengeCardHtml=function(){return isNativeAppRuntime()?renderOfficialDailyCardHtml():legacyRenderDailyChallengeCardHtml();};
+const legacyInitializeSupabaseAuth=initializeSupabaseAuth;
+initializeSupabaseAuth=async function(){await legacyInitializeSupabaseAuth();await refreshOfficialDailyStatus(true);};
 
 boot();
