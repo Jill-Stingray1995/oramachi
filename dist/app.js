@@ -2834,6 +2834,7 @@ function startChallengeMode(){
   pushGameNavState('challenge');
   trackGaEvent('challenge_mode_start', {});
   renderChallengeMode();
+  scrollToPageTop();
 }
 
 function renderChallengeMode(){
@@ -2851,7 +2852,7 @@ function renderChallengeMode(){
   stage.innerHTML = `
     <section class="challenge-screen" aria-labelledby="challengeTitle">
       <div class="challenge-hero">
-        <button class="challenge-back-button" type="button" onclick="navigateBackOr(renderNativePlayHub)" aria-label="遊び方を選ぶ画面へ戻る">‹</button>
+        <button class="challenge-back-button" type="button" onclick="navigateToOpening()" aria-label="ホームへ戻る">‹</button>
         <div class="mascot-wrap"><div class="pop">${mascotSVG('normal')}</div></div>
         <div class="challenge-hero-copy">
           <span class="challenge-eyebrow">SPECIAL MODE</span>
@@ -2876,6 +2877,7 @@ function renderChallengeMode(){
     </section>
   `;
   updateDebugPanel();
+  scrollToPageTop();
 }
 
 // 入力欄の内容が変わるたびに呼ばれ、候補一覧を更新する。
@@ -4057,7 +4059,7 @@ function getRankFromRating(rating,context){return getRatingRank(rating,context).
 
 function nativeRankBadge(rating,context){
   const rank=getRatingRank(rating,context);
-  return `<span class="native-rating-rank native-rating-rank-${rank.id}"><i aria-hidden="true"><b>★</b></i><em>${rank.label}</em></span>`;
+  return `<span class="native-rating-rank native-rating-rank-${rank.id}"><i aria-hidden="true"><svg viewBox="0 0 40 44" focusable="false"><path d="M20 1 38 9v15c0 9-7 15-18 19C9 39 2 33 2 24V9Z"/><path class="rank-shield-mark" d="M20 8l3.2 6.5 7.2 1-5.2 5.1 1.2 7.2-6.4-3.4-6.4 3.4 1.2-7.2-5.2-5.1 7.2-1Z"/></svg></i><em>${rank.label}</em></span>`;
 }
 
 function nativeMunicipalityLabel(city){
@@ -10122,7 +10124,7 @@ function labelFor(k){
 }
 
 // おらマチ オリジナルマスコット「おらっち」(角/触角なし・まんまる目・ω口)
-const MASCOT_ASSET_VERSION = 'f52e4bfff8'; // 画像を軽量化(500px→320px・減色)したので更新
+const MASCOT_ASSET_VERSION = 'b03c6d253c'; // 画像を軽量化(500px→320px・減色)したので更新
 const MASCOT_IMAGES = {
   normal: `mascot-normal.png?v=${MASCOT_ASSET_VERSION}`,
   wink:   `mascot-wink.png?v=${MASCOT_ASSET_VERSION}`,
@@ -10575,11 +10577,10 @@ function activeGameFlowKind(){
     : null;
 }
 function confirmLeaveActiveGame(kind){
-  if(kind === 'challenge'){
-    return window.confirm('挑戦状を終了して前の画面へ戻りますか？');
-  }
-  return window.confirm('前の画面へ戻りますか？\n途中のゲームは保存され、「続きから」で再開できます。');
+  // V320: 通常の戻る操作では確認ダイアログを出さない。
+  return true;
 }
+
 function normalizeHistoryNavState(state){
   const depth = navDepth(state);
   const screen = state && state.oramachiScreen;
@@ -10955,7 +10956,7 @@ function renderNativeMultiplayerEntry(message, isError){
     </section>`;
   stage.innerHTML = `
     <header class="native-play-heading native-multiplayer-heading native-multiplayer-entry-heading">
-      <button class="native-play-back" type="button" onclick="navigateBackOr(renderNativePlayHub)" aria-label="遊び方を選ぶ画面へ戻る">‹</button>
+      <button class="native-play-back" type="button" onclick="navigateToOpening()" aria-label="ホームへ戻る">‹</button>
       <div class="native-play-heading-copy">
         <span>ランクマッチ・ルーム対戦</span>
         <h1>オンライン対戦</h1>
@@ -11565,7 +11566,7 @@ function renderNativePrefecturePicker(){
   }).join('');
   stage.innerHTML = `
     <header class="native-prefecture-heading">
-      <button class="native-play-back" type="button" onclick="navigateBackOr(renderNativePlayHub)" aria-label="遊び方を選ぶ画面へ戻る">‹</button>
+      <button class="native-play-back" type="button" onclick="navigateToOpening()" aria-label="ホームへ戻る">‹</button>
       <div><span>県別モード</span><h1>47都道府県から選ぶ</h1><p>遊びたい都道府県をタップしてください</p></div>
     </header>
     <section class="native-prefecture-map-card">
@@ -11573,7 +11574,7 @@ function renderNativePrefecturePicker(){
       <div><strong>47都道府県すべてに対応</strong><span>選んだ都道府県の市区町村だけで遊べます</span></div>
     </section>
     <div class="native-prefecture-list">${regionSections}</div>
-    <button class="link-btn native-prefecture-back-button" type="button" onclick="navigateBackOr(renderNativePlayHub)">← 遊び方を選ぶ画面へ戻る</button>
+    <button class="link-btn native-prefecture-back-button" type="button" onclick="renderNativePlayHub();scrollToPageTop()">← 遊び方を選ぶ画面へ戻る</button>
   `;
   footEl.textContent = '47都道府県から遊ぶエリアを選択';
   scrollToPageTop();
@@ -13459,6 +13460,7 @@ function scrollToGameTop(){
   }
 }
 let forcedNextKey = null; // 「戻る」で復元したときに、同じ質問を出すための指定
+let activePendingQuestionKey = null; // V320: 現在画面で回答を受け付ける質問。history長には依存しない
 
 // 【質問出題の状態更新】historyへのスナップショット保存、asked追加、questionCount更新。
 // 画面描画は行わない。通常のrenderQuestion()と、「これまでの回答」機能での再生の
@@ -13524,6 +13526,7 @@ function renderQuestion(){
 // 質問が二重に記録されてしまうため)。
 function renderQuestionScreen(key){
   activeGameTransientScreen = null;
+  activePendingQuestionKey = key;
   const q = QUESTIONS[key];
   questionHelpOpen = false; // 新しい質問に切り替わったら、前の質問で開いていた補足は必ず閉じた状態に戻す
 
@@ -14182,10 +14185,10 @@ function answerFromWebButton(key, val, weight){
 }
 
 function answer(key, val, weight){
-  // 連打・古い画面からの遅延イベント・外部からの重複呼び出しを拒否する。
-  // 未回答の現在質問があるときだけ history = answerLog + 1 になる。
-  const pendingSnapshot = history[history.length - 1];
-  if(!pendingSnapshot || pendingSnapshot.key !== key || answerLog.length !== history.length - 1) return;
+  // V320: 連打・古い画面からの遅延イベントだけを拒否する。
+  // historyとanswerLogの長さを回答可否の条件にすると、復元・戻る・推論による状態更新の境界で
+  // 正常な現在質問まで無反応になるため、画面に出している質問キーを唯一のロックにする。
+  if(activePendingQuestionKey !== key) return;
   if(val === null){
     // 「わからない・スキップ」が選ばれた質問を記録する。GA4へは都度送るが、
     // GAS(スプレッドシート)への送信は通信回数を減らすため、ゲーム終了時にまとめて送る。
@@ -14198,7 +14201,16 @@ function answer(key, val, weight){
       help_opened: questionHelpOpen
     });
   }
-  const forced = applyAnswerCore(key, val, weight);
+  let forced;
+  try{
+    forced = applyAnswerCore(key, val, weight);
+  }catch(error){
+    // 回答処理の途中で例外が起きてもボタンを永久に無反応にしない。
+    console.error('おらマチ: 回答処理に失敗しました', {key, error});
+    activePendingQuestionKey = key;
+    return;
+  }
+  activePendingQuestionKey = null;
   if(val === null) return renderQuestion();
   if(forced) return renderGuess();
 
@@ -15926,7 +15938,7 @@ function renderOfficialDailyCardHtml(){
     <span class="daily-v44-new">NEW</span><span class="daily-v44-badge">デイリーチャレンジ</span>
     <h2>今日のおらマチ</h2><strong>${formatOfficialDailyDate(st.challenge_date)}</strong>
     <p>日本のどこかの市区町村に挑戦しよう。</p>
-    <img class="daily-v54-card-mascot" src="mascot-happy.png" alt="" aria-hidden="true">
+    <img class="daily-v54-card-mascot" src="mascot-happy.png?v=320" alt="" aria-hidden="true">
     <div class="daily-v44-card-stats"><span>参加者数 <b>${Number(st.participant_count||0).toLocaleString('ja-JP')}人</b></span><span>${st.best_question_count?'最高記録':'本日の記録'} <b>${st.best_question_count?`${st.best_question_count}問`:'—'}</b></span></div>
     <button type="button" onclick="showOfficialDailyIntro()">${st.completed?'もう一度挑戦する':'挑戦する'} <span>›</span></button>
   </section>`;
@@ -16024,7 +16036,7 @@ async function renderOfficialDailyLeaderboard(){
   stage.innerHTML=`<header class="daily-v44-heading"><button onclick="navigateBackOr(renderOpening)">‹</button><h1>今日のおらマチ<br><strong>デイリーランキング</strong></h1><span class="daily-v44-menu">☰</span></header><section class="daily-v44-ranking"><p>▣ ${formatOfficialDailyDate(data.challenge_date)}　参加者 ${Number(data.total).toLocaleString('ja-JP')}人</p><div class="daily-v44-ranking-tabs"><b>全体</b><span>フレンド</span></div><div class="daily-v44-ranking-head"><span>順位</span><span>ユーザー</span><span>質問数</span><span>タイム</span></div><ol>${rows||'<li class="empty">まだ記録がありません</li>'}</ol><nav class="daily-v44-pager" aria-label="ページ送り"><button>‹</button><span>1　…　13　14　15　…　244</span><button>›</button></nav>${data.me?`<aside>♛ <span>あなたのベスト</span><b>${data.me.question_count}問 / ${formatDailyElapsed(data.me.elapsed_ms)} <small>（${formatOfficialDailyDate(data.challenge_date).replace(/（.）/,'')}）</small></b></aside>`:''}<div class="daily-v44-ranking-mascot"><span>また明日も<br>挑戦しようっち！</span><img src="mascot-happy.png" alt="おらっち"></div></section>`;
   scrollToPageTop();
 }
-function confirmLeaveOfficialDaily(){if(confirm('挑戦を中断してホームへ戻りますか？')){clearInterval(officialDailyTimer);officialDailyState=null;renderOpening();}}
+function confirmLeaveOfficialDaily(){clearInterval(officialDailyTimer);officialDailyState=null;renderOpening();scrollToPageTop();}
 
 // ==================== V72 デイリーヒントチャレンジ ====================
 // 通常プレイには触れず、上の旧デイリーUIだけを関数再定義で置き換える。
@@ -16043,7 +16055,7 @@ function renderOfficialDailyCardHtml(){
   const st=officialDailyStatus;
   if(officialDailyLoadError)return `<section class="daily-v44-card is-error"><strong>今日のおらマチを読み込めませんでした</strong><small>${escapeHtml(officialDailyLoadError)}</small><button type="button" onclick="retryOfficialDailyStatus()">もう一度試す <span>↻</span></button></section>`;
   if(!st?.available)return `<div class="daily-v44-card is-loading"><strong>今日のおらマチ</strong><small>本日の出題を準備しています</small></div>`;
-  return `<section class="daily-v44-card v72-daily-card" style="--daily-artwork:url('${officialDailyArtwork}')"><span class="daily-v44-new">NEW</span><span class="daily-v44-badge">デイリーチャレンジ</span><h2>今日のおらマチ</h2><strong>${formatOfficialDailyDate(st.challenge_date)}</strong><p>日本のどこかの市区町村です。<br>5つのヒントから推理して、できるだけ少ないヒントで正解を目指そう！</p><img class="daily-v54-card-mascot" src="mascot-happy.png" alt="" aria-hidden="true"><div class="daily-v44-card-stats"><span>参加者数 <b>${Number(st.participant_count||0).toLocaleString('ja-JP')}人</b></span><span>あなたの記録 <b>${st.best_hint_count?`${st.best_hint_count}ヒント`:'—'}</b></span></div><button type="button" onclick="showOfficialDailyIntro()">${st.completed?'結果を見る':'挑戦する'} <span>›</span></button></section>`;
+  return `<section class="daily-v44-card v72-daily-card" style="--daily-artwork:url('${officialDailyArtwork}')"><span class="daily-v44-new">NEW</span><span class="daily-v44-badge">デイリーチャレンジ</span><h2>今日のおらマチ</h2><strong>${formatOfficialDailyDate(st.challenge_date)}</strong><p>日本のどこかの市区町村です。<br>5つのヒントから推理して、できるだけ少ないヒントで正解を目指そう！</p><img class="daily-v54-card-mascot" src="mascot-happy.png?v=320" alt="" aria-hidden="true"><div class="daily-v44-card-stats"><span>参加者数 <b>${Number(st.participant_count||0).toLocaleString('ja-JP')}人</b></span><span>あなたの記録 <b>${st.best_hint_count?`${st.best_hint_count}ヒント`:'—'}</b></span></div><button type="button" onclick="showOfficialDailyIntro()">${st.completed?'結果を見る':'挑戦する'} <span>›</span></button></section>`;
 }
 function showOfficialDailyIntro(){
   pushNavState('officialDailyIntro');const st=officialDailyStatus||{};
@@ -16140,7 +16152,7 @@ async function renderOfficialDailyLeaderboard(){
   const {data,error}=await client.rpc('get_daily_hint_leaderboard',{p_limit:50,p_offset:0});if(error){stage.innerHTML='<p class="error-text">ランキングを読み込めませんでした。</p>';return;}
   renderV76DailyLeaderboardView(data);
 }
-function confirmLeaveOfficialDaily(){if(confirm('ホームへ戻りますか？ 挑戦内容とタイマーは保存され、次回再開できます。')){clearInterval(officialDailyTimer);renderOpening();}}
+function confirmLeaveOfficialDaily(){clearInterval(officialDailyTimer);renderOpening();scrollToPageTop();}
 
 // V53: 第13回確定画面をネイティブのホームそのものとして描画する。
 // V52までは旧ホームの下部へデイリーカードを差し込んでいたため、コードが存在しても

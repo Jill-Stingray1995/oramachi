@@ -4781,3 +4781,37 @@ body:not(.native-app) .stage{padding:0!important}
 /* Normal play: compact app-like column, no desktop overexpansion */
 .web-v318-game{max-width:760px!important;padding-top:0!important}.web-v318-game-head{grid-template-columns:42px 1fr 105px!important;padding:10px 14px!important;border-radius:20px 20px 0 0!important}.web-v318-game-head img{width:118px!important}.web-v318-game-head span{font-size:13px;padding:7px 10px}.web-v318-game-progress{padding:10px 14px!important;font-size:13px}.web-v318-question{padding:16px 18px 18px!important}.web-v318-question:before{height:170px!important;margin:45px 0 10px!important}.web-v318-question-mascot{width:84px!important;right:18px!important;top:68px!important}.web-v318-question-copy h1{margin:7px auto 11px!important;font-size:clamp(23px,3vw,29px)!important}.web-v318-answer-grid button{min-height:58px!important;font-size:16px!important}.web-v318-answer-grid button small{font-size:12px!important;margin-top:2px}.web-v318-skip{padding:12px!important;font-size:15px!important}.web-v318-game-tools{margin:10px 0!important}.web-v318-game-tools button{font-size:12px!important;padding:8px 10px!important}
 @media(max-width:700px){body:not(.native-app) .app{padding:8px 9px 24px!important}.web-v319-profilebar{grid-template-columns:1fr auto}.web-v319-rating{display:none}.web-v319-rank{display:none}.web-v319-login{font-size:12px}.web-v319-hero{grid-template-columns:1fr 125px;min-height:285px;padding:24px 18px}.web-v319-hero h1{font-size:32px}.web-v319-hero p{font-size:13px}.web-v319-hero-mascot img{width:125px}.web-v319-hero-mascot span{display:none}.web-v319-daily-wrap .daily-v44-card{padding:20px 145px 18px 18px!important;min-height:230px!important}.web-v319-daily-wrap .daily-v54-card-mascot{right:15px!important;width:125px!important}.web-v319-daily-wrap .daily-v44-card h2{font-size:25px!important}.home-trivia-card{grid-template-columns:1fr}.home-trivia-card-head{grid-row:auto}.home-trivia-card>p{grid-column:1}.web-v319-way-row{grid-template-columns:1fr}.web-v319-region-grid{grid-template-columns:1fr 1fr}.web-v319-record-grid{grid-template-columns:1fr}.web-v319-section-head p{display:none}.web-v318-question:before{height:145px!important;margin-top:38px!important}.web-v318-question-mascot{width:70px!important;top:62px!important}}
+
+/* V320 Web polish + rank badge */
+body:not(.native-app) .web-v319-profilebar .native-rating-rank,
+body:not(.native-app) .web-v319-record-grid .native-rating-rank{display:inline-grid;grid-template-columns:30px auto;align-items:center;gap:6px;padding:0;border:0;background:transparent!important;box-shadow:none!important;white-space:nowrap}
+body:not(.native-app) .native-rating-rank i{display:grid;width:30px;height:33px;place-items:center;clip-path:polygon(50% 0,94% 20%,86% 76%,50% 100%,14% 76%,6% 20%);background:linear-gradient(145deg,#c6855d,#814326);color:#fff;font-style:normal;filter:drop-shadow(0 2px 1px #193b5530)}
+body:not(.native-app) .native-rating-rank i b{font-size:12px;font-weight:950}
+body:not(.native-app) .native-rating-rank em{font-size:11px;font-style:normal;font-weight:900;color:#874a2a}
+body:not(.native-app) .native-rating-rank-silver i{background:linear-gradient(145deg,#dbe7f0,#72899e)} body:not(.native-app) .native-rating-rank-silver em{color:#536c82}
+body:not(.native-app) .native-rating-rank-gold i{background:linear-gradient(145deg,#ffd75b,#d68b00)} body:not(.native-app) .native-rating-rank-gold em{color:#a46a00}
+body:not(.native-app) .native-rating-rank-platinum i{background:linear-gradient(145deg,#8ee7ff,#2298e8)} body:not(.native-app) .native-rating-rank-platinum em{color:#087dc4}
+body:not(.native-app) .native-rating-rank-diamond i{background:linear-gradient(145deg,#78d9ff,#315cf2)} body:not(.native-app) .native-rating-rank-diamond em{color:#274ec9}
+body:not(.native-app) .native-rating-rank-black i{background:linear-gradient(145deg,#56616a,#0d151c)} body:not(.native-app) .native-rating-rank-black em{color:#17212a}
+@media(min-width:701px){body:not(.native-app) .web-v319-hero-copy>p{font-size:13px;white-space:nowrap;letter-spacing:-.01em}.web-v319-hero-mascot{transform:translate(18px,-14px)}}
+body:not(.native-app) .challenge-screen{position:relative;padding-top:22px}
+body:not(.native-app) .challenge-back-button{position:absolute;left:14px;top:14px;z-index:5;display:grid;place-items:center;width:38px;height:38px;border:1.5px solid #cfe7f4;border-radius:12px;background:#fff;color:#07549a;font-size:25px;line-height:1;box-shadow:0 5px 14px #07549a12;cursor:pointer}
+
+/* V320 Web polish + verified rank shield rendering */
+body:not(.native-app) .native-rating-rank i{clip-path:none!important;background:transparent!important;filter:none!important;width:34px!important;height:38px!important}
+body:not(.native-app) .native-rating-rank i svg{display:block;width:34px;height:38px;overflow:visible;filter:drop-shadow(0 2px 2px #173b5b28)}
+body:not(.native-app) .native-rating-rank i svg path:first-child{fill:#a9653d;stroke:#744225;stroke-width:1.5}
+body:not(.native-app) .native-rating-rank i .rank-shield-mark{fill:#fff4df;stroke:none}
+body:not(.native-app) .native-rating-rank-silver i svg path:first-child{fill:#aebbc7;stroke:#718291}
+body:not(.native-app) .native-rating-rank-gold i svg path:first-child{fill:#e9b323;stroke:#a77900}
+body:not(.native-app) .native-rating-rank-platinum i svg path:first-child{fill:#48b7d8;stroke:#167fa8}
+body:not(.native-app) .native-rating-rank-diamond i svg path:first-child{fill:#4e82ed;stroke:#2853b8}
+body:not(.native-app) .native-rating-rank-black i svg path:first-child{fill:#202a33;stroke:#080d12}
+body:not(.native-app) .web-v319-hero-copy>p{font-size:13px!important;white-space:nowrap;letter-spacing:-.01em}
+body:not(.native-app) .web-v319-hero-mascot{transform:translate(16px,-15px)}
+body:not(.native-app) .challenge-screen{position:relative}
+body:not(.native-app) .challenge-back-button{left:0!important;top:0!important}
+body:not(.native-app) .web-v318-question:before{margin-top:20px!important}
+body:not(.native-app) .web-v318-game-tools{gap:8px!important}
+body:not(.native-app) .web-v319-daily-wrap .daily-v54-card-mascot{opacity:1!important;mix-blend-mode:normal!important;mask:none!important;-webkit-mask:none!important}
+@media(max-width:900px){body:not(.native-app) .web-v319-hero-copy>p{white-space:normal}}
