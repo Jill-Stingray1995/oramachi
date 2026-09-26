@@ -4615,7 +4615,7 @@ function renderNativeAuthPage(){
   const displayNameValue = currentNativeDisplayName();
   const profile = currentSupabaseProfile || defaultNativeProfile();
   stage.innerHTML = `
-    <header class="v65-page-head"><button type="button" onclick="navigateBackOr(renderOpening)" aria-label="戻る">‹</button><h1>${user ? 'プロフィール' : 'ログイン・会員登録'}</h1><span></span></header>
+    <header class="v65-page-head web-v324-pagehead"><button type="button" onclick="navigateBackOr(renderOpening)" aria-label="戻る">←</button><img src="oramachi-official-logo.png" alt="おらマチ"><span></span></header>
     ${user ? `
       <section class="native-settings-card native-auth-account">
         <span class="native-auth-signed-in">ログイン中</span>
@@ -4676,7 +4676,7 @@ function renderNativeAuthPage(){
           </form>
         </section>
       </section>` : `
-      <section class="native-settings-card">
+      <section class="native-settings-card web-v324-auth-card"><div class="web-v324-auth-intro"><span>ACCOUNT</span><h1>ログイン・会員登録</h1><p>戦績や全国制覇の記録を保存して、どの端末でもおらマチを楽しめます。</p></div>
         <form class="native-auth-form" onsubmit="submitNativeSignIn(event)">
           <label><span>メールアドレス</span><input id="nativeAuthEmail" type="email" inputmode="email" autocomplete="email" required placeholder="例：name@example.com"></label>
           <label><span>パスワード</span><input id="nativeAuthPassword" type="password" autocomplete="current-password" minlength="8" required placeholder="8文字以上"></label>
@@ -14306,14 +14306,19 @@ function renderGuess(){
   const jumpClass = isRetry ? '' : ' mascot-guess-jump';
   if(!isRetry) trackGaEvent('final_guess_animation', { ...analyticsModeParams(currentMode) });
   stage.innerHTML = `
-    <div class="mascot-wrap"><div class="pop${jumpClass}">${mascotSVG('happy')}</div></div>
-    <div class="bubble"><span class="icon">💭</span>${bubbleText}</div>
-    <div class="result-name${isRetry ? '' : ' v158-guess-reveal'}">${displayName(guess)}</div>
-    <div class="result-pref${isRetry ? '' : ' v158-guess-reveal'}">${guess.pref}</div>
-    <div class="choices${isRetry ? '' : ' v158-guess-actions'}">
-      <button class="btn btn-yes" onclick="correct(true)">当たり!</button>
-      <button class="btn btn-no" onclick="correct(false)">ちがう</button>
-    </div>
+    <main class="web-v324-guess">
+      <header class="web-v324-pagehead"><button type="button" onclick="navigateBackOr(renderOpening)" aria-label="戻る">←</button><img src="oramachi-official-logo.png" alt="おらマチ"><span></span></header>
+      <section class="web-v324-guess-card">
+        <div class="mascot-wrap"><div class="pop${jumpClass}">${mascotSVG('happy')}</div></div>
+        <div class="bubble"><span class="icon">💭</span>${bubbleText}</div>
+        <div class="result-name${isRetry ? '' : ' v158-guess-reveal'}">${displayName(guess)}</div>
+        <div class="result-pref${isRetry ? '' : ' v158-guess-reveal'}">${guess.pref}</div>
+        <div class="choices${isRetry ? '' : ' v158-guess-actions'}">
+          <button class="btn btn-yes" onclick="correct(true)">当たり！</button>
+          <button class="btn btn-no" onclick="correct(false)">ちがう</button>
+        </div>
+      </section>
+    </main>
   `;
   saveGameSession('guess', { guessCity: guess });
   updateDebugPanel();
@@ -15716,6 +15721,8 @@ function correct(isRight, overrideCity){
         : '');
 
     stage.innerHTML = `
+      <main class="web-v324-result">
+      <header class="web-v324-pagehead"><button type="button" onclick="navigateToOpening()" aria-label="戻る">←</button><img src="oramachi-official-logo.png" alt="おらマチ"><span></span></header>
       <div class="share-card" id="shareCard">
         <div class="share-card-head">
           <span class="share-eyebrow">おらマチ診断</span>
@@ -15758,9 +15765,11 @@ function correct(isRight, overrideCity){
         </button>
         <button class="link-btn" onclick="navigateToOpening()">別の地域版であそぶ</button>
         <button class="link-btn" onclick="renderConquestLog()">📖 全国制覇帳を見る</button>
+        <button class="link-btn" onclick="navigateToOpening()">⌂ ホームに戻る</button>
         <button class="link-btn-subtle" onclick="renderSuccessCorrectionForm()">この情報を訂正する</button>
       </div>
       <div id="shareImageStatus" class="share-image-status"></div>
+      </main>
     `;
     if(isNativeAppRuntime()){
       clearInterval(window.oramachiNormalGameTimer);
@@ -16118,7 +16127,7 @@ function showOfficialDailyIntro(){
     <section class="v74-search-demo" aria-label="市区町村検索の入力補助"><h2>⌕　市区町村検索（入力補助）</h2><div>⌕　市区町村名を入力すると候補が表示されます</div><aside><img src="mascot-wink.png" alt="おらっち"><b>漢字がわからなくても<br>候補から選べるよ！</b><span>💡 <strong>ヒント</strong><small>都道府県名も表示されます</small></span></aside></section>
   </main>`;scrollToPageTop();
 }
-function v74DailyHeader(backAction){return `<header class="v74-daily-header"><button type="button" onclick="${backAction}" aria-label="戻る">←</button><img src="oramachi-official-logo.png" alt="おらマチ まちをあてる地理ゲーム"><button type="button" onclick="showOfficialDailyHowTo()" aria-label="ヘルプ">?</button></header>`;}
+function v74DailyHeader(backAction){return `<header class="v74-daily-header web-v324-pagehead"><button type="button" onclick="${backAction}" aria-label="戻る">←</button><img src="oramachi-official-logo.png" alt="おらマチ"><button type="button" onclick="showOfficialDailyHowTo()" aria-label="ヘルプ">?</button></header>`;}
 function showOfficialDailyHowTo(){alert('5つのヒントを1つずつ開き、市区町村を当てます。\n\n順位は、使用ヒント数 → 誤答数 → クリアタイムの順で決まります。初回挑戦のみランキング対象です。');}
 async function beginOfficialDailyChallenge(){
   if(!isNativeRegisteredUser())return renderNativeAuthPage();const client=getOramachiSupabase();if(!client)return;
@@ -16129,7 +16138,7 @@ function renderOfficialDailyPlay(message){
   if(!officialDailyState)return showOfficialDailyIntro();replaceNavState('officialDailyPlay');
   const hintCount=Math.max(1,Number(officialDailyState.hint_count||officialDailyHints.length||1));
   const hints=[0,1,2,3,4].map(i=>`<article class="v74-hint ${i<hintCount?'is-open':'is-locked'}"><b>${i<hintCount?`ヒント ${i+1}`:`🔒　ヒント ${i+1}`}</b><p>${i<hintCount?escapeHtml(officialDailyHints[i]||'ヒントを取得しています…'):'このヒントはまだ開かれていません。'}</p></article>`).join('');
-  stage.innerHTML=`<main class="v74-daily-screen v74-play-screen">${v74DailyHeader('confirmLeaveOfficialDaily()')}<section class="v74-play-title"><h1>今日のおらマチ</h1><time>${formatOfficialDailyDate(officialDailyState.challenge_date)}</time></section><div class="v74-hint-dots">${[1,2,3,4,5].map(n=>`<i class="${n<=hintCount?'is-open':''}"></i>`).join('')}</div><section class="v74-hints">${hints}</section><div class="v74-mascot-landscape"><img src="mascot-think.png" alt="考えるおらっち"></div>${message?`<div class="v74-daily-message">${escapeHtml(message)}</div>`:''}<section class="v74-live-search"><label for="dailyV72GuessInput">市区町村名を入力</label><div class="v74-search-box"><input id="dailyV72GuessInput" autocomplete="off" inputmode="search" value="${escapeHtml(officialDailyGuessQuery)}" placeholder="市区町村名を入力"><span>⌕</span></div><div id="dailyV72Candidates" class="v74-candidates" hidden></div></section><button id="dailyV74Submit" class="v74-cta" ${officialDailySelectedMunicipality?'':'disabled'} onclick="submitOfficialDailyGuess()">この市区町村で回答する<span>›</span></button>${hintCount<5?`<button class="v74-outline" onclick="revealOfficialDailyHint()">💡 次のヒントを見る</button>`:''}<p class="v74-live-stats">使用ヒント ${hintCount}　・　誤答 ${officialDailyWrongCount}　・　<span id="dailyV44Timer">${formatDailyElapsed(Date.now()-Number(officialDailyState.startedAt||Date.now()))}</span></p></main>`;
+  stage.innerHTML=`<main class="v74-daily-screen v74-play-screen">${v74DailyHeader('renderOpening()')}<section class="v74-play-title"><h1>今日のおらマチ</h1><time>${formatOfficialDailyDate(officialDailyState.challenge_date)}</time></section><div class="v74-hint-dots">${[1,2,3,4,5].map(n=>`<i class="${n<=hintCount?'is-open':''}"></i>`).join('')}</div><section class="v74-hints">${hints}</section><div class="v74-mascot-landscape"><img src="mascot-think.png" alt="考えるおらっち"></div>${message?`<div class="v74-daily-message">${escapeHtml(message)}</div>`:''}<section class="v74-live-search"><label for="dailyV72GuessInput">市区町村名を入力</label><div class="v74-search-box"><input id="dailyV72GuessInput" autocomplete="off" inputmode="search" value="${escapeHtml(officialDailyGuessQuery)}" placeholder="市区町村名を入力"><span>⌕</span></div><div id="dailyV72Candidates" class="v74-candidates" hidden></div></section><button id="dailyV74Submit" class="v74-cta" ${officialDailySelectedMunicipality?'':'disabled'} onclick="submitOfficialDailyGuess()">この市区町村で回答する<span>›</span></button>${hintCount<5?`<button class="v74-outline" onclick="revealOfficialDailyHint()">💡 次のヒントを見る</button>`:''}<p class="v74-live-stats">使用ヒント ${hintCount}　・　誤答 ${officialDailyWrongCount}　・　<span id="dailyV44Timer">${formatDailyElapsed(Date.now()-Number(officialDailyState.startedAt||Date.now()))}</span></p></main>`;
   bindV74DailySearch();clearInterval(officialDailyTimer);officialDailyTimer=setInterval(()=>{const e=document.getElementById('dailyV44Timer');if(e)e.textContent=formatDailyElapsed(Date.now()-Number(officialDailyState.startedAt||Date.now()));},1000);scrollToPageTop();
 }
 async function revealOfficialDailyHint(){
