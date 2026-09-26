@@ -409,13 +409,15 @@ color: inherit;}
   }
 
   .btn-back{
-    display:block; width:100%; margin-top: 10px; padding: 10px;
-    background: transparent; color: var(--ink-soft);
-    border: none; font-family:'Zen Maru Gothic', sans-serif;
-    font-weight:700; font-size: 12.5px; cursor:pointer;
-    text-decoration: underline; text-underline-offset: 3px;
+    display:block; width:100%; margin-top: 12px; padding: 12px 14px;
+    background: #F2F8FD; color: var(--indigo-deep);
+    border: 1.5px solid #A9D4F0; border-radius: 12px;
+    font-family:'Zen Maru Gothic', sans-serif;
+    font-weight:800; font-size: 14px; cursor:pointer;
+    text-decoration: none; box-shadow: 0 2px 0 rgba(27,92,145,.10);
   }
-  .btn-back:active{ opacity: 0.6; }
+  .btn-back:hover{ background:#E8F4FC; border-color:#78BCE8; }
+  .btn-back:active{ transform: translateY(1px); box-shadow:none; }
 
   /* 【これまでの回答】質問画面の下、戻るボタンと横並びにする小さめのボタン。
      画面を圧迫しないよう、控えめなサイズ・色にしている。 */
@@ -4854,3 +4856,11 @@ body:not(.native-app) .v74-search-demo{margin-top:12px;padding:18px;border:1.5px
 body:not(.native-app) .v74-play-title,body:not(.native-app) .v74-ranking{text-align:center}.v74-hint-dots{display:flex;justify-content:center;gap:10px;margin:15px}.v74-hint-dots i{width:15px;height:15px;border:2px solid #9fc5d9;border-radius:50%}.v74-hint-dots i.is-open{background:#149de5;border-color:#149de5}.v74-hints{display:grid;gap:8px}.v74-hint{padding:13px;border:1.5px solid #d3e8f3;border-radius:12px;background:#fff}.v74-hint.is-locked{background:#f2f7fa;color:#7690a2}.v74-mascot-landscape{height:120px;margin-top:10px;overflow:hidden;border-radius:15px;background-image:var(--daily-artwork);background-size:cover;background-position:center}.v74-mascot-landscape img{display:block;width:110px;height:110px;margin:auto;object-fit:contain}.v74-live-search{position:relative;margin-top:10px}.v74-search-box{display:flex;border:1.5px solid #cbe4f2;border-radius:12px;background:#fff}.v74-search-box input{box-sizing:border-box;width:100%;padding:14px;border:0;background:transparent;font:inherit;outline:0}.v74-candidates{position:absolute;z-index:20;right:0;left:0;background:#fff;border:1px solid #cbe4f2;border-radius:0 0 12px 12px}.v74-candidates button{display:block;width:100%;padding:12px;border:0;border-bottom:1px solid #e5f0f6;background:#fff;text-align:left}
 body:not(.native-app) .v74-result-hero{position:relative;height:280px;overflow:hidden;border-radius:24px;background-image:linear-gradient(#149de522,#073f7730),var(--daily-artwork);background-size:cover;background-position:center}.v74-result-hero h1{position:absolute;left:28px;bottom:20px;margin:0;color:#fff;font-size:48px;text-shadow:0 2px 8px #06365c99}.v74-result-hero img{position:absolute;right:30px;bottom:0;width:170px;height:170px;object-fit:contain}.v74-result-card{position:relative;margin:-22px 28px 0;padding:22px;border-radius:18px;background:#fff;box-shadow:0 10px 28px #07549a18;text-align:center}.v74-result-card h2{margin:3px;font-size:34px}.v74-result-card>div{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.v74-result-card span{padding:10px;border-radius:10px;background:#f1f9fd}.v74-result-card b{display:block;font-size:20px}
 @media(max-width:700px){body:not(.native-app) .web-v324-guess-card{padding:24px 15px}.web-v324-guess-card .choices{grid-template-columns:1fr 1fr}.web-v324-auth-card{padding:20px!important}.v74-intro-hero{min-height:420px!important;padding:28px 28px 130px!important}.v74-intro-hero>img{right:10px!important;bottom:58px!important;width:135px!important;height:135px!important}.v74-love-town{display:none}.v74-search-demo aside{grid-template-columns:60px 1fr!important}.v74-search-demo aside>span{grid-column:1/-1}.v74-result-card{margin:-18px 12px 0!important}}
+
+/* V326 Web normal-play inline history */
+.web-v326-history{margin:12px 0 0;padding:14px 16px;border:1.5px solid #cfe7f5;border-radius:16px;background:#fff}.web-v326-history>div{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}.web-v326-history h3{margin:0;color:#173f60;font-size:15px}.web-v326-history>div button{border:0;background:transparent;color:#0870b7;font-size:12px;font-weight:800;cursor:pointer}.web-v326-history ol{display:grid;gap:6px;margin:0;padding:0;list-style:none}.web-v326-history li{display:flex;gap:9px;align-items:flex-start;padding:7px 9px;border-radius:10px;background:#f7fbfe;color:#24465f;font-size:12px;line-height:1.45}.web-v326-history li i{flex:0 0 22px;height:22px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:900}.web-v326-history li i.yes{background:#dff3ff;color:#078fe8}.web-v326-history li i.no{background:#ffe7e9;color:#e94f5a}.web-v326-history li i.unknown{background:#edf1f4;color:#607487}.web-v326-history li span{display:flex;flex:1;gap:6px;align-items:baseline;flex-wrap:wrap}.web-v326-history li b{color:#075fa6}.web-v326-history li small{margin-left:auto;color:#607487;font-weight:800}.web-v326-history li.empty{justify-content:center;color:#7890a3}
+@media(max-width:760px){.web-v326-history{padding:11px 10px}.web-v326-history li small{width:100%;margin-left:28px}}
+
+/* V327: 回答ミスを気軽に直せるよう「前の質問に戻る」を質問カード直下で明確に表示 */
+.v327-native-back{width:100%;margin:10px 0 0;padding:12px 14px;border:1.5px solid #A9D4F0;border-radius:12px;background:#F2F8FD;color:#174B78;font:800 14px 'Zen Maru Gothic',sans-serif;cursor:pointer;}
+.v327-native-back:active{transform:translateY(1px);}

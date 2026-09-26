@@ -1004,7 +1004,7 @@ const QUESTIONS = {
   shibamata_taishakuten: {text:'柴又帝釈天がある？', icon:'⛩️'},
   kasai_park: {text:'葛西臨海公園がある？', icon:'🎡'},
   broadway_nakano: {text:'ブロードウェイがある？', icon:'🏬'},
-  koenji_area: {text:'高円寺・阿佐ヶ谷・荻窪のどれかがある？', icon:'🎸'},
+  koenji_area: {text:'ミュージシャンや芸人など、夢を追う若者が多く暮らす高円寺がある？', icon:'🎸'},
   jiyugaoka: {text:'自由が丘がある？', icon:'🍰'},
   shakujii_park: {text:'石神井公園がある？', icon:'🌳'},
   odakyu_line: {text:'小田急線の駅がある？', icon:'🚃'},
@@ -1632,7 +1632,7 @@ const QUESTIONS = {
   william_park: {text:'プリンス・ウィリアムズ・パークの英国庭園がある？', icon:'🌷'},
   natural_gas_town: {text:'天然ガスの産出量が日本有数？', icon:'🔥'},
   region_tohoku: {text:'東北地方にある？', icon:'🗾'},
-  region_kanto: {text:'茨城・栃木・群馬・埼玉・千葉・東京・神奈川にある？', icon:'🗾'},
+  region_kanto: {text:'関東地方（山梨除く）にある？', icon:'🗾'},
   region_chubu: {text:'新潟・北陸・甲信・東海地方にある？', icon:'🗾'},
   region_kinki: {text:'三重・滋賀・京都・大阪・兵庫・奈良・和歌山にある？', icon:'🗾'},
   region_chugoku: {text:'中国地方にある？', icon:'🗾'},
@@ -8700,7 +8700,7 @@ function v245PreferTownFaceRepair(pool, prelim, topCities, posteriorMasses, true
   for(let i=0;i<topCities.length;i++){ const m=posteriorMasses[i]||0; if(m>topMass){topMass=m;topIndex=i;} }
   const topCity=topIndex>=0?topCities[topIndex]:null;
   if(!topCity || topMass < 0.24) return pool;
-  const ranked=prelim.filter(s=>!V264_DEMOTED_SURPRISE_KEYS.has(s.k) && V245_TOWN_FACE_FINISHERS.has(s.k) && topCity.tags[s.k]===true && !asked.has(s.k));
+  const ranked=prelim.filter(s=>!V264_DEMOTED_SURPRISE_KEYS.has(s.k) && V245_TOWN_FACE_FINISHERS.has(s.k) && topCity.tags[s.k]===true && !asked.includes(s.k));
   if(!ranked.length) return pool;
   ranked.sort((a,b)=>v170GlobalYesCount(a.k)-v170GlobalYesCount(b.k) || a.diff-b.diff);
   const k=ranked[0].k;
@@ -8801,7 +8801,7 @@ function v203PreferEarnedVividStrike(pool, prelim, topCities, posteriorMasses, t
   if(!topCity || topMass < 0.30) return pool;
   const ranked=prelim.filter(s=>{
     const k=s.k, n=v170GlobalYesCount(k);
-    return !V264_DEMOTED_SURPRISE_KEYS.has(k) && V203_MEMORABLE_KEYS.has(k) && n>=4 && n<=40 && topCity.tags[k]===true && !asked.has(k);
+    return !V264_DEMOTED_SURPRISE_KEYS.has(k) && V203_MEMORABLE_KEYS.has(k) && n>=4 && n<=40 && topCity.tags[k]===true && !asked.includes(k);
   });
   if(!ranked.length) return pool;
   ranked.sort((a,b)=>v170GlobalYesCount(a.k)-v170GlobalYesCount(b.k) || a.diff-b.diff);
@@ -8873,7 +8873,7 @@ function v216PreferClosingFace(pool, prelim, topCities, posteriorMasses, truePoo
   for(let i=0;i<topCities.length;i++){ const m=posteriorMasses[i]||0; if(m>topMass){topMass=m;topIndex=i;} }
   const topCity=topIndex>=0?topCities[topIndex]:null;
   if(!topCity || topMass < 0.12) return pool;
-  const finisher=[...V216_BATCH1_CLOSING_FINISHERS].find(k=>topCity.tags[k]===true && !asked.has(k));
+  const finisher=[...V216_BATCH1_CLOSING_FINISHERS].find(k=>topCity.tags[k]===true && !asked.includes(k));
   if(!finisher) return pool;
   return [finisher, ...pool.filter(k=>k!==finisher)];
 }
@@ -8941,7 +8941,7 @@ function v217PreferClosingFace(pool, prelim, topCities, posteriorMasses, truePoo
   for(let i=0;i<topCities.length;i++){ const m=posteriorMasses[i]||0; if(m>topMass){topMass=m;topIndex=i;} }
   const topCity=topIndex>=0?topCities[topIndex]:null;
   if(!topCity || topMass < 0.12) return pool;
-  const finisher=[...V217_BATCH2_CLOSING_FINISHERS].find(k=>topCity.tags[k]===true && !asked.has(k));
+  const finisher=[...V217_BATCH2_CLOSING_FINISHERS].find(k=>topCity.tags[k]===true && !asked.includes(k));
   if(!finisher) return pool;
   return [finisher, ...pool.filter(k=>k!==finisher)];
 }
@@ -9007,7 +9007,7 @@ function v218PreferClosingFace(pool, prelim, topCities, posteriorMasses, truePoo
   for(let i=0;i<topCities.length;i++){ const m=posteriorMasses[i]||0; if(m>topMass){topMass=m;topIndex=i;} }
   const topCity=topIndex>=0?topCities[topIndex]:null;
   if(!topCity || topMass < 0.12) return pool;
-  const finisher=[...V218_BATCH3_CLOSING_FINISHERS].find(k=>topCity.tags[k]===true && !asked.has(k));
+  const finisher=[...V218_BATCH3_CLOSING_FINISHERS].find(k=>topCity.tags[k]===true && !asked.includes(k));
   if(!finisher) return pool;
   return [finisher, ...pool.filter(k=>k!==finisher)];
 }
@@ -9073,7 +9073,7 @@ function v219PreferClosingFace(pool, prelim, topCities, posteriorMasses, truePoo
   for(let i=0;i<topCities.length;i++){ const m=posteriorMasses[i]||0; if(m>topMass){topMass=m;topIndex=i;} }
   const topCity=topIndex>=0?topCities[topIndex]:null;
   if(!topCity || topMass < 0.12) return pool;
-  const finisher=[...V219_BATCH4_CLOSING_FINISHERS].find(k=>topCity.tags[k]===true && !asked.has(k));
+  const finisher=[...V219_BATCH4_CLOSING_FINISHERS].find(k=>topCity.tags[k]===true && !asked.includes(k));
   if(!finisher) return pool;
   return [finisher, ...pool.filter(k=>k!==finisher)];
 }
@@ -9090,7 +9090,7 @@ function v220PreferClosingFace(pool, prelim, topCities, posteriorMasses, truePoo
   for(let i=0;i<topCities.length;i++){ const m=posteriorMasses[i]||0; if(m>topMass){topMass=m;topIndex=i;} }
   const topCity=topIndex>=0?topCities[topIndex]:null;
   if(!topCity || topMass < 0.12) return pool;
-  const finisher=[...V220_BATCH5_CLOSING_FINISHERS].find(k=>topCity.tags[k]===true && !asked.has(k));
+  const finisher=[...V220_BATCH5_CLOSING_FINISHERS].find(k=>topCity.tags[k]===true && !asked.includes(k));
   if(!finisher) return pool;
   return [finisher, ...pool.filter(k=>k!==finisher)];
 }
@@ -9113,7 +9113,7 @@ function v213PreferLongRouteFinisher(pool, prelim, topCities, posteriorMasses, t
   for(let i=0;i<topCities.length;i++){ const m=posteriorMasses[i]||0; if(m>topMass){topMass=m;topIndex=i;} }
   const topCity=topIndex>=0?topCities[topIndex]:null;
   if(!topCity || topMass < 0.05) return pool;
-  const finisher=[...V213_LONG_ROUTE_FINISHERS].find(k=>topCity.tags[k]===true && !asked.has(k));
+  const finisher=[...V213_LONG_ROUTE_FINISHERS].find(k=>topCity.tags[k]===true && !asked.includes(k));
   if(!finisher) return pool;
   return [finisher, ...pool.filter(k=>k!==finisher)];
 }
@@ -9135,7 +9135,7 @@ function v266PreferLongRouteTreatment(pool, prelim, topCities, posteriorMasses, 
   for(let i=0;i<topCities.length;i++){ const m=posteriorMasses[i]||0; if(m>topMass){topMass=m;topIndex=i;} }
   const topCity=topIndex>=0?topCities[topIndex]:null;
   if(!topCity || topMass < 0.035) return pool;
-  const finisher=[...V266_LONG_ROUTE_TREATMENT_FINISHERS].find(k=>topCity.tags[k]===true && !asked.has(k));
+  const finisher=[...V266_LONG_ROUTE_TREATMENT_FINISHERS].find(k=>topCity.tags[k]===true && !asked.includes(k));
   if(!finisher || V264_DEMOTED_SURPRISE_KEYS.has(finisher)) return pool;
   return [finisher, ...pool.filter(k=>k!==finisher)];
 }
@@ -9156,7 +9156,7 @@ function v269PreferExistingFaceForLongRoute(pool, prelim, topCities, posteriorMa
   for(let i=0;i<topCities.length;i++){ const m=posteriorMasses[i]||0; if(m>topMass){topMass=m;topIndex=i;} }
   const topCity=topIndex>=0?topCities[topIndex]:null;
   if(!topCity || topMass < 0.025) return pool;
-  const finisher=[...V269_LONG_ROUTE_EXISTING_FACE_FINISHERS].find(k=>topCity.tags[k]===true && !asked.has(k));
+  const finisher=[...V269_LONG_ROUTE_EXISTING_FACE_FINISHERS].find(k=>topCity.tags[k]===true && !asked.includes(k));
   if(!finisher || V264_DEMOTED_SURPRISE_KEYS.has(finisher)) return pool;
   return [finisher, ...pool.filter(k=>k!==finisher)];
 }
@@ -9176,7 +9176,7 @@ function v270PreferFamousFaceForRemainingLongRoute(pool, prelim, topCities, post
   for(let i=0;i<topCities.length;i++){ const m=posteriorMasses[i]||0; if(m>topMass){topMass=m;topIndex=i;} }
   const topCity=topIndex>=0?topCities[topIndex]:null;
   if(!topCity || topMass < 0.025) return pool;
-  const finisher=[...V270_REMAINING_15_FACE_FINISHERS].find(k=>topCity.tags[k]===true && !asked.has(k));
+  const finisher=[...V270_REMAINING_15_FACE_FINISHERS].find(k=>topCity.tags[k]===true && !asked.includes(k));
   if(!finisher || V264_DEMOTED_SURPRISE_KEYS.has(finisher)) return pool;
   return [finisher, ...pool.filter(k=>k!==finisher)];
 }
@@ -9196,7 +9196,7 @@ function v272PreferExistingFaceBeforeDryEnd(pool, prelim, topCities, posteriorMa
   for(let i=0;i<topCities.length;i++){ const m=posteriorMasses[i]||0; if(m>topMass){topMass=m;topIndex=i;} }
   const topCity=topIndex>=0?topCities[topIndex]:null;
   if(!topCity || topMass < 0.03) return pool;
-  const finisher=[...V272_DRY_END_EXISTING_FACE_FINISHERS].find(k=>topCity.tags[k]===true && !asked.has(k));
+  const finisher=[...V272_DRY_END_EXISTING_FACE_FINISHERS].find(k=>topCity.tags[k]===true && !asked.includes(k));
   if(!finisher || V264_DEMOTED_SURPRISE_KEYS.has(finisher)) return pool;
   return [finisher, ...pool.filter(k=>k!==finisher)];
 }
@@ -9214,7 +9214,7 @@ function v273PreferFaceBeforeDryEnd(pool, prelim, topCities, posteriorMasses, tr
   for(let i=0;i<topCities.length;i++){ const m=posteriorMasses[i]||0; if(m>topMass){topMass=m;topIndex=i;} }
   const topCity=topIndex>=0?topCities[topIndex]:null;
   if(!topCity || topMass < 0.025) return pool;
-  const finisher=[...V273_DRY_END_82_FACE_FINISHERS].find(k=>topCity.tags[k]===true && !asked.has(k));
+  const finisher=[...V273_DRY_END_82_FACE_FINISHERS].find(k=>topCity.tags[k]===true && !asked.includes(k));
   if(!finisher || V264_DEMOTED_SURPRISE_KEYS.has(finisher)) return pool;
   return [finisher, ...pool.filter(k=>k!==finisher)];
 }
@@ -9234,7 +9234,7 @@ function v276PreferFinalDryEndFace(pool, prelim, topCities, posteriorMasses, tru
   for(let i=0;i<topCities.length;i++){ const m=posteriorMasses[i]||0; if(m>topMass){topMass=m;topIndex=i;} }
   const topCity=topIndex>=0?topCities[topIndex]:null;
   if(!topCity || topMass < 0.025) return pool;
-  const finisher=[...V276_FINAL_DRY_END_15_FINISHERS].find(k=>topCity.tags[k]===true && !asked.has(k));
+  const finisher=[...V276_FINAL_DRY_END_15_FINISHERS].find(k=>topCity.tags[k]===true && !asked.includes(k));
   if(!finisher || V264_DEMOTED_SURPRISE_KEYS.has(finisher)) return pool;
   return [finisher, ...pool.filter(k=>k!==finisher)];
 }
@@ -9253,7 +9253,7 @@ function v211PreferLastChanceFinisher(pool, prelim, topCities, posteriorMasses, 
   for(let i=0;i<topCities.length;i++){ const m=posteriorMasses[i]||0; if(m>topMass){topMass=m;topIndex=i;} }
   const topCity=topIndex>=0?topCities[topIndex]:null;
   if(!topCity || topMass < 0.065) return pool;
-  const finisher=[...V211_LAST_CHANCE_FINISHERS].find(k=>topCity.tags[k]===true && !asked.has(k));
+  const finisher=[...V211_LAST_CHANCE_FINISHERS].find(k=>topCity.tags[k]===true && !asked.includes(k));
   if(!finisher) return pool;
   // 上位候補の通常質問のどれかが、posterior首位を1自治体まで一気に分離する局面だけ。
   const near=prelim.slice(0,12);
@@ -10084,6 +10084,21 @@ function entropyPick(){
   // V177: 全国レア度だけでは拾えなかった「候補内では鋭い」質問を最後に救済。
   pool = v177LocalSurpriseRescue(pool, prelim, topCities, posteriorMasses, truePoolSize);
   pool = v178PreferZeroWindFinisher(pool, topCities, posteriorMasses, truePoolSize);
+
+  // V326: サプライズ系の後段処理が、情報利得の上位pool外から「面白いがほぼ絞れない球」を
+  // 再注入すると、実プレイだけ20問超へ伸びることがあった。演出は残すが、最後に必ず
+  // 現局面の上位選球から大きく外れていないことを確認する。
+  // 序盤は広域→中規模の自然さを許容し、中盤以降ほど厳しくする。
+  const runtimeQualityMargin = truePoolSize > 150 ? 3.0 : (truePoolSize > 40 ? 2.0 : 1.0);
+  const runtimeQualityKeys = new Set(scored.filter(x => x.selectionScore <= best + runtimeQualityMargin).map(x => x.k));
+  const qualityGatedPool = pool.filter(k => runtimeQualityKeys.has(k));
+  if(qualityGatedPool.length){
+    pool = qualityGatedPool;
+  }else{
+    // 演出候補が全滅した場合は、推理性能を優先して上位球へ戻す。
+    pool = scored.filter(x => x.selectionScore <= best + Math.min(1.0, runtimeQualityMargin)).slice(0, 3).map(x => x.k);
+    if(!pool.length) pool = [scored[0].k];
+  }
   const picked = shuffle(pool)[0];
   v184Trace('entropy_pick', {
     truePoolSize,
@@ -13581,7 +13596,7 @@ function renderQuestionScreen(key){
     const nativeThinkingStatus=thinkingStatusFor(nativeRemainingNow,modeStartCount);
     const nativeTensionMilestone=candidateTensionMilestone(nativeRemainingBefore,nativeRemainingNow);
     const nativeTensionHtml=nativeTensionMilestone ? `<div class="v157-tension-milestone" role="status">${escapeHtml(nativeTensionMilestone)}</div>` : '';
-    stage.innerHTML=`<main class="v56-game-screen"><header class="v56-game-head"><button onclick="handleBackRequest({historyAlreadyMoved:false})" aria-label="やめる">×</button><div class="v64-game-brand"><img class="v64-game-logo" src="oramachi-official-logo.png" alt="おらマチ まちをあてる地理ゲーム"><strong>★ 通常プレイ</strong></div></header><div class="v56-game-progress"><span>質問 <b>${questionCount}/${effectiveMaxQ(questionPhase)}</b></span><span>◷ <b id="v56GameTimer">${formatDailyElapsed(elapsed)}</b></span></div><div class="v156-game-narrowing"><strong>${modeStartCount}マチ → 残り約${nativeRemainingNow}マチ</strong><span>${escapeHtml(nativeThinkingStatus.text)}</span></div>${nativeTensionHtml}<section class="v56-question-card"><h2>${escapeHtml(q.text)}</h2><img src="${artwork}" alt="自治体のイメージ"><div class="v56-answer-grid"><button class="yes" onclick="answer('${key}',true)">はい</button><button class="no" onclick="answer('${key}',false)">いいえ</button><button class="maybe-yes" onclick="answer('${key}',true,PARTIAL_WEIGHT)">たぶんはい<br>部分的にはい</button><button class="maybe-no" onclick="answer('${key}',false,PARTIAL_WEIGHT)">たぶんいいえ<br>部分的にいいえ</button></div><button class="v56-unknown-skip" onclick="answer('${key}',null)">わからない・スキップ</button><button class="v56-report" onclick="openQuestionReportModal('${escapeJsString(key)}')">⚑ この質問の回答を報告</button></section><section class="v56-game-history"><h3>これまでの質問</h3><ol>${historyRows||'<li class="empty">まだ回答していません</li>'}</ol></section><button class="v56-quit" onclick="handleBackRequest({historyAlreadyMoved:false})">やめる</button></main>`;
+    stage.innerHTML=`<main class="v56-game-screen"><header class="v56-game-head"><button onclick="handleBackRequest({historyAlreadyMoved:false})" aria-label="やめる">×</button><div class="v64-game-brand"><img class="v64-game-logo" src="oramachi-official-logo.png" alt="おらマチ まちをあてる地理ゲーム"><strong>★ 通常プレイ</strong></div></header><div class="v56-game-progress"><span>質問 <b>${questionCount}/${effectiveMaxQ(questionPhase)}</b></span><span>◷ <b id="v56GameTimer">${formatDailyElapsed(elapsed)}</b></span></div><div class="v156-game-narrowing"><strong>${modeStartCount}マチ → 残り約${nativeRemainingNow}マチ</strong><span>${escapeHtml(nativeThinkingStatus.text)}</span></div>${nativeTensionHtml}<section class="v56-question-card"><h2>${escapeHtml(q.text)}</h2><img src="${artwork}" alt="自治体のイメージ"><div class="v56-answer-grid"><button class="yes" onclick="answer('${key}',true)">はい</button><button class="no" onclick="answer('${key}',false)">いいえ</button><button class="maybe-yes" onclick="answer('${key}',true,PARTIAL_WEIGHT)">たぶんはい<br>部分的にはい</button><button class="maybe-no" onclick="answer('${key}',false,PARTIAL_WEIGHT)">たぶんいいえ<br>部分的にいいえ</button></div><button class="v56-unknown-skip" onclick="answer('${key}',null)">わからない・スキップ</button><button class="v56-report" onclick="openQuestionReportModal('${escapeJsString(key)}')">⚑ この質問の回答を報告</button></section>${history.length > 1 ? `<button class="v327-native-back" onclick="goBack()">← 前の質問に戻る</button>` : ''}<section class="v56-game-history"><h3>これまでの質問</h3><ol>${historyRows||'<li class="empty">まだ回答していません</li>'}</ol></section><button class="v56-quit" onclick="handleBackRequest({historyAlreadyMoved:false})">やめる</button></main>`;
     clearInterval(window.oramachiNormalGameTimer);window.oramachiNormalGameTimer=setInterval(()=>{const e=document.getElementById('v56GameTimer');if(e)e.textContent=formatDailyElapsed(Date.now()-Number(window.oramachiNormalGameStartedAt||Date.now()));},1000);
     questionShownAt=Date.now();updateDebugPanel();scrollToPageTop();return;
   }
@@ -13613,6 +13628,15 @@ function renderQuestionScreen(key){
   const answerHistoryBtn = answerLog.length > 0
     ? `<button class="btn-answer-history" onclick="renderAnswerHistoryPanel()">📝 これまでの回答</button>`
     : '';
+  // V326: Webでも回答履歴を質問画面内に常時表示する。ボタンを押さないと見えない状態を廃止。
+  const webHistoryRows = answerLog.map((a, i) => {
+    const v = answerValueLabel(a.val, a.weight);
+    if(a.val === null) v.label = 'わからない・スキップ';
+    const mark = a.val === null ? '○' : (a.val ? '✓' : '×');
+    const cls = a.val === null ? 'unknown' : (a.val ? 'yes' : 'no');
+    return `<li><i class="${cls}">${mark}</i><span><b>Q${i+1}</b> ${escapeHtml(QUESTIONS[a.key]?.text || a.key)}<small>${escapeHtml(v.label)}</small></span></li>`;
+  }).join('');
+  const webInlineHistory = `<section class="web-v326-history"><div><h3>これまでの質問</h3><button type="button" onclick="renderAnswerHistoryPanel()">回答を見直す</button></div><ol>${webHistoryRows || '<li class="empty">まだ回答していません</li>'}</ol></section>`;
 
   // 【質問の補足】指定された一覧(QUESTION_HELP)にあるキーだけボタンを出す。無いキーは何も表示しない。
   const helpText = QUESTION_HELP[key];
@@ -13644,7 +13668,8 @@ function renderQuestionScreen(key){
         </div>
         <button class="web-v318-skip" onclick="answerFromWebButton('${key}', null)">わからない・スキップ</button>
       </section>
-      <div class="web-v318-game-tools">${backBtn}${answerHistoryBtn}${reportBtnHtml}</div>
+      ${webInlineHistory}
+      <div class="web-v318-game-tools">${backBtn}${reportBtnHtml}</div>
     </main>
   `;
   questionShownAt = Date.now(); // 回答時間の計測開始(この質問が画面に出た時刻)
@@ -13928,6 +13953,21 @@ function shouldGuessNow(){
   if(sorted.length <= 1) return true; // 候補が1つに絞れた
   const top1 = sorted[0], top2 = sorted[1];
   const margin = (top1 && top2) ? top1.score - top2.score : Infinity;
+
+  // V325: 入門版は「本編の縮小版」ではなく、おらマチの触りを短時間で味わう導線。
+  // 69自治体という小さい母集団で全国版と同じ確信度を待つと10〜17問まで伸びやすいため、
+  // 4問目以降は十分な首位差／posterior集中ができた時点で早めに推測へ進む。
+  // ただし曖昧回答が多い場合と客観矛盾が多い場合は下の通常安全基準へ任せる。
+  if(currentMode === 'capitals' && questionPhase === 'normal' && questionCount >= 4){
+    const ambiguousHighTrial = ambiguousAnswerRatio() >= AMBIGUOUS_RATIO_THRESHOLD;
+    const mismatchHighTrial = !!(top1 && (top1.objMismatch || 0) >= TOP1_MISMATCH_CAUTION);
+    if(!ambiguousHighTrial && !mismatchHighTrial){
+      if(margin >= 5) return true;
+      if(topConfidence() >= 0.64) return true;
+      // 8問まで来たら、首位が明確なら一度推測する。外れても既存の訂正・追加質問へ接続する。
+      if(questionCount >= 8 && margin >= 3) return true;
+    }
+  }
 
   // 曖昧回答(わからない・たぶん)が多い、または1位候補が客観的回答と何度も矛盾している場合は、
   // 性急な推測を避け、より慎重な「安定判定」基準だけで判断する。
@@ -14218,6 +14258,43 @@ function applyAnswerCore(key, val, weight){
   return false;
 }
 
+// V325: 入門版専用の「試食ストライク」。
+// 3〜7問目、候補が25以下まで絞れ、posterior首位が育った時だけ、その首位にYESで刺さる
+// 未質問のサプライズ候補を1球だけ選ぶ。hidden targetは参照しないため、当てずっぽうの答え漏洩にはならない。
+// 外れればNO回答で通常推理へ戻り、当たれば「そこを聞くの!?」を入門版でも体験できる。
+function v325PickBeginnerSurpriseStrike(){
+  if(currentMode !== 'capitals' || questionPhase !== 'normal') return null;
+  if(questionCount < 3 || questionCount > 7 || v175HasSurpriseYes() || v170RecentSpecificMiss()) return null;
+  const info = topPoolCities();
+  const topCities = info.cities || [];
+  if(info.trueCount < 2 || info.trueCount > 25 || !topCities.length) return null;
+  const masses = posteriorMassForCities(topCities);
+  let ti=-1, tm=-1;
+  for(let i=0;i<topCities.length;i++){ if((masses[i]||0)>tm){ tm=masses[i]||0; ti=i; } }
+  const topCity = ti>=0 ? topCities[ti] : null;
+  if(!topCity || tm < (info.trueCount <= 8 ? 0.16 : 0.20)) return null;
+  const previousKey = history.length ? history[history.length-1]?.key : null;
+  const candidates = activeKeysForMode(currentMode).filter(k=>{
+    if(asked.includes(k) || !QUESTIONS[k] || topCity.tags[k] !== true) return false;
+    if(!v175IsSurpriseCandidate(k)) return false;
+    if(isPrefQuestion(k) || REGION_QUESTION_KEYS.has(k) || WIDE_AREA_BOOST_KEYS.has(k)) return false;
+    const localYes = topCities.filter(c=>c.tags[k]===true).length;
+    if(localYes <= 0 || localYes > Math.max(3, Math.ceil(topCities.length*0.32))) return false;
+    if(v170IsConcreteSpecific(k) && !v170SpecificStrikeEligible(k, topCities, masses, info.trueCount)) return false;
+    return true;
+  });
+  if(!candidates.length) return null;
+  candidates.sort((a,b)=>{
+    const as=v169SurpriseStrikeScore(a,topCities,masses,info.trueCount);
+    const bs=v169SurpriseStrikeScore(b,topCities,masses,info.trueCount);
+    if(as!==bs) return bs-as;
+    const aa=previousKey && categoryOf(previousKey)!==categoryOf(a) ? 0 : 1;
+    const ba=previousKey && categoryOf(previousKey)!==categoryOf(b) ? 0 : 1;
+    return aa-ba || v170GlobalYesCount(a)-v170GlobalYesCount(b) || a.localeCompare(b);
+  });
+  return candidates[0];
+}
+
 function answerFromWebButton(key, val, weight){
   // V319: answer() itselfが現在質問・重複イベントを検証するため、Web側でボタンを恒久disableしない。
   // これにより再描画の境界で「1回答後に止まる」状態を防ぐ。
@@ -14255,6 +14332,13 @@ function answer(key, val, weight){
     }
 
     if(shouldGuessNow()){
+      // V325: 入門版では、早く当てるだけで終わらせず、条件が整っていれば推測直前に
+      // 一度だけ「そこを聞くの!?」を体験させる。候補が無ければそのまま即推測する。
+      const v325BeginnerStrike = v325PickBeginnerSurpriseStrike();
+      if(v325BeginnerStrike){
+        forcedNextKey = v325BeginnerStrike;
+        return renderQuestion();
+      }
       const v180FinalKey = v180PickFinalSurpriseQuestion();
       v184Trace('guess_gate', {
         shouldGuess: true,
@@ -14532,6 +14616,9 @@ function computeBarePoints(finalCity){
     const rec = answerLog[i];
     if(!rec || rec.key !== h.key) continue; // 念のための整合性チェック
     if(rec.val === null) continue; // 「わからない」は対象外
+    // V326: 「○○ではない」をバレた理由に並べても町の顔にならず、読後感も弱い。
+    // 結果カードは、その自治体に実際に「ある／該当する」特徴だけを採用する。
+    if(rec.val !== true) continue;
     if(!!finalCity.tags[rec.key] !== !!rec.val) continue; // 正解自治体のデータと矛盾する回答は対象外
 
     const poolBefore = h.scorePool.filter(e => !h.excludedNames.has(e.city.name));
