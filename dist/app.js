@@ -13460,7 +13460,6 @@ function scrollToGameTop(){
   }
 }
 let forcedNextKey = null; // 「戻る」で復元したときに、同じ質問を出すための指定
-let activePendingQuestionKey = null; // V320: 現在画面で回答を受け付ける質問。history長には依存しない
 
 // 【質問出題の状態更新】historyへのスナップショット保存、asked追加、questionCount更新。
 // 画面描画は行わない。通常のrenderQuestion()と、「これまでの回答」機能での再生の
@@ -13526,10 +13525,6 @@ function renderQuestion(){
 // 質問が二重に記録されてしまうため)。
 function renderQuestionScreen(key){
   activeGameTransientScreen = null;
-  activePendingQuestionKey = key;
-  // V321: Webの回答可否はDOMに表示中の質問キーも正本として保持する。
-  // JS変数だけに依存すると再描画/復元境界でnull化して現在のボタンまで死ぬ事故が起きたため。
-  if(stage && stage.dataset) stage.dataset.pendingQuestionKey = key;
   const q = QUESTIONS[key];
   questionHelpOpen = false; // 新しい質問に切り替わったら、前の質問で開いていた補足は必ず閉じた状態に戻す
 
@@ -14188,69 +14183,69 @@ function answerFromWebButton(key, val, weight){
 }
 
 function answer(key, val, weight){
-  // V321: 画面に実際に表示されている質問をDOM datasetで検証する。
-  // activePendingQuestionKey単独のロックは再描画/復元の境界で失われ、6〜7問目付近で
-  // 現在の正常なボタンまで無反応になる実機不具合を起こしたため廃止する。
-  const displayedKey = stage && stage.dataset ? stage.dataset.pendingQuestionKey : null;
-  if(displayedKey !== key) return;
-  // 同じDOM上の連打だけは即座に遮断。次のrenderQuestionScreen()が新しいキーを再設定する。
-  stage.dataset.pendingQuestionKey = '';
-  activePendingQuestionKey = null;
-  if(val === null){
-    // 「わからない・スキップ」が選ばれた質問を記録する。GA4へは都度送るが、
-    // GAS(スプレッドシート)への送信は通信回数を減らすため、ゲーム終了時にまとめて送る。
-    const questionNumber = questionPhase === 'extra' ? extraQuestionCount : questionCount;
-    pendingQuestionSkips.push({ questionKey: key, gameMode: currentMode, questionNumber, helpOpened: questionHelpOpen });
-    trackGaEvent('question_skipped', {
-      question_key: key,
-      game_mode: currentMode,
-      question_number: questionNumber,
-      help_opened: questionHelpOpen
-    });
-  }
-  let forced;
+  // V322: 回答受付の正本をDOM/一時ロック変数から、ゲーム履歴の「現在表示中質問」へ一本化する。
+  // 画面のdatasetやactivePendingQuestionKeyは再描画・復元・補助画面との境界で同期ずれを起こし、
+  // 実機で6〜8問目付近からクリックだけ無反応になる事故を繰り返したため、回答可否には使わない。
+  // history末尾はrenderQuestion()のpushQuestionState()で現在質問そのものとして確定される。
+  const currentEntry = history.length ? history[history.length - 1] : null;
+  if(!currentEntry || currentEntry.key !== key) return;
+
+  // 回答処理から次画面描画までを一つの同期トランザクションとして扱う。
+  // 途中で例外が起きても「見えているボタンだけ死ぬ」状態を残さず、同じ質問を再描画して再回答可能にする。
   try{
-    forced = applyAnswerCore(key, val, weight);
+    if(val === null){
+      const questionNumber = questionPhase === 'extra' ? extraQuestionCount : questionCount;
+      pendingQuestionSkips.push({ questionKey: key, gameMode: currentMode, questionNumber, helpOpened: questionHelpOpen });
+      trackGaEvent('question_skipped', {
+        question_key: key,
+        game_mode: currentMode,
+        question_number: questionNumber,
+        help_opened: questionHelpOpen
+      });
+    }
+
+    const forced = applyAnswerCore(key, val, weight);
+    if(val === null) return renderQuestion();
+    if(forced) return renderGuess();
+
+    if(questionPhase === 'normal' && questionCount < MIN_Q_BEFORE_EARLY_GUESS){
+      return renderQuestion();
+    }
+
+    if(shouldGuessNow()){
+      const v180FinalKey = v180PickFinalSurpriseQuestion();
+      v184Trace('guess_gate', {
+        shouldGuess: true,
+        topConfidence: topConfidence(),
+        sortedPoolSize: sortedPool().length,
+        finalSurpriseKey: v180FinalKey || null,
+        farewellAvailable: v180FinalKey ? null : v177HasFarewellSurpriseAvailable(),
+        surpriseAlreadyHit: v175HasSurpriseYes()
+      });
+      if(v180FinalKey){
+        v177FarewellHoldUsed = true;
+        forcedNextKey = v180FinalKey;
+        return renderQuestion();
+      }
+      if(v177HasFarewellSurpriseAvailable()){
+        v177FarewellHoldUsed = true;
+        return renderQuestion();
+      }
+      return renderGuess();
+    }
+
+    return renderQuestion();
   }catch(error){
-    // 回答処理の途中で例外が起きてもボタンを永久に無反応にしない。
-    console.error('おらマチ: 回答処理に失敗しました', {key, error});
-    activePendingQuestionKey = key;
-    if(stage && stage.dataset) stage.dataset.pendingQuestionKey = key;
+    console.error('おらマチ: 通常プレイ回答トランザクションに失敗しました', {key, error});
+    // 現在質問はhistory末尾に残っている。DOMロックは使わず、必ず操作可能な質問画面へ戻す。
+    try{
+      renderQuestionScreen(key);
+      saveGameSession('question', { pendingQuestionKey: key });
+    }catch(renderError){
+      console.error('おらマチ: 質問画面の復旧描画にも失敗しました', {key, renderError});
+    }
     return;
   }
-  if(val === null) return renderQuestion();
-  if(forced) return renderGuess();
-
-  // 通常質問側の「最低質問数に達するまでは早押ししない」制約(追加質問側は毎回判定してよい)
-  if(questionPhase === 'normal' && questionCount < MIN_Q_BEFORE_EARLY_GUESS){
-    return renderQuestion();
-  }
-
-  if(shouldGuessNow()){
-    // V177: まだ一度もサプライズYESが無く、終盤に有力仮説へ鋭く刺さる質問が残っている場合だけ、
-    // 即答を1回だけ保留して最後の一球を投げる。外した後は従来の回復へ戻り、連射しない。
-    const v180FinalKey = v180PickFinalSurpriseQuestion();
-    v184Trace('guess_gate', {
-      shouldGuess: true,
-      topConfidence: topConfidence(),
-      sortedPoolSize: sortedPool().length,
-      finalSurpriseKey: v180FinalKey || null,
-      farewellAvailable: v180FinalKey ? null : v177HasFarewellSurpriseAvailable(),
-      surpriseAlreadyHit: v175HasSurpriseYes()
-    });
-    if(v180FinalKey){
-      v177FarewellHoldUsed = true;
-      forcedNextKey = v180FinalKey;
-      return renderQuestion();
-    }
-    if(v177HasFarewellSurpriseAvailable()){
-      v177FarewellHoldUsed = true;
-      return renderQuestion();
-    }
-    return renderGuess();
-  }
-
-  renderQuestion();
 }
 
 function renderGuess(){
