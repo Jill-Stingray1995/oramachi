@@ -54,7 +54,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<link rel="stylesheet" href="style.css?v=370e1e3db6">
+<link rel="stylesheet" href="style.css?v=d153696929">
 <!-- 【先読み】cities.json(全マチのデータ)を、app.js の読み込みと並行して取りに行く。
      これを書かないと、app.js(425KB)のダウンロードと解析が終わってから
      ようやくデータの取得が始まるため、起動までが直列につながって遅くなる。
@@ -79,6 +79,11 @@
 <meta name="apple-mobile-web-app-title" content="おらマチ">
 </head>
 <body>
+<div class="web-startup" id="webStartup" aria-hidden="true">
+  <div class="web-startup-landscape"></div>
+  <img src="oramachi-official-logo.png" alt="" class="web-startup-logo">
+  <p>まちをあてる地理ゲーム</p>
+</div>
 <div class="app">
   <button class="install-btn" id="installBtn" type="button" style="display:none;">
     <span class="install-icon">＋</span>アプリ追加
@@ -167,7 +172,7 @@
 
 <script defer src="japan-map-data.js?v=361d072efc"></script>
 <script defer src="app-version.js"></script>
-<script defer src="app.js?v=a6eca0a08d"></script>
+<script defer src="app.js?v=845a1dddaa"></script>
 <script defer src="pwa.js?v=227b41843b"></script>
 </body>
 </html>
