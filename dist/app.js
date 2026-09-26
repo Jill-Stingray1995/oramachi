@@ -1,58 +1,4 @@
-const KEYS = ['v266_katsuura_big_hina','v267_kotohira_konpira','v220_kyowa_raiden','v220_yoichi_nikka','v220_higashikagura_flowers','v220_teshio_shijimi','v220_nakatombetsu_karst','v220_rishirifuji_mountain','v220_horonobe_reindeer','v220_ozora_shibazakura','v220_yubetsu_tulip','v220_toyoura_strawberry','v220_hidaka_monbetsu_horse','v220_biratori_nibutani','v220_kamishihoro_taushubetsu','v220_kushiro_hosooka','v220_hamanaka_monkeypunch','v220_nakashibetsu_kaiyodai','v220_inakadate_riceart','v220_yokohama_nanohana','v220_oirase_liberty','v220_takko_garlic','v220_hashikami_seamountain','v220_shingo_christ','v220_kunohe_broiler','v220_hirono_uni','v220_minamisanriku_ramsar','v220_kawamata_cosquin','v220_tenei_british','v220_hinoemata_kabuki','v220_kitashiobara_goshikinuma','v220_bandai_enichiji','v220_showa_karamushi','v220_tamakawa_airport','v220_shinchi_karo','v220_namegawa_shinrin','v220_tako_rice','v220_tonosho_kojurin','v220_shibayama_haniwa','v219_kamikawa_tonomine','v219_taishi_ikarugadera','v219_shinonsen_arayu','v219_ando_tomimoto','v219_kanmaki_kataoka','v219_hirogawa_inamura','v219_yura_shirasaki','v219_shirahama_shirarahama','v219_okinoshima_rousoku','v219_wake_fuji','v219_akiota_sandankyo','v219_jinsekikogen_paperplane','v219_waki_hachigamine','v219_naoshima_art','v219_ainan_uwakai','v219_shime_tateko','v219_shingu_aishima','v219_ashiya_kama','v219_chikuzen_tachiarai','v219_oki_biomass','v219_aka_ishizaka','v219_kanda_hirotani','v219_chikujo_tsunashiki','v219_genkai_hamanoura','v219_nankan_sekisho','v219_mashiki_airport','v219_hikawa_nozu','v219_nakatane_airport','v219_yakushima_yakusugi','v219_taketomi_nineislands','v219_yakumo_two_seas','v219_okushiri_blue','v219_setana_otayama','v219_rusutsu_resort','v218_hashima_takehana','v218_muroran_night','v218_narita_shinshoji','v218_wakasa_kumagawa','v218_nanbu_tea','v218_hara_stars','v218_iizuna_apple','v218_togo_aichiike','v218_kawagoe_tera46','v218_meiwa_saiku','v218_aisho_kongorinji','v218_kora_saimyoji','v218_taga_taisha','v218_ine_funaya','v218_tadaoka_smallest','v218_kanan_saigyo','v218_taka_origins','v218_inami_ponds','v218_harima_onaka','v218_fukusaki_yanagita','v217_fukuyama_tomonoura','v217_asahikawa_asahiyama','v217_kokubunji_otaka','v217_izumo_taisha','v217_hitachi_furyumono','v216_kitaakita_matagi','v216_maibara_ibuki','v216_fukuoka_yamakasa','v216_kanoya_rose','v216_kitakyushu_mojiko','v216_murakami_salmon','v213_misato_shiwassu','v213_miyoshi_santome','v213_miyashiro_tobu_zoo','v213_hinode_tsurutsuru','v213_kaisei_ajisai','v213_ogose_bairin','v213_yoshioka_funao','v213_murata_kura','v213_mimata_tsutsuji','v213_satosho_kaze','v213_takanezawa_goryo','v213_uchiko_uchikoza','v213_samukawa_jinja','v213_hisayama_sato','v209_tateshina_shirakaba','v209_karuizawa_shaw','v209_nozawa_sotoyu','v209_nagawa_obsidian','v209_minamiizu_irozaki','v209_yoshida_koyama','v209_matsuzaki_namako','v209_shimizu_kakita','v209_nagaizumi_ayutsubo','v209_miki_shishi','v209_ayagawa_udon','v209_houki_ueda','v209_minamiosumi_sata','v209_higashikushira_lupin','v209_kinko_otaki','v208_misaki_fuke','v208_yuza_maruike','v208_mihama_suishohama','v208_miyako_jabuchi','v208_koge_tobaru','v208_kotake_loco23','v208_kawasaki_gyorakuen','v208_keisen_ozuka','v208_itoda_kanamura','v208_onga_cho','v208_kurate_hasedera','v208_kawara_kawaradake','v208_kawauchi_hebusu','v208_namie_somayaki','v208_maebashi_ito','v208_itakura_agebune','v208_sakaki_murakami','v208_ogawa_alps','v208_koumi_kantaro','v208_kijimadaira_kayanodaira','v207_kihoku_choshi','v207_kishiwada_danjiri','v207_rifu_nashi','v207_shonai_kiyokawadashi','v207_nishiwaga_kinshuko','v207_sera_hanabatake','v207_saka_bayside','v207_kumakogen_karst','v207_masaki_gino','v207_matsuno_nametoko','v207_suginami_awaodori','v207_hodatsushimizu_chirihama','v207_noto_abare','v207_ninomiya_azumayama','v207_ohi_itteki','v207_oto_cactus','v207_hirokawa_kasuri','v207_soeda_hikosan','v207_fukuchi_agano','v207_yoshitomi_kamizumo','chibi_maruko','m78_sukagawa','onomichi_tenkosei','amachan_kuji','konosekai_kure','keion_toyosato','aqours_numazu','garupan_oarai','summerwars_ueda','koto_yonaguni','botchan_matsuyama','kinosaki_shiga','yukiguni_yuzawa','izunoodoriko_kawazu','kafka_takamatsu','tsugaru_tappi','erimo_misaki','amagi_song_izu','hakodate_song','yokosuka_story','misuzu_nagato','koseki_fukushima','fr_yamaguchi','mazda_fuchu','toyota_city_name','denso_hq','daihatsu_hq','yamaha_motor_hq','snowpeak_hq','japanet_hq','rokkatei_hq','peyoung_hq','kameda_hq','chateraise_hq','bourbon_hq','imuraya_hq','fundokin_hq','shoda_hq','hardoff_hq','yamasa_hq','akagi_hq','korakuen_hq','sawayaka_hq','mansyu_hq','aleph_hq','national_hadaka_festival','unesco_dashi_festival','riverbed_onsen','jigoku_meguri','yubatake_onsen','daimyo_garden','hitachi_seaside_park','tsuchiura_hanabi','koga_kubo','toride_geidai','shimodate_gion','kamisu_gallery','tsukumai','ushiku_daibutsu','kashima_jingu','kokuo_jinja','warp_station_edo','ryujin_ohashi','ayumizaki_park','melon_hokota','ibaraki_airport','makabe_district','edosaki_kabocha','nishishioko_butai','itako_ayame','oyama_hyojo','uzumagawa_kura','ashikaga_gakko','shiobara_onsen','nikko_toshogu','kyuroku_kan','yamaage_matsuri','kanto_shinetsu_tsunagu','tajima_yahei','kiryu_nokogiri','tsutsujigaoka_bunbuku','ikaho_onsen','usui_meganebashi','tomihiro_museum','fukiware_no_taki','railway_museum','toki_no_kane','koku_kinen_park','misato_junction','toda_boat','shibusawa_eiichi','konosu_hina','first_outlet','jumbo_koinobori','higashimatsuyama_yakitori','seitenkyu','riken_hq','hanawa_hokiichi','sunaori_amagoi','sakitama_zerifry','gongendo_sakura','hitachidai_stadium','suguyaru_ka','nakayama_hokekyoji','kominato_railway','yatsu_higata','tokyo_disney','rekihaku','kikkoman_hq','abiko_ekisoba','nomizo_no_taki','tokyo_german_village','inubosaki','sawara_district','shirasato_kaigan','sunosaki_lighthouse','mother_farm_nokogiri','boshu_biwa','ohara_hadaka','kamogawa_seaworld','katsuura_tantanmen','oi_keibajo','tokyo_daibutsu','showa_kinen_park','kichijoji_harmonica','takahata_hijikata','shimura_ken','tama_rokuto','ghibli_museum','sanrio_puroland','mitakesan','edo_tokyo_tatemono','kurume_twin','akishima_kujira','tamako_yamato','yomiuri_land','second_smallest_city','hitotsubashi_univ','jaxa_isas','shirokoro_horumon','izumi_no_mori_awaodori','enoshima','omote_tanzawa','ebina_sa','oyama_afuri','jogashima_maguro','daiyuzan_kintaro','okutadami_dam','hokuetsu_kyoto','knit_gosen','kurokawa_yuden','niigata_smallest','kitsune_yomeiri','ryokan_birthplace','sakyu_momo','taishitamonja','gomadoyama_ajisai','ryugakubo','yahiko_jinja','fuji_rock','tama_monorail_extension',
-  'banei_keiba','ebetsu_renga','kitami_hakka','shikotsuko_futoko','hamanasu_no_oka','northernmost_city','whaling','enclave_municipality','honshu_northernmost','honshu_easternmost','honshu_westernmost','honshu_southernmost','japan_northernmost','japan_southernmost','japan_easternmost','japan_westernmost','shio_kazunoko','canadian_world','garinko_go','nosappu_misaki','hirosaki_tenshu','hasshoku_center','misawa_flight','ishiwari_zakura','mutsu_kokufu','kanto_matsuri','kamo_kurage','uesugi_jinja','jionji','shinjo_matsuri','saito_mokichi','hanamiyama','nanko_park',
-  'nakoku_no_oka','miike_tanko','sakurai_futamigaura','ushikubi_sueki','munakata_hetsugu','goshogatani_kogoishi','funabaru_kofun','hikari_no_michi','tanabata_jinja','nogata_meteorite','yanagawa_kudari','yame_gyokuro','sakuta_no_unade','tagawa_sekitan','hishino_suisha','oda_hiroki_museum','kiyomizudera_teien','toyota_kyushu','chikugo_yoshii','karatsu_kunchi','tosu_junction','okawachiyama','takeo_onsen_romon','ogi_yokan','kunenan','yutoku_inari','ureshino_bihada','isahaya_meganebashi','nagasaki_airport_omura','koi_no_oyogu_machi','hara_castle','unzen_jigoku','fukuejima_onidake','ajifry_seichi','tsushima_border','mugi_shochu_iki','nanatsugama_shonyudo','hirado_oranda','igusa_yatsushiro','sakitsu_shuraku','takaba_countrypark','hiryu_no_kane','misumi_nishiko','mandako_greenland','aoi_aso_jinja','kusasenrigahama','takasakiyama_saru','fukuzawa_karaage','bungo_futamigaura','usa_jingu','usuki_magaibutsu','harajiri_no_taki','kinrinko_yufuin','oka_castle','showa_no_machi','sandwich_jokamachi','futagoji','tsukumi_sakura_maguro','sekinoo_taki','nobeoka_ishigaki','umagase_cross','saitobaru_kofun','toimisaki_uma','ebino_kogen','shirokuma_tenmonkan','shiobitashi_onsen','kokuritsu_taiiku_univ','kamou_no_okusu','tsuru_ettochi','kinsakubaru_keihan','satsumayaki_miyama','bonotsu_ganjin','mizonokuchi_doketsu','chiran_bukeyashiki','daguri_misaki','makurazaki_station','bontan_shika','teppokan','satsuma_ryugakusei','koza_eisa','kaichu_doro_katsuren','okinawa_convention','heiwa_kinen_himeyuri','senagajima_umikaji','kabira_bay','irabu_ohashi','sefa_utaki',
-  'kaike_onsen','kurayoshi_shirakabe','sesshu_teien','iwami_ginzan','gonokawa_kako','nihon_sanmeien','horumon_udon','kinojo','bitchu_matsuyama','saijo_sake','mihara_tako','kiri_no_umi','hiroshima_westmost','anno_hideaki','tokuyama_combinat','kintaikyo','cement_glass','led_valley','naruto_uzushio','kincho_tanuki','awa_dochu','mima_udatsu','iya_kazurabashi','marugame_uchiwa','chichibugahama','zenigata_sunae','setoohashi_shikoku','kukai_birthplace','tebukuro_industry','uchinuki','garyu_sanso','kezuribushi','yawatahama_champon','seiyo_geopark','botchan_theater','kochi_ryoma_airport','chinkabashi','noichi_zoo','muroto_geopark','nabeyaki_ramen','daruma_yuhi','ashizuri_misaki','tosabushi','yanase_museum',
-  'nagashima_nabana','suzuka_circuit','magose_hinoki','sekijuku','toba_aquarium','onigajo_hananoiwaya','fujiwaradake_bairin','parque_ago','iga_ninja_basho','kurokabe_chikubu','hachimanbori','biwako_ohashi_sagawa','jra_training','konan_sanzan','metasequoia_shirahige','gokasho_eigenji','maizuru_akarenga','byodoin_uji','iwashimizu_nagarebashi','toyonaka_kyujo','cupnoodle_museum','taiyo_no_to','mofu_izumiotsu','imashirozuka_haniwa','mizuma_nishikinohama','moriguchi_daikon','hikari_no_kyokai','kansai_airport_city','pl_tower','naritasan_osaka','kanshinji_kongoji','nunose_takenouchi','nozaki_mairi','ikegami_sone','minoh_katsuoji','kashiwara_budo','ojin_ryo_wine','panasonic_hq','torikai_depot','takashinohama','fujiidera_kannon','sennan_rosegarden','shijonawate_masatsura','hoshi_no_buranko','sayamaike','pichipichi_beach','sumoto_castle_onsen','ashiya_yodoko','itami_sake_airport','katsumeshi_kakurinji','tada_jinja','sanda_hitohaku','kasai_globe_clock','izanagi_yumebutai','tojoko_omocha','tatsuno_shoyu_somen','takada_sakura_jinaimachi','kingyo_yamatokoriyama','tenri_shukyo_toshi','kashihara_jingu','miwa_somen','gojo_kaki_shinmachi','katsuragi_kodo','ikoma_cablecar','dontsurubo','taimadera_sumo','uda_seiyaku','kuroe_shikki','koyasan_gateway_pile','arida_mikan','shortest_private_line','kumano_hongu_benkei','kumano_hayatama_gotobiki','kokawadera_momo',
-  'fujiko_f_birthplace','shinkiro_maibotsurin','fujiko_a_buri','hotaruika_museum','tulip_fair','merhen_kenchiku','gokayama_gassho','kaiwomaru_bridge','wakura_notojima','komatsu_origin','senmaida_shikki','rokugozaki','kaga_onsenkyo','ufo_museum','shirayama_tedori','matsui_museum','kehi_jindo','miketsukuni_saba','echizen_ono_castle','awara_onsen','fujiq_highland','fuefuki_fruit_park','shinpu_shichirigan','katakana_city_name','kiyosato_hakushu','shingen_zutsumi','isawa_onsen','katsunuma_budo','name_same_as_route','kamikochi','sanada_bessho','okaya_silk','ningyogeki_tenryukyo','suzaka_garyu','kaikoen_toson','takato_sakura','sauce_katsudon','shinpei_ipponki','alpen_route_nagano','kamakura_nanohana','naraijuku_wine','farthest_from_sea','obasute_togura','unnojuku_yunomaru','wasabi_farm','nagaragawa_ukai','okuno_hosomichi_musubi','hida_furuimachi','mosaic_tile_museum','magome_kurikinton','udatsu_mino','kaseki_museum','iwamura_akechi','otajuku_satoyama','toki_outlet','aerospace_museum','rose_garden_akechi','fuyu_kaki_origin','setogawa_shirakabe','usuzumi_zakura','gujo_odori','nihon_sanmeisen','kisosansen_wajyu','atami_moa','genbegawa_rakujuen','sengen_taisha','omuroyama_jogasaki','horaibashi_sl','gakunan_tagonoura','yaizu_katsuo','kakegawa_castle','soccer_town_fujieda','gotemba_outlet','ecopa_hattasan','shimoda_port','fuji_safari','arai_sekisho','shuzenji_toi','hamaoka_lighthouse','senkagawa_fukamushi','nirayama_hansharo','sagara_oil_airport','masumida_keori','toyokawa_inari','tsushima_tenno','kokonoe_mirin','toyota_origin_kariya','toyota_hq','nihon_denmark','matcha_sakushima','takeshima_resort','centrair_manekineko','mandaraji_fuji','komaki_castle','konomiya_hadaka','nagashino_horaiji','juraku_daibutsu','aichi_kenko_mori','shinmaiko_okada','kakitsubata_chiryu','owariasahi_tower','okehazama','aichi_bokujo','irago_longbeach','sendohira_renkon','kiyosu_castle','showa_nichijo','kingyo_yatomi','miyoshi_canoe','shippoyaki','ghibli_linimo',
-  'shinkansen','coastal','designated','snow_festival','worldheritage','snow','basin','airport','noodle','yuruchara_gp_winner',
-  'nihonkai','taiheiyo','setonaikai','famous_mountain','big_river','big_bay','hot_40c','active_volcano','uchibo','sotobo','noto_area','subway','sake','famous_hanabi','castle_town','port_town','rice_region',
-  'kana_name','kansai_dialect','ryukyu_dialect','is_town_village','is_tokyo_ward',
-  'giant_kofun','jomon_worldheritage','large_yayoi_site','lakeside','daibutsu_spot','historic_five_story_pagoda','bakumatsu_port','sumo_basho','jleague','npb',
-  'former_capital','grid_streets','national_treasure','twelve_castles','sengoku_warlord','tram',
-  'car_town','private_railway','monorail','remote_island','mining_heritage','worldheritage_mine','worldheritage_coal_mine','night_view','war_damage',
-  'ferris_wheel','theme_park','zoo','aquarium','brand_beef','kintetsu','kanji_one_char',
-  'chinatown','sand_dunes','imperial_university','famous_tower','famous_market','exotic_port','dome_stadium','tea_region',
-  'gokaido_shukuba','traditional_pottery','traditional_craft','horse_racing','famous_horse_breeding','literary_figure','kitanotakeshi','musashino_line','ekimei_chigau',
-  'prefectural_capital','borders_other_pref','formed_after_2000',
-  'national_university','expressway_junction','hiragana_name','direction_in_name','old_province_name',
-  'public_racing_venue','national_government_park','film_city','shinsengumi','shonan_area','white_mirin_origin',
-  'joetsu_region','chuetsu_region','kaetsu_region','joetsu_shinkansen_station','hokuriku_shinkansen_station',
-  'hokkaido_shinkansen_station','tohoku_shinkansen_station','tokaido_shinkansen_station','sanyo_shinkansen_station','kyushu_shinkansen_station','nishikyushu_shinkansen_station',
-  'yamagata_shinkansen_station','akita_shinkansen_station',
-  'is_village','shinano_river','agano_river','uono_river',
-  'borders_yamagata','borders_fukushima','borders_gunma','borders_nagano','borders_toyama',
-  'todai_campus','waseda_campus','keio_campus','meiji_campus','rikkyo_campus','chuo_campus','tus_campus','imperial_palace','ginza','tokyo_tower_ward','tokyo_dome_ward','sensoji','skytree_ward','toyosu_market','haneda_ward','shibamata_taishakuten','kasai_park','broadway_nakano','koenji_area','jiyugaoka','shakujii_park','odakyu_line','keio_inokashira_line','tokyu_line','keikyu_line','seibu_line','tobu_main_station','tobu_tojo_station','utsunomiya_station','takasaki_line_station','keisei_line','tsukuba_express','rinkai_line','yurikamome','toden_arakawa','nippori_toneri','tokyo_bay','tama_river','sumida_river','arakawa_river','edogawa_river','meguro_river','shakujii_river','borders_kanagawa','borders_saitama','borders_chiba','yamanote_line','keihintohoku_line','chuo_rapid','chuo_sobu','joban_line','saikyo_line','ueno_station','akabane_station','nippori_station','tsunagari_mayu_police','tv_station_area','sazae_family','hachiko_area','yose_hall','sailor_moon_stage','godzilla_head','rakugo_stage','sanma_famous',
-  'monzen','bedtown','silk_heritage','silk_textile','moka_sl_line','kururi_line','watarase_line','oito_line','shinano_railway','echizen_railway','nagaragawa_railway','yoro_railway','sunzu_line','aikan_railway','kurobe_torokko','dinosaur_museum','echizen_washi_hamono','tojinbo','jomon_venus','rokkoyo','mino_ware','hamono_famous','skijyou','geopark','nuclearpowerplant','monozukuri','chukakushi','tokureishi',
-  'douou_area','doutou_area','dohoku_area','sapporo_metro','ishikari_plain','historical_port_hokkaido','industrial_port_hokkaido','hakodate_honsen','ishikari_river',
-  'tsugaru_area','sendai_metro','kitakami_basin','shonai_area','hamadori_area','nakadori_area','aizu_area','sanriku_area',
-  'north_kanto','tama_area','tokatsu_area','ryomo_area','tone_river_area','sotetsu_line',
-  'hokuriku_three_pref','koshin_area','tokai_area','owari_area','mikawa_area','izu_area','suruga_area','totomi_area','hida_area','mino_area','hokushin_area','toshin_area','chushin_area','nanshin_area',
-  'meitetsu_line',
-  'keihanshin_area','hokusetsu_area','kawachi_area','senshu_area','hanshin_area','harima_area','tajima_area','tamba_area','kyoto_north','nara_basin','kii_peninsula','nankai_line',
-  'glasses_industry','towel_industry','musical_instruments','gold_leaf','denim_industry','pearl_farming','shipbuilding','furniture_industry','washi_famous','pharmaceutical_industry','fireworks_industry','stone_industry',
-  'soy_sauce_famous','vinegar_famous','miso_famous','gyoza_famous','yakisoba_famous','udon_famous','soba_famous','ramen_famous','castella_famous','kamaboko_famous','traditional_lacquerware',
-  'ancient_provincial_capital','kokubunji_site','traditional_buildings_district','little_kyoto','giant_buddha','sea_torii','deer_in_city','gassho_zukuri',
-  'domestic_ferry','international_ferry','no_railway_station','shikoku_pilgrimage','olympic_venue','famous_battlefield','kitamaebune_port','famous_fish_catch',
-  'kaikyo_machi','gakuto','hula_girl','kannon_zo','koedo','imono_kupola','aeon_laketown','sogo_dept','isetan_dept','mitsukoshi_dept','daimaru_dept','matsuzakaya_dept','funasshi_famous','takao_mountain','curry_famous','anime_seichi','number_in_name','kigyo_joukamachi','hankyu_line','yayoiken_seichi','hirakata_park','keihan_line','kawachi_ondo','rugby_machi','kougyou_toshi','hyoujun_jigosen','koushien','bikan_chiku','gunkou_machi','seitetsu_kouro','fugu_famous','tire_famous','hamburger_famous','kenkyu_gakuen_toshi','action_kamen','senbei_famous','tanabata_famous','uirou_famous','southern_seichi','b_kyu_gourmet','beigun_kichi','shinkai_gyo','saboten_machi','combinat_yakei','danjiri_famous','onaji_ookawa','kageki_dan',
-  'animal_in_name','ariake_coast','big_small_in_name','bingo_area','body_part_in_name','chikugo_area','chikuho_area','chikuzen_area','chugoku_mountain_basin','chuyo_area','color_in_name','dosan_line','four_plus_name','fukuoka_metro','hakubi_line','hard_to_read_name','hiroshima_metro','honshu_bridge','izumo_area','kagoshima_main_line','kawa_in_name','kitakyushu_area','nanyo_area','new_old_in_name','nippo_main_line','nishitetsu_line','northern_kyushu','okinawa_main_island','okinawa_south_central','osumi_area','paper_industry_shikoku','plant_in_name','pref_name_in_city_name','sakishima_islands','same_name_other_pref','sanin_area','sanin_main_line','sanyo_area','sanyo_main_line','satsuma_area','sea_word_in_name','setouchi_industrial','shima_in_name','southern_kyushu','ta_in_name','toyo_area','yama_in_name','yosan_line',
-  'ic_doo','ic_sasson','ic_shiribeshi','ic_doto',
-  'ic_tohoku','ic_hachinohe','ic_aomori','ic_kamaishi','ic_akita','ic_yamagata','ic_tohoku_chuo','ic_nihonkai_tohoku','ic_banetsu','ic_joban',
-  'ic_kanetsu','ic_joshinetsu','ic_hokukanto','ic_higashikanto','ic_tokyo_gaikan','ic_tateyama','ic_shin_kuko',
-  'ic_chuo','ic_nagano','ic_hokuriku','ic_tokai_hokuriku','ic_tomei','ic_shin_tomei',
-  'ic_meishin','ic_shin_meishin','ic_tomeihan','ic_isewangan','ic_ise','ic_kisei','ic_meinikan',
-  'ic_kinki','ic_hanwa','ic_nishimeihan','ic_maizuru_wakasa','ic_kansai_kuko',
-  'ic_chugoku','ic_sanyo','ic_tottori','ic_yonago','ic_okayama','ic_hamada','ic_matsue','ic_onomichi','ic_hiroshima','ic_harima',
-  'ic_takamatsu','ic_tokushima','ic_matsuyama','ic_kochi',
-  'ic_kyushu','ic_higashi_kyushu','ic_nagasaki','ic_oita','ic_miyazaki','ic_okinawa',
-  'technical_college','national_univ_attached_high','national_univ_attached_junior_high','veterinary_university','fisheries_marine_high_school','keirin_track','boat_race_track','auto_race_track','paper_mill','cement_factory','geothermal_power','tourist_cave','rocket_launch_site','cable_car','raihoshin','fire_torch_festival','mikoshi_into_sea','major_beer_factory','ikea_store','domestic_ferry','international_ferry','nishikigoi_origin','safari_park','ninja_tourism','air_self_defense_base','maritime_self_defense_base','starry_sky_reserve','volcano_crater_tourism','tidal_walk_island','whisky_distillery','ski_jump_hill','ama_divers','toki_stork_rewilding','swan_wintering','sunflower_famous','lavender_famous','oyster_aquaculture','wasabi_production','traditional_saltmaking','oilfield_present','nori_aquaculture','wakame_aquaculture','salmon_aquaculture','sea_turtle_nesting','manga_museum','ukai','bullfighting','hot_air_balloon_event','tourist_trolley_train','ropeway','geyser','public_observatory','outlet_mall','seicomart_store','costco_store','lalaport','aeon_mall_store','donki_store','lopia_store','yamaokaya_store','komeri_store','cainz_store','sawayaka_store','heiwado_store','hachiban_store','ramen_jiro_store','youme_store','okuwa_store','belc_store','yaoko_store','sukesan_store','yamada_udon_store','sugakiya_store','makino_udon_store','lucky_pierrot_store','aw_store','sanliv_marushoku_store','marunaka_store','sanei_store','albis_store','harashin_narus_store','uoroku_store','tsuruya_store','york_benimaru_store','dinosaur_fossil_found','kappa_town_promotion','oni_main_festival','horse_public_road_festival','tourist_steam_train','kokeshi_production','hina_town_event','gsdf_garrison','cinema_present','town_village_university','agricultural_high_school','industrial_high_school','commercial_high_school','domain_school_roots','closed_school_tourism','full_boarding_high_school','spring_koshien_champion','summer_koshien_champion','high_school_soccer_champion','high_school_rugby_champion','high_school_ekiden_champion','no_high_school','jigoku_geothermal_area','meiji_taisho_church','wind_farm_cluster','waterway_boat_tour','lighthouse_general','daruma_production','river_boat_descent','department_store_general','v245_abu_michinoeki_origin','v245_yusui_kirishima_art','v245_kikuyo_jasm','v247_mizuho_monorail_terminal','v247_aya_suspension_bridge','v247_nyuzen_sawasugi','koshien_champion','sumo_yokozuna_ozeki','famous_cape',
-  'yamata_no_orochi','hibagon','mori_motonari','hiruzen_highland','miyamoto_musashi_station','akiyoshidai','mizuki_shigeru_road','yasugi_bushi','gonokawa','donticchi_fish','shokasonjuku','motonosumi_shrine','bizen_ware','osafune_sword_museum','naoshima_gateway','horseshoe_crab_museum','astronomy_city','sunameri','naval_academy','goldfish_lantern','ito_hirobumi_birthplace','train_factory','stork','hyonosen','takeda_castle','tamba_dinosaur','black_soybeans','japan_navel','miki_hardware','balloon_city','saga_balloon_festa','sake_birthplace','peron_festival','ako_ronin','awaji_puppet_theater','nijigen_no_mori','akechi_mitsuhide_castle','gunze_birthplace','nihon_sankei','singing_sand','miyama_thatched_village','hozugawa_boat_ride','doushisha','nagaoka_tenmangu','joruriji','jrosyu_ume','ritsumeikan','pm_birthplace',
-  'name_has_betsu','hokkaido_greenland','famous_prison','yakitori_famous_bibai','coal_mine_shaft','drift_ice','suffolk_sheep','ammonite_fossil','matsuo_jingisukan','sweet_road','least_populous_city','urokodango','bear_park','fighters_farm',
-  
-  'bijin_town','yoshi_ikuzo','oirase','osorezan','shakoki_dogu','seibien','jodogahama','goishi_coast','miyazawa_kenji','tensho_chi','amber_kuji','tono_monogatari','geibikei','ipponmatsu','ohtani_shohei','zashiki_warashi','appi_kogen','ishinomori','chagu_chagu','shiogama_shrine','fukahire','shiroishi_umen','sendai_airport','jaxa_kakuda','takekoma_shrine','meiji_mura','kano_eiko','blue_impulse','naruko_onsen','town_to_city_2016',
-  'basketball_town','kamakura_yokote','akita_inu_hachiko','namahage','inaniwa_udon','oyu_stone_circle','yuri_kogen_railway','blumen_akita','odate_noshiro_airport','tdk_town','kakunodate_tazawako','sankyo_soko','higashizawa_rose','ayame_park','hanagasa_tendo','ginzan_onsen','kumano_taisha','tsuburaya_eiji','matsukawaura','kiku_ningyo_nihonmatsu','abukumado','kacchu_keiba','anpogaki','william_park','natural_gas_town',
-  'region_tohoku','region_kanto','region_chubu','region_kinki','region_chugoku','region_shikoku','region_kyushu',
-  'pref_hokkaido','pref_aomori','pref_iwate','pref_miyagi','pref_akita','pref_yamagata','pref_fukushima','pref_ibaraki','pref_tochigi','pref_gunma','pref_saitama','pref_chiba','pref_tokyo','pref_kanagawa','pref_niigata','pref_toyama','pref_ishikawa','pref_fukui','pref_yamanashi','pref_nagano','pref_gifu','pref_shizuoka','pref_aichi','pref_mie','pref_shiga','pref_kyoto','pref_osaka','pref_hyogo','pref_nara','pref_wakayama','pref_tottori','pref_shimane','pref_okayama','pref_hiroshima','pref_yamaguchi','pref_tokushima','pref_kagawa','pref_ehime','pref_kochi','pref_fukuoka','pref_saga','pref_nagasaki','pref_kumamoto','pref_oita','pref_miyazaki','pref_kagoshima','pref_okinawa',
-  'kitasubaru','kita_no_kuni','kita_no_shonan','shizumine','shimotsuma_movie','hitachi_kokufu','toyoda_castle','moriya_junction','namegata_farm','hananuki','happogahara','kanuma_tsuchi','nasu_yoichi','jichi_medical','bihada_onsen','moomin_park','ageo_sodou','iroha_toi','okegawa_benibana','ishito_zakura','kinchakuda','heirinji','lucky_star','johnson_town','saika_matsuri','mizuko_kaizuka','smallest_city','yashio_hanamomo','yoshikawa_namazu','shiraoka_nashi','kurohama_kaizuka','hanyu_yurugp','inzai_datacenter','kamagaya_farm','iioka_cape','tomisato_suika','sanbu_sugi','keisei_rose','aqualine_gate','yotsukaido_name','onari_kaido','yachimata_peanuts','nashibou','soza_ueki','blueberry_origin','kishozeisei_center','summerland','hamura_zeki','baseside_street','zama_himawari','zushi_marina','ayase_no_station','nono_odoriji','linear_center','shakou_elevator','saruhashi','enbaragawa','sanshu_kawara','nonbori_arai','akame_taki','oiwayama_dotaku','tokaido_nakasendo','koka_ninja','take_no_michi','aioi_matsu','banshu_soroban_ono','katsuragi_tsutsuji','matabei_zakura','kishu_herazao','negoroji','kokusan_denim','konrei_kagu','nora_dokei','onga_pump','koinoki','hiyoko','kubote_san','taku_seibyo','minamata_museum','kikuchi_keikoku','mikoshiki_coast','amakusa_bridges','ikoma_kogen','senbon_icho','sogi_no_taki','orion_beer','inami_kaeru_bridge','tsuruta_steuben','jupialand_shibazakura','licca_castle','iitate_madeikan','ogata_reclamation','ora_mirai_tower','kamisato_sa','mikurajima_dolphin','aogashima_double_caldera','oi_biotopia','nanko_ume','ebikani_aquarium','misato_blueberry','circuit','dam_lake','meisui_hyakusen','least_populous_village','tanada_hyakusen','karst','ramsar','national_park','waterfall_hyakusen','castle_hyakumeijo','winery','funaoka_sakura','omocha_no_machi','tanagura_kamegajo','neba_sugi','hiraya_himawari_no_yu','ikusaka_sanseiji','toyoyama_ichiro_airport','kanmaki_kataoka_castle','kitanakagusuku_rycom_castle','totsukawa_largest_village_bridge','minakami_tanigawa_rafting','shibata_castle_occhahoi','seiro_albirex_jsc','eiheiji_zen_training','minamisanriku_shizugawa_aquaculture','onagawa_station_seaside_shopping','chiba_makuhari_monorail','minamiuonuma_hakkaisan_koshihikari','aomori_nebuta','hiroshima_dome_carp','machida_zelvia','ise_naiku_geku','yokkaichi_combinat_night','tokamachi_echigo_tsumari','wakayama_yoshimune_kimiidera','morioka_takuboku_sandaimen','kyoto_gion_sennen','naha_shurijo_kokusai','v144_minamiaiki_dam','v144_shimoichi_sugibashi','v144_shoo_kintaro','v144_mizumaki_cosmos','v144_taragi_shorenji','v144_kunitomi_honjo','v144_wadomari_fucha','v144_ie_tatchu','v144_kunneppu_characters','v144_fujisaki_fuji','v144_kagamiishi_iwase','v144_tomioka_yonomori','v144_mutsuzawa_smartwellness','v178_arita_porcelain','v178_assabu_mayqueen','v178_shiriuchi_saburo','v178_ina_roses','v178_higashichichibu_hosokawa','v178_mitsue_miune','v178_mogami_akakura','v178_funagata_jomon','v178_nagi_moca','v178_iwaizumi_ryusendo','v178_karumai_tulips','v178_ishii_fuji','v178_izena_shoen','v178_mifune_dinosaur','v178_tsunagi_art','v178_nakai_itsukushima','v178_nahari_townscape','v186_kouhoku_junction','v186_otobe_shirafura','v186_tozawa_mogamigawa','v186_oshino_hakkai','v186_narusawa_icecave','v186_misaki_tkg','v186_nishiawakura_hyakumori','v186_kamikatsu_zerowaste','v186_shioya_shojinzawa','v186_minamiaso_shirakawa','v186_kuma_kyusendo','v186_sagara_kawabe','v186_nishihara_tawarayama','v186_hakone_owakudani','v186_higashinaruse_sennin','v186_geisei_horticulture','v186_ochi_yokogurayama','v188_hayakawa_akasawa','v188_fujikawa_oboshi','v188_kosuge_tamagawa','v188_odai_osugidani','v188_matsushige_airport','v188_kawatana_torpedo','v188_ashikita_utase','v188_kosaka_korakukan','v188_fujisato_shirakami','v188_shinto_tsurushi','v188_kawaba_denenplaza','v205_tamaki_tamaru','v205_komono_yunoyama','v205_kyotamba_shizushi','v205_inagawa_tada','v205_kusu_dowa','v205_tajiri_onion','v205_nose_joruri','v205_toyono_ukon','v205_ohira_only_village','v205_kibichuo_bupposo','v206_shichigahama_smallest','v206_mikawa_no_mountain','v206_okuizumo_tatara','v206_higashimiyoshi_kamo','v206_kamijima_yumeshima','v206_ikata_sadamisaki','v206_nakanoto_jofu','v206_anamizu_boramachi'];
+const KEYS = ['v220_kamisunagawa_coal','v204_gojome_morning_market','v204_hirono_tonbo','v204_iinan_shimenawa','v204_nishiizu_tombolo','v204_taki_vison','v204_matsusaka_beef','v204_yubari_melon_coal','v204_otaru_canal','v204_higashine_cherry','v204_mitane_junsai','v204_higashiizu_tsurushi','v204_kimotsuki_space','v204_kihoku_oni','v204_tobe_yaki','v180_toin_ageuma','v180_soni_susuki','v180_kagamino_okutsu','v180_toyo_ikumi','v180_kamimine_chinzeizan','v180_sai_hotokegaura','v180_nagomi_edafunayama','v180_togitsu_sabakusarakashi','v180_mizukami_ichifusa','v180_yunomae_manga','v180_yugawara_manyo','v180_nagayo_mikan','sudachi_production','sakawa_basin','ferry_available','v273_agano_hyoko','v273_akashi_strait_yaki','v273_akaiwa_fruit','v273_omachi_bota','v273_shinkamigoto_churches','v273_nagasu_goldfish','v273_ozu_honda','v273_minamioguni_kurokawa','v273_kosa_yana','v273_minamitane_space','v273_yamato_amami_rabbit','v273_kin_tacorice','v273_makubetsu_park_golf','v273_sannohe_11cats','v273_osato_hasekura','v273_ogawara_senbonzakura','v273_kawasaki_michinoku','v273_sakegawa_totoro','v273_naraha_jvillage','v273_okuma_strawberry','v273_futaba_daruma','v273_yachiyo_hakusai','v273_takayama_stars_castle','v273_ranzan_keikoku','v273_kawajima_rivers','v273_hatoyama_jaxa','v273_sugito_shukuba','v273_matsubushi_windmill','v273_hinohara_waterfall','v273_oshima_mihara','v273_kozushima_stars','v273_ichikawamisato_threecrafts','v273_tatsuno_firefly','v273_iijima_twoalps','v273_takamori_ichidagaki','v273_yasuoka_fourstations','v273_matsukawa_suzumushi','v273_godo_roses','v273_shirakawa_five_rivers','v273_mitake_two_shukuba','v273_tobishima_port_fields','v273_toyone_chausuyama','v273_watarai_miyagawa_tea','v273_kumiyama_nagarebashi','v273_wazuka_teafields','v273_shimamoto_rikyu_water','v273_kumatori_populous_town','v273_yamazoe_nabekura','v273_miyake_secondsmallest','v273_nosegawa_unkai','v273_kawakami_genryu','v273_nanbu_hanakairo','v273_chibu_sekiheki','v273_kaita_saigoku','v273_kitahiroshima_kagura','v273_mihara_doburoku','v273_kasuya_sixstations','v273_tachiarai_imamura','v277_kiyose_akina','v277_shimotsuke_jichi','v277_minowa_akasoba','v277_umi_birth','v270_hino_merchant','v270_ide_yamabuki','v270_aizumi_indigo','v270_tsurugi_udatsu','v270_hidaka_omurice','v270_yahaba_nansho','v270_nakayama_imoni','v270_tokigawa_woodwork','v270_aikawa_miyagase','v266_katsuura_big_hina','v267_kotohira_konpira','v220_kyowa_raiden','v220_yoichi_nikka','v220_higashikagura_flowers','v220_teshio_shijimi','v220_nakatombetsu_karst','v220_rishirifuji_mountain','v220_horonobe_reindeer','v220_ozora_shibazakura','v220_yubetsu_tulip','v220_toyoura_strawberry','v220_hidaka_monbetsu_horse','v220_biratori_nibutani','v220_kamishihoro_taushubetsu','v220_kushiro_hosooka','v220_hamanaka_monkeypunch','v220_nakashibetsu_kaiyodai','v220_inakadate_riceart','v220_yokohama_nanohana','v220_oirase_liberty','v220_takko_garlic','v220_hashikami_seamountain','v220_shingo_christ','v220_kunohe_broiler','v220_hirono_uni','v220_minamisanriku_ramsar','v220_kawamata_cosquin','v220_tenei_british','v220_hinoemata_kabuki','v220_kitashiobara_goshikinuma','v220_bandai_enichiji','v220_showa_karamushi','v220_tamakawa_airport','v220_shinchi_karo','v220_namegawa_shinrin','v220_tako_rice','v220_tonosho_kojurin','v220_shibayama_haniwa','v219_kamikawa_tonomine','v219_taishi_ikarugadera','v219_shinonsen_arayu','v219_ando_tomimoto','v219_kanmaki_kataoka','v219_hirogawa_inamura','v219_yura_shirasaki','v219_shirahama_shirarahama','v219_okinoshima_rousoku','v219_wake_fuji','v219_akiota_sandankyo','v219_jinsekikogen_paperplane','v219_waki_hachigamine','v219_naoshima_art','v219_ainan_uwakai','v219_shime_tateko','v219_shingu_aishima','v219_ashiya_kama','v219_chikuzen_tachiarai','v219_oki_biomass','v219_aka_ishizaka','v219_kanda_hirotani','v219_chikujo_tsunashiki','v219_genkai_hamanoura','v219_nankan_sekisho','v219_mashiki_airport','v219_hikawa_nozu','v219_nakatane_airport','v219_yakushima_yakusugi','v219_taketomi_nineislands','v219_yakumo_two_seas','v219_okushiri_blue','v219_setana_otayama','v219_rusutsu_resort','v218_hashima_takehana','v218_muroran_night','v218_narita_shinshoji','v218_wakasa_kumagawa','v218_nanbu_tea','v218_hara_stars','v218_iizuna_apple','v218_togo_aichiike','v218_kawagoe_tera46','v218_meiwa_saiku','v218_aisho_kongorinji','v218_kora_saimyoji','v218_taga_taisha','v218_ine_funaya','v218_tadaoka_smallest','v218_kanan_saigyo','v218_taka_origins','v218_inami_ponds','v218_harima_onaka','v218_fukusaki_yanagita','v217_fukuyama_tomonoura','v217_asahikawa_asahiyama','v217_kokubunji_otaka','v217_izumo_taisha','v217_hitachi_furyumono','v216_kitaakita_matagi','v216_maibara_ibuki','v216_fukuoka_yamakasa','v216_kanoya_rose','v216_kitakyushu_mojiko','v216_murakami_salmon','v213_misato_shiwassu','v213_miyoshi_santome','v213_miyashiro_tobu_zoo','v213_hinode_tsurutsuru','v213_kaisei_ajisai','v213_ogose_bairin','v213_yoshioka_funao','v213_murata_kura','v213_mimata_tsutsuji','v213_satosho_kaze','v213_takanezawa_goryo','v213_uchiko_uchikoza','v213_samukawa_jinja','v213_hisayama_sato','v209_tateshina_shirakaba','v209_karuizawa_shaw','v209_nozawa_sotoyu','v209_nagawa_obsidian','v209_minamiizu_irozaki','v209_yoshida_koyama','v209_matsuzaki_namako','v209_shimizu_kakita','v209_nagaizumi_ayutsubo','v209_miki_shishi','v209_ayagawa_udon','v209_houki_ueda','v209_minamiosumi_sata','v209_higashikushira_lupin','v209_kinko_otaki','v208_misaki_fuke','v208_yuza_maruike','v208_mihama_suishohama','v208_miyako_jabuchi','v208_koge_tobaru','v208_kotake_loco23','v208_kawasaki_gyorakuen','v208_keisen_ozuka','v208_itoda_kanamura','v208_onga_cho','v208_kurate_hasedera','v208_kawara_kawaradake','v208_kawauchi_hebusu','v208_namie_somayaki','v208_maebashi_ito','v208_itakura_agebune','v208_sakaki_murakami','v208_ogawa_alps','v208_koumi_kantaro','v208_kijimadaira_kayanodaira','v207_kihoku_choshi','v207_kishiwada_danjiri','v207_rifu_nashi','v207_shonai_kiyokawadashi','v207_nishiwaga_kinshuko','v207_sera_hanabatake','v207_saka_bayside','v207_kumakogen_karst','v207_masaki_gino','v207_matsuno_nametoko','v207_suginami_awaodori','v207_hodatsushimizu_chirihama','v207_noto_abare','v207_ninomiya_azumayama','v207_ohi_itteki','v207_oto_cactus','v207_hirokawa_kasuri','v207_soeda_hikosan','v207_fukuchi_agano','v207_yoshitomi_kamizumo','chibi_maruko','m78_sukagawa','onomichi_tenkosei','amachan_kuji','konosekai_kure','keion_toyosato','aqours_numazu','garupan_oarai','summerwars_ueda','koto_yonaguni','botchan_matsuyama','kinosaki_shiga','yukiguni_yuzawa','izunoodoriko_kawazu','kafka_takamatsu','tsugaru_tappi','erimo_misaki','amagi_song_izu','hakodate_song','yokosuka_story','misuzu_nagato','koseki_fukushima','fr_yamaguchi','mazda_fuchu','toyota_city_name','denso_hq','daihatsu_hq','yamaha_motor_hq','snowpeak_hq','japanet_hq','rokkatei_hq','peyoung_hq','kameda_hq','chateraise_hq','bourbon_hq','imuraya_hq','fundokin_hq','shoda_hq','hardoff_hq','yamasa_hq','akagi_hq','korakuen_hq','sawayaka_hq','mansyu_hq','aleph_hq','national_hadaka_festival','unesco_dashi_festival','riverbed_onsen','jigoku_meguri','yubatake_onsen','daimyo_garden','hitachi_seaside_park','tsuchiura_hanabi','koga_kubo','toride_geidai','shimodate_gion','kamisu_gallery','tsukumai','ushiku_daibutsu','kashima_jingu','kokuo_jinja','warp_station_edo','ryujin_ohashi','ayumizaki_park','melon_hokota','ibaraki_airport','makabe_district','edosaki_kabocha','nishishioko_butai','itako_ayame','oyama_hyojo','uzumagawa_kura','ashikaga_gakko','shiobara_onsen','nikko_toshogu','kyuroku_kan','yamaage_matsuri','kanto_shinetsu_tsunagu','tajima_yahei','kiryu_nokogiri','tsutsujigaoka_bunbuku','ikaho_onsen','usui_meganebashi','tomihiro_museum','fukiware_no_taki','railway_museum','toki_no_kane','koku_kinen_park','misato_junction','toda_boat','shibusawa_eiichi','konosu_hina','first_outlet','jumbo_koinobori','higashimatsuyama_yakitori','seitenkyu','riken_hq','hanawa_hokiichi','sunaori_amagoi','sakitama_zerifry','gongendo_sakura','hitachidai_stadium','suguyaru_ka','nakayama_hokekyoji','kominato_railway','yatsu_higata','tokyo_disney','rekihaku','kikkoman_hq','abiko_ekisoba','nomizo_no_taki','tokyo_german_village','inubosaki','sawara_district','shirasato_kaigan','sunosaki_lighthouse','mother_farm_nokogiri','boshu_biwa','ohara_hadaka','kamogawa_seaworld','katsuura_tantanmen','oi_keibajo','tokyo_daibutsu','showa_kinen_park','kichijoji_harmonica','takahata_hijikata','shimura_ken','tama_rokuto','ghibli_museum','sanrio_puroland','mitakesan','edo_tokyo_tatemono','kurume_twin','akishima_kujira','tamako_yamato','yomiuri_land','second_smallest_city','hitotsubashi_univ','jaxa_isas','shirokoro_horumon','izumi_no_mori_awaodori','enoshima','omote_tanzawa','ebina_sa','oyama_afuri','jogashima_maguro','daiyuzan_kintaro','okutadami_dam','hokuetsu_kyoto','knit_gosen','kurokawa_yuden','niigata_smallest','kitsune_yomeiri','ryokan_birthplace','sakyu_momo','taishitamonja','gomadoyama_ajisai','ryugakubo','yahiko_jinja','fuji_rock','tama_monorail_extension','banei_keiba','ebetsu_renga','kitami_hakka','shikotsuko_futoko','hamanasu_no_oka','northernmost_city','whaling','enclave_municipality','honshu_northernmost','honshu_easternmost','honshu_westernmost','honshu_southernmost','japan_northernmost','japan_southernmost','japan_easternmost','japan_westernmost','shio_kazunoko','canadian_world','garinko_go','nosappu_misaki','hirosaki_tenshu','hasshoku_center','misawa_flight','ishiwari_zakura','mutsu_kokufu','kanto_matsuri','kamo_kurage','uesugi_jinja','jionji','shinjo_matsuri','saito_mokichi','hanamiyama','nanko_park','nakoku_no_oka','miike_tanko','sakurai_futamigaura','ushikubi_sueki','munakata_hetsugu','goshogatani_kogoishi','funabaru_kofun','hikari_no_michi','tanabata_jinja','nogata_meteorite','yanagawa_kudari','yame_gyokuro','sakuta_no_unade','tagawa_sekitan','hishino_suisha','oda_hiroki_museum','kiyomizudera_teien','toyota_kyushu','chikugo_yoshii','karatsu_kunchi','tosu_junction','okawachiyama','takeo_onsen_romon','ogi_yokan','kunenan','yutoku_inari','ureshino_bihada','isahaya_meganebashi','nagasaki_airport_omura','koi_no_oyogu_machi','hara_castle','unzen_jigoku','fukuejima_onidake','ajifry_seichi','tsushima_border','mugi_shochu_iki','nanatsugama_shonyudo','hirado_oranda','igusa_yatsushiro','sakitsu_shuraku','takaba_countrypark','hiryu_no_kane','misumi_nishiko','mandako_greenland','aoi_aso_jinja','kusasenrigahama','takasakiyama_saru','fukuzawa_karaage','bungo_futamigaura','usa_jingu','usuki_magaibutsu','harajiri_no_taki','kinrinko_yufuin','oka_castle','showa_no_machi','sandwich_jokamachi','futagoji','tsukumi_sakura_maguro','sekinoo_taki','nobeoka_ishigaki','umagase_cross','saitobaru_kofun','toimisaki_uma','ebino_kogen','shirokuma_tenmonkan','shiobitashi_onsen','kokuritsu_taiiku_univ','kamou_no_okusu','tsuru_ettochi','kinsakubaru_keihan','satsumayaki_miyama','bonotsu_ganjin','mizonokuchi_doketsu','chiran_bukeyashiki','daguri_misaki','makurazaki_station','bontan_shika','teppokan','satsuma_ryugakusei','koza_eisa','kaichu_doro_katsuren','okinawa_convention','heiwa_kinen_himeyuri','senagajima_umikaji','kabira_bay','irabu_ohashi','sefa_utaki','kaike_onsen','kurayoshi_shirakabe','sesshu_teien','iwami_ginzan','gonokawa_kako','nihon_sanmeien','horumon_udon','kinojo','bitchu_matsuyama','saijo_sake','mihara_tako','kiri_no_umi','hiroshima_westmost','anno_hideaki','tokuyama_combinat','kintaikyo','cement_glass','led_valley','naruto_uzushio','kincho_tanuki','awa_dochu','mima_udatsu','iya_kazurabashi','marugame_uchiwa','chichibugahama','zenigata_sunae','setoohashi_shikoku','kukai_birthplace','tebukuro_industry','uchinuki','garyu_sanso','kezuribushi','yawatahama_champon','seiyo_geopark','botchan_theater','kochi_ryoma_airport','chinkabashi','noichi_zoo','muroto_geopark','nabeyaki_ramen','daruma_yuhi','ashizuri_misaki','tosabushi','yanase_museum','nagashima_nabana','suzuka_circuit','magose_hinoki','sekijuku','toba_aquarium','onigajo_hananoiwaya','fujiwaradake_bairin','parque_ago','iga_ninja_basho','kurokabe_chikubu','hachimanbori','biwako_ohashi_sagawa','jra_training','konan_sanzan','metasequoia_shirahige','gokasho_eigenji','maizuru_akarenga','byodoin_uji','iwashimizu_nagarebashi','toyonaka_kyujo','cupnoodle_museum','taiyo_no_to','mofu_izumiotsu','imashirozuka_haniwa','mizuma_nishikinohama','moriguchi_daikon','hikari_no_kyokai','kansai_airport_city','pl_tower','naritasan_osaka','kanshinji_kongoji','nunose_takenouchi','nozaki_mairi','ikegami_sone','minoh_katsuoji','kashiwara_budo','ojin_ryo_wine','panasonic_hq','torikai_depot','takashinohama','fujiidera_kannon','sennan_rosegarden','shijonawate_masatsura','hoshi_no_buranko','sayamaike','pichipichi_beach','sumoto_castle_onsen','ashiya_yodoko','itami_sake_airport','katsumeshi_kakurinji','tada_jinja','sanda_hitohaku','kasai_globe_clock','izanagi_yumebutai','tojoko_omocha','tatsuno_shoyu_somen','takada_sakura_jinaimachi','kingyo_yamatokoriyama','tenri_shukyo_toshi','kashihara_jingu','miwa_somen','gojo_kaki_shinmachi','katsuragi_kodo','ikoma_cablecar','dontsurubo','taimadera_sumo','uda_seiyaku','kuroe_shikki','koyasan_gateway_pile','arida_mikan','shortest_private_line','kumano_hongu_benkei','kumano_hayatama_gotobiki','kokawadera_momo','fujiko_f_birthplace','shinkiro_maibotsurin','fujiko_a_buri','hotaruika_museum','tulip_fair','merhen_kenchiku','gokayama_gassho','kaiwomaru_bridge','wakura_notojima','komatsu_origin','senmaida_shikki','rokugozaki','kaga_onsenkyo','ufo_museum','shirayama_tedori','matsui_museum','kehi_jindo','miketsukuni_saba','echizen_ono_castle','awara_onsen','fujiq_highland','fuefuki_fruit_park','shinpu_shichirigan','katakana_city_name','kiyosato_hakushu','shingen_zutsumi','isawa_onsen','katsunuma_budo','name_same_as_route','kamikochi','sanada_bessho','okaya_silk','ningyogeki_tenryukyo','suzaka_garyu','kaikoen_toson','takato_sakura','sauce_katsudon','shinpei_ipponki','alpen_route_nagano','kamakura_nanohana','naraijuku_wine','farthest_from_sea','obasute_togura','unnojuku_yunomaru','wasabi_farm','nagaragawa_ukai','okuno_hosomichi_musubi','hida_furuimachi','mosaic_tile_museum','magome_kurikinton','udatsu_mino','kaseki_museum','iwamura_akechi','otajuku_satoyama','toki_outlet','aerospace_museum','rose_garden_akechi','fuyu_kaki_origin','setogawa_shirakabe','usuzumi_zakura','gujo_odori','nihon_sanmeisen','kisosansen_wajyu','atami_moa','genbegawa_rakujuen','sengen_taisha','omuroyama_jogasaki','horaibashi_sl','gakunan_tagonoura','yaizu_katsuo','kakegawa_castle','soccer_town_fujieda','gotemba_outlet','ecopa_hattasan','shimoda_port','fuji_safari','arai_sekisho','shuzenji_toi','hamaoka_lighthouse','senkagawa_fukamushi','nirayama_hansharo','sagara_oil_airport','masumida_keori','toyokawa_inari','tsushima_tenno','kokonoe_mirin','toyota_origin_kariya','toyota_hq','nihon_denmark','matcha_sakushima','takeshima_resort','centrair_manekineko','mandaraji_fuji','komaki_castle','konomiya_hadaka','nagashino_horaiji','juraku_daibutsu','aichi_kenko_mori','shinmaiko_okada','kakitsubata_chiryu','owariasahi_tower','okehazama','aichi_bokujo','irago_longbeach','sendohira_renkon','kiyosu_castle','showa_nichijo','kingyo_yatomi','miyoshi_canoe','shippoyaki','ghibli_linimo','shinkansen','coastal','designated','snow_festival','worldheritage','snow','basin','airport','noodle','yuruchara_gp_winner','nihonkai','taiheiyo','setonaikai','famous_mountain','big_river','big_bay','hot_40c','active_volcano','uchibo','sotobo','noto_area','subway','sake','famous_hanabi','castle_town','port_town','rice_region','kana_name','kansai_dialect','ryukyu_dialect','is_town_village','is_tokyo_ward','giant_kofun','jomon_worldheritage','large_yayoi_site','lakeside','daibutsu_spot','historic_five_story_pagoda','bakumatsu_port','sumo_basho','jleague','npb','former_capital','grid_streets','national_treasure','twelve_castles','sengoku_warlord','tram','car_town','private_railway','monorail','remote_island','mining_heritage','worldheritage_mine','worldheritage_coal_mine','night_view','war_damage','ferris_wheel','theme_park','zoo','aquarium','brand_beef','kintetsu','kanji_one_char','chinatown','sand_dunes','imperial_university','famous_tower','famous_market','exotic_port','dome_stadium','tea_region','gokaido_shukuba','traditional_pottery','traditional_craft','horse_racing','famous_horse_breeding','literary_figure','kitanotakeshi','musashino_line','ekimei_chigau','prefectural_capital','borders_other_pref','formed_after_2000','national_university','expressway_junction','hiragana_name','direction_in_name','old_province_name','public_racing_venue','national_government_park','film_city','shinsengumi','shonan_area','white_mirin_origin','joetsu_region','chuetsu_region','kaetsu_region','joetsu_shinkansen_station','hokuriku_shinkansen_station','hokkaido_shinkansen_station','tohoku_shinkansen_station','tokaido_shinkansen_station','sanyo_shinkansen_station','kyushu_shinkansen_station','nishikyushu_shinkansen_station','yamagata_shinkansen_station','akita_shinkansen_station','is_village','shinano_river','agano_river','uono_river','borders_yamagata','borders_fukushima','borders_gunma','borders_nagano','borders_toyama','todai_campus','waseda_campus','keio_campus','meiji_campus','rikkyo_campus','chuo_campus','tus_campus','imperial_palace','ginza','tokyo_tower_ward','tokyo_dome_ward','sensoji','skytree_ward','toyosu_market','haneda_ward','shibamata_taishakuten','kasai_park','broadway_nakano','koenji_area','jiyugaoka','shakujii_park','odakyu_line','keio_inokashira_line','tokyu_line','keikyu_line','seibu_line','tobu_main_station','tobu_tojo_station','utsunomiya_station','takasaki_line_station','keisei_line','tsukuba_express','rinkai_line','yurikamome','toden_arakawa','nippori_toneri','tokyo_bay','tama_river','sumida_river','arakawa_river','edogawa_river','meguro_river','shakujii_river','borders_kanagawa','borders_saitama','borders_chiba','yamanote_line','keihintohoku_line','chuo_rapid','chuo_sobu','joban_line','saikyo_line','ueno_station','akabane_station','nippori_station','tsunagari_mayu_police','tv_station_area','sazae_family','hachiko_area','yose_hall','sailor_moon_stage','godzilla_head','rakugo_stage','sanma_famous','monzen','bedtown','silk_heritage','silk_textile','moka_sl_line','kururi_line','watarase_line','oito_line','shinano_railway','echizen_railway','nagaragawa_railway','yoro_railway','sunzu_line','aikan_railway','kurobe_torokko','dinosaur_museum','echizen_washi_hamono','tojinbo','jomon_venus','rokkoyo','mino_ware','hamono_famous','skijyou','geopark','nuclearpowerplant','monozukuri','chukakushi','tokureishi','douou_area','doutou_area','dohoku_area','sapporo_metro','ishikari_plain','historical_port_hokkaido','industrial_port_hokkaido','hakodate_honsen','ishikari_river','tsugaru_area','sendai_metro','kitakami_basin','shonai_area','hamadori_area','nakadori_area','aizu_area','sanriku_area','north_kanto','tama_area','tokatsu_area','ryomo_area','tone_river_area','sotetsu_line','hokuriku_three_pref','koshin_area','tokai_area','owari_area','mikawa_area','izu_area','suruga_area','totomi_area','hida_area','mino_area','hokushin_area','toshin_area','chushin_area','nanshin_area','meitetsu_line','keihanshin_area','hokusetsu_area','kawachi_area','senshu_area','hanshin_area','harima_area','tajima_area','tamba_area','kyoto_north','nara_basin','kii_peninsula','nankai_line','glasses_industry','towel_industry','musical_instruments','gold_leaf','denim_industry','pearl_farming','shipbuilding','furniture_industry','washi_famous','pharmaceutical_industry','fireworks_industry','stone_industry','soy_sauce_famous','vinegar_famous','miso_famous','gyoza_famous','yakisoba_famous','udon_famous','soba_famous','ramen_famous','castella_famous','kamaboko_famous','traditional_lacquerware','ancient_provincial_capital','kokubunji_site','traditional_buildings_district','little_kyoto','giant_buddha','sea_torii','deer_in_city','gassho_zukuri','domestic_ferry','international_ferry','no_railway_station','shikoku_pilgrimage','olympic_venue','famous_battlefield','kitamaebune_port','famous_fish_catch','kaikyo_machi','gakuto','hula_girl','kannon_zo','koedo','imono_kupola','aeon_laketown','sogo_dept','isetan_dept','mitsukoshi_dept','daimaru_dept','matsuzakaya_dept','funasshi_famous','takao_mountain','curry_famous','anime_seichi','number_in_name','kigyo_joukamachi','hankyu_line','yayoiken_seichi','hirakata_park','keihan_line','kawachi_ondo','rugby_machi','kougyou_toshi','hyoujun_jigosen','koushien','bikan_chiku','gunkou_machi','seitetsu_kouro','fugu_famous','tire_famous','hamburger_famous','kenkyu_gakuen_toshi','action_kamen','senbei_famous','tanabata_famous','uirou_famous','southern_seichi','b_kyu_gourmet','beigun_kichi','shinkai_gyo','saboten_machi','combinat_yakei','danjiri_famous','onaji_ookawa','kageki_dan','animal_in_name','ariake_coast','big_small_in_name','bingo_area','body_part_in_name','chikugo_area','chikuho_area','chikuzen_area','chugoku_mountain_basin','chuyo_area','color_in_name','dosan_line','four_plus_name','fukuoka_metro','hakubi_line','hard_to_read_name','hiroshima_metro','honshu_bridge','izumo_area','kagoshima_main_line','kawa_in_name','kitakyushu_area','nanyo_area','new_old_in_name','nippo_main_line','nishitetsu_line','northern_kyushu','okinawa_main_island','okinawa_south_central','osumi_area','paper_industry_shikoku','plant_in_name','pref_name_in_city_name','sakishima_islands','same_name_other_pref','sanin_area','sanin_main_line','sanyo_area','sanyo_main_line','satsuma_area','sea_word_in_name','setouchi_industrial','shima_in_name','southern_kyushu','ta_in_name','toyo_area','yama_in_name','yosan_line','ic_doo','ic_sasson','ic_shiribeshi','ic_doto','ic_tohoku','ic_hachinohe','ic_aomori','ic_kamaishi','ic_akita','ic_yamagata','ic_tohoku_chuo','ic_nihonkai_tohoku','ic_banetsu','ic_joban','ic_kanetsu','ic_joshinetsu','ic_hokukanto','ic_higashikanto','ic_tokyo_gaikan','ic_tateyama','ic_shin_kuko','ic_chuo','ic_nagano','ic_hokuriku','ic_tokai_hokuriku','ic_tomei','ic_shin_tomei','ic_meishin','ic_shin_meishin','ic_tomeihan','ic_isewangan','ic_ise','ic_kisei','ic_meinikan','ic_kinki','ic_hanwa','ic_nishimeihan','ic_maizuru_wakasa','ic_kansai_kuko','ic_chugoku','ic_sanyo','ic_tottori','ic_yonago','ic_okayama','ic_hamada','ic_matsue','ic_onomichi','ic_hiroshima','ic_harima','ic_takamatsu','ic_tokushima','ic_matsuyama','ic_kochi','ic_kyushu','ic_higashi_kyushu','ic_nagasaki','ic_oita','ic_miyazaki','ic_okinawa','technical_college','national_univ_attached_high','national_univ_attached_junior_high','veterinary_university','fisheries_marine_high_school','keirin_track','boat_race_track','auto_race_track','paper_mill','cement_factory','geothermal_power','tourist_cave','rocket_launch_site','cable_car','raihoshin','fire_torch_festival','mikoshi_into_sea','major_beer_factory','ikea_store','nishikigoi_origin','safari_park','ninja_tourism','air_self_defense_base','maritime_self_defense_base','starry_sky_reserve','volcano_crater_tourism','tidal_walk_island','whisky_distillery','ski_jump_hill','ama_divers','toki_stork_rewilding','swan_wintering','sunflower_famous','lavender_famous','oyster_aquaculture','wasabi_production','traditional_saltmaking','oilfield_present','nori_aquaculture','wakame_aquaculture','salmon_aquaculture','sea_turtle_nesting','manga_museum','ukai','bullfighting','hot_air_balloon_event','tourist_trolley_train','ropeway','geyser','public_observatory','outlet_mall','seicomart_store','costco_store','lalaport','aeon_mall_store','donki_store','lopia_store','yamaokaya_store','komeri_store','cainz_store','sawayaka_store','heiwado_store','hachiban_store','ramen_jiro_store','youme_store','okuwa_store','belc_store','yaoko_store','sukesan_store','yamada_udon_store','sugakiya_store','makino_udon_store','lucky_pierrot_store','aw_store','sanliv_marushoku_store','marunaka_store','sanei_store','albis_store','harashin_narus_store','uoroku_store','tsuruya_store','york_benimaru_store','dinosaur_fossil_found','kappa_town_promotion','oni_main_festival','horse_public_road_festival','tourist_steam_train','kokeshi_production','hina_town_event','gsdf_garrison','cinema_present','town_village_university','agricultural_high_school','industrial_high_school','commercial_high_school','domain_school_roots','closed_school_tourism','full_boarding_high_school','spring_koshien_champion','summer_koshien_champion','high_school_soccer_champion','high_school_rugby_champion','high_school_ekiden_champion','no_high_school','jigoku_geothermal_area','meiji_taisho_church','wind_farm_cluster','waterway_boat_tour','lighthouse_general','daruma_production','river_boat_descent','department_store_general','v245_abu_michinoeki_origin','v245_yusui_kirishima_art','v245_kikuyo_jasm','v247_mizuho_monorail_terminal','v247_aya_suspension_bridge','v247_nyuzen_sawasugi','koshien_champion','sumo_yokozuna_ozeki','famous_cape','yamata_no_orochi','hibagon','mori_motonari','hiruzen_highland','miyamoto_musashi_station','akiyoshidai','mizuki_shigeru_road','yasugi_bushi','gonokawa','donticchi_fish','shokasonjuku','motonosumi_shrine','bizen_ware','osafune_sword_museum','naoshima_gateway','horseshoe_crab_museum','astronomy_city','sunameri','naval_academy','goldfish_lantern','ito_hirobumi_birthplace','train_factory','stork','hyonosen','takeda_castle','tamba_dinosaur','black_soybeans','japan_navel','miki_hardware','balloon_city','saga_balloon_festa','sake_birthplace','peron_festival','ako_ronin','awaji_puppet_theater','nijigen_no_mori','akechi_mitsuhide_castle','gunze_birthplace','nihon_sankei','singing_sand','miyama_thatched_village','hozugawa_boat_ride','doushisha','nagaoka_tenmangu','joruriji','jrosyu_ume','ritsumeikan','pm_birthplace','name_has_betsu','hokkaido_greenland','famous_prison','yakitori_famous_bibai','coal_mine_shaft','drift_ice','suffolk_sheep','ammonite_fossil','matsuo_jingisukan','sweet_road','least_populous_city','urokodango','bear_park','fighters_farm','bijin_town','yoshi_ikuzo','oirase','osorezan','shakoki_dogu','seibien','jodogahama','goishi_coast','miyazawa_kenji','tensho_chi','amber_kuji','tono_monogatari','geibikei','ipponmatsu','ohtani_shohei','zashiki_warashi','appi_kogen','ishinomori','chagu_chagu','shiogama_shrine','fukahire','shiroishi_umen','sendai_airport','jaxa_kakuda','takekoma_shrine','meiji_mura','kano_eiko','blue_impulse','naruko_onsen','town_to_city_2016','basketball_town','kamakura_yokote','akita_inu_hachiko','namahage','inaniwa_udon','oyu_stone_circle','yuri_kogen_railway','blumen_akita','odate_noshiro_airport','tdk_town','kakunodate_tazawako','sankyo_soko','higashizawa_rose','ayame_park','hanagasa_tendo','ginzan_onsen','kumano_taisha','tsuburaya_eiji','matsukawaura','kiku_ningyo_nihonmatsu','abukumado','kacchu_keiba','anpogaki','william_park','natural_gas_town','region_tohoku','region_kanto','region_chubu','region_kinki','region_chugoku','region_shikoku','region_kyushu','pref_hokkaido','pref_aomori','pref_iwate','pref_miyagi','pref_akita','pref_yamagata','pref_fukushima','pref_ibaraki','pref_tochigi','pref_gunma','pref_saitama','pref_chiba','pref_tokyo','pref_kanagawa','pref_niigata','pref_toyama','pref_ishikawa','pref_fukui','pref_yamanashi','pref_nagano','pref_gifu','pref_shizuoka','pref_aichi','pref_mie','pref_shiga','pref_kyoto','pref_osaka','pref_hyogo','pref_nara','pref_wakayama','pref_tottori','pref_shimane','pref_okayama','pref_hiroshima','pref_yamaguchi','pref_tokushima','pref_kagawa','pref_ehime','pref_kochi','pref_fukuoka','pref_saga','pref_nagasaki','pref_kumamoto','pref_oita','pref_miyazaki','pref_kagoshima','pref_okinawa','kitasubaru','kita_no_kuni','kita_no_shonan','shizumine','shimotsuma_movie','hitachi_kokufu','toyoda_castle','moriya_junction','namegata_farm','hananuki','happogahara','kanuma_tsuchi','nasu_yoichi','jichi_medical','bihada_onsen','moomin_park','ageo_sodou','iroha_toi','okegawa_benibana','ishito_zakura','kinchakuda','heirinji','lucky_star','johnson_town','saika_matsuri','mizuko_kaizuka','smallest_city','yashio_hanamomo','yoshikawa_namazu','shiraoka_nashi','kurohama_kaizuka','hanyu_yurugp','inzai_datacenter','kamagaya_farm','iioka_cape','tomisato_suika','sanbu_sugi','keisei_rose','aqualine_gate','yotsukaido_name','onari_kaido','yachimata_peanuts','nashibou','soza_ueki','blueberry_origin','kishozeisei_center','summerland','hamura_zeki','baseside_street','zama_himawari','zushi_marina','ayase_no_station','nono_odoriji','linear_center','shakou_elevator','saruhashi','enbaragawa','sanshu_kawara','nonbori_arai','akame_taki','oiwayama_dotaku','tokaido_nakasendo','koka_ninja','take_no_michi','aioi_matsu','banshu_soroban_ono','katsuragi_tsutsuji','matabei_zakura','kishu_herazao','negoroji','kokusan_denim','konrei_kagu','nora_dokei','onga_pump','koinoki','hiyoko','kubote_san','taku_seibyo','minamata_museum','kikuchi_keikoku','mikoshiki_coast','amakusa_bridges','ikoma_kogen','senbon_icho','sogi_no_taki','orion_beer','inami_kaeru_bridge','tsuruta_steuben','jupialand_shibazakura','licca_castle','iitate_madeikan','ogata_reclamation','ora_mirai_tower','kamisato_sa','mikurajima_dolphin','aogashima_double_caldera','oi_biotopia','nanko_ume','ebikani_aquarium','misato_blueberry','circuit','dam_lake','meisui_hyakusen','least_populous_village','tanada_hyakusen','karst','ramsar','national_park','waterfall_hyakusen','castle_hyakumeijo','winery','funaoka_sakura','omocha_no_machi','tanagura_kamegajo','neba_sugi','hiraya_himawari_no_yu','ikusaka_sanseiji','toyoyama_ichiro_airport','kanmaki_kataoka_castle','kitanakagusuku_rycom_castle','totsukawa_largest_village_bridge','minakami_tanigawa_rafting','shibata_castle_occhahoi','seiro_albirex_jsc','eiheiji_zen_training','minamisanriku_shizugawa_aquaculture','onagawa_station_seaside_shopping','chiba_makuhari_monorail','minamiuonuma_hakkaisan_koshihikari','aomori_nebuta','hiroshima_dome_carp','machida_zelvia','ise_naiku_geku','yokkaichi_combinat_night','tokamachi_echigo_tsumari','wakayama_yoshimune_kimiidera','morioka_takuboku_sandaimen','kyoto_gion_sennen','naha_shurijo_kokusai','v144_minamiaiki_dam','v144_shimoichi_sugibashi','v144_shoo_kintaro','v144_mizumaki_cosmos','v144_taragi_shorenji','v144_kunitomi_honjo','v144_wadomari_fucha','v144_ie_tatchu','v144_kunneppu_characters','v144_fujisaki_fuji','v144_kagamiishi_iwase','v144_tomioka_yonomori','v144_mutsuzawa_smartwellness','v178_arita_porcelain','v178_assabu_mayqueen','v178_shiriuchi_saburo','v178_ina_roses','v178_higashichichibu_hosokawa','v178_mitsue_miune','v178_mogami_akakura','v178_funagata_jomon','v178_nagi_moca','v178_iwaizumi_ryusendo','v178_karumai_tulips','v178_ishii_fuji','v178_izena_shoen','v178_mifune_dinosaur','v178_tsunagi_art','v178_nakai_itsukushima','v178_nahari_townscape','v186_kouhoku_junction','v186_otobe_shirafura','v186_tozawa_mogamigawa','v186_oshino_hakkai','v186_narusawa_icecave','v186_misaki_tkg','v186_nishiawakura_hyakumori','v186_kamikatsu_zerowaste','v186_shioya_shojinzawa','v186_minamiaso_shirakawa','v186_kuma_kyusendo','v186_sagara_kawabe','v186_nishihara_tawarayama','v186_hakone_owakudani','v186_higashinaruse_sennin','v186_geisei_horticulture','v186_ochi_yokogurayama','v188_hayakawa_akasawa','v188_fujikawa_oboshi','v188_kosuge_tamagawa','v188_odai_osugidani','v188_matsushige_airport','v188_kawatana_torpedo','v188_ashikita_utase','v188_kosaka_korakukan','v188_fujisato_shirakami','v188_shinto_tsurushi','v188_kawaba_denenplaza','v205_tamaki_tamaru','v205_komono_yunoyama','v205_kyotamba_shizushi','v205_inagawa_tada','v205_kusu_dowa','v205_tajiri_onion','v205_nose_joruri','v205_toyono_ukon','v205_ohira_only_village','v205_kibichuo_bupposo','v206_shichigahama_smallest','v206_mikawa_no_mountain','v206_okuizumo_tatara','v206_higashimiyoshi_kamo','v206_kamijima_yumeshima','v206_ikata_sadamisaki','v206_nakanoto_jofu','v206_anamizu_boramachi'];
 
 const QUESTIONS = {
   v266_katsuura_big_hina: {text:"巨大なひな壇を埋め尽くす「ビッグひな祭り」で知られる？", icon:"🎎"},
@@ -1181,6 +1127,8 @@ const QUESTIONS = {
   shipbuilding:                {text:'造船業が盛ん？', icon:'🚢', subjective:true},
   furniture_industry:          {text:'家具の産地として有名？', icon:'🪑', subjective:true},
   washi_famous:                {text:'和紙の産地として知られている？', icon:'📜', subjective:true},
+  sudachi_production:          {text:'徳島特産のすだちの産地として知られている？', icon:'🍋'},
+  sakawa_basin:                {text:'酒匂川流域にあるマチ？', icon:'🏞️'},
   pharmaceutical_industry:     {text:'製薬産業で知られる？', icon:'💊', subjective:true},
   fireworks_industry:          {text:'花火の製造が盛ん？', icon:'🎆', subjective:true},
   stone_industry:              {text:'石材の産地として有名？', icon:'🪨', subjective:true},
@@ -8015,6 +7963,8 @@ const TAG_GAME_CATEGORY = {
   "shipbuilding": "地理",
   "furniture_industry": "地理",
   "washi_famous": "地理",
+  "sudachi_production": "食",
+  "sakawa_basin": "地理",
   "pharmaceutical_industry": "地理",
   "fireworks_industry": "地理",
   "stone_industry": "地理",
@@ -8145,7 +8095,361 @@ const TAG_GAME_CATEGORY = {
   "kitanakagusuku_rycom_castle": "その他",
   "minamisanriku_shizugawa_aquaculture": "その他",
   "onagawa_station_seaside_shopping": "その他",
-  "minakami_tanigawa_rafting": "その他"
+  "minakami_tanigawa_rafting": "その他",
+  "v220_kamisunagawa_coal": "その他",
+  "v204_gojome_morning_market": "その他",
+  "v204_hirono_tonbo": "その他",
+  "v204_iinan_shimenawa": "その他",
+  "v204_nishiizu_tombolo": "その他",
+  "v204_taki_vison": "その他",
+  "v204_matsusaka_beef": "その他",
+  "v204_yubari_melon_coal": "その他",
+  "v204_otaru_canal": "その他",
+  "v204_higashine_cherry": "その他",
+  "v204_mitane_junsai": "その他",
+  "v204_higashiizu_tsurushi": "その他",
+  "v204_kimotsuki_space": "その他",
+  "v204_kihoku_oni": "その他",
+  "v204_tobe_yaki": "その他",
+  "v180_toin_ageuma": "その他",
+  "v180_soni_susuki": "その他",
+  "v180_kagamino_okutsu": "その他",
+  "v180_toyo_ikumi": "その他",
+  "v180_kamimine_chinzeizan": "その他",
+  "v180_sai_hotokegaura": "その他",
+  "v180_nagomi_edafunayama": "その他",
+  "v180_togitsu_sabakusarakashi": "その他",
+  "v180_mizukami_ichifusa": "その他",
+  "v180_yunomae_manga": "その他",
+  "v180_yugawara_manyo": "その他",
+  "v180_nagayo_mikan": "その他",
+  "v273_agano_hyoko": "その他",
+  "v273_akashi_strait_yaki": "その他",
+  "v273_akaiwa_fruit": "その他",
+  "v273_omachi_bota": "その他",
+  "v273_shinkamigoto_churches": "その他",
+  "v273_nagasu_goldfish": "その他",
+  "v273_ozu_honda": "その他",
+  "v273_minamioguni_kurokawa": "その他",
+  "v273_kosa_yana": "その他",
+  "v273_minamitane_space": "その他",
+  "v273_yamato_amami_rabbit": "その他",
+  "v273_kin_tacorice": "その他",
+  "v273_makubetsu_park_golf": "その他",
+  "v273_sannohe_11cats": "その他",
+  "v273_osato_hasekura": "その他",
+  "v273_ogawara_senbonzakura": "その他",
+  "v273_kawasaki_michinoku": "その他",
+  "v273_sakegawa_totoro": "その他",
+  "v273_naraha_jvillage": "その他",
+  "v273_okuma_strawberry": "その他",
+  "v273_futaba_daruma": "その他",
+  "v273_yachiyo_hakusai": "その他",
+  "v273_takayama_stars_castle": "その他",
+  "v273_ranzan_keikoku": "その他",
+  "v273_kawajima_rivers": "その他",
+  "v273_hatoyama_jaxa": "その他",
+  "v273_sugito_shukuba": "その他",
+  "v273_matsubushi_windmill": "その他",
+  "v273_hinohara_waterfall": "その他",
+  "v273_oshima_mihara": "その他",
+  "v273_kozushima_stars": "その他",
+  "v273_ichikawamisato_threecrafts": "その他",
+  "v273_tatsuno_firefly": "その他",
+  "v273_iijima_twoalps": "その他",
+  "v273_takamori_ichidagaki": "その他",
+  "v273_yasuoka_fourstations": "その他",
+  "v273_matsukawa_suzumushi": "その他",
+  "v273_godo_roses": "その他",
+  "v273_shirakawa_five_rivers": "その他",
+  "v273_mitake_two_shukuba": "その他",
+  "v273_tobishima_port_fields": "その他",
+  "v273_toyone_chausuyama": "その他",
+  "v273_watarai_miyagawa_tea": "その他",
+  "v273_kumiyama_nagarebashi": "その他",
+  "v273_wazuka_teafields": "その他",
+  "v273_shimamoto_rikyu_water": "その他",
+  "v273_kumatori_populous_town": "その他",
+  "v273_yamazoe_nabekura": "その他",
+  "v273_miyake_secondsmallest": "その他",
+  "v273_nosegawa_unkai": "その他",
+  "v273_kawakami_genryu": "その他",
+  "v273_nanbu_hanakairo": "その他",
+  "v273_chibu_sekiheki": "その他",
+  "v273_kaita_saigoku": "その他",
+  "v273_kitahiroshima_kagura": "その他",
+  "v273_mihara_doburoku": "その他",
+  "v273_kasuya_sixstations": "その他",
+  "v273_tachiarai_imamura": "その他",
+  "v277_kiyose_akina": "その他",
+  "v277_shimotsuke_jichi": "その他",
+  "v277_minowa_akasoba": "その他",
+  "v277_umi_birth": "その他",
+  "v270_hino_merchant": "その他",
+  "v270_ide_yamabuki": "その他",
+  "v270_aizumi_indigo": "その他",
+  "v270_tsurugi_udatsu": "その他",
+  "v270_hidaka_omurice": "その他",
+  "v270_yahaba_nansho": "その他",
+  "v270_nakayama_imoni": "その他",
+  "v270_tokigawa_woodwork": "その他",
+  "v270_aikawa_miyagase": "その他",
+  "agricultural_high_school": "その他",
+  "commercial_high_school": "その他",
+  "high_school_ekiden_champion": "その他",
+  "industrial_high_school": "その他",
+  "meiji_taisho_church": "その他",
+  "spring_koshien_champion": "その他",
+  "summer_koshien_champion": "その他",
+  "high_school_soccer_champion": "その他",
+  "jigoku_geothermal_area": "その他",
+  "domain_school_roots": "その他",
+  "high_school_rugby_champion": "その他",
+  "closed_school_tourism": "その他",
+  "wind_farm_cluster": "その他",
+  "lighthouse_general": "その他",
+  "v216_kitaakita_matagi": "その他",
+  "v208_maebashi_ito": "その他",
+  "town_village_university": "その他",
+  "waterway_boat_tour": "その他",
+  "v216_maibara_ibuki": "その他",
+  "river_boat_descent": "その他",
+  "daruma_production": "その他",
+  "v216_fukuoka_yamakasa": "その他",
+  "v216_kanoya_rose": "その他",
+  "v216_kitakyushu_mojiko": "その他",
+  "v216_murakami_salmon": "その他",
+  "v207_suginami_awaodori": "その他",
+  "v217_fukuyama_tomonoura": "その他",
+  "v207_kishiwada_danjiri": "その他",
+  "v217_asahikawa_asahiyama": "その他",
+  "v217_kokubunji_otaka": "その他",
+  "v217_izumo_taisha": "その他",
+  "v217_hitachi_furyumono": "その他",
+  "v218_hashima_takehana": "その他",
+  "v218_muroran_night": "その他",
+  "v218_narita_shinshoji": "その他",
+  "v207_hodatsushimizu_chirihama": "その他",
+  "v206_nakanoto_jofu": "その他",
+  "v206_anamizu_boramachi": "その他",
+  "v207_noto_abare": "その他",
+  "v208_mihama_suishohama": "その他",
+  "v207_ohi_itteki": "その他",
+  "v218_wakasa_kumagawa": "その他",
+  "v188_hayakawa_akasawa": "その他",
+  "v218_nanbu_tea": "その他",
+  "v188_fujikawa_oboshi": "その他",
+  "v186_oshino_hakkai": "その他",
+  "v186_narusawa_icecave": "その他",
+  "no_high_school": "その他",
+  "v188_kosuge_tamagawa": "その他",
+  "v208_koumi_kantaro": "その他",
+  "full_boarding_high_school": "その他",
+  "v209_karuizawa_shaw": "その他",
+  "v209_tateshina_shirakaba": "その他",
+  "v209_nagawa_obsidian": "その他",
+  "v218_hara_stars": "その他",
+  "v208_sakaki_murakami": "その他",
+  "v208_kijimadaira_kayanodaira": "その他",
+  "v209_nozawa_sotoyu": "その他",
+  "v208_ogawa_alps": "その他",
+  "v218_iizuna_apple": "その他",
+  "v209_minamiizu_irozaki": "その他",
+  "v209_matsuzaki_namako": "その他",
+  "v209_shimizu_kakita": "その他",
+  "v209_nagaizumi_ayutsubo": "その他",
+  "v209_yoshida_koyama": "その他",
+  "v218_togo_aichiike": "その他",
+  "v205_komono_yunoyama": "その他",
+  "v218_kawagoe_tera46": "その他",
+  "v218_meiwa_saiku": "その他",
+  "v188_odai_osugidani": "その他",
+  "v205_tamaki_tamaru": "その他",
+  "v207_kihoku_choshi": "その他",
+  "v218_aisho_kongorinji": "その他",
+  "v218_kora_saimyoji": "その他",
+  "v218_taga_taisha": "その他",
+  "v205_kyotamba_shizushi": "その他",
+  "v218_ine_funaya": "その他",
+  "v205_toyono_ukon": "その他",
+  "v205_nose_joruri": "その他",
+  "v218_tadaoka_smallest": "その他",
+  "v205_tajiri_onion": "その他",
+  "v208_misaki_fuke": "その他",
+  "v218_kanan_saigyo": "その他",
+  "v205_inagawa_tada": "その他",
+  "v218_taka_origins": "その他",
+  "v218_inami_ponds": "その他",
+  "v218_harima_onaka": "その他",
+  "v218_fukusaki_yanagita": "その他",
+  "v219_kamikawa_tonomine": "その他",
+  "v219_taishi_ikarugadera": "その他",
+  "v219_shinonsen_arayu": "その他",
+  "v219_ando_tomimoto": "その他",
+  "v178_mitsue_miune": "その他",
+  "v219_kanmaki_kataoka": "その他",
+  "v219_hirogawa_inamura": "その他",
+  "v219_yura_shirasaki": "その他",
+  "v219_shirahama_shirarahama": "その他",
+  "v209_houki_ueda": "その他",
+  "v206_okuizumo_tatara": "その他",
+  "v219_okinoshima_rousoku": "その他",
+  "v219_wake_fuji": "その他",
+  "v213_satosho_kaze": "その他",
+  "v178_nagi_moca": "その他",
+  "v186_nishiawakura_hyakumori": "その他",
+  "v186_misaki_tkg": "その他",
+  "v205_kibichuo_bupposo": "その他",
+  "v207_saka_bayside": "その他",
+  "v219_akiota_sandankyo": "その他",
+  "v207_sera_hanabatake": "その他",
+  "v219_jinsekikogen_paperplane": "その他",
+  "v219_waki_hachigamine": "その他",
+  "v266_katsuura_big_hina": "その他",
+  "v186_kamikatsu_zerowaste": "その他",
+  "v178_ishii_fuji": "その他",
+  "v188_matsushige_airport": "その他",
+  "v206_higashimiyoshi_kamo": "その他",
+  "v209_miki_shishi": "その他",
+  "v219_naoshima_art": "その他",
+  "v209_ayagawa_udon": "その他",
+  "v267_kotohira_konpira": "その他",
+  "v206_kamijima_yumeshima": "その他",
+  "v207_kumakogen_karst": "その他",
+  "v207_masaki_gino": "その他",
+  "v213_uchiko_uchikoza": "その他",
+  "v206_ikata_sadamisaki": "その他",
+  "v207_matsuno_nametoko": "その他",
+  "v219_ainan_uwakai": "その他",
+  "v178_nahari_townscape": "その他",
+  "v186_geisei_horticulture": "その他",
+  "v186_ochi_yokogurayama": "その他",
+  "v219_shime_tateko": "その他",
+  "v219_shingu_aishima": "その他",
+  "v213_hisayama_sato": "その他",
+  "v219_ashiya_kama": "その他",
+  "v208_onga_cho": "その他",
+  "v208_kotake_loco23": "その他",
+  "v208_kurate_hasedera": "その他",
+  "v208_keisen_ozuka": "その他",
+  "v219_chikuzen_tachiarai": "その他",
+  "v219_oki_biomass": "その他",
+  "v207_hirokawa_kasuri": "その他",
+  "v208_kawara_kawaradake": "その他",
+  "v207_soeda_hikosan": "その他",
+  "v208_itoda_kanamura": "その他",
+  "v208_kawasaki_gyorakuen": "その他",
+  "v207_oto_cactus": "その他",
+  "v219_aka_ishizaka": "その他",
+  "v207_fukuchi_agano": "その他",
+  "v219_kanda_hirotani": "その他",
+  "v208_miyako_jabuchi": "その他",
+  "v207_yoshitomi_kamizumo": "その他",
+  "v208_koge_tobaru": "その他",
+  "v219_chikujo_tsunashiki": "その他",
+  "v219_genkai_hamanoura": "その他",
+  "v178_arita_porcelain": "その他",
+  "v186_kouhoku_junction": "その他",
+  "v188_kawatana_torpedo": "その他",
+  "v219_nankan_sekisho": "その他",
+  "v186_nishihara_tawarayama": "その他",
+  "v186_minamiaso_shirakawa": "その他",
+  "v178_mifune_dinosaur": "その他",
+  "v219_mashiki_airport": "その他",
+  "v219_hikawa_nozu": "その他",
+  "v188_ashikita_utase": "その他",
+  "v178_tsunagi_art": "その他",
+  "v186_sagara_kawabe": "その他",
+  "v186_kuma_kyusendo": "その他",
+  "v205_kusu_dowa": "その他",
+  "v213_mimata_tsutsuji": "その他",
+  "v213_misato_shiwassu": "その他",
+  "v209_higashikushira_lupin": "その他",
+  "v209_kinko_otaki": "その他",
+  "v209_minamiosumi_sata": "その他",
+  "v219_nakatane_airport": "その他",
+  "v219_yakushima_yakusugi": "その他",
+  "v178_izena_shoen": "その他",
+  "v219_taketomi_nineislands": "その他",
+  "v178_shiriuchi_saburo": "その他",
+  "v219_yakumo_two_seas": "その他",
+  "v178_assabu_mayqueen": "その他",
+  "v186_otobe_shirafura": "その他",
+  "v219_okushiri_blue": "その他",
+  "v219_setana_otayama": "その他",
+  "v219_rusutsu_resort": "その他",
+  "v220_kyowa_raiden": "その他",
+  "v220_yoichi_nikka": "その他",
+  "v220_higashikagura_flowers": "その他",
+  "v220_teshio_shijimi": "その他",
+  "v220_nakatombetsu_karst": "その他",
+  "v220_rishirifuji_mountain": "その他",
+  "v220_horonobe_reindeer": "その他",
+  "v220_ozora_shibazakura": "その他",
+  "v220_yubetsu_tulip": "その他",
+  "v220_toyoura_strawberry": "その他",
+  "v220_hidaka_monbetsu_horse": "その他",
+  "v220_biratori_nibutani": "その他",
+  "v220_kamishihoro_taushubetsu": "その他",
+  "v220_kushiro_hosooka": "その他",
+  "v220_hamanaka_monkeypunch": "その他",
+  "v220_nakashibetsu_kaiyodai": "その他",
+  "v220_inakadate_riceart": "その他",
+  "v220_yokohama_nanohana": "その他",
+  "v220_oirase_liberty": "その他",
+  "v220_takko_garlic": "その他",
+  "v220_hashikami_seamountain": "その他",
+  "v220_shingo_christ": "その他",
+  "v207_nishiwaga_kinshuko": "その他",
+  "v178_iwaizumi_ryusendo": "その他",
+  "v178_karumai_tulips": "その他",
+  "v220_kunohe_broiler": "その他",
+  "v220_hirono_uni": "その他",
+  "v206_shichigahama_smallest": "その他",
+  "v207_rifu_nashi": "その他",
+  "v205_ohira_only_village": "その他",
+  "v220_minamisanriku_ramsar": "その他",
+  "v213_murata_kura": "その他",
+  "v178_mogami_akakura": "その他",
+  "v178_funagata_jomon": "その他",
+  "v186_tozawa_mogamigawa": "その他",
+  "v206_mikawa_no_mountain": "その他",
+  "v207_shonai_kiyokawadashi": "その他",
+  "v208_yuza_maruike": "その他",
+  "v220_kawamata_cosquin": "その他",
+  "v220_tenei_british": "その他",
+  "v220_hinoemata_kabuki": "その他",
+  "v220_kitashiobara_goshikinuma": "その他",
+  "v220_bandai_enichiji": "その他",
+  "v220_showa_karamushi": "その他",
+  "v220_tamakawa_airport": "その他",
+  "v208_kawauchi_hebusu": "その他",
+  "v208_namie_somayaki": "その他",
+  "v220_shinchi_karo": "その他",
+  "v188_kosaka_korakukan": "その他",
+  "v188_fujisato_shirakami": "その他",
+  "v186_higashinaruse_sennin": "その他",
+  "v186_shioya_shojinzawa": "その他",
+  "v213_takanezawa_goryo": "その他",
+  "v188_shinto_tsurushi": "その他",
+  "v213_yoshioka_funao": "その他",
+  "v188_kawaba_denenplaza": "その他",
+  "v208_itakura_agebune": "その他",
+  "v178_ina_roses": "その他",
+  "v213_miyoshi_santome": "その他",
+  "v213_ogose_bairin": "その他",
+  "v220_namegawa_shinrin": "その他",
+  "v178_higashichichibu_hosokawa": "その他",
+  "v213_miyashiro_tobu_zoo": "その他",
+  "v220_tako_rice": "その他",
+  "v220_tonosho_kojurin": "その他",
+  "v220_shibayama_haniwa": "その他",
+  "v213_hinode_tsurutsuru": "その他",
+  "v213_samukawa_jinja": "その他",
+  "v207_ninomiya_azumayama": "その他",
+  "v178_nakai_itsukushima": "その他",
+  "v213_kaisei_ajisai": "その他",
+  "v186_hakone_owakudani": "その他",
 };
 function categoryOf(k){ return TAG_GAME_CATEGORY[k] || "その他"; }
 
@@ -8537,29 +8841,29 @@ function questionInformationGain(cities, masses, key){
 // V154: 情報量がほぼ同じ質問同士なら、プレイヤーが「推理されている」と感じやすい方を選ぶ。
 // 面白さは情報利得を上書きしない。最大でも1.15点の僅差タイブレークに限定し、
 // 正答率・質問数を犠牲にしてまで文化系などを出すことはしない。
-const V154_FUN_CATEGORIES = new Set(['文化・観光', '産業・特産', '自然・地理']);
+const V154_FUN_CATEGORIES = new Set(['観光・娯楽','歴史・文化','地理','食','産業','自然','文化','文化・観光','観光','祭り・文化','自然・地理','スポーツ']);
 
 // V161: 連戦時の鮮度。初手は既にV142で「十分に分割性能が高い上位候補」だけから選んでいる。
-// その安全な候補群の中で、直近2ゲームと同じ初手だけを避けることで、何戦しても毎回同じ入りに
+// その安全な候補群の中で、直近6ゲームと同じ初手を可能な範囲で避けることで、何戦しても毎回同じ入りに
 // 感じる単調さを減らす。推理スコアや回答データには一切影響させない。
 const V161_RECENT_OPENERS_KEY = 'oramachi_recent_openers_v161';
 function v161RecentOpeners(){
   try{
     const raw = JSON.parse(localStorage.getItem(V161_RECENT_OPENERS_KEY) || '[]');
-    return Array.isArray(raw) ? raw.filter(x => typeof x === 'string').slice(0,2) : [];
+    return Array.isArray(raw) ? raw.filter(x => typeof x === 'string').slice(0,6) : [];
   }catch(e){ return []; }
 }
 function v161RememberOpener(key){
   if(!key) return;
   try{
-    const next = [key, ...v161RecentOpeners().filter(x => x !== key)].slice(0,2);
+    const next = [key, ...v161RecentOpeners().filter(x => x !== key)].slice(0,6);
     localStorage.setItem(V161_RECENT_OPENERS_KEY, JSON.stringify(next));
   }catch(e){}
 }
 
 
 // V162: 初手だけでなく、序盤3〜5問の「通り道」も連戦ごとに少し変える。
-// 直近2ゲームの序盤質問を参照するが、情報利得で選ばれた安全な最終poolの中だけで避ける。
+// 直近5ゲームの序盤質問を参照するが、情報利得で選ばれた安全な最終poolの中だけで避ける。
 // したがって質問精度を犠牲にして弱い質問を新たに候補へ入れることはない。
 const V162_RECENT_EARLY_ROUTES_KEY = 'oramachi_recent_early_routes_v162';
 let v162PriorEarlyRoutes = [];
@@ -8567,7 +8871,7 @@ function v162RecentEarlyRoutes(){
   try{
     const raw = JSON.parse(localStorage.getItem(V162_RECENT_EARLY_ROUTES_KEY) || '[]');
     if(!Array.isArray(raw)) return [];
-    return raw.filter(route => Array.isArray(route)).slice(0,2).map(route => route.filter(k => typeof k === 'string').slice(0,5));
+    return raw.filter(route => Array.isArray(route)).slice(0,5).map(route => route.filter(k => typeof k === 'string').slice(0,5));
   }catch(e){ return []; }
 }
 function v162LoadPriorEarlyRoutes(){
@@ -8579,12 +8883,12 @@ function v162RememberEarlyRoute(){
   if(route.length < 3) return;
   try{
     const previous = v162RecentEarlyRoutes().filter(old => old.join('|') !== route.join('|'));
-    localStorage.setItem(V162_RECENT_EARLY_ROUTES_KEY, JSON.stringify([route, ...previous].slice(0,3)));
+    localStorage.setItem(V162_RECENT_EARLY_ROUTES_KEY, JSON.stringify([route, ...previous].slice(0,6)));
   }catch(e){}
 }
 function v162FreshenEarlyPool(pool){
   if(questionPhase === 'extra' || questionCount <= 0 || questionCount >= 5 || pool.length < 2) return pool;
-  const recentKeys = new Set(v162PriorEarlyRoutes.flat());
+  const recentKeys = new Set(v162PriorEarlyRoutes.slice(0,5).flat());
   if(recentKeys.size === 0) return pool;
   const fresh = pool.filter(k => !recentKeys.has(k));
   // 少なくとも2択を維持できる時だけ完全回避。1択しか新鮮な質問がない場合も、
@@ -8598,12 +8902,45 @@ function v162FreshenEarlyPool(pool){
 // V163: 1ゲーム内の序盤〜中盤でも、同じ種類の質問が続く「作業感」を軽減する。
 // ここでも候補を広げず、entropyPick() が既に選んだ上位poolの中だけでカテゴリを散らす。
 // 直前と別カテゴリの良質候補がある時だけ切り替えるため、推理効率を優先した安全な演出。
+// V330R4: カテゴリ名だけではプレイヤー体感の「似た質問」を拾えないため、
+// 質問文とキーから意味ファミリーを粗く分類する。選球候補を外から増やす用途には使わず、
+// すでに情報利得/minimaxを通過したpool内の同等球を並べ替えるためだけに使う。
+function v330SemanticFamily(k){
+  const q=QUESTIONS[k];
+  const text=((q && typeof q==='object') ? (q.text||'') : (typeof q==='string'?q:''));
+  const hay=(String(k)+' '+String(text)).toLowerCase();
+  if(/鉄道|駅|新幹線|路面電車|モノレール|rail|station|shinkansen|tram|monorail/.test(hay)) return 'rail';
+  if(/高速|道路|国道|ジャンクション|インター|road|highway|junction|\bic_/.test(hay)) return 'road';
+  if(/空港|飛行場|airport|航空/.test(hay)) return 'airport';
+  if(/港|フェリー|ferry|harbor|port/.test(hay)) return 'port';
+  if(/海|湾|島|半島|海岸|coast|sea|island|bay/.test(hay)) return 'sea';
+  if(/川|河|湖|沼|滝|水系|river|lake|waterfall/.test(hay)) return 'inland_water';
+  if(/山|岳|雪|スキー|高原|火山|mountain|snow|ski|volcano/.test(hay)) return 'mountain_snow';
+  if(/人口|市制|町村|面積|人口密度|population|smallest|largest/.test(hay)) return 'stats_admin';
+  if(/地方|都道府県|県内|region_|pref_/.test(hay)) return 'region_pref';
+  if(/城|神社|寺|史跡|歴史|castle|shrine|temple/.test(hay)) return 'history_heritage';
+  if(/祭|まつり|漫画|アニメ|映画|作品|作者|museum|manga|festival/.test(hay)) return 'culture';
+  if(/工場|本社|産業|生産|メーカー|factory|hq|industry/.test(hay)) return 'industry';
+  if(/米|酒|麺|ラーメン|うどん|そば|果物|野菜|肉|魚|food|ramen|udon|soba/.test(hay)) return 'food';
+  return 'cat:'+categoryOf(k);
+}
 function v163FreshenCategoryRhythm(pool){
   if(questionPhase === 'extra' || questionCount <= 0 || questionCount >= 8 || pool.length < 2) return pool;
-  const previousKey = history.length ? history[history.length - 1]?.key : null;
-  if(!previousKey) return pool;
-  const previousCategory = categoryOf(previousKey);
-  const alternate = pool.filter(k => categoryOf(k) !== previousCategory);
+  const recent=history.slice(-4).map(h=>h&&h.key).filter(Boolean);
+  if(!recent.length) return pool;
+  const previousKey=recent[recent.length-1];
+  const previousCategory=categoryOf(previousKey);
+  const previousFamily=v330SemanticFamily(previousKey);
+  const familyCounts=new Map();
+  recent.forEach(k=>{ const f=v330SemanticFamily(k); familyCounts.set(f,(familyCounts.get(f)||0)+1); });
+  // 最優先: 直前と意味ファミリーが異なり、直近4問で2回以上使っていない同等性能球。
+  let alternate=pool.filter(k=>v330SemanticFamily(k)!==previousFamily && (familyCounts.get(v330SemanticFamily(k))||0)<2);
+  if(alternate.length) return alternate;
+  // 次善: 意味は違うがカテゴリだけ同じ、という球も許す。
+  alternate=pool.filter(k=>v330SemanticFamily(k)!==previousFamily);
+  if(alternate.length) return alternate;
+  // 最後に従来のカテゴリ連続回避。どれも無ければ性能優先で元poolを維持する。
+  alternate=pool.filter(k=>categoryOf(k)!==previousCategory);
   return alternate.length ? alternate : pool;
 }
 
@@ -9179,6 +9516,25 @@ const V330_TOWN_FACE_KEYS = new Set([
   'v213_hinode_tsurutsuru','v213_miyashiro_tobu_zoo'
 ]);
 function v330IsTownFace(k){ return V330_TOWN_FACE_KEYS.has(k) || V245_TOWN_FACE_FINISHERS.has(k); }
+// V330R5: 手作業で登録済みの町の顔だけに限定すると、既存データに良い文化・産業・自然球が
+// あるのに「町の顔なし」と扱われる自治体が残る。そこで、既存質問のうち全国YESが10以下、
+// demoted対象外、かつ町らしさを持つカテゴリだけを「町の顔候補」として補助的に認定する。
+// 統計・地方区分・文字遊びだけの球はここには入れない。新しい質問を捏造せず既存資産を活かす。
+function v330IsTownFaceCandidate(k){
+  if(v330IsTownFace(k)) return true;
+  if(!k || STATS_QUESTION_KEYS.has(k) || isPrefQuestion(k) || REGION_QUESTION_KEYS.has(k) || WIDE_AREA_BOOST_KEYS.has(k)) return false;
+  // V330R11: 「町の顔=全国YESが2〜10」という誤った固定を廃止。
+  // 2〜10は発射時の残候補規模の目安。町の顔は、その局面で『町らしさ』を見せる橋渡し球。
+  // サプライズ固有（1〜3候補の決め球）とは別キーにする。
+  if(v330IsDedicatedSurpriseStrike(k)) return false;
+  if(v330IsLocalChainQuestion(k)) return true; // R10の商圏ガードを通った地域チェーンは代表的な町の顔。
+  const cat=categoryOf(k);
+  if(V154_FUN_CATEGORIES.has(cat)) return true;
+  // サプライズから降格したローカル交通球は、決め球ではなく町の顔として再利用できる。
+  const globalYes=v170GlobalYesCount(k);
+  if(cat === '交通' && globalYes >= 4 && globalYes <= 30) return true;
+  return false;
+}
 // A single picked question never consumes both lanes. Each lane remains subject to the existing
 // earned/timing/barrage guards; this is not a mandate to fire both every game.
 let v330TownFaceUsed = false;
@@ -9200,6 +9556,12 @@ function v170IsConcreteSpecific(key){
   if(!key || V264_DEMOTED_SURPRISE_KEYS.has(key) || STATS_QUESTION_KEYS.has(key) || isPrefQuestion(key)) return false;
   if(REGION_QUESTION_KEYS.has(key) || WIDE_AREA_BOOST_KEYS.has(key)) return false;
   return v170GlobalYesCount(key) >= 1 && v170GlobalYesCount(key) <= 3;
+}
+// V330R6: 町の顔とは別物の『サプライズ固有質問』。
+// 明示的な町の顔登録を最優先し、同じ質問が両レーンを兼任することを禁止する。
+function v330IsDedicatedSurpriseStrike(key){
+  if(!key || v330IsTownFace(key)) return false;
+  return v170IsConcreteSpecific(key);
 }
 function v170RecentSpecificMiss(){
   // 固有級にNOが出た後、少なくとも2問は別角度の推理を挟む。
@@ -10024,13 +10386,42 @@ function v177HasFarewellSurpriseAvailable(){
 }
 
 
+// V330R12: 推測条件を満たした時点で町の顔をまだ通っていない場合の最終ブリッジ。
+// 候補1件まで絞れた後でも、いきなり固有サプライズへ飛ばず「町の匂い」を一球だけ見せる。
+// 正解(target)は参照せず posterior 首位にTRUEの未質問町の顔だけを使う。
+function v330PickFinalTownFaceQuestion(){
+  if(questionPhase !== 'normal' || v330TownFaceUsed || v170RecentSpecificMiss()) return null;
+  if(questionCount < 4 || questionCount >= effectiveMaxQ(questionPhase)-2) return null;
+  const sorted=sortedPool();
+  if(!sorted.length || sorted.length > 10) return null;
+  const topCity=sorted[0].city;
+  const confidence=topConfidence();
+  if(sorted.length > 1 && confidence < 0.62) return null;
+  const info=topPoolCities();
+  const topCities=info.cities.length ? info.cities : [topCity];
+  const candidates=activeKeysForMode(currentMode).filter(k=>{
+    if(asked.includes(k) || topCity.tags[k] !== true) return false;
+    if(!v330IsTownFaceCandidate(k) || v330IsDedicatedSurpriseStrike(k)) return false;
+    if(!v330LocalChainContextAllowed(k, topCities)) return false;
+    return true;
+  });
+  if(!candidates.length) return null;
+  candidates.sort((a,b)=>{
+    const ay=topCities.filter(c=>c.tags[a]===true).length;
+    const by=topCities.filter(c=>c.tags[b]===true).length;
+    const ag=v170GlobalYesCount(a), bg=v170GlobalYesCount(b);
+    return ay-by || ag-bg || a.localeCompare(b);
+  });
+  return candidates[0];
+}
+
 // V179: 実戦経路の「無風0」を狙う最終サプライズ・チェック。
 // 推測条件を満たした瞬間、まだ一度も鋭いYESが無い場合だけ、posterior最上位候補に
 // 実際にTRUEで、かつ未質問のサプライズ候補が残っていれば「最後の一球」を1回だけ許す。
 // 正解(target)は一切参照しない。候補が1〜2件まで絞れた場面も対象にするのがV177との差。
 // これにより「もう答えは分かっているのに、何も刺さらず終了」を防ぐ。
 function v179HasFinalSurpriseAvailable(){
-  if(v177FarewellHoldUsed || questionPhase !== 'normal' || v175HasSurpriseYes() || v170RecentSpecificMiss()) return false;
+  if(v177FarewellHoldUsed || questionPhase !== 'normal' || !v330TownFaceUsed || v175HasSurpriseYes() || v170RecentSpecificMiss()) return false;
   if(questionCount < 7 || questionCount >= effectiveMaxQ(questionPhase)-1) return false;
   const sorted=sortedPool();
   if(!sorted.length) return false;
@@ -10044,7 +10435,7 @@ function v179HasFinalSurpriseAvailable(){
   const keys=activeKeysForMode(currentMode).filter(k=>!asked.includes(k));
   return keys.some(k=>{
     if(topCity.tags[k] !== true) return false;
-    if(!v175IsSurpriseCandidate(k) && !v177IsLocalSurpriseCandidate(k, topCities, topCity) && !V178_ZERO_WIND_FINISHERS.has(k)) return false;
+    if(!v330IsDedicatedSurpriseStrike(k)) return false;
     // 固有級は、候補が1件なら既に推測可能な確定局面として許可。
     // 複数候補なら従来V170のposterior安全柵を必ず通す。
     if(v170IsConcreteSpecific(k) && sorted.length > 1 && !v170SpecificStrikeEligible(k, topCities, masses, info.trueCount)) return false;
@@ -10058,7 +10449,7 @@ function v179HasFinalSurpriseAvailable(){
 // そこで終端ガード専用に、同じ安全条件を満たす未質問キーを直接1つ選び forcedNextKey へ渡す。
 // 選択は posterior 1位・現在候補・回答履歴だけを使い、正解自治体(target)は参照しない。
 function v180PickFinalSurpriseQuestion(){
-  if(v177FarewellHoldUsed || questionPhase !== 'normal' || v175HasSurpriseYes() || v170RecentSpecificMiss()) return null;
+  if(v177FarewellHoldUsed || questionPhase !== 'normal' || !v330TownFaceUsed || v175HasSurpriseYes() || v170RecentSpecificMiss()) return null;
   if(questionCount < 7 || questionCount >= effectiveMaxQ(questionPhase)-1) return null;
   const sorted=sortedPool();
   if(!sorted.length) return null;
@@ -10071,7 +10462,7 @@ function v180PickFinalSurpriseQuestion(){
   const previousKey=history.length ? history[history.length-1]?.key : null;
   const candidates=activeKeysForMode(currentMode).filter(k=>{
     if(asked.includes(k) || topCity.tags[k] !== true) return false;
-    if(!v175IsSurpriseCandidate(k) && !v177IsLocalSurpriseCandidate(k, topCities, topCity) && !V178_ZERO_WIND_FINISHERS.has(k)) return false;
+    if(!v330IsDedicatedSurpriseStrike(k)) return false;
     if(v170IsConcreteSpecific(k) && sorted.length > 1 && !v170SpecificStrikeEligible(k, topCities, masses, info.trueCount)) return false;
     return true;
   });
@@ -10238,12 +10629,56 @@ function v184Trace(stage, payload){
   });
 }
 
+// V330R10: ローカルチェーンは「店舗が存在する自治体を切る一般球」ではなく、商圏の文脈が
+// 見えてから使う町の顔。全国候補が広い段階で 8番らーめん/さわやか等を投げると没入感を壊すため、
+// 主商圏へ候補が寄った時だけ解禁する。質問データのYES/NO自体は変更しない。
+const V330_LOCAL_CHAIN_CONTEXT = Object.freeze({
+  sawayaka_store: { prefs:['静岡県'], minShare:0.62 },
+  hachiban_store: { prefs:['石川県','富山県','福井県'], minShare:0.55 },
+  seicomart_store: { prefs:['北海道','茨城県','埼玉県'], minShare:0.58 },
+  heiwado_store: { prefs:['滋賀県','京都府','大阪府','兵庫県','福井県','石川県','富山県','岐阜県','愛知県'], minShare:0.55 },
+  youme_store: { prefs:['広島県','岡山県','山口県','島根県','福岡県','佐賀県','長崎県','熊本県','大分県','香川県','徳島県'], minShare:0.52 },
+  okuwa_store: { prefs:['和歌山県','奈良県','三重県','大阪府','兵庫県','岐阜県','愛知県','静岡県'], minShare:0.55 },
+  belc_store: { prefs:['埼玉県','群馬県','東京都','千葉県','神奈川県','栃木県','茨城県'], minShare:0.55 },
+  yaoko_store: { prefs:['埼玉県','千葉県','東京都','神奈川県','群馬県','茨城県','栃木県'], minShare:0.55 },
+  sukesan_store: { prefs:['福岡県'], minShare:0.58 },
+  yamada_udon_store: { prefs:['埼玉県','東京都','群馬県','栃木県','茨城県','千葉県','神奈川県'], minShare:0.58 },
+  sugakiya_store: { prefs:['愛知県','岐阜県','三重県','静岡県'], minShare:0.58 },
+  makino_udon_store: { prefs:['福岡県','佐賀県'], minShare:0.60 },
+  lucky_pierrot_store: { prefs:['北海道'], minShare:0.62 },
+  aw_store: { prefs:['沖縄県'], minShare:0.62 },
+  sanliv_marushoku_store: { prefs:['福岡県','大分県','熊本県','佐賀県','山口県'], minShare:0.55 },
+  marunaka_store: { prefs:['香川県','徳島県','愛媛県','高知県','岡山県','兵庫県'], minShare:0.55 },
+  sanei_store: { prefs:['沖縄県'], minShare:0.62 },
+  albis_store: { prefs:['富山県','石川県','福井県'], minShare:0.58 },
+  harashin_narus_store: { prefs:['新潟県'], minShare:0.62 },
+  uoroku_store: { prefs:['新潟県'], minShare:0.62 },
+  tsuruya_store: { prefs:['長野県','群馬県'], minShare:0.60 },
+  york_benimaru_store: { prefs:['福島県','宮城県','山形県','栃木県','茨城県'], minShare:0.55 }
+});
+function v330LocalChainContextAllowed(key, topCities){
+  const rule=V330_LOCAL_CHAIN_CONTEXT[key];
+  if(!rule) return true;
+  if(!Array.isArray(topCities) || !topCities.length) return false;
+  const allowed=new Set(rule.prefs);
+  const inContext=topCities.reduce((n,c)=>n+(c && allowed.has(c.pref)?1:0),0);
+  const share=inContext/topCities.length;
+  // 商圏へ十分寄るまでは封印。候補20以下では首位候補が商圏内であることも必須にし、
+  // 「他県を当てている最中にローカルチェーンだけ飛ぶ」事故を防ぐ。
+  if(share < rule.minShare) return false;
+  if(topCities.length <= 20 && !allowed.has(topCities[0]?.pref)) return false;
+  return true;
+}
+function v330IsLocalChainQuestion(key){ return !!V330_LOCAL_CHAIN_CONTEXT[key]; }
+
 function entropyPick(){
   const poolInfo = questionPhase === 'extra' ? extraPhaseCities() : topPoolCities();
   const topCities = poolInfo.cities;
   const posteriorMasses = posteriorMassForCities(topCities);
   const truePoolSize = poolInfo.trueCount; // 質問選びの評価サンプル数ではなく、実際の僅差候補数
   let unused = activeKeysForMode(currentMode).filter(k => !asked.includes(k));
+  // V330R10: ローカルチェーンは主要商圏の文脈が成立するまで候補にすら入れない。
+  unused = unused.filter(k => v330LocalChainContextAllowed(k, topCities));
   // 【統計質問の重複防止】(1)人口の範囲から答えが確定している質問 (2)面積/人口密度の反対概念
   // (3)面積の直後の人口密度(またはその逆)は、そもそも候補から外す。
   unused = unused.filter(k => !isPopQuestionRedundant(k) && !isOppositeStatsAlreadyAsked(k) && !isAreaDensityBackToBack(k));
@@ -10368,6 +10803,8 @@ function entropyPick(){
       // 候補を質の低い質問まで広げないため、V142のopenerPoolの外へは絶対に出ない。
       const recentOpeners = new Set(v161RecentOpeners());
       const freshOpeners = openerPool.filter(k => !recentOpeners.has(k));
+      // V330R3: 鮮度より絞り込み性能が先。V142の高品質openerPoolの外へは絶対に出ず、
+      // その中に未使用球がある時だけ直近6戦の初手を避ける。10戦して同じ初手固定を防ぐ。
       if(freshOpeners.length >= 1) openerPool = freshOpeners;
       const pickedOpener = shuffle(openerPool)[0];
       v161RememberOpener(pickedOpener);
@@ -10556,21 +10993,24 @@ function entropyPick(){
     const topHypothesis=topCities[topIndex];
     if(topHypothesis){
       const identityCandidates=activeKeysForMode(currentMode).filter(k=>{
+        if(!v330LocalChainContextAllowed(k, topCities)) return false;
         if(asked.includes(k) || topHypothesis.tags[k] !== true || V264_DEMOTED_SURPRISE_KEYS.has(k)) return false;
         if(STATS_QUESTION_KEYS.has(k) || isPrefQuestion(k) || REGION_QUESTION_KEYS.has(k) || WIDE_AREA_BOOST_KEYS.has(k)) return false;
-        const isFace=v330IsTownFace(k);
-        const isSurprise=!isFace && (V203_MEMORABLE_KEYS.has(k) || v175IsSurpriseCandidate(k) || v170IsConcreteSpecific(k));
+        const isFace=v330IsTownFaceCandidate(k);
+        const isSurprise=!isFace && v330IsDedicatedSurpriseStrike(k);
         if((isFace && v330TownFaceUsed) || (isSurprise && (v330SurpriseGateUsed || v169SurpriseStrikeCount > 0)) || (!isFace && !isSurprise)) return false;
         // Constitution 7: surprise is an earned late strike, not a 10-25-city lottery.
-        // Town-face is the bridge after the medium ball and may fire with up to 20 candidates.
-        // Surprise remains a genuinely late strike and waits until six or fewer.
-        if(isSurprise && truePoolSize > 6) return false;
+        // Town-face is the bridge after the medium ball and fires around 2-10 remaining candidates.
+        // Surprise is a distinct final strike, after the face, at three or fewer candidates.
+        if(isFace && (truePoolSize < 2 || truePoolSize > 10)) return false;
+        // V330R11: サプライズ固有は町の顔を一度通過した後、1〜3候補の決め球として発射する。
+        if(isSurprise && (!v330TownFaceUsed || truePoolSize > 3)) return false;
         const yes=topCities.reduce((n,c)=>n+(c.tags[k]===true?1:0),0);
         return yes>0 && yes<=Math.max(1,Math.floor(topCities.length/2));
       }).map(k=>{
         const yes=topCities.reduce((n,c)=>n+(c.tags[k]===true?1:0),0);
         const globalYes=v170GlobalYesCount(k);
-        const isFace=v330IsTownFace(k);
+        const isFace=v330IsTownFaceCandidate(k);
         const memorable=V203_MEMORABLE_KEYS.has(k)?2:0;
         return {k, lane:isFace?'face':'surprise', score:(isFace?3:0)+memorable+(1-yes/Math.max(1,topCities.length))*3+(globalYes<=3?2:globalYes<=10?1:0)};
       }).sort((a,b)=>{
@@ -10604,7 +11044,7 @@ function entropyPick(){
   }
   function isEarnedIdentityQuestion(k){
     if(!runtimeTopCity || runtimeTopCity.tags[k] !== true || V264_DEMOTED_SURPRISE_KEYS.has(k)) return false;
-    const identity = v330IsTownFace(k) || V203_MEMORABLE_KEYS.has(k) || v175IsSurpriseCandidate(k) || v170IsConcreteSpecific(k);
+    const identity = v330IsTownFaceCandidate(k) || v330IsDedicatedSurpriseStrike(k);
     if(!identity) return false;
     const yes = topCities.reduce((n,c)=>n+(c.tags[k]===true?1:0),0);
     const no = topCities.length-yes;
@@ -14064,7 +14504,7 @@ function fallbackQuestionPick(){
   try{
     const poolInfo = questionPhase === 'extra' ? extraPhaseCities() : topPoolCities();
     const cities = (poolInfo && Array.isArray(poolInfo.cities)) ? poolInfo.cities : [];
-    const unused = activeKeysForMode(currentMode).filter(k => !asked.includes(k) && QUESTIONS[k]);
+    const unused = activeKeysForMode(currentMode).filter(k => !asked.includes(k) && QUESTIONS[k] && v330LocalChainContextAllowed(k, cities));
     if(unused.length === 0) return null;
     if(cities.length <= 1) return null;
 
@@ -14886,6 +15326,13 @@ function answer(key, val, weight){
     if(shouldGuessNow()){
       // V325: 入門版では、早く当てるだけで終わらせず、条件が整っていれば推測直前に
       // 一度だけ「そこを聞くの!?」を体験させる。候補が無ければそのまま即推測する。
+      // V330R12: 正解へ進む直前にも、町の顔→別キーの固有サプライズの順序を守る。
+      const v330FinalFace = v330PickFinalTownFaceQuestion();
+      if(v330FinalFace){
+        v330TownFaceUsed = true;
+        forcedNextKey = v330FinalFace;
+        return renderQuestion();
+      }
       const v325BeginnerStrike = v325PickBeginnerSurpriseStrike();
       if(v325BeginnerStrike){
         forcedNextKey = v325BeginnerStrike;
@@ -16540,7 +16987,7 @@ function restart(){
 // 訪問のたびに落とし直しており、起動が遅くなる最大の原因になっていた。
 // URLに中身のハッシュを付ければ、更新したときだけ新しいURLになるので、
 // 「常に最新」を保ったままブラウザのキャッシュを使える(2回目以降の起動が速くなる)。
-const CITIES_VERSION = '2bacb6efaa';
+const CITIES_VERSION = 'f660ac5c68';
 
 async function boot(){
   try{
