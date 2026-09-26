@@ -4864,3 +4864,10 @@ body:not(.native-app) .v74-result-hero{position:relative;height:280px;overflow:h
 /* V327: 回答ミスを気軽に直せるよう「前の質問に戻る」を質問カード直下で明確に表示 */
 .v327-native-back{width:100%;margin:10px 0 0;padding:12px 14px;border:1.5px solid #A9D4F0;border-radius:12px;background:#F2F8FD;color:#174B78;font:800 14px 'Zen Maru Gothic',sans-serif;cursor:pointer;}
 .v327-native-back:active{transform:translateY(1px);}
+
+/* V328 normal-play usability / mascot containment */
+.web-v328-back-wrap{margin-top:10px}
+.web-v328-back-wrap .btn-back{width:100%;min-height:48px;border:1.5px solid #9fcfeb;border-radius:13px;background:#eef8fe;color:#07549a;font-size:15px;font-weight:900;cursor:pointer;box-shadow:0 3px 10px #07549a12}
+.web-v318-question-mascot{right:30px!important;top:88px!important;width:92px!important;height:116px;display:flex;align-items:flex-end;justify-content:center;overflow:visible}
+.web-v318-question-mascot img{display:block;width:100%;height:100%;object-fit:contain;object-position:center bottom}
+@media(max-width:700px){.web-v318-question-mascot{right:18px!important;top:76px!important;width:72px!important;height:92px!important}}

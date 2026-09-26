@@ -8579,7 +8579,7 @@ function v162RememberEarlyRoute(){
   if(route.length < 3) return;
   try{
     const previous = v162RecentEarlyRoutes().filter(old => old.join('|') !== route.join('|'));
-    localStorage.setItem(V162_RECENT_EARLY_ROUTES_KEY, JSON.stringify([route, ...previous].slice(0,2)));
+    localStorage.setItem(V162_RECENT_EARLY_ROUTES_KEY, JSON.stringify([route, ...previous].slice(0,3)));
   }catch(e){}
 }
 function v162FreshenEarlyPool(pool){
@@ -8725,6 +8725,464 @@ const V168_NAME_PLAY_KEYS = new Set([
 // “YESで強く刺さる”特徴を優先する。ゲームは正解自治体を知らないため、真の答えを参照するチートはしない。
 // posterior上位への適合度・候補内での希少性・直前カテゴリとの差を使い、条件の良い時だけ発火する。
 let v169SurpriseStrikeCount = 0;
+// V330 constitution lanes: town-face and surprise are distinct experiences.
+// V330R: Constitution Gate must understand the town-face assets accumulated across V204-V277,
+// not only the small V245 repair subset. This is a runtime index only; question text/tags are unchanged.
+const V330_TOWN_FACE_KEYS = new Set([
+  'v204_taki_vison',
+  'v204_matsusaka_beef',
+  'v204_yubari_melon_coal',
+  'v204_otaru_canal',
+  'v204_higashine_cherry',
+  'v204_mitane_junsai',
+  'v204_higashiizu_tsurushi',
+  'v204_kimotsuki_space',
+  'v204_kihoku_oni',
+  'v204_tobe_yaki',
+  'v204_gojome_morning_market',
+  'v204_hirono_tonbo',
+  'v204_iinan_shimenawa',
+  'v204_nishiizu_tombolo',
+  'v205_tamaki_tamaru',
+  'v205_komono_yunoyama',
+  'v205_kyotamba_shizushi',
+  'v205_inagawa_tada',
+  'v205_kusu_dowa',
+  'v205_tajiri_onion',
+  'v205_nose_joruri',
+  'v205_toyono_ukon',
+  'v205_ohira_only_village',
+  'v205_kibichuo_bupposo',
+  'v206_shichigahama_smallest',
+  'v206_mikawa_no_mountain',
+  'v206_okuizumo_tatara',
+  'v206_higashimiyoshi_kamo',
+  'v206_kamijima_yumeshima',
+  'v206_ikata_sadamisaki',
+  'v206_nakanoto_jofu',
+  'v206_anamizu_boramachi',
+  'v207_kihoku_choshi',
+  'v207_kishiwada_danjiri',
+  'v207_rifu_nashi',
+  'v207_shonai_kiyokawadashi',
+  'v207_nishiwaga_kinshuko',
+  'v207_sera_hanabatake',
+  'v207_saka_bayside',
+  'v207_kumakogen_karst',
+  'v207_masaki_gino',
+  'v207_matsuno_nametoko',
+  'v207_suginami_awaodori',
+  'v207_hodatsushimizu_chirihama',
+  'v207_noto_abare',
+  'v207_ninomiya_azumayama',
+  'v207_ohi_itteki',
+  'v207_oto_cactus',
+  'v207_hirokawa_kasuri',
+  'v207_soeda_hikosan',
+  'v207_fukuchi_agano',
+  'v207_yoshitomi_kamizumo',
+  'v208_misaki_fuke',
+  'v208_yuza_maruike',
+  'v208_mihama_suishohama',
+  'v208_miyako_jabuchi',
+  'v208_koge_tobaru',
+  'v208_kotake_loco23',
+  'v208_kawasaki_gyorakuen',
+  'v208_keisen_ozuka',
+  'v208_itoda_kanamura',
+  'v208_onga_cho',
+  'v208_kurate_hasedera',
+  'v208_kawara_kawaradake',
+  'v208_kawauchi_hebusu',
+  'v208_namie_somayaki',
+  'v208_maebashi_ito',
+  'v208_itakura_agebune',
+  'v208_sakaki_murakami',
+  'v208_ogawa_alps',
+  'v208_koumi_kantaro',
+  'v208_kijimadaira_kayanodaira',
+  'v209_tateshina_shirakaba',
+  'v209_karuizawa_shaw',
+  'v209_nozawa_sotoyu',
+  'v209_nagawa_obsidian',
+  'v209_minamiizu_irozaki',
+  'v209_yoshida_koyama',
+  'v209_matsuzaki_namako',
+  'v209_shimizu_kakita',
+  'v209_nagaizumi_ayutsubo',
+  'v209_miki_shishi',
+  'v209_ayagawa_udon',
+  'v209_houki_ueda',
+  'v209_minamiosumi_sata',
+  'v209_higashikushira_lupin',
+  'v209_kinko_otaki',
+  'miyazawa_kenji',
+  'zashiki_warashi',
+  'takekoma_shrine',
+  'v216_kitaakita_matagi',
+  'sankyo_soko',
+  'ayame_park',
+  'komatsu_origin',
+  'kaga_onsenkyo',
+  'senmaida_shikki',
+  'rokugozaki',
+  'kehi_jindo',
+  'echizen_ono_castle',
+  'miketsukuni_saba',
+  'uirou_famous',
+  'jra_training',
+  'v216_maibara_ibuki',
+  'chinatown',
+  'kishu_herazao',
+  'negoroji',
+  'sand_dunes',
+  'kurayoshi_shirakabe',
+  'mizuki_shigeru_road',
+  'iya_kazurabashi',
+  'kafka_takamatsu',
+  'setoohashi_shikoku',
+  'seiyo_geopark',
+  'ashizuri_misaki',
+  'v216_fukuoka_yamakasa',
+  'saga_balloon_festa',
+  'taku_seibyo',
+  'igusa_yatsushiro',
+  'takaba_countrypark',
+  'misumi_nishiko',
+  'worldheritage_coal_mine',
+  'futagoji',
+  'tsukumi_sakura_maguro',
+  'gyoza_famous',
+  'v216_kanoya_rose',
+  'daguri_misaki',
+  'naha_shurijo_kokusai',
+  'irabu_ohashi',
+  'v216_kitakyushu_mojiko',
+  'seiro_albirex_jsc',
+  'kurokawa_yuden',
+  'gomadoyama_ajisai',
+  'niigata_smallest',
+  'v216_murakami_salmon',
+  'haneda_ward',
+  'sazae_family',
+  'gakuto',
+  'shinsengumi',
+  'm78_sukagawa',
+  'ramen_famous',
+  'kannon_zo',
+  'kamikochi',
+  'naraijuku_wine',
+  'miso_famous',
+  'toyonaka_kyujo',
+  'hirakata_park',
+  'osafune_sword_museum',
+  'v217_fukuyama_tomonoura',
+  'hiyoko',
+  'nakoku_no_oka',
+  'funabaru_kofun',
+  'hikari_no_michi',
+  'nogata_meteorite',
+  'koinoki',
+  'hishino_suisha',
+  'oda_hiroki_museum',
+  'kubote_san',
+  'nagasaki_airport_omura',
+  'nanatsugama_shonyudo',
+  'yakisoba_famous',
+  'tomihiro_museum',
+  'saboten_machi',
+  'v217_asahikawa_asahiyama',
+  'film_city',
+  'anno_hideaki',
+  'itami_sake_airport',
+  'peron_festival',
+  'ghibli_museum',
+  'v217_kokubunji_otaka',
+  'cupnoodle_museum',
+  'kansai_airport_city',
+  'sennan_rosegarden',
+  'kashiwara_budo',
+  'v217_izumo_taisha',
+  'sesshu_teien',
+  'gonokawa_kako',
+  'yashio_hanamomo',
+  'shiraoka_nashi',
+  'daiyuzan_kintaro',
+  'horaibashi_sl',
+  'senkagawa_fukamushi',
+  'sagara_oil_airport',
+  'shimoda_port',
+  'umagase_cross',
+  'v217_hitachi_furyumono',
+  'tulip_fair',
+  'merhen_kenchiku',
+  'misawa_flight',
+  'v218_hashima_takehana',
+  'enbaragawa',
+  'komaki_castle',
+  'rokkoyo',
+  'mandaraji_fuji',
+  'shippoyaki',
+  'centrair_manekineko',
+  'sendohira_renkon',
+  'warp_station_edo',
+  'ibaraki_airport',
+  'hamanasu_no_oka',
+  'hokkaido_greenland',
+  'drift_ice',
+  'northernmost_city',
+  'v218_muroran_night',
+  'shio_kazunoko',
+  'least_populous_city',
+  'v218_narita_shinshoji',
+  'sawara_district',
+  'sanbu_sugi',
+  'soza_ueki',
+  'nagashima_nabana',
+  'ise_naiku_geku',
+  'parque_ago',
+  'eiheiji_zen_training',
+  'v218_wakasa_kumagawa',
+  'v218_nanbu_tea',
+  'v218_hara_stars',
+  'v218_iizuna_apple',
+  'v218_togo_aichiike',
+  'toyoyama_ichiro_airport',
+  'v218_kawagoe_tera46',
+  'v218_meiwa_saiku',
+  'v218_aisho_kongorinji',
+  'v218_kora_saimyoji',
+  'v218_taga_taisha',
+  'v218_ine_funaya',
+  'v218_tadaoka_smallest',
+  'v218_kanan_saigyo',
+  'v218_taka_origins',
+  'v218_inami_ponds',
+  'v218_harima_onaka',
+  'v218_fukusaki_yanagita',
+  'v219_kamikawa_tonomine',
+  'v219_taishi_ikarugadera',
+  'geopark',
+  'v219_shinonsen_arayu',
+  'v219_ando_tomimoto',
+  'v219_kanmaki_kataoka',
+  'worldheritage',
+  'v219_hirogawa_inamura',
+  'v219_yura_shirasaki',
+  'inami_kaeru_bridge',
+  'v219_shirahama_shirarahama',
+  'v219_okinoshima_rousoku',
+  'v219_wake_fuji',
+  'v219_akiota_sandankyo',
+  'v219_jinsekikogen_paperplane',
+  'v219_waki_hachigamine',
+  'v188_matsushige_airport',
+  'v219_naoshima_art',
+  'v219_ainan_uwakai',
+  'v219_shime_tateko',
+  'v219_shingu_aishima',
+  'v213_hisayama_sato',
+  'v219_ashiya_kama',
+  'v219_chikuzen_tachiarai',
+  'v219_oki_biomass',
+  'v219_aka_ishizaka',
+  'v219_kanda_hirotani',
+  'v219_chikujo_tsunashiki',
+  'v219_genkai_hamanoura',
+  'v219_nankan_sekisho',
+  'v219_mashiki_airport',
+  'v219_hikawa_nozu',
+  'v219_nakatane_airport',
+  'jaxa_kakuda',
+  'v219_yakushima_yakusugi',
+  'v219_taketomi_nineislands',
+  'v219_yakumo_two_seas',
+  'v186_otobe_shirafura',
+  'v219_okushiri_blue',
+  'v219_setana_otayama',
+  'v219_rusutsu_resort',
+  'v220_kyowa_raiden',
+  'v220_yoichi_nikka',
+  'v220_kamisunagawa_coal',
+  'v220_higashikagura_flowers',
+  'v220_teshio_shijimi',
+  'v220_nakatombetsu_karst',
+  'v220_rishirifuji_mountain',
+  'v220_horonobe_reindeer',
+  'v220_ozora_shibazakura',
+  'v220_yubetsu_tulip',
+  'v220_toyoura_strawberry',
+  'v220_hidaka_monbetsu_horse',
+  'v220_biratori_nibutani',
+  'v220_kamishihoro_taushubetsu',
+  'v220_kushiro_hosooka',
+  'v220_hamanaka_monkeypunch',
+  'v220_nakashibetsu_kaiyodai',
+  'v220_inakadate_riceart',
+  'v220_yokohama_nanohana',
+  'v220_oirase_liberty',
+  'v220_takko_garlic',
+  'v220_hashikami_seamountain',
+  'v220_shingo_christ',
+  'v178_iwaizumi_ryusendo',
+  'v220_kunohe_broiler',
+  'v220_hirono_uni',
+  'v220_minamisanriku_ramsar',
+  'v220_kawamata_cosquin',
+  'v220_tenei_british',
+  'v220_hinoemata_kabuki',
+  'v220_kitashiobara_goshikinuma',
+  'v220_bandai_enichiji',
+  'v220_showa_karamushi',
+  'v220_tamakawa_airport',
+  'v220_shinchi_karo',
+  'v220_namegawa_shinrin',
+  'v220_tako_rice',
+  'v220_tonosho_kojurin',
+  'v220_shibayama_haniwa',
+  'v186_ochi_yokogurayama',
+  'v188_fujikawa_oboshi',
+  'v188_odai_osugidani',
+  'v186_nishihara_tawarayama',
+  'v186_kouhoku_junction',
+  'v188_hayakawa_akasawa',
+  'v186_shioya_shojinzawa',
+  'v188_kawaba_denenplaza',
+  'v188_shinto_tsurushi',
+  'v188_kawatana_torpedo',
+  'v186_oshino_hakkai',
+  'v188_fujisato_shirakami',
+  'v186_narusawa_icecave',
+  'v186_sagara_kawabe',
+  'v188_kosaka_korakukan',
+  'v186_geisei_horticulture',
+  'v188_ashikita_utase',
+  'v186_higashinaruse_sennin',
+  'kyoto_north',
+  'kawa_in_name',
+  'number_in_name',
+  'v270_hino_merchant',
+  'brand_beef',
+  'v270_ide_yamabuki',
+  'v270_aizumi_indigo',
+  'v270_tsurugi_udatsu',
+  'v270_hidaka_omurice',
+  'famous_battlefield',
+  'winery',
+  'v270_yahaba_nansho',
+  'v270_nakayama_imoni',
+  'v270_tokigawa_woodwork',
+  'misato_blueberry',
+  'outlet_mall',
+  'v270_aikawa_miyagase',
+  'town_to_city_2016',
+  'japan_easternmost',
+  'nashibou',
+  'mazda_fuchu',
+  'v144_mizumaki_cosmos',
+  'kageki_dan',
+  'konrei_kagu',
+  'summerland',
+  'ojin_ryo_wine',
+  'torikai_depot',
+  'mofu_izumiotsu',
+  'sunaori_amagoi',
+  'zama_himawari',
+  'nirayama_hansharo',
+  'ryujin_ohashi',
+  'shimotsuma_movie',
+  'kamagaya_farm',
+  'v273_agano_hyoko',
+  'v273_akashi_strait_yaki',
+  'v273_akaiwa_fruit',
+  'v273_omachi_bota',
+  'v273_shinkamigoto_churches',
+  'v273_nagasu_goldfish',
+  'v273_ozu_honda',
+  'v273_minamioguni_kurokawa',
+  'v273_kosa_yana',
+  'v273_minamitane_space',
+  'v273_yamato_amami_rabbit',
+  'v273_kin_tacorice',
+  'v273_makubetsu_park_golf',
+  'v273_sannohe_11cats',
+  'v273_osato_hasekura',
+  'v273_ogawara_senbonzakura',
+  'v273_kawasaki_michinoku',
+  'v273_sakegawa_totoro',
+  'v273_naraha_jvillage',
+  'v273_okuma_strawberry',
+  'v273_futaba_daruma',
+  'v273_yachiyo_hakusai',
+  'v273_takayama_stars_castle',
+  'v273_ranzan_keikoku',
+  'v273_kawajima_rivers',
+  'v273_hatoyama_jaxa',
+  'v273_sugito_shukuba',
+  'v273_matsubushi_windmill',
+  'v273_hinohara_waterfall',
+  'v273_oshima_mihara',
+  'v273_kozushima_stars',
+  'v273_ichikawamisato_threecrafts',
+  'v273_tatsuno_firefly',
+  'v273_iijima_twoalps',
+  'v273_takamori_ichidagaki',
+  'v273_yasuoka_fourstations',
+  'v273_matsukawa_suzumushi',
+  'v273_godo_roses',
+  'v273_shirakawa_five_rivers',
+  'v273_mitake_two_shukuba',
+  'v273_tobishima_port_fields',
+  'v273_toyone_chausuyama',
+  'v273_watarai_miyagawa_tea',
+  'v273_kumiyama_nagarebashi',
+  'v273_wazuka_teafields',
+  'v273_shimamoto_rikyu_water',
+  'v273_kumatori_populous_town',
+  'v273_yamazoe_nabekura',
+  'v273_miyake_secondsmallest',
+  'v273_nosegawa_unkai',
+  'v273_kawakami_genryu',
+  'v273_nanbu_hanakairo',
+  'v273_chibu_sekiheki',
+  'v273_kaita_saigoku',
+  'v273_kitahiroshima_kagura',
+  'v273_mihara_doburoku',
+  'v273_kasuya_sixstations',
+  'v273_tachiarai_imamura',
+  'keion_toyosato',
+  'v213_satosho_kaze',
+  'v144_shoo_kintaro',
+  'v266_katsuura_big_hina',
+  'v178_ishii_fuji',
+  'v213_uchiko_uchikoza',
+  'v213_mimata_tsutsuji',
+  'v213_misato_shiwassu',
+  'v213_murata_kura',
+  'v178_funagata_jomon',
+  'v213_takanezawa_goryo',
+  'v213_yoshioka_funao',
+  'v213_miyoshi_santome',
+  'v213_ogose_bairin',
+  'v213_samukawa_jinja',
+  'v178_nakai_itsukushima',
+  'v213_kaisei_ajisai',
+  'v267_kotohira_konpira',
+  'v277_kiyose_akina',
+  'v277_shimotsuke_jichi',
+  'v277_minowa_akasoba',
+  'v277_umi_birth',
+  // V330H: nationwide long-route hunt found six already-approved town faces that were
+  // still only reachable through older V213/V269 rescue lanes. Promote them into the
+  // constitutional town-face registry; no question text or answer data changes.
+  'ayase_no_station','v178_ina_roses','v186_kamikatsu_zerowaste','v186_misaki_tkg',
+  'v213_hinode_tsurutsuru','v213_miyashiro_tobu_zoo'
+]);
+function v330IsTownFace(k){ return V330_TOWN_FACE_KEYS.has(k) || V245_TOWN_FACE_FINISHERS.has(k); }
+// A single picked question never consumes both lanes. Each lane remains subject to the existing
+// earned/timing/barrage guards; this is not a mandate to fire both every game.
+let v330TownFaceUsed = false;
+let v330SurpriseGateUsed = false;
 
 // V263: 純度監査でサプライズ終盤球から降格した質問。通常質問としては保持する。
 const V264_DEMOTED_SURPRISE_KEYS = new Set(["silk_heritage", "silk_textile", "moka_sl_line", "kururi_line", "watarase_line", "oito_line", "shinano_railway", "echizen_railway", "nagaragawa_railway", "yoro_railway", "sunzu_line", "aikan_railway", "joetsu_region", "chuetsu_region", "kaetsu_region", "joetsu_shinkansen_station", "hokuriku_shinkansen_station", "hokkaido_shinkansen_station", "tohoku_shinkansen_station", "tokaido_shinkansen_station", "sanyo_shinkansen_station", "kyushu_shinkansen_station", "nishikyushu_shinkansen_station", "yamagata_shinkansen_station", "akita_shinkansen_station", "is_village", "shinano_river", "agano_river", "uono_river", "borders_yamagata", "borders_fukushima", "borders_gunma", "borders_nagano", "borders_toyama", "todai_campus", "waseda_campus", "keio_campus", "meiji_campus", "rikkyo_campus", "chuo_campus", "tus_campus", "odakyu_line", "keio_inokashira_line", "tokyu_line", "keikyu_line", "seibu_line", "tobu_main_station", "tobu_tojo_station", "utsunomiya_station", "takasaki_line_station", "keisei_line", "tsukuba_express", "rinkai_line", "yurikamome", "toden_arakawa", "nippori_toneri", "tokyo_bay", "tama_river", "sumida_river", "arakawa_river", "edogawa_river", "meguro_river", "shakujii_river", "borders_kanagawa", "borders_saitama", "borders_chiba", "yamanote_line", "keihintohoku_line", "chuo_rapid", "chuo_sobu", "joban_line", "saikyo_line", "ueno_station", "akabane_station", "nippori_station", "sanma_famous", "monzen", "bedtown", "skijyou", "nuclearpowerplant", "monozukuri", "chukakushi", "tokureishi", "sogo_dept", "isetan_dept", "mitsukoshi_dept", "daimaru_dept", "matsuzakaya_dept", "curry_famous", "anime_seichi", "kigyo_joukamachi", "hankyu_line", "keihan_line", "rugby_machi", "kougyou_toshi", "fugu_famous", "tire_famous", "hamburger_famous", "senbei_famous", "tanabata_famous", "uirou_famous", "b_kyu_gourmet", "beigun_kichi", "combinat_yakei", "danjiri_famous", "onaji_ookawa", "animal_in_name", "ariake_coast", "big_small_in_name", "bingo_area", "body_part_in_name", "chikugo_area", "chikuho_area", "chikuzen_area", "chugoku_mountain_basin", "chuyo_area", "color_in_name", "dosan_line", "four_plus_name", "fukuoka_metro", "hakubi_line", "hard_to_read_name", "hiroshima_metro", "honshu_bridge", "izumo_area", "kagoshima_main_line", "kawa_in_name", "kitakyushu_area", "nanyo_area", "new_old_in_name", "nippo_main_line", "nishitetsu_line", "northern_kyushu", "okinawa_main_island", "okinawa_south_central", "osumi_area", "paper_industry_shikoku", "plant_in_name", "pref_name_in_city_name", "sakishima_islands", "same_name_other_pref", "sanin_area", "sanin_main_line", "sanyo_area", "sanyo_main_line", "satsuma_area", "sea_word_in_name", "setouchi_industrial", "shima_in_name", "southern_kyushu", "ta_in_name", "toyo_area", "yama_in_name", "yosan_line", "ic_doo", "ic_sasson", "ic_shiribeshi", "ic_doto", "ic_tohoku", "ic_hachinohe", "ic_aomori", "ic_kamaishi", "ic_akita", "ic_yamagata", "ic_tohoku_chuo", "ic_nihonkai_tohoku", "ic_banetsu", "ic_joban", "ic_kanetsu", "ic_joshinetsu", "ic_hokukanto", "ic_higashikanto", "ic_tokyo_gaikan", "ic_tateyama", "ic_shin_kuko", "ic_chuo", "ic_nagano", "ic_hokuriku", "ic_tokai_hokuriku", "ic_tomei", "ic_shin_tomei", "ic_meishin", "ic_shin_meishin", "ic_tomeihan", "ic_isewangan", "ic_ise", "ic_kisei", "ic_meinikan", "ic_kinki", "ic_hanwa", "ic_nishimeihan", "ic_maizuru_wakasa", "ic_kansai_kuko", "ic_chugoku", "ic_sanyo", "ic_tottori", "ic_yonago", "ic_okayama", "ic_hamada", "ic_matsue", "ic_onomichi", "ic_hiroshima", "ic_harima", "ic_takamatsu", "ic_tokushima", "ic_matsuyama", "ic_kochi", "ic_kyushu", "ic_higashi_kyushu", "ic_nagasaki", "ic_oita", "ic_miyazaki", "ic_okinawa", "technical_college", "national_univ_attached_high"]);
@@ -10085,13 +10543,78 @@ function entropyPick(){
   pool = v177LocalSurpriseRescue(pool, prelim, topCities, posteriorMasses, truePoolSize);
   pool = v178PreferZeroWindFinisher(pool, topCities, posteriorMasses, truePoolSize);
 
+  // V329 CONSTITUTION GATE --------------------------------------------------
+  // 「速いだけ」でも「固有球を置いただけ」でも不合格。候補が十分に絞れた局面では、
+  // posterior首位に実際に刺さる町の顔/固有球を、最終poolの外からでも一度だけ拾う。
+  // ただし ①4問目以降 ②残り25以下 ③YES側が候補の半分以下 ④一般地名/統計球ではない
+  // ⑤直前の固有球外し後ではない、を全て満たす「earned strike」だけ。外れたら再乱射しない。
+  let v330ConstitutionPick = null;
+  let v330ConstitutionLane = null;
+  if(questionPhase !== 'extra' && questionCount >= 4 && truePoolSize <= 20 && !v170RecentSpecificMiss()){
+    let topIndex=0;
+    for(let i=1;i<posteriorMasses.length;i++) if((posteriorMasses[i]||0)>(posteriorMasses[topIndex]||0)) topIndex=i;
+    const topHypothesis=topCities[topIndex];
+    if(topHypothesis){
+      const identityCandidates=activeKeysForMode(currentMode).filter(k=>{
+        if(asked.includes(k) || topHypothesis.tags[k] !== true || V264_DEMOTED_SURPRISE_KEYS.has(k)) return false;
+        if(STATS_QUESTION_KEYS.has(k) || isPrefQuestion(k) || REGION_QUESTION_KEYS.has(k) || WIDE_AREA_BOOST_KEYS.has(k)) return false;
+        const isFace=v330IsTownFace(k);
+        const isSurprise=!isFace && (V203_MEMORABLE_KEYS.has(k) || v175IsSurpriseCandidate(k) || v170IsConcreteSpecific(k));
+        if((isFace && v330TownFaceUsed) || (isSurprise && (v330SurpriseGateUsed || v169SurpriseStrikeCount > 0)) || (!isFace && !isSurprise)) return false;
+        // Constitution 7: surprise is an earned late strike, not a 10-25-city lottery.
+        // Town-face is the bridge after the medium ball and may fire with up to 20 candidates.
+        // Surprise remains a genuinely late strike and waits until six or fewer.
+        if(isSurprise && truePoolSize > 6) return false;
+        const yes=topCities.reduce((n,c)=>n+(c.tags[k]===true?1:0),0);
+        return yes>0 && yes<=Math.max(1,Math.floor(topCities.length/2));
+      }).map(k=>{
+        const yes=topCities.reduce((n,c)=>n+(c.tags[k]===true?1:0),0);
+        const globalYes=v170GlobalYesCount(k);
+        const isFace=v330IsTownFace(k);
+        const memorable=V203_MEMORABLE_KEYS.has(k)?2:0;
+        return {k, lane:isFace?'face':'surprise', score:(isFace?3:0)+memorable+(1-yes/Math.max(1,topCities.length))*3+(globalYes<=3?2:globalYes<=10?1:0)};
+      }).sort((a,b)=>{
+        if(a.lane!==b.lane) return a.lane==='face' ? -1 : 1;
+        return b.score-a.score || a.k.localeCompare(b.k);
+      });
+      if(identityCandidates.length){
+        const chosen=identityCandidates[0];
+        v330ConstitutionPick=chosen.k;
+        v330ConstitutionLane=chosen.lane;
+        pool=[v330ConstitutionPick];
+        if(chosen.lane==='face') v330TownFaceUsed=true;
+        else v330SurpriseGateUsed=true;
+      }
+    }
+  }
+
   // V326: サプライズ系の後段処理が、情報利得の上位pool外から「面白いがほぼ絞れない球」を
   // 再注入すると、実プレイだけ20問超へ伸びることがあった。演出は残すが、最後に必ず
   // 現局面の上位選球から大きく外れていないことを確認する。
   // 序盤は広域→中規模の自然さを許容し、中盤以降ほど厳しくする。
   const runtimeQualityMargin = truePoolSize > 150 ? 3.0 : (truePoolSize > 40 ? 2.0 : 1.0);
   const runtimeQualityKeys = new Set(scored.filter(x => x.selectionScore <= best + runtimeQualityMargin).map(x => x.k));
-  const qualityGatedPool = pool.filter(k => runtimeQualityKeys.has(k));
+  // V328: V326の品質ゲートが、後段で正しく選ばれた「町の顔／固有サプライズ／フィニッシャー」まで
+  // scored上位外という理由だけで落としていた。これが「固有質問がデータにあるのに一度も出ない」主因になり得る。
+  // ただし無条件復活は乱れ打ちになるため、posterior首位へYESで刺さり、現在候補を最低20%削れる球だけ救済する。
+  let runtimeTopCity = null, runtimeTopMass = -1;
+  for(let i=0;i<topCities.length;i++){
+    const m=posteriorMasses[i]||0;
+    if(m>runtimeTopMass){ runtimeTopMass=m; runtimeTopCity=topCities[i]; }
+  }
+  function isEarnedIdentityQuestion(k){
+    if(!runtimeTopCity || runtimeTopCity.tags[k] !== true || V264_DEMOTED_SURPRISE_KEYS.has(k)) return false;
+    const identity = v330IsTownFace(k) || V203_MEMORABLE_KEYS.has(k) || v175IsSurpriseCandidate(k) || v170IsConcreteSpecific(k);
+    if(!identity) return false;
+    const yes = topCities.reduce((n,c)=>n+(c.tags[k]===true?1:0),0);
+    const no = topCities.length-yes;
+    if(yes===0 || no===0) return false;
+    const worst = Math.max(yes,no);
+    const reduction = 1 - worst/Math.max(1,topCities.length);
+    const lateEnough = questionCount >= 4 && truePoolSize <= 90;
+    return lateEnough && reduction >= 0.20;
+  }
+  const qualityGatedPool = pool.filter(k => k === v330ConstitutionPick || runtimeQualityKeys.has(k) || isEarnedIdentityQuestion(k));
   if(qualityGatedPool.length){
     pool = qualityGatedPool;
   }else{
@@ -12830,6 +13353,13 @@ function replayAnswersWithChange(changeIndex, newVal, newWeight){
     val: a.val,
     weight: a.weight,
     originalPhase: history[i].questionPhase || 'normal',
+    selectorState: {
+      v164DiscoveryMomentUsed: !!history[i].v164DiscoveryMomentUsed,
+      v169SurpriseStrikeCount: Number(history[i].v169SurpriseStrikeCount || 0),
+      v330TownFaceUsed: !!history[i].v330TownFaceUsed,
+      v330SurpriseGateUsed: !!history[i].v330SurpriseGateUsed,
+      v177FarewellHoldUsed: !!history[i].v177FarewellHoldUsed,
+    },
   }));
   timeline[changeIndex] = { ...timeline[changeIndex], val: newVal, weight: newWeight };
 
@@ -12859,6 +13389,8 @@ function replayAnswersWithChange(changeIndex, newVal, newWeight){
   notifiedCandidateMilestones = new Set();
   v164DiscoveryMomentUsed = false;
   v169SurpriseStrikeCount = 0;
+  v330TownFaceUsed = false;
+  v330SurpriseGateUsed = false;
   v177FarewellHoldUsed = false;
   asked = [];
   questionCount = 0;
@@ -12895,6 +13427,13 @@ function replayAnswersWithChange(changeIndex, newVal, newWeight){
       questionPhase = 'extra';
       extraQuestionCount = 0;
       guessAttempts = 1;
+    }
+    if(timeline[i].selectorState){
+      v164DiscoveryMomentUsed = timeline[i].selectorState.v164DiscoveryMomentUsed;
+      v169SurpriseStrikeCount = timeline[i].selectorState.v169SurpriseStrikeCount;
+      v330TownFaceUsed = timeline[i].selectorState.v330TownFaceUsed;
+      v330SurpriseGateUsed = timeline[i].selectorState.v330SurpriseGateUsed;
+      v177FarewellHoldUsed = timeline[i].selectorState.v177FarewellHoldUsed;
     }
     pushQuestionState(timeline[i].key);
     applyAnswerCore(timeline[i].key, timeline[i].val, timeline[i].weight);
@@ -13401,6 +13940,8 @@ function startMode(mode, startOptions){
   notifiedCandidateMilestones = new Set();
   v164DiscoveryMomentUsed = false;
   v169SurpriseStrikeCount = 0;
+  v330TownFaceUsed = false;
+  v330SurpriseGateUsed = false;
   v177FarewellHoldUsed = false;
   asked = [];
   questionCount = 0;
@@ -13504,6 +14045,11 @@ function pushQuestionState(key){
     knownPopMin: knownPopMin,
     knownPopMax: knownPopMax,
     remainingCount: remainingCountSnapshotBefore,
+    v164DiscoveryMomentUsed: v164DiscoveryMomentUsed,
+    v169SurpriseStrikeCount: v169SurpriseStrikeCount,
+    v330TownFaceUsed: v330TownFaceUsed,
+    v330SurpriseGateUsed: v330SurpriseGateUsed,
+    v177FarewellHoldUsed: v177FarewellHoldUsed,
     key: key
   });
 
@@ -13658,7 +14204,7 @@ function renderQuestionScreen(key){
       <div class="web-v318-game-progress"><span>${countLabel}</span><strong>${progressLabel}</strong><small>${moraleLabel}</small></div>
       ${tensionMilestoneHtml}
       <section class="web-v318-question" style="--question-art:url('${webArtwork}')">
-        <div class="web-v318-question-mascot"><div>${mascotSVG(mascotMood)}</div></div>
+        <div class="web-v318-question-mascot"><img src="${MASCOT_IMAGES[mascotMood] || MASCOT_IMAGES.normal}" alt="おらっち" draggable="false"></div>
         <div class="web-v318-question-copy"><span>${q.icon} おらっちからの質問</span><h1>${escapeHtml(q.text)}</h1>${questionHelpHtml}</div>
         <div class="web-v318-answer-grid">
           <button class="yes" onclick="answerFromWebButton('${key}', true)"><strong>はい</strong></button>
@@ -13667,9 +14213,10 @@ function renderQuestionScreen(key){
           <button class="maybe-no" onclick="answerFromWebButton('${key}', false, PARTIAL_WEIGHT)"><strong>たぶんいいえ</strong><small>部分的にいいえ</small></button>
         </div>
         <button class="web-v318-skip" onclick="answerFromWebButton('${key}', null)">わからない・スキップ</button>
+        ${backBtn ? `<div class="web-v328-back-wrap">${backBtn}</div>` : ''}
       </section>
       ${webInlineHistory}
-      <div class="web-v318-game-tools">${backBtn}${reportBtnHtml}</div>
+      <div class="web-v318-game-tools">${reportBtnHtml}</div>
     </main>
   `;
   questionShownAt = Date.now(); // 回答時間の計測開始(この質問が画面に出た時刻)
@@ -13813,6 +14360,11 @@ function goBack(){
   knownPopMin = prev.knownPopMin != null ? prev.knownPopMin : -Infinity;
   knownPopMax = prev.knownPopMax != null ? prev.knownPopMax : Infinity;
   lastDisplayedRemainingCount = prev.remainingCount != null ? prev.remainingCount : null;
+  v164DiscoveryMomentUsed = !!prev.v164DiscoveryMomentUsed;
+  v169SurpriseStrikeCount = Number(prev.v169SurpriseStrikeCount || 0);
+  v330TownFaceUsed = !!prev.v330TownFaceUsed;
+  v330SurpriseGateUsed = !!prev.v330SurpriseGateUsed;
+  v177FarewellHoldUsed = !!prev.v177FarewellHoldUsed;
   // askedにはEXCLUSIVE_MAPによって自動推論された「実際には表示していない質問」も含まれる。
   // 直接回答の件数は、残った質問スナップショット数(history.length)に合わせる。
   answerLog.length = history.length;
@@ -14664,6 +15216,12 @@ function computeBarePoints(finalCity){
     // 一般的すぎる質問は大きく下げる。8地方の質問は即時除外で候補を一気に減らすため
     // narrowedRatio が非常に大きくなり、0.25倍程度では上位に残ってしまう(実測で確認)。
     if(isLandmarkDeprioritized(rec.key)) importance *= 0.08;
+    // Constitution 11/22: the result card is the narrative payoff, not a generic information-gain log.
+    // Among questions that actually helped, explicitly prefer an answered town-face first, then an
+    // answered surprise/concrete strike. This never invents a reason: only questions present in
+    // history with a positive, data-consistent answer reach this point.
+    if(v330IsTownFace(rec.key)) importance *= 1.55;
+    else if(V203_MEMORABLE_KEYS.has(rec.key) || v175IsSurpriseCandidate(rec.key) || v170IsConcreteSpecific(rec.key)) importance *= 1.30;
 
     // ほとんど絞れていない質問は「決め手」とは呼べないので対象外にする
     if(narrowedRatio < 0.03 && probGain < 0.02) continue;
