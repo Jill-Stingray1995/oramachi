@@ -4679,3 +4679,30 @@ body.native-app .native-multiplayer-section-heading{margin-top:18px}
   body.native-app .native-matchmaking-card,
   body.native-app .native-multiplayer-action-card{padding:12px 13px;gap:6px}
 }
+\n\n/* V315: Web play-experience polish. Native is intentionally untouched. */
+body:not(.native-app) .mode-btn-primary{
+  position:relative; overflow:hidden; padding:18px 16px 14px;
+  transition:transform .16s ease,box-shadow .16s ease,background .16s ease;
+}
+body:not(.native-app) .mode-btn-primary:hover{
+  background:#fff8ef; transform:translateY(-2px); box-shadow:0 7px 0 var(--vermillion);
+}
+body:not(.native-app) .v315-start-cue{
+  display:inline-flex; align-items:center; gap:7px; margin-top:10px; padding:7px 13px;
+  border-radius:999px; background:var(--vermillion); color:#fffdf6;
+  font-size:12px; font-weight:900; letter-spacing:.02em;
+}
+body:not(.native-app) .v315-start-cue b{font-size:16px;line-height:1}
+body:not(.native-app) .v56-game-screen{max-width:680px;margin:0 auto;padding-bottom:28px;background:#f7f2e8;min-height:100vh}
+body:not(.native-app) .v56-game-head{position:sticky;top:0;z-index:5;background:linear-gradient(135deg,#17365f,#28598a);color:#fff;padding:11px 14px;box-shadow:0 3px 12px #17365f24}
+body:not(.native-app) .v56-game-progress{background:#fff;color:#17365f;margin:12px 14px 0;border:1px solid #d8c9ad;border-radius:12px;padding:10px 14px;box-shadow:0 3px 10px #263a5c0d}
+body:not(.native-app) .v156-game-narrowing{margin:8px 14px 0;border:1px solid #b9dceb;border-radius:12px;background:linear-gradient(135deg,#eef9fd,#fff);padding:9px 13px}
+body:not(.native-app) .v56-question-card{margin-top:10px;padding:20px 18px 16px;border:1px solid #dbcaa8;border-radius:18px;box-shadow:0 8px 22px #263a5c12}
+body:not(.native-app) .v56-question-card h2{font-size:clamp(21px,4vw,27px);line-height:1.48;text-align:center;margin-bottom:16px;color:#172f53}
+body:not(.native-app) .v56-question-card>img{height:190px;border-radius:12px}
+body:not(.native-app) .v56-answer-grid{gap:10px;margin-top:14px}
+body:not(.native-app) .v56-answer-grid button{min-height:60px;border-radius:12px;font-size:17px;box-shadow:0 3px 0 #00000018;transition:transform .12s ease,filter .12s ease}
+body:not(.native-app) .v56-answer-grid button:hover{filter:brightness(.97);transform:translateY(-1px)}
+body:not(.native-app) .v56-question-card .v56-unknown-skip{min-height:48px;border-radius:12px;background:#f8f5ee;font-weight:800}
+body:not(.native-app) .v56-game-history{border-radius:12px;border-color:#d8c9ad}
+@media(max-width:600px){body:not(.native-app) .v56-question-card{margin-left:10px;margin-right:10px;padding:16px 12px}body:not(.native-app) .v56-question-card>img{height:150px}body:not(.native-app) .v56-answer-grid button{font-size:15px;min-height:56px}}

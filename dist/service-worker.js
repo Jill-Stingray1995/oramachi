@@ -8,7 +8,7 @@
  * - CACHE_VERSION と ?v= は bump-version.js が公開前に同期します。
  */
 const CACHE_PREFIX = 'oramachi-app-';
-const CACHE_VERSION = '033652edc38b';
+const CACHE_VERSION = '14600afe99dc';
 const CACHE_NAME = CACHE_PREFIX + CACHE_VERSION;
 
 // build-release.js がこの配列を読み、公開許可リストとの整合を検査します。
@@ -24,8 +24,8 @@ const PRECACHE_URLS = Object.freeze([
   "/privacy.html",
   "/updates.html",
   "/offline.html",
-  "/app.js?v=cbcd5de448",
-  "/style.css?v=f15b32feaa",
+  "/app.js?v=a6eca0a08d",
+  "/style.css?v=370e1e3db6",
   "/japan-map-data.js?v=361d072efc",
   "/cities.json?v=2bacb6efaa",
   "/pwa.js?v=227b41843b",

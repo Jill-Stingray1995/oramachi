@@ -11920,6 +11920,7 @@ function renderOpening(){
     <button class="mode-btn mode-btn-primary" onclick="startMode('all')">
       <span class="mode-title">全国版で遊ぶ</span>
       <span class="mode-desc">日本全国${totalCount.toLocaleString('ja-JP')}市区町村から、あなたの地元を当てます</span>
+      <span class="v315-start-cue">おらっちに当てさせる <b>→</b></span>
     </button>
     <p class="catch-copy-sub">
       日本全国${totalCount.toLocaleString('ja-JP')}市区町村に対応！<br>
