@@ -11940,40 +11940,40 @@ function renderOpening(){
   if(!officialDailyStatus){ officialDailyStatus={available:true,challenge_date:todayJstDateString(),participant_count:0,completed:false,requires_auth:true}; }
   officialDailyArtwork = webDailyArtwork;
   stage.innerHTML = `
-    <main class="web-v317-home">
-      <section class="web-v317-hero">
-        <div class="web-v317-hero-copy">
-          <span class="web-v317-eyebrow">日本全国 ${totalCount.toLocaleString('ja-JP')} 市区町村</span>
+    <main class="web-v318-home">
+      <section class="web-v318-hero">
+        <div class="web-v318-hero-copy">
+          <span class="web-v318-eyebrow">日本全国 ${totalCount.toLocaleString('ja-JP')} 市区町村</span>
           <h1>あなたのマチ、<br>おらっちが当てます。</h1>
           <p>「はい」「いいえ」で答えるだけ。地理ゲームなのに、知識がなくても遊べます。</p>
           ${resumeCardHtml}
-          <button class="web-v317-main-cta" onclick="startMode('all')"><span><strong>全国版で遊ぶ</strong><small>${totalCount.toLocaleString('ja-JP')}市区町村から推理</small></span><b>›</b></button>
+          <button class="web-v318-main-cta" onclick="startMode('all')"><span><strong>全国版で遊ぶ</strong><small>${totalCount.toLocaleString('ja-JP')}市区町村から推理</small></span><b>›</b></button>
         </div>
-        <div class="web-v317-hero-mascot">${openingMascotHTML()}<span>どこのマチか<br>当てるっち！</span></div>
+        <div class="web-v318-hero-mascot">${openingMascotHTML()}<span>どこのマチか<br>当てるっち！</span></div>
       </section>
 
-      <section class="web-v317-daily-wrap">${renderOfficialDailyCardHtml()}</section>
+      <section class="web-v318-daily-wrap">${renderOfficialDailyCardHtml()}</section>
       ${renderHomeTriviaCardHtml()}
 
-      <section class="web-v317-section">
-        <div class="web-v317-section-head"><span>PLAY</span><h2>ほかの遊び方</h2></div>
-        <div class="web-v317-play-grid">
-          <button class="web-v317-play-card intro" onclick="startMode('capitals')"><span>はじめてなら</span><strong>入門版</strong><small>県庁所在地・東京23区　${capitalsCount}自治体</small><b>›</b></button>
-          <button class="web-v317-play-card challenge" onclick="startChallengeMode()"><span>ヒントから推理</span><strong>おらマチからの挑戦状</strong><small>おらっちが選んだマチを当てよう</small><b>›</b></button>
+      <section class="web-v318-section">
+        <div class="web-v318-section-head"><h2>ほかの遊び方</h2></div>
+        <div class="web-v318-play-grid">
+          <button class="web-v318-play-card intro" onclick="startMode('capitals')"><span>はじめてなら</span><strong>入門版</strong><small>県庁所在地・東京23区　${capitalsCount}自治体</small><b>›</b></button>
+          <button class="web-v318-play-card challenge" onclick="startChallengeMode()"><span>ヒントから推理</span><strong>おらマチからの挑戦状</strong><small>おらっちが選んだマチを当てよう</small><b>›</b></button>
         </div>
       </section>
 
-      <section class="web-v317-section">
-        <div class="web-v317-section-head"><span>REGION</span><h2>地方から遊ぶ</h2><p>8地方から選んで、気になるエリアだけでも遊べます。</p></div>
-        <div class="web-v317-region-grid">
+      <section class="web-v318-section">
+        <div class="web-v318-section-head"><h2>地方から遊ぶ</h2><p>8地方から選んで、気になるエリアだけでも遊べます。</p></div>
+        <div class="web-v318-region-grid">
           ${['hokkaido','tohoku','kanto','chubu','kinki','chugoku','shikoku','kyushu'].map(m => `<button onclick="startMode('${m}')"><strong>${MODES[m].label}</strong><small>${getModeCities(m).length}自治体</small><b>›</b></button>`).join('')}
         </div>
       </section>
 
-      <section class="web-v317-section web-v317-progress-section">
-        <div class="web-v317-section-head"><span>MY ORAMACHI</span><h2>あなたの記録</h2></div>
+      <section class="web-v318-section web-v318-progress-section">
+        <div class="web-v318-section-head"><h2>あなたの記録</h2></div>
         ${renderHomeEnhancementHtml()}
-        <div class="web-v317-subnav">
+        <div class="web-v318-subnav">
           <button onclick="renderConquestLog()">📖 全国制覇帳</button>
           <button onclick="renderAchievementsPage()">🏅 称号一覧</button>
           <button onclick="renderStatsPage()">📊 みんなの統計</button>
@@ -13553,22 +13553,22 @@ function renderQuestionScreen(key){
 
   const webArtwork=OFFICIAL_DAILY_BACKGROUNDS[(questionCount-1)%OFFICIAL_DAILY_BACKGROUNDS.length]||OFFICIAL_DAILY_BACKGROUNDS[0];
   stage.innerHTML = `
-    <main class="web-v317-game">
-      <header class="web-v317-game-head"><button onclick="handleBackRequest({historyAlreadyMoved:false})" aria-label="やめる">×</button><img src="oramachi-official-logo.png" alt="おらマチ"><span>通常プレイ</span></header>
-      <div class="web-v317-game-progress"><span>${countLabel}</span><strong>${progressLabel}</strong><small>${moraleLabel}</small></div>
+    <main class="web-v318-game">
+      <header class="web-v318-game-head"><button onclick="handleBackRequest({historyAlreadyMoved:false})" aria-label="やめる">×</button><img src="oramachi-official-logo.png" alt="おらマチ"><span>通常プレイ</span></header>
+      <div class="web-v318-game-progress"><span>${countLabel}</span><strong>${progressLabel}</strong><small>${moraleLabel}</small></div>
       ${tensionMilestoneHtml}
-      <section class="web-v317-question" style="--question-art:url('${webArtwork}')">
-        <div class="web-v317-question-mascot"><div>${mascotSVG(mascotMood)}</div></div>
-        <div class="web-v317-question-copy"><span>${q.icon} おらっちからの質問</span><h1>${escapeHtml(q.text)}</h1>${questionHelpHtml}</div>
-        <div class="web-v317-answer-grid">
-          <button class="yes" onclick="answer('${key}', true)"><strong>はい</strong></button>
-          <button class="no" onclick="answer('${key}', false)"><strong>いいえ</strong></button>
-          <button class="maybe-yes" onclick="answer('${key}', true, PARTIAL_WEIGHT)"><strong>たぶんはい</strong><small>部分的にはい</small></button>
-          <button class="maybe-no" onclick="answer('${key}', false, PARTIAL_WEIGHT)"><strong>たぶんいいえ</strong><small>部分的にいいえ</small></button>
+      <section class="web-v318-question" style="--question-art:url('${webArtwork}')">
+        <div class="web-v318-question-mascot"><div>${mascotSVG(mascotMood)}</div></div>
+        <div class="web-v318-question-copy"><span>${q.icon} おらっちからの質問</span><h1>${escapeHtml(q.text)}</h1>${questionHelpHtml}</div>
+        <div class="web-v318-answer-grid">
+          <button class="yes" onclick="answerFromWebButton('${key}', true)"><strong>はい</strong></button>
+          <button class="no" onclick="answerFromWebButton('${key}', false)"><strong>いいえ</strong></button>
+          <button class="maybe-yes" onclick="answerFromWebButton('${key}', true, PARTIAL_WEIGHT)"><strong>たぶんはい</strong><small>部分的にはい</small></button>
+          <button class="maybe-no" onclick="answerFromWebButton('${key}', false, PARTIAL_WEIGHT)"><strong>たぶんいいえ</strong><small>部分的にいいえ</small></button>
         </div>
-        <button class="web-v317-skip" onclick="answer('${key}', null)">わからない・スキップ</button>
+        <button class="web-v318-skip" onclick="answerFromWebButton('${key}', null)">わからない・スキップ</button>
       </section>
-      <div class="web-v317-game-tools">${backBtn}${answerHistoryBtn}${reportBtnHtml}</div>
+      <div class="web-v318-game-tools">${backBtn}${answerHistoryBtn}${reportBtnHtml}</div>
     </main>
   `;
   questionShownAt = Date.now(); // 回答時間の計測開始(この質問が画面に出た時刻)
@@ -14140,6 +14140,24 @@ function applyAnswerCore(key, val, weight){
   }
   updateStableStreak();
   return false;
+}
+
+function answerFromWebButton(key, val, weight){
+  // V318: Web操作の入口を一本化。二重タップを防ぎつつ、描画中の質問だけを受け付ける。
+  const buttons=[...document.querySelectorAll('.web-v318-answer-grid button,.web-v318-skip')];
+  buttons.forEach(b=>{ b.disabled=true; b.setAttribute('aria-busy','true'); });
+  try{
+    const pending=history[history.length-1];
+    if(!pending || pending.key!==key || answerLog.length!==history.length-1){
+      // UIだけが古い状態になった場合は、現在の正規状態を再描画して操作不能から復帰する。
+      if(pending && pending.key && QUESTIONS[pending.key] && answerLog.length===history.length-1){ renderQuestionScreen(pending.key); }
+      return;
+    }
+    answer(key,val,weight);
+  }catch(err){
+    console.error('V318 web answer recovery',err);
+    buttons.forEach(b=>{ b.disabled=false; b.removeAttribute('aria-busy'); });
+  }
 }
 
 function answer(key, val, weight){
