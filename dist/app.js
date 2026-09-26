@@ -13527,6 +13527,9 @@ function renderQuestion(){
 function renderQuestionScreen(key){
   activeGameTransientScreen = null;
   activePendingQuestionKey = key;
+  // V321: Webの回答可否はDOMに表示中の質問キーも正本として保持する。
+  // JS変数だけに依存すると再描画/復元境界でnull化して現在のボタンまで死ぬ事故が起きたため。
+  if(stage && stage.dataset) stage.dataset.pendingQuestionKey = key;
   const q = QUESTIONS[key];
   questionHelpOpen = false; // 新しい質問に切り替わったら、前の質問で開いていた補足は必ず閉じた状態に戻す
 
@@ -14185,10 +14188,14 @@ function answerFromWebButton(key, val, weight){
 }
 
 function answer(key, val, weight){
-  // V320: 連打・古い画面からの遅延イベントだけを拒否する。
-  // historyとanswerLogの長さを回答可否の条件にすると、復元・戻る・推論による状態更新の境界で
-  // 正常な現在質問まで無反応になるため、画面に出している質問キーを唯一のロックにする。
-  if(activePendingQuestionKey !== key) return;
+  // V321: 画面に実際に表示されている質問をDOM datasetで検証する。
+  // activePendingQuestionKey単独のロックは再描画/復元の境界で失われ、6〜7問目付近で
+  // 現在の正常なボタンまで無反応になる実機不具合を起こしたため廃止する。
+  const displayedKey = stage && stage.dataset ? stage.dataset.pendingQuestionKey : null;
+  if(displayedKey !== key) return;
+  // 同じDOM上の連打だけは即座に遮断。次のrenderQuestionScreen()が新しいキーを再設定する。
+  stage.dataset.pendingQuestionKey = '';
+  activePendingQuestionKey = null;
   if(val === null){
     // 「わからない・スキップ」が選ばれた質問を記録する。GA4へは都度送るが、
     // GAS(スプレッドシート)への送信は通信回数を減らすため、ゲーム終了時にまとめて送る。
@@ -14208,9 +14215,9 @@ function answer(key, val, weight){
     // 回答処理の途中で例外が起きてもボタンを永久に無反応にしない。
     console.error('おらマチ: 回答処理に失敗しました', {key, error});
     activePendingQuestionKey = key;
+    if(stage && stage.dataset) stage.dataset.pendingQuestionKey = key;
     return;
   }
-  activePendingQuestionKey = null;
   if(val === null) return renderQuestion();
   if(forced) return renderGuess();
 
