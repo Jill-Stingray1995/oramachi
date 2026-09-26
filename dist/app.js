@@ -13496,9 +13496,51 @@ function pushQuestionState(key){
   if(questionPhase === 'extra'){ extraQuestionCount++; } else { questionCount++; }
 }
 
+// V323: 高度な質問選択ロジックが中盤の特定状態で例外・空配列になっても、
+// ゲーム全体を停止させないための最終安全選球。通常時はentropyPick()だけを使い、
+// これは失敗時にしか発動しないので既存の町の顔／サプライズ・ストライク選球を変えない。
+function fallbackQuestionPick(){
+  try{
+    const poolInfo = questionPhase === 'extra' ? extraPhaseCities() : topPoolCities();
+    const cities = (poolInfo && Array.isArray(poolInfo.cities)) ? poolInfo.cities : [];
+    const unused = activeKeysForMode(currentMode).filter(k => !asked.includes(k) && QUESTIONS[k]);
+    if(unused.length === 0) return null;
+    if(cities.length <= 1) return null;
+
+    // まず「はい／いいえ」の両方が残る質問だけを対象にし、最も50:50に近いものを選ぶ。
+    // 余計な優先ロジックを一切通さないため、フェイルセーフ自身が再び同じ原因で落ちにくい。
+    let bestKey = null;
+    let bestWorst = Infinity;
+    for(const k of unused){
+      let yes = 0;
+      for(const c of cities) if(c && c.tags && c.tags[k] === true) yes++;
+      const no = cities.length - yes;
+      if(yes === 0 || no === 0) continue;
+      const worst = Math.max(yes, no);
+      if(worst < bestWorst){ bestWorst = worst; bestKey = k; }
+    }
+    return bestKey;
+  }catch(error){
+    console.error('おらマチ: 安全選球にも失敗しました', error);
+    return null;
+  }
+}
+
+function pickNextQuestionSafely(){
+  if(forcedNextKey) return forcedNextKey;
+  try{
+    const picked = entropyPick();
+    if(picked && QUESTIONS[picked]) return picked;
+    console.warn('おらマチ: 通常選球が空になったため安全選球へ退避します', {questionCount, askedCount: asked.length});
+  }catch(error){
+    console.error('おらマチ: 通常選球で例外が発生したため安全選球へ退避します', {questionCount, error});
+  }
+  return fallbackQuestionPick();
+}
+
 function renderQuestion(){
   renderStamps();
-  const key = forcedNextKey || entropyPick();
+  const key = pickNextQuestionSafely();
   forcedNextKey = null;
 
   const phaseCount = questionPhase === 'extra' ? extraQuestionCount : questionCount;
