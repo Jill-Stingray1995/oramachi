@@ -8,7 +8,7 @@
  * - CACHE_VERSION と ?v= は bump-version.js が公開前に同期します。
  */
 const CACHE_PREFIX = 'oramachi-app-';
-const CACHE_VERSION = 'cp240-deploy-sync';
+const CACHE_VERSION = 'cp241-structural-human';
 const CACHE_NAME = CACHE_PREFIX + CACHE_VERSION;
 
 // build-release.js がこの配列を読み、公開許可リストとの整合を検査します。
@@ -24,7 +24,7 @@ const PRECACHE_URLS = Object.freeze([
   "/privacy.html",
   "/updates.html",
   "/offline.html",
-  "/app.js?v=cp240-87da8fd8b7",
+  "/app.js?v=cp241-structural-human",
   "/style.css?v=bf853fb768",
   "/japan-map-data.js?v=361d072efc",
   "/cities.json?v=d2873491f9",
@@ -75,7 +75,7 @@ async function cacheKnownNavigation(request) {
   const url = new URL(request.url);
   const cacheKey = url.pathname === '/' ? '/' : url.pathname;
   const cache = await caches.open(CACHE_NAME);
-  // CP240: navigation is network-first so a newly deployed index cannot be pinned
+  // CP241: navigation is network-first so a newly deployed index cannot be pinned
   // behind the previous release's service-worker cache. Hashed assets keep releases coherent.
   try {
     const response = await fetch(request, { cache: 'no-store' });

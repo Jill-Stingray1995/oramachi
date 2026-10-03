@@ -22016,6 +22016,59 @@ function v382EntropyWithoutProtected(){
   while(held.length) asked.splice(asked.lastIndexOf(held.pop()),1);
   return picked;
 }
+// CP241: Production Structural Human Opening.
+// The previous CP229 engine was still only an optional branch: when it returned null,
+// v332 wide-area routing immediately reclaimed the opening.  That is exactly the production
+// failure observed in Tokamachi (East Japan -> Hokkaido/Tohoku -> Kanto -> ...).
+// CP241 makes the rule structural: during Q1-Q5, explicit address routing is not a candidate
+// source at all.  We build the opening directly from conversation-consistent municipalities
+// and non-address human evidence.  Route personality chooses among near-best *human* balls;
+// geography remains available only after this protected opening as a genuine fallback.
+function cp241StructuralHumanOpening(){
+  if(currentMode!=='all'||questionPhase!=='normal'||questionCount>=5) return null;
+  const worlds=cp227ConversationWorlds().filter(c=>c&&c.tags&&!excludedNames.has(c.name));
+  if(worlds.length<12) return null;
+  const rows=[];
+  for(const k of activeKeysForMode(currentMode)){
+    if(r89Shown(k)||!QUESTIONS[k]||isSubjectiveQuestion(k)||cp227IsAddressRoutingKey(k)||STATS_QUESTION_KEYS.has(k)) continue;
+    if(r89IsLaneOnlyKey(k)||v330IsTownFaceCandidate(k)||v330IsDedicatedSurpriseStrike(k)||!r90NamePlayAllowedNow(k)) continue;
+    if(!cp227ConversationQuestionLive(k).ok||!v330LocalChainContextAllowed(k,worlds)) continue;
+    const fam=cp229HumanFamily(k); if(!['life','transport','nature','industry','culture'].includes(fam)) continue;
+    let yes=0,known=0;
+    for(const c of worlds){ const v=c.tags[k]; if(typeof v==='boolean'){known++; if(v)yes++;} }
+    if(known<Math.max(20,worlds.length*.55)||yes===0||yes===known) continue;
+    const ratio=yes/known;
+    if(ratio<0.055||ratio>0.945) continue;
+    // Binary entropy: enough to protect convergence without reintroducing address routing.
+    const h=-(ratio*Math.log2(ratio)+(1-ratio)*Math.log2(1-ratio));
+    const gy=v170GlobalYesCount(k);
+    rows.push({k,fam,h,ratio,gy});
+  }
+  if(!rows.length) return null;
+  let profile=cp229RouteProfile;
+  if(!profile){
+    const famBest={}; for(const r of rows) famBest[r.fam]=Math.max(famBest[r.fam]||0,r.h);
+    const viable=CP229_ROUTE_PROFILES.filter(p=>(famBest[p.seq[0]]||0)>=0.16 && (famBest[p.seq[1]]||0)>=0.13);
+    const pool=viable.length?viable:CP229_ROUTE_PROFILES;
+    profile=cp229RouteProfile=pool[Math.floor(Math.random()*pool.length)];
+  }
+  const desired=profile.seq[Math.min(questionCount,profile.seq.length-1)];
+  const bestH=Math.max(...rows.map(r=>r.h));
+  const floor=Math.max(.12,bestH*.58);
+  let eligible=rows.filter(r=>r.fam===desired&&r.h>=floor);
+  if(!eligible.length){ const allowed=new Set(profile.seq); eligible=rows.filter(r=>allowed.has(r.fam)&&r.h>=floor); }
+  if(!eligible.length) eligible=rows.filter(r=>r.h>=Math.max(.10,bestH*.50));
+  if(!eligible.length) return null;
+  const recent=new Set(cp229RouteTrace.slice(-2).map(x=>x.k));
+  eligible.sort((a,b)=>(b.h*100-Math.abs(.5-b.ratio)*5-(recent.has(b.k)?10:0))-(a.h*100-Math.abs(.5-a.ratio)*5-(recent.has(a.k)?10:0)));
+  const topScore=eligible[0].h*100-Math.abs(.5-eligible[0].ratio)*5;
+  const near=eligible.filter(r=>topScore-(r.h*100-Math.abs(.5-r.ratio)*5)<=5).slice(0,5);
+  const pick=near[Math.floor(Math.random()*near.length)]||eligible[0];
+  cp229RouteTrace.push({n:questionCount+1,profile:profile.id,fam:pick.fam,key:pick.k,gain:pick.h,cp:'241'});
+  v330LastRuntimePickRole='general'; r89LastSelectorPath='cp241-structural-human-'+profile.id;
+  return pick.k;
+}
+
 function v383PickNextQuestionRaw(){
   if(forcedNextKey) return forcedNextKey;
   // R31 Stage1: reserve the constitutional ending inside the selector itself, so every caller
@@ -22036,6 +22089,17 @@ function v383PickNextQuestionRaw(){
   if(questionPhase==='normal' && !asked.includes('is_tokyo_ward') && answerLog.some(a=>a&&a.key==='region_kanto'&&a.val===true)){
     const info=topPoolCities(); const wy=info.cities.reduce((n,c)=>n+(c.tags.is_tokyo_ward===true?1:0),0);
     if(wy>=4){v330LastRuntimePickRole='general';return 'is_tokyo_ward';}
+  }
+  const cp241Opening=cp241StructuralHumanOpening();
+  if(cp241Opening) return cp241Opening;
+  // CP241 invariant: Q1-Q5 may never fall through to explicit address routing. If the
+  // human pool is unexpectedly empty, use ordinary entropy with address keys temporarily held.
+  if(currentMode==='all' && questionPhase==='normal' && questionCount<5){
+    const held=[]; for(const k of activeKeysForMode(currentMode)){ if(cp227IsAddressRoutingKey(k)&&!asked.includes(k)){asked.push(k);held.push(k);} }
+    let q=null; try{q=v382EntropyWithoutProtected();}catch(_){}
+    while(held.length){const k=held.pop(),i=asked.lastIndexOf(k);if(i>=0)asked.splice(i,1);}
+    if(q&&QUESTIONS[q]){v330LastRuntimePickRole='general';r89LastSelectorPath='cp241-nonaddress-emergency';return q;}
+    return null;
   }
   const cp229Opening=cp229PickStructuralOpening();
   if(cp229Opening) return cp229Opening;
