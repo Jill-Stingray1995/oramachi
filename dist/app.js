@@ -18919,7 +18919,7 @@ const REGION_ORDER = ['北海道','東北','関東','中部','近畿','中国','
 
 function renderChallengeRecord(){
   stampsEl.innerHTML=''; pushNavState('challengeRecord');
-  const d=loadChallengeData();
+  const d=loadChallengeStats();
   stage.innerHTML=`<div class="mascot-wrap"><div class="pop">${mascotSVG('normal')}</div></div><div class="bubble"><span class="icon">?</span>挑戦状の記録</div><div class="conquest-summary"><div class="conquest-summary-main">おらっちに勝った！ ${Number(d.totalCorrect||0).toLocaleString('ja-JP')}回</div><div class="conquest-muted">挑戦 ${Number(d.totalPlays||0).toLocaleString('ja-JP')}回 ・ 最高 ${Number(d.bestScore||0).toLocaleString('ja-JP')}点</div></div><button class="again" onclick="startChallengeMode()">挑戦する</button><button class="link-btn" onclick="navigateToOpening()">トップ画面へ戻る</button>`;
   scrollToPageTop(); updateDebugPanel();
 }
