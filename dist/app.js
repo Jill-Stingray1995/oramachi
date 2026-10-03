@@ -6566,7 +6566,7 @@ function renderPlayHistory(){
   stampsEl.innerHTML=''; pushNavState('playHistory');
   const data=loadPlayHistory();
   const rows=data.map(g=>`<details class="conquest-details"><summary>${g.result==='success'?'○':'△'} ${escapeHtml(g.pref)} ${escapeHtml(g.city||'ギブアップ')} ・ ${g.questions}問 <small>${new Date(g.at).toLocaleString('ja-JP')}</small></summary><div class="conquest-city-list">${(g.answers||[]).map(a=>`<div class="conquest-city-row"><b>Q${a.n}</b> ${escapeHtml(a.question)} <span>→ ${escapeHtml(a.answer)}</span></div>`).join('')||'<div class="conquest-muted">回答記録なし</div>'}</div></details>`).join('');
-  stage.innerHTML=`<div class="mascot-wrap"><div class="pop">${mascotSVG('normal')}</div></div><div class="bubble"><span class="icon">▥</span>プレイ履歴</div><div class="conquest-hint">直近${PLAY_HISTORY_LIMIT}ゲームまで、この端末に保存します。</div>${rows||'<div class="conquest-muted">まだプレイ履歴がありません</div>'}<button class="again" onclick="navigateToOpening()">トップ画面へ戻る</button>`;
+  stage.innerHTML=`${cp226WebPageHead()}<div class="mascot-wrap"><div class="pop">${mascotSVG('normal')}</div></div><div class="bubble"><span class="icon">▥</span>プレイ履歴</div><div class="conquest-hint">直近${PLAY_HISTORY_LIMIT}ゲームまで、この端末に保存します。</div>${rows||'<div class="conquest-muted">まだプレイ履歴がありません</div>'}<button class="again" onclick="navigateToOpening()">トップ画面へ戻る</button>`;
   scrollToPageTop(); updateDebugPanel();
 }
 
@@ -14669,6 +14669,29 @@ function v162FreshenEarlyPool(pool){
 }
 
 
+// CP226: 同一自治体を繰り返した時にQ1〜Q5から別の攻め筋にする。
+// 正解するまで対象自治体は知らないため、完了時に自治体別の序盤ルートを保存し、
+// 次戦ではposterior首位がその自治体になった時だけ、同等品質pool内で前回の意味ファミリーを避ける。
+const CP226_CITY_EARLY_ROUTES_KEY='oramachi_city_early_routes_cp226';
+function cp226CityRoutes(){try{const x=JSON.parse(localStorage.getItem(CP226_CITY_EARLY_ROUTES_KEY)||'{}');return x&&typeof x==='object'?x:{}}catch(e){return {}}}
+function cp226RememberCityRoute(city){
+  if(!city||questionPhase==='extra')return;
+  const keys=history.slice(0,5).map(h=>h&&h.key).filter(Boolean); if(keys.length<3)return;
+  const all=cp226CityRoutes(), id=cityId(city), item={keys,families:keys.map(v330SemanticFamily),at:Date.now()};
+  const prev=Array.isArray(all[id])?all[id]:[]; all[id]=[item,...prev.filter(x=>Array.isArray(x.keys)&&x.keys.join('|')!==keys.join('|'))].slice(0,4);
+  try{localStorage.setItem(CP226_CITY_EARLY_ROUTES_KEY,JSON.stringify(all))}catch(e){}
+}
+function cp226DiversifyForLeadCity(pool,topCities,posteriorMasses){
+  if(questionPhase==='extra'||questionCount<1||questionCount>=5||pool.length<2||!topCities.length)return pool;
+  let ti=0;for(let i=1;i<topCities.length;i++)if((posteriorMasses[i]||0)>(posteriorMasses[ti]||0))ti=i;
+  const prior=cp226CityRoutes()[cityId(topCities[ti])]||[]; if(!prior.length)return pool;
+  const pos=questionCount; const exact=new Set(prior.map(r=>r.keys&&r.keys[pos]).filter(Boolean));
+  const fam=new Set(prior.map(r=>r.families&&r.families[pos]).filter(Boolean));
+  let fresh=pool.filter(k=>!exact.has(k)&&!fam.has(v330SemanticFamily(k)));
+  if(fresh.length)return fresh;
+  fresh=pool.filter(k=>!exact.has(k)); return fresh.length?fresh:pool;
+}
+
 // V163: 1ゲーム内の序盤〜中盤でも、同じ種類の質問が続く「作業感」を軽減する。
 // ここでも候補を広げず、entropyPick() が既に選んだ上位poolの中だけでカテゴリを散らす。
 // 直前と別カテゴリの良質候補がある時だけ切り替えるため、推理効率を優先した安全な演出。
@@ -16812,6 +16835,7 @@ function entropyPick(){
   // V162: 2〜5問目は、直近2ゲームと同じ序盤質問を可能な範囲で避ける。
   // ここで扱うpoolは既に情報利得・minimax・段階・カテゴリ制御を通過した上位候補だけ。
   pool = v162FreshenEarlyPool(pool);
+  pool = cp226DiversifyForLeadCity(pool, topCities, posteriorMasses);
   // V163: 同一ゲーム内でも、良質な代替候補がある限り直前と同カテゴリを連打しない。
   pool = v163FreshenCategoryRhythm(pool);
   // V240: 新しく増やした中規模球を、上位pool内だけで「広域→町の顔」の橋として優先。
@@ -18903,6 +18927,7 @@ function renderOpening(){
           <button onclick="renderOramachiEncyclopedia()">おらマチ図鑑</button>
           <button onclick="renderPlayHistory()">プレイ履歴</button>
           <button onclick="renderChallengeRecord()">挑戦状の記録</button>
+          <button onclick="startStreakMode()">連勝モード</button>
           <button onclick="renderAchievementsPage()">称号一覧</button>
           <button onclick="renderStatsPage()">みんなの統計</button>
         </div>
@@ -18920,11 +18945,28 @@ function renderOpening(){
 // ==================== 全国制覇帳 画面 ====================
 const REGION_ORDER = ['北海道','東北','関東','中部','近畿','中国','四国','九州・沖縄'];
 
+let cp226StreakActive=false;
+let cp226StreakCount=0;
+let cp226StreakCities=[];
+function cp226WebPageHead(backFn='navigateToOpening()'){
+  return `<header class="web-v324-pagehead"><button type="button" onclick="${backFn}" aria-label="戻る">←</button><img src="oramachi-official-logo.png" alt="おらマチ"><span></span></header>`;
+}
+function startStreakMode(){cp226StreakActive=true;cp226StreakCount=0;cp226StreakCities=[];return startMode('all',{skipExistingSessionConfirm:true});}
+function cp226ContinueStreak(){return startMode('all',{skipExistingSessionConfirm:true});}
+function cp226StreakSuccess(city){
+  if(!cp226StreakActive||!city)return '';
+  const id=cityId(city); if(cp226StreakCities.includes(id))return `<div class="conquest-hint">同じマチは連勝数に重ねません。現在 ${cp226StreakCount}連勝中！</div>`;
+  cp226StreakCities.push(id);cp226StreakCount++;
+  const best=Math.max(cp226StreakCount,Number(localStorage.getItem('oramachi_streak_best_cp226')||0));try{localStorage.setItem('oramachi_streak_best_cp226',String(best))}catch(e){}
+  return `<div class="conquest-summary"><div class="conquest-summary-main">🔥 ${cp226StreakCount}連勝中！</div><div class="conquest-muted">最高 ${best}連勝</div></div>`;
+}
+function cp226EndStreak(){cp226StreakActive=false;cp226StreakCount=0;cp226StreakCities=[];}
+
 function renderChallengeRecord(){
   stampsEl.innerHTML=''; pushNavState('challengeRecord');
   const d=loadChallengeStats();
   const history=(d.history||[]).map(g=>`<div class="conquest-city-row"><b>${g.success?'○':'△'} ${escapeHtml(g.pref||'')} ${escapeHtml(g.city||'')}</b><span>${g.success?`${Number(g.score||0)}点 ・ ヒント${Number(g.hintsUsed||0)}個`:'不正解'} ・ ${new Date(g.at).toLocaleString('ja-JP')}</span></div>`).join('');
-  stage.innerHTML=`<div class="mascot-wrap"><div class="pop">${mascotSVG('normal')}</div></div><div class="bubble">挑戦状の記録</div><div class="conquest-summary"><div class="conquest-summary-main">おらっちに勝った！ ${Number(d.totalCorrect||0).toLocaleString('ja-JP')}回</div><div class="conquest-muted">挑戦 ${Number(d.totalPlays||0).toLocaleString('ja-JP')}回 ・ 最高 ${Number(d.bestScore||0).toLocaleString('ja-JP')}点</div></div>${history?`<details class="conquest-details" open><summary>直近の挑戦 <small>${Math.min((d.history||[]).length,50)}件</small></summary><div class="conquest-city-list">${history}</div></details>`:'<div class="conquest-muted">まだ挑戦記録がありません</div>'}<button class="again" onclick="startChallengeMode()">挑戦する</button><button class="link-btn" onclick="navigateToOpening()">トップ画面へ戻る</button>`;
+  stage.innerHTML=`${cp226WebPageHead()}<div class="mascot-wrap"><div class="pop">${mascotSVG('normal')}</div></div><div class="bubble">挑戦状の記録</div><div class="conquest-summary"><div class="conquest-summary-main">おらっちに勝った！ ${Number(d.totalCorrect||0).toLocaleString('ja-JP')}回</div><div class="conquest-muted">挑戦 ${Number(d.totalPlays||0).toLocaleString('ja-JP')}回 ・ 最高 ${Number(d.bestScore||0).toLocaleString('ja-JP')}点</div></div>${history?`<details class="conquest-details" open><summary>直近の挑戦 <small>${Math.min((d.history||[]).length,50)}件</small></summary><div class="conquest-city-list">${history}</div></details>`:'<div class="conquest-muted">まだ挑戦記録がありません</div>'}<button class="again" onclick="startChallengeMode()">挑戦する</button><button class="link-btn" onclick="navigateToOpening()">トップ画面へ戻る</button>`;
   scrollToPageTop(); updateDebugPanel();
 }
 
@@ -18949,7 +18991,7 @@ function renderOramachiEncyclopedia(){
   const sections=p.prefRows.map(pr=>{const list=(byPref.get(pr.name)||[]);const status=pr.left===0?'コンプリート！':(pr.left===1?'あと1マチ':`${pr.done}/${pr.total}`);const rows=list.sort((a,b)=>displayName(a).localeCompare(displayName(b),'ja')).map(c=>{const e=p.entries[cityId(c)];const isNew=localDateKey(e.firstAt)===localDateKey();return `<button class=\"conquest-city-row\" onclick=\"renderOramachiEncyclopediaCard('${cityId(c).replace(/'/g,"\\'")}')\"><b>${isNew?'NEW　':''}${escapeHtml(displayName(c))}</b><span>正解 ${Number(e.count||1)}回 ・ 最少 ${Number(e.minQuestions||0)}問</span></button>`}).join('');return `<details class=\"conquest-details\"><summary>${escapeHtml(pr.name)} <small>${status}</small></summary><div class=\"conquest-city-list\">${rows||'<div class=\"conquest-muted\">まだ未獲得です</div>'}</div></details>`;}).join('');
   const completedPrefs=p.prefRows.filter(x=>x.left===0).length, completedRegions=p.regionRows.filter(x=>x.left===0).length;
   const near=p.prefRows.filter(x=>x.left===1).map(x=>x.name).join('・');
-  stage.innerHTML=`<div class=\"mascot-wrap\"><div class=\"pop\">${mascotSVG('normal')}</div></div><div class=\"bubble\"><span class=\"icon\">▥</span>おらマチ図鑑</div><div class=\"conquest-summary\"><div class=\"conquest-summary-main\">${p.got.length.toLocaleString('ja-JP')} / ${p.all.length.toLocaleString('ja-JP')}マチ</div><div class=\"conquest-muted\">あと${left.toLocaleString('ja-JP')}マチ ・ 今日新しく${p.todayNew.length.toLocaleString('ja-JP')}マチ</div></div><div class=\"conquest-hint\">都道府県コンプリート ${completedPrefs}/47 ・ 地方コンプリート ${completedRegions}/${p.regionRows.length}${near?` ・ あと1マチ：${escapeHtml(near)}`:''}</div>${sections}<button class=\"again\" onclick=\"navigateToOpening()\">トップ画面へ戻る</button>`;
+  stage.innerHTML=`${cp226WebPageHead()}<div class=\"mascot-wrap\"><div class=\"pop\">${mascotSVG('normal')}</div></div><div class=\"bubble\"><span class=\"icon\">▥</span>おらマチ図鑑</div><div class=\"conquest-summary\"><div class=\"conquest-summary-main\">${p.got.length.toLocaleString('ja-JP')} / ${p.all.length.toLocaleString('ja-JP')}マチ</div><div class=\"conquest-muted\">あと${left.toLocaleString('ja-JP')}マチ ・ 今日新しく${p.todayNew.length.toLocaleString('ja-JP')}マチ</div></div><div class=\"conquest-hint\">都道府県コンプリート ${completedPrefs}/47 ・ 地方コンプリート ${completedRegions}/${p.regionRows.length}${near?` ・ あと1マチ：${escapeHtml(near)}`:''}</div>${sections}<button class=\"again\" onclick=\"navigateToOpening()\">トップ画面へ戻る</button>`;
   scrollToPageTop(); updateDebugPanel();
 }
 function renderOramachiEncyclopediaCard(id){
@@ -18957,7 +18999,7 @@ function renderOramachiEncyclopediaCard(id){
   const e=loadConquest().entries?.[id]; if(!e) return renderOramachiEncyclopedia();
   const first=e.firstAt?new Date(e.firstAt).toLocaleDateString('ja-JP'):'記録なし';
   const reunion=Number(e.count||1)>1?` ・ ${Number(e.count)}回目の再会`:'';
-  stage.innerHTML=`<div class=\"mascot-wrap\"><div class=\"pop\">${mascotSVG('normal')}</div></div><div class=\"bubble\"><span class=\"icon\">▥</span>${escapeHtml(displayName(c))}</div><div class=\"conquest-summary\"><div class=\"conquest-summary-main\">${escapeHtml(c.pref)} ${escapeHtml(displayName(c))}</div><div class=\"conquest-muted\">初正解 ${escapeHtml(first)} ・ 最少 ${Number(e.minQuestions||0)}問${reunion}</div></div><div class=\"fact\">${escapeHtml(c.fact||'')}</div><button class=\"again\" onclick=\"renderOramachiEncyclopedia()\">図鑑へ戻る</button>`;
+  stage.innerHTML=`${cp226WebPageHead('renderOramachiEncyclopedia()')}<div class=\"mascot-wrap\"><div class=\"pop\">${mascotSVG('normal')}</div></div><div class=\"bubble\"><span class=\"icon\">▥</span>${escapeHtml(displayName(c))}</div><div class=\"conquest-summary\"><div class=\"conquest-summary-main\">${escapeHtml(c.pref)} ${escapeHtml(displayName(c))}</div><div class=\"conquest-muted\">初正解 ${escapeHtml(first)} ・ 最少 ${Number(e.minQuestions||0)}問${reunion}</div></div><div class=\"fact\">${escapeHtml(c.fact||'')}</div><button class=\"again\" onclick=\"renderOramachiEncyclopedia()\">図鑑へ戻る</button>`;
   scrollToPageTop(); updateDebugPanel();
 }
 function collectionMilestoneText(city, conquestResult){
@@ -24350,6 +24392,7 @@ function correct(isRight, overrideCity){
 
     // V162: 完了したゲームの序盤ルートを、次の連戦の鮮度制御にだけ利用する。
     v162RememberEarlyRoute();
+    cp226RememberCityRoute(guess);
     // 正解後に再読み込みされても、結果送信・統計加算を二重実行しないよう先に削除する。
     clearGameSession();
     // 結果画面・シェア文・訂正フォーム・プレイ結果送信・制覇帳・画像共有のすべてで、
@@ -24561,9 +24604,10 @@ function correct(isRight, overrideCity){
       ${conquestHtml}
       ${replayNudgeHtml}
       ${achievementHtml}
+      ${cp226StreakSuccess(guess)}
       <div class="result-actions-primary">
         <button class="share-btn share-btn-image" id="shareImageBtn" onclick="shareResultImage()">📸 画像でシェア</button>
-        ${dailyChallengeActive ? '' : `<button class="again" onclick="restart()">もう一回！</button>`}
+        ${dailyChallengeActive ? '' : (cp226StreakActive ? `<button class="again" onclick="cp226ContinueStreak()">もう一マチ！</button>` : `<button class="again" onclick="restart()">もう一回！</button>`)}
       </div>
       <div class="result-actions-secondary">
         <button class="share-btn-text" onclick="shareToX(currentResult.city, currentResult.questionCount)">
@@ -24632,6 +24676,7 @@ function renderExtraIntro(){
 
 function renderGiveUp(){
   activeGameTransientScreen = null;
+  if(cp226StreakActive) cp226EndStreak();
   markGameNavResult('deduction');
   // 降参画面では統計・GAS送信が走るため、再起動で同じ終了処理を繰り返さない。
   clearGameSession();
@@ -24655,7 +24700,7 @@ function renderGiveUp(){
     <div class="fact">現在のデータ範囲(${getModeCities(currentMode).length}自治体)では絞り込みきれませんでした。データが増えるともっと当たりやすくなります。</div>
     ${hint}
     ${renderCorrectionForm()}
-    ${dailyChallengeActive ? '' : `<button class="again" onclick="restart()">もう一回！</button>`}
+    ${dailyChallengeActive ? '' : (cp226StreakActive ? `<button class="again" onclick="cp226ContinueStreak()">もう一マチ！</button>` : `<button class="again" onclick="restart()">もう一回！</button>`)}
     <div class="result-actions-secondary">
       <button class="link-btn" onclick="navigateToOpening()">別の地域版であそぶ</button>
       <button class="link-btn" onclick="renderConquestLog()">📖 全国制覇帳を見る</button>
