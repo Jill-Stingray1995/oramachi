@@ -5818,6 +5818,7 @@ function renderChallengeResult(success, score, hintsUsed){
         ${success ? happyCelebrationMascotHTML() : `<div class="mascot-wrap"><div class="pop">${mascotSVG('sad')}</div></div>`}
       </div>
       ${resultLine}
+      ${success?'<div class="challenge-win-banner">おらっちに勝った！</div>':''}
       <div class="result-name">${displayName(city)}</div>
       <div class="result-pref">${city.pref}</div>
       ${scoreLine}
@@ -6539,6 +6540,31 @@ function saveStats(data){
     console.warn('おらマチ: プレイ統計の保存に失敗しました(localStorageの容量不足などの可能性)', e);
     return false;
   }
+}
+
+// ==================== CP223: 詳細プレイ履歴（Web既存UI準拠） ====================
+const PLAY_HISTORY_STORAGE_KEY = 'oramachi_play_history_v1';
+const PLAY_HISTORY_LIMIT = 100;
+function loadPlayHistory(){
+  try{ const v=JSON.parse(localStorage.getItem(PLAY_HISTORY_STORAGE_KEY)||'[]'); return Array.isArray(v)?v.slice(0,PLAY_HISTORY_LIMIT):[]; }
+  catch(e){ return []; }
+}
+function saveDetailedPlay(result, city, totalQuestions){
+  try{
+    const rows=answerLog.map((r,i)=>({
+      n:i+1, key:String(r.key||''), question:String(QUESTIONS[r.key]?.text||r.key||''),
+      answer:r.val===null?'わからない':(r.val===true?((r.weight??1)<1?'たぶんはい':'はい'):((r.weight??1)<1?'たぶんいいえ':'いいえ'))
+    }));
+    const item={at:new Date().toISOString(),result,city:city?displayName(city):'',pref:city?.pref||'',mode:currentMode||'all',questions:Number(totalQuestions)||rows.length,answers:rows};
+    localStorage.setItem(PLAY_HISTORY_STORAGE_KEY,JSON.stringify([item,...loadPlayHistory()].slice(0,PLAY_HISTORY_LIMIT)));
+  }catch(e){ console.warn('おらマチ: 詳細プレイ履歴の保存に失敗しました',e); }
+}
+function renderPlayHistory(){
+  stampsEl.innerHTML=''; pushNavState('playHistory');
+  const data=loadPlayHistory();
+  const rows=data.map(g=>`<details class="conquest-details"><summary>${g.result==='success'?'○':'△'} ${escapeHtml(g.pref)} ${escapeHtml(g.city||'ギブアップ')} ・ ${g.questions}問 <small>${new Date(g.at).toLocaleString('ja-JP')}</small></summary><div class="conquest-city-list">${(g.answers||[]).map(a=>`<div class="conquest-city-row"><b>Q${a.n}</b> ${escapeHtml(a.question)} <span>→ ${escapeHtml(a.answer)}</span></div>`).join('')||'<div class="conquest-muted">回答記録なし</div>'}</div></details>`).join('');
+  stage.innerHTML=`<div class="mascot-wrap"><div class="pop">${mascotSVG('normal')}</div></div><div class="bubble"><span class="icon">▥</span>プレイ履歴</div><div class="conquest-hint">直近${PLAY_HISTORY_LIMIT}ゲームまで、この端末に保存します。</div>${rows||'<div class="conquest-muted">まだプレイ履歴がありません</div>'}<button class="again" onclick="navigateToOpening()">トップ画面へ戻る</button>`;
+  scrollToPageTop(); updateDebugPanel();
 }
 
 // ==================== Android版: クリア評価とプレイヤーランク ====================
@@ -18871,6 +18897,9 @@ function renderOpening(){
         ${renderWebRecordSummaryHtml()}
         <div class="web-v319-subnav">
           <button onclick="renderConquestLog()">全国制覇帳</button>
+          <button onclick="renderOramachiEncyclopedia()">おらマチ図鑑</button>
+          <button onclick="renderPlayHistory()">プレイ履歴</button>
+          <button onclick="renderChallengeRecord()">挑戦状の記録</button>
           <button onclick="renderAchievementsPage()">称号一覧</button>
           <button onclick="renderStatsPage()">みんなの統計</button>
         </div>
@@ -18887,6 +18916,33 @@ function renderOpening(){
 
 // ==================== 全国制覇帳 画面 ====================
 const REGION_ORDER = ['北海道','東北','関東','中部','近畿','中国','四国','九州・沖縄'];
+
+function renderChallengeRecord(){
+  stampsEl.innerHTML=''; pushNavState('challengeRecord');
+  const d=loadChallengeData();
+  stage.innerHTML=`<div class="mascot-wrap"><div class="pop">${mascotSVG('normal')}</div></div><div class="bubble"><span class="icon">?</span>挑戦状の記録</div><div class="conquest-summary"><div class="conquest-summary-main">おらっちに勝った！ ${Number(d.totalCorrect||0).toLocaleString('ja-JP')}回</div><div class="conquest-muted">挑戦 ${Number(d.totalPlays||0).toLocaleString('ja-JP')}回 ・ 最高 ${Number(d.bestScore||0).toLocaleString('ja-JP')}点</div></div><button class="again" onclick="startChallengeMode()">挑戦する</button><button class="link-btn" onclick="navigateToOpening()">トップ画面へ戻る</button>`;
+  scrollToPageTop(); updateDebugPanel();
+}
+
+// ==================== CP223: おらマチ図鑑（全国制覇帳とは別の閲覧体験） ====================
+function renderOramachiEncyclopedia(){
+  stampsEl.innerHTML=''; pushNavState('encyclopedia');
+  const conquest=loadConquest();
+  const cities=CITIES.filter(c=>c.name!=='東京');
+  const got=cities.filter(c=>conquest.entries?.[cityId(c)]);
+  const left=Math.max(0,cities.length-got.length);
+  const byPref=new Map();
+  got.forEach(c=>{ const a=byPref.get(c.pref)||[]; a.push(c); byPref.set(c.pref,a); });
+  const sections=[...byPref.entries()].sort((a,b)=>a[0].localeCompare(b[0],'ja')).map(([pref,list])=>`<details class="conquest-details"><summary>${escapeHtml(pref)} <small>${list.length}マチ</small></summary><div class="conquest-city-list">${list.sort((a,b)=>displayName(a).localeCompare(displayName(b),'ja')).map(c=>{const e=conquest.entries[cityId(c)];return `<button class="conquest-city-row" onclick="renderOramachiEncyclopediaCard('${cityId(c).replace(/'/g,"\\'")}')"><b>${escapeHtml(displayName(c))}</b><span>正解 ${Number(e.count||1)}回 ・ 最少 ${Number(e.minQuestions||0)}問</span></button>`}).join('')}</div></details>`).join('');
+  stage.innerHTML=`<div class="mascot-wrap"><div class="pop">${mascotSVG('normal')}</div></div><div class="bubble"><span class="icon">▥</span>おらマチ図鑑</div><div class="conquest-summary"><div class="conquest-summary-main">${got.length.toLocaleString('ja-JP')} / ${cities.length.toLocaleString('ja-JP')}マチ</div><div class="conquest-muted">あと${left.toLocaleString('ja-JP')}マチ</div></div><div class="conquest-hint">通常プレイで正解したマチが、1自治体ずつ加わります。</div>${sections||'<div class="conquest-muted">まだ図鑑に登録されたマチがありません</div>'}<button class="again" onclick="navigateToOpening()">トップ画面へ戻る</button>`;
+  scrollToPageTop(); updateDebugPanel();
+}
+function renderOramachiEncyclopediaCard(id){
+  const c=CITIES.find(x=>cityId(x)===id); if(!c) return renderOramachiEncyclopedia();
+  const e=loadConquest().entries?.[id]; if(!e) return renderOramachiEncyclopedia();
+  stage.innerHTML=`<div class="mascot-wrap"><div class="pop">${mascotSVG('normal')}</div></div><div class="bubble"><span class="icon">▥</span>${escapeHtml(displayName(c))}</div><div class="conquest-summary"><div class="conquest-summary-main">${escapeHtml(c.pref)} ${escapeHtml(displayName(c))}</div><div class="conquest-muted">正解 ${Number(e.count||1)}回 ・ 自己ベスト ${Number(e.minQuestions||0)}問</div></div><div class="fact">${escapeHtml(c.fact||'')}</div><button class="again" onclick="renderOramachiEncyclopedia()">図鑑へ戻る</button>`;
+  scrollToPageTop(); updateDebugPanel();
+}
 
 // ==================== 称号一覧ページ ====================
 const ACHIEVEMENT_CATEGORY_LABELS = {
@@ -24481,7 +24537,7 @@ function correct(isRight, overrideCity){
       ${achievementHtml}
       <div class="result-actions-primary">
         <button class="share-btn share-btn-image" id="shareImageBtn" onclick="shareResultImage()">📸 画像でシェア</button>
-        ${dailyChallengeActive ? '' : `<button class="again" onclick="restart()">もう一度あそぶ</button>`}
+        ${dailyChallengeActive ? '' : `<button class="again" onclick="restart()">もう一回！</button>`}
       </div>
       <div class="result-actions-secondary">
         <button class="share-btn-text" onclick="shareToX(currentResult.city, currentResult.questionCount)">
@@ -24515,6 +24571,7 @@ function correct(isRight, overrideCity){
       guess_attempts: guessAttempts + 1
     });
 
+    saveDetailedPlay('success', currentResult.city, totalQuestions);
     sendGameResult('success', currentResult.city);
     sendQuestionSkipsBatch(); // このゲーム中に「わからない」でスキップされた質問をまとめて送信
 
@@ -24572,7 +24629,7 @@ function renderGiveUp(){
     <div class="fact">現在のデータ範囲(${getModeCities(currentMode).length}自治体)では絞り込みきれませんでした。データが増えるともっと当たりやすくなります。</div>
     ${hint}
     ${renderCorrectionForm()}
-    ${dailyChallengeActive ? '' : `<button class="again" onclick="restart()">もう一度あそぶ</button>`}
+    ${dailyChallengeActive ? '' : `<button class="again" onclick="restart()">もう一回！</button>`}
     <div class="result-actions-secondary">
       <button class="link-btn" onclick="navigateToOpening()">別の地域版であそぶ</button>
       <button class="link-btn" onclick="renderConquestLog()">📖 全国制覇帳を見る</button>
@@ -24587,6 +24644,7 @@ function renderGiveUp(){
     guess_attempts: guessAttempts
   });
 
+  saveDetailedPlay('giveup', lastGuessCity, currentResult ? currentResult.questionCount : (questionCount + extraQuestionCount));
   sendGameResult('giveup', lastGuessCity);
   recordGameStats('giveup', lastGuessCity, currentResult ? currentResult.questionCount : (questionCount + extraQuestionCount));
   updateDebugPanel();
