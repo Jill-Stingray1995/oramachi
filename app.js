@@ -5649,6 +5649,13 @@ function searchChallengeCityCandidates(inputText){
 
 // 「おらマチからの挑戦状」を開始する。全国制覇帳・正答率など通常モードの統計には
 // 一切影響しない、完全に独立したゲーム状態(challengeGameState)で管理する。
+function renderChallengeInvitation(){
+  activeGameTransientScreen=null; stampsEl.innerHTML='';
+  const stats=loadChallengeStats();
+  stage.innerHTML=`<section class="challenge-screen challenge-invitation"><div class="challenge-letter-seal">お</div><span class="challenge-eyebrow">SPECIAL MODE</span><h1>おらマチからの挑戦状</h1><p class="challenge-letter-copy">おらっちが選んだ日本のどこかのマチ。<br>ヒントだけで見破れるかな？</p><div class="challenge-letter-record"><span>挑戦 ${Number(stats.totalPlays||0)}回</span><strong>おらっちに勝った！ ${Number(stats.totalCorrect||0)}回</strong><span>最高 ${Number(stats.bestScore||0)}点</span></div><button class="again" onclick="startChallengeMode()">挑戦状を開く</button><button class="link-btn" onclick="navigateToOpening()">今回はやめておく</button></section>`;
+  scrollToPageTop();
+}
+
 function startChallengeMode(){
   activeGameTransientScreen = null;
   const eligible = getChallengeEligibleCities();
@@ -5817,6 +5824,7 @@ function renderChallengeResult(success, score, hintsUsed){
         <span class="share-eyebrow">おらマチからの挑戦状</span>
         ${success ? happyCelebrationMascotHTML() : `<div class="mascot-wrap"><div class="pop">${mascotSVG('sad')}</div></div>`}
       </div>
+      ${success?'<div class="challenge-win-banner">おらっちに勝った！</div>':''}
       ${resultLine}
       <div class="result-name">${displayName(city)}</div>
       <div class="result-pref">${city.pref}</div>
@@ -6539,6 +6547,35 @@ function saveStats(data){
     console.warn('おらマチ: プレイ統計の保存に失敗しました(localStorageの容量不足などの可能性)', e);
     return false;
   }
+}
+
+// ==================== CP220: 詳細プレイ履歴 ====================
+const PLAY_HISTORY_STORAGE_KEY = 'oramachi_play_history_v1';
+const PLAY_HISTORY_LIMIT = 100;
+function loadPlayHistory(){
+  try{ const v=JSON.parse(localStorage.getItem(PLAY_HISTORY_STORAGE_KEY)||'[]'); return Array.isArray(v)?v.slice(0,PLAY_HISTORY_LIMIT):[]; }
+  catch(e){ return []; }
+}
+function saveDetailedPlay(result, city, totalQuestions){
+  try{
+    const rows=answerLog.map((r,i)=>({
+      n:i+1, key:String(r.key||''), question:String(QUESTIONS[r.key]?.text||r.key||''),
+      answer:r.val===null?'わからない':(r.val===true?((r.weight??1)<1?'たぶんはい':'はい'):((r.weight??1)<1?'たぶんいいえ':'いいえ')),
+      role:r.role||v330AuditRole(r.key)
+    }));
+    const item={id:`${Date.now()}-${Math.random().toString(36).slice(2,7)}`,at:new Date().toISOString(),result,
+      city:city?displayName(city):'',pref:city?.pref||'',mode:currentMode||'all',questions:Number(totalQuestions)||rows.length,
+      answers:rows, face:rows.filter(x=>x.role==='town_face').map(x=>x.question), surprise:rows.filter(x=>x.role==='surprise').map(x=>x.question)};
+    const data=[item,...loadPlayHistory()].slice(0,PLAY_HISTORY_LIMIT);
+    localStorage.setItem(PLAY_HISTORY_STORAGE_KEY,JSON.stringify(data));
+  }catch(e){ console.warn('おらマチ: 詳細プレイ履歴の保存に失敗しました',e); }
+}
+function renderPlayHistory(){
+  stampsEl.innerHTML='';
+  const data=loadPlayHistory();
+  const rows=data.map((g,idx)=>`<details class="conquest-details"><summary>${g.result==='success'?'○':'△'} ${escapeHtml(g.pref)} ${escapeHtml(g.city||'ギブアップ')} ・ ${g.questions}問 <small>${new Date(g.at).toLocaleString('ja-JP')}</small></summary><div class="conquest-city-list">${(g.answers||[]).map(a=>`<div class="conquest-city-row"><b>Q${a.n}</b> ${escapeHtml(a.question)} <span>→ ${escapeHtml(a.answer)}</span>${a.role==='town_face'?'<em>町の顔</em>':a.role==='surprise'?'<em>サプライズ</em>':''}</div>`).join('')||'<div class="conquest-muted">回答記録なし</div>'}</div></details>`).join('');
+  stage.innerHTML=`<div class="mascot-wrap"><div class="pop">${mascotSVG('normal')}</div></div><div class="bubble"><span class="icon">🧾</span>プレイ履歴</div><div class="conquest-hint">直近${PLAY_HISTORY_LIMIT}ゲームまで、この端末に質問順と回答を保存します。</div>${rows||'<div class="conquest-muted">まだプレイ履歴がありません</div>'}<button class="again" onclick="navigateToOpening()">トップ画面へ戻る</button>`;
+  scrollToPageTop();
 }
 
 // ==================== Android版: クリア評価とプレイヤーランク ====================
@@ -17622,8 +17659,8 @@ function syncNativePlayerRankHeader(rankSnapshot){
   // 古いDOMが残っていても確実に除去し、画面上部を第13回デザインへ統一する。
   document.getElementById('nativePlayerRankHeader')?.remove();
   document.getElementById('nativePlayerDisplayName')?.remove();
-  const playerRank = rankSnapshot || calculateNativePlayerRank(loadConquest());
-  return playerRank;
+  // CP220: 長期G〜Sプレイヤーランクは廃止。1プレイごとのS〜Eクリア評価だけを残す。
+  return null;
 }
 
 function renderNativeHomeContent(totalCount, resumeCardHtml){
@@ -17632,8 +17669,7 @@ function renderNativeHomeContent(totalCount, resumeCardHtml){
   const rankData = loadNativeRankData();
   const latestRank = rankData.results[0] || null;
   const bestRank = bestNativeRankResult(rankData);
-  const playerRank = calculateNativePlayerRank(conquest);
-  syncNativePlayerRankHeader(playerRank);
+  syncNativePlayerRankHeader(null);
   const conqueredIds = new Set(Object.keys(conquest.entries || {}));
   const conqueredCount = CITIES.filter(c => c.name !== '東京' && conqueredIds.has(cityId(c))).length;
   const homeProfile=currentSupabaseProfile||defaultNativeProfile();
@@ -18854,7 +18890,7 @@ function renderOpening(){
         <div class="web-v319-section-head"><span class="web-v319-title-icon" aria-hidden="true">⌁</span><h2>ほかの遊び方</h2></div>
         <div class="web-v319-way-row">
           <button onclick="startMode('capitals')"><i aria-hidden="true">◎</i><strong>入門版</strong><small>県庁所在地・東京23区</small><b>›</b></button>
-          <button onclick="startChallengeMode()"><i aria-hidden="true">?</i><strong>おらマチからの挑戦状</strong><small>ヒントから推理</small><b>›</b></button>
+          <button onclick="renderChallengeInvitation()"><i aria-hidden="true">?</i><strong>おらマチからの挑戦状</strong><small>ヒントから推理</small><b>›</b></button>
           <button onclick="document.getElementById('webRegionSection')?.scrollIntoView({behavior:'smooth',block:'start'})"><i aria-hidden="true">⌖</i><strong>地方から遊ぶ</strong><small>8地方から選択</small><b>›</b></button>
         </div>
       </section>
@@ -18871,6 +18907,8 @@ function renderOpening(){
         ${renderWebRecordSummaryHtml()}
         <div class="web-v319-subnav">
           <button onclick="renderConquestLog()">全国制覇帳</button>
+          <button onclick="renderOramachiEncyclopedia()">おらマチ図鑑</button>
+          <button onclick="renderPlayHistory()">プレイ履歴</button>
           <button onclick="renderAchievementsPage()">称号一覧</button>
           <button onclick="renderStatsPage()">みんなの統計</button>
         </div>
@@ -19571,6 +19609,8 @@ function renderConquestLog(){
     <div class="conquest-region-list">${regionListHtml || '<div class="conquest-muted">データがありません</div>'}</div>
 
     <div class="conquest-nav-row">
+      <button class="link-btn" onclick="renderOramachiEncyclopedia()">📚 おらマチ図鑑</button>
+      <button class="link-btn" onclick="renderPlayHistory()">🧾 プレイ履歴</button>
       <button class="link-btn" onclick="renderConquestMapView()">🗺️ 日本地図で見る</button>
       <button class="link-btn" onclick="renderPrefectureCards()">🗾 都道府県別進捗をカードで見る</button>
       <button class="link-btn" onclick="renderAchievementsPage()">🏅 称号一覧を見る</button>
@@ -19622,6 +19662,28 @@ function renderConquestLog(){
 
     <button class="again" onclick="navigateToOpening()">トップ画面へ戻る</button>
   `;
+  scrollToPageTop();
+}
+
+// ==================== CP220: おらマチ図鑑 ====================
+function renderOramachiEncyclopedia(){
+  stampsEl.innerHTML='';
+  const data=loadConquest();
+  const ids=new Set(Object.keys(data.entries||{}));
+  const cities=CITIES.filter(c=>c.name!=='東京');
+  const got=cities.filter(c=>ids.has(cityId(c)));
+  const left=Math.max(0,cities.length-got.length);
+  const cards=got.slice().sort((a,b)=>String(data.entries[cityId(b)]?.lastAt||'').localeCompare(String(data.entries[cityId(a)]?.lastAt||''))).map(c=>{
+    const e=data.entries[cityId(c)]||{};
+    return `<button class="oramachi-book-card" onclick="renderOramachiEncyclopediaCard('${cityId(c).replace(/'/g,"\\'")}')"><small>${escapeHtml(c.pref)}</small><strong>${escapeHtml(displayName(c))}</strong><span>最少 ${Number(e.minQuestions||0)}問 ・ ${Number(e.count||1)}回</span></button>`;
+  }).join('');
+  stage.innerHTML=`<section class="oramachi-book"><div class="bubble"><span class="icon">📚</span>おらマチ図鑑</div><div class="oramachi-book-progress"><strong>${got.length.toLocaleString('ja-JP')} / ${cities.length.toLocaleString('ja-JP')}</strong><span>あと${left.toLocaleString('ja-JP')}マチ</span></div><p>通常プレイで正解したマチが、1自治体ずつ図鑑に加わります。</p><div class="oramachi-book-grid">${cards||'<div class="conquest-muted">まだ図鑑に登録されたマチがありません</div>'}</div><button class="again" onclick="navigateToOpening()">トップ画面へ戻る</button></section>`;
+  scrollToPageTop();
+}
+function renderOramachiEncyclopediaCard(id){
+  const c=CITIES.find(x=>cityId(x)===id); if(!c)return renderOramachiEncyclopedia();
+  const e=loadConquest().entries[id]||{};
+  stage.innerHTML=`<section class="oramachi-book-detail"><button class="link-btn" onclick="renderOramachiEncyclopedia()">← 図鑑へ</button><small>${escapeHtml(c.pref)}</small><h1>${escapeHtml(displayName(c))}</h1><p>${escapeHtml(c.fact||'')}</p><div class="conquest-summary"><div class="conquest-summary-main">正解 ${Number(e.count||1)}回 ・ 自己ベスト ${Number(e.minQuestions||0)}問</div></div><button class="again" onclick="startMode('all')">全国版でもう一回！</button></section>`;
   scrollToPageTop();
 }
 
@@ -22097,7 +22159,33 @@ function r89AfterAnswer(key, val, weight){
   if(val === null) return 'question';
   // CP67: an earned genuine finisher is the final human confirmation. YES means the
   // hypothesis has been confirmed; do not stack a weaker legacy face/strike after it.
+  // CP219: constitutional Face -> distinct Surprise takes precedence over legacy
+  // CP67's immediate-guess behavior.  A face is not the final confirmation when its
+  // anchored town owns an available authored strike.
+  if(val===true && v330CurrentQuestionRole==='town_face'){
+    const cp219FaceStrike = v331ReservedSurpriseKey || v331PickConstitutionalSurpriseNow() || v180PickFinalSurpriseQuestion();
+    if(cp219FaceStrike && cp219FaceStrike!==key){
+      forcedGuessCity = null; forcedNextKey = cp219FaceStrike; v177FarewellHoldUsed = true;
+      v330LastRuntimePickRole='surprise'; r89LastSelectorPath='cp219-face-yes-to-distinct-surprise';
+      return 'question';
+    }
+  }
   if(wasCp67Finisher && val===true) return 'guess';
+  // CP219: a Town Face YES must not collapse straight into a guess merely because
+  // the posterior became unique.  The constitution requires a distinct-key Surprise
+  // Strike first when the anchored town owns one. applyAnswerCore() has already
+  // established the face anchor/reservation at this point.
+  if(forced && val===true && v330CurrentQuestionRole==='town_face'){
+    const cp219Strike = v331ReservedSurpriseKey || v331PickConstitutionalSurpriseNow() || v180PickFinalSurpriseQuestion();
+    if(cp219Strike && cp219Strike!==key){
+      forcedGuessCity = null;
+      forcedNextKey = cp219Strike;
+      v177FarewellHoldUsed = true;
+      v330LastRuntimePickRole = 'surprise';
+      r89LastSelectorPath = 'cp219-face-yes-to-distinct-surprise';
+      return 'question';
+    }
+  }
   if(forced) return 'guess';
   // The decisive timing point is immediately after the answer updates the posterior.
   // If that answer matures a genuine finisher, reserve it before shouldGuessNow() can end the game.
@@ -24255,9 +24343,7 @@ function correct(isRight, overrideCity){
     const prevTotalPlays = statsBefore.totalPlays;   // 「初プレイで正解」の判定用(0なら今回が1回目)
     // 自己ベスト比較のため、記録を更新する前の最少質問数を取っておく。
     const conquestBefore = loadConquest();
-    const nativePlayerRankBefore = isNativeAppRuntime()
-      ? calculateNativePlayerRank(conquestBefore)
-      : null;
+    const nativePlayerRankBefore = null;
     const previousConquestEntry = conquestBefore.entries[cityId(guess)];
     const prevBestQuestions = previousConquestEntry ? previousConquestEntry.minQuestions : null;
     const conquestResult = recordConquest(guess, totalQuestions, currentMode);
@@ -24291,10 +24377,7 @@ function correct(isRight, overrideCity){
           personalBest: conquestResult.status === 'newRecord',
         }))
       : null;
-    const nativePlayerRankAfter = isNativeAppRuntime()
-      ? calculateNativePlayerRank(loadConquest())
-      : null;
-    if(nativePlayerRankAfter) syncNativePlayerRankHeader(nativePlayerRankAfter);
+    const nativePlayerRankAfter = null;
     currentResult = {
       city: guess, success: true, questionCount: totalQuestions, mode: currentMode,
       barePoints, conquestResult, newAchievements, isNewRecord, nativeRankResult,
@@ -24455,7 +24538,7 @@ function correct(isRight, overrideCity){
       ${achievementHtml}
       <div class="result-actions-primary">
         <button class="share-btn share-btn-image" id="shareImageBtn" onclick="shareResultImage()">📸 画像でシェア</button>
-        ${dailyChallengeActive ? '' : `<button class="again" onclick="restart()">もう一度あそぶ</button>`}
+        ${dailyChallengeActive ? '' : `<button class="again" onclick="restart()">もう一回！</button>`}
       </div>
       <div class="result-actions-secondary">
         <button class="share-btn-text" onclick="shareToX(currentResult.city, currentResult.questionCount)">
@@ -24489,7 +24572,8 @@ function correct(isRight, overrideCity){
       guess_attempts: guessAttempts + 1
     });
 
-    sendGameResult('success', currentResult.city);
+    saveDetailedPlay('success', currentResult.city, totalQuestions);
+        sendGameResult('success', currentResult.city);
     sendQuestionSkipsBatch(); // このゲーム中に「わからない」でスキップされた質問をまとめて送信
 
     updateDebugPanel();
@@ -24546,7 +24630,7 @@ function renderGiveUp(){
     <div class="fact">現在のデータ範囲(${getModeCities(currentMode).length}自治体)では絞り込みきれませんでした。データが増えるともっと当たりやすくなります。</div>
     ${hint}
     ${renderCorrectionForm()}
-    ${dailyChallengeActive ? '' : `<button class="again" onclick="restart()">もう一度あそぶ</button>`}
+    ${dailyChallengeActive ? '' : `<button class="again" onclick="restart()">もう一回！</button>`}
     <div class="result-actions-secondary">
       <button class="link-btn" onclick="navigateToOpening()">別の地域版であそぶ</button>
       <button class="link-btn" onclick="renderConquestLog()">📖 全国制覇帳を見る</button>
@@ -24561,7 +24645,8 @@ function renderGiveUp(){
     guess_attempts: guessAttempts
   });
 
-  sendGameResult('giveup', lastGuessCity);
+  saveDetailedPlay('giveup', lastGuessCity, currentResult ? currentResult.questionCount : (questionCount + extraQuestionCount));
+    sendGameResult('giveup', lastGuessCity);
   recordGameStats('giveup', lastGuessCity, currentResult ? currentResult.questionCount : (questionCount + extraQuestionCount));
   updateDebugPanel();
 }
@@ -24574,7 +24659,7 @@ function restart(){
 // 訪問のたびに落とし直しており、起動が遅くなる最大の原因になっていた。
 // URLに中身のハッシュを付ければ、更新したときだけ新しいURLになるので、
 // 「常に最新」を保ったままブラウザのキャッシュを使える(2回目以降の起動が速くなる)。
-const CITIES_VERSION = 'd2873491f9';
+const CITIES_VERSION = 'add00aa8ce';
 
 
 // V330 Stage1 unified runtime audit --------------------------------------------------
