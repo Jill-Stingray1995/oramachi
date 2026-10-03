@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>アカウント削除 | おらマチ</title>
+<meta name="description" content="おらマチのアカウントと関連データをWebから削除するためのページです。">
+<link rel="canonical" href="https://oramachi-jp.com/account-deletion.html">
+<meta name="robots" content="index,follow">
+<link rel="stylesheet" href="style.css?v=bf853fb768">
+<link rel="manifest" href="manifest.json?v=353a46aa49">
+<meta name="theme-color" content="#263A5C">
+<link rel="icon" href="favicon.ico?v=3aa48721b4" sizes="any">
+<style>
+  .account-delete-form{display:grid;gap:14px;max-width:560px;margin:20px auto 0}
+  .account-delete-form label{display:grid;gap:6px;font-weight:700}
+  .account-delete-form input{box-sizing:border-box;width:100%;padding:12px;border:1px solid #9aa5b5;border-radius:10px;font:inherit;background:#fff;color:#17243a}
+  .account-delete-actions{display:flex;flex-wrap:wrap;gap:10px}
+  .account-delete-actions button{min-height:44px;padding:10px 18px;border:0;border-radius:10px;font:inherit;font-weight:700;cursor:pointer}
+  #loginButton{background:#263a5c;color:#fff}
+  #deleteButton{background:#a52b1f;color:#fff}
+  #deleteButton:disabled,.account-delete-actions button:disabled{opacity:.55;cursor:not-allowed}
+  #accountDeleteStatus{min-height:1.5em;font-weight:700}
+  .account-delete-danger{border-left:4px solid #a52b1f;padding-left:14px}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="brand">
+    <div class="eyebrow">JAPAN MUNICIPALITY QUIZ</div>
+    <a class="logo-wrap" href="./" aria-label="トップページに戻る">
+      <svg class="logo-mark" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="20" cy="20" r="19" fill="#263A5C"/>
+        <path d="M20 8 C13 8 8 13.5 8 20 C8 27 20 34 20 34 C20 34 32 27 32 20 C32 13.5 27 8 20 8 Z" fill="#F7F1E3"/>
+        <circle cx="20" cy="19" r="6.2" fill="#C1432E"/>
+      </svg>
+      <div class="logo-text"><span class="ora">おら</span><span class="machi">マチ</span></div>
+    </a>
+    <p class="tagline">アカウント削除</p>
+  </div>
+
+  <div class="card">
+    <main class="page-article">
+      <h1>おらマチ アカウント削除</h1>
+      <p>アプリを再インストールしなくても、このページからおらマチのアカウントと関連データを削除できます。</p>
+
+      <h2>削除されるデータ</h2>
+      <ul>
+        <li>ログイン用アカウント（メールアドレス・ユーザーIDを含む認証情報）</li>
+        <li>ユーザー名、プロフィール文、出身、好きな市町村、アイコン、プロフィール画像</li>
+        <li>クラウドに保存したゲーム進行記録</li>
+        <li>アカウントに紐づくオンライン対戦・レーティング・デイリーチャレンジ等の記録</li>
+      </ul>
+      <p class="account-delete-danger"><strong>削除は取り消せません。</strong>端末内だけに保存されているゲスト用記録は、この操作では削除されません。</p>
+
+      <h2>保持する場合がある情報</h2>
+      <p>他の利用者の戦績やレーティングの整合性、不正利用の防止、法令上の義務への対応のため、過去の対戦集計や質問報告等を、本人を直接識別できない状態にして保持する場合があります。</p>
+
+      <h2>削除方法と本人確認</h2>
+      <p>登録済みのメールアドレスとパスワードでログインすることで本人確認を行います。ログイン後、確認欄へ「削除」と入力して実行してください。別の個人情報を入力する必要はありません。</p>
+
+      <form id="accountDeleteForm" class="account-delete-form" novalidate>
+        <label>メールアドレス
+          <input id="deleteEmail" type="email" autocomplete="email" required>
+        </label>
+        <label>パスワード
+          <input id="deletePassword" type="password" autocomplete="current-password" required>
+        </label>
+        <div class="account-delete-actions">
+          <button id="loginButton" type="button">本人確認してログイン</button>
+        </div>
+        <label>確認のため「削除」と入力
+          <input id="deleteConfirmation" type="text" autocomplete="off" maxlength="2" disabled>
+        </label>
+        <div class="account-delete-actions">
+          <button id="deleteButton" type="submit" disabled>アカウントを完全に削除</button>
+        </div>
+        <p id="accountDeleteStatus" role="status" aria-live="polite"></p>
+      </form>
+
+      <p>パスワードを忘れた場合は、アプリのログイン画面からパスワード再設定を行ってください。詳細は<a class="x-link" href="./privacy.html#account-deletion">プライバシーポリシー</a>をご確認ください。</p>
+      <a class="back-link" href="./">← ゲームに戻る</a>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <nav class="footer-nav" aria-label="サイト内ナビゲーション">
+      <a href="./">トップ</a>
+      <a href="./privacy.html">プライバシーポリシー</a>
+      <a href="./faq.html#report">お問い合わせ</a>
+    </nav>
+    <p class="footer-copyright">© 2026 おらマチ</p>
+  </footer>
+</div>
+<script defer src="supabase-client-vendor.js"></script>
+<script defer src="supabase-config.js"></script>
+<script defer src="pwa.js?v=227b41843b"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  'use strict';
+  const client = window.oramachiSupabase;
+  const email = document.getElementById('deleteEmail');
+  const password = document.getElementById('deletePassword');
+  const confirmation = document.getElementById('deleteConfirmation');
+  const loginButton = document.getElementById('loginButton');
+  const deleteButton = document.getElementById('deleteButton');
+  const form = document.getElementById('accountDeleteForm');
+  const status = document.getElementById('accountDeleteStatus');
+  let verifiedUserId = null;
+
+  const setStatus = (message, isError = false) => {
+    status.textContent = message;
+    status.style.color = isError ? '#a52b1f' : '#263a5c';
+  };
+  if (!client) {
+    setStatus('削除機能を読み込めませんでした。時間をおいて再読み込みしてください。', true);
+    loginButton.disabled = true;
+    return;
+  }
+
+  confirmation.addEventListener('input', () => {
+    deleteButton.disabled = !verifiedUserId || confirmation.value.trim() !== '削除';
+  });
+
+  loginButton.addEventListener('click', async () => {
+    const emailValue = email.value.trim();
+    if (!emailValue || !password.value) {
+      setStatus('メールアドレスとパスワードを入力してください。', true);
+      return;
+    }
+    loginButton.disabled = true;
+    setStatus('本人確認中です…');
+    const { data, error } = await client.auth.signInWithPassword({ email: emailValue, password: password.value });
+    password.value = '';
+    if (error || !data.user) {
+      verifiedUserId = null;
+      loginButton.disabled = false;
+      setStatus('ログインできませんでした。入力内容をご確認ください。', true);
+      return;
+    }
+    verifiedUserId = data.user.id;
+    email.disabled = true;
+    password.disabled = true;
+    confirmation.disabled = false;
+    confirmation.focus();
+    setStatus('本人確認が完了しました。「削除」と入力すると削除できます。');
+  });
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!verifiedUserId || confirmation.value.trim() !== '削除') return;
+    deleteButton.disabled = true;
+    confirmation.disabled = true;
+    setStatus('アカウントを削除しています…');
+    const { error } = await client.functions.invoke('delete-account', { body: { confirmation: '削除' } });
+    if (error) {
+      confirmation.disabled = false;
+      deleteButton.disabled = false;
+      setStatus('削除できませんでした。通信状況を確認して、もう一度お試しください。', true);
+      return;
+    }
+    await client.auth.signOut({ scope: 'local' });
+    verifiedUserId = null;
+    form.reset();
+    email.disabled = true;
+    password.disabled = true;
+    loginButton.disabled = true;
+    setStatus('アカウントを削除しました。');
+  });
+});
+</script>
+</body>
+</html>

@@ -8,7 +8,7 @@
  * - CACHE_VERSION と ?v= は bump-version.js が公開前に同期します。
  */
 const CACHE_PREFIX = 'oramachi-app-';
-const CACHE_VERSION = '71888eb7cbca';
+const CACHE_VERSION = 'fa3fb34fa3cc';
 const CACHE_NAME = CACHE_PREFIX + CACHE_VERSION;
 
 // build-release.js がこの配列を読み、公開許可リストとの整合を検査します。
@@ -24,10 +24,10 @@ const PRECACHE_URLS = Object.freeze([
   "/privacy.html",
   "/updates.html",
   "/offline.html",
-  "/app.js?v=eac7e0214f",
-  "/style.css?v=aa6e793924",
+  "/app.js?v=b982198558",
+  "/style.css?v=bf853fb768",
   "/japan-map-data.js?v=361d072efc",
-  "/cities.json?v=77e59484dd",
+  "/cities.json?v=d2873491f9",
   "/pwa.js?v=227b41843b",
   "/manifest.json?v=353a46aa49",
   "/favicon.ico?v=3aa48721b4",
@@ -36,11 +36,12 @@ const PRECACHE_URLS = Object.freeze([
   "/favicon-48.png?v=eb7d4632a4",
   "/favicon-180.png?v=6b36845ab5",
   "/favicon-192.png?v=f16b7e9553",
-  "/mascot-normal.png?v=f52e4bfff8",
-  "/mascot-think.png?v=f52e4bfff8",
-  "/mascot-happy.png?v=f52e4bfff8",
-  "/mascot-sad.png?v=f52e4bfff8",
-  "/mascot-wink.png?v=f52e4bfff8",
+  "/mascot-normal.png?v=b03c6d253c",
+  "/mascot-think.png?v=b03c6d253c",
+  "/mascot-happy.png?v=b03c6d253c",
+  "/mascot-sad.png?v=b03c6d253c",
+  "/mascot-wink.png?v=b03c6d253c",
+  "/oramachi-official-logo.png",
   "/pwa-icons/apple-touch-icon.png?v=3a540b02a7",
   "/pwa-icons/icon-192.png?v=a74c0e4875",
   "/pwa-icons/icon-512.png?v=1211f192de",

@@ -31,7 +31,7 @@
 <meta name="twitter:image" content="https://oramachi-jp.com/ogp.png?v=82d5ebe5bd">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=87879b9219">
+<link rel="stylesheet" href="style.css?v=bf853fb768">
 <link rel="manifest" href="manifest.json?v=353a46aa49">
 <meta name="theme-color" content="#263A5C">
 <link rel="icon" href="favicon.ico?v=3aa48721b4" sizes="any">
@@ -40,26 +40,20 @@
 <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png?v=f16b7e9553">
 <link rel="apple-touch-icon" href="pwa-icons/apple-touch-icon.png?v=3a540b02a7">
 </head>
-<body>
+<body class="info-page">
 <div class="app">
-  <div class="brand">
-    <div class="eyebrow">JAPAN MUNICIPALITY QUIZ</div>
-    <a class="logo-wrap" href="./" aria-label="トップページに戻る">
-      <svg class="logo-mark" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="20" cy="20" r="19" fill="#263A5C"/>
-        <path d="M20 8 C13 8 8 13.5 8 20 C8 27 20 34 20 34 C20 34 32 27 32 20 C32 13.5 27 8 20 8 Z" fill="#F7F1E3"/>
-        <circle cx="20" cy="19" r="6.2" fill="#C1432E"/>
-      </svg>
-      <div class="logo-text"><span class="ora">おら</span><span class="machi">マチ</span></div>
-    </a>
-    <p class="tagline">プライバシーポリシー</p>
-  </div>
+  <header class="info-header">
+    <a class="info-back" href="./" aria-label="ゲームに戻る">‹</a>
+    <a class="info-logo" href="./" aria-label="おらマチ トップページに戻る"><img src="oramachi-official-logo.png" alt="おらマチ まちをあてる地理ゲーム"></a>
+    <span class="info-header-spacer" aria-hidden="true"></span>
+    <p>プライバシーポリシー</p>
+  </header>
 
   <div class="card">
     <main class="page-article">
       <h1>プライバシーポリシー</h1>
       <h2>取得する情報について</h2>
-      <p>「おらマチ」は、氏名やメールアドレスなどの個人情報を登録・収集する仕組みを持っていません。ゲームの進行状況(質問への回答など)は、すべてお使いの端末のブラウザ内だけで処理されます。</p>
+      <p>「おらマチ」は、会員登録をせずゲストとして遊ぶこともできます。会員機能を利用する場合は、認証・プロフィール・オンライン対戦・ランキング等の提供に必要な情報を取り扱います。氏名、住所、電話番号、決済情報は入力を求めません。</p>
 
       <h2>ブラウザに保存される情報(localStorage)</h2>
       <p>次の情報は、外部へ送信されることなく、お使いの端末のブラウザ内(<code>localStorage</code>)だけに保存されます。他のサイトやサーバーから読み取られることはありません。</p>
@@ -107,6 +101,16 @@
 
       <h2>フォントの読み込みについて</h2>
       <p>デザイン上の理由から、Google Fonts(Googleが提供するWebフォント配信サービス)を利用しています。フォントの読み込み時にGoogleのサーバーへアクセスが発生する場合があります。詳細はGoogleのプライバシーポリシーをご確認ください。なお、結果を画像として保存・共有する機能は、この画像をお使いの端末上だけで作成しており、外部のサーバーへ画像やデータを送信することはありません。</p>
+
+      <h2>会員・オンライン機能で取り扱う情報</h2>
+      <p>会員登録・ログインのため、メールアドレス、暗号化された認証情報、ユーザーID、規約・プライバシーポリシーへの同意日時とバージョンをSupabaseで取り扱います。パスワードの平文を運営者が取得・保存することはありません。</p>
+      <p>会員が入力・設定したユーザー名、プロフィール文、出身、好きな市町村、選択したアイコン、プロフィール画像を保存します。プロフィール画像、ユーザー名、プロフィール文、出身、好きな市町村、および対戦・ランキングに必要な情報は、他の利用者に表示される場合があります。</p>
+      <p>クラウド保存したゲーム進行、オンライン対戦の参加・進行・結果、デイリーチャレンジの挑戦結果、戦績、現在・最高レート、ランクおよびランキング情報を保存します。また、安全な運営とデータ訂正のため、通報者・対象者・理由・入力された詳細・日時、質問・自治体データの問題報告、管理者による対応履歴を保存します。</p>
+      <p>これらの情報は、認証、データ同期、ゲーム機能、対戦・ランキング、ユーザーサポート、不正防止、通報対応およびサービス改善のために使用します。通信にはHTTPSを使用します。Supabaseは、運営者の指示に基づきデータを処理するサービス提供者として利用しています。</p>
+
+      <h2 id="account-deletion">アカウントとデータの削除</h2>
+      <p>アプリ内のアカウント設定、または<a class="x-link" href="https://oramachi-jp.com/account-deletion.html" target="_blank" rel="noopener noreferrer">Webのアカウント削除ページ</a>から、ログインによる本人確認後に削除できます。削除すると、認証アカウント、プロフィール、プロフィール画像、クラウド進行記録、およびアカウントに紐づく対戦・デイリー記録等が削除されます。</p>
+      <p>他の利用者の戦績やレーティングの整合性、不正利用の防止、法令上の義務への対応のため、過去の対戦集計や質問報告等を、本人を直接識別できない状態にして保持する場合があります。匿名化後の情報から元のアカウントを復元することはできません。</p>
 
       <h2>お問い合わせ</h2>
       <p>本ポリシーに関するご質問は、ゲーム内の「おらっちに教える」フォーム、または運営のX(Twitter)アカウント<a class="x-link" href="https://x.com/citypf10days" target="_blank" rel="noopener noreferrer">@citypf10days</a>までご連絡ください。</p>
