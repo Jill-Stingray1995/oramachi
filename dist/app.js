@@ -14223,6 +14223,53 @@ const TAG_GAME_CATEGORY = {
 };
 function categoryOf(k){ return TAG_GAME_CATEGORY[k] || "その他"; }
 
+
+// CP228: Human Narrative / Implicit Geography.
+// A game should feel like a person forming a hypothesis, not a questionnaire reading address fields.
+// Route intent is deliberately SOFT: it can only separate already-good questions; it never resurrects
+// a weak question from outside the entropy/minimax shortlist. This protects convergence while allowing
+// several coherent ways into the same municipality.
+const CP228_ROUTE_FAMILIES = Object.freeze(['life','transport','nature','culture']);
+let cp228RouteIntent = null;
+function cp228ResetRouteIntent(){ cp228RouteIntent = null; }
+function cp228EnsureRouteIntent(){
+  if(!cp228RouteIntent) cp228RouteIntent = CP228_ROUTE_FAMILIES[Math.floor(Math.random()*CP228_ROUTE_FAMILIES.length)];
+  return cp228RouteIntent;
+}
+function cp228HumanFamily(k){
+  const cat=categoryOf(k);
+  if(cat==='交通') return 'transport';
+  if(['生活・商業','買い物・外食','食','産業','施設'].includes(cat) || v330IsLocalChainQuestion(k)) return 'life';
+  if(['自然','自然・地理','地理'].includes(cat)) return 'nature';
+  if(['文化','文化・観光','歴史・文化','祭り・文化','観光','観光・娯楽','スポーツ','学問','遊び心'].includes(cat)) return 'culture';
+  if(cp227IsAddressRoutingKey(k)||STATS_QUESTION_KEYS.has(k)||['人口・行政','統計','行政・公共'].includes(cat)) return 'machine';
+  return 'other';
+}
+function cp228HumanNarrativeAdjustment(k,truePoolSize){
+  if(questionPhase==='extra') return 0;
+  const fam=cp228HumanFamily(k), intent=cp228EnsureRouteIntent();
+  let adj=0;
+  // Q1-Q5: let ordinary life/transport/nature/culture carry geography implicitly.
+  if(questionCount<5){
+    if(fam===intent) adj-=1.15;
+    else if(['life','transport','nature','culture'].includes(fam)) adj-=0.35;
+    if(fam==='machine') adj+=1.35;
+  }else if(questionCount<9 && fam===intent){
+    // Keep a faint narrative thread into the bridge phase; do not overpower convergence.
+    adj-=0.45;
+  }
+  // A human changes angle after hearing two similar kinds of clues.
+  const recent=lastDisplayedKeys(3).map(cp228HumanFamily);
+  const repeats=recent.filter(f=>f===fam).length;
+  if(repeats>=2) adj+=1.0;
+  else if(repeats===1 && fam!=='machine') adj+=0.2;
+  // Explicit address is a fallback/confirmation tool, never the main personality of the opening.
+  if(questionCount<5 && cp227IsAddressRoutingKey(k)) adj+=0.9;
+  // As the live pool becomes small, stop styling and let Face -> Surprise own the ending.
+  if(truePoolSize<=15) adj*=0.25;
+  return adj;
+}
+
 // 遊び心系だけは特別扱い: 候補が絞れてきた終盤の「決め手」として使いたいので、
 // ジャンルバランスとは別に、序盤は出にくく・終盤(候補少数)は優先させる。
 const HIGH_PRIORITY_KEYS = new Set([
@@ -16580,6 +16627,9 @@ function entropyPick(){
   // 【統計質問の重複防止】(1)人口の範囲から答えが確定している質問 (2)面積/人口密度の反対概念
   // (3)面積の直後の人口密度(またはその逆)は、そもそも候補から外す。
   unused = unused.filter(k => !isPopQuestionRedundant(k) && !isOppositeStatsAlreadyAsked(k) && !isAreaDensityBackToBack(k));
+  // CP227: hard conversation-level logic before scoring.  A question whose answer is already
+  // implied by previous objective answers must never compete on entropy/minimax at all.
+  unused = unused.filter(k => cp227ConversationQuestionLive(k).ok && !cp227EarlyAddressRoutingBlocked(k));
 
   // 【capitalsモード専用】県庁所在地・東京23区限定モードでは、都道府県を直接特定する質問
   // (pref_*、例えば「佐賀県にありますか?」)や、ほぼ無意味な質問(CAPITALS_EXCLUDED_KEYS)を
@@ -16803,8 +16853,9 @@ function entropyPick(){
     // 1 bitに近い質問ほどselectionScoreを最大12点改善する。
     const funBonus = v154FunBonus(k, nowPhase, truePoolSize);
     const mediumBridgeBonus = v241MediumBridgeScoreBonus(k, topCities, posteriorMasses, truePoolSize);
-    const selectionScore = minimax + expectedRemaining * 0.05 - informationGain * 12 - funBonus - mediumBridgeBonus;
-    return { k, minimax, expectedRemaining, informationGain, funBonus, mediumBridgeBonus, selectionScore };
+    const humanNarrativeAdjustment = cp228HumanNarrativeAdjustment(k, truePoolSize);
+    const selectionScore = minimax + expectedRemaining * 0.05 - informationGain * 12 - funBonus - mediumBridgeBonus + humanNarrativeAdjustment;
+    return { k, minimax, expectedRemaining, informationGain, funBonus, mediumBridgeBonus, humanNarrativeAdjustment, selectionScore };
   });
 
   scored.sort((a, b) => a.selectionScore - b.selectionScore || a.minimax - b.minimax);
@@ -16818,7 +16869,7 @@ function entropyPick(){
   // 実測では序盤(1-4問目)の3割が1択で、「海に面している?」が9割のゲームで出ていた。
   // そこで、序盤は「上位から最低でもこれだけは選択肢に入れる」下限も設ける。
   // 精度への影響を抑えるため、下限で拾うのは上位のものだけ(scoredは昇順=良い順)。
-  const poolMargin = truePoolSize > 150 ? 6 : (truePoolSize > 40 ? 3 : 1);
+  const poolMargin = truePoolSize > 150 ? 3.0 : (truePoolSize > 40 ? 2.0 : 1.0);
   let pool = scored.filter(s => s.selectionScore <= best + poolMargin).map(s => s.k);
   const minChoices = minChoicesFor(questionCount);
   if(pool.length < minChoices){
@@ -16826,16 +16877,23 @@ function entropyPick(){
     // 出していたら足さない。ここで足すと「関東?」「中部?」…と地名が連続してしまい、
     // せっかくの総当たり防止(areaQuestionAskedRecently)が骨抜きになるため。
     const areaBlocked = areaQuestionAskedRecently();
+    // CP228 quality floor: diversity may choose among near-equal good balls, but must never
+    // manufacture choices by pulling a much weaker ball into the opening (the CP226 39Q failure).
+    const diversityQualityCeiling = best + (truePoolSize > 150 ? 4.0 : (truePoolSize > 40 ? 2.5 : 1.25));
     const fill = scored.filter(s =>
+      s.selectionScore <= diversityQualityCeiling &&
       !(areaBlocked && (REGION_QUESTION_KEYS.has(s.k) || WIDE_AREA_BOOST_KEYS.has(s.k)))
     ).map(s => s.k);
-    pool = fill.slice(0, Math.min(minChoices, fill.length));
+    if(fill.length > pool.length) pool = fill.slice(0, Math.min(minChoices, fill.length));
+    // Fewer good alternatives is acceptable. A repeated strong route is preferable to a novel bad route.
     if(pool.length === 0) pool = scored.slice(0, 1).map(s => s.k); // 安全装置
   }
   // V162: 2〜5問目は、直近2ゲームと同じ序盤質問を可能な範囲で避ける。
   // ここで扱うpoolは既に情報利得・minimax・段階・カテゴリ制御を通過した上位候補だけ。
   pool = v162FreshenEarlyPool(pool);
-  pool = cp226DiversifyForLeadCity(pool, topCities, posteriorMasses);
+  // CP227: CP226 lead-city diversity could force a weaker route (observed 39-question miss).
+  // Keep route history for audit, but never filter the live quality pool by target-route novelty.
+  // pool = cp226DiversifyForLeadCity(pool, topCities, posteriorMasses);
   // V163: 同一ゲーム内でも、良質な代替候補がある限り直前と同カテゴリを連打しない。
   pool = v163FreshenCategoryRhythm(pool);
   // V240: 新しく増やした中規模球を、上位pool内だけで「広域→町の顔」の橋として優先。
@@ -19854,6 +19912,7 @@ function replayAnswersWithChange(changeIndex, newVal, newWeight){
   forcedGuessCity = null;
   askedCategoryCounts = {};
   askedStatsCount = 0;
+  cp228ResetRouteIntent();
   currentResult = null;
   lastGuessCity = null;
   stableTopStreak = 0;
@@ -20411,6 +20470,7 @@ function startMode(mode, startOptions){
   forcedGuessCity = null;
   askedCategoryCounts = {};
   askedStatsCount = 0;
+  cp228ResetRouteIntent();
   currentResult = null;
   lastGuessCity = null;
   stableTopStreak = 0;
@@ -21065,7 +21125,7 @@ function v336PickMediumBridge(){
   if(last && (last.role==='town_face'||last.role==='surprise')) return null;
   let best=null,bestWorst=Infinity,bestDiff=Infinity;
   for(const k of activeKeysForMode(currentMode)){
-    if(r89Shown(k)||!QUESTIONS[k]||isSubjectiveQuestion(k)||isPrefQuestion(k)||REGION_QUESTION_KEYS.has(k)) continue;
+    if(r89Shown(k)||!QUESTIONS[k]||isSubjectiveQuestion(k)||isPrefQuestion(k)||REGION_QUESTION_KEYS.has(k)||!cp227ConversationQuestionLive(k).ok) continue;
     if(v330IsTownFaceCandidate(k)||v330IsDedicatedSurpriseStrike(k)||!v330LocalChainContextAllowed(k,info.cities)) continue;
     let yes=0; for(const c of info.cities) if(c.tags[k]===true) yes++;
     const no=info.cities.length-yes; if(!yes||!no) continue;
@@ -21453,7 +21513,7 @@ function cp48HumanHypothesisBridge(){
   const vividCats=new Set(['観光・娯楽','歴史・文化','食','産業','自然','文化','文化・観光','観光','祭り・文化','自然・地理','スポーツ','交通']);
   const rows=[]; let bestGain=0;
   for(const k of activeKeysForMode(currentMode)){
-    if(r89Shown(k)||!QUESTIONS[k]||isSubjectiveQuestion(k)||cp45IsAddressQuestion(k)) continue;
+    if(r89Shown(k)||!QUESTIONS[k]||isSubjectiveQuestion(k)||cp45IsAddressQuestion(k)||!cp227ConversationQuestionLive(k).ok) continue;
     if(r89IsLaneOnlyKey(k)||v330IsTownFaceCandidate(k)||v330IsDedicatedSurpriseStrike(k)||!r90NamePlayAllowedNow(k)||!v330LocalChainContextAllowed(k,evidenceCities)) continue;
     let yes=0; for(const c of evidenceCities) if(c.tags[k]===true) yes++;
     const ratio=yes/evidenceCities.length;
@@ -21512,7 +21572,7 @@ function r90InsightAcceleratorPick(){
   const recentCats=new Set(answerLog.slice(-3).filter(a=>a&&a.role==='general').map(a=>categoryOf(a.key)));
   const rows=[]; let bestGain=0;
   for(const k of activeKeysForMode(currentMode)){
-    if(r89Shown(k)||!QUESTIONS[k]||isSubjectiveQuestion(k)||isPrefQuestion(k)||REGION_QUESTION_KEYS.has(k)) continue;
+    if(r89Shown(k)||!QUESTIONS[k]||isSubjectiveQuestion(k)||isPrefQuestion(k)||REGION_QUESTION_KEYS.has(k)||!cp227ConversationQuestionLive(k).ok) continue;
     if(!r90NamePlayAllowedNow(k)) continue;
     if(r89IsLaneOnlyKey(k)||v330IsTownFaceCandidate(k)||v330IsDedicatedSurpriseStrike(k)||!v330LocalChainContextAllowed(k,info.cities)) continue;
     let yes=0; for(const c of info.cities) if(c.tags[k]===true) yes++;
@@ -21560,7 +21620,7 @@ function r90HumanBridgePick(){
   const rows=[];
   let bestGain=0;
   for(const k of activeKeysForMode(currentMode)){
-    if(r89Shown(k)||!QUESTIONS[k]||isSubjectiveQuestion(k)||isPrefQuestion(k)||REGION_QUESTION_KEYS.has(k)) continue;
+    if(r89Shown(k)||!QUESTIONS[k]||isSubjectiveQuestion(k)||isPrefQuestion(k)||REGION_QUESTION_KEYS.has(k)||!cp227ConversationQuestionLive(k).ok) continue;
     if(!r90NamePlayAllowedNow(k)) continue;
     if(r89IsLaneOnlyKey(k)||v330IsTownFaceCandidate(k)||v330IsDedicatedSurpriseStrike(k)||!v330LocalChainContextAllowed(k,info.cities)) continue;
     let yes=0; for(const c of info.cities) if(c.tags[k]===true) yes++;
@@ -21628,6 +21688,7 @@ function v339PickPreFaceScaleGuard(){
   let best=null,bestWorst=Infinity;
   for(const k of keys){
     if(r89Shown(k)||!QUESTIONS[k]||a.tags[k]===b.tags[k]) continue;
+    if(!cp227ConversationQuestionLive(k).ok || cp227EarlyAddressRoutingBlocked(k)) continue;
     let yes=0;for(const c of info.cities)if(c.tags[k]===true)yes++;
     const no=info.cities.length-yes;if(!yes||!no)continue;
     const worst=Math.max(yes,no);
@@ -21660,6 +21721,60 @@ function cp44ParentConfidenceGate(key,live){
  // Parent must be one of the two leading prefectural hypotheses and have meaningful live mass.
  return (rank===1&&share>=0.95)?{ok:true,reason:'parent-implicit-strong',parent,share,rank}:{ok:false,reason:'parent-not-established',parent,share,rank};
 }
+// CP227: Conversation Logic Graph — questions are not independent cards.
+// Reconstruct the set of municipalities that can still satisfy every FULL-CONFIDENCE,
+// OBJECTIVE answer already given.  If a prospective ordinary question has the same truth
+// value for every such municipality, its answer is already implied by the conversation and
+// asking it would be contradictory/redundant (e.g. population <50k = YES -> designated city?).
+// Partial/unknown/subjective answers are deliberately excluded so this hard gate never turns
+// a soft impression into a logical fact.
+let cp227ConversationLogicRejected=0;
+function cp227ObjectiveAnswerFacts(){
+  return answerLog.filter(a => a && (a.val===true || a.val===false) && QUESTIONS[a.key] && !isSubjectiveQuestion(a.key));
+}
+function cp227ConversationWorlds(){
+  const facts=cp227ObjectiveAnswerFacts();
+  if(!facts.length) return getModeCities(currentMode).filter(c=>c&&c.name!=='東京');
+  const worlds=getModeCities(currentMode).filter(c=>{
+    if(!c||c.name==='東京'||!c.tags) return false;
+    for(const a of facts){
+      const tag=c.tags[a.key];
+      if(typeof tag!=='boolean') continue; // unknown data cannot establish a hard contradiction
+      if(tag!==a.val) return false;
+    }
+    return true;
+  });
+  return worlds;
+}
+function cp227ConversationQuestionLive(key){
+  if(!key||!QUESTIONS[key]) return {ok:false,reason:'missing'};
+  if(isSubjectiveQuestion(key)) return {ok:true,reason:'subjective-soft'};
+  const worlds=cp227ConversationWorlds();
+  // If the user's full answers are themselves inconsistent, fall back to posterior logic;
+  // do not dead-lock the game by pretending an impossible world is certain.
+  if(worlds.length<2) return {ok:true,reason:'insufficient-consistent-worlds',worlds:worlds.length};
+  let yes=0,no=0,known=0;
+  for(const c of worlds){
+    const v=c.tags&&c.tags[key];
+    if(typeof v!=='boolean') continue;
+    known++;
+    if(v) yes++; else no++;
+  }
+  if(known<2) return {ok:true,reason:'insufficient-known-worlds',worlds:worlds.length,known};
+  if(yes===0) return {ok:false,reason:'conversation-implies-no',worlds:worlds.length,known};
+  if(no===0) return {ok:false,reason:'conversation-implies-yes',worlds:worlds.length,known};
+  return {ok:true,reason:'conversation-live',worlds:worlds.length,known,yes,no};
+}
+function cp227IsAddressRoutingKey(k){
+  return !!k && (isPrefQuestion(k)||REGION_QUESTION_KEYS.has(k)||WIDE_AREA_BOOST_KEYS.has(k)||!!CP44_SUBREGION_PARENT_PREF[k]);
+}
+function cp227EarlyAddressRoutingBlocked(k){
+  if(questionPhase==='extra'||questionCount>=5||!cp227IsAddressRoutingKey(k)) return false;
+  // In Q1-Q5, one explicit address-routing ball is enough.  The remaining opening must reason
+  // through transport/nature/industry/culture/etc., not continue a region-name checklist.
+  return lastDisplayedKeys(5).some(cp227IsAddressRoutingKey);
+}
+
 function cp42ExactLiveCities(){
   const sorted=sortedPool().filter(e=>e&&e.city&&!excludedNames.has(e.city.name));
   if(!sorted.length) return [];
@@ -21671,6 +21786,9 @@ function cp42ExactLiveCities(){
 function cp42ContradictionGate(key, role){
   if(!key || !QUESTIONS[key]) return {ok:false,reason:'missing'};
   if(role==='town_face'||role==='surprise'||r89IsLaneOnlyKey(key)) return {ok:true,reason:'constitutional-experience'};
+  if(cp227EarlyAddressRoutingBlocked(key)){cp227ConversationLogicRejected++;return {ok:false,reason:'early-address-routing-repeat'};}
+  const conversationGate=cp227ConversationQuestionLive(key);
+  if(!conversationGate.ok){cp227ConversationLogicRejected++;return {ok:false,reason:conversationGate.reason,conversation:conversationGate};}
   let live=cp42ExactLiveCities();
   // CP206: once production's weighted live pool is small, Contradiction Gate must use that
   // actual live set. This blocks 0%/100% dry questions that the broader relevance-margin
@@ -21704,7 +21822,7 @@ function cp45ImplicitGeoReplacement(blockedKey,live){
   let bestGain=0, rows=[];
   const vividCats=new Set(['観光・娯楽','歴史・文化','食','産業','自然','文化','文化・観光','観光','祭り・文化','自然・地理','スポーツ','交通']);
   for(const k of activeKeysForMode(currentMode)){
-    if(r89Shown(k)||!QUESTIONS[k]||isSubjectiveQuestion(k)||cp45IsAddressQuestion(k)) continue;
+    if(r89Shown(k)||!QUESTIONS[k]||isSubjectiveQuestion(k)||cp45IsAddressQuestion(k)||!cp227ConversationQuestionLive(k).ok) continue;
     if(r89IsLaneOnlyKey(k)||v330IsTownFaceCandidate(k)||v330IsDedicatedSurpriseStrike(k)||!r90NamePlayAllowedNow(k)||!v330LocalChainContextAllowed(k,live)) continue;
     let yes=0; for(const c of live) if(c.tags[k]===true) yes++;
     if(yes<=1||yes>=live.length-1) continue;
@@ -21867,7 +21985,7 @@ function cp194PickTiedLeadBridge(){
   const masses=live.masses; let best=null,bestScore=-Infinity;
   const vivid=new Set(['観光・娯楽','歴史・文化','食','産業','自然','文化','文化・観光','観光','祭り・文化','自然・地理','スポーツ','交通']);
   for(const k of activeKeysForMode(currentMode)){
-    if(r89Shown(k)||!QUESTIONS[k]||isSubjectiveQuestion(k)||cp45IsAddressQuestion(k)) continue;
+    if(r89Shown(k)||!QUESTIONS[k]||isSubjectiveQuestion(k)||cp45IsAddressQuestion(k)||!cp227ConversationQuestionLive(k).ok) continue;
     if(r89IsLaneOnlyKey(k)||v330IsTownFaceCandidate(k)||v330IsDedicatedSurpriseStrike(k)) continue;
     if(!r90NamePlayAllowedNow(k)||!v330LocalChainContextAllowed(k,live.cities)) continue;
     const tv=tied.map(c=>c.tags[k]===true); if(tv.every(x=>x===tv[0])) continue;
