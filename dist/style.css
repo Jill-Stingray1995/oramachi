@@ -4880,3 +4880,8 @@ body:not(.native-app) button.conquest-city-row span{font-size:11px;color:#6b879d
 .daily-v44-card,.v74-intro-hero,.v74-mascot-landscape,.v74-result-hero{position:relative;isolation:isolate}
 .daily-v44-card>.daily-artwork-crossfade-layer,.v74-intro-hero>.daily-artwork-crossfade-layer,.v74-mascot-landscape>.daily-artwork-crossfade-layer,.v74-result-hero>.daily-artwork-crossfade-layer{position:absolute;z-index:0;inset:0;display:block;pointer-events:none;opacity:0;transition-property:opacity;transition-timing-function:ease-in-out}
 .daily-v44-card>*:not(.daily-artwork-crossfade-layer),.v74-intro-hero>*:not(.daily-artwork-crossfade-layer),.v74-mascot-landscape>*:not(.daily-artwork-crossfade-layer),.v74-result-hero>*:not(.daily-artwork-crossfade-layer){position:relative;z-index:1}
+
+/* CP325 real two-layer daily artwork crossfade */
+.daily-v44-card,.v74-intro-hero,.v74-mascot-landscape,.v74-result-hero{position:relative;isolation:isolate;overflow:hidden}
+.daily-artwork-crossfade-layer{position:absolute!important;inset:0!important;z-index:0!important;display:block!important;pointer-events:none!important;will-change:opacity;background-position:center;background-size:cover;background-repeat:no-repeat}
+.daily-v44-card>*:not(.daily-artwork-crossfade-layer),.v74-intro-hero>*:not(.daily-artwork-crossfade-layer),.v74-mascot-landscape>*:not(.daily-artwork-crossfade-layer),.v74-result-hero>*:not(.daily-artwork-crossfade-layer){position:relative;z-index:1}

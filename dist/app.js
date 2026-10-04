@@ -26704,22 +26704,86 @@ function chooseOfficialDailyArtwork(){
   return officialDailyArtwork;
 }
 
-// CP313: Daily Challenge artwork slideshow. Cycle through all 23 backgrounds every 3 seconds.
+// CP325: real two-layer Daily Challenge background crossfade. 4-second cycle, 1.25-second overlap.
+const OFFICIAL_DAILY_ARTWORK_INTERVAL_MS = 4000;
+const OFFICIAL_DAILY_ARTWORK_CROSSFADE_MS = 1250;
 let officialDailyArtworkCycleIndex = 0;
+function dailyArtworkBackgroundFor(el, artwork){
+  const cs=getComputedStyle(el);
+  const current=cs.backgroundImage||'';
+  const nextUrl=`url("${artwork}")`;
+  const replaced=current.replace(/url\([^)]*\)(?!.*url\()/,nextUrl);
+  return (!replaced || replaced==='none') ? nextUrl : replaced;
+}
+function ensureDailyCrossfadeLayers(el){
+  if(!el) return null;
+  let a=el.querySelector(':scope > .daily-artwork-layer-a');
+  let b=el.querySelector(':scope > .daily-artwork-layer-b');
+  if(!a || !b){
+    a=document.createElement('span'); b=document.createElement('span');
+    a.className='daily-artwork-crossfade-layer daily-artwork-layer-a';
+    b.className='daily-artwork-crossfade-layer daily-artwork-layer-b';
+    const cs=getComputedStyle(el);
+    const bg=cs.backgroundImage;
+    for(const layer of [a,b]){
+      layer.style.backgroundImage=bg;
+      layer.style.backgroundPosition=cs.backgroundPosition;
+      layer.style.backgroundSize=cs.backgroundSize;
+      layer.style.backgroundRepeat=cs.backgroundRepeat;
+    }
+    a.style.opacity='1'; b.style.opacity='0';
+    el.prepend(b); el.prepend(a);
+    el.dataset.dailyArtworkFront='a';
+  }
+  return {a,b};
+}
+function crossfadeOfficialDailyBackground(el,nextArtwork){
+  if(!el || el.dataset.dailyFadeBusy==='1') return;
+  const layers=ensureDailyCrossfadeLayers(el);
+  if(!layers) return;
+  el.dataset.dailyFadeBusy='1';
+  const frontKey=el.dataset.dailyArtworkFront==='b'?'b':'a';
+  const backKey=frontKey==='a'?'b':'a';
+  const front=layers[frontKey], back=layers[backKey];
+  const cs=getComputedStyle(el);
+  back.style.backgroundImage=dailyArtworkBackgroundFor(el,nextArtwork);
+  back.style.backgroundPosition=cs.backgroundPosition;
+  back.style.backgroundSize=cs.backgroundSize;
+  back.style.backgroundRepeat=cs.backgroundRepeat;
+  back.style.opacity='0';
+  const anim=back.animate([{opacity:0},{opacity:1}],{duration:OFFICIAL_DAILY_ARTWORK_CROSSFADE_MS,easing:'ease-in-out',fill:'forwards'});
+  anim.onfinish=()=>{
+    back.style.opacity='1';
+    front.style.opacity='0';
+    el.style.setProperty('--daily-artwork',`url('${nextArtwork}')`);
+    if(el.matches('.daily-v44-card')) el.dataset.dailyArtwork=nextArtwork;
+    el.dataset.dailyArtworkFront=backKey;
+    delete el.dataset.dailyFadeBusy;
+    anim.cancel();
+  };
+}
+function fadeOfficialDailyImage(img,nextArtwork){
+  if(!img || img.dataset.dailyFadeBusy==='1') return;
+  img.dataset.dailyFadeBusy='1';
+  const half=Math.round(OFFICIAL_DAILY_ARTWORK_CROSSFADE_MS/2);
+  const out=img.animate([{opacity:1},{opacity:0.15}],{duration:half,easing:'ease-in-out',fill:'forwards'});
+  out.onfinish=()=>{
+    img.src=nextArtwork;
+    out.cancel();
+    const inn=img.animate([{opacity:0.15},{opacity:1}],{duration:half,easing:'ease-in-out',fill:'forwards'});
+    inn.onfinish=()=>{inn.cancel();img.style.opacity='1';delete img.dataset.dailyFadeBusy;};
+  };
+}
 function advanceOfficialDailyArtwork(){
   if(!OFFICIAL_DAILY_BACKGROUNDS.length) return;
   officialDailyArtworkCycleIndex=(officialDailyArtworkCycleIndex+1)%OFFICIAL_DAILY_BACKGROUNDS.length;
-  officialDailyArtwork=OFFICIAL_DAILY_BACKGROUNDS[officialDailyArtworkCycleIndex];
-  document.querySelectorAll('.daily-v44-card,.v74-intro-hero,.v74-mascot-landscape,.v74-result-hero').forEach(el=>{
-    el.style.setProperty('--daily-artwork',`url('${officialDailyArtwork}')`);
-    if(el.matches('.daily-v44-card')) el.dataset.dailyArtwork=officialDailyArtwork;
-  });
-  document.querySelectorAll('.daily-v44-hero,.daily-v44-question-image,.v74-trivia img').forEach(img=>{
-    img.src=officialDailyArtwork;
-  });
+  const nextArtwork=OFFICIAL_DAILY_BACKGROUNDS[officialDailyArtworkCycleIndex];
+  document.querySelectorAll('.daily-v44-card,.v74-intro-hero,.v74-mascot-landscape,.v74-result-hero').forEach(el=>crossfadeOfficialDailyBackground(el,nextArtwork));
+  document.querySelectorAll('.daily-v44-hero,.daily-v44-question-image,.v74-trivia img').forEach(img=>fadeOfficialDailyImage(img,nextArtwork));
+  officialDailyArtwork=nextArtwork;
 }
 if(!window.oramachiDailyArtworkSlideshow){
-  window.oramachiDailyArtworkSlideshow=setInterval(advanceOfficialDailyArtwork,3000);
+  window.oramachiDailyArtworkSlideshow=setInterval(advanceOfficialDailyArtwork,OFFICIAL_DAILY_ARTWORK_INTERVAL_MS);
 }
 function formatOfficialDailyDate(value){
   const match=String(value||todayJstDateString()).match(/^(\d{4})-(\d{2})-(\d{2})$/);
