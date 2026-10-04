@@ -4875,3 +4875,8 @@ body:not(.native-app) .v74-result-hero{position:relative;height:280px;overflow:h
 body:not(.native-app) button.conquest-city-row{display:flex;width:100%;align-items:center;justify-content:space-between;gap:12px;margin:5px 0;padding:9px 11px;border:1px solid #d2e9f5;border-radius:12px;background:#f9fdff;color:#073f77;text-align:left;cursor:pointer}
 body:not(.native-app) button.conquest-city-row b{font-size:13px;color:#07549a}
 body:not(.native-app) button.conquest-city-row span{font-size:11px;color:#6b879d;font-weight:500}
+
+/* CP324 Daily Challenge background-only crossfade */
+.daily-v44-card,.v74-intro-hero,.v74-mascot-landscape,.v74-result-hero{position:relative;isolation:isolate}
+.daily-v44-card>.daily-artwork-crossfade-layer,.v74-intro-hero>.daily-artwork-crossfade-layer,.v74-mascot-landscape>.daily-artwork-crossfade-layer,.v74-result-hero>.daily-artwork-crossfade-layer{position:absolute;z-index:0;inset:0;display:block;pointer-events:none;opacity:0;transition-property:opacity;transition-timing-function:ease-in-out}
+.daily-v44-card>*:not(.daily-artwork-crossfade-layer),.v74-intro-hero>*:not(.daily-artwork-crossfade-layer),.v74-mascot-landscape>*:not(.daily-artwork-crossfade-layer),.v74-result-hero>*:not(.daily-artwork-crossfade-layer){position:relative;z-index:1}
