@@ -171,7 +171,23 @@
 
 <script defer src="japan-map-data.js?v=361d072efc"></script>
 <script defer src="app-version.js"></script>
-<script defer src="app-cp322.js?v=cp322-s12t12-live"></script>
-<script defer src="pwa.js?v=cp322-s12t12-live"></script>
+<script defer src="app.js?v=cp242-hard-entry-gate"></script>
+<script defer src="pwa.js?v=227b41843b"></script>
+<script>
+window.addEventListener('load',()=>{
+  const started=Date.now();
+  const t=setInterval(()=>{
+    try{
+      if(typeof CITIES!=='undefined' && CITIES.length>1700 && typeof v330AuditRunOne==='function'){
+        clearInterval(t);
+        const target=CITIES.find(c=>c.pref==='新潟県'&&c.name==='十日町市');
+        const out=[];
+        for(let i=0;i<20;i++) out.push(v330AuditRunOne(target,i));
+        document.body.innerHTML='<pre id="AUDIT">'+JSON.stringify(out,null,2).replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</pre>';
+      } else if(Date.now()-started>15000){clearInterval(t);document.body.innerHTML='<pre id="AUDIT">TIMEOUT CITIES='+(typeof CITIES==='undefined'?'undef':CITIES.length)+'</pre>';}
+    }catch(e){clearInterval(t);document.body.innerHTML='<pre id="AUDIT">ERR '+String(e)+' '+(e.stack||'')+'</pre>';}
+  },100);
+});
+</script>
 </body>
 </html>

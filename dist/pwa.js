@@ -1,7 +1,7 @@
 (function setupOramachiPwa() {
   'use strict';
 
-  const SERVICE_WORKER_URL = '/service-worker.js';
+  const SERVICE_WORKER_URL = '/service-worker.js?v=cp322-s12t12-live';
   const SERVICE_WORKER_SCOPE = '/';
   let deferredInstallPrompt = null;
   let waitingWorker = null;

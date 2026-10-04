@@ -1,0 +1,6 @@
+<!doctype html><meta charset=utf-8><title>audit</title>
+<div id="stage"></div><div id="foot"></div><div id="stamps"></div><div id="modalRoot"></div><button id="installBtn"></button><div id="installTip"></div><button id="installTipClose"></button>
+<script src="japan-map-data.js"></script><script src="app.js"></script>
+<script>
+window.addEventListener('load',()=>{let n=0;let t=setInterval(()=>{n++;try{if(typeof CITIES!=='undefined'&&CITIES.length>1700&&typeof v330AuditRunOne==='function'){clearInterval(t);let target=CITIES.find(c=>c.pref==='高知県'&&c.name==='馬路村');let out=[];for(let i=0;i<3;i++)out.push(v330AuditRunOne(target,i));document.body.innerHTML='<pre id="AUDIT">'+JSON.stringify(out)+'</pre>';document.title='DONE'}else if(n>100){clearInterval(t);document.title='TIMEOUT';}}catch(e){clearInterval(t);document.body.innerHTML='<pre id="AUDIT">ERR '+e.stack+'</pre>';document.title='ERR'}},100)})
+</script>
