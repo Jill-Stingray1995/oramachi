@@ -80,8 +80,11 @@
 </head>
 <body>
 <div class="web-startup" id="webStartup" aria-hidden="true">
-  <div class="web-startup-landscape"></div>
+  <div class="web-startup-landscape" id="webStartupLandscape"></div>
   <img src="oramachi-official-logo.png" alt="" class="web-startup-logo">
+  <script>
+    window.addEventListener('DOMContentLoaded',()=>{const el=document.getElementById('webStartupLandscape');const art=(typeof cp356RandomOpeningArtwork==='function')?cp356RandomOpeningArtwork():'';if(el&&art)el.style.backgroundImage=`url('${art}')`;});
+  </script>
 </div>
 <div class="app">
   <button class="install-btn" id="installBtn" type="button" style="display:none;">
@@ -171,7 +174,7 @@
 
 <script defer src="japan-map-data.js?v=361d072efc"></script>
 <script defer src="app-version.js"></script>
-<script defer src="app-cp325.js?v=cp325-real-crossfade"></script>
+<script defer src="app.js?v=cp356b-web-embedded-101"></script>
 <script defer src="pwa.js?v=cp324-web-complete"></script>
 </body>
 </html>

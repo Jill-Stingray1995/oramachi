@@ -2917,7 +2917,7 @@ body.native-app .native-tab-bar{
   right:0;
   bottom:0;
   display:grid;
-  grid-template-columns:repeat(5,1fr);
+  grid-template-columns:repeat(4,1fr);
   min-height:calc(80px + env(safe-area-inset-bottom, 0px));
   padding:5px 8px env(safe-area-inset-bottom, 0px);
   border-top:1px solid rgba(216,203,168,.92);
@@ -4885,3 +4885,301 @@ body:not(.native-app) button.conquest-city-row span{font-size:11px;color:#6b879d
 .daily-v44-card,.v74-intro-hero,.v74-mascot-landscape,.v74-result-hero{position:relative;isolation:isolate;overflow:hidden}
 .daily-artwork-crossfade-layer{position:absolute!important;inset:0!important;z-index:0!important;display:block!important;pointer-events:none!important;will-change:opacity;background-position:center;background-size:cover;background-repeat:no-repeat}
 .daily-v44-card>*:not(.daily-artwork-crossfade-layer),.v74-intro-hero>*:not(.daily-artwork-crossfade-layer),.v74-mascot-landscape>*:not(.daily-artwork-crossfade-layer),.v74-result-hero>*:not(.daily-artwork-crossfade-layer){position:relative;z-index:1}
+
+/* CP331: Android paid-product interaction polish.
+   - Remove avoidable touch latency.
+   - Keep control labels on one line; no accidental two-line CTA/tab labels.
+   - Feedback must feel immediate, not animated after the fact. */
+body.native-app button,
+body.native-app [role="button"],
+body.native-app a,
+body.native-app input,
+body.native-app select,
+body.native-app textarea{
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+}
+body.native-app button,
+body.native-app [role="button"]{
+  transition:transform .055s ease-out, opacity .055s linear, background-color .075s linear, border-color .075s linear, box-shadow .075s linear !important;
+}
+body.native-app button:active:not(:disabled),
+body.native-app [role="button"]:active{
+  transform:scale(.975);
+}
+body.native-app .native-tab-button,
+body.native-app .native-tab-button *,
+body.native-app .native-play-mode-card strong,
+body.native-app .native-play-mode-badge,
+body.native-app .native-home-action-copy strong,
+body.native-app .v56-answer-grid button,
+body.native-app .answer-grid button,
+body.native-app .daily-v44-question-list button{
+  white-space:nowrap;
+}
+body.native-app .native-tab-button{
+  overflow:hidden;
+  font-size:11px;
+  line-height:1;
+}
+body.native-app .native-tab-button > :last-child{
+  max-width:100%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+/* Four answer labels must remain single-line even on 360dp-class devices. */
+body.native-app .v56-answer-grid button,
+body.native-app .answer-grid button{
+  min-width:0;
+  padding-left:5px;
+  padding-right:5px;
+  font-size:clamp(11px,3.25vw,15px) !important;
+  line-height:1 !important;
+  letter-spacing:-.025em;
+}
+@media (max-width:380px){
+  body.native-app .v56-answer-grid button,
+  body.native-app .answer-grid button{font-size:11px !important;letter-spacing:-.04em;}
+}
+
+
+/* CP332: Android premium interaction + result polish.
+   Paid native build: fast, thumb-first, and never wrap primary controls. */
+body.native-app .v56-result>button,
+body.native-app .v56-simple-head button,
+body.native-app .native-home-action,
+body.native-app .native-play-mode-card,
+body.native-app .native-home-info-card button,
+body.native-app .daily-v44-primary,
+body.native-app .daily-v44-secondary,
+body.native-app .v74-cta,
+body.native-app .v74-outline{
+  touch-action:manipulation;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+body.native-app .v56-result>button{
+  min-height:52px;
+  margin:6px 0;
+  border-radius:14px;
+  font-size:15px;
+  line-height:1;
+}
+body.native-app .v56-result>button.cp332-replay{
+  min-height:58px;
+  margin-top:10px;
+  background:#079f9e;
+  box-shadow:0 4px 0 #067c7b;
+  font-size:18px;
+  letter-spacing:.02em;
+}
+body.native-app .v56-result>button.cp332-replay:active{
+  box-shadow:0 1px 0 #067c7b;
+  transform:translateY(3px) scale(.985);
+}
+body.native-app .v56-result>button.cp332-secondary{background:#fff;}
+body.native-app .v56-result h2,
+body.native-app .v159-success-kicker,
+body.native-app .v56-result-stats span,
+body.native-app .v56-result-stats b{white-space:nowrap;}
+body.native-app .v56-result>p strong{
+  display:block;
+  max-width:100%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size:clamp(17px,5vw,21px);
+}
+@media (max-width:380px){
+  body.native-app .v56-result{padding-left:14px;padding-right:14px;}
+  body.native-app .v56-result>button{font-size:14px;}
+  body.native-app .v56-result>button.cp332-replay{font-size:17px;}
+}
+
+/* CP334: Android premium home polish — compact, one-line, thumb-first. */
+body.native-app .native-home-profile,
+body.native-app .native-home-action,
+body.native-app .daily-challenge-card-btn,
+body.native-app .native-tab-button{
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+}
+body.native-app .native-home-profile:active,
+body.native-app .native-home-action:active,
+body.native-app .daily-challenge-card-btn:active{
+  transform:scale(.985);
+  transition:transform 55ms ease-out;
+}
+body.native-app .native-home-action-copy,
+body.native-app .native-home-action-copy strong,
+body.native-app .native-home-action-copy small,
+body.native-app .native-home-profile strong,
+body.native-app .native-home-profile small,
+body.native-app .native-tab-button > span:last-child{
+  min-width:0;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+body.native-app .native-tab-button > span:last-child{max-width:100%;}
+body.native-app .native-home-action-copy{flex:1;}
+body.native-app .native-home-action-arrow{flex:0 0 auto;}
+/* Primary actions already expose online play; don't repeat them in a second "upcoming" block. */
+body.native-app .native-home-upcoming{display:none!important;}
+@media (max-width:390px){
+  body.native-app .native-home-action{padding-left:8px;padding-right:8px;gap:7px;}
+  body.native-app .native-home-action-copy strong{font-size:15px;}
+  body.native-app .native-home-action-copy small{font-size:10.5px;}
+  body.native-app .native-tab-button{font-size:10.5px;}
+}
+
+
+/* CP335 Android premium interaction: immediate finger feedback, native only. */
+body.native-app button,
+body.native-app [role="button"],
+body.native-app a[href],
+body.native-app select{
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
+}
+body.native-app button.cp335-touching,
+body.native-app [role="button"].cp335-touching,
+body.native-app a[href].cp335-touching{
+  transform:scale(.985)!important;
+  filter:brightness(.965);
+  transition:transform 28ms linear,filter 28ms linear!important;
+}
+body.native-app .answer-grid button.cp335-touching,
+body.native-app .v56-answer-grid button.cp335-touching{
+  transform:scale(.975)!important;
+  filter:brightness(.95);
+}
+@media (prefers-reduced-motion:reduce){
+  body.native-app button.cp335-touching,
+  body.native-app [role="button"].cp335-touching,
+  body.native-app a[href].cp335-touching{transition:none!important;}
+}
+
+/* CP338 Android daily habit loop */
+body.native-app .cp338-daily-card .native-daily-momentum{position:relative;z-index:2;margin:14px 0 10px;padding:10px;border-radius:16px;background:rgba(255,255,255,.92);color:#17365f}
+body.native-app .native-daily-week{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+body.native-app .native-daily-day{display:grid;place-items:center;min-width:0;gap:3px}
+body.native-app .native-daily-day small{font-size:9px;font-weight:800;color:#678098}
+body.native-app .native-daily-day b{display:grid;place-items:center;width:27px;height:27px;border-radius:50%;background:#edf4f7;font-size:11px}
+body.native-app .native-daily-day.is-done b{background:#ff8a34;color:#fff;font-size:14px}
+body.native-app .native-daily-summary{display:grid;grid-template-columns:repeat(3,1fr);margin-top:9px;padding-top:8px;border-top:1px solid #dbe8ee;text-align:center}
+body.native-app .native-daily-summary span+span{border-left:1px solid #dbe8ee}
+body.native-app .native-daily-summary small,body.native-app .native-daily-summary b{display:block;white-space:nowrap}
+body.native-app .native-daily-summary small{font-size:9px;color:#678098;font-weight:800}
+body.native-app .native-daily-summary b{margin-top:2px;font-size:13px;color:#17365f}
+body.native-app .cp338-daily-actions{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:stretch}
+body.native-app .cp338-daily-actions>button{min-width:0;white-space:nowrap}
+body.native-app .cp338-daily-history{padding:0 12px!important;background:rgba(255,255,255,.94)!important;color:#17365f!important;border:0!important;border-radius:13px!important;font-size:11px!important;font-weight:900!important}
+body.native-app .cp338-replay{font-weight:900;border-width:2px}
+body.native-app .cp338-daily-history>section{padding:18px 14px 28px}
+body.native-app .cp338-daily-history h1{margin:2px 0 14px;color:#17365f;font-size:28px}
+body.native-app .cp338-history-kicker{margin:0;color:#ff7a23;font-size:10px;font-weight:900;letter-spacing:.14em}
+body.native-app .cp338-history-note{margin:12px 2px;color:#60798e;font-size:12px;line-height:1.6}
+body.native-app .cp338-daily-history ol{list-style:none;margin:14px 0 18px;padding:0;display:grid;gap:8px}
+body.native-app .cp338-daily-history li{display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:3px 8px;align-items:center;padding:12px;border-radius:14px;background:#fff;box-shadow:0 5px 16px #17365f12}
+body.native-app .cp338-daily-history li time{font-size:11px;font-weight:900;color:#ff7a23}
+body.native-app .cp338-daily-history li span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;font-weight:800;color:#17365f}
+body.native-app .cp338-daily-history li b{font-size:12px;color:#17365f;white-space:nowrap}
+body.native-app .cp338-daily-history li small{grid-column:3;font-size:9px;text-align:right;color:#71889b}
+body.native-app .cp338-daily-history li.is-empty{display:block;color:#60798e;line-height:1.6}
+@media(max-width:370px){body.native-app .cp338-daily-actions{grid-template-columns:1fr}body.native-app .cp338-daily-history{min-height:42px}body.native-app .native-daily-day b{width:24px;height:24px}}
+
+/* CP339 Android encyclopedia / collection */
+body.native-app .cp339-encyclopedia,body.native-app .cp339-town-detail{padding:0 14px 104px;min-height:100vh;background:#f6f3ec;color:#17365f}
+body.native-app .cp339-progress{margin:10px 0 14px;padding:18px;border-radius:22px;background:#fff;box-shadow:0 7px 24px #17365f12;display:grid;grid-template-columns:1fr 82px;gap:10px 16px;align-items:center}
+body.native-app .cp339-progress small{font-size:11px;font-weight:900;color:#71889b}body.native-app .cp339-progress strong{display:block;font-size:30px;line-height:1.15}body.native-app .cp339-progress strong em{font-size:14px;font-style:normal;color:#71889b}body.native-app .cp339-progress p{margin:5px 0 0;font-size:13px;font-weight:900;color:#f0782a}
+body.native-app .cp339-ring{width:76px;height:76px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#f0782a calc(var(--p)*1%),#ece8df 0);position:relative}body.native-app .cp339-ring:after{content:"";position:absolute;inset:7px;border-radius:50%;background:#fff}body.native-app .cp339-ring b{z-index:1;font-size:13px}
+body.native-app .cp339-progressbar{grid-column:1/-1;height:8px;border-radius:99px;background:#ece8df;overflow:hidden}body.native-app .cp339-progressbar i{display:block;height:100%;border-radius:inherit;background:#f0782a}
+body.native-app .cp339-progress footer{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:11px;color:#60798e}body.native-app .cp339-progress footer button{border:0;background:transparent;color:#17365f;font-weight:900;white-space:nowrap}
+body.native-app .cp339-tools{display:grid;grid-template-columns:minmax(0,1fr) 112px;gap:8px;margin-bottom:12px}body.native-app .cp339-tools label{display:flex;align-items:center;gap:6px;background:#fff;border:1px solid #e2ded5;border-radius:14px;padding:0 11px}body.native-app .cp339-tools input,body.native-app .cp339-tools select{min-width:0;height:46px;border:0;background:transparent;color:#17365f;font:inherit;font-size:13px;font-weight:800;outline:none}body.native-app .cp339-tools select{width:112px;padding:0 8px;border:1px solid #e2ded5;border-radius:14px;background:#fff}
+body.native-app .cp339-list-head{display:flex;justify-content:space-between;align-items:end;margin:8px 2px 10px}body.native-app .cp339-list-head b{font-size:15px}body.native-app .cp339-list-head span{font-size:9px;color:#71889b}
+body.native-app .cp339-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}body.native-app .cp339-town-card{min-width:0;min-height:116px;text-align:left;padding:13px;border:0;border-radius:17px;background:#fff;box-shadow:0 5px 15px #17365f0d;color:#17365f;display:flex;flex-direction:column;align-items:flex-start}body.native-app .cp339-town-card.is-locked{opacity:.62;background:#eae7e0;box-shadow:none}body.native-app .cp339-town-state{font-size:9px;font-weight:900;color:#f0782a}body.native-app .is-locked .cp339-town-state{color:#8b949c}body.native-app .cp339-town-card strong{font-size:16px;margin:7px 0 1px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}body.native-app .cp339-town-card small{font-size:10px;color:#71889b}body.native-app .cp339-town-card em{margin-top:auto;font-size:9px;font-style:normal;color:#71889b;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+body.native-app .cp339-card-hero{margin:12px 0;padding:26px 20px;border-radius:25px;background:#fff;box-shadow:0 8px 26px #17365f12;text-align:center}body.native-app .cp339-card-hero>span{display:inline-block;padding:5px 10px;border-radius:99px;background:#fff1e6;color:#e66c20;font-size:10px;font-weight:900}body.native-app .cp339-card-hero small{display:block;margin-top:18px;color:#71889b;font-weight:800}body.native-app .cp339-card-hero h1{margin:2px 0 16px;font-size:30px}body.native-app .cp339-card-hero p{margin:0;text-align:left;line-height:1.8;font-size:13px}
+body.native-app .cp339-card-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:12px 0 18px}body.native-app .cp339-card-stats div{padding:13px 7px;border-radius:15px;background:#fff;text-align:center}body.native-app .cp339-card-stats small{display:block;font-size:9px;color:#71889b}body.native-app .cp339-card-stats b{display:block;margin-top:4px;font-size:12px;white-space:nowrap}
+@media(max-width:370px){body.native-app .cp339-encyclopedia{padding-left:10px;padding-right:10px}body.native-app .cp339-tools{grid-template-columns:1fr}body.native-app .cp339-tools select{width:100%}body.native-app .cp339-grid{gap:7px}body.native-app .cp339-town-card{padding:11px}}
+/* CP340: personal collection layer */
+body.native-app .cp340-flag-summary{display:flex;gap:7px;overflow-x:auto;padding:2px 0 10px;scrollbar-width:none}
+body.native-app .cp340-flag-summary::-webkit-scrollbar{display:none}
+body.native-app .cp340-flag-summary button{flex:0 0 auto;border:1px solid #d8d3c8;background:#fff;border-radius:999px;padding:9px 11px;color:#17365f;font:700 12px/1 system-ui;white-space:nowrap;touch-action:manipulation}
+body.native-app .cp340-flag-summary button.is-active{background:#17365f;color:#fff;border-color:#17365f}
+body.native-app .cp340-flag-summary button b{margin-left:3px;font-size:11px}
+body.native-app .cp340-flag-summary .cp340-clear{border-style:dashed}
+body.native-app .cp340-town-flags{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0 7px}
+body.native-app .cp340-town-flags button{min-width:0;min-height:58px;border:1px solid #d8d3c8;background:#fff;border-radius:15px;color:#17365f;font:800 18px/1 system-ui;touch-action:manipulation}
+body.native-app .cp340-town-flags button span{display:block;margin-top:6px;font-size:11px;white-space:nowrap}
+body.native-app .cp340-town-flags button.is-on{background:#fff1d8;border-color:#ef9d29;color:#9a5410;box-shadow:0 3px 12px rgba(239,157,41,.14)}
+body.native-app .cp340-private-note{margin:0 2px 16px;color:#7b756b;font-size:11px;line-height:1.55;text-align:center}
+@media(max-width:370px){body.native-app .cp340-town-flags{gap:6px}body.native-app .cp340-town-flags button{min-height:54px}body.native-app .cp340-town-flags button span{font-size:10px}}
+
+/* CP341: fixed-target practice + Komachi answer assist */
+body.native-app .cp341-practice{margin:10px 14px 12px;padding:12px;border:1px solid #f0d8df;border-radius:17px;background:#fff8fa;box-shadow:0 4px 14px #17365f0b;color:#17365f}
+body.native-app .cp341-practice>div{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}body.native-app .cp341-practice>div span{font-size:10px;font-weight:900;color:#d66d8a;white-space:nowrap}body.native-app .cp341-practice>div strong{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px}
+body.native-app .cp341-practice p{margin:7px 0;padding:10px;border-radius:12px;background:#fff;font-size:12px;line-height:1.5}body.native-app .cp341-practice p b{color:#e66c20;font-size:14px}
+body.native-app .cp341-practice button{width:100%;min-height:42px;margin-top:6px;border:1px solid #e4d7db;border-radius:12px;background:#fff;color:#17365f;font-weight:900;font-size:12px;white-space:nowrap;touch-action:manipulation}body.native-app .cp341-practice button.is-on{background:#17365f;color:#fff;border-color:#17365f}
+body.native-app .cp341-practice-start{margin:14px 0;padding:17px;border-radius:20px;background:#fff8fa;border:1px solid #f0d8df}body.native-app .cp341-practice-start>span{font-size:12px;font-weight:900;color:#d66d8a}body.native-app .cp341-practice-start>p{margin:8px 0 14px;color:#60798e;font-size:12px;line-height:1.65}
+body.native-app .cp341-reference-badge{margin:10px 0!important;background:#fff8fa!important;color:#17365f!important;border:1px solid #f0d8df}body.native-app .cp341-reference-badge small{font-size:10px;color:#71889b}
+body.native-app .v56-answer-grid .maybe-yes,body.native-app .v56-answer-grid .maybe-no{white-space:nowrap;font-size:clamp(10px,3vw,13px);letter-spacing:-.03em;padding-left:4px;padding-right:4px}
+body.native-app .cp339-town-card.is-locked{cursor:pointer}
+@media(max-width:370px){body.native-app .cp341-practice{margin-left:10px;margin-right:10px}body.native-app .cp341-practice button{font-size:11px}}
+
+/* CP342 — canonical Komachi integration. Character design is locked. */
+body.native-app .cp342-komachi-home{display:grid;grid-template-columns:86px minmax(0,1fr);align-items:end;margin:12px 0;padding:0 10px 0 0;border:1px solid #f4d4df;border-radius:22px;background:linear-gradient(135deg,#fff8fb,#fff 58%,#fff6e8);box-shadow:0 8px 24px #17365f12;overflow:hidden}
+body.native-app .cp342-komachi-home>img{width:86px;height:86px;object-fit:cover;object-position:50% 25%;align-self:end}
+body.native-app .cp342-komachi-home>button{min-width:0;padding:13px 4px 12px 10px;border:0;background:transparent;text-align:left;color:#17365f}
+body.native-app .cp342-komachi-home small,body.native-app .cp342-komachi-home strong,body.native-app .cp342-komachi-home span{display:block;min-width:0}
+body.native-app .cp342-komachi-home small{margin-bottom:3px;color:#d94f7c;font-size:10px;font-weight:900}
+body.native-app .cp342-komachi-home strong{font-size:13px;line-height:1.45;white-space:normal}
+body.native-app .cp342-komachi-home span{margin-top:5px;color:#ff7a23;font-size:10px;font-weight:900;white-space:nowrap}
+body.native-app .cp342-komachi-hub{padding:0 12px 28px}
+body.native-app .cp342-komachi-hero{display:grid;grid-template-columns:42% minmax(0,1fr);align-items:center;min-height:220px;margin:8px 0 14px;border-radius:24px;background:linear-gradient(135deg,#fff3f8,#fff 58%,#edf8ff);overflow:hidden;box-shadow:0 10px 28px #17365f12}
+body.native-app .cp342-komachi-hero>img{width:100%;height:220px;object-fit:cover;object-position:50% 25%}
+body.native-app .cp342-komachi-hero>div{padding:18px 14px 18px 10px}
+body.native-app .cp342-komachi-hero small{color:#d94f7c;font-size:10px;font-weight:900}
+body.native-app .cp342-komachi-hero h2{margin:5px 0 7px;color:#17365f;font-size:21px;line-height:1.25}
+body.native-app .cp342-komachi-hero p{margin:0;color:#526d82;font-size:12px;line-height:1.65}
+body.native-app .cp342-komachi-menu{display:grid;gap:9px}
+body.native-app .cp342-komachi-menu button{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 8px;align-items:center;min-height:66px;padding:12px 14px;border:1px solid #dce8ef;border-radius:16px;background:#fff;text-align:left;color:#17365f;box-shadow:0 5px 16px #17365f0d}
+body.native-app .cp342-komachi-menu b,body.native-app .cp342-komachi-menu span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+body.native-app .cp342-komachi-menu b{font-size:14px}.cp342-komachi-menu span{font-size:10px;color:#6a8194}.cp342-komachi-menu i{grid-column:2;grid-row:1/3;font-style:normal;font-size:22px}
+body.native-app .cp342-komachi-secret{display:grid;grid-template-columns:74px minmax(0,1fr);gap:10px;align-items:center;margin-top:14px;padding:10px;border-radius:17px;background:#fff9ed;border:1px dashed #efc983}
+body.native-app .cp342-komachi-secret img{width:74px;height:64px;border-radius:13px;object-fit:cover;object-position:72% 50%}.cp342-komachi-secret p{margin:0;color:#17365f;font-size:12px;font-weight:800}.cp342-komachi-secret small{grid-column:2;color:#7b8791;font-size:9px}
+@media(max-width:370px){body.native-app .cp342-komachi-home{grid-template-columns:76px minmax(0,1fr)}body.native-app .cp342-komachi-home>img{width:76px;height:82px}body.native-app .cp342-komachi-home strong{font-size:12px}body.native-app .cp342-komachi-hero{grid-template-columns:39% minmax(0,1fr)}body.native-app .cp342-komachi-hero h2{font-size:18px}}
+
+/* CP343 Komachi living-home moments */
+body.native-app .cp343-moment small{letter-spacing:.04em}
+body.native-app .cp343-talk-more{margin-top:11px;min-height:36px;padding:7px 11px;border:1px solid #f0c9d7;border-radius:999px;background:#fff;color:#d94f7c;font-size:11px;font-weight:900;white-space:nowrap;touch-action:manipulation}
+body.native-app .cp343-talk-more:active{transform:scale(.97)}
+body.native-app .cp343-rare{margin:0 0 14px;background:linear-gradient(135deg,#fff9ed,#fff4f8)}
+@media(max-width:370px){body.native-app .cp343-talk-more{font-size:10px;padding-inline:9px}}
+
+/* CP344: discovery quality layer */
+body.native-app .cp344-discovery-summary{display:flex;gap:7px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:none}
+body.native-app .cp344-discovery-summary::-webkit-scrollbar{display:none}
+body.native-app .cp344-discovery-summary button{flex:0 0 auto;border:1px solid #d9e2e8;background:#fff;border-radius:999px;padding:9px 11px;color:#17365f;font:800 11px/1 system-ui;white-space:nowrap;touch-action:manipulation}
+body.native-app .cp344-discovery-summary button.is-active{background:#17365f;color:#fff;border-color:#17365f}
+body.native-app .cp344-discovery-summary button b{margin-left:3px}
+body.native-app .cp344-discovery-summary .cp344-clear{border-style:dashed}
+body.native-app .cp344-quality-note{margin:8px 2px 16px;padding:10px 12px;border-radius:13px;background:#fff8fa;color:#526d82;font-size:11px;line-height:1.55;text-align:center}
+body.native-app .cp339-town-card.is-found .cp339-town-state{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* CP345 Android personal journey */
+.cp345-journey{padding:0 16px 110px}.cp345-hero{margin:14px 0;padding:22px;border-radius:24px;background:linear-gradient(145deg,#fff7eb,#fff);box-shadow:0 8px 28px #17213a12}.cp345-hero small,.cp345-hero p{display:block;color:#6d7481}.cp345-hero strong{font-size:38px;color:#182642}.cp345-hero strong em{font-size:16px;font-style:normal;font-weight:700;color:#8b93a0}.cp345-hero i{display:block;height:9px;margin-top:14px;background:#e9edf3;border-radius:99px;overflow:hidden}.cp345-hero i span{display:block;height:100%;background:#f08a24;border-radius:99px}.cp345-mini{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.cp345-mini div{padding:12px 5px;text-align:center;background:#fff;border:1px solid #edf0f4;border-radius:16px}.cp345-mini b{display:block;font-size:19px;color:#182642}.cp345-mini span{display:block;margin-top:3px;font-size:10px;color:#737b88;white-space:nowrap}.cp345-section{margin-top:22px}.cp345-section h2{font-size:17px;margin:0 0 10px;color:#182642}.cp345-milestones{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.cp345-milestones div{min-height:58px;padding:11px 13px;border-radius:16px;background:#f4f5f7;color:#9aa0aa;display:flex;flex-direction:column;justify-content:center}.cp345-milestones div.is-done{background:#fff4e7;color:#d56b0b}.cp345-milestones b{font-size:14px}.cp345-milestones span{font-size:11px;margin-top:3px}.cp345-recent{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.cp345-recent button{border:1px solid #edf0f4;background:#fff;border-radius:16px;padding:12px;text-align:left}.cp345-recent button span,.cp345-recent button small{display:block;font-size:10px;color:#7b8490}.cp345-recent button b{display:block;margin:3px 0;font-size:15px;color:#182642;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.cp345-travel{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.cp345-travel button{border:0;background:#f6f7f9;border-radius:16px;padding:13px 4px}.cp345-travel b,.cp345-travel span{display:block;white-space:nowrap}.cp345-travel b{font-size:16px;color:#182642}.cp345-travel span{font-size:10px;color:#737b88;margin-top:3px}@media(max-width:370px){.cp345-journey{padding-left:12px;padding-right:12px}.cp345-mini{gap:5px}.cp345-mini div{padding-left:2px;padding-right:2px}.cp345-mini b{font-size:17px}.cp345-mini span{font-size:9px}}
+
+
+/* CP346 Android record identity / weekly recap */
+.cp346-page{padding:0 16px 110px}.cp346-record-extra{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:12px 0 18px}.cp346-record-extra button{border:1px solid #edf0f4;background:#fff;border-radius:18px;padding:13px;text-align:left;box-shadow:0 5px 18px #17213a0a}.cp346-record-extra small,.cp346-record-extra strong,.cp346-record-extra span{display:block}.cp346-record-extra small{font-size:10px;color:#7a8390}.cp346-record-extra strong{margin:4px 0;font-size:14px;color:#182642;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.cp346-record-extra span{font-size:10px;color:#e57b17}.cp346-title-list{display:grid;gap:9px;margin:14px 0 20px}.cp346-title-card{border:1px solid #e9edf2;background:#fff;border-radius:18px;padding:14px;text-align:left}.cp346-title-card.is-selected{border-color:#f0a04a;background:#fff8ef}.cp346-title-card span,.cp346-title-card b,.cp346-title-card small,.cp346-title-card i{display:block}.cp346-title-card span{font-size:10px;color:#f08a24}.cp346-title-card b{font-size:16px;color:#182642;margin:3px 0}.cp346-title-card small{color:#747d89;font-size:11px}.cp346-title-card i{font-style:normal;font-size:10px;color:#df7716;margin-top:7px}.cp346-empty{padding:24px;border-radius:18px;background:#f6f7f9;color:#747d89;text-align:center}.cp346-title-hero{padding:16px 18px;margin:12px 0;border-radius:20px;background:#fff4e7}.cp346-title-hero small,.cp346-title-hero strong{display:block}.cp346-title-hero small{font-size:10px;color:#9a6a39}.cp346-title-hero strong{margin-top:3px;color:#182642;font-size:18px}.cp346-weekdays{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin:14px 0}.cp346-weekdays div{padding:9px 2px;border-radius:13px;background:#f2f4f7;text-align:center;color:#a0a6af}.cp346-weekdays div.is-active{background:#fff0df;color:#df7716}.cp346-weekdays b,.cp346-weekdays span{display:block;font-size:10px}.cp346-weekdays span{font-size:14px;margin-top:3px}.cp346-recap-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.cp346-recap-grid div{padding:16px;border:1px solid #edf0f4;border-radius:18px;background:#fff;text-align:center}.cp346-recap-grid b,.cp346-recap-grid span{display:block}.cp346-recap-grid b{font-size:24px;color:#182642}.cp346-recap-grid span{font-size:10px;color:#747d89;margin-top:3px}.cp346-komachi-note{display:flex;align-items:center;gap:12px;margin:18px 0;padding:14px;background:#fff8f1;border-radius:20px}.cp346-komachi-note img{width:58px;height:58px;object-fit:cover;border-radius:50%}.cp346-komachi-note p{margin:0;font-size:13px;line-height:1.55;color:#344054}@media(max-width:370px){.cp346-page{padding-left:12px;padding-right:12px}.cp346-record-extra{gap:6px}.cp346-record-extra button{padding:11px 9px}.cp346-record-extra strong{font-size:12px}}
+/* CP349 Android device tasting */
+.cp349-audit-card{margin:18px 0 12px;padding:16px;border-radius:20px;background:#fff8e8;border:1px solid rgba(219,141,28,.2);text-align:left}.cp349-audit-card>div:first-child{display:grid;gap:3px}.cp349-audit-card small{font-size:11px;font-weight:800;letter-spacing:.08em;color:#a56300}.cp349-audit-card b{font-size:16px}.cp349-audit-card span{font-size:12px;color:#667085}.cp349-rating{display:grid!important;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:12px}.cp349-rating button,.cp349-copy{min-height:42px;border:0;border-radius:13px;font-weight:800;white-space:nowrap}.cp349-rating button{background:#fff}.cp349-copy{width:100%;margin-top:8px;background:#263b55;color:#fff}.cp349-toast{position:fixed;z-index:99999;left:50%;bottom:calc(88px + env(safe-area-inset-bottom));transform:translate(-50%,12px);opacity:0;background:#202b38;color:#fff;padding:11px 16px;border-radius:999px;font-size:13px;font-weight:800;transition:.18s;pointer-events:none;white-space:nowrap}.cp349-toast.is-show{opacity:1;transform:translate(-50%,0)}.cp349-audit-link{width:calc(100% - 32px);margin:10px 16px;padding:14px 16px;border:0;border-radius:18px;background:#fff;box-shadow:0 5px 18px rgba(20,35,50,.08);display:flex;justify-content:space-between;align-items:center;text-align:left}.cp349-audit-link b{font-size:14px}.cp349-audit-link span{font-size:11px;color:#667085}.cp349-audit-page{padding-bottom:110px}.cp349-audit-page>section{padding:0 16px;display:grid;gap:10px}.cp349-audit-history-card{background:#fff;border-radius:18px;padding:14px;box-shadow:0 5px 18px rgba(20,35,50,.07)}.cp349-audit-history-card>div{display:flex;justify-content:space-between;gap:8px}.cp349-audit-history-card small{display:block;margin:5px 0 10px;color:#667085}.cp349-audit-history-card button{width:100%;min-height:40px;border:0;border-radius:12px;font-weight:800}.cp349-empty{padding:24px;text-align:center;color:#667085}@media(max-width:370px){.cp349-audit-card{padding:13px}.cp349-rating{gap:5px}.cp349-rating button{font-size:12px;padding:0 5px}}
+
+/* CP351 native launch response: visible on the same frame as touch. */
+body.native-app button.cp351-launching{transform:scale(.975)!important;filter:brightness(.93)!important;opacity:.88;pointer-events:none}
+
+/* CP355 regional result artwork */
+.cp355-regional-result-art{display:block;width:min(100%,760px);aspect-ratio:16/9;object-fit:cover;border-radius:20px;margin:18px auto;box-shadow:0 10px 28px rgba(16,45,60,.16)}
+.v56-result-art,.daily-v44-hero{object-fit:cover}
