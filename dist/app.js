@@ -26921,6 +26921,8 @@ function renderOfficialDailyMomentum(){
 
 function renderOfficialDailyCardHtml(){
   const st=officialDailyStatus;
+  const dailyCity = st?.municipality_id ? CITIES.find(c=>dailyMunicipalityId(c)===st.municipality_id) : null;
+  const regionalDailyArtwork = cp355RegionalResultArtwork(dailyCity) || OFFICIAL_DAILY_BACKGROUNDS[0];
   if(officialDailyLoadError) return `<section class="daily-v44-card is-error"><strong>今日のおらマチを読み込めませんでした</strong><small>${escapeHtml(officialDailyLoadError)}</small><button type="button" onclick="retryOfficialDailyStatus()">もう一度試す <span>↻</span></button></section>`;
   if(!st?.available) return `<div class="daily-v44-card is-loading"><strong>今日のおらマチ</strong><small>本日の出題を準備しています</small></div>`;
   const artwork=chooseOfficialDailyArtwork();
@@ -27049,6 +27051,8 @@ function renderOfficialDailyCardHtml(){
 }
 function showOfficialDailyIntro(){
   pushNavState('officialDailyIntro');const st=officialDailyStatus||{};
+  const dailyCity = st?.municipality_id ? CITIES.find(c=>dailyMunicipalityId(c)===st.municipality_id) : null;
+  const regionalDailyArtwork = cp355RegionalResultArtwork(dailyCity) || OFFICIAL_DAILY_BACKGROUNDS[0];
   stage.innerHTML=`<main class="v74-daily-screen v74-intro-screen">
     ${v74DailyHeader('navigateBackOr(renderOpening)')}
     <section class="v74-intro-hero" style="--daily-artwork:url('${regionalDailyArtwork}')">
