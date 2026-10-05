@@ -1,6 +1,6 @@
 {
   "name": "oramachi-app",
-  "version": "0.1.0",
+  "version": "2.71.0",
   "private": true,
   "description": "おらマチのWeb/PWA版とCapacitorネイティブ版を管理する開発用プロジェクト",
   "engines": {
@@ -11,7 +11,10 @@
     "build:web": "node tools/build-release.js web",
     "build:native": "node tools/build-release.js native",
     "test": "npm run build && cap sync android && npm run test:regression",
-    "test:regression": "node tools/validate-municipalities.js && node tools/test-question-tag-integrity.js && node tools/test-official-source-policy.js && node tools/test-question-engine.js && node tools/test-local-stars.js && node tools/test-game-session.js && node tools/test-back-navigation.js && node tools/test-security-release.js && node tools/test-pwa-release.js && node tools/test-build-profiles.js && node tools/test-native-runtime.js && node tools/test-native-navigation.js && node tools/test-native-ranking.js && node tools/test-native-prefecture-modes.js && node tools/test-capacitor-shell.js",
+    "test:regression": "node tools/validate-municipalities.js && node tools/test-question-tag-integrity.js && node tools/test-official-source-policy.js && node tools/test-question-engine.js && node tools/test-local-stars.js && node tools/test-game-session.js && node tools/test-back-navigation.js && node tools/test-security-release.js && node tools/test-security-v46.js && node tools/test-account-deletion-v48.js && node tools/test-google-play-v48.js && node tools/test-pwa-release.js && node tools/test-build-profiles.js && node tools/test-native-runtime.js && node tools/test-native-navigation.js && node tools/test-native-ranking.js && node tools/test-native-prefecture-modes.js && node tools/test-native-auth.js && node tools/test-native-multiplayer-lobby.js && node tools/test-native-multiplayer-round.js && node tools/test-native-multiplayer-match.js && node tools/test-native-multiplayer-stats.js && node tools/test-native-multiplayer-rating.js && node tools/test-native-multiplayer-rank.js && node tools/test-native-multiplayer-matchmaking.js && node tools/test-native-multiplayer-matchmaking-rating.js && node tools/test-capacitor-shell.js && node tools/test-operations-v42.js && node tools/test-daily-challenge-v44.js && node tools/test-v63-login-ranking-daily.js && node tools/test-ui-v50.js && node tools/test-ui-v51.js && node tools/test-ui-v53.js && node tools/test-ui-v54.js && node tools/test-ui-v56.js && node tools/test-v70-verification.js && node tools/test-v71-live-data.js && node tools/test-v72-daily-hint-ranking.js && node tools/test-v74-daily-ui.js && node tools/test-v76-daily-ranking-ui.js && node tools/test-v78-daily-hint-quality.js && node tools/test-v79-daily-365.js && python3 tools/test-v80-daily-365.py && python3 tools/test-v81-daily-semantic-audit.py && python3 tools/test-v82-daily-play-quality.py && node tools/test-v83-answer-accuracy-audit.js && node tools/test-v84-public-data-answer-verification.js && node tools/test-v85-answer-audit-expansion.js",
+    "audit:v83": "node tools/generate-v83-answer-audit.js && node tools/test-v83-answer-accuracy-audit.js",
+    "audit:v84": "node tools/generate-v84-public-data-audit.js && node tools/test-v84-public-data-answer-verification.js",
+    "audit:v85": "node tools/generate-v85-audit-expansion.js && node tools/test-v85-answer-audit-expansion.js",
     "android:sync": "npm run build:native && cap sync android",
     "android:doctor": "cap doctor android",
     "android:open": "cap open android",
@@ -21,7 +24,8 @@
   "dependencies": {
     "@capacitor/android": "8.4.2",
     "@capacitor/app": "8.1.1",
-    "@capacitor/core": "8.4.2"
+    "@capacitor/core": "8.4.2",
+    "@supabase/supabase-js": "2.112.2"
   },
   "devDependencies": {
     "@capacitor/cli": "8.4.2",

@@ -1,0 +1,10 @@
+{
+	"appId": "com.oramachijp.app",
+	"appName": "おらマチ",
+	"webDir": "dist-native",
+	"loggingBehavior": "debug",
+	"android": {
+		"allowMixedContent": false,
+		"webContentsDebuggingEnabled": false
+	}
+}

@@ -1,3 +1,1 @@
-'use strict';
-window.ORAMACHI_APP_VERSION = '1.0.0';
-
+window.ORAMACHI_APP_VERSION='CP326-ANDROID-DEVICE';

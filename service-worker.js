@@ -8,7 +8,7 @@
  * - CACHE_VERSION と ?v= は bump-version.js が公開前に同期します。
  */
 const CACHE_PREFIX = 'oramachi-app-';
-const CACHE_VERSION = 'cp221-19e57533b8';
+const CACHE_VERSION = 'cp242-final-address-wall';
 const CACHE_NAME = CACHE_PREFIX + CACHE_VERSION;
 
 // build-release.js がこの配列を読み、公開許可リストとの整合を検査します。
@@ -24,8 +24,8 @@ const PRECACHE_URLS = Object.freeze([
   "/privacy.html",
   "/updates.html",
   "/offline.html",
-  "/app.js?v=cp219_20261003_c2a30c0ea1",
-  "/style.css?v=095d11637f",
+  "/app.js?v=cp242-final-address-wall",
+  "/style.css?v=bf853fb768",
   "/japan-map-data.js?v=361d072efc",
   "/cities.json?v=d2873491f9",
   "/pwa.js?v=227b41843b",
@@ -75,17 +75,17 @@ async function cacheKnownNavigation(request) {
   const url = new URL(request.url);
   const cacheKey = url.pathname === '/' ? '/' : url.pathname;
   const cache = await caches.open(CACHE_NAME);
-  const cached = await cache.match(cacheKey);
-  if (cached) return cached;
-
+  // CP242: navigation is network-first so a newly deployed index cannot be pinned
+  // behind the previous release's service-worker cache. Hashed assets keep releases coherent.
   try {
-    const response = await fetch(request);
+    const response = await fetch(request, { cache: 'no-store' });
     if (cacheableResponse(response)) {
       await cache.put(cacheKey, response.clone());
     }
     return response;
   } catch (error) {
-    return (await cache.match('/offline.html')) || Response.error();
+    const cached = await cache.match(cacheKey);
+    return cached || (await cache.match('/offline.html')) || Response.error();
   }
 }
 
@@ -151,6 +151,7 @@ self.addEventListener('install', (event) => {
         await caches.delete(CACHE_NAME);
         throw error;
       }
+      await self.skipWaiting();
     })()
   );
 });
