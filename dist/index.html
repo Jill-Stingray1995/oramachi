@@ -10,13 +10,8 @@
 
     gtag('config', 'G-PKZFVY8S4V');
   </script>
-
-  <!-- Google AdSense -->
-  <script async
-    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7175254170097324"
-    crossorigin="anonymous"></script>
-
-  <meta charset="UTF-8">
+  <!-- CP332 native paid build: advertising SDK/script intentionally omitted. -->
+<meta charset="UTF-8">
 <meta name="google-site-verification" content="Vwf68Bsu56VoUtkyklohuOglzEfhyip19iKhn0nJU-U" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>おらマチ｜あなたの地元、おらっちが当てます</title>
@@ -54,7 +49,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<link rel="stylesheet" href="style.css?v=cp356d-fit-datafix">
+<link rel="stylesheet" href="style.css?v=bf853fb768">
 <!-- 【先読み】cities.json(全マチのデータ)を、app.js の読み込みと並行して取りに行く。
      これを書かないと、app.js(425KB)のダウンロードと解析が終わってから
      ようやくデータの取得が始まるため、起動までが直列につながって遅くなる。
@@ -80,11 +75,8 @@
 </head>
 <body>
 <div class="web-startup" id="webStartup" aria-hidden="true">
-  <div class="web-startup-landscape" id="webStartupLandscape"></div>
+  <div class="web-startup-landscape"></div>
   <img src="oramachi-official-logo.png" alt="" class="web-startup-logo">
-  <script>
-    window.addEventListener('DOMContentLoaded',()=>{const el=document.getElementById('webStartupLandscape');const art=(typeof cp356RandomOpeningArtwork==='function')?cp356RandomOpeningArtwork():'';if(el&&art)el.style.backgroundImage=`url('${art}')`;});
-  </script>
 </div>
 <div class="app">
   <button class="install-btn" id="installBtn" type="button" style="display:none;">
@@ -174,7 +166,8 @@
 
 <script defer src="japan-map-data.js?v=361d072efc"></script>
 <script defer src="app-version.js"></script>
-<script defer src="app.js?v=cp356d-fit-datafix"></script>
-<script defer src="pwa.js?v=cp324-web-complete"></script>
+<script src="native-bootstrap.js"></script>
+<script defer src="app.js?v=cp326-android-device"></script>
+<script defer src="pwa.js?v=cp326-android-device"></script>
 </body>
 </html>

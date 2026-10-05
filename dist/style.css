@@ -5179,11 +5179,3 @@ body.native-app .cp339-town-card.is-found .cp339-town-state{max-width:100%;overf
 
 /* CP351 native launch response: visible on the same frame as touch. */
 body.native-app button.cp351-launching{transform:scale(.975)!important;filter:brightness(.93)!important;opacity:.88;pointer-events:none}
-
-/* CP355 regional result artwork */
-.cp355-regional-result-art{display:block;width:min(100%,760px);aspect-ratio:16/9;object-fit:cover;border-radius:20px;margin:18px auto;box-shadow:0 10px 28px rgba(16,45,60,.16)}
-.v56-result-art,.daily-v44-hero{object-fit:cover}
-
-/* CP356D opening/result artwork fit hotfix */
-.web-startup-landscape{height:58%;background-size:contain!important;background-position:center bottom!important;background-repeat:no-repeat!important;background-color:#f7f3e8}
-.cp355-regional-result-art{object-fit:contain!important;background:#f7f3e8}
