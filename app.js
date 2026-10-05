@@ -27032,9 +27032,17 @@ function dailyMunicipalityMatches(city,query){
 }
 function renderOfficialDailyCardHtml(){
   const st=officialDailyStatus;
-  if(officialDailyLoadError)return `<section class="daily-v44-card is-error"><strong>今日のおらマチを読み込めませんでした</strong><small>${escapeHtml(officialDailyLoadError)}</small><button type="button" onclick="retryOfficialDailyStatus()">もう一度試す <span>↻</span></button></section>`;
-  if(!st?.available)return `<div class="daily-v44-card is-loading"><strong>今日のおらマチ</strong><small>本日の出題を準備しています</small></div>`;
-  return `<section class="daily-v44-card v72-daily-card cp338-daily-card" style="--daily-artwork:url('${officialDailyArtwork}')"><span class="daily-v44-new">NEW</span><span class="daily-v44-badge">デイリーチャレンジ</span><h2>今日のおらマチ</h2><strong>${formatOfficialDailyDate(st.challenge_date)}</strong><p>5つのヒントから今日のマチを推理。毎日0:00に更新します。</p><img class="daily-v54-card-mascot" src="mascot-happy.png?v=320" alt="" aria-hidden="true"><div class="daily-v44-card-stats"><span>参加者数 <b>${Number(st.participant_count||0).toLocaleString('ja-JP')}人</b></span><span>今日のベスト <b>${st.best_hint_count?`${st.best_hint_count}ヒント`:'—'}</b></span></div>${renderOfficialDailyMomentum()}<div class="cp338-daily-actions"><button type="button" onclick="showOfficialDailyIntro()">${st.completed?'結果を見る':'今日のマチに挑戦'} <span>›</span></button><button class="cp338-daily-history" type="button" onclick="renderOfficialDailyLocalHistory()">7日間の記録</button></div></section>`;
+  if(officialDailyLoadError) return `<section class="daily-v44-card is-error"><strong>今日のおらマチを読み込めませんでした</strong><small>${escapeHtml(officialDailyLoadError)}</small><button type="button" onclick="retryOfficialDailyStatus()">もう一度試す <span>↻</span></button></section>`;
+  if(!st?.available) return `<div class="daily-v44-card is-loading"><strong>今日のおらマチ</strong><small>本日の出題を準備しています</small></div>`;
+  const artwork=chooseOfficialDailyArtwork();
+  return `<section class="daily-v44-card" style="--daily-artwork:url('${artwork}')" data-daily-artwork="${artwork}">
+    <span class="daily-v44-new">NEW</span><span class="daily-v44-badge">デイリーチャレンジ</span>
+    <h2>今日のおらマチ</h2><strong>${formatOfficialDailyDate(st.challenge_date)}</strong>
+    <p>日本のどこかの市区町村に挑戦しよう。</p>
+    <img class="daily-v54-card-mascot" src="mascot-happy.png?v=320" alt="" aria-hidden="true">
+    <div class="daily-v44-card-stats"><span>参加者数 <b>${Number(st.participant_count||0).toLocaleString('ja-JP')}人</b></span><span>${st.best_question_count?'最高記録':'本日の記録'} <b>${st.best_question_count?`${st.best_question_count}問`:'—'}</b></span></div>
+    <button type="button" onclick="showOfficialDailyIntro()">${st.completed?'もう一度挑戦する':'挑戦する'} <span>›</span></button>
+  </section>`;
 }
 function showOfficialDailyIntro(){
   pushNavState('officialDailyIntro');const st=officialDailyStatus||{};
