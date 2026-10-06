@@ -1,0 +1,16 @@
+{
+  "checkpoint": "CP353W10-REGIONAL-22-IMPLEMENTATION",
+  "parent": "CP353W9-FINAL",
+  "dataset_municipalities": 1742,
+  "municipalities_assigned": "1742/1742 PASS",
+  "regional_originals": "123/123 PASS",
+  "distinct_assets_used": "123/123 PASS",
+  "new_assets": 22,
+  "new_route_entries": 205,
+  "new_routing_invalid_keys": [],
+  "unassigned": [],
+  "result_dom_css": "unchanged from CP353W9; 520px result image path preserved",
+  "game_logic": "unchanged; only result-image asset/routing constants + app version/cache updated",
+  "cache_version": "cp353w10-regional-123-png",
+  "errors": []
+}
