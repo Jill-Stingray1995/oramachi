@@ -1,0 +1,16 @@
+{
+  "checkpoint": "CP353W11-WEB-REGIONAL-123-700PX",
+  "parent": "CP353W9-FINAL + CP353W10A ASCII filename fix",
+  "manifest_entries": 123,
+  "new_ascii_assets_on_disk": 22,
+  "joetsu_route_present": true,
+  "joetsu_asset_present": true,
+  "all_123_asset_entries_versioned": true,
+  "css_700px": true,
+  "index_app_cache_bust": true,
+  "index_style_cache_bust": true,
+  "service_worker_cache_bust": true,
+  "source_images_resampled": false,
+  "new_images_min_width": 1536,
+  "new_images_all_over_700px": true
+}
