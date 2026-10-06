@@ -1,5 +1,5 @@
 {
-  "checkpoint": "CP353W10-REGIONAL-22-IMPLEMENTATION",
+  "checkpoint": "CP353W10A-REGIONAL-22-ASCII-FILENAMES",
   "parent": "CP353W9-FINAL",
   "dataset_municipalities": 1742,
   "municipalities_assigned": "1742/1742 PASS",
@@ -12,5 +12,6 @@
   "result_dom_css": "unchanged from CP353W9; 520px result image path preserved",
   "game_logic": "unchanged; only result-image asset/routing constants + app version/cache updated",
   "cache_version": "cp353w10-regional-123-png",
-  "errors": []
+  "errors": [],
+  "filename_fix": "22 new regional assets renamed to ASCII-safe filenames; app.js/service-worker/manifest references updated"
 }
