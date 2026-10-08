@@ -25,7 +25,8 @@ jobs:
           node-version: '22'
 
       - name: Validate package.json
-        run: node -e "JSON.parse(require('fs').readFileSync('package.json', 'utf8')); console.log('JSON valid')"
+        run: |
+          node -e "JSON.parse(require('fs').readFileSync('package.json', 'utf8')); console.log('JSON valid')"
 
       - name: Install dependencies
         run: |
@@ -35,13 +36,18 @@ jobs:
             npm install --no-package-lock
           fi
 
-      
       - name: Build if available
         run: |
           if [ -f tools/build-release.js ]; then
             npm run build
           else
-            echo "Build skipped: tools/build-release.js is missing."
-          fi　　　　　　      - name: Validate municipalities
-        run: node tools/validate-municipalities.js
-        if: ${{ hashFiles('tools/validate-municipalities.js') != '' }}
+            echo "Build script missing. Skipping build."
+          fi
+
+      - name: Validate municipalities
+        run: |
+          if [ -f tools/validate-municipalities.js ]; then
+            node tools/validate-municipalities.js
+          else
+            echo "Municipality validation script missing. Skipping."
+          fi
