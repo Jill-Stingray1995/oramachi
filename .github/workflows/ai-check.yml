@@ -42,4 +42,6 @@ jobs:
             npm run build
           else
             echo "Build skipped: tools/build-release.js is missing."
-          fi
+          fi　　　　　　      - name: Validate municipalities
+        run: node tools/validate-municipalities.js
+        if: ${{ hashFiles('tools/validate-municipalities.js') != '' }}
