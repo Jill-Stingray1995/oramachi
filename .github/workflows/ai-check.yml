@@ -38,8 +38,8 @@ jobs:
       
       - name: Build if available
         run: |
-          if node -e "process.exit(require('./package.json').scripts?.build ? 0 : 1)"; then
+          if [ -f tools/build-release.js ]; then
             npm run build
           else
-            echo "No build script configured. Skipping build."
+            echo "Build skipped: tools/build-release.js is missing."
           fi
