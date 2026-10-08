@@ -2,7 +2,7 @@
   "name": "oramachi-app",
   "version": "2.71.0",
   "private": true,
-  "description": "おらマチのWeb/PWA版とCapacitorネイティブ版を管理する開発用プロジェクト",
+  "description": "おらマチ公式開発プロジェクト",
   "engines": {
     "node": ">=22.0.0"
   },
